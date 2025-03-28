@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Sitemap</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    </style>
 </head>
 <body>
     <h1>📌 My Custom Sitemap</h1>
-    <p>🔗 <a href="sitemap.xml">View Sitemap.xml</a></p>
-    <iframe src="sitemap.xml" width="100%" height="500px"></iframe>
+    <pre id="sitemapContent">Loading sitemap...</pre>
+
+    <script>
+        fetch('sitemap.xml')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sitemapContent').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('sitemapContent').textContent = "Error loading sitemap.";
+            });
+    </script>
 </body>
 </html>
