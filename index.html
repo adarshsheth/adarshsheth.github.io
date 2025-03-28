@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Sitemap</title>
+    <title>RSS Sitemap</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        body { font-family: Arial, sans-serif; padding: 20px; margin: 0; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; }
     </style>
 </head>
 <body>
-    <h1>📌 My Custom Sitemap</h1>
-    <pre id="sitemapContent">Loading sitemap...</pre>
+    <pre id="rssContent">Loading sitemap...</pre>
 
     <script>
-        fetch('sitemap.xml')
+        fetch('feed.rss')  // Change the filename to 'feed.rss' as per your file
             .then(response => response.text())
             .then(data => {
-                document.getElementById('sitemapContent').textContent = data;
+                document.getElementById('rssContent').textContent = data;  // Display raw RSS XML
             })
             .catch(error => {
-                document.getElementById('sitemapContent').textContent = "Error loading sitemap.";
+                document.getElementById('rssContent').textContent = "Error loading sitemap.";  // Error handling
             });
     </script>
 </body>
