@@ -1,26 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSS Sitemap</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; margin: 0; }
-        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; }
-    </style>
-</head>
-<body>
-    <pre id="rssContent">Loading sitemap...</pre>
+﻿<?xml version="1.0" encoding="utf-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title>adarshsheth.wixsite.com</title>
+		<link><![CDATA[https://adarshsheth.wixsite.com]]></link>
+		<description>Hi, I'm Adarsh Sheth! I'm an undergraduate student in Aerospace Engineering at Texas A&amp;M with a passion for photography, robotics, and writing.</description>
+		<language>en</language>
+		<pubDate>Fri, 28 Mar 2025 20:42:31 +0000</pubDate>
+		<generator>MySitemapGenerator (www.mysitemapgenerator.com)</generator>
 
-    <script>
-        fetch('feed.rss')  // Change the filename to 'feed.rss' as per your file
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('rssContent').textContent = data;  // Display raw RSS XML
-            })
-            .catch(error => {
-                document.getElementById('rssContent').textContent = "Error loading sitemap.";  // Error handling
-            });
-    </script>
-</body>
-</html>
+		<item>
+			<guid isPermaLink="false">3620880936</guid>
+			<title>Welcome to my portfolio. Here you'll find a selection of my work. Explore my projects to learn more about what I do.</title>
+			<link>https://adarshsheth.wixsite.com/home/portfolio</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>Welcome to my portfolio. Here you'll find a selection of my work, including engineering organizations, events, and projects I've participated in. Explore my portfolio to learn more about what I do.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:30 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg" type="image/jpeg" length="0" />
+		</item>
+		<item>
+			<guid isPermaLink="false">1736297325</guid>
+			<title>Welcome to my portfolio. Here you'll find a selection of my work. Explore my projects to learn more about what I do.</title>
+			<link>https://adarshsheth.wixsite.com/home/portfolio?slide=1</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>Welcome to my portfolio. Here you'll find a selection of my work, including engineering organizations, events, and projects I've participated in. Explore my portfolio to learn more about what I do.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:29 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg" type="image/jpeg" length="0" />
+		</item>
+		<item>
+			<guid isPermaLink="false">930589118</guid>
+			<title>Welcome to my portfolio. Here you'll find a selection of my work. Explore my projects to learn more about what I do.</title>
+			<link>https://adarshsheth.wixsite.com/home/portfolio?slide=2</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>Welcome to my portfolio. Here you'll find a selection of my work, including engineering organizations, events, and projects I've participated in. Explore my portfolio to learn more about what I do.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:28 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg" type="image/jpeg" length="0" />
+		</item>
+		<item>
+			<guid isPermaLink="false">2566156961</guid>
+			<title>Welcome to my portfolio. Here you'll find a selection of my work. Explore my projects to learn more about what I do.</title>
+			<link>https://adarshsheth.wixsite.com/home/portfolio?slide=3</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>Welcome to my portfolio. Here you'll find a selection of my work, including engineering organizations, events, and projects I've participated in. Explore my portfolio to learn more about what I do.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:27 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg" type="image/jpeg" length="0" />
+		</item>
+		<item>
+			<guid isPermaLink="false">3723081267</guid>
+			<title>Welcome to my resume page! Here, you will find an overview of my professional journey, skills, and accomplishments.</title>
+			<link>https://adarshsheth.wixsite.com/home/resume</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>Welcome to my resume page! Here, you will find an overview of my professional journey, skills, and accomplishments.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:26 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg" type="image/jpeg" length="0" />
+		</item>
+		<item>
+			<guid isPermaLink="false">1753320394</guid>
+			<title>This blog is a space for curiosity and critical thinking—a place to challenge assumptions, explore new perspectives, and question the familiar. My posts will cover societal problems, human psychology, and inspirational content.</title>
+			<link>https://adarshsheth.wixsite.com/home/blog</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>This blog is a space for curiosity and critical thinking—a place to challenge assumptions, explore new perspectives, and question the familiar. My posts will cover societal problems, human psychology, and inspirational content.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:25 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg/v1/fit/w_2500,h_1330,al_c/0d689f_4196224adbe943929640ce492c6e1729~mv2.jpg" type="image/jpeg" length="0" />
+		</item>
+		<item>
+			<guid isPermaLink="false">1237023790</guid>
+			<title>Adarsh Sheth</title>
+			<link>https://adarshsheth.wixsite.com/home/</link>
+			<dc:creator>Administrator</dc:creator>
+			<category>Site News</category>
+			<description>Hi, I'm Adarsh Sheth! I'm an undergraduate student in Aerospace Engineering at Texas A&amp;M with a passion for photography, robotics, and writing.</description>
+			<pubDate>Fri, 28 Mar 2025 22:42:24 +0200</pubDate>
+			<enclosure url="https://static.wixstatic.com/media/0d689f_465832ee2a0e4705931fce3455d0429b~mv2.png/v1/fill/w_62,h_37,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AS_tr_edited_edited.png" type="image/png" length="0" />
+		</item>
+	</channel>
+</rss>
