@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RESUME | Adarsh Sheth</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+/* ── TOKENS — verbatim from edit_portfolio.html ── */
+:root{
+  --bg:#0a0a0a; --surface:#111111; --surface2:#111111; --border:#2a2c2a;
+  --g:#647661; --gd:#232922; --gl:#8da084;
+  --gpale:rgba(100,118,97,.08);
+  --accent:#c8a84b;
+  --text:#d0d3cd; --tdim:#7a7e76; --tmut:#3e4238; --miniheader:var(--dimtitle);
+  --navh:50px; --sw:176px; --r:10px; --anchorh:0px;
+  --dimtitle:#888888; --bullbold:#525e44; --title:#ffffff; --badge:#68644c;
+}
+::selection{background:rgba(200,168,75,.32);color:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);
+  font-weight:300;font-size:14px;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--g);border-radius:2px}
+
+/* ══ HEADER — verbatim ── */
+header{
+  position:fixed;top:0;left:var(--sw);right:0;z-index:1000;
+  padding:20px;display:flex;justify-content:center;
+  transition:transform .4s ease-in-out;pointer-events:none;
+}
+.navbox{
+  pointer-events:all;display:inline-flex;align-items:center;
+  max-width:860px;width:100%;border-radius:100px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(100,118,97,.70);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  padding:5px 7px;box-shadow:0 4px 24px rgba(0,0,0,.35);
+  transition:transform .45s ease-in-out;will-change:transform;
+}
+.navbox:hover{transform:scale(1.012)}
+.navbar{display:flex;align-items:center;gap:4px;width:100%}
+.logo-icon{width:40px;flex-shrink:0;margin-right:3px;filter:brightness(1.1)}
+.logo{font-weight:400;font-size:13px;line-height:1.1;color:rgba(255,255,255,.9);
+  margin-right:4px;white-space:nowrap;flex-shrink:0}
+.nav-center{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.ni{
+  position:relative;overflow:hidden;
+  color:rgba(255,255,255,.82);background:rgba(255,255,255,.08);
+  font-weight:700;font-size:11.5px;letter-spacing:.07em;
+  padding:7px 14px;border-radius:100px;white-space:nowrap;z-index:0;transition:color .2s;
+}
+.ni::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:var(--gd);pointer-events:none;z-index:-1;transition:left 0s}
+.ni:hover{color:#fff}
+.ni:hover::after{left:0;transition:left .38s ease-out}
+.ni.active{background:var(--gd);color:#fff}
+.ni.active::after{display:none}
+.ndrop{position:relative}
+.nav-dd{
+  display:none;position:absolute;
+  top:calc(100% + 18px);left:50%;transform:translateX(-50%);
+  background:#fff;border:1px solid rgba(0,0,0,.10);border-radius:12px;
+  min-width:220px;overflow:hidden;
+  box-shadow:0 10px 36px rgba(0,0,0,.22);z-index:200;padding:4px 0;
+}
+.dd-hdr{display:block;padding:8px 16px 5px;font-size:10px;font-weight:700;
+  letter-spacing:.14em;color:var(--text);background:var(--g);border-bottom:1px solid rgba(0,0,0,.08)}
+.dd-lnk{display:block;padding:9px 16px 9px 26px;font-size:12px;font-weight:500;
+  color:#3a3a3a;transition:background .15s,color .15s}
+.dd-lnk:hover{background:rgba(100,118,97,.12);color:var(--g)}
+.ncontact{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:100px;
+  background:rgba(35,41,34,.75);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.9);font-weight:700;font-size:11.5px;letter-spacing:.06em;
+  flex-shrink:0;transition:background .2s;
+}
+.ncontact:hover{background:var(--gd)}
+
+/* ══ SIDEBAR — verbatim ── */
+#sb{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--surface);
+  border-right:1px solid var(--border);z-index:400;display:flex;flex-direction:column;
+  padding-top:calc(var(--navh) + 8px)}
+#sb-hdr{padding:10px 14px 7px;font-size:10px;font-weight:700;letter-spacing:.2em;
+  color:var(--tmut);border-bottom:1px solid var(--border);text-transform:uppercase}
+#sb-prog{height:2px;background:var(--border);position:relative;flex-shrink:0}
+#sb-fill{height:2px;background:var(--g);width:0%;position:absolute;left:0;top:0;
+  transition:width .18s linear}
+#sb-nav{flex:1;overflow-y:auto;padding:8px 0}
+.sbn{display:flex;align-items:center;gap:8px;padding:8px 14px;
+  transition:background .15s;text-decoration:none}
+.sbn:hover{background:var(--gpale)}
+.sbdot{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--tmut);
+  background:transparent;flex-shrink:0;transition:all .2s}
+.sbn.active .sbdot{background:var(--g);border-color:var(--g)}
+.sbn.active .sblbl{color:var(--text);font-weight:700}
+.sblbl{font-size:9.5px;font-weight:500;letter-spacing:.07em;color:var(--tmut);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  transition:color .2s;text-transform:uppercase}
+
+/* ══ COPY TOAST — verbatim ── */
+.copy-toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--surface2);border:1px solid var(--border);border-radius:100px;
+  padding:8px 18px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);
+  opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:5000;
+}
+.copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ══ LIGHTBOX — verbatim ── */
+#lb{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;
+  justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+#lb.open{opacity:1;pointer-events:all}
+.lbb{position:absolute;inset:0;background:rgba(35,41,34,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.lbbox{position:relative;display:flex;flex-direction:column;align-items:center;
+  gap:10px;z-index:1;max-width:90vw}
+.lbi{height:45vh;width:auto;max-width:88vw;border-radius:8px;object-fit:contain}
+.lbcap{font-size:12px;color:rgba(255,255,255,.6);text-align:center;max-width:600px}
+.lbcap a{color:var(--accent)}
+.lbclose{position:absolute;top:-38px;right:0;background:none;border:none;
+  color:#fff;font-size:30px;line-height:1;width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:20px;transition:background .15s;
+}
+.lb-nav:hover{background:rgba(255,255,255,.2)}
+.lb-prev{left:-52px}
+.lb-next{right:-52px}
+
+/* ══ DIVIDER — verbatim ── */
+.div{border:none;border-top:1px solid var(--border);margin:0}
+
+/* ══ FOOTER — verbatim ── */
+footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid var(--border)}
+.fnav{display:flex;gap:20px}
+.fnav a{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--tmut);transition:color .15s}
+.fnav a:hover,.fnav a.fp{color:var(--accent)}
+.fnav a.fp{border-bottom:2px solid var(--accent)}
+.ficons{display:flex;gap:8px}
+.fi{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--tmut);font-size:12px;font-weight:700;transition:all .15s;text-decoration:none}
+.fi:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ══ MAIN — matches edit_portfolio.html #mn pattern ── */
+#mn{margin-left:var(--sw);padding-top:calc(var(--navh) + 50px)}
+
+/* ══ HERO — matches portfolio hero style exactly ── */
+#hero{padding:0 48px}
+#hero h1{font-weight:900;font-size:clamp(44px,7vw,88px);line-height:.92;
+  letter-spacing:-.01em;color:var(--text)}
+
+/* ══ INFO BAR — same amber strip used in portfolio ── */
+#ibar{
+  background:rgba(200,168,75,.22);padding:16px 48px;margin-top:14px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  border-top:1px solid rgba(200,168,75,.25);border-bottom:1px solid rgba(200,168,75,.25);
+}
+#ibar p{font-size:13.5px;color:var(--tdim);max-width:580px;line-height:1.65}
+#ibar p a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+#ibar p strong{color:var(--text);font-weight:700}
+.pbtn{display:inline-flex;align-items:center;gap:7px;padding:5px 22px;border-radius:100px;
+  border:2px solid var(--accent);color:var(--accent);font-weight:700;font-size:11px;
+  letter-spacing:.1em;white-space:nowrap;transition:background .2s,color .2s}
+.pbtn::before{content:'»';font-size:14px}
+.pbtn:hover{background:var(--accent);color:#1a1300}
+
+/* ══ PDF VIEWER ── */
+#pdf-section{padding:28px 48px 52px}
+.pdf-frame-wrap{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  /* height = viewport minus navbar, hero (~130px), ibar (~56px), section padding */
+  height:calc(100vh - var(--navh) - 220px);
+  min-height:480px;
+  position:relative;
+}
+.pdf-frame-wrap iframe{width:100%;height:100%;border:none;display:block}
+
+/* ══ RESPONSIVE — verbatim ── */
+@media(max-width:900px){
+  #sb{display:none}
+  #mn{margin-left:0}
+  header{left:0}
+  #hero{padding:0 22px}
+  #ibar{padding:14px 22px}
+  footer{padding:18px 22px}
+  #pdf-section{padding:20px 22px 40px}
+  .pdf-frame-wrap{height:calc(100vh - 200px)}
+}
+</style>
+</head>
+<body>
+
+<!-- copy toast -->
+<div class="copy-toast" id="copy-toast">LINK COPIED!</div>
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <div class="lbb" onclick="closeLb()"></div>
+  <div class="lbbox">
+    <button class="lbclose" onclick="closeLb()">×</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+    <img id="lbimg" class="lbi" src="" alt=""/>
+    <div id="lbcap" class="lbcap"></div>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+  </div>
+</div>
+
+<!-- HEADER — verbatim from edit_portfolio.html, active=RESUME -->
+<header id="hdr">
+  <div class="navbox">
+    <nav class="navbar">
+      <a href="index.html"><img src="https://static.wixstatic.com/media/0d689f_465832ee2a0e4705931fce3455d0429b~mv2.png/v1/fill/w_124,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AS_tr_edited_edited.png" alt="AS" class="logo-icon"/></a>
+      <a href="index.html"><div class="logo">ADARSH<br>SHETH</div></a>
+      <div class="nav-center">
+        <a href="index.html"    class="ni">HOME</a>
+        <div class="ndrop">
+          <a href="portfolio.html" class="ni">PORTFOLIO <i class="fas fa-caret-down" style="font-size:9px;margin-left:2px"></i></a>
+          <div class="nav-dd" id="nav-dd">
+            <span class="dd-hdr">ENGINEERING</span>
+            <a class="dd-lnk" href="portfolio.html?section=vfd">DESIGN TEAMS</a>
+            <a class="dd-lnk" href="portfolio.html?section=ignite25">EVENTS &amp; CHALLENGES</a>
+            <a class="dd-lnk" href="portfolio.html?section=everyday-engineering">PERSONAL PROJECTS</a>
+            <span class="dd-hdr">ARTWORK</span>
+            <a class="dd-lnk" href="artwork.html">ARTWORK</a>
+          </div>
+        </div>
+        <a href="resume.html"  class="ni active">RESUME</a>
+        <a href="blog.html"    class="ni">BLOG</a>
+      </div>
+      <a href="index.html#contact" class="ncontact">CONTACT ME <i class="fas fa-users" style="font-size:11px"></i></a>
+    </nav>
+  </div>
+</header>
+
+<!-- SIDEBAR — resume page: just a scroll progress bar, no section nav needed -->
+<aside id="sb">
+  <div id="sb-hdr">Navigation</div>
+  <div id="sb-prog"><div id="sb-fill"></div></div>
+  <nav id="sb-nav">
+    <a class="sbn active" href="#top" data-k="top">
+      <span class="sbdot"></span><span class="sblbl">Resume PDF</span></a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div id="mn">
+<div id="top"></div>
+
+<section id="hero"><h1>RESUME</h1></section>
+
+<div id="ibar">
+  <p>Adarsh Sheth · Aerospace Engineering · Texas A&amp;M University ·
+    <a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a> ·
+    <a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
+  </p>
+  <!-- ↓ Change href to your actual hosted PDF URL or Google Drive preview link -->
+  <a href="resume.pdf" download class="pbtn">DOWNLOAD PDF</a>
+</div>
+
+<div id="pdf-section">
+  <div class="pdf-frame-wrap" id="pdfWrap">
+    <!--
+      Replace the src below with your PDF path or a Google Drive preview URL.
+      For Google Drive: https://drive.google.com/file/d/YOUR_FILE_ID/preview
+    -->
+    <iframe
+      id="pdfFrame"
+      src="resume.pdf"
+      title="Adarsh Sheth Resume"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+
+<footer>
+  <div class="ficons">
+    <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+    <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank">in</a>
+    <a href="mailto:adarshsheth@tamu.edu" class="fi">@</a>
+  </div>
+  <nav class="fnav">
+    <a href="index.html">HOME</a>
+    <a href="portfolio.html">PORTFOLIO</a>
+    <a href="resume.html" class="fp">RESUME</a>
+    <a href="blog.html">BLOG</a>
+  </nav>
+</footer>
+</div><!-- /mn -->
+
+<script>
+/* ── scrollToSec ── */
+function scrollToSec(id){
+  var el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── Sidebar scroll progress ── */
+window.addEventListener('scroll',function(){
+  var fill=document.getElementById('sb-fill');
+  var tot=document.documentElement.scrollHeight-window.innerHeight;
+  if(fill)fill.style.width=(tot>0?(window.scrollY/tot)*100:0)+'%';
+},{passive:true});
+
+/* ── Header: hide on scroll, stay when hovering ── */
+(function(){
+  var hdr=document.getElementById('hdr');
+  var dd=document.getElementById('nav-dd');
+  if(!hdr)return;
+  var hovering=false,ly=window.scrollY,delta=0,hid=false;
+  [hdr,dd].forEach(function(el){
+    if(!el)return;
+    el.addEventListener('mouseenter',function(){hovering=true});
+    el.addEventListener('mouseleave',function(){hovering=false});
+  });
+  window.addEventListener('scroll',function(){
+    if(hovering){ly=window.scrollY;return}
+    var y=window.scrollY;
+    if(y<=0){hdr.style.transform='translateY(0)';hid=false;delta=0;ly=y;return}
+    var d=y-ly;
+    if(d>0){delta+=d;if(!hid&&delta>=70){hdr.style.transform='translateY(-120%)';hid=true;delta=0}}
+    else{delta-=d;if(hid&&delta>=100){hdr.style.transform='translateY(0)';hid=false;delta=0}}
+    ly=y;
+  },{passive:true});
+})();
+
+/* ── Dropdown hover bridge ── */
+document.querySelectorAll('.ndrop').forEach(function(drop){
+  var dd=drop.querySelector('.nav-dd');
+  if(!dd)return;
+  var t;
+  drop.addEventListener('mouseenter',function(){clearTimeout(t);dd.style.display='block'});
+  drop.addEventListener('mouseleave',function(){t=setTimeout(function(){dd.style.display='none'},160)});
+  dd.addEventListener('mouseenter',function(){clearTimeout(t)});
+  dd.addEventListener('mouseleave',function(){t=setTimeout(function(){dd.style.display='none'},160)});
+});
+
+/* ── Lightbox ── */
+var lbImgs=[],lbCur=0;
+function renderLb(){
+  var img=lbImgs[lbCur];if(!img)return;
+  document.getElementById('lbimg').src=img.src||img;
+  var cap=(img.dataset&&img.dataset.cap)||img.alt||'';
+  document.getElementById('lbcap').textContent=cap;
+}
+function openLb(imgs,i){lbImgs=Array.from(imgs);lbCur=i||0;renderLb();document.getElementById('lb').classList.add('open')}
+function lbNav(dir){if(!lbImgs.length)return;lbCur=(lbCur+dir+lbImgs.length)%lbImgs.length;renderLb()}
+function closeLb(){document.getElementById('lb').classList.remove('open');lbImgs=[]}
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='Escape')closeLb();
+});
+
+/* ── Keep PDF frame filling available height on resize ── */
+function sizePdf(){
+  var wrap=document.getElementById('pdfWrap');
+  if(!wrap)return;
+  var top=wrap.getBoundingClientRect().top+window.scrollY;
+  var footerH=80;
+  var available=window.innerHeight-(wrap.getBoundingClientRect().top)-footerH-16;
+  wrap.style.height=Math.max(400,available)+'px';
+}
+window.addEventListener('resize',sizePdf);
+window.addEventListener('load',sizePdf);
+</script>
+</body>
+</html>
