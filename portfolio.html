@@ -148,7 +148,15 @@ section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
 
 /* ══ TIMELINE ── */
 #tls{padding:36px 48px 0}
-.tlbox{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:20px 24px}
+.tlbox{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:20px 24px;
+  transition:border-color .25s,box-shadow .25s,transform .25s;}
+.tlbox:hover{
+  border-color:rgba(100,118,97,.60);
+  box-shadow:0 0 0 1px rgba(100,118,97,.18),
+             0 0 18px 4px rgba(100,118,97,.22),
+             0 0 36px 8px rgba(100,118,97,.10);
+  transform:scale(1.005);
+}
 .tlbox h3{font-weight:900;font-size:16px;color:var(--dimtitle);margin-bottom:3px}
 .tlsub{font-size:11.5px;color:var(--tmut);margin-bottom:14px}
 .tlframe{border-radius:8px;overflow:hidden;height:200px}
@@ -162,7 +170,9 @@ section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
 /* ══ SECTION HEADINGS ── */
-.sb{padding:0 48px 60px}
+/* .sb{padding:0 48px 60px} */
+.sb{padding:0 48px 0px}
+/* .sh{display:flex;align-items:center;gap:12px;padding:36px 0 24px;margin:0 -48px} */
 .sh{display:flex;align-items:center;gap:12px;padding:36px 0 24px;margin:0 -48px}
 /* commented out: old 40px bar
 .sh-l{height:15px;background:var(--text);flex-shrink:0;width:40px}
@@ -213,51 +223,73 @@ section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
 .tb:hover:not(:disabled){background:var(--gpale)}
 .tb:disabled{background:var(--g);color:#fff}
 
-/* ══ SLIDESHOW ── key structure:
-   .ss-wrapper (position:relative) → arrows + ss-clip + arrows
-   .ss-clip (overflow-x:clip; overflow-y:visible; height by JS) → sscont → ssfr → slides
-   Using overflow-x:clip so horizontal slide motion is clipped but
-   vertical box-shadow on hover is NOT clipped. */
-.ss-wrapper{position:relative}
-.ss-clip{
-  overflow-x:clip;   /* clips horizontal slide motion */
-  overflow-y:visible; /* allows vertical hover shadow to show */
+/* ══ SLIDESHOW ─────────────────────────────────────────────────────────
+   WRAP_PAD = 40px on all sides → glow + scale (1.01) have breathing room
+   .ss-wrapper  overflow:hidden BFC; JS sets explicit height + transition
+                so siblings animate up/down when slide height changes.
+   .ss-clip     overflow:visible; JS-managed height drives wrapper resize.
+   Off-screen slides: JS sets visibility:hidden so the 40px horizontal
+   padding gap doesn't reveal adjacent slides during transitions.
+   Arrows: top = WRAP_PAD + currentH/2  (JS-managed, animates via CSS)
+*/
+.ss-wrapper{
+  position:relative;
+  overflow:hidden;
+  padding:20px;                /* all-side room for glow + scale */
+  padding-top:10px;
+  padding-right: 30px;
+  padding-bottom: 0 !important;
+  /* Compensate L/R pad so content aligns with siblings; top: pull up to cancel top-pad */
+  margin:-10px -20px 0 -20px;
+  /* height set explicitly by JS; transition makes sibling sections float */
   transition:height .4s cubic-bezier(.4,0,.2,1);
-  /* no overflow:hidden – that would clip the hover shadow */
+  box-sizing:content-box;      /* explicit: padding outside the height value */
+  /* background: pink; */
+}
+.ss-clip{
+  overflow:visible;
+  transition:height .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
 }
 .sscont{overflow:visible}
 .ssfr{display:flex;will-change:transform;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.ssslide{flex:none;min-width:0} /* width set by JS */
-/* arrows: positioned relative to .ss-wrapper, centered via top:50% */
+.ssslide{flex:none;min-width:0} /* width by JS; visibility toggled by JS */
+/* arrows: top = WRAP_PAD(40) + slideH/2, set by JS */
 .sarr{
-  position:absolute;top:50%;transform:translateY(-50%);
+  position:absolute;
+  top:50%;transform:translateY(-50%); /* fallback; overridden immediately by JS */
   width:28px;height:28px;border-radius:50%;
   background:var(--surface2);border:1px solid var(--border);
   color:var(--tdim);display:flex;align-items:center;justify-content:center;
-  z-index:10;font-size:18px;
-  opacity:0;transition:opacity .2s,background .15s;padding:0;line-height:1;
+  z-index:10;font-size:18px;padding:0;line-height:1;
+  opacity:0;
+  transition:opacity .2s, background .15s, top .4s cubic-bezier(.4,0,.2,1);
 }
 .ss-wrapper:hover .sarr{opacity:1}
 .sarr:hover{background:var(--surface);color:var(--text)}
-/* push arrows just outside the clip boundary */
-.sarr.spr{left:-16px}
-.sarr.snx{right:-16px}
+.sarr.spr{left:8px}    /* 8px inside wrapper's 40px pad → always visible */
+.sarr.snx{right:8px}
 
-/* ══ EXPERIENCE CARD ──
-   No transform:scale on hover – that would be clipped by overflow-x:clip.
-   Instead: border glow + shadow (vertical shadow visible via overflow-y:visible). */
+/* ══ EXPERIENCE CARD ── scale + omnidirectional glow.
+   Scale is safe because ss-wrapper's 40px overflow room >> scale growth on any card. */
 .ec{
   background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
   overflow:hidden;
-  /* fade-in starts hidden */
   opacity:0;transform:translateY(16px);
-  transition:border-color .25s,box-shadow .25s,opacity .5s,transform .5s;
+  transition:border-color .25s,box-shadow .25s,opacity .5s,transform .25s;
 }
-.ec.visible{opacity:1;transform:translateY(0)}
-/* hover: border + shadow only, no scale (scale gets clipped by overflow-x:clip) */
+.ec.visible{opacity:1;
+    transform-origin: top left;           
+    transform:translateY(0) scale(1)}
 .ec.visible:hover{
-  border-color:rgba(100,118,97,.55);
-  box-shadow:0 6px 28px rgba(100,118,97,.13);
+  border-color:rgba(100,118,97,.60);
+  box-shadow:0 0 0 0px rgba(100,118,97,.20),
+             /* 0 0 14px 3px rgba(100,118,97,.22), */
+             /* 0 0 30px 6px rgba(100,118,97,.12); */
+             0 0 7px 4px rgba(100,118,97,.12),
+             0 0 10px 8px rgba(100,118,97,.08);
+  transform-origin: top left;           
+  transform:translateY(0) scale(1.01);
 }
 .ech{padding:15px 20px 11px;border-bottom:1px solid var(--border)}
 .echr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
@@ -333,7 +365,9 @@ section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
 .clnk:hover::before{transform:scale(1.4)}
 
 /* ══ CAROUSELS – fixed-height inner container ── */
-.cw{position:relative;border-radius:8px;overflow:hidden;background:var(--surface2);max-height:50vh}
+.cw{position:relative;border-radius:8px;overflow:hidden;background:var(--surface2);max-height:50vh;
+  cursor:pointer;transition:transform .22s ease,box-shadow .22s ease;}
+.cw:hover{transform:scale(1.012);box-shadow:0 4px 16px rgba(0,0,0,.3);}
 .cw-inner{position:relative;width:100%;height:240px} /* default fixed height */
 .cw-inner.tall-h{height:300px}
 .cw-inner.port-h{height:min(45vh,340px)} /* portrait – cap at 45vh */
@@ -359,21 +393,34 @@ section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
   gap:10px;z-index:1;max-width:90vw}
 /* height locked to 45vh; width adapts to AR */
 .lbi{height:45vh;width:auto;max-width:88vw;border-radius:8px;object-fit:contain}
-.lbcap{font-size:12px;color:rgba(255,255,255,.6);text-align:center;max-width:600px}
+/* bottom caption+nav row: arrows pinned absolute so caption width never shifts them */
+.lb-bottom{
+  position:relative;
+  width:min(88vw,700px);         /* fixed reference width so arrows pin to stable edges */
+  min-height:38px;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 48px;               /* space for arrows on each side */
+}
+.lbcap{
+  font-size:12px;color:rgba(255,255,255,.6);text-align:center;
+  /* caption fills center space; arrows don't contribute to its width */
+  flex:1;max-width:100%;
+}
 .lbcap a{color:var(--accent)}
 .lbclose{position:absolute;top:-38px;right:0;background:none;border:none;
   color:#fff;font-size:30px;line-height:1;width:36px;height:36px;
   display:flex;align-items:center;justify-content:center}
+/* lightbox nav arrows: absolutely positioned at fixed edges of .lb-bottom */
 .lb-nav{
   position:absolute;top:50%;transform:translateY(-50%);
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-  border-radius:50%;width:36px;height:36px;
+  border-radius:50%;width:34px;height:34px;
   display:flex;align-items:center;justify-content:center;
   color:#fff;font-size:20px;transition:background .15s;
 }
-.lb-nav:hover{background:rgba(255,255,255,.2)}
-.lb-prev{left:-52px}
-.lb-next{right:-52px}
+.lb-nav:hover{background:rgba(255,255,255,.22)}
+.lb-nav.lb-p{left:0}
+.lb-nav.lb-n{right:0}
 
 /* ══ DIVIDER ── */
 .div{border:none;border-top:1px solid var(--border);margin:0}
@@ -382,13 +429,13 @@ section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
 footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
   justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid var(--border)}
 .fnav{display:flex;gap:20px}
-.fnav a{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--tmut);transition:color .15s}
+.fnav a{font-size:11px;font-weight:700;letter-spacing:.08em;color:#5a5a58;transition:color .15s}
 .fnav a:hover,.fnav a.fp{color:var(--accent)}
 .fnav a.fp{border-bottom:2px solid var(--accent)}
 .ficons{display:flex;gap:8px}
 .fi{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
   display:flex;align-items:center;justify-content:center;
-  color:var(--tmut);font-size:12px;font-weight:700;transition:all .15s;text-decoration:none}
+  color:var(--border);font-size:12px;font-weight:700;transition:all .15s;text-decoration:none}
 .fi:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ══ RESPONSIVE ── */
@@ -418,10 +465,12 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
   <div class="lbb" onclick="closeLb()"></div>
   <div class="lbbox">
     <button class="lbclose" onclick="closeLb()">×</button>
-    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
     <img id="lbimg" class="lbi" src="" alt=""/>
-    <div id="lbcap" class="lbcap"></div>
-    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+    <div class="lb-bottom">
+      <button class="lb-nav lb-p" onclick="lbNav(-1)">&#8249;</button>
+      <div id="lbcap" class="lbcap"></div>
+      <button class="lb-nav lb-n" onclick="lbNav(1)">&#8250;</button>
+    </div>
   </div>
 </div>
 
@@ -528,8 +577,8 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
               <div class="ecm"><span class="ecrole">Aerodynamics Engineer</span><span class="ecdate">09/2025 – PRESENT</span><span class="ecmeta">TEXAS A&amp;M, Design Team</span></div>
             </div>
             <div class="eclogos">
-              <img src="/media/logo/vfd.png" alt="VFD"/>
-              <img src="/media/logo/vfs.png" alt="VFS"/>
+              <img src="https://static.wixstatic.com/media/0d689f_97988d804db14c8692e66a4d70e386ad~mv2.png/v1/fill/w_220,h_110,al_c,q_85,enc_avif,quality_auto/VFD%20Maroon%20Logo%2024-25_edited.png" alt="VFD"/>
+              <img src="https://static.wixstatic.com/media/0d689f_d09125c164f14e0dab518bffff3c5753~mv2.png/v1/fill/w_220,h_110,al_c,q_85,enc_avif,quality_auto/VFS_stacked_logo.png" alt="VFS"/>
             </div>
           </div></div>
           <div class="brow"><span class="badge">TRADE-OFF ANALYSIS</span><span class="badge">PYTHON</span><span class="badge">GITHUB</span><span class="badge">RESEARCH</span></div>
@@ -618,7 +667,7 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <button class="sarr snx" onclick="ar('ss7',1)">&#8250;</button>
   </div><!-- /ss-wrapper ss7 -->
 
-  <div style="height:28px" id="sec-dvhs"></div>
+  <!-- <div style="height:28px" id="sec-dvhs"></div> -->
 
   <!-- DVHS group -->
   <div class="tg">
@@ -1127,14 +1176,22 @@ const SMAP = {
 const ANC = {ss7:'sec-tamu',ss8:'sec-tamu',ss3:'sec-events',ss6:'sec-infographic',ss9:'sec-cad'};
 const SS = {};
 
-/* ── initSS ── */
+/* ── SLIDESHOW ENGINE ─────────────────────────────────────────────────
+   Uses the tested implementation from portfolio (2).html but adapted to
+   the existing .ss-wrapper / .ss-clip / .sscont structure in this file.
+   WRAP_PAD: must match the CSS padding value on .ss-wrapper (px, all sides). */
+const WRAP_PAD = 20; //sets spacing below slideshows
+
 function initSS() {
   Object.keys(TABS).forEach(id => {
     const clip = document.getElementById(id + '-clip');
     const fr   = document.getElementById(id + '-fr');
-    if (!clip || !fr) return;
+    const cont = document.getElementById(id); // .sscont element
+    if (!clip || !fr || !cont) return;
     const slides = fr.querySelectorAll('.ssslide');
-    SS[id] = { clip, fr, slides, cur: 0, w: 0 };
+    SS[id] = { clip, cont, fr, slides, cur: 0, w: 0 };
+    // init visibility
+    slides.forEach((sl, i) => { sl.style.visibility = i === 0 ? 'visible' : 'hidden'; });
     calcW(id);
     setH(id, false);
     new ResizeObserver(() => {
@@ -1144,76 +1201,102 @@ function initSS() {
       requestAnimationFrame(() => { fr.style.transition = ''; });
       setH(id, false);
     }).observe(clip);
-    // re-measure when images load
     slides.forEach(sl => sl.querySelectorAll('img').forEach(img => {
       if (!img.complete) img.addEventListener('load', () => setH(id, false), { once: true });
     }));
   });
 }
 
-/* ── calcW: guard against 0 width ── */
 function calcW(id) {
   const s = SS[id];
   const w = s.clip.getBoundingClientRect().width;
-  if (w === 0) return; // not yet visible; lazy-init will catch it
+  if (w === 0) return;
   s.w = w;
   s.slides.forEach(sl => sl.style.width = w + 'px');
 }
 
-/* ── setH: set clip height = current slide height ── */
+/* Set both clip and wrapper heights so CSS transitions animate layout changes */
 function setH(id, animate) {
-  const s = SS[id];
-  if (!s || !s.slides[s.cur]) return;
-  const h = s.slides[s.cur].offsetHeight;
-  if (h === 0) return;
+  const s = SS[id]; if (!s || !s.slides[s.cur]) return;
+  const card = s.slides[s.cur].querySelector('.ec'); if (!card) return;
+  const h = card.offsetHeight; if (!h) return;
+
   const clip = s.clip;
+  const wrapper = clip.closest('.ss-wrapper'); if (!wrapper) return;
+  const wrapH = WRAP_PAD + h + WRAP_PAD;
+  const arrTop = WRAP_PAD + Math.round(h / 2);
+
   if (!animate) {
-    const prev = clip.style.transition;
+    const clipTrans = clip.style.transition;
+    const wrapTrans = wrapper.style.transition;
     clip.style.transition = 'none';
+    wrapper.style.transition = 'none';
     clip.style.height = h + 'px';
-    requestAnimationFrame(() => { clip.style.transition = prev || ''; });
+    wrapper.style.height = wrapH + 'px';
+    wrapper.querySelectorAll('.sarr').forEach(a => { a.style.transition = 'none'; a.style.top = arrTop + 'px'; });
+    requestAnimationFrame(() => {
+      clip.style.transition = clipTrans || '';
+      wrapper.style.transition = wrapTrans || '';
+      wrapper.querySelectorAll('.sarr').forEach(a => { a.style.transition = ''; });
+    });
   } else {
+    void clip.offsetHeight; void wrapper.offsetHeight;
     clip.style.height = h + 'px';
+    wrapper.style.height = wrapH + 'px';
+    wrapper.querySelectorAll('.sarr').forEach(a => { a.style.top = arrTop + 'px'; });
   }
 }
 
-/* ── sw: switch slide ── */
 function sw(id, idx, section, doScroll) {
   const s = SS[id]; if (!s) return;
-  s.cur = idx;
-  s.fr.style.transform = `translateX(-${idx * s.w}px)`;
-  setTimeout(() => setH(id, true), 20);
-  (TABS[id] || []).forEach((bid, i) => {
-    const b = document.getElementById(bid);
-    if (b) b.disabled = (i === idx);
-  });
-  updateURL(section);
-  if (doScroll) {
-    const el = document.getElementById(ANC[id]);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const prev = s.cur;
+  if (prev === idx) {
+    (TABS[id] || []).forEach((bid, i) => { const b = document.getElementById(bid); if (b) b.disabled = (i === idx); });
+    updateURL(section);
+    if (doScroll) { const el = document.getElementById(ANC[id]); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    return;
   }
+  s.cur = idx;
+
+  // Reset previous slide's visible state so it will animate next time
+  const prevSlide = s.slides[prev];
+  if (prevSlide) {
+    const prevCard = prevSlide.querySelector('.ec');
+    if (prevCard) prevCard.classList.remove('visible');
+    prevSlide.style.visibility = 'hidden';
+  }
+
+  // Show new slide and retrigger its card animation
+  const newSlide = s.slides[idx];
+  if (newSlide) {
+    newSlide.style.visibility = 'visible';
+    const newCard = newSlide.querySelector('.ec');
+    if (newCard) {
+      newCard.classList.remove('visible');
+      void newCard.offsetHeight; // force reflow
+      setTimeout(() => newCard.classList.add('visible'), 30);
+    }
+  }
+
+  s.fr.style.transform = `translateX(-${idx * s.w}px)`;
+  setTimeout(() => setH(id, true), 0);
+  (TABS[id] || []).forEach((bid, i) => { const b = document.getElementById(bid); if (b) b.disabled = (i === idx); });
+  updateURL(section);
+  if (doScroll) { const el = document.getElementById(ANC[id]); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 }
 
-/* ── arrowNav ── */
-function ar(id, dir) {
-  const s = SS[id]; if (!s) return;
-  const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir));
-  if (next === s.cur) return;
-  document.getElementById(TABS[id][next])?.click();
-}
+function ar(id, dir) { const s = SS[id]; if (!s) return; const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir)); if (next === s.cur) return; document.getElementById(TABS[id][next])?.click(); }
 
-/* ── ddNav ── */
-function ddNav(section) {
-  const c = SMAP[section]; if (!c) return;
-  sw(c.ss, c.i, section, true);
-}
+function ddNav(section) { const c = SMAP[section]; if (!c) return; if (window._hideNav) window._hideNav(); sw(c.ss, c.i, section, true); }
 
-/* ── lazy init: re-calc when sections become visible ── */
+/* ── lazy init: re-calc when sections scroll into view ── */
 function lazyInit() {
   Object.keys(SS).forEach(id => {
-    if (SS[id].w === 0) {
+    const s = SS[id];
+    if (!s) return;
+    if (s.w === 0) {
       calcW(id);
-      if (SS[id].w > 0) setH(id, false);
+      if (s.w > 0) setH(id, false);
     }
   });
 }
@@ -1232,12 +1315,16 @@ function updateURLd(s) { clearTimeout(debT); debT = setTimeout(() => updateURL(s
 function handleURL() {
   const s = new URLSearchParams(window.location.search).get('section');
   if (!s || !SMAP[s]) return;
+  /* Hide nav before auto-scrolling to section */
+  if (window._hideNav) window._hideNav();
   const { ss, i } = SMAP[s];
   sw(ss, i, s, true);
 }
 
-/* ── scrollToSec: used by sidebar + scroll cue ── */
+/* ── scrollToSec: used by sidebar + scroll cue; hides nav immediately ── */
 function scrollToSec(id) {
+  /* Hide navbar immediately – it will reappear on scroll-up */
+  if (window._hideNav) window._hideNav();
   const el = id === 'top' ? document.getElementById('top') : document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -1272,29 +1359,77 @@ window.addEventListener('message', e => {
   }
 });
 
-/* ── Header: hide on scroll, NOT when hovering header or dropdown ── */
+/* ── Header scroll behavior ──────────────────────────────────────────
+   Tune these to customize navbar hide/show behavior:
+*/
+const NAV_INITIAL_SHOW_ZONE_VH = 0.15;  // % of viewport height from top: navbar stays visible until user scrolls past this fraction (e.g. 0.15 = first 15vh). Set 0 to disable initial zone.
+const NAV_SCROLL_DOWN_PX = 80;          // px user must scroll DOWN before navbar hides (longer = more forgiving)
+const NAV_SCROLL_UP_PX   = 20;          // px user must scroll UP before navbar reappears (near-immediate)
+/* ─────────────────────────────────────────────────────────────────── */
+
 (function() {
   const hdr = document.getElementById('hdr');
   const dd  = document.getElementById('nav-dd');
   if (!hdr) return;
-  let hovering = false, ly = window.scrollY, delta = 0, hid = false;
-  // Hover on header or dropdown keeps it visible
+
+  let hovering  = false;
+  let autoHiding = false; // true when hidden via scrollToSec/handleURL
+  let ly        = window.scrollY;
+  let delta     = 0;
+  let hid       = false;
+
+  /* Bounce-in transition (spring overshoot) vs snap-out */
+  function showNav() {
+    if (hid) {
+      hdr.style.transition = 'transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)';
+      hdr.style.transform  = 'translateY(0)';
+      hid = false; delta = 0; autoHiding = false;
+    }
+  }
+  function hideNav() {
+    if (!hid) {
+      hdr.style.transition = 'transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)';
+      hdr.style.transform  = 'translateY(-120%)';
+      hid = true; delta = 0;
+    }
+  }
+
+  /* Hover on header or dropdown freezes it in current state */
   [hdr, dd].forEach(el => {
     if (!el) return;
-    el.addEventListener('mouseenter', () => { hovering = true; });
-    el.addEventListener('mouseleave', () => { hovering = false; });
+    el.addEventListener('mouseenter', () => { hovering = true; showNav(); });
+    el.addEventListener('mouseleave', () => { hovering = false; ly = window.scrollY; });
   });
+
   window.addEventListener('scroll', () => {
-    if (hovering) { ly = window.scrollY; return; }
+    /* Never hide while hovering */
+    if (hovering) { ly = window.scrollY; delta = 0; return; }
+
+    /* If hidden via programmatic scroll, stay hidden until user manually scrolls up */
     const y = window.scrollY;
-    if (y <= 0) {
-      hdr.style.transform = 'translateY(0)'; hid = false; delta = 0; ly = y; return;
-    }
+
+    /* Always show when back at very top */
+    if (y <= 0) { showNav(); ly = y; return; }
+
+    /* Initial show zone: don't hide until past threshold */
+    if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) { showNav(); ly = y; return; }
+
     const d = y - ly;
-    if (d > 0) { delta += d; if (!hid && delta >= 70) { hdr.style.transform = 'translateY(-120%)'; hid = true; delta = 0; } }
-    else        { delta -= d; if (hid && delta >= 100) { hdr.style.transform = 'translateY(0)'; hid = false; delta = 0; } }
+    if (d > 0) {
+      /* Scrolling down */
+      delta = delta > 0 ? delta + d : d;
+      if (!hid && delta >= NAV_SCROLL_DOWN_PX) hideNav();
+    } else if (d < 0) {
+      /* Scrolling up */
+      delta = delta < 0 ? delta + d : d;
+      if (hid && -delta >= NAV_SCROLL_UP_PX) showNav();
+    }
     ly = y;
   }, { passive: true });
+
+  /* Expose hide function for programmatic use (scrollToSec / handleURL) */
+  window._hideNav = hideNav;
+  window._showNav = showNav;
 })();
 
 /* ── Dropdown hover bridge ── */
@@ -1325,6 +1460,18 @@ function updateSidebar() {
     if (el && el.getBoundingClientRect().top < window.innerHeight * 0.42) activeK = k;
   });
   document.querySelectorAll('.sbn').forEach(a => a.classList.toggle('active', a.dataset.k === activeK));
+
+  /* Clear ?section from URL when user is back in hero/timeline area (above first section) */
+  if (activeK === 'top') {
+    const u = new URL(window.location.href);
+    if (u.searchParams.has('section')) {
+      u.searchParams.delete('section');
+      history.replaceState(null, '', u.toString());
+      lastSec = null; // reset so next section navigation updates URL fresh
+    }
+    return; // no slide URL to update when at top
+  }
+
   const ssMap = { tamu: 'ss7', events: 'ss3', infographic: 'ss6', cad: 'ss9' };
   const ssId  = ssMap[activeK];
   if (ssId && SS[ssId]) { const sec = RMAP[ssId]?.[SS[ssId].cur]; if (sec) updateURLd(sec); }
