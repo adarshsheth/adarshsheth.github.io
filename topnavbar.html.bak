@@ -1,16 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Top Navbar Preview</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p0b7XbQ1rDk7pQy2K5Q3FQp3s9+Yq2a5r6b8gL9k2Yw1Fh9Vf3mJqK2vV6c1wzjKQ6Qf7V7l1rY9K6mQ7Jq3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-
-<!-- original fragment content follows -->
-
 <!--
 ──────────────────────────────────────────────────────────────────
   topnavbar.html  ·  Adarsh Sheth  ·  Global Nav Fragment
@@ -224,27 +211,7 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     </nav>
   </div>
 </header>
-<!-- start delete -->
-<!-- small sidebar for preview -->
-<aside id="sb">
-  <div id="sb-hdr">Navigation</div>
-  <div id="sb-prog"><div id="sb-fill"></div></div>
-  <nav id="sb-nav">
-    <a class="sbn active" href="#"><span class="sbdot"></span><span class="sblbl">Top of Page</span></a>
-    <a class="sbn" href="#"><span class="sbdot"></span><span class="sblbl">Section A</span></a>
-    <a class="sbn" href="#"><span class="sbdot"></span><span class="sblbl">Section B</span></a>
-  </nav>
-</aside>
 
-<!-- preview main content to allow scrolling and demo header hide -->
-<main id="mn">
-  <div style="padding:28px;max-width:920px;margin:120px auto 2000px auto;color:var(--text)">
-    <h1 style="color:var(--title)">Top Navbar — Preview</h1>
-    <p style="color:var(--tdim)">Scroll down to see header hide behavior; hover the header to keep it visible.</p>
-    <p>Placeholder content...</p>
-  </div>
-</main>
-<!-- end delete -->
 <!-- ══ FOOTER — verbatim from edit_portfolio.html ══ -->
 <footer id="site-footer">
   <div class="ficons">
@@ -327,6 +294,3 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
   });
 })();
 </script>
-
-</body>
-</html>
