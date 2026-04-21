@@ -1,239 +1,615 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PORTFOLIO | Adarsh Sheth</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<link rel="stylesheet" href="style.css"/>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PORTFOLIO | Adarsh Sheth</title>
+		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="nav-placeholder"></div>
 
-<div id="nav-placeholder"></div>
+		<div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
-<div class="copy-toast" id="copy-toast">LINK COPIED!</div>
+		<div id="lb">
+			<div class="lbb" onclick="closeLb()"></div>
+			<div class="lbbox">
+				<button class="lbclose" onclick="closeLb()">×</button>
+				<img id="lbimg" class="lbi" src="" alt="" />
+				<div class="lb-bottom">
+					<button class="lb-nav lb-p" onclick="lbNav(-1)">&#8249;</button>
+					<div id="lbcap" class="lbcap"></div>
+					<button class="lb-nav lb-n" onclick="lbNav(1)">&#8250;</button>
+				</div>
+			</div>
+		</div>
 
-<div id="lb">
-  <div class="lbb" onclick="closeLb()"></div>
-  <div class="lbbox">
-    <button class="lbclose" onclick="closeLb()">×</button>
-    <img id="lbimg" class="lbi" src="" alt=""/>
-    <div class="lb-bottom">
-      <button class="lb-nav lb-p" onclick="lbNav(-1)">&#8249;</button>
-      <div id="lbcap" class="lbcap"></div>
-      <button class="lb-nav lb-n" onclick="lbNav(1)">&#8250;</button>
-    </div>
-  </div>
-</div>
+		<aside id="sb">
+			<div id="sb-hdr">Navigation</div>
+			<div id="sb-prog"><div id="sb-fill"></div></div>
+			<nav id="sb-nav">
+				<a
+					class="sbn active"
+					href="portfolio.html"
+					onclick="
+						scrollToSec('top');
+						return false;
+					"
+					data-k="top">
+					<span class="sbdot"></span>
+					<span class="sblbl">Top of Page</span>
+				</a>
+				<a
+					class="sbn"
+					href="portfolio.html?section=vfd"
+					onclick="
+						scrollToSec('sec-tamu');
+						return false;
+					"
+					data-k="tamu">
+					<span class="sbdot"></span>
+					<span class="sblbl">Technical Design Teams</span>
+				</a>
+				<a
+					class="sbn"
+					href="portfolio.html?section=ignite25"
+					onclick="
+						scrollToSec('sec-events');
+						return false;
+					"
+					data-k="events">
+					<span class="sbdot"></span>
+					<span class="sblbl">Events / Challenges</span>
+				</a>
+				<a
+					class="sbn"
+					href="portfolio.html?section=everyday-engineering"
+					onclick="
+						scrollToSec('sec-infographic');
+						return false;
+					"
+					data-k="infographic">
+					<span class="sbdot"></span>
+					<span class="sblbl">Infographic Series</span>
+				</a>
+				<a
+					class="sbn"
+					href="portfolio.html?section=boy-scouts"
+					onclick="
+						scrollToSec('sec-cad');
+						return false;
+					"
+					data-k="cad">
+					<span class="sbdot"></span>
+					<span class="sblbl">CAD &amp; Design</span>
+				</a>
+			</nav>
+		</aside>
 
-<aside id="sb">
-  <div id="sb-hdr">Navigation</div>
-  <div id="sb-prog"><div id="sb-fill"></div></div>
-  <nav id="sb-nav">
-    <a class="sbn active" href="portfolio.html" onclick="scrollToSec('top');return false" data-k="top">
-      <span class="sbdot"></span><span class="sblbl">Top of Page</span></a>
-    <a class="sbn" href="portfolio.html?section=vfd" onclick="scrollToSec('sec-tamu');return false" data-k="tamu">
-      <span class="sbdot"></span><span class="sblbl">Technical Design Teams</span></a>
-    <a class="sbn" href="portfolio.html?section=ignite25" onclick="scrollToSec('sec-events');return false" data-k="events">
-      <span class="sbdot"></span><span class="sblbl">Events / Challenges</span></a>
-    <a class="sbn" href="portfolio.html?section=everyday-engineering" onclick="scrollToSec('sec-infographic');return false" data-k="infographic">
-      <span class="sbdot"></span><span class="sblbl">Infographic Series</span></a>
-    <a class="sbn" href="portfolio.html?section=boy-scouts" onclick="scrollToSec('sec-cad');return false" data-k="cad">
-      <span class="sbdot"></span><span class="sblbl">CAD &amp; Design</span></a>
-  </nav>
-</aside>
+		<div id="mn">
+			<div id="top"></div>
 
-<div id="mn">
-<div id="top"></div>
+			<section id="hero"><h1>ENGINEERING PORTFOLIO</h1></section>
+			<div id="ibar">
+				<p>
+					To supplement this portfolio is a
+					<strong>Google Drive</strong>
+					, with
+					<strong>files</strong>
+					including
+					<a href="https://drive.google.com/drive/folders/1HtKCRoiW_zyuEqbTkWBvFLh8SA3PsE_a?usp=drive_link" target="_blank">
+						videos, technical documents, and CAD models
+					</a>
+					from my technical experiences:
+				</p>
+				<a href="https://drive.google.com/drive/folders/1HtKCRoiW_zyuEqbTkWBvFLh8SA3PsE_a?usp=drive_link" class="pbtn" target="_blank">PROJECT FILES</a>
+			</div>
 
-<section id="hero"><h1>ENGINEERING PORTFOLIO</h1></section>
-<div id="ibar">
-  <p>To supplement this portfolio is a <strong>Google Drive</strong>, with <strong>files</strong> including
-    <a href="https://drive.google.com/drive/folders/1HtKCRoiW_zyuEqbTkWBvFLh8SA3PsE_a?usp=drive_link" target="_blank">videos, technical documents, and CAD models</a>
-    from my technical experiences:</p>
-  <a href="https://drive.google.com/drive/folders/1HtKCRoiW_zyuEqbTkWBvFLh8SA3PsE_a?usp=drive_link" class="pbtn" target="_blank">PROJECT FILES</a>
-</div>
+			<section id="tls">
+				<div class="tlbox">
+					<h3>EXPERIENCE TIMELINE</h3>
+					<p class="tlsub">A visual representation of my past and current experience — click any item to jump to its section</p>
+					<div class="tlframe">
+						<iframe src="gantt.html" title="Experience Timeline" scrolling="no"></iframe>
+					</div>
+				</div>
+			</section>
+			<button class="scrollcue-btn" onclick="scrollToSec('sec-tamu')" aria-label="Jump to Technical Design Teams">
+				<svg viewBox="0 0 38 38">
+					<polyline points="8 14 19 25 30 14" />
+				</svg>
+			</button>
 
-<section id="tls">
-  <div class="tlbox">
-    <h3>EXPERIENCE TIMELINE</h3>
-    <p class="tlsub">A visual representation of my past and current experience — click any item to jump to its section</p>
-    <div class="tlframe"><iframe src="gantt.html" title="Experience Timeline" scrolling="no"></iframe></div>
-  </div>
-</section>
-<button class="scrollcue-btn" onclick="scrollToSec('sec-tamu')" aria-label="Jump to Technical Design Teams">
-  <svg viewBox="0 0 38 38"><polyline points="8 14 19 25 30 14"/></svg>
-</button>
+			<section id="sec-tamu" class="sb">
+				<div class="sh">
+					<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tamu', 'vfd')" title="Copy link to section">
+						<span class="pulse-dot" data-sh="sec-tamu"></span>
+					</button>
+					<h2>TECHNICAL DESIGN TEAMS</h2>
+					<span class="sh-r"></span>
+				</div>
 
-<section id="sec-tamu" class="sb">
-  <div class="sh">
-    <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tamu','vfd')" title="Copy link to section">
-      <span class="pulse-dot" data-sh="sec-tamu"></span>
-    </button>
-    <h2>TECHNICAL DESIGN TEAMS</h2>
-    <span class="sh-r"></span>
-  </div>
+				<div class="tg">
+					<span class="tglbl">
+						@ Texas A&amp;M
+						<br />
+						University
+					</span>
+					<div class="tab-btns">
+						<button class="tb" id="btn-vfd" onclick="sw('ss7', 0, 'vfd')" disabled>VFD</button>
+						<button class="tb" id="btn-red" onclick="sw('ss7', 1, 'red')">RED</button>
+						<button class="tb" id="btn-lsar" onclick="sw('ss7', 2, 'lsar')">LSAR</button>
+					</div>
+				</div>
+				<div class="ss-wrapper" id="sw7">
+					<button class="sarr spr" onclick="ar('ss7', -1)">&#8249;</button>
+					<div class="ss-clip" id="ss7-clip">
+						<div class="sscont" id="ss7">
+							<div class="ssfr" id="ss7-fr">
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">VERTICAL FLIGHT DESIGN</div>
+													<div class="ecm">
+														<span class="ecrole">Aerodynamics Engineer</span>
+														<span class="ecdate">09/2025 – PRESENT</span>
+														<span class="ecmeta">TEXAS A&amp;M, Design Team</span>
+													</div>
+												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/vfd.png" alt="VFD" />
+													<img src="media/logo/vfs.png" alt="VFS" />
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">TRADE-OFF ANALYSIS</span>
+											<span class="badge">PYTHON</span>
+											<span class="badge">GITHUB</span>
+											<span class="badge">RESEARCH</span>
+										</div>
+										<div class="cbody">
+											<ul class="cbul">
+												<li>
+													Researched multicopter and winged (e.g. quad biplane) VTOL configurations under primary objective of hover stability (dynamic
+													response, quantified by rise time) and secondary objective of translational speed
+												</li>
+												<li>
+													Programmed
+													<b>Monte Carlo simulation</b>
+													to generate 1,000 flight mission path combinations, optimized for points and risk under energy and time constraints
+												</li>
+												<li>
+													Created a
+													<b>quadcopter energy model</b>
+													as a function of total mass (variable motor, rotor, and battery specs under constant fly time and T/W ratio) for translational
+													and hover states
+												</li>
+												<li>
+													Competition:
+													<b>2025–2026 Design-Build-Vertical Flight (DBVF)</b>
+													, hosted by Vertical Flight Society (VFS) in April 2026
+												</li>
+											</ul>
 
-  <div class="tg">
-    <span class="tglbl">@ Texas A&amp;M<br>University</span>
-    <div class="tab-btns">
-      <button class="tb" id="btn-vfd"  onclick="sw('ss7',0,'vfd')"  disabled>VFD</button>
-      <button class="tb" id="btn-red"  onclick="sw('ss7',1,'red')">RED</button>
-      <button class="tb" id="btn-lsar" onclick="sw('ss7',2,'lsar')">LSAR</button>
-    </div>
-  </div>
-  <div class="ss-wrapper" id="sw7">
-    <button class="sarr spr" onclick="ar('ss7',-1)">&#8249;</button>
-    <div class="ss-clip" id="ss7-clip">
-      <div class="sscont" id="ss7"><div class="ssfr" id="ss7-fr">
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/vfs/group1.png" alt="VFD Group Photo @ Lab" />
+														<img class="cimg" src="media/vfs/group2.jpg" alt="VFD Group Photo @ Flight Testing" />
+														<img class="cimg" src="media/vfs/assembly1.jpg" alt="Rev3 Propeller Assembly" />
+														<img class="cimg" src="media/vfs/rev3_1.jpg" alt="Rev3" />
+														<img class="cimg" src="media/vfs/rev3_2.jpg" alt="Rev3" />
+														<img class="cimg" src="media/vfs/rev3_3.jpg" alt="Rev3" />
+														<img class="cimg" src="media/vfs/rev3_4.jpg" alt="Rev3" />
+														<img class="cimg" src="media/vfs/minirev1.jpg" alt="Mini Rev" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">VERTICAL FLIGHT DESIGN</div>
-              <div class="ecm"><span class="ecrole">Aerodynamics Engineer</span><span class="ecdate">09/2025 – PRESENT</span><span class="ecmeta">TEXAS A&amp;M, Design Team</span></div>
-            </div>
-            <div class="eclogos">
-              <img src="https://static.wixstatic.com/media/0d689f_97988d804db14c8692e66a4d70e386ad~mv2.png/v1/fill/w_220,h_110,al_c,q_85,enc_avif,quality_auto/VFD%20Maroon%20Logo%2024-25_edited.png" alt="VFD"/>
-              <img src="https://static.wixstatic.com/media/0d689f_d09125c164f14e0dab518bffff3c5753~mv2.png/v1/fill/w_220,h_110,al_c,q_85,enc_avif,quality_auto/VFS_stacked_logo.png" alt="VFS"/>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">TRADE-OFF ANALYSIS</span><span class="badge">PYTHON</span><span class="badge">GITHUB</span><span class="badge">RESEARCH</span></div>
-          <div class="cbody">
-            <ul class="cbul">
-              <li>Researched multicopter and winged (e.g. quad biplane) VTOL configurations under primary objective of hover stability (dynamic response, quantified by rise time) and secondary objective of translational speed</li>
-              <li>Programmed <b>Monte Carlo simulation</b> to generate 1,000 flight mission path combinations, optimized for points and risk under energy and time constraints</li>
-              <li>Created a <b>quadcopter energy model</b> as a function of total mass (variable motor, rotor, and battery specs under constant fly time and T/W ratio) for translational and hover states</li>
-              <li>Competition: <b>2025–2026 Design-Build-Vertical Flight (DBVF)</b>, hosted by Vertical Flight Society (VFS) in April 2026</li>
-            </ul>
-            <div>
-              <div class="cw"><div class="cw-inner">
-                <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_fa5d152d71434e3eaa2113ddcffaab59~mv2.png/v1/fill/w_520,h_330,al_c,q_85,enc_avif,quality_auto/0d689f_fa5d152d71434e3eaa2113ddcffaab59~mv2.png" alt="VFD code"
-                  data-cap="VFD Python Analysis — Monte Carlo simulation code"/>
-              </div></div>
-              <div class="car-caption"></div>
-            </div>
-          </div>
-          <div class="clinks">
-            <a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight" class="clnk" target="_blank">Competition Page</a>
-            <a href="https://www.tamuvfd.org/" class="clnk" target="_blank">TAMU VFD Site</a>
-          </div>
-        </div></div>
+												<div class="cw">
+													<div class="cw-inner">
+														<video class="cimg" src="media/vfs/timelapse.mov" data-cap="Rev3 1st Ground Test Timelapse" autoplay muted loop></video>
+														<video class="cimg" src="media/vfs/flyby.mp4" data-cap="Rev3 Flyby" autoplay muted loop></video>
+														<video
+															class="cimg"
+															src="media/vfs/payload_drop.mp4"
+															data-cap="Rev3 25-26 Challenge Payload Drop"
+															autoplay
+															muted
+															loop></video>
+														<video class="cimg" src="media/vfs/april_tag.mp4" data-cap="Rev3 Autonomy" autoplay muted loop></video>
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+										</div>
+										<div class="clinks">
+											<a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight" class="clnk" target="_blank">
+												Competition Page
+											</a>
+											<a href="https://www.tamuvfd.org/" class="clnk" target="_blank">TAMU VFD Site</a>
+										</div>
+									</div>
+								</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">ROCKET ENGINE DESIGN</div>
-              <div class="ecm"><span class="ecrole">Fluid Systems Engineer</span><span class="ecdate">02/2026 – PRESENT</span><span class="ecmeta">TEXAS A&amp;M, Design Team</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">P&amp;ID</span><span class="badge">T&amp;E</span><span class="badge">DESIGN REVIEW</span><span class="badge">FMEA</span><span class="badge">V&amp;V</span></div>
-          <div class="cbody wimg">
-            <ul class="cbul">
-              <li>N2O line leak and pressure <b>test planning</b> (P&amp;ID procedure)</li>
-              <li>Presented at <b>PDR</b> (assembly) and <b>CDR</b> (nitrous fill process &amp; orifice)</li>
-              <li>Developed feedline <b>assembly diagram</b> (ethanol, nitrogen, and nitrous lines) mapping fitting interfaces (NPT, JIC, SL, CGA) and control elements for P&amp;ID traceability</li>
-              <li>Researched a <b>precision machining</b> approach to bore an 11" thin-walled tube; opted for o-rings to absorb micro-irregularities</li>
-              <li>Followed <b>Verification &amp; Validation</b> framework through CRR, schematic development, design review gates, testing, and analysis</li>
-              <li>Identified failure modes with RPN using severity, occurrence, and detection ratings</li>
-              <li>Wrote a <b>machining reference guide</b> detailing techniques, applications, and best-use scenarios</li>
-              <li>Implemented a new <b>Bill of Materials spreadsheet</b> with input validation, dynamic categorization, part override tracking, automated inventory, centralized dashboard, and real-time cost authentication</li>
-            </ul>
-            <div>
-              <div class="cw"><div class="cw-inner">
-                <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_72b40cf1ba0b4a8f8e687fa1232066dcf000.jpg/v1/fill/w_400,h_260,al_c,q_80,enc_avif,quality_auto/0d689f_72b40cf1ba0b4a8f8e687fa1232066dcf000.jpg" alt="Test"
-                  data-cap="TAMU RED — liquid rocket engine hot fire test"/>
-                <img class="cimg" src="https://static.wixstatic.com/media/0d689f_35bc2d4b09e048b7973b7386c4982a09f000.jpg/v1/fill/w_400,h_260,al_c,q_80,enc_avif,quality_auto/0d689f_35bc2d4b09e048b7973b7386c4982a09f000.jpg" alt="Graph"
-                  data-cap="Chamber pressure vs. time — engine test data"/>
-              </div></div>
-              <div class="cdots"><span class="cdot on"></span><span class="cdot"></span></div>
-              <div class="car-caption"></div>
-            </div>
-          </div>
-        </div></div>
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">ROCKET ENGINE DESIGN</div>
+													<div class="ecm">
+														<span class="ecrole">Fluid Systems Engineer</span>
+														<span class="ecdate">02/2026 – PRESENT</span>
+														<span class="ecmeta">TEXAS A&amp;M, Design Team</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">P&amp;ID</span>
+											<span class="badge">T&amp;E</span>
+											<span class="badge">DESIGN REVIEW</span>
+											<span class="badge">FMEA</span>
+											<span class="badge">V&amp;V</span>
+										</div>
+										<div class="cbody wimg">
+											<ul class="cbul">
+												<li>
+													N2O line leak and pressure
+													<b>test planning</b>
+													(P&amp;ID procedure)
+												</li>
+												<li>
+													Presented at
+													<b>PDR</b>
+													(assembly) and
+													<b>CDR</b>
+													(nitrous fill process &amp; orifice)
+												</li>
+												<li>
+													Developed feedline
+													<b>assembly diagram</b>
+													(ethanol, nitrogen, and nitrous lines) mapping fitting interfaces (NPT, JIC, SL, CGA) and control elements for P&amp;ID
+													traceability
+												</li>
+												<li>
+													Researched a
+													<b>precision machining</b>
+													approach to bore an 11" thin-walled tube; opted for o-rings to absorb micro-irregularities
+												</li>
+												<li>
+													Followed
+													<b>Verification &amp; Validation</b>
+													framework through CRR, schematic development, design review gates, testing, and analysis
+												</li>
+												<li>Identified failure modes with RPN using severity, occurrence, and detection ratings</li>
+												<li>
+													Wrote a
+													<b>machining reference guide</b>
+													detailing techniques, applications, and best-use scenarios
+												</li>
+												<li>
+													Implemented a new
+													<b>Bill of Materials spreadsheet</b>
+													with input validation, dynamic categorization, part override tracking, automated inventory, centralized dashboard, and real-time
+													cost authentication
+												</li>
+											</ul>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">LUNAR SEARCH &amp; RESCUE DESIGN TEAM</div>
-              <div class="ecm"><span class="ecrole">Team Lead</span><span class="ecdate">FALL 2024</span><span class="ecmeta">TEXAS A&amp;M, TAMU SEDS</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">GITHUB</span><span class="badge">PYTHON</span><span class="badge">SIMULATION</span><span class="badge">SPACE TEAMS PRO</span></div>
-          <div class="cbody full">
-            <div>
-              <p class="cintro">12-member <b>team lead</b> for Lunar Search and Rescue (LSAR) Challenge at <i>TAMU SEDS</i>, hosted by Space Team University</p>
-              <ul class="cbul">
-                <li>Designed and <b>programmed</b> a crash site search algorithm in a high-fidelity lunar simulation (SpaceTeamsPro), under limited lighting, loss of signal, battery constraints, and obstacle-filled terrain</li>
-              </ul>
-              <div class="csub">
-                <div class="cslbl">Leadership Development</div>
-                <ul class="cbul">
-                  <li>Oversaw concurrent algorithm approaches (square and hexagon spiral), from concept to implementation, through <b>GitHub</b> branching and task management</li>
-                  <li>Shifted from a directive, pacesetter style to a peer-driven approach, leveraging members' strengths to sustain advancement</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div></div>
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/red/hotfire.png" alt="Elysium 1.1 Hot Fire" />
+														<img class="cimg" src="media/red/hotfire_data.png" alt="Elysium 1.1 Data Collection" />
+														<img class="cimg" src="media/red/team.jpg" alt="RED Team Meeting" />
+														<img class="cimg" src="media/red/bom1.png" alt="Bill of Materials Template pt.1" />
+														<img class="cimg" src="media/red/bom2.png" alt="Bill of Materials Template pt.2" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+										</div>
+									</div>
+								</div>
 
-      </div></div>
-    </div><button class="sarr snx" onclick="ar('ss7',1)">&#8250;</button>
-  </div><div class="tg">
-    <span class="tglbl">@ DVHS<br>Robotics</span>
-    <div class="tab-btns">
-      <button class="tb" id="btn-5776k"   onclick="sw('ss8',0,'team-5776k')" disabled>TEAM 5776K</button>
-      <button class="tb" id="btn-cabinet" onclick="sw('ss8',1,'cabinet')">CABINET</button>
-    </div>
-  </div>
-  <div class="ss-wrapper" id="sw8">
-    <button class="sarr spr" onclick="ar('ss8',-1)">&#8249;</button>
-    <div class="ss-clip" id="ss8-clip">
-      <div class="sscont" id="ss8"><div class="ssfr" id="ss8-fr">
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">LUNAR SEARCH &amp; RESCUE DESIGN TEAM</div>
+													<div class="ecm">
+														<span class="ecrole">Team Lead</span>
+														<span class="ecdate">FALL 2024</span>
+														<span class="ecmeta">TEXAS A&amp;M, TAMU SEDS</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">GITHUB</span>
+											<span class="badge">PYTHON</span>
+											<span class="badge">SIMULATION</span>
+											<span class="badge">SPACE TEAMS PRO</span>
+										</div>
+										<div class="cbody full">
+											<div>
+												<p class="cintro">
+													12-member
+													<b>team lead</b>
+													for Lunar Search and Rescue (LSAR) Challenge at
+													<i>TAMU SEDS</i>
+													, hosted by Space Team University
+												</p>
+												<ul class="cbul">
+													<li>
+														Designed and
+														<b>programmed</b>
+														a crash site search algorithm in a high-fidelity lunar simulation (SpaceTeamsPro), under limited lighting, loss of signal,
+														battery constraints, and obstacle-filled terrain
+													</li>
+												</ul>
+												<div class="csub">
+													<div class="cslbl">Leadership Development</div>
+													<ul class="cbul">
+														<li>
+															Oversaw concurrent algorithm approaches (square and hexagon spiral), from concept to implementation, through
+															<b>GitHub</b>
+															branching and task management
+														</li>
+														<li>
+															Shifted from a directive, pacesetter style to a peer-driven approach, leveraging members' strengths to sustain
+															advancement
+														</li>
+													</ul>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">TEAM 5776K, CO-FOUNDER &amp; CAPTAIN</div>
-              <div class="ecm"><span class="ecrole">VEX Robotics, "Spin Up" &amp; "Over Under"</span><span class="ecdate">2022–2024</span><span class="ecmeta">Dougherty Valley High School</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">TEAM CAPTAIN IMPACT</span><span class="badge">PROJECT MANAGEMENT</span><span class="badge">QUANTITATIVE ANALYSIS</span><span class="badge">MEMBER INTEGRATION</span></div>
-          <div class="cbody">
-            <div>
-              <div class="srow">
-                <div class="scell"><div class="slbl">Worlds Qual.</div><div class="sval" data-count="100" data-suffix="%">0%</div><div class="ssub">Both eligible seasons</div></div>
-                <div class="scell"><div class="slbl">Total Awards</div><div class="sval">8×</div><div class="ssub">State, Nat'l, Worlds</div></div>
-                <div class="scell"><div class="slbl">World Rank</div><div class="sval">Top 2%</div><div class="ssub">of 20,000 teams</div></div>
-              </div>
-              <div class="cslbl" style="margin-top:10px">TEAM CAPTAIN IMPACT</div>
-              <ul class="cbul">
-                <li>Led a team of 10 members across 2 seasons &amp; 16 tournaments</li>
-                <li>Launched and managed content posting to YouTube (<a href="https://www.youtube.com/@5776K" target="_blank">@5776K</a>) and Instagram</li>
-                <li>Utilized <b>project management</b> tools (Nifty, Trello, Notion) to break down tasks; established a member time contributions tracker</li>
-                <li>Established a <b>technical hierarchy</b> — captain → subteam leads → members with specific focuses</li>
-              </ul>
-              <p style="font-size:13px;margin:10px 0 6px;color:var(--tdim)">Recognized historic barriers and made the following <b>CHANGES:</b></p>
-              <ul class="cbul">
-                <li><b>Diversified team priorities</b> from sole build focus to equal emphasis on design, build, code, strategy, &amp; documentation</li>
-                <li>Emphasized the <b>engineering design process</b>; quantified all decisions through <b>trade study and parametric study</b> tables
-                  <ul><li>Incorporated one-pagers for project planning (Gantt), subsystem overviews, match strategy, rebuild evolution, and tournament analysis</li></ul>
-                </li>
-                <li>Deeply integrated underclassmen with meaningful roles, fostering interest, <b>skill development, and long-term engagement</b></li>
-              </ul>
-              <div class="csub">
-                <div class="cslbl">Technical Contributions</div>
-                <div class="brow" style="padding:0 0 8px"><span class="badge">FUSION 360</span><span class="badge">RC DRIVER</span><span class="badge">ASSEMBLY</span><span class="badge">T&amp;E</span><span class="badge">EDP</span><span class="badge">SYSTEMS INTEGRATION</span></div>
-                <ul class="cbul">
-                  <li>Utilized <b>Fusion 360</b> to design and iterate through subsystems and full-robot designs, including the final States design</li>
-                  <li>Created a new <b>notebook framework</b> with data-driven EDP iteration; set a regional standard for meticulous documentation</li>
-                  <li>Authored a technical guide for tuning <b>14 individual factors</b> to optimize range, launch precision, cycle time, and structural integrity of 2 shooting mechanisms</li>
-                  <li>Team driver for 2 seasons — developed quick decision-making for dynamic 2×2 match strategy</li>
-                </ul>
-              </div>
-            </div>
-            <div>
+													<div>
+														<div class="cw">
+															<div class="cw-inner">
+																<img class="cimg on" src="media/lsar/code1.jpg" alt="Search and Rescue Algorithm pt. 1" />
+																<img class="cimg" src="media/lsar/code2.jpg" alt="Search and Rescue Algorithm pt. 2" />
+																<img class="cimg" src="media/lsar/brainstorming.jpg" alt="Pseudocode & Brainstorming" />
+															</div>
+														</div>
+														<div class="cdots">
+															<span class="cdot on"></span>
+															<span class="cdot"></span>
+															<span class="cdot"></span>
+														</div>
+														<div class="car-caption"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="sarr snx" onclick="ar('ss7', 1)">&#8250;</button>
+				</div>
+				<div class="tg">
+					<span class="tglbl">
+						@ DVHS
+						<br />
+						Robotics
+					</span>
+					<div class="tab-btns">
+						<button class="tb" id="btn-5776k" onclick="sw('ss8', 0, 'team-5776k')" disabled>TEAM 5776K</button>
+						<button class="tb" id="btn-cabinet" onclick="sw('ss8', 1, 'cabinet')">CABINET</button>
+					</div>
+				</div>
+				<div class="ss-wrapper" id="sw8">
+					<button class="sarr spr" onclick="ar('ss8', -1)">&#8249;</button>
+					<div class="ss-clip" id="ss8-clip">
+						<div class="sscont" id="ss8">
+							<div class="ssfr" id="ss8-fr">
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">TEAM 5776K, CO-FOUNDER &amp; CAPTAIN</div>
+													<div class="ecm">
+														<span class="ecrole">VEX Robotics, "Spin Up" &amp; "Over Under"</span>
+														<span class="ecdate">2022–2024</span>
+														<span class="ecmeta">Dougherty Valley High School</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">TEAM CAPTAIN IMPACT</span>
+											<span class="badge">PROJECT MANAGEMENT</span>
+											<span class="badge">QUANTITATIVE ANALYSIS</span>
+											<span class="badge">MEMBER INTEGRATION</span>
+										</div>
+										<div class="cbody">
+											<div>
+												<div class="srow">
+													<div class="scell">
+														<div class="slbl">Worlds Qual.</div>
+														<div class="sval" data-count="100" data-suffix="%">0%</div>
+														<div class="ssub">Both eligible seasons</div>
+													</div>
+													<div class="scell">
+														<div class="slbl">Total Awards</div>
+														<div class="sval">8×</div>
+														<div class="ssub">State, Nat'l, Worlds</div>
+													</div>
+													<div class="scell">
+														<div class="slbl">World Rank</div>
+														<div class="sval">Top 2%</div>
+														<div class="ssub">of 20,000 teams</div>
+													</div>
+												</div>
+												<div class="cslbl" style="margin-top: 10px">TEAM CAPTAIN IMPACT</div>
+												<ul class="cbul">
+													<li>Led a team of 10 members across 2 seasons &amp; 16 tournaments</li>
+													<li>
+														Launched and managed content posting to YouTube (
+														<a href="https://www.youtube.com/@5776K" target="_blank">@5776K</a>
+														) and Instagram
+													</li>
+													<li>
+														Utilized
+														<b>project management</b>
+														tools (Nifty, Trello, Notion) to break down tasks; established a member time contributions tracker
+													</li>
+													<li>
+														Established a
+														<b>technical hierarchy</b>
+														— captain → subteam leads → members with specific focuses
+													</li>
+												</ul>
+												<p style="font-size: 13px; margin: 10px 0 6px; color: var(--tdim)">
+													Recognized historic barriers and made the following
+													<b>CHANGES:</b>
+												</p>
+												<ul class="cbul">
+													<li>
+														<b>Diversified team priorities</b>
+														from sole build focus to equal emphasis on design, build, code, strategy, &amp; documentation
+													</li>
+													<li>
+														Emphasized the
+														<b>engineering design process</b>
+														; quantified all decisions through
+														<b>trade study and parametric study</b>
+														tables
+														<ul>
+															<li>
+																Incorporated one-pagers for project planning (Gantt), subsystem overviews, match strategy, rebuild evolution, and
+																tournament analysis
+															</li>
+														</ul>
+													</li>
+													<li>
+														Deeply integrated underclassmen with meaningful roles, fostering interest,
+														<b>skill development, and long-term engagement</b>
+													</li>
+												</ul>
+												<div class="csub">
+													<div class="cslbl">Technical Contributions</div>
+													<div class="brow" style="padding: 0 0 8px">
+														<span class="badge">FUSION 360</span>
+														<span class="badge">RC DRIVER</span>
+														<span class="badge">ASSEMBLY</span>
+														<span class="badge">T&amp;E</span>
+														<span class="badge">EDP</span>
+														<span class="badge">SYSTEMS INTEGRATION</span>
+													</div>
+													<ul class="cbul">
+														<li>
+															Utilized
+															<b>Fusion 360</b>
+															to design and iterate through subsystems and full-robot designs, including the final States design
+														</li>
+														<li>
+															Created a new
+															<b>notebook framework</b>
+															with data-driven EDP iteration; set a regional standard for meticulous documentation
+														</li>
+														<li>
+															Authored a technical guide for tuning
+															<b>14 individual factors</b>
+															to optimize range, launch precision, cycle time, and structural integrity of 2 shooting mechanisms
+														</li>
+														<li>Team driver for 2 seasons — developed quick decision-making for dynamic 2×2 match strategy</li>
+													</ul>
+												</div>
+											</div>
+
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/vex/ou_front.png" alt='VEX "Over Under" Robot CAD (Front)' />
+														<img class="cimg" src="media/vex/ou_side.png" alt='VEX "Over Under" Robot CAD (Side)' />
+														<img class="cimg" src="media/vex/su_back.png" alt='VEX "Over Under" Robot CAD (Back)' />
+														<img class="cimg" src="media/vex/su_front.png" alt='VEX "Over Under" Robot CAD (Front)' />
+														<img class="cimg" src="media/vex/team1.png" alt="Team 5776K Group Photo" />
+														<img class="cimg" src="media/vex/team2.jpg" alt="Team 5776K Group Photo" />
+														<img class="cimg" src="media/vex/team3.jpg" alt="Team 5776K Group Photo" />
+														<img class="cimg" src="media/vex/team4.jpg" alt="Team 5776K Group Photo" />
+														<img class="cimg" src="media/vex/worlds.jpg" alt="VEX World Championships 2023" />
+														<img class="cimg" src="media/vex/website1.png" alt="dvhsrobotics.com" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+
+												<div class="cw">
+													<div class="cw-inner">
+														<video
+															class="cimg on"
+															src="media/vex/pneumatics.mp4"
+															data-cap="VEX Over Under Pneumatics Linkage in Fusion 360"
+															autoplay
+															muted
+															loop></video>
+														<video class="cimg" src="media/vex/motors.mp4" data-cap="VEX Over Under Motors in Fusion 360" autoplay muted loop></video>
+														<video class="cimg" src="media/vex/overcentered.mp4" data-cap="Overcentered Linkage CAD Demo" autoplay muted loop></video>
+														<video class="cimg" src="media/vex/rapid_fire.mp4" data-cap="VEX Spin Up Rapid Fire Demo" autoplay muted loop></video>
+														<video
+															class="cimg"
+															src="media/vex/long_distance.mp4"
+															data-cap="VEX Spin Up Long Distance Scoring Demo"
+															autoplay
+															muted
+															loop></video>
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+
+											<!-- <div>
               <div class="cw"><div class="cw-inner tall-h">
                 <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_a7dbd3bc4cc64d90b45de025d4e841d3~mv2.jpg/v1/crop/x_0,y_17,w_1545,h_1966/fill/w_300,h_380,al_c,q_80,enc_avif,quality_auto/Pneumatics.jpg" alt="Pneumatics"
                   data-cap="VEX Over Under — pneumatics robot"/>
@@ -246,97 +622,225 @@
               </div></div>
               <div class="cdots"><span class="cdot on"></span><span class="cdot"></span><span class="cdot"></span><span class="cdot"></span></div>
               <div class="car-caption"></div>
-            </div>
-          </div>
-          <div class="clinks">
-            <a href="https://docs.google.com/document/d/1m_RBJYWFfLaJuxc-zA4UorZzcrQ4h8lFGuC7W8buHe0/edit?usp=sharing" class="clnk" target="_blank">Build Master Guide</a>
-            <a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=sharing" class="clnk" target="_blank">Launch Mechanism Guide</a>
-          </div>
-        </div></div>
+            </div> -->
+										</div>
+										<div class="clinks">
+											<a href="https://docs.google.com/document/d/1m_RBJYWFfLaJuxc-zA4UorZzcrQ4h8lFGuC7W8buHe0/edit?usp=sharing" class="clnk" target="_blank">
+												Build Master Guide
+											</a>
+											<a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=sharing" class="clnk" target="_blank">
+												Launch Mechanism Guide
+											</a>
+										</div>
+									</div>
+								</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">CABINET</div>
-              <div class="ecm"><span class="ecrole">Secretary and 2× Activities Coordinator</span><span class="ecdate">2021–2024</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">LEADERSHIP</span><span class="badge">LOGISTICS</span><span class="badge">EVENT PLANNING</span><span class="badge">COLLABORATION</span><span class="badge">COORDINATION</span></div>
-          <div class="cbody full">
-            <ul class="cbul">
-              <li>As <b>Activities Coordinator</b> (2021–2023), oversaw planning for summer camp and tournament, leading to <b>$75,000 combined fundraising</b> ($55,000 in profits)</li>
-              <li>Tournament Logistics:
-                <ul>
-                  <li>Mapped venues for power sources, competition zones, team pits, and wiring for displays and fields (hub → 3× match controllers → 6× driver interfaces → 12× robot controllers)</li>
-                  <li>Utilized <b>Tournament Manager</b> to run match fields, scoring, skills runs, 6 displays, and results posting to RobotEvents</li>
-                  <li>Coordinated with: DVHS faculty, REC Foundation, 5 on-campus service orgs (NHS, CSF, PVSA, Interact, Key), alumni for judging, and vendors for concessions and equipment
-                    <ul><li>Wrote email templates for each; added them to the master guide</li></ul>
-                  </li>
-                  <li>More than <b>doubled the tournament planning and operations documentation</b> following COVID-induced knowledge disruption; created spreadsheet templates for inventory, volunteer signups, finances, concessions, and officer management</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="clinks"><a href="#" class="clnk">Tournament Master Guide</a><a href="#" class="clnk">Tournament Info Sheet</a></div>
-        </div></div>
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">CABINET</div>
+													<div class="ecm">
+														<span class="ecrole">Secretary and 2× Activities Coordinator</span>
+														<span class="ecdate">2021–2024</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">LEADERSHIP</span>
+											<span class="badge">LOGISTICS</span>
+											<span class="badge">EVENT PLANNING</span>
+											<span class="badge">COLLABORATION</span>
+											<span class="badge">COORDINATION</span>
+										</div>
+										<div class="cbody full">
+											<ul class="cbul">
+												<li>
+													As
+													<b>Activities Coordinator</b>
+													(2021–2023), oversaw planning for summer camp and tournament, leading to
+													<b>$75,000 combined fundraising</b>
+													($55,000 in profits)
+												</li>
+												<li>
+													Tournament Logistics:
+													<ul>
+														<li>
+															Mapped venues for power sources, competition zones, team pits, and wiring for displays and fields (hub → 3× match
+															controllers → 6× driver interfaces → 12× robot controllers)
+														</li>
+														<li>
+															Utilized
+															<b>Tournament Manager</b>
+															to run match fields, scoring, skills runs, 6 displays, and results posting to RobotEvents
+														</li>
+														<li>
+															Coordinated with: DVHS faculty, REC Foundation, 5 on-campus service orgs (NHS, CSF, PVSA, Interact, Key), alumni for
+															judging, and vendors for concessions and equipment
+															<ul>
+																<li>Wrote email templates for each; added them to the master guide</li>
+															</ul>
+														</li>
+														<li>
+															More than
+															<b>doubled the tournament planning and operations documentation</b>
+															following COVID-induced knowledge disruption; created spreadsheet templates for inventory, volunteer signups, finances,
+															concessions, and officer management
+														</li>
+													</ul>
+												</li>
+											</ul>
 
-      </div></div>
-    </div><button class="sarr snx" onclick="ar('ss8',1)">&#8250;</button>
-  </div></section>
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/vex/website1.png" alt="Website" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+										</div>
+										<div class="clinks">
+											<a href="#" class="clnk">Tournament Master Guide</a>
+											<a href="#" class="clnk">Tournament Info Sheet</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="sarr snx" onclick="ar('ss8', 1)">&#8250;</button>
+				</div>
+			</section>
 
-<hr class="div"/>
+			<hr class="div" />
 
-<section id="sec-events" class="sb">
-  <div class="sh">
-    <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-events','ignite25')" title="Copy link">
-      <span class="pulse-dot" data-sh="sec-events"></span>
-    </button>
-    <h2>EVENTS AND CHALLENGES</h2>
-    <span class="sh-r"></span>
-  </div>
-  <div class="tg">
-    <span class="tglbl">@ Texas A&amp;M, Multi-Day<br>Events/Challenges</span>
-    <div class="tab-btns">
-      <button class="tb" id="btn-ignite25" onclick="sw('ss3',0,'ignite25')" disabled>IGNITE '25</button>
-      <button class="tb" id="btn-invent"   onclick="sw('ss3',1,'invent')">INVENT</button>
-      <button class="tb" id="btn-ignite"   onclick="sw('ss3',2,'ignite')">IGNITE '24</button>
-    </div>
-  </div>
-  <div class="ss-wrapper" id="sw3">
-    <button class="sarr spr" onclick="ar('ss3',-1)">&#8249;</button>
-    <div class="ss-clip" id="ss3-clip">
-      <div class="sscont" id="ss3"><div class="ssfr" id="ss3-fr">
+			<section id="sec-events" class="sb">
+				<div class="sh">
+					<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-events', 'ignite25')" title="Copy link">
+						<span class="pulse-dot" data-sh="sec-events"></span>
+					</button>
+					<h2>EVENTS AND CHALLENGES</h2>
+					<span class="sh-r"></span>
+				</div>
+				<div class="tg">
+					<span class="tglbl">
+						@ Texas A&amp;M, Multi-Day
+						<br />
+						Events/Challenges
+					</span>
+					<div class="tab-btns">
+						<button class="tb" id="btn-ignite25" onclick="sw('ss3', 0, 'ignite25')" disabled>IGNITE '25</button>
+						<button class="tb" id="btn-invent" onclick="sw('ss3', 1, 'invent')">INVENT</button>
+						<button class="tb" id="btn-ignite" onclick="sw('ss3', 2, 'ignite')">IGNITE '24</button>
+					</div>
+				</div>
+				<div class="ss-wrapper" id="sw3">
+					<button class="sarr spr" onclick="ar('ss3', -1)">&#8249;</button>
+					<div class="ss-clip" id="ss3-clip">
+						<div class="sscont" id="ss3">
+							<div class="ssfr" id="ss3-fr">
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">IGNITE DESIGN CHALLENGE: VERTICAL FLIGHT RESCUE MISSION</div>
+													<div class="ecm">
+														<span class="ecdate">NOVEMBER 2025 · 9-DAY EVENT: 11/14–11/23</span>
+														<span class="ecmeta">TEXAS A&amp;M</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">AERODYNAMICS</span>
+											<span class="badge">PYTHON</span>
+											<span class="badge">CONSTRAINT ANALYSIS</span>
+											<span class="badge">CAD (FUSION 360)</span>
+											<span class="badge">FORMAL PRESENTATION</span>
+											<span class="badge">TECHNICAL REPORT</span>
+											<span class="badge">SLICING (3D PRINT)</span>
+										</div>
+										<div class="cbody">
+											<div>
+												<p class="cintro">
+													<b>WON #1 PLACE</b>
+													in the
+													<a href="https://drive.google.com/file/d/19SYPEDsY0PNyN1dCVNX07h_ps6wy2DeA/view?usp=sharing" target="_blank">
+														2025 VFS Project
+													</a>
+													of Ignite. Designed a search &amp; rescue eVTOL to drop a 5 lb package to a stranded hiker at 10,000 ft under 20–40 kt winds,
+													500 ft cloud cover, and fog cutting ½ visibility.
+												</p>
+												<p style="font-size: 13px; line-height: 1.7; margin-bottom: 7px; color: var(--tdim)">
+													<b>Constraint Analysis Iterative Sizing Method:</b>
+													Iterated through
+													<i>2,362,692 sizing configurations</i>
+													, varying MTOW, S (wing planform area), A (total lift propeller area), and lift rotor speed fraction
+												</p>
+												<ul class="cbul">
+													<li>1) airspeed &gt; stall × FoS: optimized by airfoil selection (S1223) and lift rotor speed fraction</li>
+													<li>2) Total rotor ⌀ + propeller spacing + fuselage width &lt; wingspan → number of lift rotors</li>
+													<li>3) Energy fraction = energy stored ÷ required (power × time in cruise/hover/ascent/descent + drag)</li>
+													<li>4) Verified CL within range; 5) AOA via linear interpolation; 6) minimized W/S and disk loading D/L</li>
+												</ul>
+												<p style="font-size: 13px; margin-top: 9px; color: var(--tdim)">
+													Applied
+													<b>Parameter Weights + Array Sort</b>
+													→
+													<b style="color: #b8bdb4">MTOW: 224.81 lb · S: 2.7 m² · A: 40 m² · Speed Fraction: 90%</b>
+												</p>
+												<div class="csub">
+													<div class="cslbl">Additional Contributions</div>
+													<ul class="cbul">
+														<li>
+															Aerodynamic calcs for transport cruise (18 m/s), search cruise (8 m/s), and hover: propeller radius, pitch, tip speed,
+															motor torque, shaft RPM.
+															<b>T/W = 1.5</b>
+														</li>
+														<li>
+															Researched spiral-in, spiral-out, and lawnmower algorithms; coded
+															<b>2,000 average and max. search time simulations</b>
+														</li>
+														<li>Received aircraft frontal area from CAD; input sensor weight/power data into code</li>
+														<li>
+															Split CAD into pinned components; used
+															<b>Bambu Studio</b>
+															for spliced 3D printing
+														</li>
+													</ul>
+												</div>
+											</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">IGNITE DESIGN CHALLENGE</div>
-              <div class="ecm"><span class="ecdate">NOVEMBER 2025 · 9-DAY EVENT: 11/14–11/23</span><span class="ecmeta">TEXAS A&amp;M</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">AERODYNAMICS</span><span class="badge">PYTHON</span><span class="badge">CONSTRAINT ANALYSIS</span><span class="badge">CAD (FUSION 360)</span><span class="badge">FORMAL PRESENTATION</span><span class="badge">TECHNICAL REPORT</span><span class="badge">SLICING (3D PRINT)</span></div>
-          <div class="cbody">
-            <div>
-              <p class="cintro"><b>WON #1 PLACE</b> in the <a href="https://drive.google.com/file/d/19SYPEDsY0PNyN1dCVNX07h_ps6wy2DeA/view?usp=sharing" target="_blank">2025 VFS Project</a> of Ignite. Designed a search &amp; rescue eVTOL to drop a 5 lb package to a stranded hiker at 10,000 ft under 20–40 kt winds, 500 ft cloud cover, and fog cutting ½ visibility.</p>
-              <p style="font-size:13px;line-height:1.7;margin-bottom:7px;color:var(--tdim)"><b>Constraint Analysis Iterative Sizing Method:</b> Iterated through <i>2,362,692 sizing configurations</i>, varying MTOW, S (wing planform area), A (total lift propeller area), and lift rotor speed fraction</p>
-              <ul class="cbul">
-                <li>1) airspeed &gt; stall × FoS: optimized by airfoil selection (S1223) and lift rotor speed fraction</li>
-                <li>2) Total rotor ⌀ + propeller spacing + fuselage width &lt; wingspan → number of lift rotors</li>
-                <li>3) Energy fraction = energy stored ÷ required (power × time in cruise/hover/ascent/descent + drag)</li>
-                <li>4) Verified CL within range; 5) AOA via linear interpolation; 6) minimized W/S and disk loading D/L</li>
-              </ul>
-              <p style="font-size:13px;margin-top:9px;color:var(--tdim)">Applied <b>Parameter Weights + Array Sort</b> → <b style="color:#b8bdb4">MTOW: 224.81 lb · S: 2.7 m² · A: 40 m² · Speed Fraction: 90%</b></p>
-              <div class="csub">
-                <div class="cslbl">Additional Contributions</div>
-                <ul class="cbul">
-                  <li>Aerodynamic calcs for transport cruise (18 m/s), search cruise (8 m/s), and hover: propeller radius, pitch, tip speed, motor torque, shaft RPM. <b>T/W = 1.5</b></li>
-                  <li>Researched spiral-in, spiral-out, and lawnmower algorithms; coded <b>2,000 average and max. search time simulations</b></li>
-                  <li>Received aircraft frontal area from CAD; input sensor weight/power data into code</li>
-                  <li>Split CAD into pinned components; used <b>Bambu Studio</b> for spliced 3D printing</li>
-                </ul>
-              </div>
-            </div>
-            <div>
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/ignite25/cad.png" alt="Final Design CAD" />
+														<img class="cimg" src="media/ignite25/group.JPG" alt="Group Picture with 1st Place Certificate" />
+														<img class="cimg" src="media/ignite25/aero_calcs.png" alt="Aerodynamic Calculations" />
+														<img class="cimg" src="media/ignite25/sizing_iteration.png" alt="Design Sizing Iteration" />
+														<img class="cimg" src="media/ignite25/slice.png" alt="Bambu Studio Slicing Preview" />
+														<img class="cimg" src="media/ignite25/search_alg.png" alt="Search Algorithm Code" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+
+											<!-- <div>
               <div class="cw"><div class="cw-inner">
                 <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_1d2935facd3a4302a9cbc71dbef04c5f~mv2.jpg/v1/fill/w_400,h_260,al_c,q_80,enc_avif,quality_auto/0d689f_1d2935facd3a4302a9cbc71dbef04c5f~mv2.jpg" alt="eVTOL CAD"
                   data-cap="eVTOL CAD — search &amp; rescue aircraft design"/>
@@ -347,171 +851,367 @@
               </div></div>
               <div class="cdots"><span class="cdot on"></span><span class="cdot"></span><span class="cdot"></span></div>
               <div class="car-caption"></div>
-            </div>
-          </div>
-          <div class="clinks"><a href="https://drive.google.com/drive/folders/1ESl7cAYOEde2AYGNfqIwVaKjdsSoHTOa?usp=drive_link" class="clnk" target="_blank">Files (Code, Report, CDR)</a></div>
-        </div></div>
+            </div> -->
+										</div>
+										<div class="clinks">
+											<a href="https://drive.google.com/drive/folders/1ESl7cAYOEde2AYGNfqIwVaKjdsSoHTOa?usp=drive_link" class="clnk" target="_blank">
+												Files (Code, Report, CDR)
+											</a>
+										</div>
+									</div>
+								</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">AGGIES INVENT</div>
-              <div class="ecm"><span class="ecdate">MARCH 2025</span><span class="ecmeta">TEXAS A&amp;M</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">PRESENTATION</span><span class="badge">PROTOTYPING</span><span class="badge">NEED STATEMENT</span></div>
-          <div class="cbody full">
-            <ul class="cbul">
-              <li>Designed, prototyped, and presented a plate-design small modular nuclear reactor (SMR) proof of concept from a need statement</li>
-              <li>Optimized for stable burnup, steady operation, and extended fuel life with fuels (67.5% U233, 22.8% U238) and catalysts (U235 and Thorium 232)</li>
-              <li>Researched and presented 3 plate geometries, their limitations, and evolution; consideration to coolant flow regime, pressure distribution, heat pocket formation, and <b>control rod</b> placement: diagonal wave, funnel flow, and honeycomb</li>
-              <li>Minimized safety and security concerns with bi-directional <b>control rods</b> nested between plates with complete flow contact with coolant</li>
-              <li>Prototyped a rudimentary physical model: extruded honeycomb 3D-print for plate fuels, straws for control rods, cardboard as casing</li>
-            </ul>
-          </div>
-        </div></div>
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">AGGIES INVENT</div>
+													<div class="ecm">
+														<span class="ecdate">MARCH 2025</span>
+														<span class="ecmeta">TEXAS A&amp;M</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">PRESENTATION</span>
+											<span class="badge">PROTOTYPING</span>
+											<span class="badge">NEED STATEMENT</span>
+										</div>
+										<div class="cbody full">
+											<ul class="cbul">
+												<li>
+													Designed, prototyped, and presented a plate-design small modular nuclear reactor (SMR) proof of concept from a need statement
+												</li>
+												<li>
+													Optimized for stable burnup, steady operation, and extended fuel life with fuels (67.5% U233, 22.8% U238) and catalysts (U235
+													and Thorium 232)
+												</li>
+												<li>
+													Researched and presented 3 plate geometries, their limitations, and evolution; consideration to coolant flow regime, pressure
+													distribution, heat pocket formation, and
+													<b>control rod</b>
+													placement: diagonal wave, funnel flow, and honeycomb
+												</li>
+												<li>
+													Minimized safety and security concerns with bi-directional
+													<b>control rods</b>
+													nested between plates with complete flow contact with coolant
+												</li>
+												<li>
+													Prototyped a rudimentary physical model: extruded honeycomb 3D-print for plate fuels, straws for control rods, cardboard as
+													casing
+												</li>
+											</ul>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">AGGIES IGNITE</div>
-              <div class="ecm"><span class="ecdate">DECEMBER 2024</span><span class="ecmeta">TEXAS A&amp;M</span></div>
-            </div>
-          </div></div>
-          <div class="brow"><span class="badge">TECHNICAL WRITING</span><span class="badge">AERODYNAMICS</span><span class="badge">PRESENTATION</span><span class="badge">TRADE STUDY</span><span class="badge">RESEARCH</span></div>
-          <div class="cbody full">
-            <ul class="cbul">
-              <li>Worked in a 4-person team to design a rocket, produce CAD/FEA, conduct aerodynamic research and calculations (propulsion and drag), and code a landing simulation to determine thrust activation altitude</li>
-              <li>Researched aerodynamic effects of fins shifting center of pressure behind center of gravity for positive static stability
-                <ul><li>Considered 4 fin shapes; selected through a <b>Trade Study Matrix</b></li></ul>
-              </li>
-              <li>Opted for canards to energize boundary layer and provide greater control authority on pitch and yaw axes, necessary for landing</li>
-              <li>Presented design approach, decisions, and justifications · Scored <b>284/300</b></li>
-            </ul>
-          </div>
-        </div></div>
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/invent/cad1.png" alt="CAD Model 1" />
+														<img class="cimg" src="media/invent/cad2.png" alt="CAD Model 2" />
+														<img class="cimg" src="media/invent/prototype.JPG" alt="3D Print Prototype" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
 
-      </div></div>
-    </div><button class="sarr snx" onclick="ar('ss3',1)">&#8250;</button>
-  </div></section>
+												<div class="cw">
+													<div class="cw-inner">
+														<video
+															class="cimg on"
+															src="media/invent/3d_print.mov"
+															data-cap="Prototype 3D Printing Timelapse"
+															autoplay
+															muted
+															loop></video>
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+										</div>
+									</div>
+								</div>
 
-<hr class="div"/>
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">AGGIES IGNITE</div>
+													<div class="ecm">
+														<span class="ecdate">DECEMBER 2024</span>
+														<span class="ecmeta">TEXAS A&amp;M</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="brow">
+											<span class="badge">TECHNICAL WRITING</span>
+											<span class="badge">AERODYNAMICS</span>
+											<span class="badge">PRESENTATION</span>
+											<span class="badge">TRADE STUDY</span>
+											<span class="badge">RESEARCH</span>
+										</div>
+										<div class="cbody full">
+											<ul class="cbul">
+												<li>
+													Worked in a 4-person team to design a rocket, produce CAD/FEA, conduct aerodynamic research and calculations (propulsion and
+													drag), and code a landing simulation to determine thrust activation altitude
+												</li>
+												<li>
+													Researched aerodynamic effects of fins shifting center of pressure behind center of gravity for positive static stability
+													<ul>
+														<li>
+															Considered 4 fin shapes; selected through a
+															<b>Trade Study Matrix</b>
+														</li>
+													</ul>
+												</li>
+												<li>
+													Opted for canards to energize boundary layer and provide greater control authority on pitch and yaw axes, necessary for landing
+												</li>
+												<li>
+													Presented design approach, decisions, and justifications · Scored
+													<b>284/300</b>
+												</li>
+											</ul>
 
-<section id="sec-infographic" class="sb">
-  <div class="sh">
-    <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-infographic','everyday-engineering')" title="Copy link">
-      <span class="pulse-dot" data-sh="sec-infographic"></span>
-    </button>
-    <h2>PERSONAL PROJECTS</h2>
-    <span class="sh-r"></span>
-  </div>
-  <div class="tg">
-    <span class="tglbl">Infographic<br>Series</span>
-    <div class="tab-btns">
-      <button class="tb" id="btn-everyday" onclick="sw('ss6',0,'everyday-engineering')" disabled>EVERYDAY ENGINEERING</button>
-      <button class="tb" id="btn-aeroinfo" onclick="sw('ss6',1,'aerodynamics-infographics')">AERODYMAICS INFOGRAPHICS</button>
-    </div>
-  </div>
-  <div class="ss-wrapper" id="sw6">
-    <button class="sarr spr" onclick="ar('ss6',-1)">&#8249;</button>
-    <div class="ss-clip" id="ss6-clip">
-      <div class="sscont" id="ss6"><div class="ssfr" id="ss6-fr">
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/ignite24/fea.png" alt="Rocket Finite Element Analysis" />
+														<img class="cimg" src="media/ignite24/trade_study.png" alt="Design Trade Study" />
+														<img class="cimg" src="media/ignite24/cad.jpg" alt="Rocket Solidworks CAD Model" />
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<!-- </div></div> -->
+												<div class="car-caption"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="sarr snx" onclick="ar('ss3', 1)">&#8250;</button>
+				</div>
+			</section>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">EVERYDAY ENGINEERING SERIES</div>
-              <div class="ecm"><span class="ecdate">ARRIVING SOON · SUMMER &amp; FALL 2025</span></div>
-            </div>
-          </div></div>
-          <div class="cbody full">
-            <div>
-              <p class="cintro">A series of infographics exploring the engineering behind everyday objects</p>
-              <ul class="cbul"><li>Delves into mechanical, thermodynamics, electric, and/or software functions and processes</li></ul>
-              <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start">
-                <div>
-                  <div class="cw" style="max-height:min(45vh,340px)">
-                    <div class="cw-inner port-h">
-                      <img class="cimg on contain" src="https://static.wixstatic.com/media/0d689f_5c6a1c5e47ba436eb434a8dd03ea242e~mv2.png/v1/fill/w_600,h_760,al_c,q_85,enc_avif,quality_auto/0d689f_5c6a1c5e47ba436eb434a8dd03ea242e~mv2.png" alt="Refrigerator"
-                        data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"/>
-                    </div>
-                  </div>
-                  <div class="car-caption"></div>
-                </div>
-                <div style="background:var(--surface2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--tmut);font-style:italic;min-height:180px;border:1px dashed var(--border)">coming soon...</div>
-              </div>
-            </div>
-          </div>
-          <div class="clinks"><a href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing" class="clnk" target="_blank">Preview</a></div>
-        </div></div>
+			<hr class="div" />
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">INFOGRAPHIC 2.0</div>
-              <div class="ecm"><span class="ecdate">03–04-2025 TO PRESENT</span><span class="ecmeta">AEROSPACE INFOGRAPHIC 1.0 | PIKTOCHART</span></div>
-            </div>
-          </div></div>
-          <div class="cbody full">
-            <div>
-              <p class="cintro">An emphasis on the 4 forces of flight (thrust, drag, lift, weight) and the design components corresponding to each — exploring engineering principles and processes that shape, limit, and optimize design</p>
-              <p style="font-size:13px;color:var(--tdim);margin-bottom:12px">See below: an introduction to the jet engine, beginning with the general stages and process, then branching into its variants.</p>
-              <div class="cph" style="height:min(45vh,260px)">Add aerodynamics infographic image</div>
-            </div>
-          </div>
-        </div></div>
+			<section id="sec-infographic" class="sb">
+				<div class="sh">
+					<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-infographic', 'everyday-engineering')" title="Copy link">
+						<span class="pulse-dot" data-sh="sec-infographic"></span>
+					</button>
+					<h2>PERSONAL PROJECTS</h2>
+					<span class="sh-r"></span>
+				</div>
+				<div class="tg">
+					<span class="tglbl">
+						Infographic
+						<br />
+						Series
+					</span>
+					<div class="tab-btns">
+						<button class="tb" id="btn-everyday" onclick="sw('ss6', 0, 'everyday-engineering')" disabled>EVERYDAY ENGINEERING</button>
+						<button class="tb" id="btn-aeroinfo" onclick="sw('ss6', 1, 'aerodynamics-infographics')">AERODYMAICS INFOGRAPHICS</button>
+					</div>
+				</div>
+				<div class="ss-wrapper" id="sw6">
+					<button class="sarr spr" onclick="ar('ss6', -1)">&#8249;</button>
+					<div class="ss-clip" id="ss6-clip">
+						<div class="sscont" id="ss6">
+							<div class="ssfr" id="ss6-fr">
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">EVERYDAY ENGINEERING SERIES</div>
+													<div class="ecm">
+														<span class="ecdate">ARRIVING SOON · SUMMER &amp; FALL 2025</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="cbody full">
+											<div>
+												<p class="cintro">A series of infographics exploring the engineering behind everyday objects</p>
+												<ul class="cbul">
+													<li>Delves into mechanical, thermodynamics, electric, and/or software functions and processes</li>
+												</ul>
+												<div style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+													<div>
+														<div class="cw" style="max-height: min(45vh, 340px)">
+															<div class="cw-inner port-h">
+																<img
+																	class="cimg on"
+																	src="media/infographic/refrigerator.pdf"
+																	alt="Refrigerator"
+																	data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series" />
+															</div>
+														</div>
+														<div class="car-caption"></div>
+													</div>
+													<div
+														style="
+															background: var(--surface2);
+															border-radius: 8px;
+															display: flex;
+															align-items: center;
+															justify-content: center;
+															font-size: 13px;
+															color: var(--tmut);
+															font-style: italic;
+															min-height: 180px;
+															border: 1px dashed var(--border);
+														">
+														coming soon...
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="clinks">
+											<a href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing" class="clnk" target="_blank">Preview</a>
+										</div>
+									</div>
+								</div>
 
-      </div></div>
-    </div><button class="sarr snx" onclick="ar('ss6',1)">&#8250;</button>
-  </div></section>
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">INFOGRAPHIC 2.0</div>
+													<div class="ecm">
+														<span class="ecdate">03–04-2025 TO PRESENT</span>
+														<span class="ecmeta">AEROSPACE INFOGRAPHIC 1.0 | PIKTOCHART</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="cbody full">
+											<div>
+												<p class="cintro">
+													An emphasis on the 4 forces of flight (thrust, drag, lift, weight) and the design components corresponding to each — exploring
+													engineering principles and processes that shape, limit, and optimize design
+												</p>
+												<p style="font-size: 13px; color: var(--tdim); margin-bottom: 12px">
+													See below: an introduction to the jet engine, beginning with the general stages and process, then branching into its variants.
+												</p>
+												<div class="cph" style="height: min(45vh, 260px)">Add aerodynamics infographic image</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="sarr snx" onclick="ar('ss6', 1)">&#8250;</button>
+				</div>
+			</section>
 
-<hr class="div"/>
+			<hr class="div" />
 
-<section id="sec-cad" class="sb">
-  <div class="sh">
-    <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-cad','boy-scouts')" title="Copy link">
-      <span class="pulse-dot" data-sh="sec-cad"></span>
-    </button>
-    <h2>CAD &amp; DESIGN</h2>
-    <span class="sh-r"></span>
-  </div>
-  <div class="tg">
-    <span class="tglbl">CAD &amp;<br>Design</span>
-    <div class="tab-btns">
-      <button class="tb" id="btn-scouts" onclick="sw('ss9',0,'boy-scouts')" disabled>BOY SCOUTS</button>
-      <button class="tb" id="btn-737"    onclick="sw('ss9',1,'737-800-cad')">737-800 CAD</button>
-      <button class="tb" id="btn-fsae"   onclick="sw('ss9',2,'formula-sae')">F1 BRAKE PEDAL</button>
-    </div>
-  </div>
-  <div class="ss-wrapper" id="sw9">
-    <button class="sarr spr" onclick="ar('ss9',-1)">&#8249;</button>
-    <div class="ss-clip" id="ss9-clip">
-      <div class="sscont" id="ss9"><div class="ssfr" id="ss9-fr">
+			<section id="sec-cad" class="sb">
+				<div class="sh">
+					<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-cad', 'boy-scouts')" title="Copy link">
+						<span class="pulse-dot" data-sh="sec-cad"></span>
+					</button>
+					<h2>CAD &amp; DESIGN</h2>
+					<span class="sh-r"></span>
+				</div>
+				<div class="tg">
+					<span class="tglbl">
+						CAD &amp;
+						<br />
+						Design
+					</span>
+					<div class="tab-btns">
+						<button class="tb" id="btn-scouts" onclick="sw('ss9', 0, 'boy-scouts')" disabled>BOY SCOUTS</button>
+						<button class="tb" id="btn-737" onclick="sw('ss9', 1, '737-800-cad')">737-800 CAD</button>
+						<button class="tb" id="btn-fsae" onclick="sw('ss9', 2, 'formula-sae')">F1 BRAKE PEDAL</button>
+					</div>
+				</div>
+				<div class="ss-wrapper" id="sw9">
+					<button class="sarr spr" onclick="ar('ss9', -1)">&#8249;</button>
+					<div class="ss-clip" id="ss9-clip">
+						<div class="sscont" id="ss9">
+							<div class="ssfr" id="ss9-fr">
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">BOY SCOUTS</div>
+													<div class="ecm">
+														<span class="ecdate">2017–2022</span>
+														<span class="ecmeta">TROOP 888</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="cbody">
+											<div>
+												<div class="srow">
+													<div class="scell">
+														<div class="slbl">Rank</div>
+														<div class="sval" style="font-size: 15px">EAGLE</div>
+														<div class="ssub">10/11/2021 · 2× Bronze, 1× Silver, 1× Gold Palms</div>
+													</div>
+													<div class="scell">
+														<div class="slbl">Volunteer Hours</div>
+														<div class="sval" data-count="250" data-suffix="+">0+</div>
+													</div>
+													<div class="scell">
+														<div class="slbl">Merit Badges</div>
+														<div class="sval" data-count="43">0</div>
+														<div class="ssub">+ 7 Special Awards</div>
+													</div>
+												</div>
+												<ul class="cbul" style="margin-top: 8px">
+													<li>
+														Eagle Project:
+														<b>Greenhouse Bench @ Fertile Groundworks</b>
+													</li>
+													<li>50 Camping Nights · 50 Hiking Miles</li>
+													<li>
+														Leaderships:
+														<u>Assistant Senior Patrol Leader</u>
+														of 100+ scout troop,
+														<b>Troop Guide, Webmaster</b>
+													</li>
+													<li>Created a knowledge-base for new scouts</li>
+												</ul>
+											</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">BOY SCOUTS</div>
-              <div class="ecm"><span class="ecdate">2017–2022</span><span class="ecmeta">TROOP 888</span></div>
-            </div>
-          </div></div>
-          <div class="cbody">
-            <div>
-              <div class="srow">
-                <div class="scell"><div class="slbl">Rank</div><div class="sval" style="font-size:15px">EAGLE</div><div class="ssub">10/11/2021 · 2× Bronze, 1× Silver, 1× Gold Palms</div></div>
-                <div class="scell"><div class="slbl">Volunteer Hours</div><div class="sval" data-count="250" data-suffix="+">0+</div></div>
-                <div class="scell"><div class="slbl">Merit Badges</div><div class="sval" data-count="43">0</div><div class="ssub">+ 7 Special Awards</div></div>
-              </div>
-              <ul class="cbul" style="margin-top:8px">
-                <li>Eagle Project: <b>Greenhouse Bench @ Fertile Groundworks</b></li>
-                <li>50 Camping Nights · 50 Hiking Miles</li>
-                <li>Leaderships: <u>Assistant Senior Patrol Leader</u> of 100+ scout troop, <b>Troop Guide, Webmaster</b></li>
-                <li>Created a knowledge-base for new scouts</li>
-              </ul>
-            </div>
-            <div>
-              <div class="cw"><div class="cw-inner">
-                <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_afa0bc6eaf664e06b7358d3064ffcd10~mv2.jpg/v1/crop/x_93,y_0,w_1226,h_708/fill/w_500,h_290,al_c,q_80,enc_avif,quality_auto/IMG_20211003_163158826_HDR%20(1).jpg" alt="Eagle Project"
+											<div>
+												<div class="cw">
+													<div class="cw-inner">
+														<img class="cimg on" src="media/scouts/eagle.jpg" alt="Eagle Rank on 10/11/21" />
+														<img class="cimg" src="media/scouts/finished2.jpg" alt="Eagle Project: Greenhouse Bench In Use @ Fertile Groundworks" />
+														<img class="cimg" src="media/scouts/snow_camping.jpg" alt="Snow Camping" />
+														<img class="cimg" src="media/scouts/wolfeboro1.jpg" alt="Wolfeboro Summer Camp" />
+														<!-- <img class="cimg" src="media/scouts/wolfeboro2.jpg" alt="Wolfeboro Summer Camp pt.2"/> -->
+														<img class="cimg" src="media/scouts/wente.jpg" alt="Wente Summer Camp" />
+														<img class="cimg" src="media/scouts/finished1.jpg" alt="Eagle Project: Finished Greenhouse Bench" />
+														<img class="cimg" src="media/scouts/cad.png" alt="Eagle Project: Greenhouse Bench CAD" />
+
+														<!-- <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_afa0bc6eaf664e06b7358d3064ffcd10~mv2.jpg/v1/crop/x_93,y_0,w_1226,h_708/fill/w_500,h_290,al_c,q_80,enc_avif,quality_auto/IMG_20211003_163158826_HDR%20(1).jpg" alt="Eagle Project"
                   data-cap="Greenhouse Bench completed — Eagle Scout project @ Fertile Groundworks"
                   data-link="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/"/>
                 <img class="cimg" src="https://static.wixstatic.com/media/0d689f_f66b5e66cd054a8680960fa4e70fa54c~mv2.jpg/v1/crop/x_0,y_376,w_4032,h_2272/fill/w_500,h_280,al_c,q_80,enc_avif,quality_auto/PXL_20210807_194044906.jpg" alt="Building"
@@ -519,136 +1219,221 @@
                 <img class="cimg" src="https://static.wixstatic.com/media/0d689f_bb37a2e4cd5a48f6b0fae88c30d25722~mv2.jpg/v1/fill/w_500,h_380,al_c,q_80,enc_avif,quality_auto/0d689f_bb37a2e4cd5a48f6b0fae88c30d25722~mv2.jpg" alt="CAD"
                   data-cap="Step-by-step CAD diagram — Eagle project technical drawing"/>
                 <img class="cimg" src="https://static.wixstatic.com/media/0d689f_a94c2f29f7f44a5789536f75eaa972ca~mv2.jpg/v1/fill/w_500,h_300,al_c,q_80,enc_avif,quality_auto/0d689f_a94c2f29f7f44a5789536f75eaa972ca~mv2.jpg" alt="Hiking"
-                  data-cap="50-mile high adventure hike — Troop 888"/>
-              </div></div>
-              <div class="cdots"><span class="cdot on"></span><span class="cdot"></span><span class="cdot"></span><span class="cdot"></span></div>
-              <div class="car-caption"></div>
-            </div>
-          </div>
-          <div class="clinks">
-            <a href="https://www.troop888.us/resources/how-to/" class="clnk" target="_blank">Knowledge Base</a>
-            <a href="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/" class="clnk" target="_blank">Eagle Project Article</a>
-          </div>
-        </div></div>
+                  data-cap="50-mile high adventure hike — Troop 888"/> -->
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+										</div>
+										<div class="clinks">
+											<a href="https://www.troop888.us/resources/how-to/" class="clnk" target="_blank">Knowledge Base</a>
+											<a href="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/" class="clnk" target="_blank">
+												Eagle Project Article
+											</a>
+										</div>
+									</div>
+								</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">BOEING 737-800 CAD</div>
-              <div class="ecm"><span class="ecrole">Modeled in Fusion 360</span></div>
-            </div>
-          </div></div>
-          <div class="cbody full">
-            <div>
-              <div class="cw" style="max-width:640px"><div class="cw-inner" style="height:280px">
-                <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_58ade945e8ee47e691da242cc522814d~mv2.jpg/v1/fill/w_640,h_370,al_c,q_80,enc_avif,quality_auto/0d689f_58ade945e8ee47e691da242cc522814d~mv2.jpg" alt="737"
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">BOEING 737-800 CAD</div>
+													<div class="ecm">
+														<span class="ecrole">Modeled in Fusion 360</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="cbody full">
+											<div>
+												<div class="cw" style="max-width: 640px">
+													<div class="cw-inner" style="height: 280px">
+														<img class="cimg on" src="media/planeCAD/environment1.avif" alt="Plane CAD in Environment" />
+														<img class="cimg" src="media/planeCAD/wireframe.jpg" alt="Wireframe View" />
+														<img class="cimg" src="media/planeCAD/environment2.avif" alt="Environment View" />
+														<img class="cimg" src="media/planeCAD/front.jpg" alt="Front View" />
+														<img class="cimg" src="media/planeCAD/side.jpg" alt="Side View" />
+
+														<!-- <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_58ade945e8ee47e691da242cc522814d~mv2.jpg/v1/fill/w_640,h_370,al_c,q_80,enc_avif,quality_auto/0d689f_58ade945e8ee47e691da242cc522814d~mv2.jpg" alt="737"
                   data-cap="Boeing 737-800 — full fuselage in Fusion 360"/>
                 <img class="cimg" src="https://static.wixstatic.com/media/0d689f_67e97b65a75c43f585f9615eede4a8a3~mv2.jpg/v1/fill/w_640,h_370,al_c,q_80,enc_avif,quality_auto/0d689f_67e97b65a75c43f585f9615eede4a8a3~mv2.jpg" alt="737 2"
-                  data-cap="Boeing 737-800 — wing and engine detail view"/>
-              </div></div>
-              <div class="cdots"><span class="cdot on"></span><span class="cdot"></span></div>
-              <div class="car-caption"></div>
-              <p style="font-size:12px;color:var(--tmut);margin-top:10px">also see: <button onclick="sw('ss8',0,'team-5776k',true)" style="background:none;border:none;color:var(--accent);font-size:12px;font-family:inherit;text-decoration:underline;padding:0">Robotics CAD</button></p>
-            </div>
-          </div>
-        </div></div>
+                  data-cap="Boeing 737-800 — wing and engine detail view"/> -->
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+												<p style="font-size: 12px; color: var(--tmut); margin-top: 10px">
+													also see:
+													<button
+														onclick="sw('ss8', 0, 'team-5776k', true)"
+														style="
+															background: none;
+															border: none;
+															color: var(--accent);
+															font-size: 12px;
+															font-family: inherit;
+															text-decoration: underline;
+															padding: 0;
+														">
+														Robotics CAD
+													</button>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
 
-        <div class="ssslide"><div class="ec">
-          <div class="ech"><div class="echr">
-            <div>
-              <div class="ect">FORMULA 1 BRAKE PEDAL</div>
-              <div class="ecm"><span class="ecdate">FALL 2025</span></div>
-            </div>
-          </div></div>
-          <div class="cbody full">
-            <div>
-              <div class="cslbl" style="margin-bottom:8px">Design Constraints</div>
-              <ul class="cbul">
-                <li>Must withstand <b>2000 N</b> of driver input force without failure</li>
-                <li>Must interface between mounting system and master cylinder; deliverables: specifications and calculations, CAD optional
-                  <ul><li>Pedal length, cylinder length, and distance between cylinder and pedal base</li></ul>
-                </li>
-              </ul>
-              <div class="csub">
-                <ul class="cbul">
-                  <li>Completed research and design within a single evening — learned F1 brake system inner workings: average force and distribution; materials; safety factor</li>
-                  <li>Self-learned mechanical stress to calculate cylinder placement. <b>Carbon fiber</b> selected for exceptional strength-to-weight ratio; bending moment and stress used to determine d</li>
-                  <li>Developed a rudimentary <b>CAD model</b> in Fusion 360 with linkages to visualize angles at various positions</li>
-                </ul>
-              </div>
-              <div class="cph" style="margin-top:14px;height:180px">Add F1 brake pedal CAD images</div>
-            </div>
-          </div>
-        </div></div>
+								<div class="ssslide">
+									<div class="ec">
+										<div class="ech">
+											<div class="echr">
+												<div>
+													<div class="ect">FORMULA 1 BRAKE PEDAL</div>
+													<div class="ecm">
+														<span class="ecdate">FALL 2025</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="cbody full">
+											<div>
+												<div class="cslbl" style="margin-bottom: 8px">Design Constraints</div>
+												<ul class="cbul">
+													<li>
+														Must withstand
+														<b>2000 N</b>
+														of driver input force without failure
+													</li>
+													<li>
+														Must interface between mounting system and master cylinder; deliverables: specifications and calculations, CAD optional
+														<ul>
+															<li>Pedal length, cylinder length, and distance between cylinder and pedal base</li>
+														</ul>
+													</li>
+												</ul>
+												<div class="csub">
+													<ul class="cbul">
+														<li>
+															Completed research and design within a single evening — learned F1 brake system inner workings: average force and
+															distribution; materials; safety factor
+														</li>
+														<li>
+															Self-learned mechanical stress to calculate cylinder placement.
+															<b>Carbon fiber</b>
+															selected for exceptional strength-to-weight ratio; bending moment and stress used to determine d
+														</li>
+														<li>
+															Developed a rudimentary
+															<b>CAD model</b>
+															in Fusion 360 with linkages to visualize angles at various positions
+														</li>
+													</ul>
+												</div>
+												<!-- <div class="cph" style="margin-top:14px;height:180px">Add F1 brake pedal CAD images</div> -->
+												<div class="cbody full">
+													<div>
+														<div class="cw" style="max-width: 325px">
+															<div class="cw-inner" style="height: 450px">
+																<img class="cimg on" src="media/infographic/f1_brake.jpg" alt="F1 Brake Pedal" />
+															</div>
+														</div>
+														<!-- <div class="cdots"><span class="cdot on"></span><span class="cdot"></span><span class="cdot"></span><span class="cdot"></span><span class="cdot"></span></div> -->
+														<div class="car-caption"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="sarr snx" onclick="ar('ss9', 1)">&#8250;</button>
+				</div>
+			</section>
 
-      </div></div>
-    </div><button class="sarr snx" onclick="ar('ss9',1)">&#8250;</button>
-  </div></section>
+			<footer>
+				<div class="ficons">
+					<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+					<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+					<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
+				</div>
+				<nav class="fnav">
+					<a href="index.html">HOME</a>
+					<a href="portfolio.html" class="fp">PORTFOLIO</a>
+					<a href="resume.html">RESUME</a>
+					<a href="blog.html">BLOG</a>
+				</nav>
+			</footer>
+		</div>
+		<script>
+			// Dynamically load nav.html and inject its header, styles, and scripts
+			fetch("nav.html")
+				.then((response) => response.text())
+				.then((data) => {
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(data, "text/html");
 
-<footer>
-  <div class="ficons">
-    <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-    <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-    <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-  </div>
-  <nav class="fnav">
-    <a href="index.html">HOME</a>
-    <a href="portfolio.html" class="fp">PORTFOLIO</a>
-    <a href="resume.html">RESUME</a>
-    <a href="blog.html">BLOG</a>
-  </nav>
-</footer>
-</div><script>
-  // Dynamically load nav.html and inject its header, styles, and scripts
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
+					// 1. Inject the header
+					const header = doc.querySelector("header");
+					if (header) {
+						// Enforce PORTFOLIO active state
+						header.querySelectorAll(".ni").forEach((link) => {
+							if (link.textContent.trim().includes("PORTFOLIO")) {
+								link.classList.add("active");
+							} else {
+								link.classList.remove("active");
+							}
+						});
+						document.getElementById("nav-placeholder").replaceWith(header);
+					}
 
-      // 1. Inject the header
-      const header = doc.querySelector('header');
-      if (header) {
-        // Enforce PORTFOLIO active state
-        header.querySelectorAll('.ni').forEach(link => {
-          if (link.textContent.trim().includes('PORTFOLIO')) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-        document.getElementById('nav-placeholder').replaceWith(header);
-      }
+					// 2. Inject stylesheets from nav.html
+					doc.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+						if (!document.querySelector(`link[href="${link.getAttribute("href")}"]`)) {
+							document.head.appendChild(link.cloneNode(true));
+						}
+					});
 
-      // 2. Inject stylesheets from nav.html
-      doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
-        if (!document.querySelector(`link[href="${link.getAttribute('href')}"]`)) {
-          document.head.appendChild(link.cloneNode(true));
-        }
-      });
-
-      // 3. Inject scripts from nav.html (which will load script.js)
-      doc.querySelectorAll('script').forEach(script => {
-        if (script.src && !document.querySelector(`script[src="${script.getAttribute('src')}"]`)) {
-          const newScript = document.createElement('script');
-          newScript.src = script.src;
-          // CRUCIAL: Once script.js loads, artificially trigger DOMContentLoaded so all your carousels/slideshows initialize!
-          newScript.onload = () => {
-            window.document.dispatchEvent(new Event("DOMContentLoaded", {
-              bubbles: true,
-              cancelable: true
-            }));
-          };
-          document.body.appendChild(newScript);
-        } else if (!script.src) {
-          const newScript = document.createElement('script');
-          newScript.textContent = script.textContent;
-          document.body.appendChild(newScript);
-        }
-      });
-    })
-    .catch(error => console.error('Error loading navigation:', error));
-</script>
-
-</body>
+					// 3. Inject scripts from nav.html (which will load script.js)
+					doc.querySelectorAll("script").forEach((script) => {
+						if (script.src && !document.querySelector(`script[src="${script.getAttribute("src")}"]`)) {
+							const newScript = document.createElement("script");
+							newScript.src = script.src;
+							// CRUCIAL: Once script.js loads, artificially trigger DOMContentLoaded so all your carousels/slideshows initialize!
+							newScript.onload = () => {
+								window.document.dispatchEvent(
+									new Event("DOMContentLoaded", {
+										bubbles: true,
+										cancelable: true,
+									}),
+								);
+							};
+							document.body.appendChild(newScript);
+						} else if (!script.src) {
+							const newScript = document.createElement("script");
+							newScript.textContent = script.textContent;
+							document.body.appendChild(newScript);
+						}
+					});
+				})
+				.catch((error) => console.error("Error loading navigation:", error));
+		</script>
+	</body>
 </html>

@@ -1,77 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!-- <title>Adarsh Sheth</title> -->
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<link rel="stylesheet" href="style.css">
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <title>Adarsh Sheth</title> -->
+		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
 
+	<body>
+		<!-- HEADER -->
+		<header id="hdr">
+			<div class="navbox">
+				<nav class="navbar">
+					<a href="/">
+						<img
+							src="https://static.wixstatic.com/media/0d689f_465832ee2a0e4705931fce3455d0429b~mv2.png/v1/fill/w_124,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AS_tr_edited_edited.png"
+							alt="AS"
+							class="logo-icon" />
+					</a>
+					<a href="/" style="text-decoration: none">
+						<div class="logo">
+							ADARSH
+							<br />
+							SHETH
+						</div>
+					</a>
+					<div class="nav-center">
+						<a href="/" class="ni">HOME</a>
+						<div class="ndrop">
+							<a href="portfolio.html" class="ni active">
+								PORTFOLIO
+								<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
+							</a>
+							<div class="nav-dd" id="nav-dd">
+								<span class="dd-hdr">ENGINEERING</span>
+								<a
+									class="dd-lnk"
+									href="portfolio.html?section=vfd"
+									onclick="
+										ddNav('vfd');
+										return false;
+									">
+									DESIGN TEAMS
+								</a>
+								<a
+									class="dd-lnk"
+									href="portfolio.html?section=ignite25"
+									onclick="
+										ddNav('ignite25');
+										return false;
+									">
+									EVENTS &amp; CHALLENGES
+								</a>
+								<a
+									class="dd-lnk"
+									href="portfolio.html?section=everyday-engineering"
+									onclick="
+										ddNav('everyday-engineering');
+										return false;
+									">
+									PERSONAL PROJECTS
+								</a>
+								<span class="dd-hdr">ARTWORK</span>
+								<a class="dd-lnk" href="artwork.html">ARTWORK</a>
+							</div>
+						</div>
+						<div class="ndrop">
+							<a href="resume.html" class="ni active">
+								RESUME
+								<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
+							</a>
+							<div class="nav-dd" id="nav-dd">
+								<a class="dd-lnk" href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LINKEDIN</a>
+							</div>
+						</div>
+						<a href="blog.html" class="ni">BLOG</a>
+					</div>
+					<a href="/#contact" class="ncontact">
+						CONTACT ME
+						<i class="fas fa-users" style="font-size: 11px"></i>
+					</a>
+				</nav>
+			</div>
+		</header>
 
-<body>
+		<main id="mn">
+			<div style="padding: 28px; max-width: 920px; margin: 120px auto 2000px auto; color: var(--text)">
+				<h1 style="color: var(--title)">Top Navbar — Preview</h1>
+				<p style="color: var(--tdim)">Scroll down to see header hide behavior; hover the header to keep it visible.</p>
+				<p>Placeholder content...</p>
+			</div>
+		</main>
 
+		<footer>
+			<div class="ficons">
+				<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+				<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+				<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
+			</div>
+			<nav class="fnav">
+				<a href="index.html">HOME</a>
+				<a href="portfolio.html">PORTFOLIO</a>
+				<a href="resume.html" class="fp">RESUME</a>
+				<a href="blog.html">BLOG</a>
+			</nav>
+		</footer>
 
-<!-- HEADER -->
-<header id="hdr">
-  <div class="navbox">
-    <nav class="navbar">
-      <a href="/"><img src="https://static.wixstatic.com/media/0d689f_465832ee2a0e4705931fce3455d0429b~mv2.png/v1/fill/w_124,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AS_tr_edited_edited.png" alt="AS" class="logo-icon"/></a>
-      <a href="/" style="text-decoration:none"><div class="logo">ADARSH<br>SHETH</div></a>
-      <div class="nav-center">
-        <a href="/" class="ni">HOME</a>
-        <div class="ndrop">
-          <a href="portfolio.html" class="ni active">PORTFOLIO <i class="fas fa-caret-down" style="font-size:9px;margin-left:2px"></i></a>
-          <div class="nav-dd" id="nav-dd">
-            <span class="dd-hdr">ENGINEERING</span>
-            <a class="dd-lnk" href="portfolio.html?section=vfd" onclick="ddNav('vfd');return false">DESIGN TEAMS</a>
-            <a class="dd-lnk" href="portfolio.html?section=ignite25" onclick="ddNav('ignite25');return false">EVENTS &amp; CHALLENGES</a>
-            <a class="dd-lnk" href="portfolio.html?section=everyday-engineering" onclick="ddNav('everyday-engineering');return false">PERSONAL PROJECTS</a>
-            <span class="dd-hdr">ARTWORK</span>
-            <a class="dd-lnk" href="artwork.html">ARTWORK</a>
-          </div>
-        </div>
-        <div class="ndrop">
-            <a href="resume.html" class="ni active">RESUME<i class="fas fa-caret-down" style="font-size:9px;margin-left:2px"></i></a>
-            <div class="nav-dd" id="nav-dd">
-                <a class="dd-lnk" href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LINKEDIN</a>
-            </div>
-        </div>
-        <a href="blog.html" class="ni">BLOG</a>
-      </div>
-      <a href="/#contact" class="ncontact">CONTACT ME <i class="fas fa-users" style="font-size:11px"></i></a>
-    </nav>
-  </div>
-</header>
-
-
-<main id="mn">
-  <div style="padding:28px;max-width:920px;margin:120px auto 2000px auto;color:var(--text)">
-    <h1 style="color:var(--title)">Top Navbar — Preview</h1>
-    <p style="color:var(--tdim)">Scroll down to see header hide behavior; hover the header to keep it visible.</p>
-    <p>Placeholder content...</p>
-  </div>
-</main>
-
-
-<footer>
-<div class="ficons">
-    <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-    <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-    <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-</div>
-<nav class="fnav">
-    <a href="index.html">HOME</a>
-    <a href="portfolio.html">PORTFOLIO</a>
-    <a href="resume.html" class="fp">RESUME</a>
-    <a href="blog.html">BLOG</a>
-</nav>
-</footer>
-
-
-<script src="script.js"></script>
-
-
-</body>
+		<script src="script.js"></script>
+	</body>
 </html>

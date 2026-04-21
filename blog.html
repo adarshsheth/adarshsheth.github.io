@@ -1,152 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RESUME | Adarsh Sheth</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<link rel="stylesheet" href="style.css"/>
-<style>
-/* ── RESUME SPECIFIC STYLES ── */
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>RESUME | Adarsh Sheth</title>
+		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<link rel="stylesheet" href="style.css" />
+		<style>
+			/* ── RESUME SPECIFIC STYLES ── */
 
-@media(max-width: 900px) {
-  #pdf-section {
-    padding: 20px 22px 40px;
-  }
-}
+			@media (max-width: 900px) {
+				#pdf-section {
+					padding: 20px 22px 40px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nav-placeholder"></div>
 
-</style>
-</head>
-<body>
+		<aside id="sb">
+			<div id="sb-hdr">Navigation</div>
+			<div id="sb-prog"><div id="sb-fill"></div></div>
+			<nav id="sb-nav">
+				<a class="sbn active" href="#top" data-k="top">
+					<span class="sbdot"></span>
+					<span class="sblbl">Resume PDF</span>
+				</a>
+			</nav>
+		</aside>
 
-<div id="nav-placeholder"></div>
+		<div id="mn">
+			<div id="top"></div>
 
-<aside id="sb">
-  <div id="sb-hdr">Navigation</div>
-  <div id="sb-prog"><div id="sb-fill"></div></div>
-  <nav id="sb-nav">
-    <a class="sbn active" href="#top" data-k="top">
-      <span class="sbdot"></span><span class="sblbl">Resume PDF</span>
-    </a>
-  </nav>
-</aside>
+			<section id="hero"><h1>BLOG</h1></section>
 
-<div id="mn">
-  <div id="top"></div>
+			<div id="ibar">
+				<p>placeholder</p>
+			</div>
 
-  <section id="hero"><h1>BLOG</h1></section>
-  
+			<footer>
+				<div class="ficons">
+					<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+					<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+					<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
+				</div>
+				<nav class="fnav">
+					<a href="index.html">HOME</a>
+					<a href="portfolio.html">PORTFOLIO</a>
+					<a href="resume.html" class="fp">RESUME</a>
+					<a href="blog.html">BLOG</a>
+				</nav>
+			</footer>
+		</div>
+		<script>
+			// 1. Dynamically load the header from nav.html
+			fetch("nav.html")
+				.then((response) => response.text())
+				.then((data) => {
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(data, "text/html");
+					const header = doc.querySelector("header");
 
-  <div id="ibar">
-    <p>placeholder</p>
-  </div>
+					if (header) {
+						// Update active state to RESUME
+						header.querySelectorAll(".ni").forEach((link) => {
+							if (link.textContent.trim().includes("RESUME")) {
+								link.classList.add("active");
+							} else {
+								link.classList.remove("active");
+							}
+						});
 
-  <footer>
-    <div class="ficons">
-      <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-      <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-    </div>
-    <nav class="fnav">
-      <a href="index.html">HOME</a>
-      <a href="portfolio.html">PORTFOLIO</a>
-      <a href="resume.html" class="fp">RESUME</a>
-      <a href="blog.html">BLOG</a>
-    </nav>
-  </footer>
-</div><script>
-  // 1. Dynamically load the header from nav.html
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
-      const header = doc.querySelector('header');
-      
-      if (header) {
-        // Update active state to RESUME
-        header.querySelectorAll('.ni').forEach(link => {
-          if (link.textContent.trim().includes('RESUME')) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-        
-        // Inject into DOM
-        document.getElementById('nav-placeholder').replaceWith(header);
+						// Inject into DOM
+						document.getElementById("nav-placeholder").replaceWith(header);
 
-        // 2. Safely initialize Header Scroll & Dropdown behaviors 
-        const hdr = document.getElementById('hdr');
-        const dd  = document.getElementById('nav-dd');
-        let hovering = false, hid = false, ly = window.scrollY, delta = 0;
+						// 2. Safely initialize Header Scroll & Dropdown behaviors
+						const hdr = document.getElementById("hdr");
+						const dd = document.getElementById("nav-dd");
+						let hovering = false,
+							hid = false,
+							ly = window.scrollY,
+							delta = 0;
 
-        function showNav() {
-          if (hid && hdr) {
-            hdr.style.transition = 'transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)';
-            hdr.style.transform  = 'translateY(0)';
-            hid = false; delta = 0;
-          }
-        }
-        function hideNav() {
-          if (!hid && hdr) {
-            hdr.style.transition = 'transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)';
-            hdr.style.transform  = 'translateY(-120%)';
-            hid = true; delta = 0;
-          }
-        }
+						function showNav() {
+							if (hid && hdr) {
+								hdr.style.transition = "transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)";
+								hdr.style.transform = "translateY(0)";
+								hid = false;
+								delta = 0;
+							}
+						}
+						function hideNav() {
+							if (!hid && hdr) {
+								hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
+								hdr.style.transform = "translateY(-120%)";
+								hid = true;
+								delta = 0;
+							}
+						}
 
-        [hdr, dd].forEach(el => {
-          if (!el) return;
-          el.addEventListener('mouseenter', () => { hovering = true; showNav(); });
-          el.addEventListener('mouseleave', () => { hovering = false; ly = window.scrollY; });
-        });
+						[hdr, dd].forEach((el) => {
+							if (!el) return;
+							el.addEventListener("mouseenter", () => {
+								hovering = true;
+								showNav();
+							});
+							el.addEventListener("mouseleave", () => {
+								hovering = false;
+								ly = window.scrollY;
+							});
+						});
 
-        window.addEventListener('scroll', () => {
-          if (hovering) { ly = window.scrollY; delta = 0; return; }
-          const y = window.scrollY;
-          if (y <= 0) { showNav(); ly = y; return; }
-          if (y < window.innerHeight * 0.15) { showNav(); ly = y; return; } // Initial show zone
-          
-          const d = y - ly;
-          if (d > 0) { // Scrolling down
-            delta = delta > 0 ? delta + d : d;
-            if (!hid && delta >= 80) hideNav();
-          } else if (d < 0) { // Scrolling up
-            delta = delta < 0 ? delta + d : d;
-            if (hid && -delta >= 20) showNav();
-          }
-          ly = y;
-        }, { passive: true });
+						window.addEventListener(
+							"scroll",
+							() => {
+								if (hovering) {
+									ly = window.scrollY;
+									delta = 0;
+									return;
+								}
+								const y = window.scrollY;
+								if (y <= 0) {
+									showNav();
+									ly = y;
+									return;
+								}
+								if (y < window.innerHeight * 0.15) {
+									showNav();
+									ly = y;
+									return;
+								} // Initial show zone
 
-        // Dropdown hover bridges
-        document.querySelectorAll('.ndrop').forEach(drop => {
-          const navDd = drop.querySelector('.nav-dd');
-          let t;
-          drop.addEventListener('mouseenter', () => { clearTimeout(t); if(navDd) navDd.style.display = 'block'; });
-          drop.addEventListener('mouseleave', () => { t = setTimeout(() => { if(navDd) navDd.style.display = 'none'; }, 160); });
-          if (navDd) {
-            navDd.addEventListener('mouseenter', () => clearTimeout(t));
-            navDd.addEventListener('mouseleave', () => { t = setTimeout(() => { navDd.style.display = 'none'; }, 160); });
-          }
-        });
-      }
-    })
-    .catch(error => console.error('Error loading navigation:', error));
+								const d = y - ly;
+								if (d > 0) {
+									// Scrolling down
+									delta = delta > 0 ? delta + d : d;
+									if (!hid && delta >= 80) hideNav();
+								} else if (d < 0) {
+									// Scrolling up
+									delta = delta < 0 ? delta + d : d;
+									if (hid && -delta >= 20) showNav();
+								}
+								ly = y;
+							},
+							{passive: true},
+						);
 
-  // 3. Local Resume Page Scripts (Sidebar progress & smooth scroll)
-  window.addEventListener('scroll', function() {
-    const fill = document.getElementById('sb-fill');
-    const tot = document.documentElement.scrollHeight - window.innerHeight;
-    if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + '%';
-  }, { passive: true });
+						// Dropdown hover bridges
+						document.querySelectorAll(".ndrop").forEach((drop) => {
+							const navDd = drop.querySelector(".nav-dd");
+							let t;
+							drop.addEventListener("mouseenter", () => {
+								clearTimeout(t);
+								if (navDd) navDd.style.display = "block";
+							});
+							drop.addEventListener("mouseleave", () => {
+								t = setTimeout(() => {
+									if (navDd) navDd.style.display = "none";
+								}, 160);
+							});
+							if (navDd) {
+								navDd.addEventListener("mouseenter", () => clearTimeout(t));
+								navDd.addEventListener("mouseleave", () => {
+									t = setTimeout(() => {
+										navDd.style.display = "none";
+									}, 160);
+								});
+							}
+						});
+					}
+				})
+				.catch((error) => console.error("Error loading navigation:", error));
 
-  function scrollToSec(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-</script>
+			// 3. Local Resume Page Scripts (Sidebar progress & smooth scroll)
+			window.addEventListener(
+				"scroll",
+				function () {
+					const fill = document.getElementById("sb-fill");
+					const tot = document.documentElement.scrollHeight - window.innerHeight;
+					if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
+				},
+				{passive: true},
+			);
 
-</body>
+			function scrollToSec(id) {
+				const el = document.getElementById(id);
+				if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
+			}
+		</script>
+	</body>
 </html>
