@@ -424,9 +424,11 @@ section {
 .tlbox:hover {
 	border-color: rgba(100, 118, 97, 0.6);
 	box-shadow:
-		0 0 0 1px rgba(100, 118, 97, 0.18),
+		/* 0 0 0 1px rgba(100, 118, 97, 0.18),
 		0 0 18px 4px rgba(100, 118, 97, 0.22),
-		0 0 36px 8px rgba(100, 118, 97, 0.1);
+		0 0 36px 8px rgba(100, 118, 97, 0.1); */
+        0 0 7px 4px rgba(100, 118, 97, 0.10),
+		0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform: scale(1.005);
 }
 .tlbox h3 {
@@ -449,13 +451,20 @@ section {
 	width: 100%;
 	height: 250px;
 	border: none;
-	transform: translateY(-4px);
+	/* transform: translateY(-4px); */
 }
+
+/* 👉 Make the PDF Lightbox large and readable */
+/* #lbframe {
+	width: 90vw !important;
+	max-width: 900px !important;
+	height: 85vh !important;
+} */
 /* scroll cue as clickable button */
 .scrollcue-btn {
 	display: flex;
 	justify-content: center;
-	padding: 10px 0 0;
+	padding: 40px 0 0;
 	background: none;
 	border: none;
 	width: 100%;
@@ -735,9 +744,10 @@ section {
 .ec.visible:hover {
 	border-color: rgba(100, 118, 97, 0.6);
 	box-shadow:
-		0 0 0 0px rgba(100, 118, 97, 0.2),
-		/* 0 0 14px 3px rgba(100,118,97,.22), */ /* 0 0 30px 6px rgba(100,118,97,.12); */ 0 0 7px 4px rgba(100, 118, 97, 0.12),
-		0 0 10px 8px rgba(100, 118, 97, 0.08);
+		/* 0 0 0 0px rgba(100, 118, 97, 0.2), */
+		/* 0 0 14px 3px rgba(100,118,97,.22), */ /* 0 0 30px 6px rgba(100,118,97,.12); */ 
+    0 0 7px 4px rgba(100, 118, 97, 0.10),
+		0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform-origin: top left;
 	transform: translateY(0) scale(1.01);
 }
@@ -924,6 +934,7 @@ section {
 	border-radius: 8px;
 	overflow: hidden;
 	margin: 10px 0;
+  /* padding-top: 10px; */
 }
 .scell {
 	background: var(--surface2);
@@ -1010,12 +1021,15 @@ section {
 	max-height: 50vh;
 	cursor: pointer;
 	transition:
-		transform 0.22s ease,
+		transform 0.922s ease,
 		box-shadow 0.22s ease;
+  margin-top:10px;
+  margin-bottom:2px;
 }
 .cw:hover {
-	transform: scale(1.012);
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+	transform: scale(1.007);
+  /* border: rgba(255, 255, 255, 0.2) 0.5px solid; */
+	box-shadow: 0px 0px 12px rgba(98, 127, 100, 0.3);
 }
 .cw-inner {
 	position: relative;
@@ -1049,6 +1063,7 @@ section {
 	justify-content: center;
 	gap: 5px;
 	padding: 6px 0 2px;
+  /* margin: 0px; */
 }
 .cdot {
 	width: 5px;
@@ -1057,8 +1072,12 @@ section {
 	background: var(--tmut);
 	transition: all 0.18s;
 }
+.cdot:hover {
+  background: var(--accent);
+  transform: scale(1.2);
+}
 .cdot.on {
-	background: var(--g);
+	background: var(--accent);
 	transform: scale(1.5);
 }
 .car-caption {
@@ -1068,7 +1087,7 @@ section {
 	min-height: 16px;
 	line-height: 1.4;
 	font-style: italic;
-	padding-bottom: 25px;
+	padding-bottom: 7px;
 	text-align: center;
 }
 .car-caption a {
@@ -1249,6 +1268,18 @@ footer {
 .fi:hover {
 	border-color: var(--accent);
 	color: var(--accent);
+}
+
+/* ══ MOBILE COMPACT NAVIGATION ── */
+@media (max-width: 768px) {
+	.logo, 
+	.logo-icon, 
+	.ncontact {
+		display: none !important;
+	}
+  .navbox {
+		width: fit-content;
+	}
 }
 
 /* ══ RESPONSIVE ── */

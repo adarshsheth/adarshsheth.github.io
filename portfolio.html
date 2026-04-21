@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.1" />
 		<title>PORTFOLIO | Adarsh Sheth</title>
 		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -16,9 +16,20 @@
 		<div id="lb">
 			<div class="lbb" onclick="closeLb()"></div>
 			<div class="lbbox">
-				<button class="lbclose" onclick="closeLb()">×</button>
+				
+        
+        <!-- <button class="lbclose" onclick="closeLb()">×</button>
 				<img id="lbimg" class="lbi" src="" alt="" />
-				<div class="lb-bottom">
+        <video id="lbvid" class="lbi" src="" controls autoplay loop style="display: none;"></video>
+				<div class="lb-bottom"> -->
+
+        <button class="lbclose" onclick="closeLb()">×</button>
+        <img id="lbimg" class="lbi" src="" alt="" />
+        <video id="lbvid" class="lbi" src="" controls autoplay loop style="display: none;"></video>
+        <iframe id="lbframe" class="lbi" src="" style="display: none; border: none; background: white;"></iframe>
+        <div class="lb-bottom">
+
+
 					<button class="lb-nav lb-p" onclick="lbNav(-1)">&#8249;</button>
 					<div id="lbcap" class="lbcap"></div>
 					<button class="lb-nav lb-n" onclick="lbNav(1)">&#8250;</button>
@@ -153,7 +164,7 @@
 										<div class="ech">
 											<div class="echr">
 												<div>
-													<div class="ect">VERTICAL FLIGHT DESIGN</div>
+													<div class="ect">VERTICAL FLIGHT SOCIETY // VERTICAL FLIGHT DESIGN TEAM</div>
 													<div class="ecm">
 														<span class="ecrole">Aerodynamics Engineer</span>
 														<span class="ecdate">09/2025 – PRESENT</span>
@@ -172,22 +183,23 @@
 											<span class="badge">GITHUB</span>
 											<span class="badge">RESEARCH</span>
 										</div>
-										<div class="cbody">
+										<div class="cbody full">
 											<ul class="cbul">
 												<li>
-													Researched multicopter and winged (e.g. quad biplane) VTOL configurations under primary objective of hover stability (dynamic
-													response, quantified by rise time) and secondary objective of translational speed
+													Researched multicopter and winged (e.g. quad biplane) VTOL configurations under primary objective of hover
+													stability (dynamic response, quantified by rise time) and secondary objective of translational speed
 												</li>
 												<li>
 													Programmed
 													<b>Monte Carlo simulation</b>
-													to generate 1,000 flight mission path combinations, optimized for points and risk under energy and time constraints
+													to generate 1,000 flight mission path combinations, optimized for points and risk under energy and time
+													constraints
 												</li>
 												<li>
 													Created a
 													<b>quadcopter energy model</b>
-													as a function of total mass (variable motor, rotor, and battery specs under constant fly time and T/W ratio) for translational
-													and hover states
+													as a function of total mass (variable motor, rotor, and battery specs under constant fly time and T/W ratio)
+													for translational and hover states
 												</li>
 												<li>
 													Competition:
@@ -195,60 +207,79 @@
 													, hosted by Vertical Flight Society (VFS) in April 2026
 												</li>
 											</ul>
-
-											<div>
-												<div class="cw">
-													<div class="cw-inner">
-														<img class="cimg on" src="media/vfs/group1.png" alt="VFD Group Photo @ Lab" />
-														<img class="cimg" src="media/vfs/group2.jpg" alt="VFD Group Photo @ Flight Testing" />
-														<img class="cimg" src="media/vfs/assembly1.jpg" alt="Rev3 Propeller Assembly" />
-														<img class="cimg" src="media/vfs/rev3_1.jpg" alt="Rev3" />
-														<img class="cimg" src="media/vfs/rev3_2.jpg" alt="Rev3" />
-														<img class="cimg" src="media/vfs/rev3_3.jpg" alt="Rev3" />
-														<img class="cimg" src="media/vfs/rev3_4.jpg" alt="Rev3" />
-														<img class="cimg" src="media/vfs/minirev1.jpg" alt="Mini Rev" />
+											<div
+												style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 10px">
+												<div>
+													<div class="cw">
+														<div class="cw-inner">
+															<img class="cimg on" src="media/vfs/group1.png" alt="VFD Group Photo @ Lab" />
+															<img class="cimg" src="media/vfs/group2.jpg" alt="VFD Group Photo @ Flight Testing" />
+															<!-- <img class="cimg" src="media/vfs/assembly1.jpg" alt="Rev3 Propeller Assembly" /> -->
+															<img class="cimg" src="media/vfs/rev3_1.jpg" alt="Rev3 in the Sunset" />
+															<img class="cimg" src="media/vfs/rev3_2.jpg" alt="Rev3 with Trees" />
+															<img class="cimg" src="media/vfs/rev3_3.jpg" alt="Rev3 in the Sky" />
+															<img class="cimg" src="media/vfs/rev3_4.jpg" alt="Rev3 and the Ground :D" />
+															<img class="cimg" src="media/vfs/minirev1.jpg" alt="Mini Rev" />
+														</div>
 													</div>
-												</div>
-												<div class="cdots">
-													<span class="cdot on"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-												</div>
-												<div class="car-caption"></div>
-
-												<div class="cw">
-													<div class="cw-inner">
-														<video class="cimg" src="media/vfs/timelapse.mov" data-cap="Rev3 1st Ground Test Timelapse" autoplay muted loop></video>
-														<video class="cimg" src="media/vfs/flyby.mp4" data-cap="Rev3 Flyby" autoplay muted loop></video>
-														<video
-															class="cimg"
-															src="media/vfs/payload_drop.mp4"
-															data-cap="Rev3 25-26 Challenge Payload Drop"
-															autoplay
-															muted
-															loop></video>
-														<video class="cimg" src="media/vfs/april_tag.mp4" data-cap="Rev3 Autonomy" autoplay muted loop></video>
+													<div class="cdots">
+														<span class="cdot on"></span>
+														<!-- <span class="cdot"></span> -->
+														<span class="cdot"></span>
+														<span class="cdot"></span>
+														<span class="cdot"></span>
+														<span class="cdot"></span>
+														<span class="cdot"></span>
+														<span class="cdot"></span>
 													</div>
+													<div class="car-caption"></div>
 												</div>
-												<div class="cdots">
-													<span class="cdot on"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
-													<span class="cdot"></span>
+
+												<div>
+													<div class="cw">
+														<div class="cw-inner">
+															<video
+																class="cimg"
+																src="media/vfs/timelapse.mov"
+																data-cap="Rev3 1st Ground Test Timelapse"
+																autoplay
+																muted
+																loop></video>
+															<video class="cimg" src="media/vfs/flyby.mp4" data-cap="Rev3 Flyby" autoplay muted loop></video>
+															<video
+																class="cimg"
+																src="media/vfs/payload_drop.mp4"
+																data-cap="Rev3 25-26 Challenge Payload Drop"
+																autoplay
+																muted
+																loop></video>
+															<video
+																class="cimg"
+																src="media/vfs/april_tag.mp4"
+																data-cap="Rev3 Autonomy"
+																autoplay
+																muted
+																loop></video>
+														</div>
+													</div>
+													<div class="cdots">
+														<span class="cdot on"></span>
+														<span class="cdot"></span>
+														<span class="cdot"></span>
+														<span class="cdot"></span>
+													</div>
+													<div class="car-caption"></div>
 												</div>
-												<div class="car-caption"></div>
 											</div>
 										</div>
 										<div class="clinks">
-											<a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight" class="clnk" target="_blank">
-												Competition Page
+											<a href="https://www.tamuvfs.org/" class="clnk" target="_blank">TAMU VFS Site</a>
+											<a
+												href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight"
+												class="clnk"
+												target="_blank">
+												DBVF Competition Page
 											</a>
-											<a href="https://www.tamuvfd.org/" class="clnk" target="_blank">TAMU VFD Site</a>
 										</div>
 									</div>
 								</div>
@@ -264,6 +295,10 @@
 														<span class="ecdate">02/2026 – PRESENT</span>
 														<span class="ecmeta">TEXAS A&amp;M, Design Team</span>
 													</div>
+												</div>
+												<div class="eclogos darkimgs" style="background: black !important; border: white 1.5px solid">
+													<!-- <img src="media/logo/red.png" alt="RED" /> -->
+													<img src="media/logo/red_name.jpg" alt="RED" />
 												</div>
 											</div>
 										</div>
@@ -291,8 +326,8 @@
 												<li>
 													Developed feedline
 													<b>assembly diagram</b>
-													(ethanol, nitrogen, and nitrous lines) mapping fitting interfaces (NPT, JIC, SL, CGA) and control elements for P&amp;ID
-													traceability
+													(ethanol, nitrogen, and nitrous lines) mapping fitting interfaces (NPT, JIC, SL, CGA) and control elements
+													for P&amp;ID traceability
 												</li>
 												<li>
 													Researched a
@@ -313,8 +348,8 @@
 												<li>
 													Implemented a new
 													<b>Bill of Materials spreadsheet</b>
-													with input validation, dynamic categorization, part override tracking, automated inventory, centralized dashboard, and real-time
-													cost authentication
+													with input validation, dynamic categorization, part override tracking, automated inventory, centralized
+													dashboard, and real-time cost authentication
 												</li>
 											</ul>
 
@@ -350,8 +385,13 @@
 													<div class="ecm">
 														<span class="ecrole">Team Lead</span>
 														<span class="ecdate">FALL 2024</span>
-														<span class="ecmeta">TEXAS A&amp;M, TAMU SEDS</span>
+														<span class="ecmeta">
+															TEXAS A&amp;M, TAMU SEDS (Students For The Exploration and Development of Space)
+														</span>
 													</div>
+												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/seds.png" alt="SEDS" />
 												</div>
 											</div>
 										</div>
@@ -374,29 +414,31 @@
 													<li>
 														Designed and
 														<b>programmed</b>
-														a crash site search algorithm in a high-fidelity lunar simulation (SpaceTeamsPro), under limited lighting, loss of signal,
-														battery constraints, and obstacle-filled terrain
+														a crash site search algorithm in a high-fidelity lunar simulation (SpaceTeamsPro), under limited
+														lighting, loss of signal, battery constraints, and obstacle-filled terrain
 													</li>
 												</ul>
 												<div class="csub">
 													<div class="cslbl">Leadership Development</div>
 													<ul class="cbul">
 														<li>
-															Oversaw concurrent algorithm approaches (square and hexagon spiral), from concept to implementation, through
+															Oversaw concurrent algorithm approaches (square and hexagon spiral), from concept to implementation,
+															through
 															<b>GitHub</b>
 															branching and task management
 														</li>
 														<li>
-															Shifted from a directive, pacesetter style to a peer-driven approach, leveraging members' strengths to sustain
-															advancement
+															Shifted from a directive, pacesetter style to a peer-driven approach, leveraging members' strengths
+															to sustain advancement
 														</li>
 													</ul>
-
+<div
+												style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 10px">
 													<div>
 														<div class="cw">
 															<div class="cw-inner">
-																<img class="cimg on" src="media/lsar/code1.jpg" alt="Search and Rescue Algorithm pt. 1" />
-																<img class="cimg" src="media/lsar/code2.jpg" alt="Search and Rescue Algorithm pt. 2" />
+																<img class="cimg on" src="media/lsar/code1.png" alt="Search and Rescue Algorithm pt. 1" />
+																<img class="cimg" src="media/lsar/code2.png" alt="Search and Rescue Algorithm pt. 2" />
 																<img class="cimg" src="media/lsar/brainstorming.jpg" alt="Pseudocode & Brainstorming" />
 															</div>
 														</div>
@@ -406,7 +448,7 @@
 															<span class="cdot"></span>
 														</div>
 														<div class="car-caption"></div>
-													</div>
+													</div></div>
 												</div>
 											</div>
 										</div>
@@ -444,6 +486,10 @@
 														<span class="ecdate">2022–2024</span>
 														<span class="ecmeta">Dougherty Valley High School</span>
 													</div>
+												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/kiwi.png" alt="5776K" />
+													<!-- <img src="media/logo/vfs.png" alt="VFS" /> -->
 												</div>
 											</div>
 										</div>
@@ -508,8 +554,8 @@
 														tables
 														<ul>
 															<li>
-																Incorporated one-pagers for project planning (Gantt), subsystem overviews, match strategy, rebuild evolution, and
-																tournament analysis
+																Incorporated one-pagers for project planning (Gantt), subsystem overviews, match strategy,
+																rebuild evolution, and tournament analysis
 															</li>
 														</ul>
 													</li>
@@ -561,12 +607,11 @@
 														<img class="cimg" src="media/vex/team3.jpg" alt="Team 5776K Group Photo" />
 														<img class="cimg" src="media/vex/team4.jpg" alt="Team 5776K Group Photo" />
 														<img class="cimg" src="media/vex/worlds.jpg" alt="VEX World Championships 2023" />
-														<img class="cimg" src="media/vex/website1.png" alt="dvhsrobotics.com" />
+														<!-- <img class="cimg" src="media/vex/website1.png" alt="dvhsrobotics.com" /> -->
 													</div>
 												</div>
 												<div class="cdots">
 													<span class="cdot on"></span>
-													<span class="cdot"></span>
 													<span class="cdot"></span>
 													<span class="cdot"></span>
 													<span class="cdot"></span>
@@ -587,9 +632,27 @@
 															autoplay
 															muted
 															loop></video>
-														<video class="cimg" src="media/vex/motors.mp4" data-cap="VEX Over Under Motors in Fusion 360" autoplay muted loop></video>
-														<video class="cimg" src="media/vex/overcentered.mp4" data-cap="Overcentered Linkage CAD Demo" autoplay muted loop></video>
-														<video class="cimg" src="media/vex/rapid_fire.mp4" data-cap="VEX Spin Up Rapid Fire Demo" autoplay muted loop></video>
+														<video
+															class="cimg"
+															src="media/vex/motors.mp4"
+															data-cap="VEX Over Under Motors in Fusion 360"
+															autoplay
+															muted
+															loop></video>
+														<video
+															class="cimg"
+															src="media/vex/overcentered.mp4"
+															data-cap="Overcentered Linkage CAD Demo"
+															autoplay
+															muted
+															loop></video>
+														<video
+															class="cimg"
+															src="media/vex/rapid_fire.mp4"
+															data-cap="VEX Spin Up Rapid Fire Demo"
+															autoplay
+															muted
+															loop></video>
 														<video
 															class="cimg"
 															src="media/vex/long_distance.mp4"
@@ -608,7 +671,38 @@
 												</div>
 												<div class="car-caption"></div>
 											</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: -30px">
+<div>
+                      <div class="cw">
+													<div class="cw-inner">
+														<video
+															class="cimg on"
+															src="media/vex/promote.mp4"
+                              data-interval="30000"
+															data-cap="Promote Video"
+															autoplay
+															muted
+                              controls
+															loop></video>
+														<video
+															class="cimg"
+															src="media/vex/community.mp4"
+                              data-interval="30000"
+															data-cap="Community Video"
+															autoplay
+															muted
+                              controls
+															loop></video>
+																										<!-- </div> -->
+												</div></div>
 
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<span class="cdot"></span>
+												</div>
+												<div class="car-caption"></div>
+											</div>
+</div>
 											<!-- <div>
               <div class="cw"><div class="cw-inner tall-h">
                 <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_a7dbd3bc4cc64d90b45de025d4e841d3~mv2.jpg/v1/crop/x_0,y_17,w_1545,h_1966/fill/w_300,h_380,al_c,q_80,enc_avif,quality_auto/Pneumatics.jpg" alt="Pneumatics"
@@ -625,12 +719,30 @@
             </div> -->
 										</div>
 										<div class="clinks">
-											<a href="https://docs.google.com/document/d/1m_RBJYWFfLaJuxc-zA4UorZzcrQ4h8lFGuC7W8buHe0/edit?usp=sharing" class="clnk" target="_blank">
-												Build Master Guide
+											<a
+												href="https://dvhsrobotics.com/5776k"
+												class="clnk"
+												target="_blank">
+												5776K Team Page
 											</a>
-											<a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=sharing" class="clnk" target="_blank">
-												Launch Mechanism Guide
-											</a>
+											<a
+                      href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
+                      class="clnk"
+                      target="_blank">
+                      Launch Mechanism Guide
+                    </a>
+                    <a
+                    href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
+                    class="clnk"
+                    target="_blank">
+                    Pneumatics Guide
+                  </a>
+                  <a
+                    href="https://drive.google.com/file/d/1v2JI6vdVOjkvcKaRRn0QNg-9YZk53PBu/view?usp=drive_link"
+                    class="clnk"
+                    target="_blank">
+                    Build Master Guide
+                  </a>
 										</div>
 									</div>
 								</div>
@@ -645,6 +757,10 @@
 														<span class="ecrole">Secretary and 2× Activities Coordinator</span>
 														<span class="ecdate">2021–2024</span>
 													</div>
+												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/5776.png" alt="5776" />
+													<!-- <img src="media/logo/vfs.png" alt="VFS" /> -->
 												</div>
 											</div>
 										</div>
@@ -668,8 +784,8 @@
 													Tournament Logistics:
 													<ul>
 														<li>
-															Mapped venues for power sources, competition zones, team pits, and wiring for displays and fields (hub → 3× match
-															controllers → 6× driver interfaces → 12× robot controllers)
+															Mapped venues for power sources, competition zones, team pits, and wiring for displays and fields
+															(hub → 3× match controllers → 6× driver interfaces → 12× robot controllers)
 														</li>
 														<li>
 															Utilized
@@ -677,8 +793,8 @@
 															to run match fields, scoring, skills runs, 6 displays, and results posting to RobotEvents
 														</li>
 														<li>
-															Coordinated with: DVHS faculty, REC Foundation, 5 on-campus service orgs (NHS, CSF, PVSA, Interact, Key), alumni for
-															judging, and vendors for concessions and equipment
+															Coordinated with: DVHS faculty, REC Foundation, 5 on-campus service orgs (NHS, CSF, PVSA, Interact,
+															Key), alumni for judging, and vendors for concessions and equipment
 															<ul>
 																<li>Wrote email templates for each; added them to the master guide</li>
 															</ul>
@@ -686,28 +802,34 @@
 														<li>
 															More than
 															<b>doubled the tournament planning and operations documentation</b>
-															following COVID-induced knowledge disruption; created spreadsheet templates for inventory, volunteer signups, finances,
-															concessions, and officer management
+															following COVID-induced knowledge disruption; created spreadsheet templates for inventory, volunteer
+															signups, finances, concessions, and officer management
 														</li>
 													</ul>
 												</li>
 											</ul>
-
+<div
+												style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 10px">
 											<div>
 												<div class="cw">
 													<div class="cw-inner">
-														<img class="cimg on" src="media/vex/website1.png" alt="Website" />
+                            <img class="cimg on" src="media/vex/tournament.jpg" alt="DVHS Robotics Club NorCal Tournament" />
+														<img class="cimg on" src="media/vex/summer_camp.jpg" alt="DVHS Robotics Club Summer Camp" />
+                            <img class="cimg on" src="media/vex/website1.png" alt="Website Home Page" />
 													</div>
 												</div>
 												<div class="cdots">
 													<span class="cdot on"></span>
+                          <span class="cdot"></span>
+                          <span class="cdot"></span>
 												</div>
 												<div class="car-caption"></div>
-											</div>
+											</div></div>
 										</div>
 										<div class="clinks">
-											<a href="#" class="clnk">Tournament Master Guide</a>
-											<a href="#" class="clnk">Tournament Info Sheet</a>
+                      <a href="https://dvhsrobotics.com" class="clnk">DVHS Robotics Website</a>
+											<a href="https://drive.google.com/file/d/1Kq_CT_gwh9PQUwIG_DKVLsDDyLbhlnw_/view?usp=drive_link" class="clnk">Tournament Info Sheet</a>
+                      <a href="https://drive.google.com/file/d/1zcrVtenKBXx-OvSwMueGLIWpefscydoA/view?usp=drive_link" class="clnk">Summer Camp Info Sheet</a>
 										</div>
 									</div>
 								</div>
@@ -756,6 +878,10 @@
 														<span class="ecmeta">TEXAS A&amp;M</span>
 													</div>
 												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/sec.jpg" alt="SEC" />
+													<!-- <img src="media/logo/vfs.png" alt="VFS" /> -->
+												</div>
 											</div>
 										</div>
 										<div class="brow">
@@ -772,11 +898,13 @@
 												<p class="cintro">
 													<b>WON #1 PLACE</b>
 													in the
-													<a href="https://drive.google.com/file/d/19SYPEDsY0PNyN1dCVNX07h_ps6wy2DeA/view?usp=sharing" target="_blank">
+													<a
+														href="https://drive.google.com/file/d/19SYPEDsY0PNyN1dCVNX07h_ps6wy2DeA/view?usp=sharing"
+														target="_blank">
 														2025 VFS Project
 													</a>
-													of Ignite. Designed a search &amp; rescue eVTOL to drop a 5 lb package to a stranded hiker at 10,000 ft under 20–40 kt winds,
-													500 ft cloud cover, and fog cutting ½ visibility.
+													of Ignite. Designed a search &amp; rescue eVTOL to drop a 5 lb package to a stranded hiker at 10,000 ft
+													under 20–40 kt winds, 500 ft cloud cover, and fog cutting ½ visibility.
 												</p>
 												<p style="font-size: 13px; line-height: 1.7; margin-bottom: 7px; color: var(--tdim)">
 													<b>Constraint Analysis Iterative Sizing Method:</b>
@@ -800,8 +928,8 @@
 													<div class="cslbl">Additional Contributions</div>
 													<ul class="cbul">
 														<li>
-															Aerodynamic calcs for transport cruise (18 m/s), search cruise (8 m/s), and hover: propeller radius, pitch, tip speed,
-															motor torque, shaft RPM.
+															Aerodynamic calcs for transport cruise (18 m/s), search cruise (8 m/s), and hover: propeller radius,
+															pitch, tip speed, motor torque, shaft RPM.
 															<b>T/W = 1.5</b>
 														</li>
 														<li>
@@ -854,9 +982,11 @@
             </div> -->
 										</div>
 										<div class="clinks">
-											<a href="https://drive.google.com/drive/folders/1ESl7cAYOEde2AYGNfqIwVaKjdsSoHTOa?usp=drive_link" class="clnk" target="_blank">
-												Files (Code, Report, CDR)
-											</a>
+											<a href="https://drive.google.com/file/d/1XP52uZKHq7R6t1SHoBJ9R2c1tkdMTihA/view?usp=drive_link" class="clnk" target="_blank"> Technical Report </a>
+											<a href="https://drive.google.com/file/d/1_NK7D4Gie4QOqw32j35ixrSi9OcJ5t7E/view?usp=drive_link" class="clnk" target="_blank"> Critical Design Report </a>
+											<a href="https://drive.google.com/file/d/1pSSM1pRsnWw9S6wjG2zJPjncEtlu-JU2/view?usp=drive_link" class="clnk" target="_blank"> Final Presentation </a>
+											<a href="https://drive.google.com/file/d/1V8jssSzRQDpFXssSCmxBZzqEPAbdiM38/view?usp=drive_link" class="clnk" target="_blank"> Aerodynamic Sizing Code </a>
+											<a href="https://drive.google.com/file/d/1je4cFfocnW2mQj8Sin3O-2y_ZJ0LxwPC/view?usp=drive_link" class="clnk" target="_blank"> Search Algorithm Code </a>
 										</div>
 									</div>
 								</div>
@@ -872,6 +1002,10 @@
 														<span class="ecmeta">TEXAS A&amp;M</span>
 													</div>
 												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/invent.jpg" alt="Invent" />
+													<!-- <img src="media/logo/vfs.png" alt="VFS" /> -->
+												</div>
 											</div>
 										</div>
 										<div class="brow">
@@ -882,15 +1016,16 @@
 										<div class="cbody full">
 											<ul class="cbul">
 												<li>
-													Designed, prototyped, and presented a plate-design small modular nuclear reactor (SMR) proof of concept from a need statement
+													Designed, prototyped, and presented a plate-design small modular nuclear reactor (SMR) proof of concept from
+													a need statement
 												</li>
 												<li>
-													Optimized for stable burnup, steady operation, and extended fuel life with fuels (67.5% U233, 22.8% U238) and catalysts (U235
-													and Thorium 232)
+													Optimized for stable burnup, steady operation, and extended fuel life with fuels (67.5% U233, 22.8% U238)
+													and catalysts (U235 and Thorium 232)
 												</li>
 												<li>
-													Researched and presented 3 plate geometries, their limitations, and evolution; consideration to coolant flow regime, pressure
-													distribution, heat pocket formation, and
+													Researched and presented 3 plate geometries, their limitations, and evolution; consideration to coolant flow
+													regime, pressure distribution, heat pocket formation, and
 													<b>control rod</b>
 													placement: diagonal wave, funnel flow, and honeycomb
 												</li>
@@ -900,8 +1035,8 @@
 													nested between plates with complete flow contact with coolant
 												</li>
 												<li>
-													Prototyped a rudimentary physical model: extruded honeycomb 3D-print for plate fuels, straws for control rods, cardboard as
-													casing
+													Prototyped a rudimentary physical model: extruded honeycomb 3D-print for plate fuels, straws for control
+													rods, cardboard as casing
 												</li>
 											</ul>
 
@@ -951,6 +1086,9 @@
 														<span class="ecmeta">TEXAS A&amp;M</span>
 													</div>
 												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/sec.jpg" alt="SEC"/>
+												</div>
 											</div>
 										</div>
 										<div class="brow">
@@ -963,11 +1101,12 @@
 										<div class="cbody full">
 											<ul class="cbul">
 												<li>
-													Worked in a 4-person team to design a rocket, produce CAD/FEA, conduct aerodynamic research and calculations (propulsion and
-													drag), and code a landing simulation to determine thrust activation altitude
+													Worked in a 4-person team to design a rocket, produce CAD/FEA, conduct aerodynamic research and calculations
+													(propulsion and drag), and code a landing simulation to determine thrust activation altitude
 												</li>
 												<li>
-													Researched aerodynamic effects of fins shifting center of pressure behind center of gravity for positive static stability
+													Researched aerodynamic effects of fins shifting center of pressure behind center of gravity for positive
+													static stability
 													<ul>
 														<li>
 															Considered 4 fin shapes; selected through a
@@ -976,7 +1115,8 @@
 													</ul>
 												</li>
 												<li>
-													Opted for canards to energize boundary layer and provide greater control authority on pitch and yaw axes, necessary for landing
+													Opted for canards to energize boundary layer and provide greater control authority on pitch and yaw axes,
+													necessary for landing
 												</li>
 												<li>
 													Presented design approach, decisions, and justifications · Scored
@@ -1055,38 +1195,32 @@
 													<li>Delves into mechanical, thermodynamics, electric, and/or software functions and processes</li>
 												</ul>
 												<div style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
-													<div>
-														<div class="cw" style="max-height: min(45vh, 340px)">
+													
+											<div
+												style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 10px">
+												<div>														<div class="cw">
 															<div class="cw-inner port-h">
-																<img
+																<iframe
 																	class="cimg on"
-																	src="media/infographic/refrigerator.pdf"
+																	src="media/infographic/refrigerator.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"
 																	alt="Refrigerator"
-																	data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series" />
+																	data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"
+                                  style="border: none; pointer-events: none;"></iframe>
 															</div>
 														</div>
-														<div class="car-caption"></div>
-													</div>
-													<div
-														style="
-															background: var(--surface2);
-															border-radius: 8px;
-															display: flex;
-															align-items: center;
-															justify-content: center;
-															font-size: 13px;
-															color: var(--tmut);
-															font-style: italic;
-															min-height: 180px;
-															border: 1px dashed var(--border);
-														">
-														coming soon...
-													</div>
+														<div class="car-caption" style="margin-top:10px;"></div>
+													</div></div>
+													
 												</div>
 											</div>
 										</div>
 										<div class="clinks">
-											<a href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing" class="clnk" target="_blank">Preview</a>
+											<a
+												href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing"
+												class="clnk"
+												target="_blank">
+												Preview
+											</a>
 										</div>
 									</div>
 								</div>
@@ -1107,13 +1241,28 @@
 										<div class="cbody full">
 											<div>
 												<p class="cintro">
-													An emphasis on the 4 forces of flight (thrust, drag, lift, weight) and the design components corresponding to each — exploring
-													engineering principles and processes that shape, limit, and optimize design
+													An emphasis on the 4 forces of flight (thrust, drag, lift, weight) and the design components corresponding
+													to each — exploring engineering principles and processes that shape, limit, and optimize design
 												</p>
 												<p style="font-size: 13px; color: var(--tdim); margin-bottom: 12px">
-													See below: an introduction to the jet engine, beginning with the general stages and process, then branching into its variants.
+													See below: an introduction to the jet engine, beginning with the general stages and process, then branching
+													into its variants.
 												</p>
-												<div class="cph" style="height: min(45vh, 260px)">Add aerodynamics infographic image</div>
+												<div>
+										<div class="cbody">
+											<div style="max-width: 640px">
+												<div class="cw">
+													<div class="cw-inner" style="height: 280px">
+														<img class="cimg on" src="media/infographic/aero2.png" alt="Aerodynamics: Thrust" />
+
+													
+													</div>
+												</div>
+												<div class="cdots">
+													<span class="cdot on"></span>
+													<!-- <span class="cdot"></span> -->
+												</div>
+												<div class="car-caption"></div></div>
 											</div>
 										</div>
 									</div>
@@ -1163,6 +1312,10 @@
 														<span class="ecmeta">TROOP 888</span>
 													</div>
 												</div>
+												<div class="eclogos darkimgs">
+													<img src="media/logo/888.png" alt="888" />
+													<!-- <img src="media/logo/vfs.png" alt="VFS" /> -->
+												</div>
 											</div>
 										</div>
 										<div class="cbody">
@@ -1203,7 +1356,10 @@
 												<div class="cw">
 													<div class="cw-inner">
 														<img class="cimg on" src="media/scouts/eagle.jpg" alt="Eagle Rank on 10/11/21" />
-														<img class="cimg" src="media/scouts/finished2.jpg" alt="Eagle Project: Greenhouse Bench In Use @ Fertile Groundworks" />
+														<img
+															class="cimg"
+															src="media/scouts/finished2.jpg"
+															alt="Eagle Project: Greenhouse Bench In Use @ Fertile Groundworks" />
 														<img class="cimg" src="media/scouts/snow_camping.jpg" alt="Snow Camping" />
 														<img class="cimg" src="media/scouts/wolfeboro1.jpg" alt="Wolfeboro Summer Camp" />
 														<!-- <img class="cimg" src="media/scouts/wolfeboro2.jpg" alt="Wolfeboro Summer Camp pt.2"/> -->
@@ -1234,10 +1390,13 @@
 											</div>
 										</div>
 										<div class="clinks">
-											<a href="https://www.troop888.us/resources/how-to/" class="clnk" target="_blank">Knowledge Base</a>
-											<a href="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/" class="clnk" target="_blank">
-												Eagle Project Article
-											</a>
+                      <a
+                      href="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/"
+                      class="clnk"
+                      target="_blank">
+                      Eagle Project Article
+                    </a>
+                    <a href="https://www.troop888.us/resources/how-to/" class="clnk" target="_blank">Knowledge Base</a>
 										</div>
 									</div>
 								</div>
@@ -1254,20 +1413,18 @@
 												</div>
 											</div>
 										</div>
-										<div class="cbody full">
-											<div>
-												<div class="cw" style="max-width: 640px">
+                    <div>
+										<div class="cbody">
+											<div style="max-width: 640px">
+												<div class="cw">
 													<div class="cw-inner" style="height: 280px">
 														<img class="cimg on" src="media/planeCAD/environment1.avif" alt="Plane CAD in Environment" />
 														<img class="cimg" src="media/planeCAD/wireframe.jpg" alt="Wireframe View" />
 														<img class="cimg" src="media/planeCAD/environment2.avif" alt="Environment View" />
-														<img class="cimg" src="media/planeCAD/front.jpg" alt="Front View" />
+														<img class="cimg" src="media/planeCAD/front.avif" alt="Front View" />
 														<img class="cimg" src="media/planeCAD/side.jpg" alt="Side View" />
 
-														<!-- <img class="cimg on" src="https://static.wixstatic.com/media/0d689f_58ade945e8ee47e691da242cc522814d~mv2.jpg/v1/fill/w_640,h_370,al_c,q_80,enc_avif,quality_auto/0d689f_58ade945e8ee47e691da242cc522814d~mv2.jpg" alt="737"
-                  data-cap="Boeing 737-800 — full fuselage in Fusion 360"/>
-                <img class="cimg" src="https://static.wixstatic.com/media/0d689f_67e97b65a75c43f585f9615eede4a8a3~mv2.jpg/v1/fill/w_640,h_370,al_c,q_80,enc_avif,quality_auto/0d689f_67e97b65a75c43f585f9615eede4a8a3~mv2.jpg" alt="737 2"
-                  data-cap="Boeing 737-800 — wing and engine detail view"/> -->
+													
 													</div>
 												</div>
 												<div class="cdots">
@@ -1277,8 +1434,8 @@
 													<span class="cdot"></span>
 													<span class="cdot"></span>
 												</div>
-												<div class="car-caption"></div>
-												<p style="font-size: 12px; color: var(--tmut); margin-top: 10px">
+												<div class="car-caption"></div></div>
+												<!-- <p style="font-size: 12px; color: var(--tmut); margin-top: 10px">
 													also see:
 													<button
 														onclick="sw('ss8', 0, 'team-5776k', true)"
@@ -1293,7 +1450,7 @@
 														">
 														Robotics CAD
 													</button>
-												</p>
+												</p> -->
 											</div>
 										</div>
 									</div>
@@ -1321,7 +1478,8 @@
 														of driver input force without failure
 													</li>
 													<li>
-														Must interface between mounting system and master cylinder; deliverables: specifications and calculations, CAD optional
+														Must interface between mounting system and master cylinder; deliverables: specifications and
+														calculations, CAD optional
 														<ul>
 															<li>Pedal length, cylinder length, and distance between cylinder and pedal base</li>
 														</ul>
@@ -1330,8 +1488,8 @@
 												<div class="csub">
 													<ul class="cbul">
 														<li>
-															Completed research and design within a single evening — learned F1 brake system inner workings: average force and
-															distribution; materials; safety factor
+															Completed research and design within a single evening — learned F1 brake system inner workings:
+															average force and distribution; materials; safety factor
 														</li>
 														<li>
 															Self-learned mechanical stress to calculate cylinder placement.

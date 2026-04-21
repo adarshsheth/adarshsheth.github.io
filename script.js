@@ -508,21 +508,49 @@ function initCarousels() {
 			}
 		}
 
+		// 👉 NEW DYNAMIC TIMING LOGIC
+		function startAutoPlay() {
+			clearTimeout(timer);
+			if (imgs.length <= 1) return;
+
+			let currentMedia = imgs[cur];
+			let duration = 5000; // Absolute fallback
+
+			// 1. Check for specific slide time
+			if (currentMedia.dataset.interval) {
+				duration = parseInt(currentMedia.dataset.interval);
+			} 
+			// 2. Check for specific carousel time
+			else if (wrap.dataset.interval) {
+				duration = parseInt(wrap.dataset.interval);
+			} 
+			// 3. Fallbacks based on Media Type
+			else if (currentMedia.tagName === "VIDEO") {
+				duration = 5000; // Default for all videos (8 seconds)
+			} else {
+				duration = 2000; // Default for all images (4.5 seconds)
+			}
+
+timer = setTimeout(() => {
+    show(cur + 1);
+    startAutoPlay(); // 👉 This creates the continuous loop!
+}, duration);		}
+
 		dots.forEach((d, i) =>
 			d.addEventListener("click", (e) => {
 				e.stopPropagation();
-				clearInterval(timer);
 				show(i);
-				if (imgs.length > 1) timer = setInterval(() => show(cur + 1), 5000);
+				startAutoPlay(); // Restart timer on manual click
 			}),
 		);
 
 		wrap.addEventListener("click", () => {
-			if (imgs[cur]?.tagName === "IMG") openLb(imgs, cur);
-		});
+			const tag = imgs[cur]?.tagName;
+      if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);		
+    });
 
-		show(0); // init caption
-		if (imgs.length > 1) timer = setInterval(() => show(cur + 1), 5000);
+		show(0); // init caption and first slide
+		startAutoPlay(); // kick off the loop
 	});
 }
 
@@ -536,23 +564,53 @@ function openLb(imgs, startIdx) {
 	document.getElementById("lb").classList.add("open");
 }
 function renderLb() {
-	const img = lbImgs[lbCur];
-	const cap = img.dataset.cap || img.alt || "";
-	const link = img.dataset.link || "";
-	document.getElementById("lbimg").src = img.src;
+	const media = lbImgs[lbCur];
+	const cap = media.getAttribute("alt") || media.dataset.cap || "";
+	const link = media.dataset.link || "";
+	
+	const lbImg = document.getElementById("lbimg");
+	const lbVid = document.getElementById("lbvid");
+	const lbFrame = document.getElementById("lbframe");
+
+	// Reset visibility for all media types
+	lbImg.style.display = "none";
+	lbVid.style.display = "none";
+	lbFrame.style.display = "none";
+	lbVid.pause();
+
+	// Show the correct media type
+	if (media.tagName === "VIDEO") {
+		lbVid.style.display = "block";
+		lbVid.src = media.src;
+	} else if (media.tagName === "IFRAME") {
+		// When opening in lightbox, we re-enable pointer events so you can scroll multi-page PDFs!
+		lbFrame.style.display = "block";
+		lbFrame.style.pointerEvents = "auto"; 
+		lbFrame.src = media.src;
+	} else {
+		lbImg.style.display = "block";
+		lbImg.src = media.src;
+	}
+
 	const capEl = document.getElementById("lbcap");
 	if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
 	else capEl.textContent = cap;
+}
+
+function closeLb() {
+	document.getElementById("lb").classList.remove("open");
+	lbImgs = [];
+	
+	// 👉 Make sure to pause the video when closing the lightbox!
+	const lbVid = document.getElementById("lbvid");
+	if (lbVid) lbVid.pause();
 }
 function lbNav(dir) {
 	if (!lbImgs.length) return;
 	lbCur = (lbCur + dir + lbImgs.length) % lbImgs.length;
 	renderLb();
 }
-function closeLb() {
-	document.getElementById("lb").classList.remove("open");
-	lbImgs = [];
-}
+
 document.addEventListener("keydown", (e) => {
 	if (!document.getElementById("lb").classList.contains("open")) return;
 	if (e.key === "ArrowRight") lbNav(1);
