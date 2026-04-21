@@ -6,468 +6,14 @@
 <title>PORTFOLIO | Adarsh Sheth</title>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-<style>
-/* ── TOKENS ── */
-:root{
-  --bg:#0a0a0a; --surface:#111111; --surface2:#111111; --border:#2a2c2a;
-  --g:#647661; --gd:#232922; --gl:#8da084;
-  --gpale:rgba(100,118,97,.08);
-  --accent:#c8a84b;
-  --text:#d0d3cd; --tdim:#7a7e76; --tmut:#4f5348; --miniheader: var(--dimtitle);
-  /* --tmut:#3e4238 */
-  --navh:50px; --sw:176px; --r:10px; --anchorh: 0px;
-  --dimtitle:#888888; --bullbold:#525e44; --title: #ffffff; --badge: #68644c;
-}
-
-/* ── SELECTION highlight ── */   
-::selection{background:rgba(200,168,75,.32);color:#fff}
-
-/* ── CUSTOM CURSOR (disabled – set ENABLE_CUSTOM_CURSOR=true in JS to enable) ──
-#cur{position:fixed;width:9px;height:9px;border-radius:50%;background:var(--accent);
-  pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
-  transition:transform .08s,opacity .2s;animation:curPulse 2.4s ease-in-out infinite}
-#cur.clicking{transform:translate(-50%,-50%) scale(1.8);opacity:.6}
-@keyframes curPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,168,75,.5)}
-  50%{box-shadow:0 0 0 7px rgba(200,168,75,0)}}
-*/
-
-/* ── RESET ── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Rubik',sans-serif;background:var(--bg);color:var(--text);
-  font-weight:300;font-size:14px;line-height:1.6;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--g);border-radius:2px}
-
-/* ══ HEADER ── */
-header{
-  position:fixed;top:0;left:var(--sw);right:0;z-index:1000;
-  padding:20px;display:flex;justify-content:center;
-  transition:transform .4s ease-in-out;pointer-events:none;
-}
-.navbox{
-  pointer-events:all;
-  display:inline-flex;align-items:center;
-  max-width:860px;width:100%;
-  border-radius:100px;
-  border:2px solid rgba(47, 61, 47, 0.705);
-  background: #6d836ab0;
-  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
-  padding:5px 7px;
-  box-shadow:0 4px 24px rgba(0,0,0,.35);
-  transition:transform .45s ease-in-out;will-change:transform;
-}
-.navbox:hover{transform:scale(1.012)}
-.navbar{display:flex;align-items:center;gap:4px;width:100%}
-.logo-icon{width:50px;flex-shrink:0;margin-right:3px;filter:brightness(1.1);padding-left:10px}
-.logo{font-weight:400;font-size:13px;line-height:1.1;color:rgba(255,255,255,.9);
-  margin-right:4px;white-space:nowrap;flex-shrink:0}
-.nav-center{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
-.ni{
-  position:relative;overflow:hidden;
-  color:rgba(255,255,255,.82);background:#373f329f;
-  font-weight:700;font-size:11.5px;letter-spacing:.07em;
-  padding:7px 14px;border-radius:100px;white-space:nowrap;z-index:0;
-  transition:color .2s;
-}
-.ni::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
-  background:var(--gd);pointer-events:none;z-index:-1;transition:left 0s}
-.ni:hover{color:#fff}
-.ni:hover::after{left:0;transition:left .38s ease-out}
-.ni.active{background:var(--gd);color:#fff}
-.ni.active::after{display:none}
-/* dropdown – appears below pill, not inside it */
-.ndrop{position:relative}
-.nav-dd{
-  display:none;position:absolute;
-  top:calc(100% + 18px);left:50%;transform:translateX(-50%);
-  background:#ffffffc9;border:0px solid rgba(0,0,0,.10);border-radius:12px;
-  min-width:220px;overflow:hidden;
-  backdrop-filter:blur(4px) !important;-webkit-backdrop-filter:blur(4px) !important; /*fix this later*
-  box-shadow:0 10px 36px rgba(0,0,0,.22);z-index:200;padding:0px 0; /* padding 4px 0 */
-}
-.dd-hdr{display:block;padding:8px 16px 5px;font-size:10px;font-weight:700;
-  letter-spacing:.14em;color:var(--text);background:#647661cb;border-bottom:1px solid rgba(0,0,0,.08);
-  /* backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px); */
-}
-.dd-lnk{display:block;padding:5px 16px 5px 26px;font-size:12px;font-weight:500;
-  color:#3a3a3a;transition:background .15s,color .15s}
-.dd-lnk:hover{
-  /* background:rgba(100,118,97,.12); */
-  color:var(--g)}
-.ncontact{
-  display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:100px;
-  background:rgba(35,41,34,.75);border:1px solid rgba(255,255,255,.12);
-  color:rgba(255,255,255,.9);font-weight:700;font-size:11.5px;letter-spacing:.06em;
-  flex-shrink:0;transition:background .2s;
-}
-.ncontact:hover{background:var(--gd)}
-
-/* ══ SIDEBAR ── */
-#sb{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--surface);
-  border-right:1px solid var(--border);z-index:400;display:flex;flex-direction:column;
-  padding-top:calc(var(--navh) + 8px)}
-#sb-hdr{padding:10px 14px 7px;font-size:10px;font-weight:700;letter-spacing:.2em;
-  color:var(--tmut);border-bottom:1px solid var(--border);text-transform:uppercase}
-/* progress bar right below header */
-#sb-prog{height:2px;background:var(--border);position:relative;flex-shrink:0}
-#sb-fill{height:2px;background:var(--g);width:0%;position:absolute;left:0;top:0;
-  transition:width .18s linear}
-#sb-nav{flex:1;overflow-y:auto;padding:8px 0}
-.sbn{display:flex;align-items:center;gap:8px;padding:8px 14px;
-  transition:background .15s;text-decoration:none}
-.sbn:hover{background:var(--gpale)}
-.sbdot{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--tmut);
-  background:transparent;flex-shrink:0;transition:all .2s}
-.sbn.active .sbdot{background:var(--g);border-color:var(--g)}
-.sbn.active .sblbl{color:var(--text);font-weight:700}
-.sblbl{font-size:9.5px;font-weight:500;letter-spacing:.07em;color:var(--tmut);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  transition:color .2s;text-transform:uppercase}
-
-/* ══ MAIN ── */
-#mn{margin-left:var(--sw);padding-top:calc(var(--navh) + 50px)}
-section{scroll-margin-top:calc(var(--anchorh) + 0vh)}
-
-/* ══ HERO ── */
-#hero{padding:0 48px}
-#hero h1{font-weight:900;font-size:clamp(44px,7vw,88px);line-height:.92;letter-spacing:-.01em;color:var(--text)}
-#ibar{
-  background:rgba(200,168,75,.22);
-  padding:16px 48px;margin-top:14px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:14px;flex-wrap:wrap;
-  border-top:1px solid rgba(200,168,75,.25);
-  border-bottom:1px solid rgba(200,168,75,.25);
-}
-#ibar p{font-size:13.5px;color:var(--tdim);max-width:580px;line-height:1.65}
-#ibar p a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-#ibar p strong{color:var(--text);font-weight:700}
-.pbtn{display:inline-flex;align-items:center;gap:7px;padding:5px 22px;border-radius:100px;
-  border:2px solid var(--accent);color:var(--accent);font-weight:700;font-size:11px;
-  letter-spacing:.1em;white-space:nowrap;transition:background .2s,color .2s}
-.pbtn::before{content:'»';font-size:14px}
-.pbtn:hover{background:var(--accent);color:#1a1300}
-
-/* ══ TIMELINE ── */
-#tls{padding:36px 48px 0}
-.tlbox{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:20px 24px;
-  transition:border-color .25s,box-shadow .25s,transform .25s;}
-.tlbox:hover{
-  border-color:rgba(100,118,97,.60);
-  box-shadow:0 0 0 1px rgba(100,118,97,.18),
-             0 0 18px 4px rgba(100,118,97,.22),
-             0 0 36px 8px rgba(100,118,97,.10);
-  transform:scale(1.005);
-}
-.tlbox h3{font-weight:900;font-size:16px;color:var(--dimtitle);margin-bottom:3px}
-.tlsub{font-size:11.5px;color:var(--tmut);margin-bottom:14px}
-.tlframe{border-radius:8px;overflow:hidden;height:200px}
-.tlframe iframe{width:100%;height:250px;border:none;transform:translateY(-4px)}
-/* scroll cue as clickable button */
-.scrollcue-btn{display:flex;justify-content:center;padding:10px 0 0;
-  background:none;border:none;width:100%;}
-.scrollcue-btn svg{width:34px;height:34px;stroke:var(--g);fill:none;stroke-width:2.5;
-  animation:bounce 2.2s ease-in-out infinite;transition:stroke .2s}
-.scrollcue-btn:hover svg{stroke:var(--accent)}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-
-/* ══ SECTION HEADINGS ── */
-/* .sb{padding:0 48px 60px} */
-.sb{padding:0 48px 0px}
-/* .sh{display:flex;align-items:center;gap:12px;padding:36px 0 24px;margin:0 -48px} */
-.sh{display:flex;align-items:center;gap:12px;padding:36px 0 24px;margin:0 -48px}
-/* commented out: old 40px bar
-.sh-l{height:15px;background:var(--text);flex-shrink:0;width:40px}
-*/
-/* pulsing dot – replaces left bar */
-.sh-pulse-btn{
-  background:none;border:none;padding:0 4px 0 0;display:flex;align-items:center;flex-shrink:0;
-  margin-left:48px;
-}
-.sh-pulse-btn:hover .pulse-dot{background:var(--accent)}
-.sh-pulse-btn:hover ~ h2{color:var(--accent)}
-.sh-pulse-btn:hover ~ .sh-r{background:var(--accent)}
-.pulse-dot{
-  width:20px;height:20px;border-radius:50%;background:#d0d3cd;flex-shrink:0;
-  animation:sectionPulse 2.5s ease-in-out infinite;transition:background .2s;
-}
-@keyframes sectionPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(208,211,205,.5)}
-  50%{box-shadow:0 0 0 10px rgba(208,211,205,0)}
-}
-/* copy toast */
-.copy-toast{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
-  background:var(--surface2);border:1px solid var(--border);border-radius:100px;
-  padding:8px 18px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);
-  opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:5000;
-}
-.copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.sh h2{font-weight:900;font-size:clamp(26px,3.5vw,44px);letter-spacing:.02em;
-  white-space:nowrap;color:var(--title);padding:0 4px;transition:color .1s ease-in-out}
-.sh-r{flex:1;height:15px;background:var(--text);transition:background .1s ease-in-out}
-
-/* ══ TABS – segmented with correct corner radii ── */
-.tg{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.tglbl{font-size:11px;font-style:italic;color:var(--tmut);margin-right:4px;white-space:nowrap;line-height:1.35;font-weight:700}
-.tab-btns{display:flex;gap:5px}
-/* base: all 4 corners zeroed (middle tabs stay 0) */
-.tb{
-  display:inline-flex;align-items:center;height:30px;padding:0 15px;
-  border:1.5px solid var(--g);background:transparent;color:var(--g);
-  font-family:'Rubik',sans-serif;font-weight:700;font-size:11px;letter-spacing:.07em;
-  transition:background .15s,color .15s;border-radius:0;
-}
-/* outer corners get pill radius; inner corners stay 0 */
-.tab-btns .tb:first-child{border-radius:100px 0 0 100px}
-.tab-btns .tb:last-child{border-radius:0 100px 100px 0}
-.tab-btns .tb:only-child{border-radius:100px}
-.tb:hover:not(:disabled){background:var(--gpale)}
-.tb:disabled{background:var(--g);color:#fff}
-
-/* ══ SLIDESHOW ─────────────────────────────────────────────────────────
-   WRAP_PAD = 40px on all sides → glow + scale (1.01) have breathing room
-   .ss-wrapper  overflow:hidden BFC; JS sets explicit height + transition
-                so siblings animate up/down when slide height changes.
-   .ss-clip     overflow:visible; JS-managed height drives wrapper resize.
-   Off-screen slides: JS sets visibility:hidden so the 40px horizontal
-   padding gap doesn't reveal adjacent slides during transitions.
-   Arrows: top = WRAP_PAD + currentH/2  (JS-managed, animates via CSS)
-*/
-.ss-wrapper{
-  position:relative;
-  overflow:hidden;
-  padding:20px;                /* all-side room for glow + scale */
-  padding-top:10px;
-  padding-right: 30px;
-  padding-bottom: 0 !important;
-  /* Compensate L/R pad so content aligns with siblings; top: pull up to cancel top-pad */
-  margin:-10px -20px 0 -20px;
-  /* height set explicitly by JS; transition makes sibling sections float */
-  transition:height .4s cubic-bezier(.4,0,.2,1);
-  box-sizing:content-box;      /* explicit: padding outside the height value */
-  /* background: pink; */
-}
-.ss-clip{
-  overflow:visible;
-  transition:height .4s cubic-bezier(.4,0,.2,1);
-  position:relative;
-}
-.sscont{overflow:visible}
-.ssfr{display:flex;will-change:transform;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.ssslide{flex:none;min-width:0} /* width by JS; visibility toggled by JS */
-/* arrows: top = WRAP_PAD(40) + slideH/2, set by JS */
-.sarr{
-  position:absolute;
-  top:50%;transform:translateY(-50%); /* fallback; overridden immediately by JS */
-  width:28px;height:28px;border-radius:50%;
-  background:var(--surface2);border:1px solid var(--border);
-  color:var(--tdim);display:flex;align-items:center;justify-content:center;
-  z-index:10;font-size:18px;padding:0;line-height:1;
-  opacity:0;
-  transition:opacity .2s, background .15s, top .4s cubic-bezier(.4,0,.2,1);
-  display:none !important;
-}
-.ss-wrapper:hover .sarr{opacity:1}
-.sarr:hover{background:var(--surface);color:var(--text)}
-.sarr.spr{left:8px}    /* 8px inside wrapper's 40px pad → always visible */
-.sarr.snx{right:8px}
-
-/* ══ EXPERIENCE CARD ── scale + omnidirectional glow.
-   Scale is safe because ss-wrapper's 40px overflow room >> scale growth on any card. */
-.ec{
-  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
-  overflow:hidden;
-  opacity:0;transform:translateY(16px);
-  transition:border-color .25s,box-shadow .25s,opacity .5s,transform .5s;
-}
-.ec.visible{opacity:1;
-    transform-origin: top left;           
-    transform:translateY(0) scale(1)}
-.ec.visible:hover{
-  border-color:rgba(100,118,97,.60);
-  box-shadow:0 0 0 0px rgba(100,118,97,.20),
-             /* 0 0 14px 3px rgba(100,118,97,.22), */
-             /* 0 0 30px 6px rgba(100,118,97,.12); */
-             0 0 7px 4px rgba(100,118,97,.12),
-             0 0 10px 8px rgba(100,118,97,.08);
-  transform-origin: top left;           
-  transform:translateY(0) scale(1.01);
-}
-.ech{padding:15px 20px 11px;border-bottom:1px solid var(--border)}
-.echr{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-/* experience card title – mid grey, distinct from white */
-.ect{font-weight:900;font-size:20px;letter-spacing:.01em;color:var(--dimtitle);line-height:1.1}
-.ecm{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-top:4px}
-.ecmeta{font-size:11px;color:var(--tdim);line-height:1.3}
-.ecrole{font-size:12.5px;font-style:italic;font-weight:300;color:var(--tdim)}
-.ecdate{font-weight:700;font-size:11px;color:var(--gl);letter-spacing:.04em}
-.eclogos{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.eclogos img{height:32px;object-fit:contain;filter:brightness(.88)}
-
-/* ══ BADGES ── square, green border, no bg ──    aka skill cards*/ 
-.brow{padding:9px 20px;display:flex;flex-wrap:wrap;gap:5px}
-.badge{
-  display:inline-flex;align-items:center;height:20px;padding:0 9px;
-  border-radius:2px;background:transparent;
-  border:1px solid var(--badge);color:var(--badge);
-  font-size:10px;font-weight:600;letter-spacing:.1em;white-space:nowrap;
-}
-
-/* ══ CARD BODY ── */
-.cbody{display:grid;grid-template-columns:1fr 240px;gap:16px;padding:8px 20px 16px;align-items:start}
-.cbody.full{grid-template-columns:1fr}
-.cbody.wimg{grid-template-columns:1fr 270px}
-.cbody>*{min-width:0} /* prevent overflow blowout */
-@media(max-width:820px){.cbody,.cbody.wimg{grid-template-columns:1fr}}
-.cintro{font-size:13.5px;color:var(--tdim);line-height:1.7;margin-bottom:10px}
-.cbul{list-style:none;display:flex;flex-direction:column;gap:5px}
-.cbul>li{position:relative;padding-left:16px;font-size:13px;line-height:1.7;color:var(--tdim)}
-.cbul>li::before{content:'•';position:absolute;left:2px;color:var(--tdim)}
-.cbul>li>ul{margin-top:4px;padding-left:18px;list-style:disc;
-  display:flex;flex-direction:column;gap:3px}
-.cbul>li>ul>li{font-size:12.5px;color:var(--tdim);line-height:1.65}
-.cbul>li>ul>li>ul{list-style:circle;padding-left:16px}
-/* bold text in bullets – lighter grey, not white */
-.cbul b,.cbul strong{color:var(--bullbold);font-weight:500}
-.cbul i{font-style:italic}
-.cbul a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
-.csub{margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-.cslbl{font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--miniheader);
-  text-transform:uppercase;margin-bottom:7px}
-/* stat rows */
-.srow{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);
-  border-radius:8px;overflow:hidden;margin:10px 0}
-.scell{background:var(--surface2);flex:1;min-width:80px;padding:12px 14px}
-.slbl{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--tdim);
-  text-transform:uppercase;margin-bottom:3px}
-.sval{font-weight:900;font-size:22px;color:var(--gl);line-height:1}
-.ssub{font-size:11px;color:var(--tdim);margin-top:4px;line-height:1.35}
-
-/* ══ LINK BUTTONS ──
-   Base: grey border + bg, yellow dot + yellow text always
-   Hover: yellow border + subtle yellow tint bg */
-.clinks{padding:9px 20px 14px;display:flex;flex-wrap:wrap;gap:7px;
-  border-top:1px solid var(--border)}
-.clnk{
-  display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 14px;
-  border-radius:100px;
-  /* base state: grey */
-  border:1px solid rgba(90,90,85,.4);background:rgba(22,22,20,.5);
-  color:var(--accent); /* yellow text always */
-  font-size:10.5px;font-weight:600;letter-spacing:.05em;
-  text-decoration:none;transition:border-color .15s,background .15s;
-}
-/* yellow dot always visible */
-.clnk::before{
-  content:'';display:inline-block;width:5px;height:5px;border-radius:50%;
-  background:var(--accent);flex-shrink:0;transition:transform .15s;
-}
-/* hover: add yellow border + tint */
-.clnk:hover{border-color:rgba(200,168,75,.55);background:rgba(200,168,75,.09)}
-.clnk:hover::before{transform:scale(1.4)}
-
-/* ══ CAROUSELS – fixed-height inner container ── */
-.cw{position:relative;border-radius:8px;overflow:hidden;background:var(--surface2);max-height:50vh;
-  cursor:pointer;transition:transform .22s ease,box-shadow .22s ease;}
-.cw:hover{transform:scale(1.012);box-shadow:0 4px 16px rgba(0,0,0,.3);}
-.cw-inner{position:relative;width:100%;height:240px} /* default fixed height */
-.cw-inner.tall-h{height:300px}
-.cw-inner.port-h{height:min(45vh,340px)} /* portrait – cap at 45vh */
-.cimg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:none}
-.cimg.on{display:block}
-.cimg.contain{object-fit:contain;background:transparent}
-.cdots{display:flex;justify-content:center;gap:5px;padding:6px 0 2px}
-.cdot{width:5px;height:5px;border-radius:50%;background:var(--tmut);transition:all .18s}
-.cdot.on{background:var(--g);transform:scale(1.5)}
-.car-caption{font-size:10.5px;color:var(--tdim);padding:3px 2px 0;min-height:16px;
-  line-height:1.4;font-style:italic}
-.car-caption a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
-.cph{display:flex;align-items:center;justify-content:center;border:1px dashed var(--border);
-  border-radius:8px;font-size:11px;color:var(--tmut);font-style:italic;padding:24px;height:200px}
-
-/* ══ LIGHTBOX ── */
-#lb{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;
-  justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
-#lb.open{opacity:1;pointer-events:all}
-.lbb{position:absolute;inset:0;background:rgba(35,41,34,.88);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.lbbox{position:relative;display:flex;flex-direction:column;align-items:center;
-  gap:10px;z-index:1;max-width:90vw}
-/* height locked to 45vh; width adapts to AR */
-.lbi{height:45vh;width:auto;max-width:88vw;border-radius:8px;object-fit:contain}
-/* bottom caption+nav row: arrows pinned absolute so caption width never shifts them */
-.lb-bottom{
-  position:relative;
-  width:min(88vw,700px);         /* fixed reference width so arrows pin to stable edges */
-  min-height:38px;
-  display:flex;align-items:center;justify-content:center;
-  padding:0 48px;               /* space for arrows on each side */
-}
-.lbcap{
-  font-size:12px;color:rgba(255,255,255,.6);text-align:center;
-  /* caption fills center space; arrows don't contribute to its width */
-  flex:1;max-width:100%;
-}
-.lbcap a{color:var(--accent)}
-.lbclose{position:absolute;top:-38px;right:0;background:none;border:none;
-  color:#fff;font-size:30px;line-height:1;width:36px;height:36px;
-  display:flex;align-items:center;justify-content:center}
-/* lightbox nav arrows: absolutely positioned at fixed edges of .lb-bottom */
-.lb-nav{
-  position:absolute;top:50%;transform:translateY(-50%);
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-  border-radius:50%;width:34px;height:34px;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:20px;transition:background .15s;
-}
-.lb-nav:hover{background:rgba(255,255,255,.22)}
-.lb-nav.lb-p{left:0}
-.lb-nav.lb-n{right:0}
-
-/* ══ DIVIDER ── */
-.div{border:none;border-top:1px solid var(--border);margin:0}
-
-/* ══ FOOTER ── */
-footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
-  justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid var(--border)}
-.fnav{display:flex;gap:20px}
-.fnav a{font-size:11px;font-weight:700;letter-spacing:.08em;color:#5a5a58;transition:color .15s}
-.fnav a:hover,.fnav a.fp{color:var(--accent)}
-.fnav a.fp{border-bottom:2px solid var(--accent)}
-.ficons{display:flex;gap:8px}
-.fi{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--border);font-size:12px;font-weight:700;transition:all .15s;text-decoration:none}
-.fi:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ══ RESPONSIVE ── */
-@media(max-width:900px){
-  #sb{display:none}#mn{margin-left:0}
-  header{left:0}
-  .sb{padding:0 22px 48px}
-  #hero{padding:0 22px}
-  #ibar{padding:14px 22px}
-  .div{margin:0}
-  footer{padding:18px 22px}
-  .sh{margin:0 -22px}
-  .sh-pulse-btn{margin-left:22px}
-}
-@media(max-width:600px){
-  .cbody,.cbody.wimg{grid-template-columns:1fr}
-}
-</style>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- copy toast -->
+<div id="nav-placeholder"></div>
+
 <div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
-<!-- LIGHTBOX -->
 <div id="lb">
   <div class="lbb" onclick="closeLb()"></div>
   <div class="lbbox">
@@ -481,34 +27,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
   </div>
 </div>
 
-<!-- HEADER -->
-<header id="hdr">
-  <div class="navbox">
-    <nav class="navbar">
-      <a href="index.html"><img src="https://static.wixstatic.com/media/0d689f_465832ee2a0e4705931fce3455d0429b~mv2.png/v1/fill/w_124,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AS_tr_edited_edited.png" alt="AS" class="logo-icon"/></a>
-      <a href="index.html" style="text-decoration:none"><div class="logo">ADARSH<br>SHETH</div></a>
-      <div class="nav-center">
-        <a href="index.html" class="ni">HOME</a>
-        <div class="ndrop">
-          <a href="portfolio.html" class="ni active">PORTFOLIO <i class="fas fa-caret-down" style="font-size:9px;margin-left:2px"></i></a>
-          <div class="nav-dd" id="nav-dd">
-            <span class="dd-hdr">ENGINEERING</span>
-            <a class="dd-lnk" href="portfolio.html?section=vfd" onclick="ddNav('vfd');return false">DESIGN TEAMS</a>
-            <a class="dd-lnk" href="portfolio.html?section=ignite25" onclick="ddNav('ignite25');return false">EVENTS &amp; CHALLENGES</a>
-            <a class="dd-lnk" href="portfolio.html?section=everyday-engineering" onclick="ddNav('everyday-engineering');return false">PERSONAL PROJECTS</a>
-            <span class="dd-hdr">ARTWORK</span>
-            <a class="dd-lnk" href="artwork.html">ARTWORK</a>
-          </div>
-        </div>
-        <a href="resume.html" class="ni">RESUME</a>
-        <a href="blog.html" class="ni">BLOG</a>
-      </div>
-      <a href="index.html#contact" class="ncontact">CONTACT ME <i class="fas fa-users" style="font-size:11px"></i></a>
-    </nav>
-  </div>
-</header>
-
-<!-- SIDEBAR – no # hrefs; uses JS scrollIntoView -->
 <aside id="sb">
   <div id="sb-hdr">Navigation</div>
   <div id="sb-prog"><div id="sb-fill"></div></div>
@@ -526,7 +44,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
   </nav>
 </aside>
 
-<!-- MAIN -->
 <div id="mn">
 <div id="top"></div>
 
@@ -549,12 +66,8 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
   <svg viewBox="0 0 38 38"><polyline points="8 14 19 25 30 14"/></svg>
 </button>
 
-<!-- ══════════════════════════════════════════
-     TECHNICAL DESIGN TEAMS
-══════════════════════════════════════════ -->
 <section id="sec-tamu" class="sb">
   <div class="sh">
-    <!-- <span class="sh-l"></span> commented out: replaced by pulsing dot -->
     <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tamu','vfd')" title="Copy link to section">
       <span class="pulse-dot" data-sh="sec-tamu"></span>
     </button>
@@ -562,7 +75,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <span class="sh-r"></span>
   </div>
 
-  <!-- TAMU group -->
   <div class="tg">
     <span class="tglbl">@ Texas A&amp;M<br>University</span>
     <div class="tab-btns">
@@ -576,7 +88,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <div class="ss-clip" id="ss7-clip">
       <div class="sscont" id="ss7"><div class="ssfr" id="ss7-fr">
 
-        <!-- VFD -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -610,7 +121,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           </div>
         </div></div>
 
-        <!-- RED -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -643,7 +153,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           </div>
         </div></div>
 
-        <!-- LSAR -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -670,14 +179,8 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
         </div></div>
 
       </div></div>
-    </div><!-- /ss-clip ss7 -->
-    <button class="sarr snx" onclick="ar('ss7',1)">&#8250;</button>
-  </div><!-- /ss-wrapper ss7 -->
-
-  <!-- <div style="height:28px" id="sec-dvhs"></div> -->
-
-  <!-- DVHS group -->
-  <div class="tg">
+    </div><button class="sarr snx" onclick="ar('ss7',1)">&#8250;</button>
+  </div><div class="tg">
     <span class="tglbl">@ DVHS<br>Robotics</span>
     <div class="tab-btns">
       <button class="tb" id="btn-5776k"   onclick="sw('ss8',0,'team-5776k')" disabled>TEAM 5776K</button>
@@ -689,7 +192,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <div class="ss-clip" id="ss8-clip">
       <div class="sscont" id="ss8"><div class="ssfr" id="ss8-fr">
 
-        <!-- 5776K -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -752,7 +254,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           </div>
         </div></div>
 
-        <!-- CABINET -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -780,19 +281,13 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
         </div></div>
 
       </div></div>
-    </div><!-- /ss-clip ss8 -->
-    <button class="sarr snx" onclick="ar('ss8',1)">&#8250;</button>
-  </div><!-- /ss-wrapper ss8 -->
-</section>
+    </div><button class="sarr snx" onclick="ar('ss8',1)">&#8250;</button>
+  </div></section>
 
 <hr class="div"/>
 
-<!-- ══════════════════════════════════════════
-     EVENTS AND CHALLENGES
-══════════════════════════════════════════ -->
 <section id="sec-events" class="sb">
   <div class="sh">
-    <!-- <span class="sh-l"></span> -->
     <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-events','ignite25')" title="Copy link">
       <span class="pulse-dot" data-sh="sec-events"></span>
     </button>
@@ -812,7 +307,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <div class="ss-clip" id="ss3-clip">
       <div class="sscont" id="ss3"><div class="ssfr" id="ss3-fr">
 
-        <!-- IGNITE '25 -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -858,7 +352,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           <div class="clinks"><a href="https://drive.google.com/drive/folders/1ESl7cAYOEde2AYGNfqIwVaKjdsSoHTOa?usp=drive_link" class="clnk" target="_blank">Files (Code, Report, CDR)</a></div>
         </div></div>
 
-        <!-- INVENT -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -878,7 +371,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           </div>
         </div></div>
 
-        <!-- IGNITE '24 -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -900,19 +392,13 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
         </div></div>
 
       </div></div>
-    </div><!-- /ss-clip ss3 -->
-    <button class="sarr snx" onclick="ar('ss3',1)">&#8250;</button>
-  </div><!-- /ss-wrapper ss3 -->
-</section>
+    </div><button class="sarr snx" onclick="ar('ss3',1)">&#8250;</button>
+  </div></section>
 
 <hr class="div"/>
 
-<!-- ══════════════════════════════════════════
-     PERSONAL PROJECTS
-══════════════════════════════════════════ -->
 <section id="sec-infographic" class="sb">
   <div class="sh">
-    <!-- <span class="sh-l"></span> -->
     <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-infographic','everyday-engineering')" title="Copy link">
       <span class="pulse-dot" data-sh="sec-infographic"></span>
     </button>
@@ -931,7 +417,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <div class="ss-clip" id="ss6-clip">
       <div class="sscont" id="ss6"><div class="ssfr" id="ss6-fr">
 
-        <!-- EVERYDAY ENG -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -947,7 +432,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
                 <div>
                   <div class="cw" style="max-height:min(45vh,340px)">
                     <div class="cw-inner port-h">
-                      <!-- contain: show full portrait without cropping -->
                       <img class="cimg on contain" src="https://static.wixstatic.com/media/0d689f_5c6a1c5e47ba436eb434a8dd03ea242e~mv2.png/v1/fill/w_600,h_760,al_c,q_85,enc_avif,quality_auto/0d689f_5c6a1c5e47ba436eb434a8dd03ea242e~mv2.png" alt="Refrigerator"
                         data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"/>
                     </div>
@@ -961,7 +445,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           <div class="clinks"><a href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing" class="clnk" target="_blank">Preview</a></div>
         </div></div>
 
-        <!-- AERO INFOGRAPHICS -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -979,19 +462,13 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
         </div></div>
 
       </div></div>
-    </div><!-- /ss-clip ss6 -->
-    <button class="sarr snx" onclick="ar('ss6',1)">&#8250;</button>
-  </div><!-- /ss-wrapper ss6 -->
-</section>
+    </div><button class="sarr snx" onclick="ar('ss6',1)">&#8250;</button>
+  </div></section>
 
 <hr class="div"/>
 
-<!-- ══════════════════════════════════════════
-     CAD & DESIGN
-══════════════════════════════════════════ -->
 <section id="sec-cad" class="sb">
   <div class="sh">
-    <!-- <span class="sh-l"></span> -->
     <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-cad','boy-scouts')" title="Copy link">
       <span class="pulse-dot" data-sh="sec-cad"></span>
     </button>
@@ -1011,7 +488,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <div class="ss-clip" id="ss9-clip">
       <div class="sscont" id="ss9"><div class="ssfr" id="ss9-fr">
 
-        <!-- BOY SCOUTS -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -1055,7 +531,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           </div>
         </div></div>
 
-        <!-- 737-800 -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -1078,7 +553,6 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
           </div>
         </div></div>
 
-        <!-- F1 BRAKE PEDAL -->
         <div class="ssslide"><div class="ec">
           <div class="ech"><div class="echr">
             <div>
@@ -1108,16 +582,14 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
         </div></div>
 
       </div></div>
-    </div><!-- /ss-clip ss9 -->
-    <button class="sarr snx" onclick="ar('ss9',1)">&#8250;</button>
-  </div><!-- /ss-wrapper ss9 -->
-</section>
+    </div><button class="sarr snx" onclick="ar('ss9',1)">&#8250;</button>
+  </div></section>
 
 <footer>
   <div class="ficons">
     <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-    <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank">in</a>
-    <a href="mailto:adarshsheth@tamu.edu" class="fi">@</a>
+    <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
   </div>
   <nav class="fnav">
     <a href="index.html">HOME</a>
@@ -1126,497 +598,57 @@ footer{background:#080808;padding:18px 48px;display:flex;align-items:center;
     <a href="blog.html">BLOG</a>
   </nav>
 </footer>
-</div><!-- /mn -->
+</div><script>
+  // Dynamically load nav.html and inject its header, styles, and scripts
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
 
-<script>
-/* ══ CUSTOM CURSOR (disabled – set true to enable) ══ */
-const ENABLE_CUSTOM_CURSOR = false;
-/*
-if (ENABLE_CUSTOM_CURSOR) {
-  // inject cursor element
-  const curEl = document.createElement('div');
-  curEl.id = 'cur';
-  document.body.appendChild(curEl);
-  // inject cursor CSS
-  const curStyle = document.createElement('style');
-  curStyle.textContent = `
-    *{cursor:none!important}
-    #cur{position:fixed;width:9px;height:9px;border-radius:50%;background:var(--accent);
-      pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
-      transition:transform .08s,opacity .2s;animation:curPulse 2.4s ease-in-out infinite}
-    #cur.clicking{transform:translate(-50%,-50%) scale(1.8);opacity:.6}
-    @keyframes curPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,168,75,.5)}
-      50%{box-shadow:0 0 0 7px rgba(200,168,75,0)}}
-  `;
-  document.head.appendChild(curStyle);
-  document.addEventListener('mousemove', e => {
-    curEl.style.left = e.clientX + 'px';
-    curEl.style.top  = e.clientY + 'px';
-  });
-  document.addEventListener('mousedown', () => curEl.classList.add('clicking'));
-  document.addEventListener('mouseup',   () => curEl.classList.remove('clicking'));
-}
-*/
-
-/* ══ SLIDE CONFIG ══ */
-const TABS = {
-  ss7:['btn-vfd','btn-red','btn-lsar'],
-  ss8:['btn-5776k','btn-cabinet'],
-  ss3:['btn-ignite25','btn-invent','btn-ignite'],
-  ss6:['btn-everyday','btn-aeroinfo'],
-  ss9:['btn-scouts','btn-737','btn-fsae']
-};
-const RMAP = {
-  ss7:['vfd','red','lsar'],
-  ss8:['team-5776k','cabinet'],
-  ss3:['ignite25','invent','ignite'],
-  ss6:['everyday-engineering','aerodynamics-infographics'],
-  ss9:['boy-scouts','737-800-cad','formula-sae']
-};
-const SMAP = {
-  'vfd':{ss:'ss7',i:0},'red':{ss:'ss7',i:1},'lsar':{ss:'ss7',i:2},
-  'team-5776k':{ss:'ss8',i:0},'cabinet':{ss:'ss8',i:1},
-  'ignite25':{ss:'ss3',i:0},'invent':{ss:'ss3',i:1},'ignite':{ss:'ss3',i:2},
-  'everyday-engineering':{ss:'ss6',i:0},'aerodynamics-infographics':{ss:'ss6',i:1},
-  'boy-scouts':{ss:'ss9',i:0},'737-800-cad':{ss:'ss9',i:1},'formula-sae':{ss:'ss9',i:2}
-};
-const ANC = {ss7:'sec-tamu',ss8:'sec-tamu',ss3:'sec-events',ss6:'sec-infographic',ss9:'sec-cad'};
-const SS = {};
-
-/* ── SLIDESHOW ENGINE ─────────────────────────────────────────────────
-   Uses the tested implementation from portfolio (2).html but adapted to
-   the existing .ss-wrapper / .ss-clip / .sscont structure in this file.
-   WRAP_PAD: must match the CSS padding value on .ss-wrapper (px, all sides). */
-const WRAP_PAD = 20; //sets spacing below slideshows
-
-function initSS() {
-  Object.keys(TABS).forEach(id => {
-    const clip = document.getElementById(id + '-clip');
-    const fr   = document.getElementById(id + '-fr');
-    const cont = document.getElementById(id); // .sscont element
-    if (!clip || !fr || !cont) return;
-    const slides = fr.querySelectorAll('.ssslide');
-    SS[id] = { clip, cont, fr, slides, cur: 0, w: 0 };
-    // init visibility
-    slides.forEach((sl, i) => { sl.style.visibility = i === 0 ? 'visible' : 'hidden'; });
-    calcW(id);
-    setH(id, false);
-    new ResizeObserver(() => {
-      calcW(id);
-      fr.style.transition = 'none';
-      fr.style.transform  = `translateX(-${SS[id].cur * SS[id].w}px)`;
-      requestAnimationFrame(() => { fr.style.transition = ''; });
-      setH(id, false);
-    }).observe(clip);
-    slides.forEach(sl => sl.querySelectorAll('img').forEach(img => {
-      if (!img.complete) img.addEventListener('load', () => setH(id, false), { once: true });
-    }));
-  });
-}
-
-function calcW(id) {
-  const s = SS[id];
-  const w = s.clip.getBoundingClientRect().width;
-  if (w === 0) return;
-  s.w = w;
-  s.slides.forEach(sl => sl.style.width = w + 'px');
-}
-
-/* Set both clip and wrapper heights so CSS transitions animate layout changes */
-function setH(id, animate) {
-  const s = SS[id]; if (!s || !s.slides[s.cur]) return;
-  const card = s.slides[s.cur].querySelector('.ec'); if (!card) return;
-  const h = card.offsetHeight; if (!h) return;
-
-  const clip = s.clip;
-  const wrapper = clip.closest('.ss-wrapper'); if (!wrapper) return;
-  const wrapH = WRAP_PAD + h + WRAP_PAD;
-  const arrTop = WRAP_PAD + Math.round(h / 2);
-
-  if (!animate) {
-    const clipTrans = clip.style.transition;
-    const wrapTrans = wrapper.style.transition;
-    clip.style.transition = 'none';
-    wrapper.style.transition = 'none';
-    clip.style.height = h + 'px';
-    wrapper.style.height = wrapH + 'px';
-    wrapper.querySelectorAll('.sarr').forEach(a => { a.style.transition = 'none'; a.style.top = arrTop + 'px'; });
-    requestAnimationFrame(() => {
-      clip.style.transition = clipTrans || '';
-      wrapper.style.transition = wrapTrans || '';
-      wrapper.querySelectorAll('.sarr').forEach(a => { a.style.transition = ''; });
-    });
-  } else {
-    void clip.offsetHeight; void wrapper.offsetHeight;
-    clip.style.height = h + 'px';
-    wrapper.style.height = wrapH + 'px';
-    wrapper.querySelectorAll('.sarr').forEach(a => { a.style.top = arrTop + 'px'; });
-  }
-}
-
-function sw(id, idx, section, doScroll) {
-  const s = SS[id]; if (!s) return;
-  const prev = s.cur;
-  if (prev === idx) {
-    (TABS[id] || []).forEach((bid, i) => { const b = document.getElementById(bid); if (b) b.disabled = (i === idx); });
-    updateURL(section);
-    if (doScroll) { const el = document.getElementById(ANC[id]); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    return;
-  }
-  s.cur = idx;
-
-  // Reset previous slide's visible state so it will animate next time
-  const prevSlide = s.slides[prev];
-  if (prevSlide) {
-    const prevCard = prevSlide.querySelector('.ec');
-    if (prevCard) prevCard.classList.remove('visible');
-    prevSlide.style.visibility = 'hidden';
-  }
-
-  // Show new slide and retrigger its card animation
-  const newSlide = s.slides[idx];
-  if (newSlide) {
-    newSlide.style.visibility = 'visible';
-    const newCard = newSlide.querySelector('.ec');
-    if (newCard) {
-      newCard.classList.remove('visible');
-      void newCard.offsetHeight; // force reflow
-      setTimeout(() => newCard.classList.add('visible'), 30);
-    }
-  }
-
-  s.fr.style.transform = `translateX(-${idx * s.w}px)`;
-  setTimeout(() => setH(id, true), 0);
-  (TABS[id] || []).forEach((bid, i) => { const b = document.getElementById(bid); if (b) b.disabled = (i === idx); });
-  updateURL(section);
-  if (doScroll) { const el = document.getElementById(ANC[id]); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-}
-
-function ar(id, dir) { const s = SS[id]; if (!s) return; const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir)); if (next === s.cur) return; document.getElementById(TABS[id][next])?.click(); }
-
-function ddNav(section) { const c = SMAP[section]; if (!c) return; if (window._hideNav) window._hideNav(); sw(c.ss, c.i, section, true); }
-
-/* ── lazy init: re-calc when sections scroll into view ── */
-function lazyInit() {
-  Object.keys(SS).forEach(id => {
-    const s = SS[id];
-    if (!s) return;
-    if (s.w === 0) {
-      calcW(id);
-      if (s.w > 0) setH(id, false);
-    }
-  });
-}
-window.addEventListener('load',   lazyInit);
-window.addEventListener('scroll', lazyInit, { passive: true, once: true });
-
-/* ── URL helpers ── */
-let lastSec = null, debT = null;
-function updateURL(s) {
-  if (s === lastSec) return; lastSec = s;
-  const u = new URL(window.location.href);
-  u.searchParams.set('section', s);
-  history.replaceState(null, '', u.toString());
-}
-function updateURLd(s) { clearTimeout(debT); debT = setTimeout(() => updateURL(s), 150); }
-function handleURL() {
-  const s = new URLSearchParams(window.location.search).get('section');
-  if (!s || !SMAP[s]) return;
-  /* Hide nav before auto-scrolling to section */
-  if (window._hideNav) window._hideNav();
-  const { ss, i } = SMAP[s];
-  sw(ss, i, s, true);
-}
-
-/* ── scrollToSec: used by sidebar + scroll cue; hides nav immediately ── */
-function scrollToSec(id) {
-  /* Hide navbar immediately – it will reappear on scroll-up */
-  if (window._hideNav) window._hideNav();
-  const el = id === 'top' ? document.getElementById('top') : document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-/* ── copyAnchorURL: pulsing dot click ── */
-function copyAnchorURL(sectionId, defaultSlide) {
-  const u = new URL(window.location.href);
-  u.hash = '';
-  if (defaultSlide) u.searchParams.set('section', defaultSlide);
-  const text = u.toString();
-  const toast = document.getElementById('copy-toast');
-  const fallback = () => {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); } catch(e) {}
-    document.body.removeChild(ta);
-  };
-  (navigator.clipboard ? navigator.clipboard.writeText(text).catch(fallback) : Promise.resolve(fallback()))
-    .then(() => {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2000);
-    });
-}
-
-/* ── Gantt messages ── */
-window.addEventListener('message', e => {
-  if (e.data?.type === 'navigate' && e.data?.url) {
-    const u = new URL(e.data.url, window.location.href);
-    const s = u.searchParams.get('section');
-    if (s && SMAP[s]) { const { ss, i } = SMAP[s]; sw(ss, i, s, true); }
-  }
-});
-
-/* ── Header scroll behavior ──────────────────────────────────────────
-   Tune these to customize navbar hide/show behavior:
-*/
-const NAV_INITIAL_SHOW_ZONE_VH = 0.15;  // % of viewport height from top: navbar stays visible until user scrolls past this fraction (e.g. 0.15 = first 15vh). Set 0 to disable initial zone.
-const NAV_SCROLL_DOWN_PX = 80;          // px user must scroll DOWN before navbar hides (longer = more forgiving)
-const NAV_SCROLL_UP_PX   = 20;          // px user must scroll UP before navbar reappears (near-immediate)
-/* ─────────────────────────────────────────────────────────────────── */
-
-(function() {
-  const hdr = document.getElementById('hdr');
-  const dd  = document.getElementById('nav-dd');
-  if (!hdr) return;
-
-  let hovering  = false;
-  let autoHiding = false; // true when hidden via scrollToSec/handleURL
-  let ly        = window.scrollY;
-  let delta     = 0;
-  let hid       = false;
-
-  /* Bounce-in transition (spring overshoot) vs snap-out */
-  function showNav() {
-    if (hid) {
-      hdr.style.transition = 'transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)';
-      hdr.style.transform  = 'translateY(0)';
-      hid = false; delta = 0; autoHiding = false;
-    }
-  }
-  function hideNav() {
-    if (!hid) {
-      hdr.style.transition = 'transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)';
-      hdr.style.transform  = 'translateY(-120%)';
-      hid = true; delta = 0;
-    }
-  }
-
-  /* Hover on header or dropdown freezes it in current state */
-  [hdr, dd].forEach(el => {
-    if (!el) return;
-    el.addEventListener('mouseenter', () => { hovering = true; showNav(); });
-    el.addEventListener('mouseleave', () => { hovering = false; ly = window.scrollY; });
-  });
-
-  window.addEventListener('scroll', () => {
-    /* Never hide while hovering */
-    if (hovering) { ly = window.scrollY; delta = 0; return; }
-
-    /* If hidden via programmatic scroll, stay hidden until user manually scrolls up */
-    const y = window.scrollY;
-
-    /* Always show when back at very top */
-    if (y <= 0) { showNav(); ly = y; return; }
-
-    /* Initial show zone: don't hide until past threshold */
-    if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) { showNav(); ly = y; return; }
-
-    const d = y - ly;
-    if (d > 0) {
-      /* Scrolling down */
-      delta = delta > 0 ? delta + d : d;
-      if (!hid && delta >= NAV_SCROLL_DOWN_PX) hideNav();
-    } else if (d < 0) {
-      /* Scrolling up */
-      delta = delta < 0 ? delta + d : d;
-      if (hid && -delta >= NAV_SCROLL_UP_PX) showNav();
-    }
-    ly = y;
-  }, { passive: true });
-
-  /* Expose hide function for programmatic use (scrollToSec / handleURL) */
-  window._hideNav = hideNav;
-  window._showNav = showNav;
-})();
-
-/* ── Dropdown hover bridge ── */
-document.querySelectorAll('.ndrop').forEach(drop => {
-  const dd = drop.querySelector('.nav-dd');
-  let t;
-  drop.addEventListener('mouseenter', () => { clearTimeout(t); dd.style.display = 'block'; });
-  drop.addEventListener('mouseleave', () => { t = setTimeout(() => { dd.style.display = 'none'; }, 160); });
-  dd.addEventListener('mouseenter', () => clearTimeout(t));
-  dd.addEventListener('mouseleave', () => { t = setTimeout(() => { dd.style.display = 'none'; }, 160); });
-});
-
-/* ── Sidebar scroll progress & active state ── */
-const SECS = [
-  { id: 'top',             k: 'top' },
-  { id: 'sec-tamu',        k: 'tamu' },
-  { id: 'sec-events',      k: 'events' },
-  { id: 'sec-infographic', k: 'infographic' },
-  { id: 'sec-cad',         k: 'cad' },
-];
-function updateSidebar() {
-  const fill = document.getElementById('sb-fill');
-  const tot  = document.documentElement.scrollHeight - window.innerHeight;
-  if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + '%';
-  let activeK = 'top';
-  SECS.forEach(({ id, k }) => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top < window.innerHeight * 0.42) activeK = k;
-  });
-  document.querySelectorAll('.sbn').forEach(a => a.classList.toggle('active', a.dataset.k === activeK));
-
-  /* Clear ?section from URL when user is back in hero/timeline area (above first section) */
-  if (activeK === 'top') {
-    const u = new URL(window.location.href);
-    if (u.searchParams.has('section')) {
-      u.searchParams.delete('section');
-      history.replaceState(null, '', u.toString());
-      lastSec = null; // reset so next section navigation updates URL fresh
-    }
-    return; // no slide URL to update when at top
-  }
-
-  const ssMap = { tamu: 'ss7', events: 'ss3', infographic: 'ss6', cad: 'ss9' };
-  const ssId  = ssMap[activeK];
-  if (ssId && SS[ssId]) { const sec = RMAP[ssId]?.[SS[ssId].cur]; if (sec) updateURLd(sec); }
-}
-window.addEventListener('scroll', updateSidebar, { passive: true });
-
-/* ── Carousels ── */
-function initCarousels() {
-  document.querySelectorAll('.cw').forEach(wrap => {
-    const inner = wrap.querySelector('.cw-inner');
-    if (!inner) return;
-    const imgs = inner.querySelectorAll('.cimg');
-    if (!imgs.length) return;
-    // find dots and caption by traversing next siblings
-    let node = wrap, dotsEl = null, capEl = null;
-    for (let i = 0; i < 4; i++) {
-      node = node.nextElementSibling;
-      if (!node) break;
-      if (!dotsEl && node.classList.contains('cdots')) dotsEl = node;
-      if (!capEl  && node.classList.contains('car-caption')) capEl = node;
-    }
-    const dots = dotsEl ? dotsEl.querySelectorAll('.cdot') : [];
-    let cur = 0, timer = null;
-
-    function show(i) {
-      imgs[cur].classList.remove('on');
-      if (dots[cur]) dots[cur].classList.remove('on');
-      cur = (i + imgs.length) % imgs.length;
-      imgs[cur].classList.add('on');
-      if (dots[cur]) dots[cur].classList.add('on');
-      // update per-image caption
-      if (capEl) {
-        const cap  = imgs[cur].dataset.cap  || '';
-        const link = imgs[cur].dataset.link || '';
-        if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-        else       capEl.textContent = cap;
+      // 1. Inject the header
+      const header = doc.querySelector('header');
+      if (header) {
+        // Enforce PORTFOLIO active state
+        header.querySelectorAll('.ni').forEach(link => {
+          if (link.textContent.trim().includes('PORTFOLIO')) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+        document.getElementById('nav-placeholder').replaceWith(header);
       }
-      // re-measure parent slideshow height after image change
-      const clip = wrap.closest('.ss-clip');
-      if (clip) {
-        const id = clip.id.replace('-clip', '');
-        if (SS[id]) setTimeout(() => setH(id, true), 60);
-      }
-    }
 
-    dots.forEach((d, i) => d.addEventListener('click', e => {
-      e.stopPropagation();
-      clearInterval(timer);
-      show(i);
-      if (imgs.length > 1) timer = setInterval(() => show(cur + 1), 4200);
-    }));
-
-    wrap.addEventListener('click', () => {
-      if (imgs[cur]?.tagName === 'IMG') openLb(imgs, cur);
-    });
-
-    show(0); // init caption
-    if (imgs.length > 1) timer = setInterval(() => show(cur + 1), 4200);
-  });
-}
-
-/* ── Lightbox ── */
-let lbImgs = [], lbCur = 0;
-function openLb(imgs, startIdx) {
-  lbImgs = Array.from(imgs); lbCur = startIdx;
-  renderLb();
-  document.getElementById('lb').classList.add('open');
-}
-function renderLb() {
-  const img  = lbImgs[lbCur];
-  const cap  = img.dataset.cap  || '';
-  const link = img.dataset.link || '';
-  document.getElementById('lbimg').src = img.src;
-  const capEl = document.getElementById('lbcap');
-  if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-  else       capEl.textContent = cap;
-}
-function lbNav(dir) {
-  if (!lbImgs.length) return;
-  lbCur = (lbCur + dir + lbImgs.length) % lbImgs.length;
-  renderLb();
-}
-function closeLb() { document.getElementById('lb').classList.remove('open'); lbImgs = []; }
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('lb').classList.contains('open')) return;
-  if (e.key === 'ArrowRight') lbNav(1);
-  if (e.key === 'ArrowLeft')  lbNav(-1);
-  if (e.key === 'Escape')     closeLb();
-});
-
-/* ── Card fade-in ── */
-function initFadeIn() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.ec').forEach(c => obs.observe(c));
-}
-
-/* ── Stat count-up ── */
-function initCountUp() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.querySelectorAll('[data-count]').forEach(el => {
-        const target = parseInt(el.dataset.count);
-        const suffix = el.dataset.suffix || '';
-        const dur = 1200, start = performance.now();
-        const tick = now => {
-          const t = Math.min((now - start) / dur, 1);
-          const ease = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(ease * target) + suffix;
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
+      // 2. Inject stylesheets from nav.html
+      doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+        if (!document.querySelector(`link[href="${link.getAttribute('href')}"]`)) {
+          document.head.appendChild(link.cloneNode(true));
+        }
       });
-      obs.unobserve(entry.target);
-    });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('.srow').forEach(r => obs.observe(r));
-}
 
-/* ── INIT ── */
-document.addEventListener('DOMContentLoaded', () => {
-  initSS();
-  setTimeout(() => {
-    Object.keys(SS).forEach(id => { calcW(id); setH(id, false); });
-    handleURL();
-    updateSidebar();
-  }, 150);
-  initCarousels();
-  initFadeIn();
-  initCountUp();
-});
+      // 3. Inject scripts from nav.html (which will load script.js)
+      doc.querySelectorAll('script').forEach(script => {
+        if (script.src && !document.querySelector(`script[src="${script.getAttribute('src')}"]`)) {
+          const newScript = document.createElement('script');
+          newScript.src = script.src;
+          // CRUCIAL: Once script.js loads, artificially trigger DOMContentLoaded so all your carousels/slideshows initialize!
+          newScript.onload = () => {
+            window.document.dispatchEvent(new Event("DOMContentLoaded", {
+              bubbles: true,
+              cancelable: true
+            }));
+          };
+          document.body.appendChild(newScript);
+        } else if (!script.src) {
+          const newScript = document.createElement('script');
+          newScript.textContent = script.textContent;
+          document.body.appendChild(newScript);
+        }
+      });
+    })
+    .catch(error => console.error('Error loading navigation:', error));
 </script>
+
 </body>
 </html>
