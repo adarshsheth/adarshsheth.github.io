@@ -7,7 +7,7 @@
 	--g: #647661;
 	--gd: #232922;
 	--gl: #8da084;
-	--gpale: rgba(100, 118, 97, 0.08);
+	--gpale: rgba(100, 118, 97, 0.25);
 	--accent: #c8a84b;
 	--text: #d0d3cd;
 	--tdim: #7a7e76;
@@ -101,7 +101,7 @@ header {
 	width: 100%;
 	border-radius: 100px;
 	border: 2px solid rgba(47, 61, 47, 0.705);
-	background: #6d836ab0;
+	background: #6d836a6b;
 	backdrop-filter: blur(4px);
 	-webkit-backdrop-filter: blur(4px);
 	padding: 5px 7px;
@@ -145,7 +145,7 @@ header {
 	position: relative;
 	overflow: hidden;
 	color: rgba(255, 255, 255, 0.82);
-	background: #373f329f;
+	background: #525d4bb5;
 	font-weight: 700;
 	font-size: 11.5px;
 	letter-spacing: 0.07em;
@@ -596,7 +596,7 @@ section {
 .tglbl {
 	font-size: 11px;
 	font-style: italic;
-	color: var(--tmut);
+	color: white;
 	margin-right: 4px;
 	white-space: nowrap;
 	line-height: 1.35;
@@ -612,16 +612,17 @@ section {
 	align-items: center;
 	height: 30px;
 	padding: 0 15px;
-	border: 1.5px solid var(--g);
+	border: 1.5px solid white;
 	background: transparent;
-	color: var(--g);
+	color: white;
 	font-family: "Rubik", sans-serif;
 	font-weight: 700;
-	font-size: 11px;
+	font-size: 12px;
 	letter-spacing: 0.07em;
 	transition:
 		background 0.15s,
 		color 0.15s;
+		transform: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	border-radius: 0;
 }
 /* outer corners get pill radius; inner corners stay 0 */
@@ -636,10 +637,11 @@ section {
 }
 .tb:hover:not(:disabled) {
 	background: var(--gpale);
+	transform: translateY(-1px);
 }
 .tb:disabled {
-	background: var(--g);
-	color: #fff;
+	background: white;
+	color: var(--bg);
 }
 
 /* ══ SLIDESHOW ─────────────────────────────────────────────────────────
@@ -923,7 +925,8 @@ section {
 	letter-spacing: 0.15em;
 	color: var(--miniheader);
 	text-transform: uppercase;
-	margin-bottom: 7px;
+	margin-bottom: 5px;
+	padding-top: 15px;
 }
 /* stat rows */
 .srow {
@@ -967,11 +970,12 @@ section {
    Base: grey border + bg, yellow dot + yellow text always
    Hover: yellow border + subtle yellow tint bg */
 .clinks {
-	padding: 9px 20px 14px;
+	padding: 10px 20px 10px;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 7px;
 	border-top: 1px solid var(--border);
+	background-color: rgba(255, 255, 255, 0.05);
 }
 .clnk {
 	display: inline-flex;
@@ -983,14 +987,17 @@ section {
 	/* base state: grey */
 	border: 1px solid rgba(90, 90, 85, 0.4);
 	background: rgba(22, 22, 20, 0.5);
-	color: var(--accent); /* yellow text always */
+	color: var(--tmut);
+	/* color: var(--accent); */
 	font-size: 10.5px;
 	font-weight: 600;
 	letter-spacing: 0.05em;
 	text-decoration: none;
 	transition:
 		border-color 0.15s,
-		background 0.15s;
+		background 0.15s,
+		transform 0.15s,
+		color 0.15s;
 }
 /* yellow dot always visible */
 .clnk::before {
@@ -999,17 +1006,24 @@ section {
 	width: 5px;
 	height: 5px;
 	border-radius: 50%;
-	background: var(--accent);
+	background: var(--tmut);
 	flex-shrink: 0;
-	transition: transform 0.15s;
+	transition: 
+		transform 0.15s,
+		background 0.15s;
 }
 /* hover: add yellow border + tint */
 .clnk:hover {
 	border-color: rgba(200, 168, 75, 0.55);
 	background: rgba(200, 168, 75, 0.09);
+	color: var(--accent);
+	transform: translateY(-1px);
+
 }
 .clnk:hover::before {
 	transform: scale(1.4);
+	background: var(--accent);
+
 }
 
 /* ══ CAROUSELS – fixed-height inner container ── */
@@ -1023,7 +1037,7 @@ section {
 	transition:
 		transform 0.922s ease,
 		box-shadow 0.22s ease;
-  margin-top:10px;
+  margin-top:0px;
   margin-bottom:2px;
 }
 .cw:hover {
@@ -1087,7 +1101,7 @@ section {
 	min-height: 16px;
 	line-height: 1.4;
 	font-style: italic;
-	padding-bottom: 7px;
+	padding-bottom: 5px;
 	text-align: center;
 }
 .car-caption a {
