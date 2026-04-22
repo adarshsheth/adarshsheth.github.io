@@ -14,13 +14,11 @@
 	--tmut: var(--tdim);
 	--miniheader: var(--dimtitle);
 	---dull: #4f5348;
-	/* --tmut:#4f5348 */ /*current*/
-	/* --tmut:#3e4238 */
-	--navh: 100px;
+	--navh: 70px;
 	--sw: 176px;
 	--r: 10px;
 	--anchorh: 0px;
-	--sb: 50px;
+	--sb: 70px;
 	--dimtitle: #888888;
 	--bullbold: #525e44;
 	--title: #ffffff;
@@ -32,14 +30,6 @@
 	background: rgba(200, 168, 75, 0.32);
 	color: #fff;
 }
-
-/* ── CUSTOM CURSOR (disabled – set ENABLE_CUSTOM_CURSOR=true in JS to enable) ── */
-/* #cur{position:fixed;width:9px;height:9px;border-radius:50%;background:var(--accent);
-  pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
-  transition:transform .08s,opacity .2s;animation:curPulse 2.4s ease-in-out infinite}
-#cur.clicking{transform:translate(-50%,-50%) scale(1.8);opacity:.6}
-@keyframes curPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,168,75,.5)}
-  50%{box-shadow:0 0 0 7px rgba(200,168,75,0)}} */
 
 /* ── RESET ── */
 *,
@@ -90,21 +80,51 @@ header {
 	padding: 20px;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	transition: transform 0.4s ease-in-out;
 	pointer-events: none;
 }
+
+/* Overriding the HTML styling to prevent stretching and hide on desktop */
+.mobile-box {
+	display: none; /* HIDDEN ON DESKTOP */
+	pointer-events: all;
+	width: auto !important;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	margin-right: 10px;
+}
+
+.mobile-menu-btn {
+	display: none; /* HIDDEN ON DESKTOP */
+	cursor: pointer;
+	transition:
+		background 0.2s,
+		color 0.2s;
+	border-radius: 100px;
+	padding: 10px 14px;
+	background: transparent;
+	border: 0px;
+	color: var(--tdim);
+}
+.mobile-menu-btn:hover {
+	color: white;
+}
+
 .navbox {
 	pointer-events: all;
 	display: inline-flex;
-	align-items: center;
-	max-width: 860px;
-	width: 100%;
+	/* align-items: center; */
+	max-width: 100%;
+	width: 100%; /* Prevent stretching */
 	border-radius: 100px;
 	border: 2px solid rgba(47, 61, 47, 0.705);
 	background: #6d836a6b;
 	backdrop-filter: blur(4px);
 	-webkit-backdrop-filter: blur(4px);
-	padding: 5px 7px;
+	padding: 5px 5px;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 	transition: transform 0.45s ease-in-out;
 	will-change: transform;
@@ -117,6 +137,8 @@ header {
 	align-items: center;
 	gap: 4px;
 	width: 100%;
+	margin-right: 3px;
+	margin-left: -4px;
 }
 .logo-icon {
 	width: 50px;
@@ -151,7 +173,7 @@ header {
 	letter-spacing: 0.07em;
 	display: inline-flex;
 	align-items: center;
-	gap: 6px; /* ensure consistent height */
+	gap: 6px;
 	padding: 7px 14px;
 	border-radius: 100px;
 	white-space: nowrap;
@@ -184,7 +206,6 @@ header {
 .ni.active::after {
 	display: none;
 }
-/* dropdown – appears below pill, not inside it */
 .ndrop {
 	position: relative;
 }
@@ -195,15 +216,12 @@ header {
 	left: 50%;
 	transform: translateX(-50%);
 	background: #ffffffc9;
-	border: 0px solid rgba(0, 0, 0, 0.1);
 	border-radius: 12px;
 	min-width: 190px;
 	overflow: hidden;
 	width: fit-content;
-
 	backdrop-filter: blur(4px) !important;
-	-webkit-backdrop-filter: blur(4px) !important; /*fix this later*
-  box-shadow:0 10px 36px rgba(0,0,0,.22);z-index:200;padding:0px 0; /* padding 4px 0 */
+	-webkit-backdrop-filter: blur(4px) !important;
 }
 .dd-hdr {
 	display: block;
@@ -214,8 +232,6 @@ header {
 	color: var(--text);
 	background: #647661cb;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-	/* backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px); */
-	/* padding-right: 60px */
 }
 .dd-lnk {
 	display: block;
@@ -228,7 +244,6 @@ header {
 		color 0.15s;
 }
 .dd-lnk:hover {
-	/* background:rgba(100,118,97,.12); */
 	color: var(--g);
 }
 .ncontact {
@@ -273,7 +288,6 @@ header {
 	border-bottom: 1px solid var(--border);
 	text-transform: uppercase;
 }
-/* progress bar right below header */
 #sb-prog {
 	height: 2px;
 	background: var(--border);
@@ -292,7 +306,7 @@ header {
 #sb-nav {
 	flex: 1;
 	overflow-y: auto;
-	padding: 8px 0;
+	padding: 10px 0;
 }
 .sbn {
 	display: flex;
@@ -333,16 +347,18 @@ header {
 	transition: color 0.2s;
 	text-transform: uppercase;
 }
+
 /* ══ SIDEBAR SUB-NAVIGATION ── */
 .sb-group {
 	display: flex;
 	flex-direction: column;
+	margin-top: 5px;
 }
 .sb-subnav {
 	display: flex;
 	flex-direction: column;
-	padding-left: 29px; /* Aligns with the parent label */
-	gap: 6px;
+	padding-left: 29px;
+	gap: 4px;
 	margin-top: 2px;
 	margin-bottom: 8px;
 }
@@ -353,7 +369,9 @@ header {
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	text-decoration: none;
-	transition: color 0.2s, transform 0.2s;
+	transition:
+		color 0.2s,
+		transform 0.2s;
 	position: relative;
 	display: inline-block;
 	width: fit-content;
@@ -364,7 +382,9 @@ header {
 	left: -10px;
 	color: var(--tmut);
 	opacity: 0.4;
-	transition: opacity 0.2s, color 0.2s;
+	transition:
+		opacity 0.2s,
+		color 0.2s;
 }
 .sbn-sub:hover {
 	color: var(--g);
@@ -469,10 +489,7 @@ section {
 .tlbox:hover {
 	border-color: rgba(100, 118, 97, 0.6);
 	box-shadow:
-		/* 0 0 0 1px rgba(100, 118, 97, 0.18),
-		0 0 18px 4px rgba(100, 118, 97, 0.22),
-		0 0 36px 8px rgba(100, 118, 97, 0.1); */
-        0 0 7px 4px rgba(100, 118, 97, 0.10),
+		0 0 7px 4px rgba(100, 118, 97, 0.1),
 		0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform: scale(1.005);
 }
@@ -496,16 +513,7 @@ section {
 	width: 100%;
 	height: 250px;
 	border: none;
-	/* transform: translateY(-4px); */
 }
-
-/* 👉 Make the PDF Lightbox large and readable */
-/* #lbframe {
-	width: 90vw !important;
-	max-width: 900px !important;
-	height: 85vh !important;
-} */
-/* scroll cue as clickable button */
 .scrollcue-btn {
 	display: flex;
 	justify-content: center;
@@ -537,11 +545,9 @@ section {
 }
 
 /* ══ SECTION HEADINGS ── */
-/* .sb{padding:0 48px 60px} */
 .sb {
 	padding: 0 48px 0px;
 }
-/* .sh{display:flex;align-items:center;gap:12px;padding:36px 0 24px;margin:0 -48px} */
 .sh {
 	display: flex;
 	align-items: center;
@@ -549,10 +555,6 @@ section {
 	padding: 36px 0 24px;
 	margin: 0 -48px;
 }
-/* commented out: old 40px bar
-.sh-l{height:15px;background:var(--text);flex-shrink:0;width:40px}
-*/
-/* pulsing dot – replaces left bar */
 .sh-pulse-btn {
 	background: none;
 	border: none;
@@ -589,7 +591,6 @@ section {
 		box-shadow: 0 0 0 10px rgba(208, 211, 205, 0);
 	}
 }
-/* copy toast */
 .copy-toast {
 	position: fixed;
 	bottom: 28px;
@@ -630,7 +631,7 @@ section {
 	transition: background 0.1s ease-in-out;
 }
 
-/* ══ TABS – segmented with correct corner radii ── */
+/* ══ TABS ── */
 .tg {
 	display: flex;
 	align-items: center;
@@ -651,7 +652,6 @@ section {
 	display: flex;
 	gap: 5px;
 }
-/* base: all 4 corners zeroed (middle tabs stay 0) */
 .tb {
 	display: inline-flex;
 	align-items: center;
@@ -666,11 +666,10 @@ section {
 	letter-spacing: 0.07em;
 	transition:
 		background 0.15s,
-		color 0.15s;
-		transform: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		color 0.15s,
+		transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	border-radius: 0;
 }
-/* outer corners get pill radius; inner corners stay 0 */
 .tab-btns .tb:first-child {
 	border-radius: 100px 0 0 100px;
 }
@@ -689,28 +688,17 @@ section {
 	color: var(--bg);
 }
 
-/* ══ SLIDESHOW ─────────────────────────────────────────────────────────
-   WRAP_PAD = 40px on all sides → glow + scale (1.01) have breathing room
-   .ss-wrapper  overflow:hidden BFC; JS sets explicit height + transition
-                so siblings animate up/down when slide height changes.
-   .ss-clip     overflow:visible; JS-managed height drives wrapper resize.
-   Off-screen slides: JS sets visibility:hidden so the 40px horizontal
-   padding gap doesn't reveal adjacent slides during transitions.
-   Arrows: top = WRAP_PAD + currentH/2  (JS-managed, animates via CSS)
-*/
+/* ══ SLIDESHOW ── */
 .ss-wrapper {
 	position: relative;
 	overflow: hidden;
-	padding: 20px; /* all-side room for glow + scale */
+	padding: 20px;
 	padding-top: 10px;
 	padding-right: 30px;
 	padding-bottom: 0 !important;
-	/* Compensate L/R pad so content aligns with siblings; top: pull up to cancel top-pad */
 	margin: -10px -20px 0 -20px;
-	/* height set explicitly by JS; transition makes sibling sections float */
 	transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	box-sizing: content-box; /* explicit: padding outside the height value */
-	/* background: pink; */
+	box-sizing: content-box;
 }
 .ss-clip {
 	overflow: visible;
@@ -728,12 +716,11 @@ section {
 .ssslide {
 	flex: none;
 	min-width: 0;
-} /* width by JS; visibility toggled by JS */
-/* arrows: top = WRAP_PAD(40) + slideH/2, set by JS */
+}
 .sarr {
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%); /* fallback; overridden immediately by JS */
+	transform: translateY(-50%);
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
@@ -763,13 +750,12 @@ section {
 }
 .sarr.spr {
 	left: 8px;
-} /* 8px inside wrapper's 40px pad → always visible */
+}
 .sarr.snx {
 	right: 8px;
 }
 
-/* ══ EXPERIENCE CARD ── scale + omnidirectional glow.
-   Scale is safe because ss-wrapper's 40px overflow room >> scale growth on any card. */
+/* ══ EXPERIENCE CARD ── */
 .ec {
 	background: var(--surface);
 	border: 1.5px solid var(--border);
@@ -782,7 +768,7 @@ section {
 		box-shadow 0.25s,
 		opacity 0.5s,
 		transform 0.5s;
-	will-change: transform, opacity; /* Add this to hint to the browser */
+	will-change: transform, opacity;
 }
 .ec.visible {
 	opacity: 1;
@@ -792,9 +778,7 @@ section {
 .ec.visible:hover {
 	border-color: rgba(100, 118, 97, 0.6);
 	box-shadow:
-		/* 0 0 0 0px rgba(100, 118, 97, 0.2), */
-		/* 0 0 14px 3px rgba(100,118,97,.22), */ /* 0 0 30px 6px rgba(100,118,97,.12); */ 
-    0 0 7px 4px rgba(100, 118, 97, 0.10),
+		0 0 7px 4px rgba(100, 118, 97, 0.1),
 		0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform-origin: top left;
 	transform: translateY(0) scale(1.01);
@@ -810,7 +794,6 @@ section {
 	gap: 12px;
 	flex-wrap: wrap;
 }
-/* experience card title – mid grey, distinct from white */
 .ect {
 	font-weight: 900;
 	font-size: 20px;
@@ -859,7 +842,7 @@ section {
 	border-radius: 6px;
 }
 
-/* ══ BADGES ── square, green border, no bg ──    aka skill cards*/
+/* ══ BADGES ── */
 .brow {
 	padding: 9px 20px;
 	display: flex;
@@ -882,28 +865,33 @@ section {
 }
 
 /* ══ CARD BODY ── */
-.cbody { display: grid; grid-template-columns: 1fr 240px; gap: 16px; padding: 8px 20px 16px; align-items: start; }
-.cbody.full { grid-template-columns: 1fr; }
-.cbody.wimg { grid-template-columns: 1fr 270px; }
-
-/* 1. ADD THIS NEW CLASS */
+.cbody {
+	display: grid;
+	grid-template-columns: 1fr 240px;
+	gap: 16px;
+	padding: 8px 20px 16px;
+	align-items: start;
+}
+.cbody.full {
+	grid-template-columns: 1fr;
+}
+.cbody.wimg {
+	grid-template-columns: 1fr 270px;
+}
 .cbody.flex-img {
-	/* The text gets 1.5 parts of the space, the image gets 1 part. Both are fluid. */
-	grid-template-columns: 3fr 1fr; 
+	grid-template-columns: 3fr 1fr;
 }
-
-.cbody > * { min-width: 0; }
-
-/* Forces the top of the text and image columns to align perfectly */
+.cbody > * {
+	min-width: 0;
+}
 .cbody > div > *:first-child {
-    margin-top: 0 !important;
+	margin-top: 0 !important;
 }
 
-/* 2. UPDATE THIS MEDIA QUERY SO IT INCLUDES .flex-img */
 @media (max-width: 820px) {
 	.cbody,
 	.cbody.wimg,
-	.cbody.flex-img { /* <-- Added here */
+	.cbody.flex-img {
 		grid-template-columns: 1fr;
 	}
 }
@@ -949,7 +937,6 @@ section {
 	list-style: circle;
 	padding-left: 16px;
 }
-/* bold text in bullets – lighter grey, not white */
 .cbul b,
 .cbul strong {
 	color: var(--bullbold);
@@ -977,6 +964,7 @@ section {
 	margin-bottom: 5px;
 	padding-top: 15px;
 }
+
 /* stat rows */
 .srow {
 	display: flex;
@@ -986,7 +974,6 @@ section {
 	border-radius: 8px;
 	overflow: hidden;
 	margin: 10px 0;
-  /* padding-top: 10px; */
 }
 .scell {
 	background: var(--surface2);
@@ -1015,9 +1002,7 @@ section {
 	line-height: 1.35;
 }
 
-/* ══ LINK BUTTONS ──
-   Base: grey border + bg, yellow dot + yellow text always
-   Hover: yellow border + subtle yellow tint bg */
+/* ══ LINK BUTTONS ── */
 .clinks {
 	padding: 10px 20px 10px;
 	display: flex;
@@ -1033,11 +1018,9 @@ section {
 	height: 28px;
 	padding: 0 14px;
 	border-radius: 100px;
-	/* base state: grey */
 	border: 1px solid rgba(90, 90, 85, 0.4);
 	background: rgba(22, 22, 20, 0.5);
 	color: var(--tmut);
-	/* color: var(--accent); */
 	font-size: 10.5px;
 	font-weight: 600;
 	letter-spacing: 0.05em;
@@ -1048,7 +1031,6 @@ section {
 		transform 0.15s,
 		color 0.15s;
 }
-/* yellow dot always visible */
 .clnk::before {
 	content: "";
 	display: inline-block;
@@ -1057,25 +1039,22 @@ section {
 	border-radius: 50%;
 	background: var(--tmut);
 	flex-shrink: 0;
-	transition: 
+	transition:
 		transform 0.15s,
 		background 0.15s;
 }
-/* hover: add yellow border + tint */
 .clnk:hover {
 	border-color: rgba(200, 168, 75, 0.55);
 	background: rgba(200, 168, 75, 0.09);
 	color: var(--accent);
 	transform: translateY(-1px);
-
 }
 .clnk:hover::before {
 	transform: scale(1.4);
 	background: var(--accent);
-
 }
 
-/* ══ CAROUSELS – fixed-height inner container ── */
+/* ══ CAROUSELS ── */
 .cw {
 	position: relative;
 	border-radius: 8px;
@@ -1086,28 +1065,27 @@ section {
 	transition:
 		transform 0.922s ease,
 		box-shadow 0.22s ease;
-  margin-top:0px;
-  margin-bottom:2px;
+	margin-top: 0px;
+	margin-bottom: 2px;
 }
 .cw:hover {
 	transform: scale(1.007);
-  /* border: rgba(255, 255, 255, 0.2) 0.5px solid; */
 	box-shadow: 0px 0px 12px rgba(98, 127, 100, 0.3);
 }
 .cw-inner {
-	background: #1a1a1a; /* Placeholder color */
-    min-height: 200px;
+	background: #1a1a1a;
+	min-height: 200px;
 	position: relative;
 	width: 100%;
-    height: auto !important; /* Overrides your default 240px or tall-h 300px */
-    aspect-ratio: 4 / 3; /* <-- Change these numbers to your desired ratio */
-} /* default fixed height */
+	height: auto !important;
+	aspect-ratio: 4 / 3;
+}
 .cw-inner.tall-h {
 	height: 300px;
 }
 .cw-inner.port-h {
 	height: min(45vh, 340px);
-} /* portrait – cap at 45vh */
+}
 .cimg {
 	position: absolute;
 	top: 0;
@@ -1129,7 +1107,6 @@ section {
 	justify-content: center;
 	gap: 5px;
 	padding: 6px 0 2px;
-  /* margin: 0px; */
 }
 .cdot {
 	width: 5px;
@@ -1139,8 +1116,8 @@ section {
 	transition: all 0.18s;
 }
 .cdot:hover {
-  background: var(--accent);
-  transform: scale(1.2);
+	background: var(--accent);
+	transform: scale(1.2);
 }
 .cdot.on {
 	background: var(--accent);
@@ -1160,18 +1137,6 @@ section {
 	color: var(--accent);
 	text-decoration: underline;
 	text-underline-offset: 2px;
-}
-.cph {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 1px dashed var(--border);
-	border-radius: 8px;
-	font-size: 11px;
-	color: var(--tmut);
-	font-style: italic;
-	padding: 24px;
-	height: 200px;
 }
 
 /* ══ LIGHTBOX ── */
@@ -1206,7 +1171,6 @@ section {
 	z-index: 1;
 	max-width: 90vw;
 }
-/* height locked to 45vh; width adapts to AR */
 .lbi {
 	height: 45vh;
 	width: auto;
@@ -1214,21 +1178,19 @@ section {
 	border-radius: 8px;
 	object-fit: contain;
 }
-/* bottom caption+nav row: arrows pinned absolute so caption width never shifts them */
 .lb-bottom {
 	position: relative;
-	width: min(88vw, 400px); /* DECREASED FROM 700px: Brings the rigid edges (and arrows) closer together */
+	width: min(88vw, 400px);
 	min-height: 38px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0 48px; /* space for arrows on each side */
+	padding: 0 48px;
 }
 .lbcap {
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
 	text-align: center;
-	/* caption fills center space; arrows don't contribute to its width */
 	flex: 1;
 	max-width: 100%;
 }
@@ -1250,7 +1212,6 @@ section {
 	align-items: center;
 	justify-content: center;
 }
-/* lightbox nav arrows: absolutely positioned at fixed edges of .lb-bottom */
 .lb-nav {
 	position: absolute;
 	top: 50%;
@@ -1336,28 +1297,43 @@ footer {
 	color: var(--accent);
 }
 
-/* ══ MOBILE COMPACT NAVIGATION ── */
-@media (max-width: 768px) {
-	.logo, 
-	.logo-icon, 
+/* ══ RESPONSIVE & MOBILE MENU OVERRIDES ── */
+@media (max-width: 900px) {
+	/* Hide Desktop Elements */
+	.logo,
+	.logo-icon,
 	.ncontact {
 		display: none !important;
 	}
-  .navbox {
-		width: fit-content;
-	}
-}
 
-/* ══ RESPONSIVE ── */
-@media (max-width: 900px) {
-	#sb {
-		display: none;
+	/* Show Mobile Elements */
+	.mobile-box {
+		display: inline-flex !important;
+	}
+	.mobile-menu-btn {
+		display: block !important;
+		background: var(--dull);
+		border-radius: 10px;
+		border: 2px solid rgba(47, 61, 47, 0.705);
+		background: #6d836a6b;
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		padding: 12px 14px;
+	}
+
+	/* Layout Overrides */
+	header {
+		left: 0;
+	}
+	.navbox {
+		width: max-content !important; /* Prevents 100% stretching */
+		margin: 0 auto;
+	}
+	.nav-center {
+		justify-content: flex-start;
 	}
 	#mn {
 		margin-left: 0;
-	}
-	header {
-		left: 0;
 	}
 	.sb {
 		padding: 0 22px 48px;
@@ -1380,7 +1356,37 @@ footer {
 	.sh-pulse-btn {
 		margin-left: 22px;
 	}
+
+	/* Sidebar slide behavior */
+	#sb {
+		display: flex !important;
+		transform: translateX(-100%);
+		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+	}
+	#sb.sb-open {
+		transform: translateX(0);
+	}
 }
+
+/* Sidebar Overlay */
+#sb-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	z-index: 399;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+
+#sb-overlay.show {
+	opacity: 1;
+	pointer-events: all;
+}
+
 @media (max-width: 600px) {
 	.cbody,
 	.cbody.wimg {

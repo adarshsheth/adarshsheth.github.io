@@ -306,6 +306,45 @@ window.addEventListener("message", (e) => {
 	}
 });
 
+
+/* ── MOBILE SIDEBAR TOGGLE ── */
+document.addEventListener("click", (e) => {
+	const btn = e.target.closest(".mobile-menu-btn");
+	const sb = document.getElementById("sb");
+	const overlay = document.getElementById("sb-overlay");
+
+	if (!sb || !overlay) return;
+
+	// 1. If the hamburger menu is clicked, toggle the sidebar
+	if (btn) {
+		const isOpen = sb.classList.contains("sb-open");
+		if (!isOpen) {
+			sb.classList.add("sb-open");
+			overlay.classList.add("show");
+			document.body.style.overflow = "hidden"; // Stop the background from scrolling
+		} else {
+			closeSidebar();
+		}
+		return;
+	}
+
+	// 2. If the user clicks the dark overlay, or clicks a link inside the sidebar, close it
+	if (e.target.matches("#sb-overlay") || e.target.closest(".sbn, .sbn-sub, .tb")) {
+		if (sb.classList.contains("sb-open")) {
+			closeSidebar();
+		}
+	}
+});
+
+function closeSidebar() {
+	const sb = document.getElementById("sb");
+	const overlay = document.getElementById("sb-overlay");
+	if (sb) sb.classList.remove("sb-open");
+	if (overlay) overlay.classList.remove("show");
+	document.body.style.overflow = ""; // Restore scrolling
+}
+
+
 /* ── HEADER SCROLL BEHAVIOR ────────────────────────────────────────── */
 const NAV_INITIAL_SHOW_ZONE_VH = 0.15;
 const NAV_SCROLL_DOWN_PX = 80;
