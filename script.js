@@ -57,29 +57,28 @@ const SMAP = {
 	"737-800-cad": {ss: "ss9", i: 1},
 	"formula-sae": {ss: "ss9", i: 2},
 };
-const ANC = {ss7: "sec-tamu", ss8: "sec-tamu", ss3: "sec-events", ss6: "sec-infographic", ss9: "sec-cad"};
+const ANC = {ss7: "sec-tamu", ss8: "sec-dvhs", ss3: "sec-events", ss6: "sec-infographic", ss9: "sec-cad"};
 const SS = {};
+const WRAP_PAD = 20;
 
-/* ── SLIDESHOW ENGINE ─────────────────────────────────────────────────
-   Uses the tested implementation from portfolio (2).html but adapted to
-   the existing .ss-wrapper / .ss-clip / .sscont structure in this file.
-   WRAP_PAD: must match the CSS padding value on .ss-wrapper (px, all sides). */
-const WRAP_PAD = 20; //sets spacing below slideshows
-
+/* ── SLIDESHOW ENGINE ───────────────────────────────────────────────── */
 function initSS() {
 	Object.keys(TABS).forEach((id) => {
 		const clip = document.getElementById(id + "-clip");
 		const fr = document.getElementById(id + "-fr");
-		const cont = document.getElementById(id); // .sscont element
+		const cont = document.getElementById(id);
 		if (!clip || !fr || !cont) return;
 		const slides = fr.querySelectorAll(".ssslide");
 		SS[id] = {clip, cont, fr, slides, cur: 0, w: 0};
+
 		// init visibility
 		slides.forEach((sl, i) => {
 			sl.style.visibility = i === 0 ? "visible" : "hidden";
 		});
+
 		calcW(id);
 		setH(id, false);
+
 		new ResizeObserver(() => {
 			calcW(id);
 			fr.style.transition = "none";
@@ -89,6 +88,7 @@ function initSS() {
 			});
 			setH(id, false);
 		}).observe(clip);
+
 		slides.forEach((sl) =>
 			sl.querySelectorAll("img").forEach((img) => {
 				if (!img.complete) img.addEventListener("load", () => setH(id, false), {once: true});
@@ -105,7 +105,6 @@ function calcW(id) {
 	s.slides.forEach((sl) => (sl.style.width = w + "px"));
 }
 
-/* Set both clip and wrapper heights so CSS transitions animate layout changes */
 function setH(id, animate) {
 	const s = SS[id];
 	if (!s || !s.slides[s.cur]) return;
@@ -153,6 +152,7 @@ function sw(id, idx, section, doScroll) {
 	const s = SS[id];
 	if (!s) return;
 	const prev = s.cur;
+
 	if (prev === idx) {
 		(TABS[id] || []).forEach((bid, i) => {
 			const b = document.getElementById(bid);
@@ -160,6 +160,8 @@ function sw(id, idx, section, doScroll) {
 		});
 		updateURL(section);
 		if (doScroll) {
+			if (window._lockNav) window._lockNav();
+			if (window._hideNav) window._hideNav();
 			const el = document.getElementById(ANC[id]);
 			if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
 		}
@@ -167,7 +169,6 @@ function sw(id, idx, section, doScroll) {
 	}
 	s.cur = idx;
 
-	// Reset previous slide's visible state so it will animate next time
 	const prevSlide = s.slides[prev];
 	if (prevSlide) {
 		const prevCard = prevSlide.querySelector(".ec");
@@ -175,26 +176,31 @@ function sw(id, idx, section, doScroll) {
 		prevSlide.style.visibility = "hidden";
 	}
 
-	// Show new slide and retrigger its card animation
 	const newSlide = s.slides[idx];
 	if (newSlide) {
 		newSlide.style.visibility = "visible";
 		const newCard = newSlide.querySelector(".ec");
 		if (newCard) {
 			newCard.classList.remove("visible");
-			void newCard.offsetHeight; // force reflow
-			setTimeout(() => newCard.classList.add("visible"), 30);
+			// Double requestAnimationFrame ensures the 'remove' is painted before the 'add' triggers the transition
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => newCard.classList.add("visible"));
+			});
 		}
 	}
 
 	s.fr.style.transform = `translateX(-${idx * s.w}px)`;
-	setTimeout(() => setH(id, true), 0);
+	requestAnimationFrame(() => setH(id, true));
+
 	(TABS[id] || []).forEach((bid, i) => {
 		const b = document.getElementById(bid);
 		if (b) b.disabled = i === idx;
 	});
+
 	updateURL(section);
 	if (doScroll) {
+		if (window._lockNav) window._lockNav();
+		if (window._hideNav) window._hideNav();
 		const el = document.getElementById(ANC[id]);
 		if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
 	}
@@ -211,56 +217,60 @@ function ar(id, dir) {
 function ddNav(section) {
 	const c = SMAP[section];
 	if (!c) return;
+	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
 	sw(c.ss, c.i, section, true);
 }
 
-/* ── lazy init: re-calc when sections scroll into view ── */
-function lazyInit() {
-	Object.keys(SS).forEach((id) => {
-		const s = SS[id];
-		if (!s) return;
-		if (s.w === 0) {
-			calcW(id);
-			if (s.w > 0) setH(id, false);
-		}
-	});
-}
-window.addEventListener("load", lazyInit);
-window.addEventListener("scroll", lazyInit, {passive: true, once: true});
-
-/* ── URL helpers ── */
+/* ── URL HELPERS & SUB-NAV HIGHLIGHTING ── */
 let lastSec = null,
 	debT = null;
+
+function updateSubNav() {
+	const currentSec = new URLSearchParams(window.location.search).get("section");
+	document.querySelectorAll(".sbn-sub").forEach((a) => {
+		a.classList.toggle("active", a.dataset.sub === currentSec);
+	});
+}
+
 function updateURL(s) {
-	if (s === lastSec) return;
+	if (s === lastSec) {
+		updateSubNav();
+		return;
+	}
 	lastSec = s;
 	const u = new URL(window.location.href);
-	u.searchParams.set("section", s);
+	if (s) {
+		u.searchParams.set("section", s);
+	} else {
+		u.searchParams.delete("section");
+	}
 	history.replaceState(null, "", u.toString());
+	updateSubNav();
 }
+
 function updateURLd(s) {
 	clearTimeout(debT);
 	debT = setTimeout(() => updateURL(s), 150);
 }
+
 function handleURL() {
 	const s = new URLSearchParams(window.location.search).get("section");
+	updateSubNav();
 	if (!s || !SMAP[s]) return;
-	/* Hide nav before auto-scrolling to section */
+	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
 	const {ss, i} = SMAP[s];
 	sw(ss, i, s, true);
 }
 
-/* ── scrollToSec: used by sidebar + scroll cue; hides nav immediately ── */
 function scrollToSec(id) {
-	/* Hide navbar immediately – it will reappear on scroll-up */
+	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
 	const el = id === "top" ? document.getElementById("top") : document.getElementById(id);
 	if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
-/* ── copyAnchorURL: pulsing dot click ── */
 function copyAnchorURL(sectionId, defaultSlide) {
 	const u = new URL(window.location.href);
 	u.hash = "";
@@ -285,7 +295,6 @@ function copyAnchorURL(sectionId, defaultSlide) {
 	});
 }
 
-/* ── Gantt messages ── */
 window.addEventListener("message", (e) => {
 	if (e.data?.type === "navigate" && e.data?.url) {
 		const u = new URL(e.data.url, window.location.href);
@@ -297,13 +306,10 @@ window.addEventListener("message", (e) => {
 	}
 });
 
-/* ── Header scroll behavior ──────────────────────────────────────────
-   Tune these to customize navbar hide/show behavior:
-*/
-const NAV_INITIAL_SHOW_ZONE_VH = 0.15; // % of viewport height from top: navbar stays visible until user scrolls past this fraction (e.g. 0.15 = first 15vh). Set 0 to disable initial zone.
-const NAV_SCROLL_DOWN_PX = 80; // px user must scroll DOWN before navbar hides (longer = more forgiving)
-const NAV_SCROLL_UP_PX = 20; // px user must scroll UP before navbar reappears (near-immediate)
-/* ─────────────────────────────────────────────────────────────────── */
+/* ── HEADER SCROLL BEHAVIOR ────────────────────────────────────────── */
+const NAV_INITIAL_SHOW_ZONE_VH = 0.15;
+const NAV_SCROLL_DOWN_PX = 80;
+const NAV_SCROLL_UP_PX = 20;
 
 (function () {
 	const hdr = document.getElementById("hdr");
@@ -311,34 +317,49 @@ const NAV_SCROLL_UP_PX = 20; // px user must scroll UP before navbar reappears (
 	if (!hdr) return;
 
 	let hovering = false;
-	let autoHiding = false; // true when hidden via scrollToSec/handleURL
 	let ly = window.scrollY;
 	let delta = 0;
 	let hid = false;
 
-	/* Bounce-in transition (spring overshoot) vs snap-out */
+	window._isNavLocked = false;
+	window._navLockTimer = null;
+
+	// Locks the nav to prevent scroll-up detection during smooth anchor jumps
+	window._lockNav = function () {
+		window._isNavLocked = true;
+		hovering = false;
+		clearTimeout(window._navLockTimer);
+		window._navLockTimer = setTimeout(() => {
+			window._isNavLocked = false;
+		}, 1200); // Gives enough time for the smooth scroll to finish
+	};
+
 	function showNav() {
 		if (hid) {
 			hdr.style.transition = "transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)";
 			hdr.style.transform = "translateY(0)";
 			hid = false;
 			delta = 0;
-			autoHiding = false;
-		}
-	}
-	function hideNav() {
-		if (!hid) {
-			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
-			hdr.style.transform = "translateY(-120%)";
-			hid = true;
-			delta = 0;
 		}
 	}
 
-	/* Hover on header or dropdown freezes it in current state */
+	function hideNav() {
+		if (!hid) {
+			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
+			hdr.style.transform = "translateY(-150%)"; // Pulls completely out of view
+			hid = true;
+			delta = 0;
+		}
+		// Fixes the dropdown hanging glitch: forcefully sever visibility
+		document.querySelectorAll(".nav-dd").forEach((ddEl) => {
+			ddEl.style.display = "none";
+		});
+	}
+
 	[hdr, dd].forEach((el) => {
 		if (!el) return;
 		el.addEventListener("mouseenter", () => {
+			if (window._isNavLocked) return;
 			hovering = true;
 			showNav();
 		});
@@ -351,24 +372,27 @@ const NAV_SCROLL_UP_PX = 20; // px user must scroll UP before navbar reappears (
 	window.addEventListener(
 		"scroll",
 		() => {
-			/* Never hide while hovering */
+			// If locked by a programmatic scroll, ignore all direction heuristics
+			if (window._isNavLocked) {
+				ly = window.scrollY;
+				delta = 0;
+				return;
+			}
+
 			if (hovering) {
 				ly = window.scrollY;
 				delta = 0;
 				return;
 			}
 
-			/* If hidden via programmatic scroll, stay hidden until user manually scrolls up */
 			const y = window.scrollY;
 
-			/* Always show when back at very top */
 			if (y <= 0) {
 				showNav();
 				ly = y;
 				return;
 			}
 
-			/* Initial show zone: don't hide until past threshold */
 			if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) {
 				showNav();
 				ly = y;
@@ -377,11 +401,9 @@ const NAV_SCROLL_UP_PX = 20; // px user must scroll UP before navbar reappears (
 
 			const d = y - ly;
 			if (d > 0) {
-				/* Scrolling down */
 				delta = delta > 0 ? delta + d : d;
 				if (!hid && delta >= NAV_SCROLL_DOWN_PX) hideNav();
 			} else if (d < 0) {
-				/* Scrolling up */
 				delta = delta < 0 ? delta + d : d;
 				if (hid && -delta >= NAV_SCROLL_UP_PX) showNav();
 			}
@@ -390,14 +412,14 @@ const NAV_SCROLL_UP_PX = 20; // px user must scroll UP before navbar reappears (
 		{passive: true},
 	);
 
-	/* Expose hide function for programmatic use (scrollToSec / handleURL) */
 	window._hideNav = hideNav;
 	window._showNav = showNav;
 })();
 
-/* ── Dropdown hover bridge ── */
+/* ── DROPDOWN HOVER BRIDGE ── */
 document.querySelectorAll(".ndrop").forEach((drop) => {
 	const dd = drop.querySelector(".nav-dd");
+	if (!dd) return;
 	let t;
 	drop.addEventListener("mouseenter", () => {
 		clearTimeout(t);
@@ -416,37 +438,39 @@ document.querySelectorAll(".ndrop").forEach((drop) => {
 	});
 });
 
-/* ── Sidebar scroll progress & active state ── */
-const SECS = [
-	{id: "top", k: "top"},
-	{id: "sec-tamu", k: "tamu"},
-	{id: "sec-events", k: "events"},
-	{id: "sec-infographic", k: "infographic"},
-	{id: "sec-cad", k: "cad"},
-];
+/* ── SIDEBAR SCROLL PROGRESS & MAIN NAV STATE ── */
 function updateSidebar() {
 	const fill = document.getElementById("sb-fill");
 	const tot = document.documentElement.scrollHeight - window.innerHeight;
 	if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
-	let activeK = "top";
-	SECS.forEach(({id, k}) => {
-		const el = document.getElementById(id);
-		if (el && el.getBoundingClientRect().top < window.innerHeight * 0.42) activeK = k;
-	});
-	document.querySelectorAll(".sbn").forEach((a) => a.classList.toggle("active", a.dataset.k === activeK));
 
-	/* Clear ?section from URL when user is back in hero/timeline area (above first section) */
+	let activeK = "top";
+	const sections = [
+		{id: "top", k: "top"},
+		{id: "sec-tamu", k: "tamu"},
+		{id: "sec-dvhs", k: "dvhs"},
+		{id: "sec-events", k: "events"},
+		{id: "sec-infographic", k: "infographic"},
+		{id: "sec-cad", k: "cad"},
+	];
+
+	sections.forEach(({id, k}) => {
+		const el = document.getElementById(id);
+		if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) activeK = k;
+	});
+
+	// Update parent nav active states (keep tamu highlighted when in dvhs)
+	document.querySelectorAll(".sbn").forEach((a) => {
+		const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
+		a.classList.toggle("active", isMatch);
+	});
+
 	if (activeK === "top") {
-		const u = new URL(window.location.href);
-		if (u.searchParams.has("section")) {
-			u.searchParams.delete("section");
-			history.replaceState(null, "", u.toString());
-			lastSec = null; // reset so next section navigation updates URL fresh
-		}
-		return; // no slide URL to update when at top
+		if (window.scrollY < 100) updateURLd(null);
+		return;
 	}
 
-	const ssMap = {tamu: "ss7", events: "ss3", infographic: "ss6", cad: "ss9"};
+	const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
 	const ssId = ssMap[activeK];
 	if (ssId && SS[ssId]) {
 		const sec = RMAP[ssId]?.[SS[ssId].cur];
@@ -455,14 +479,14 @@ function updateSidebar() {
 }
 window.addEventListener("scroll", updateSidebar, {passive: true});
 
-/* ── Carousels ── */
+/* ── CAROUSELS ── */
 function initCarousels() {
 	document.querySelectorAll(".cw").forEach((wrap) => {
 		const inner = wrap.querySelector(".cw-inner");
 		if (!inner) return;
 		const imgs = inner.querySelectorAll(".cimg");
 		if (!imgs.length) return;
-		// find dots and caption by traversing next siblings
+
 		let node = wrap,
 			dotsEl = null,
 			capEl = null;
@@ -472,89 +496,78 @@ function initCarousels() {
 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
 		}
+
 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
 		let cur = 0,
 			timer = null;
 
 		function show(i) {
 			const prevEl = imgs[cur];
-			if (prevEl) {
-				prevEl.classList.remove("on");
-				// if (prevEl.tagName === "VIDEO") {
-				//   try {
-				//     prevEl.pause();
-				//   } catch (e) {}
-				// }
-			}
+			if (prevEl) prevEl.classList.remove("on");
 			if (dots[cur]) dots[cur].classList.remove("on");
+
 			cur = (i + imgs.length) % imgs.length;
+
 			const newEl = imgs[cur];
-			if (newEl) {
-				newEl.classList.add("on");
-			}
+			if (newEl) newEl.classList.add("on");
 			if (dots[cur]) dots[cur].classList.add("on");
-			// update per-image caption
+
 			if (capEl) {
 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
 				const link = imgs[cur].dataset.link || "";
 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
 				else capEl.textContent = cap;
 			}
-			// re-measure parent slideshow height after image change
+
 			const clip = wrap.closest(".ss-clip");
 			if (clip) {
 				const id = clip.id.replace("-clip", "");
-				if (SS[id]) setTimeout(() => setH(id, true), 60);
+				if (SS[id]) requestAnimationFrame(() => setH(id, true));
 			}
 		}
 
-		// 👉 NEW DYNAMIC TIMING LOGIC
 		function startAutoPlay() {
 			clearTimeout(timer);
 			if (imgs.length <= 1) return;
 
 			let currentMedia = imgs[cur];
-			let duration = 5000; // Absolute fallback
+			let duration = 5000;
 
-			// 1. Check for specific slide time
 			if (currentMedia.dataset.interval) {
 				duration = parseInt(currentMedia.dataset.interval);
-			} 
-			// 2. Check for specific carousel time
-			else if (wrap.dataset.interval) {
+			} else if (wrap.dataset.interval) {
 				duration = parseInt(wrap.dataset.interval);
-			} 
-			// 3. Fallbacks based on Media Type
-			else if (currentMedia.tagName === "VIDEO") {
-				duration = 5000; // Default for all videos (8 seconds)
+			} else if (currentMedia.tagName === "VIDEO") {
+				duration = 5000;
 			} else {
-				duration = 2000; // Default for all images (4.5 seconds)
+				duration = 2000;
 			}
 
-timer = setTimeout(() => {
-    show(cur + 1);
-    startAutoPlay(); // 👉 This creates the continuous loop!
-}, duration);		}
+			timer = setTimeout(() => {
+				show(cur + 1);
+				startAutoPlay();
+			}, duration);
+		}
 
 		dots.forEach((d, i) =>
 			d.addEventListener("click", (e) => {
 				e.stopPropagation();
 				show(i);
-				startAutoPlay(); // Restart timer on manual click
+				startAutoPlay();
 			}),
 		);
 
 		wrap.addEventListener("click", () => {
 			const tag = imgs[cur]?.tagName;
-      if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);		
-    });
+			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
+		});
 
-		show(0); // init caption and first slide
-		startAutoPlay(); // kick off the loop
+		show(0);
+		startAutoPlay();
 	});
 }
 
-/* ── Lightbox ── */
+/* ── LIGHTBOX ── */
 let lbImgs = [],
 	lbCur = 0;
 function openLb(imgs, startIdx) {
@@ -567,25 +580,22 @@ function renderLb() {
 	const media = lbImgs[lbCur];
 	const cap = media.getAttribute("alt") || media.dataset.cap || "";
 	const link = media.dataset.link || "";
-	
+
 	const lbImg = document.getElementById("lbimg");
 	const lbVid = document.getElementById("lbvid");
 	const lbFrame = document.getElementById("lbframe");
 
-	// Reset visibility for all media types
 	lbImg.style.display = "none";
 	lbVid.style.display = "none";
 	lbFrame.style.display = "none";
 	lbVid.pause();
 
-	// Show the correct media type
 	if (media.tagName === "VIDEO") {
 		lbVid.style.display = "block";
 		lbVid.src = media.src;
 	} else if (media.tagName === "IFRAME") {
-		// When opening in lightbox, we re-enable pointer events so you can scroll multi-page PDFs!
 		lbFrame.style.display = "block";
-		lbFrame.style.pointerEvents = "auto"; 
+		lbFrame.style.pointerEvents = "auto";
 		lbFrame.src = media.src;
 	} else {
 		lbImg.style.display = "block";
@@ -600,8 +610,6 @@ function renderLb() {
 function closeLb() {
 	document.getElementById("lb").classList.remove("open");
 	lbImgs = [];
-	
-	// 👉 Make sure to pause the video when closing the lightbox!
 	const lbVid = document.getElementById("lbvid");
 	if (lbVid) lbVid.pause();
 }
@@ -618,7 +626,7 @@ document.addEventListener("keydown", (e) => {
 	if (e.key === "Escape") closeLb();
 });
 
-/* ── Card fade-in ── */
+/* ── CARD FADE-IN ── */
 function initFadeIn() {
 	const obs = new IntersectionObserver(
 		(entries) => {
@@ -634,7 +642,7 @@ function initFadeIn() {
 	document.querySelectorAll(".ec").forEach((c) => obs.observe(c));
 }
 
-/* ── Stat count-up ── */
+/* ── STAT COUNT-UP ── */
 function initCountUp() {
 	const obs = new IntersectionObserver(
 		(entries) => {
@@ -661,18 +669,27 @@ function initCountUp() {
 	document.querySelectorAll(".srow").forEach((r) => obs.observe(r));
 }
 
-/* ── INIT ── */
-document.addEventListener("DOMContentLoaded", () => {
+/* ── UNIFIED INITIALIZATION ── */
+function unifiedInit() {
 	initSS();
-	setTimeout(() => {
-		Object.keys(SS).forEach((id) => {
+	initCarousels();
+	initFadeIn();
+	initCountUp();
+
+	// Final measurements once layout is painted
+	requestAnimationFrame(() => {
+		Object.keys(TABS).forEach((id) => {
 			calcW(id);
 			setH(id, false);
 		});
 		handleURL();
 		updateSidebar();
-	}, 150);
-	initCarousels();
-	initFadeIn();
-	initCountUp();
-});
+	});
+}
+
+// Single initialization point handles both pre-loaded and dynamically injected scripts
+if (document.readyState === "complete" || document.readyState === "interactive") {
+	unifiedInit();
+} else {
+	document.addEventListener("DOMContentLoaded", unifiedInit);
+}

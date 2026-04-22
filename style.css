@@ -315,11 +315,11 @@ header {
 	transition: all 0.2s;
 }
 .sbn.active .sbdot {
-	background: var(--g);
-	border-color: var(--g);
+	background: var(--accent);
+	border-color: var(--accent);
 }
 .sbn.active .sblbl {
-	color: var(--text);
+	color: var(--accent);
 	font-weight: 700;
 }
 .sblbl {
@@ -332,6 +332,51 @@ header {
 	text-overflow: ellipsis;
 	transition: color 0.2s;
 	text-transform: uppercase;
+}
+/* ══ SIDEBAR SUB-NAVIGATION ── */
+.sb-group {
+	display: flex;
+	flex-direction: column;
+}
+.sb-subnav {
+	display: flex;
+	flex-direction: column;
+	padding-left: 29px; /* Aligns with the parent label */
+	gap: 6px;
+	margin-top: 2px;
+	margin-bottom: 8px;
+}
+.sbn-sub {
+	font-size: 9px;
+	font-weight: 500;
+	color: var(--tmut);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	transition: color 0.2s, transform 0.2s;
+	position: relative;
+	display: inline-block;
+	width: fit-content;
+}
+.sbn-sub::before {
+	content: "•";
+	position: absolute;
+	left: -10px;
+	color: var(--tmut);
+	opacity: 0.4;
+	transition: opacity 0.2s, color 0.2s;
+}
+.sbn-sub:hover {
+	color: var(--g);
+	transform: translateX(2px);
+}
+.sbn-sub.active {
+	color: var(--accent);
+	font-weight: 700;
+}
+.sbn-sub.active::before {
+	color: var(--accent);
+	opacity: 1;
 }
 
 /* ══ MAIN ── */
@@ -737,6 +782,7 @@ section {
 		box-shadow 0.25s,
 		opacity 0.5s,
 		transform 0.5s;
+	will-change: transform, opacity; /* Add this to hint to the browser */
 }
 .ec.visible {
 	opacity: 1;
@@ -836,25 +882,28 @@ section {
 }
 
 /* ══ CARD BODY ── */
-.cbody {
-	display: grid;
-	grid-template-columns: 1fr 240px;
-	gap: 16px;
-	padding: 8px 20px 16px;
-	align-items: start;
+.cbody { display: grid; grid-template-columns: 1fr 240px; gap: 16px; padding: 8px 20px 16px; align-items: start; }
+.cbody.full { grid-template-columns: 1fr; }
+.cbody.wimg { grid-template-columns: 1fr 270px; }
+
+/* 1. ADD THIS NEW CLASS */
+.cbody.flex-img {
+	/* The text gets 1.5 parts of the space, the image gets 1 part. Both are fluid. */
+	grid-template-columns: 3fr 1fr; 
 }
-.cbody.full {
-	grid-template-columns: 1fr;
+
+.cbody > * { min-width: 0; }
+
+/* Forces the top of the text and image columns to align perfectly */
+.cbody > div > *:first-child {
+    margin-top: 0 !important;
 }
-.cbody.wimg {
-	grid-template-columns: 1fr 270px;
-}
-.cbody > * {
-	min-width: 0;
-} /* prevent overflow blowout */
+
+/* 2. UPDATE THIS MEDIA QUERY SO IT INCLUDES .flex-img */
 @media (max-width: 820px) {
 	.cbody,
-	.cbody.wimg {
+	.cbody.wimg,
+	.cbody.flex-img { /* <-- Added here */
 		grid-template-columns: 1fr;
 	}
 }
@@ -920,9 +969,9 @@ section {
 	border-top: 1px solid var(--border);
 }
 .cslbl {
-	font-size: 11px;
+	font-size: 13px;
 	font-weight: 800;
-	letter-spacing: 0.15em;
+	letter-spacing: 0.1em;
 	color: var(--miniheader);
 	text-transform: uppercase;
 	margin-bottom: 5px;
@@ -1046,9 +1095,12 @@ section {
 	box-shadow: 0px 0px 12px rgba(98, 127, 100, 0.3);
 }
 .cw-inner {
+	background: #1a1a1a; /* Placeholder color */
+    min-height: 200px;
 	position: relative;
 	width: 100%;
-	height: 240px;
+    height: auto !important; /* Overrides your default 240px or tall-h 300px */
+    aspect-ratio: 4 / 3; /* <-- Change these numbers to your desired ratio */
 } /* default fixed height */
 .cw-inner.tall-h {
 	height: 300px;
@@ -1101,7 +1153,7 @@ section {
 	min-height: 16px;
 	line-height: 1.4;
 	font-style: italic;
-	padding-bottom: 5px;
+	margin-bottom: 15px;
 	text-align: center;
 }
 .car-caption a {
@@ -1165,7 +1217,7 @@ section {
 /* bottom caption+nav row: arrows pinned absolute so caption width never shifts them */
 .lb-bottom {
 	position: relative;
-	width: min(88vw, 700px); /* fixed reference width so arrows pin to stable edges */
+	width: min(88vw, 400px); /* DECREASED FROM 700px: Brings the rigid edges (and arrows) closer together */
 	min-height: 38px;
 	display: flex;
 	align-items: center;
