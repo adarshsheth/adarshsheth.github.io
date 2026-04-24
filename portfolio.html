@@ -4,7 +4,9 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.1" />
-	<title>PORTFOLIO | Adarsh Sheth</title>
+	<title>PORTFOLIO | AS</title>
+	<link rel="icon" type="image/x-icon" href="media/logo/AS.ico">
+
 	<link
 		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
 		rel="stylesheet" />
@@ -99,6 +101,7 @@
 </head>
 
 <body>
+	<div id="blur-page"></div>
 	<div id="nav-placeholder"></div>
 
 	<div class="copy-toast" id="copy-toast">LINK COPIED!</div>
@@ -208,14 +211,10 @@
 		<div id="ibar">
 			<p>
 				To supplement this portfolio is a
-				<strong>Google Drive</strong>
-				, with
-				<strong>files</strong>
-				including
+				<strong>Google Drive</strong>, with files including
 				<a href="https://drive.google.com/drive/folders/1HtKCRoiW_zyuEqbTkWBvFLh8SA3PsE_a?usp=drive_link"
 					target="_blank">
-					videos, technical documents, and CAD models
-				</a>
+					videos, technical documents, and CAD models</a>
 				from my technical experiences:
 			</p>
 			<a href="https://drive.google.com/drive/folders/1HtKCRoiW_zyuEqbTkWBvFLh8SA3PsE_a?usp=drive_link"
@@ -1550,64 +1549,7 @@
 			</nav>
 		</footer>
 	</div>
-	<script>
-		// Dynamically load nav.html and inject its header, styles, and scripts
-		// Using an IIFE with async/await for optimized execution and clean scope
-		(async function loadNavigation() {
-			try {
-				const response = await fetch("nav.html");
-				if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-				const data = await response.text();
-
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(data, "text/html");
-
-				// 1. Inject the header and enforce active states
-				const header = doc.querySelector("header");
-				if (header) {
-					header.querySelectorAll(".ni").forEach((link) => {
-						if (link.textContent.trim().includes("PORTFOLIO")) {
-							link.classList.add("active");
-						} else {
-							link.classList.remove("active");
-						}
-					});
-					const placeholder = document.getElementById("nav-placeholder");
-					if (placeholder) placeholder.replaceWith(header);
-				}
-
-				// 2. Inject stylesheets safely (prevents duplicate CSS fetching)
-				doc.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
-					const href = link.getAttribute("href");
-					if (href && !document.querySelector(`link[href="${href}"]`)) {
-						document.head.appendChild(link.cloneNode(true));
-					}
-				});
-
-				// 3. Load script.js ONLY once and trigger the optimized initialization
-				const scriptTag = doc.querySelector('script[src*="script.js"]');
-				if (scriptTag) {
-					const src = scriptTag.getAttribute("src");
-					if (!document.querySelector(`script[src="${src}"]`)) {
-						const newScript = document.createElement("script");
-						newScript.src = src;
-						// Wait for script.js to fully load into the DOM before calculating heights
-						newScript.onload = () => {
-							if (typeof unifiedInit === "function") {
-								unifiedInit();
-							}
-						};
-						document.body.appendChild(newScript);
-					} else {
-						// If script.js somehow already exists, just trigger the init
-						if (typeof unifiedInit === "function") unifiedInit();
-					}
-				}
-			} catch (error) {
-				console.error("Error loading dynamic navigation:", error);
-			}
-		})();
-	</script>
+	<script src="script.js"></script>
 </body>
 
 </html>

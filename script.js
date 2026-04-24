@@ -182,10 +182,10 @@ function sw(id, idx, section, doScroll) {
 		const newCard = newSlide.querySelector(".ec");
 		if (newCard) {
 			newCard.classList.remove("visible");
-			// Double requestAnimationFrame ensures the 'remove' is painted before the 'add' triggers the transition
-			requestAnimationFrame(() => {
-				requestAnimationFrame(() => newCard.classList.add("visible"));
-			});
+			// Force a browser reflow. This flushes the CSS changes, guaranteeing the
+			// browser registers the card at opacity: 0 BEFORE we add the visible class back.
+			void newCard.offsetWidth;
+			newCard.classList.add("visible");
 		}
 	}
 
@@ -306,7 +306,6 @@ window.addEventListener("message", (e) => {
 	}
 });
 
-
 /* ── MOBILE SIDEBAR TOGGLE ── */
 document.addEventListener("click", (e) => {
 	const btn = e.target.closest(".mobile-menu-btn");
@@ -344,13 +343,12 @@ function closeSidebar() {
 	document.body.style.overflow = ""; // Restore scrolling
 }
 
-
 /* ── HEADER SCROLL BEHAVIOR ────────────────────────────────────────── */
-const NAV_INITIAL_SHOW_ZONE_VH = 0.15;
-const NAV_SCROLL_DOWN_PX = 80;
+const NAV_INITIAL_SHOW_ZONE_VH = 0.01;
+const NAV_SCROLL_DOWN_PX = 40;
 const NAV_SCROLL_UP_PX = 20;
 
-(function () {
+function initNavScroll() {
 	const hdr = document.getElementById("hdr");
 	const dd = document.getElementById("nav-dd");
 	if (!hdr) return;
@@ -363,14 +361,13 @@ const NAV_SCROLL_UP_PX = 20;
 	window._isNavLocked = false;
 	window._navLockTimer = null;
 
-	// Locks the nav to prevent scroll-up detection during smooth anchor jumps
 	window._lockNav = function () {
 		window._isNavLocked = true;
 		hovering = false;
 		clearTimeout(window._navLockTimer);
 		window._navLockTimer = setTimeout(() => {
 			window._isNavLocked = false;
-		}, 1200); // Gives enough time for the smooth scroll to finish
+		}, 100);
 	};
 
 	function showNav() {
@@ -385,14 +382,10 @@ const NAV_SCROLL_UP_PX = 20;
 	function hideNav() {
 		if (!hid) {
 			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
-			hdr.style.transform = "translateY(-150%)"; // Pulls completely out of view
+			hdr.style.transform = "translateY(-150%)";
 			hid = true;
 			delta = 0;
 		}
-		// Fixes the dropdown hanging glitch: forcefully sever visibility
-		document.querySelectorAll(".nav-dd").forEach((ddEl) => {
-			ddEl.style.display = "none";
-		});
 	}
 
 	[hdr, dd].forEach((el) => {
@@ -411,13 +404,11 @@ const NAV_SCROLL_UP_PX = 20;
 	window.addEventListener(
 		"scroll",
 		() => {
-			// If locked by a programmatic scroll, ignore all direction heuristics
 			if (window._isNavLocked) {
 				ly = window.scrollY;
 				delta = 0;
 				return;
 			}
-
 			if (hovering) {
 				ly = window.scrollY;
 				delta = 0;
@@ -431,7 +422,6 @@ const NAV_SCROLL_UP_PX = 20;
 				ly = y;
 				return;
 			}
-
 			if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) {
 				showNav();
 				ly = y;
@@ -453,70 +443,66 @@ const NAV_SCROLL_UP_PX = 20;
 
 	window._hideNav = hideNav;
 	window._showNav = showNav;
-})();
-
-/* ── DROPDOWN HOVER BRIDGE ── */
-document.querySelectorAll(".ndrop").forEach((drop) => {
-	const dd = drop.querySelector(".nav-dd");
-	if (!dd) return;
-	let t;
-	drop.addEventListener("mouseenter", () => {
-		clearTimeout(t);
-		dd.style.display = "block";
-	});
-	drop.addEventListener("mouseleave", () => {
-		t = setTimeout(() => {
-			dd.style.display = "none";
-		}, 160);
-	});
-	dd.addEventListener("mouseenter", () => clearTimeout(t));
-	dd.addEventListener("mouseleave", () => {
-		t = setTimeout(() => {
-			dd.style.display = "none";
-		}, 160);
-	});
-});
+}
 
 /* ── SIDEBAR SCROLL PROGRESS & MAIN NAV STATE ── */
+/* ── UNIFIED SIDEBAR SCROLL PROGRESS ── */
 function updateSidebar() {
-	const fill = document.getElementById("sb-fill");
-	const tot = document.documentElement.scrollHeight - window.innerHeight;
-	if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
+    const fill = document.getElementById("sb-fill");
+    const tot = document.documentElement.scrollHeight - window.innerHeight;
+    if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
 
-	let activeK = "top";
-	const sections = [
-		{id: "top", k: "top"},
-		{id: "sec-tamu", k: "tamu"},
-		{id: "sec-dvhs", k: "dvhs"},
-		{id: "sec-events", k: "events"},
-		{id: "sec-infographic", k: "infographic"},
-		{id: "sec-cad", k: "cad"},
-	];
+    // 1. Define ALL possible sections across all pages
+    const allSections = [
+        { id: "about", k: "about" },
+        { id: "featured", k: "featured" },
+        { id: "contact", k: "contact" },
+        { id: "sec-tamu", k: "tamu" },
+        { id: "sec-dvhs", k: "dvhs" },
+        { id: "sec-events", k: "events" },
+        { id: "sec-infographic", k: "infographic" },
+        { id: "sec-cad", k: "cad" }
+    ];
 
-	sections.forEach(({id, k}) => {
-		const el = document.getElementById(id);
-		if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) activeK = k;
-	});
+    // 2. Filter to only those that exist on the CURRENT page
+    const availableSections = allSections.filter(s => document.getElementById(s.id));
 
-	// Update parent nav active states (keep tamu highlighted when in dvhs)
-	document.querySelectorAll(".sbn").forEach((a) => {
-		const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
-		a.classList.toggle("active", isMatch);
-	});
-
-	if (activeK === "top") {
-		if (window.scrollY < 100) updateURLd(null);
-		return;
+    let activeK = null;
+	
+	const path = window.location.pathname;
+	if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+		anchor_loc = 0.745;
 	}
+	
+    // 3. Determine active section based on scroll
+    availableSections.forEach(({ id, k }) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * anchor_loc) {
+            activeK = k;
+        }
+    });
 
-	const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
-	const ssId = ssMap[activeK];
-	if (ssId && SS[ssId]) {
-		const sec = RMAP[ssId]?.[SS[ssId].cur];
-		if (sec) updateURLd(sec);
-	}
-}
-window.addEventListener("scroll", updateSidebar, {passive: true});
+    // 4. If we are at the very top, default to the first available section or "top"
+    if (window.scrollY < 100) {
+        activeK = availableSections.length > 0 ? availableSections[0].k : null;
+    }
+
+    // 5. Update UI only if we found an active section
+    if (activeK) {
+        document.querySelectorAll(".sbn").forEach((a) => {
+            const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
+            a.classList.toggle("active", isMatch);
+        });
+
+        // Update URL/History (Portfolio logic)
+        const ssMap = { tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9" };
+        const ssId = ssMap[activeK];
+        if (ssId && SS[ssId]) {
+            const sec = RMAP[ssId]?.[SS[ssId].cur];
+            if (sec) updateURLd(sec);
+        }
+    }
+}window.addEventListener("scroll", updateSidebar, {passive: true});
 
 /* ── CAROUSELS ── */
 function initCarousels() {
@@ -667,18 +653,17 @@ document.addEventListener("keydown", (e) => {
 
 /* ── CARD FADE-IN ── */
 function initFadeIn() {
-	const obs = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry, i) => {
-				if (entry.isIntersecting) {
-					setTimeout(() => entry.target.classList.add("visible"), i * 60);
-					obs.unobserve(entry.target);
-				}
-			});
-		},
-		{threshold: 0.06},
-	);
-	document.querySelectorAll(".ec").forEach((c) => obs.observe(c));
+	// Only apply the initial visible class to the currently active cards.
+	// This prevents the "instant pop" bug on inactive cards when you switch tabs later.
+	Object.values(SS).forEach((s) => {
+		if (s.slides && s.slides[s.cur]) {
+			const card = s.slides[s.cur].querySelector(".ec");
+			if (card) {
+				// Small timeout allows the layout to settle before triggering the CSS transition
+				setTimeout(() => card.classList.add("visible"), 50);
+			}
+		}
+	});
 }
 
 /* ── STAT COUNT-UP ── */
@@ -708,12 +693,63 @@ function initCountUp() {
 	document.querySelectorAll(".srow").forEach((r) => obs.observe(r));
 }
 
+/* ── DYNAMIC NAVBAR LOADER ── */
+function loadNav() {
+	const placeholder = document.getElementById("nav-placeholder");
+	const shroud = document.getElementById("blur-page"); // Reference the shroud
+
+	if (!placeholder) {
+		initNavScroll();
+		return;
+	}
+
+	fetch("nav.html")
+		.then((response) => response.text())
+		.then((data) => {
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(data, "text/html");
+			const header = doc.querySelector("header");
+
+			if (header) {
+				const currentPath = window.location.pathname.toLowerCase();
+
+				header.querySelectorAll(".ni").forEach((link) => {
+					link.classList.remove("active");
+					const linkText = link.textContent.trim().toLowerCase();
+
+					if (currentPath.includes("blog") && linkText === "blog") link.classList.add("active");
+					else if (currentPath.includes("resume") && linkText === "resume") link.classList.add("active");
+					else if (currentPath.includes("portfolio") && linkText.includes("portfolio")) link.classList.add("active");
+					else if ((currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site")) && linkText === "home")
+						link.classList.add("active");
+				});
+
+				placeholder.replaceWith(header);
+				initNavScroll();
+
+				// ── ADD THE HOVER LOGIC HERE ──
+                const navbox = header.querySelector(".navbox");
+				if (navbox && shroud) {
+					navbox.addEventListener("mouseenter", () => {
+						shroud.classList.add("visible");
+					});
+					navbox.addEventListener("mouseleave", () => {
+						shroud.classList.remove("visible");
+					});
+				}
+			}
+		})
+		.catch((error) => console.error("Error loading navigation:", error));
+}
+
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
+	loadNav();
 	initSS();
 	initCarousels();
 	initFadeIn();
 	initCountUp();
+	// initNavScroll();i
 
 	// Final measurements once layout is painted
 	requestAnimationFrame(() => {

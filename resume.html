@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>RESUME | Adarsh Sheth</title>
+		<title>RESUME | AS</title>
 		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 		<link rel="stylesheet" href="style.css" />
@@ -20,9 +20,19 @@
 				}
 			}
 		</style>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+		<script>
+			// Tell PDF.js where to find its background worker
+			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+		</script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" /> -->
 	</head>
 	<body>
+			<div id="blur-page"></div>
+
 		<div id="nav-placeholder"></div>
+			<div id="sb-overlay"></div>
+
 
 		<aside id="sb">
 			<div id="sb-hdr">Navigation</div>
@@ -47,29 +57,74 @@
 					·
 					<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
 				</p>
-				<a href="/media/resume.pdf" download class="pbtn">DOWNLOAD PDF</a>
+				<a href="media/resume.pdf" download class="pbtn">DOWNLOAD PDF</a>
 			</div>
 
 			<div id="pdf-section">
-				<div
+				<!-- <div
 					style="
-						width: 80vw;
-						height: 104vw;
+						
+						width: clamp(50vw, 100vw, 1000px);
+						aspect-ratio: 8.5 / 11;
 						max-width: 1200px;
-						max-height: 1560px;
+						
 						border-radius: 12px;
 						overflow: hidden;
 						border: 1.5px solid var(--border);
 						background: var(--surface);
 						box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 					">
-					<embed
-						src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+					<a href="media/resume.pdf"><embed
+						src="media/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
 						type="application/pdf"
 						width="100%"
 						height="100%"
-						style="border: none; display: block; pointer-events: none; transform: scale(1.05)" />
+						style="border: none; display: block; pointer-events: none; transform: scale(1.05);" /></a>
+				</div> -->
+				<!-- <embed src="media/resume.pdf" type="application/pdf" width="100%" height="100%"/> -->
+			
+
+				<div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
+					<iframe src="media/resume.pdf#toolbar=0&navpanes=0&view=FitH"
+						style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
+					</iframe>
 				</div>
+
+				<!-- <div id="pdf-section">
+					<div style="
+				            width: 80vw;
+				            max-width: 1000px; /* Capped the width so it doesn't get comically huge */
+				            border-radius: 12px;
+				            overflow: hidden;
+				            border: 1.5px solid var(--border);
+				            background: var(--surface);
+				            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+				            display: flex;
+				            justify-content: center;
+				        ">
+						<canvas id="resume-canvas" style="width: 100%; height: auto; display: block;"></canvas>
+					</div>
+				</div> -->
+
+				<!-- <div style="
+				            width: 80vw;
+				            max-width: 1000px;
+				            border-radius: 12px;
+				            overflow: hidden;
+				            border: 1.5px solid var(--border);
+				            background: var(--surface);
+				            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+				            display: flex;
+				            justify-content: center;
+				        ">
+					<div id="pdf-wrapper" style="position: relative; width: 100%;">
+						<canvas id="resume-canvas"
+							style="width: 100%; height: auto; display: block; image-rendering: high-quality;"></canvas>
+						<div id="text-layer" class="textLayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+						</div>
+					</div>
+				</div> -->
+			
 			</div>
 
 			<footer>
@@ -86,141 +141,119 @@
 				</nav>
 			</footer>
 		</div>
-		<script>
-			// 1. Dynamically load the header from nav.html
-			fetch("nav.html")
-				.then((response) => response.text())
-				.then((data) => {
-					const parser = new DOMParser();
-					const doc = parser.parseFromString(data, "text/html");
-					const header = doc.querySelector("header");
+		<script src="script.js"></script>
+		<!-- <script src="nav.js"></scri 	pt> -->
+		<!-- <script>
+			document.addEventListener("DOMContentLoaded", function () {
+				// Point this to your actual PDF file in the media folder
+				const url = 'media/resume.pdf';
 
-					if (header) {
-						// Update active state to RESUME
-						header.querySelectorAll(".ni").forEach((link) => {
-							if (link.textContent.trim().includes("RESUME")) {
-								link.classList.add("active");
-							} else {
-								link.classList.remove("active");
-							}
-						});
+				const renderPDF = async () => {
+					try {
+						// Fetch the PDF document
+						const pdf = await pdfjsLib.getDocument(url).promise;
 
-						// Inject into DOM
-						document.getElementById("nav-placeholder").replaceWith(header);
+						// Fetch the first page (Assuming your resume is 1 page)
+						const page = await pdf.getPage(1);
 
-						// 2. Safely initialize Header Scroll & Dropdown behaviors
-						const hdr = document.getElementById("hdr");
-						const dd = document.getElementById("nav-dd");
-						let hovering = false,
-							hid = false,
-							ly = window.scrollY,
-							delta = 0;
+						const canvas = document.getElementById('resume-canvas');
+						const ctx = canvas.getContext('2d');
 
-						function showNav() {
-							if (hid && hdr) {
-								hdr.style.transition = "transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)";
-								hdr.style.transform = "translateY(0)";
-								hid = false;
-								delta = 0;
-							}
-						}
-						function hideNav() {
-							if (!hid && hdr) {
-								hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
-								hdr.style.transform = "translateY(-120%)";
-								hid = true;
-								delta = 0;
-							}
-						}
+						// 1. Get the High-DPI ratio of the user's screen (Usually 2 or 3 on modern laptops/phones)
+						const outputScale = (window.devicePixelRatio || 1)*1;
 
-						[hdr, dd].forEach((el) => {
-							if (!el) return;
-							el.addEventListener("mouseenter", () => {
-								hovering = true;
-								showNav();
-							});
-							el.addEventListener("mouseleave", () => {
-								hovering = false;
-								ly = window.scrollY;
-							});
-						});
+						// 2. Render it at 2x scale natively first to guarantee crispness, then let CSS scale it down
+						const viewport = page.getViewport({ scale: 2.0 });
 
-						window.addEventListener(
-							"scroll",
-							() => {
-								if (hovering) {
-									ly = window.scrollY;
-									delta = 0;
-									return;
-								}
-								const y = window.scrollY;
-								if (y <= 0) {
-									showNav();
-									ly = y;
-									return;
-								}
-								if (y < window.innerHeight * 0.15) {
-									showNav();
-									ly = y;
-									return;
-								} // Initial show zone
+						// 3. Set the physical pixel size of the canvas
+						canvas.width = Math.floor(viewport.width * outputScale);
+						canvas.height = Math.floor(viewport.height * outputScale);
 
-								const d = y - ly;
-								if (d > 0) {
-									// Scrolling down
-									delta = delta > 0 ? delta + d : d;
-									if (!hid && delta >= 80) hideNav();
-								} else if (d < 0) {
-									// Scrolling up
-									delta = delta < 0 ? delta + d : d;
-									if (hid && -delta >= 20) showNav();
-								}
-								ly = y;
-							},
-							{passive: true},
-						);
+						// 4. Transform the context to account for high-DPI screens
+						const transform = outputScale !== 1
+							? [outputScale, 0, 0, outputScale, 0, 0]
+							: null;
 
-						// Dropdown hover bridges
-						document.querySelectorAll(".ndrop").forEach((drop) => {
-							const navDd = drop.querySelector(".nav-dd");
-							let t;
-							drop.addEventListener("mouseenter", () => {
-								clearTimeout(t);
-								if (navDd) navDd.style.display = "block";
-							});
-							drop.addEventListener("mouseleave", () => {
-								t = setTimeout(() => {
-									if (navDd) navDd.style.display = "none";
-								}, 160);
-							});
-							if (navDd) {
-								navDd.addEventListener("mouseenter", () => clearTimeout(t));
-								navDd.addEventListener("mouseleave", () => {
-									t = setTimeout(() => {
-										navDd.style.display = "none";
-									}, 160);
-								});
-							}
-						});
+						const renderContext = {
+							canvasContext: ctx,
+							transform: transform,
+							viewport: viewport
+						};
+
+						// Draw the PDF to the screen!
+						await page.render(renderContext).promise;
+
+					} catch (error) {
+						console.error('Error rendering the PDF:', error);
 					}
-				})
-				.catch((error) => console.error("Error loading navigation:", error));
+				};
 
-			// 3. Local Resume Page Scripts (Sidebar progress & smooth scroll)
-			window.addEventListener(
-				"scroll",
-				function () {
-					const fill = document.getElementById("sb-fill");
-					const tot = document.documentElement.scrollHeight - window.innerHeight;
-					if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
-				},
-				{passive: true},
-			);
+				renderPDF();
+			});
+		</script> -->
 
-			function scrollToSec(id) {
-				const el = document.getElementById(id);
-				if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
-			}
-		</script>
+		<!-- <script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const url = 'media/resume.pdf';
+
+				const renderPDF = async () => {
+					try {
+						const pdf = await pdfjsLib.getDocument(url).promise;
+						const page = await pdf.getPage(1);
+
+						const canvas = document.getElementById('resume-canvas');
+						const ctx = canvas.getContext('2d');
+						const textLayerDiv = document.getElementById('text-layer');
+
+						// 1. RENDER THE CRISP VISUALS (The Canvas)
+						const outputScale = (window.devicePixelRatio || 1) * 2;
+						const viewport = page.getViewport({ scale: 3.0 });
+
+						canvas.width = Math.floor(viewport.width * outputScale);
+						canvas.height = Math.floor(viewport.height * outputScale);
+
+						const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+						await page.render({
+							canvasContext: ctx,
+							transform: transform,
+							viewport: viewport
+						}).promise;
+
+						// 2. RENDER THE SELECTABLE TEXT (The Text Layer)
+						// Calculate the exact CSS display scale to match the responsive width of the canvas
+						const displayScale = canvas.clientWidth / page.getViewport({ scale: 1.0 }).width;
+						const textViewport = page.getViewport({ scale: displayScale });
+
+						const textContent = await page.getTextContent();
+
+						// Clear the layer (crucial for window resizing) and set the scale CSS variable
+						textLayerDiv.innerHTML = '';
+						textLayerDiv.style.setProperty('--scale-factor', displayScale);
+
+						// Draw the invisible text perfectly over the canvas pixels
+						await pdfjsLib.renderTextLayer({
+							textContentSource: textContent,
+							container: textLayerDiv,
+							viewport: textViewport,
+							textDivs: []
+						}).promise;
+
+					} catch (error) {
+						console.error('Error rendering the PDF:', error);
+					}
+				};
+
+				// 3. HANDLE WINDOW RESIZING
+				// If the user resizes their browser, the canvas shrinks, so we need to recalculate the text layer bounds
+				let resizeTimer;
+				window.addEventListener('resize', () => {
+					clearTimeout(resizeTimer);
+					resizeTimer = setTimeout(renderPDF, 250);
+				});
+
+				renderPDF();
+			});
+		</script> -->
 	</body>
 </html>

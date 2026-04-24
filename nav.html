@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!-- <title>Adarsh Sheth</title> -->
+		<!-- <link rel="icon" type="image/x-icon" href="media/logo/AS.ico"> -->
 		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 		<link rel="stylesheet" href="style.css" />
@@ -24,7 +25,7 @@
 				<nav class="navbar">
 					<a href="/site">
 						<img
-							src="https://static.wixstatic.com/media/0d689f_465832ee2a0e4705931fce3455d0429b~mv2.png/v1/fill/w_124,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AS_tr_edited_edited.png"
+							src="media/logo/AS.png"
 							alt="AS"
 							class="logo-icon" />
 					</a>
@@ -47,7 +48,7 @@
 								<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
 							</a>
 							<div class="nav-dd" id="nav-dd">
-								<span class="dd-hdr">ENGINEERING</span>
+								<span class="dd-hdr" id="submenu1">ENGINEERING</span>
 								<a
 									class="dd-lnk"
 									href="portfolio.html?section=vfd"
@@ -76,7 +77,7 @@
 									PERSONAL PROJECTS
 								</a>
 								<span class="dd-hdr">ARTWORK</span>
-								<a class="dd-lnk" href="artwork.html">ARTWORK</a>
+								<a class="dd-lnk" href="artwork.html">ARTWORK PORTFOLIO</a>
 							</div>
 						</div>
 						<div class="ndrop">
@@ -84,8 +85,8 @@
 								RESUME
 								<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
 							</a>
-							<div class="nav-dd" id="nav-dd">
-								<a class="dd-lnk" href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LINKEDIN</a>
+							<div class="nav-dd single-subnav" id="nav-dd" >
+								<a class="dd-lnk single-subnav" href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LINKEDIN</a>
 							</div>
 						</div>
 						<a href="blog.html" class="ni">BLOG</a>
@@ -98,6 +99,19 @@
 			</div>
 		</header>
 
+<!-- <div id="sb-overlay"></div>
+<aside id="sb">
+	<div id="sb-hdr">Navigation</div>
+	<div id="sb-prog">
+		<div id="sb-fill"></div>
+	</div>
+	<nav id="sb-nav">
+		<a class="sbn active" href="portfolio.html" onclick="scrollToSec('top'); return false;" data-k="top">
+			<span class="sbdot"></span>
+			<span class="sblbl">Top of Page</span>
+		</a>
+	</nav>
+</aside> -->
 		<main id="mn">
 			<div style="padding: 28px; max-width: 920px; margin: 120px auto 2000px auto; color: var(--text)">
 				<h1 style="color: var(--title)">Top Navbar — Preview</h1>
@@ -113,7 +127,7 @@
 				<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
 			</div>
 			<nav class="fnav">
-				<a href="index.html">HOME</a>
+				<a href="/">HOME</a>
 				<a href="portfolio.html">PORTFOLIO</a>
 				<a href="resume.html" class="fp">RESUME</a>
 				<a href="blog.html">BLOG</a>
