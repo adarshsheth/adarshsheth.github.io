@@ -27,17 +27,15 @@ if (ENABLE_CUSTOM_CURSOR) {
 }
 */
 
-
 /* ── SVG PERFECT TRACE CALCULATOR ── */
 // Mathematically calculates the length of your logo paths to prevent GPU over-draw lag
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.logo-path').forEach(path => {
-        const length = path.getTotalLength();
-        // Send exact length back to CSS variables
-        path.style.setProperty('--path-length', length);
-    });
+	document.querySelectorAll(".logo-path").forEach((path) => {
+		const length = path.getTotalLength();
+		// Send exact length back to CSS variables
+		path.style.setProperty("--path-length", length);
+	});
 });
-
 
 /* ══ SLIDE CONFIG ══ */
 const TABS = {
@@ -276,10 +274,19 @@ function handleURL() {
 	sw(ss, i, s, true);
 }
 
+/* ── SMOOTH SCROLL NAVIGATOR ── */
 function scrollToSec(id) {
 	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
-	const el = id === "top" ? document.getElementById("top") : document.getElementById(id);
+	
+	// If the target is 'top', force the window to scroll to absolute 0
+	if (id === "top") {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+		return;
+	}
+
+	// Otherwise, scroll to the specific element ID
+	const el = document.getElementById(id);
 	if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
@@ -460,62 +467,64 @@ function initNavScroll() {
 /* ── SIDEBAR SCROLL PROGRESS & MAIN NAV STATE ── */
 /* ── UNIFIED SIDEBAR SCROLL PROGRESS ── */
 function updateSidebar() {
-    const fill = document.getElementById("sb-fill");
-    const tot = document.documentElement.scrollHeight - window.innerHeight;
-    if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
+	const fill = document.getElementById("sb-fill");
+	const tot = document.documentElement.scrollHeight - window.innerHeight;
+	if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
 
-    // 1. Define ALL possible sections across all pages
-    const allSections = [
-        { id: "about", k: "about" },
-        { id: "featured", k: "featured" },
-        { id: "contact", k: "contact" },
-        { id: "sec-tamu", k: "tamu" },
-        { id: "sec-dvhs", k: "dvhs" },
-        { id: "sec-events", k: "events" },
-        { id: "sec-infographic", k: "infographic" },
-        { id: "sec-cad", k: "cad" }
-    ];
+	// 1. Define ALL possible sections across all pages
+	const allSections = [
+		{id: "about", k: "about"},
+		{id: "featured", k: "featured"},
+		{id: "contact", k: "contact"},
+		{id: "sec-tamu", k: "tamu"},
+		{id: "sec-dvhs", k: "dvhs"},
+		{id: "sec-events", k: "events"},
+		{id: "sec-infographic", k: "infographic"},
+		{id: "sec-cad", k: "cad"},
+	];
 
-    // 2. Filter to only those that exist on the CURRENT page
-    const availableSections = allSections.filter(s => document.getElementById(s.id));
+	// 2. Filter to only those that exist on the CURRENT page
+	const availableSections = allSections.filter((s) => document.getElementById(s.id));
 
-    let activeK = null;
-	
+	let activeK = null;
+
 	const path = window.location.pathname;
 	anchor_loc = 0.45;
 	if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
 		anchor_loc = 0.745;
 	}
-	
-    // 3. Determine active section based on scroll
-    availableSections.forEach(({ id, k }) => {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top < window.innerHeight * anchor_loc) {
-            activeK = k;
-        }
-    });
 
-    // 4. If we are at the very top, default to the first available section or "top"
-    if (window.scrollY < 100) {
-        activeK = availableSections.length > 0 ? availableSections[0].k : null;
-    }
+	// 3. Determine active section based on scroll
+	availableSections.forEach(({id, k}) => {
+		const el = document.getElementById(id);
+		if (el && el.getBoundingClientRect().top < window.innerHeight * anchor_loc) {
+			activeK = k;
+		}
+	});
 
-    // 5. Update UI only if we found an active section
-    if (activeK) {
-        document.querySelectorAll(".sbn").forEach((a) => {
-            const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
-            a.classList.toggle("active", isMatch);
-        });
+	// 4. If we are at the very top, default to the first available section or "top"
+	if (window.scrollY < 400) {
+		updateURLd(null);
+		// activeK = availableSections.length > 0 ? availableSections[0].k : null;
+	}
 
-        // Update URL/History (Portfolio logic)
-        const ssMap = { tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9" };
-        const ssId = ssMap[activeK];
-        if (ssId && SS[ssId]) {
-            const sec = RMAP[ssId]?.[SS[ssId].cur];
-            if (sec) updateURLd(sec);
-        }
-    }
-}window.addEventListener("scroll", updateSidebar, {passive: true});
+	// 5. Update UI only if we found an active section
+	if (activeK) {
+		document.querySelectorAll(".sbn").forEach((a) => {
+			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
+			a.classList.toggle("active", isMatch);
+		});
+
+		// Update URL/History (Portfolio logic)
+		const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
+		const ssId = ssMap[activeK];
+		if (ssId && SS[ssId]) {
+			const sec = RMAP[ssId]?.[SS[ssId].cur];
+			if (sec) updateURLd(sec);
+		}
+	}
+}
+window.addEventListener("scroll", updateSidebar, {passive: true});
 
 /* ── CAROUSELS ── */
 function initCarousels() {
@@ -741,7 +750,7 @@ function loadNav() {
 				initNavScroll();
 
 				// ── ADD THE HOVER LOGIC HERE ──
-                const navbox = header.querySelector(".navbox");
+				const navbox = header.querySelector(".navbox");
 				if (navbox && shroud) {
 					navbox.addEventListener("mouseenter", () => {
 						shroud.classList.add("visible");
@@ -782,40 +791,35 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 	document.addEventListener("DOMContentLoaded", unifiedInit);
 }
 
-
-
-
-
-
-
-
-
-
 /* ══════════════════════════════════════════════════════════ */
 /* ══ PRELOADER LOGIC                                      ── */
 /* ══════════════════════════════════════════════════════════ */
+const preloader = document.getElementById("site-preloader");
 
-window.addEventListener("load", () => {
-    const preloader = document.getElementById("site-preloader");
-    if (preloader) {
-        // Minimum time to show the animation, even if the site loads instantly
-        setTimeout(() => {
-            preloader.classList.add("hidden");
-            
-            // Remove from DOM to keep your inspector clean
-            setTimeout(() => {
-                preloader.remove();
-            }, 800); 
-        }, 2500); // 2.2 seconds ensures the full sequence is seen
-    }
-});
+if (preloader) {
+	// Check if the browser flag DOES NOT exist yet
+	if (!sessionStorage.getItem("preloaderSeen")) {
+		// 1. Set the flag so they don't see it again this session
+		sessionStorage.setItem("preloaderSeen", "true");
 
-// Fallback: If an iframe or heavy media hangs, force hide after 7 seconds max
-setTimeout(() => {
-    const preloader = document.getElementById("site-preloader");
-    if (preloader && !preloader.classList.contains("hidden")) {
-        preloader.classList.add("hidden");
-        setTimeout(() => preloader.remove(), 800);
-    }
-}, 7000); // <-- Fix your 20000 timeouts back to 7000 and 2200!
-// DELETE THE EXTRA `}` THAT WAS HERE!
+		// 2. Run your normal animation logic
+		window.addEventListener("load", () => {
+			setTimeout(() => {
+				preloader.classList.add("hidden");
+				setTimeout(() => preloader.remove(), 800);
+			}, 2500);
+		});
+
+		// 3. Fallback logic
+		setTimeout(() => {
+			if (!preloader.classList.contains("hidden")) {
+				preloader.classList.add("hidden");
+				setTimeout(() => preloader.remove(), 800);
+			}
+		}, 7000);
+	} else {
+		// --- RETURNING PAGE LOAD ---
+		// They have the flag. Instantly remove the preloader without any waiting.
+		preloader.remove();
+	}
+}

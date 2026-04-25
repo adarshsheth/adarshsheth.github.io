@@ -5,99 +5,13 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>PORTFOLIO | AS</title>
-	<link rel="icon" type="image/x-icon" href="media/logo/AS.ico">
+	<link rel="icon" type="image/x-icon" href="media/logo/AS_lite.svg">
 
 	<link
 		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
 		rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 	<link rel="stylesheet" href="style.css" />
-	<style>
-		/* ── READABILITY / LAYOUT HELPERS ADDED FOR EC BLOCKS ── */
-		.hbox {
-			background: rgba(200, 168, 75, 0.07);
-			border-left: 3px solid var(--accent);
-			border-radius: 0 6px 6px 0;
-			padding: 10px 14px;
-			margin: 10px 0;
-			/* margin-bottom: 20px; */
-			font-size: clamp(13.5px,0.9vw,50px);
-			color: #888888;
-			line-height: 1.65;
-		}
-
-		.hbox b,
-		.hbox strong {
-			color: var(--accent);
-			font-weight: 700;
-		}
-
-		.hbox p+p {
-			margin-top: 5px;
-		}
-
-		.hbox-g {
-			background: rgba(100, 118, 97, 0.08);
-			border-left: 3px solid var(--g);
-			border-radius: 0 6px 6px 0;
-			padding: 10px 14px;
-			margin: 10px 0;
-			font-size: clamp(13.5px,0.9vw,50px);
-			color: var(--tdim);
-			line-height: 1.65;
-		}
-
-		.hbox-g b,
-		.hbox-g strong {
-			color: var(--gl);
-			font-weight: 700;
-		}
-
-		.dbox {
-			background: rgba(0, 0, 0, 0.32);
-			border: 1px solid var(--border);
-			border-radius: 6px;
-			padding: 12px 16px;
-			margin: 10px 0;
-			font-size: 12.5px;
-			color: var(--tdim);
-			line-height: 1.8;
-		}
-
-		.dbox b,
-		.dbox strong {
-			color: var(--text);
-			font-weight: 600;
-		}
-
-		.nlist {
-			list-style: none;
-			display: flex;
-			flex-direction: column;
-			gap: 7px;
-			margin: 6px 0;
-			padding-left: 0;
-		}
-
-		.nlist>li {
-			display: flex;
-			gap: 10px;
-			font-size: 13px;
-			color: var(--tdim);
-			line-height: 1.65;
-		}
-
-		.nlist>li>.nn {
-			color: var(--accent);
-			font-weight: 700;
-			font-size: 11px;
-			min-width: 18px;
-			flex-shrink: 0;
-			padding-top: 2px;
-			font-family: monospace;
-			letter-spacing: 0;
-		}
-	</style>
 </head>
 
 <body>
@@ -285,30 +199,50 @@
 									</div>
 									<div class="brow">
 										<span class="badge">TRADE-OFF ANALYSIS</span>
+										<span class="badge">CFD</span>
+										<span class="badge">SimScale</span>
 										<span class="badge">PYTHON</span>
-										<span class="badge">GITHUB</span>
 										<span class="badge">RESEARCH</span>
+										<span class="badge">GITHUB</span>
 									</div>
 									<div class="cbody full">
 										<div>
-											<div class="hbox"><b>Competition:</b> 2025–2026 Design-Build-Vertical Flight
-												(DBVF) · Hosted by the Vertical Flight Society (VFS) · April 2026</div>
-											<div class="cslbl" style="margin-top:10px">VTOL Configuration Research</div>
+											<div class="hbox"><b>Competitions:</b> Design-Build-Vertical Flight
+												(DBVF) · Student Unmanned Aerial Systems Competition (SUAS)</div>
+											<div class="cslbl" style="margin-top:10px">VTOL Design &amp; Research</div>
 											<ul class="cbul">
-												<li>Researched multicopter and winged (e.g. quad biplane) VTOL
-													configurations; primary objective: hover stability (dynamic
-													response, quantified by rise time); secondary: translational speed
-												</li>
+												<li>Analyzed multicopter and winged configuraions for maximum <b>[1]
+														hover stability</b> (static; dynamic
+													response via rise time) and <b>[2] translational speed</b> under
+													minimum flight time and range</li>
+												<li>Compiled academic research findings on vortex ring state (VRS) to
+													quantative derive descent paths and assocaited maximum safe descent
+													rate</li>
 											</ul>
-											<div class="cslbl" style="margin-top:10px">Mission Simulation &amp; Energy
-												Modeling</div>
+
+											<div class="cslbl" style="margin-top:10px">Simulation &amp; Modeling</div>
 											<ul class="cbul">
-												<li>Programmed <b>Monte Carlo simulation</b> — generated 1,000 flight
+												<li>Programmed <b>Monte Carlo simulation</b> to generate 1,000 flight
 													mission path combinations, optimized for points and risk under
-													energy and time constraints</li>
-												<li>Built a <b>quadcopter energy model</b> as a function of total mass
-													(variable motor, rotor, and battery specs under constant fly time
-													and T/W ratio) for both translational and hover flight states</li>
+													energy and time constraints
+													<ul>
+														<li>Utilized multicopter <b>energy model</b> as a function of
+															total mass
+															(variable motor, rotor, and battery specs under constant fly
+															time
+															and T/W ratio) for both translational and hover flight
+															states</li>
+													</ul>
+												</li>
+												<li>Ran <b>parametric incompressible fluid flow analysis</b> simulation using
+													SimScale to calculate F<sub>D</sub> across -90°≤θ≤90° and 0°≤β≤90°;
+													verified output with boundary layer <b>convergence study</b>
+													<ul>
+														<li>Wrote documentation on SimScale, CFD simulations, and
+															analysis</li>
+													</ul>
+												</li>
+												<li>Shadowed in hexacopter dynamics modeling using MatLab and Simulink</li>
 											</ul>
 										</div>
 										<div
@@ -316,12 +250,16 @@
 											<div>
 												<div class="cw">
 													<div class="cw-inner">
-														<img class="cimg on" src="media/vfs/group1.png"
+														<img class="cimg on" src="media/vfs/CFD1.jpg"
+															alt="Pressure Vector Field from SimScale CFD" />
+														<img class="cimg" src="media/vfs/CFD2.jpg"
+															alt="Velocity Vector Field from SimScale CFD" />
+														<img class="cimg" src="media/vfs/group1.png"
 															alt="VFD Group Photo @ Lab" />
-														<img class="cimg" src="media/vfs/group2.jpg"
-															alt="VFD Group Photo @ Flight Testing" />
 														<img class="cimg" src="media/vfs/rev3_1.jpg"
 															alt="Rev3 in the Sunset; P.C. Amogh" />
+														<img class="cimg" src="media/vfs/group2.jpg"
+															alt="VFD Group Photo @ Flight Testing" />
 														<img class="cimg" src="media/vfs/rev3_2.jpg"
 															alt="Rev3 with Trees; P.C. Amogh" />
 														<img class="cimg" src="media/vfs/rev3_3.jpg"
@@ -334,6 +272,8 @@
 												</div>
 												<div class="cdots">
 													<span class="cdot on"></span>
+													<span class="cdot"></span>
+													<span class="cdot"></span>
 													<span class="cdot"></span>
 													<span class="cdot"></span>
 													<span class="cdot"></span>
@@ -370,12 +310,18 @@
 										</div>
 									</div>
 									<div class="clinks">
+										<a href="https://www.tamuvfs.org/programs/vfd" class="clnk" target="_blank">TAMU
+											VFD (Design Team)</a>
 										<a href="https://www.tamuvfs.org/" class="clnk" target="_blank">TAMU VFS
-											Site</a>
+											(Society)</a>
 										<a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight"
 											class="clnk" target="_blank">
-											DBVF Competition Page
+											DBVF Competition
 										</a>
+										<a href="https://suas-competition.org/" class="clnk" target="_blank">
+											SUAS Competition
+										</a>
+
 									</div>
 								</div>
 							</div>
@@ -388,7 +334,7 @@
 												<div class="ect">ROCKET ENGINE DESIGN</div>
 												<div class="ecm">
 													<span class="ecrole">Fluid Systems Engineer</span>
-													<span class="ecdate">02/2026 – PRESENT</span>
+													<span class="ecdate">02/2025 - 01/2026</span>
 													<span class="ecmeta">TEXAS A&amp;M, Design Team</span>
 												</div>
 											</div>
@@ -409,10 +355,12 @@
 										<div>
 											<div class="cslbl">Design &amp; Documentation</div>
 											<ul class="cbul">
-												<li>N2O line leak and pressure <b>test planning</b> (P&amp;ID procedure)
+												<li>Presented at <b>PDR</b> (assembly visualization) and <b>CDR</b>
+													(nitrous fill
+													process, orifice)</li>
+												<li>N2O line leak and pressure <b>test planning</b> (P&amp;ID,
+													procedure)
 												</li>
-												<li>Presented at <b>PDR</b> (assembly) and <b>CDR</b> (nitrous fill
-													process &amp; orifice)</li>
 												<li>Developed feedline <b>assembly diagram</b> mapping all fitting
 													interfaces (NPT, JIC, SL, CGA) and control elements (NCS, check
 													valve, PRV, PSV) for P&amp;ID traceability</li>
@@ -425,14 +373,15 @@
 												<li>Followed <b>Verification &amp; Validation</b> framework through CRR,
 													schematic development, design review gates, testing, and analysis
 												</li>
-												<li>Identified failure modes with RPN using severity, occurrence, and
-													detection ratings (FMEA)</li>
+												<li>Failure mode effects and analysis (FMEA) for upper nitrous line,
+													weighing items by risk priority number (RPN)</li>
 											</ul>
 											<div class="cslbl" style="margin-top:12px">Process Improvements</div>
 											<ul class="cbul">
 												<li>Wrote a <b>machining reference guide</b> detailing techniques,
-													applications, and best-use scenarios</li>
-												<li>Implemented a new <b>Bill of Materials spreadsheet</b> with input
+													applications, and contacts</li>
+												<li>Implemented a new <b>Bill of Materials (BOM)</b> spreadsheet with
+													input
 													validation, dynamic categorization, part override tracking,
 													automated inventory, centralized dashboard, and real-time cost
 													authentication</li>
@@ -495,7 +444,7 @@
 											<div>
 												<div class="cslbl">Challenge</div>
 												<p
-													style="font-size:13px;color:var(--tdim);line-height:1.65;margin-bottom:10px">
+													style="font-size:clamp(13.5px, 0.9vw, 50px);color:var(--tdim);line-height:1.65;margin-bottom:10px">
 													12-member <b>team lead</b> for the Lunar Search and Rescue (LSAR)
 													Challenge at <i>TAMU SEDS</i>, hosted by Space Team University</p>
 												<ul class="cbul">
@@ -584,10 +533,12 @@
 										</div>
 									</div>
 									<div class="brow">
-										<span class="badge">TEAM CAPTAIN IMPACT</span>
 										<span class="badge">PROJECT MANAGEMENT</span>
-										<span class="badge">QUANTITATIVE ANALYSIS</span>
 										<span class="badge">MEMBER INTEGRATION</span>
+										<span class="badge">PROBLEM SOLVING</span>
+										<span class="badge">TEAM ORGANIZATION</span>
+										<span class="badge">FINANCE</span>
+										<span class="badge">PR</span>
 									</div>
 									<div class="cbody flex-img">
 										<div>
@@ -600,7 +551,7 @@
 												<div class="scell">
 													<div class="slbl">Total Awards</div>
 													<div class="sval">8×</div>
-													<div class="ssub">State, Nat'l, Worlds</div>
+													<div class="ssub">Regional, State, Worlds</div>
 												</div>
 												<div class="scell">
 													<div class="slbl">World Rank</div>
@@ -610,54 +561,60 @@
 											</div>
 											<div class="cslbl" style="margin-top: 12px">Team Captain</div>
 											<ul class="cbul">
-												<li>Led 10 members across 2 seasons &amp; 16 tournaments</li>
-												<li>Managed social content to YouTube (<a
-														href="https://www.youtube.com/@5776K"
-														target="_blank">@5776K</a>) and Instagram; utilized project
-													management tools (Nifty, Trello, Notion)</li>
-												<li>Established a <b>technical hierarchy</b> — captain → subteam leads →
-													members with specific focuses; built a time contributions tracker
+												<li>Led 10 members across <b>2 seasons</b> and <b>16 tournaments</b></li>
+
+												
+
 												</li>
+												<li>Handled finances (startup cost ~$9,000) and managed team content creation (<a href="https://www.youtube.com/@5776K" target="_blank">YouTube</a> and Instagram)</li>
 											</ul>
 
-											<div class="hbox-g" style="margin-top: 12px">
-												<b>Recognized historic barriers</b> — diversified priorities beyond
-												build-only, introduced EDP-driven documentation, and integrated
-												underclassmen with meaningful roles
+											<div class="hbox" style="margin-top: 12px">
+												<b>Recognized historic barriers:</b> [1] build-centered mindset, [2] poor time management and overall chaos, [3] dismissed underclassmen
 											</div>
 											<ul class="cbul">
-												<li>Equal emphasis on design, build, code, strategy, &amp;
-													documentation; one-pagers for Gantt planning, subsystem overviews,
-													match strategy, rebuild evolution, and tournament analysis</li>
-												<li>Quantified all decisions through <b>trade study and parametric
-														study</b> tables</li>
-												<li>Fostered <b>long-term engagement</b> by giving new members ownership
-													of real technical work</li>
+												<li>[1] Strict adherance to the <b>engineering design process (EDP)</b> with equal emphasis on design, build, code, strategy, &amp;
+													documentation
+													<ul><li>Complete overhaul over documentation with a <b>data-driven</b> notebook framework and one-pager <b>templates</b> for gantt chart,
+													match strategy flow charts, rebuild evolution, tournament analysis, and more</li><li>Set an <a href="https://www.robotevents.com/teams/V5RC/5776K" target="_blank">award-winning</a> and <b>regional standard</b>; established a long-term, team- and club-wide <a href="https://drive.google.com/file/d/1v2JI6vdVOjkvcKaRRn0QNg-9YZk53PBu/view?usp=drive_link" target="_blank">knowledge base</a></li></ul></li>
+												
+												
+												
+												
+													<li>[2] Implemented industry-standard <b>project management</b> protocals (Nifty, Trello, Notion)
+													with integrated member contribution tracking
+													<ul>
+														<li>Established a <b>technical & responsibility
+																hierarchy: </b>captain → subteam leads →
+															members with subsystem focuses
+														</li>
+													</ul>
+												<li>[3] Gave new members ownership of technical work with senior member guideance to foster long-term success</li>
+												
 											</ul>
 
 											<div class="csub">
-												<div class="cslbl">Technical</div>
+												<div class="cslbl">Technical Contributions</div>
 												<div class="brow" style="padding: 0 0 8px">
-													<span class="badge">FUSION 360</span>
-													<span class="badge">RC DRIVER</span>
-													<span class="badge">ASSEMBLY</span>
+													<span class="badge">CAD</span>
 													<span class="badge">T&amp;E</span>
 													<span class="badge">EDP</span>
 													<span class="badge">SYSTEMS INTEGRATION</span>
+													<span class="badge">RC DRIVER</span>
+													<span class="badge">ASSEMBLY</span>
+													<span class="badge">DOCUMENTATION</span>
 												</div>
 												<ul class="cbul">
-													<li>Designed and iterated subsystems and full-robot designs in
-														<b>Fusion 360</b>, including the States competition final
+													<li>Designed, tested, and iterated individual subsystems and full-robot designs in
+														<b>Autodesk Fusion 360</b>
 													</li>
-													<li>Created a new <b>notebook framework</b> — data-driven EDP
-														iteration; set a regional standard for documentation quality
+													
+													<li><b>Authored</b> a technical guide for tuning 14 individual
+														factors of 2 <a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
+															target="_blank">launching mechanisms</a> and <a href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
+																target="_blank">pneumatics</a>.
 													</li>
-													<li>Authored a <b>technical guide</b> for tuning 14 individual
-														factors across 2 shooting mechanisms (range, launch precision,
-														cycle time, power transfer, structural integrity, band life)
-													</li>
-													<li>Team driver for 2 seasons — dynamic 2×2 match strategy under
-														tournament pressure</li>
+													<li>Team driver for 2 seasons - handled dynamic 2x2 match strategy under tournament pressure</li>
 												</ul>
 											</div>
 											<div
@@ -904,56 +861,55 @@
 									<div class="brow">
 										<span class="badge">AERODYNAMICS</span>
 										<span class="badge">PYTHON</span>
+										<span class="badge">SIZING ITERATION</span>
 										<span class="badge">CONSTRAINT ANALYSIS</span>
-										<span class="badge">CAD (FUSION 360)</span>
-										<span class="badge">FORMAL PRESENTATION</span>
+										<span class="badge">CAD</span>
+										<span class="badge">PRESENTATION</span>
 										<span class="badge">TECHNICAL REPORT</span>
-										<span class="badge">SLICING (3D PRINT)</span>
+										<span class="badge">3D PRINT</span>
 									</div>
 									<div class="cbody flex-img">
 										<div>
-											<div class="hbox"><b>WON #1 PLACE</b> in the <a
+											<div class="hbox"><b>WON #1 PLACE</b> in the <u><a
 													href="https://drive.google.com/file/d/19SYPEDsY0PNyN1dCVNX07h_ps6wy2DeA/view?usp=sharing"
-													target="_blank">2025 VFS Project</a> of Ignite. Designed a search
-												&amp; rescue eVTOL to drop a 5 lb package to a stranded hiker at 10,000
-												ft under 20–40 kt winds, 500 ft cloud cover, and fog cutting ½
+													target="_blank">2025 VFS Project</a></u> of the TAMU SEC-hosted Ignite Challenge. Designed a search
+												&amp; rescue lift + cruise eVTOL to drop a 5 lb package to a stranded hiker at [1] 10,000
+												ft, [2] under 20-40 kt winds, [3] 500 ft cloud cover, and [4] fog with 50%
 												visibility.</div>
 
-											<div class="cslbl" style="margin-top:12px">Constraint Analysis — Iterative
+											<div class="cslbl" style="margin-top:12px">Constraint Analysis + Iterative
 												Sizing Method</div>
-											<p style="font-size:12.5px;color:var(--tdim);margin-bottom:8px">Iterated
-												through <b>2,362,692</b> sizing configurations varying MTOW, S (wing
-												planform area), A (total lift propeller area), and lift rotor speed
-												fraction</p>
+											<p
+												class="hbox-g" style="font-size:clamp(13.5px, 0.9vw, 50px);color:var(--tdim);margin-bottom:8px">
+												Iterated
+												through <b>2,362,692</b> sizing configurations, varying:<br><b style="color: var(--tdim)">[1] MTOW, [2] S</b> (wing planform area), <b style="color: var(--tdim)">[3] A</b> (total lift-propeller area), and <b style="color: var(--tdim)">[4] hover fraction</b></p>
 											<ol class="nlist">
-												<li><span class="nn">1)</span>airspeed &gt; stall × FoS — airfoil
-													selection (S1223) + lift rotor speed fraction</li>
-												<li><span class="nn">2)</span>Total rotor ⌀ + propeller spacing +
-													fuselage width &lt; wingspan → lift rotor count</li>
-												<li><span class="nn">3)</span>Energy fraction = stored ÷ required (power
-													× time in cruise/hover/ascent/descent + drag)</li>
-												<li><span class="nn">4–6)</span>CL verified; AOA via linear
-													interpolation; W/S and D/L minimized</li>
+												<li><span class="nn">STEP 1) </span><i>cruise airspeed &gt; (stall × FoS)</i> → optimized by S1223 airfoil
+													selection higher lift rotor speed fraction<br><li>>> Constrained by search radius and allocated time</li></li>
+												<li><span class="nn">STEP 2) </span><i>[ (rotor diameter × number rotors) + propeller spacing +
+												fuselage width ] &lt; wingspan</i> → determined the maximum lift rotor count<br>
+												<li>>> Set by maximum allowable wingspan</li></li>
+												<li><span class="nn">STEP 3) </span><i>Energy fraction = stored ÷ mission_required</i> → mission energy calculated by power × time in [1] cruise, [2] ascent/descent, [3] hover<br>
+												<li>>> Variables: induced velocity, MTOW</li></li>
+												<li><span class="nn">STEPS 4–5) </span>Lift coefficient calculated via MTOW, verified to be in airfoil range<br>
+												<li>>> Interpolated lift coeffient arrow using AOA</li></li>
+												<li><span class="nn">STEP 6) </span>Wing loading (W/S) and disc loading (D/L) calculcated<br>
+												<li>>> Standard values used for Oswald efficiency, propellor efficiency, and AR</li></li>
 											</ol>
 											<div class="hbox" style="margin-top:10px">Applied Parameter Weights + Array
-												Sort → <b>MTOW: 224.81 lb · S: 2.7 m² · A: 40 m² · Speed Fraction:
+												Sort → <b>MTOW: 224.81 lb</b> · <b>S: 2.7 m²</b> · <b>A: 40 m² </b>· <b>Speed Fraction:
 													90%</b></div>
 
 											<div class="cslbl" style="margin-top:12px">Additional Contributions</div>
 											<ul class="cbul">
 												<li>Aerodynamic calcs for transport cruise (18 m/s), search cruise (8
-													m/s), and hover — propeller radius, pitch, tip speed, motor torque,
+													m/s), and hover - propeller radius, pitch, tip speed, motor torque,
 													shaft RPM. <b>T/W = 1.5</b></li>
 												<li>Researched spiral-in, spiral-out, and lawnmower search algorithms;
 													coded <b>2,000 average and max search time simulations</b></li>
 												<li>Split CAD into pinned components; used <b>Bambu Studio</b> for
-													spliced 3D printing</li>
-											</ul>
-
-											<div class="cslbl" style="margin-top:12px">Team Collaboration</div>
-											<ul class="cbul">
-												<li>Received aircraft frontal area from CAD to improve drag fidelity;
-													input sensor weight/power data into sizing code</li>
+											<li><b>Team Collaboration:</b> used aircraft frontal area from CAD to improve drag fidelity,
+													inputted sensor weight/power data into sizing code</li>
 											</ul>
 										</div>
 
@@ -1387,9 +1343,8 @@
 												Bench @ Fertile Groundworks — built and installed a 14'×4'×3' growing
 												bench with CAD drawings and full project documentation</div>
 											<ul class="cbul" style="margin-top: 8px">
-												<li>50 Camping Nights · 50 Hiking Miles</li>
-												<li>Leaderships: <u>Assistant Senior Patrol Leader</u> of 100+ scout
-													troop · <b>Troop Guide</b> · <b>Webmaster</b></li>
+												<li>50+ Camping Nights, 50+ Hiking Miles</li>
+												<li><b>Leadership Positions:</b> Assistant Senior Patrol Leade, Troop Guide, Webmaster</li>
 												<li>Authored a knowledge-base for incoming scouts</li>
 											</ul>
 										</div>
@@ -1501,7 +1456,7 @@
 											</ul>
 											<div class="csub">
 												<ul class="cbul">
-													<li>Completed research and design within a single evening — learned
+													<li>Completed research and design within a single evening - learned
 														F1 brake system inner workings: average force and distribution;
 														materials; safety factor</li>
 													<li>Self-learned mechanical stress to calculate cylinder placement.
