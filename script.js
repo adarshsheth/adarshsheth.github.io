@@ -27,6 +27,18 @@ if (ENABLE_CUSTOM_CURSOR) {
 }
 */
 
+
+/* ── SVG PERFECT TRACE CALCULATOR ── */
+// Mathematically calculates the length of your logo paths to prevent GPU over-draw lag
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.logo-path').forEach(path => {
+        const length = path.getTotalLength();
+        // Send exact length back to CSS variables
+        path.style.setProperty('--path-length', length);
+    });
+});
+
+
 /* ══ SLIDE CONFIG ══ */
 const TABS = {
 	ss7: ["btn-vfd", "btn-red", "btn-lsar"],
@@ -367,7 +379,7 @@ function initNavScroll() {
 		clearTimeout(window._navLockTimer);
 		window._navLockTimer = setTimeout(() => {
 			window._isNavLocked = false;
-		}, 100);
+		}, 1200);
 	};
 
 	function showNav() {
@@ -470,6 +482,7 @@ function updateSidebar() {
     let activeK = null;
 	
 	const path = window.location.pathname;
+	anchor_loc = 0.45;
 	if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
 		anchor_loc = 0.745;
 	}
@@ -768,3 +781,41 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 } else {
 	document.addEventListener("DOMContentLoaded", unifiedInit);
 }
+
+
+
+
+
+
+
+
+
+
+/* ══════════════════════════════════════════════════════════ */
+/* ══ PRELOADER LOGIC                                      ── */
+/* ══════════════════════════════════════════════════════════ */
+
+window.addEventListener("load", () => {
+    const preloader = document.getElementById("site-preloader");
+    if (preloader) {
+        // Minimum time to show the animation, even if the site loads instantly
+        setTimeout(() => {
+            preloader.classList.add("hidden");
+            
+            // Remove from DOM to keep your inspector clean
+            setTimeout(() => {
+                preloader.remove();
+            }, 800); 
+        }, 2500); // 2.2 seconds ensures the full sequence is seen
+    }
+});
+
+// Fallback: If an iframe or heavy media hangs, force hide after 7 seconds max
+setTimeout(() => {
+    const preloader = document.getElementById("site-preloader");
+    if (preloader && !preloader.classList.contains("hidden")) {
+        preloader.classList.add("hidden");
+        setTimeout(() => preloader.remove(), 800);
+    }
+}, 7000); // <-- Fix your 20000 timeouts back to 7000 and 2200!
+// DELETE THE EXTRA `}` THAT WAS HERE!
