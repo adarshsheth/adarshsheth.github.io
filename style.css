@@ -20,7 +20,8 @@
 	--tmut: var(--tdim);
 	--miniheader: var(--dimtitle);
 	---dull: #4f5348;
-	--navh: 70px;
+	/* --navh: 70px; */
+	--navh: 50px;
 	--sw: 250px;
 	--r: 10px;
 	--anchorh: 0px;
@@ -498,7 +499,7 @@ section {
 	color: var(--title);
 	/* color: var(--surface); */
 	/* -webkit-text-stroke: 0.3px var(--dimtitle); */
-	text-shadow: 0 0 5px rgb(136, 136, 136,0.5);
+	text-shadow: 0 0 5px rgb(136, 136, 136, 0.5);
 	padding: 0 4px;
 	transition: color 0.1s ease-in-out;
 }
@@ -597,11 +598,8 @@ section {
 		/* 0 0 20px rgb(255, 255, 255, 0.5), */
 		0 0 30px var(--surface),
 		0 0 70px var(--surface),
-		/* 0 0 20px rgba(100, 118, 97, 1.0), */
-		/* 0 0 30px rgba(100, 118, 97, 1.0), */
-		0 0 40px rgba(100, 118, 97, 1.0);
+		/* 0 0 20px rgba(100, 118, 97, 1.0), */ /* 0 0 30px rgba(100, 118, 97, 1.0), */ 0 0 40px rgba(100, 118, 97, 1);
 	/* padding: 10px 0px; */
-
 }
 #ibar {
 	background: rgba(82, 70, 30, 0.75);
@@ -1511,8 +1509,11 @@ section {
 }
 .about-card:hover .about-badge {
 	border-color: rgba(100, 118, 97, 0.6);
-	color: rgba(100, 118, 97, 0.6);
+	/* color: rgba(100, 118, 97, 0.6); */
 	transform: translateX(-2vw);
+	box-shadow:
+		0 0 4px 4px rgba(100, 118, 97, 0.1),
+		0 0 4px 4px rgba(100, 118, 97, 0.06);
 }
 .about-badge {
 	position: absolute;
@@ -1525,16 +1526,15 @@ section {
 	font-size: 14px;
 	font-weight: 800;
 	letter-spacing: 0.2em;
-	color: rgba(100, 118, 97, 0.6);
+	/* color: rgba(100, 118, 97, 0.6); */
+	color: var(--g);
 	text-transform: uppercase;
 	transition:
 		border-color 0.25s,
 		color 0.25s,
 		transform 0.25s,
 		box-shadow 0.25s;
-	box-shadow:
-		0 0 4px 4px rgba(100, 118, 97, 0.1),
-		0 0 4px 4px rgba(100, 118, 97, 0.06);
+	
 }
 .about-photo-wrap {
 	float: right;
@@ -1653,7 +1653,7 @@ section {
 	font-weight: 700;
 	color: var(--dimtitle);
 	letter-spacing: 0.08em;
-	background: var(--surface);
+	/* background: var(--surface); */
 	transition:
 		border-color 0.2s,
 		color 0.2s,
@@ -1726,7 +1726,7 @@ section {
 	transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .wi.vis:hover .wi-thumb {
-	transform: scale(1.12);
+	transform: scale(1.1);
 } /* internal zoom effect */
 .wi-body {
 	padding: 16px 20px;
@@ -1780,25 +1780,28 @@ section {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	margin-bottom: 10px;
+	/* margin-bottom: 10px; */
+	margin-bottom: 5px;
 }
 .insta-head-title {
 	font-weight: 900;
-	font-size: 18px;
-	color: var(--text);
+	font-size: clamp(22px, 1.7vw, 50px);
+	/* color: var(--text); */
+	color: var(--dimtitle);
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
 }
 .insta-ig-link {
-	width: 28px;
-	height: 28px;
+	width: clamp(22px, 1.7vw, 50px);
+	height: clamp(22px, 1.7vw, 50px);
 	border-radius: 7px;
 	border: 1.5px solid var(--border);
+	/* background: var(--surface); */
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: var(--tdim);
-	font-size: 13px;
+	font-size: clamp(12px, 1vw, 40px);
 	transition:
 		color 0.2s,
 		border-color 0.2s,
@@ -1820,9 +1823,15 @@ section {
 		transform 0.25s;
 }
 .insta-card:hover {
-	border-color: rgba(100, 118, 97, 0.4);
+	/* border-color: rgba(100, 118, 97, 0.4);
 	box-shadow: 0 0 7px 4px rgba(100, 118, 97, 0.05);
-	transform: scale(1.005);
+	transform: scale(1.005); */
+
+	border-color: rgba(100, 118, 97, 0.6);
+	box-shadow:
+		0 0 7px 4px rgba(100, 118, 97, 0.1),
+		0 0 9px 4px rgba(100, 118, 97, 0.06);
+	transform: scale(1.008);
 }
 .insta-profile {
 	display: flex;
@@ -1917,14 +1926,14 @@ section {
 	font-size: 17px;
 	transition: color 0.15s;
 	line-height: 1;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
-.insta-act:hover {
+/* .insta-act:hover {
 	color: var(--text);
 }
 .insta-act.heart:hover {
 	color: #e63946;
-}
+} */
 .insta-bm {
 	margin-left: auto;
 }
@@ -1943,7 +1952,7 @@ section {
 	cursor: pointer;
 }
 .insta-dot.ion {
-	background: var(--g);
+	background: var(--accent);
 	transform: scale(1.5);
 }
 .insta-footer {
@@ -2137,6 +2146,10 @@ footer {
 /* ══ RESPONSIVE OVERRIDES                                 ── */
 /* ══════════════════════════════════════════════════════════ */
 @media (max-width: 1050px) {
+	:root {
+		--navh: 25px;
+	}
+
 	/* Hide Desktop Header Elements */
 	.logo,
 	.logo-icon,
@@ -2159,7 +2172,7 @@ footer {
 		backdrop-filter: blur(4px);
 		-webkit-backdrop-filter: blur(4px);
 		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-	
+
 		padding: 12px 14px;
 		color: white;
 		color: #b4bdafb5;
@@ -2271,7 +2284,7 @@ footer {
 	}
 	.wi-img-wrap {
 		width: 100%;
-		height: 25vw;
+		height: 35vw;
 		border-right: none;
 		border-bottom: 1px solid var(--border);
 	}
@@ -2295,7 +2308,7 @@ footer {
 		width: 100%;
 	}
 	.insta-photo-wrap {
-		aspect-ratio: 3/2;
+		aspect-ratio: 4/3;
 	}
 	.about-photo-wrap {
 		width: 20vw;
@@ -2311,30 +2324,38 @@ footer {
 	position: fixed;
 	inset: 0;
 	background: var(--bg);
+	/* background: var(--surface); */
 	z-index: 99999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	/* Use a premium cubic-bezier easing and remove the transform transition */
 	transition:
-		opacity 0.4s ease,
-		visibility 0.8s ease,
-		transform 0.8s ease;
+		opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+		visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: opacity, visibility;
 }
 
 #site-preloader.hidden {
 	opacity: 0;
 	visibility: hidden;
-	transform: translateY(-40px);
 	pointer-events: none;
+	/* Removed transform: translateY(-10px); from here */
 }
 
 .preloader-content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* gap: 16px; */
+	/* Add the transition to the inner content instead */
+	transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: transform;
 }
 
+/* Float the content up smoothly when the preloader hides */
+#site-preloader.hidden .preloader-content {
+	transform: translateY(-40px);
+}
 .preloader-svg {
 	/* width: 100%;
     height: 100%; */
@@ -2379,7 +2400,7 @@ footer {
 
 	animation:
 		drawLogo 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards,
-		fillLogo 1.8s ease forwards 1.7s;
+		fillLogo 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards 1.7s;
 }
 /* .logo-path:nth-child(3) { stroke-dasharray: 2949; stroke-dashoffset: 2949; }
 .logo-path:nth-child(4) { stroke-dasharray: 2615; stroke-dashoffset: 2615; }
@@ -2399,7 +2420,7 @@ footer {
 
 .preloader-text {
 	font-weight: 900;
-	font-size: 2vw;
+	font-size: clamp(22px, 2vw, 50px);
 	letter-spacing: 0.15em;
 	color: var(--title);
 	opacity: 0;
@@ -2409,7 +2430,7 @@ footer {
 }
 
 .preloader-subtext {
-	font-size: 1vw;
+	font-size: clamp(15px, 1vw, 50px);
 	font-weight: 300;
 	letter-spacing: 0.15em;
 	color: var(--g);

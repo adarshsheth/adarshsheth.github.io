@@ -216,14 +216,6 @@ function sw(id, idx, section, doScroll = true) {
 	}
 }
 
-// function ar(id, dir) {
-// 	const s = SS[id];
-// 	if (!s) return;
-// 	const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir));
-// 	if (next === s.cur) return;
-// 	document.getElementById(TABS[id][next])?.click();
-// }
-
 function ar(id, dir) {
 	const s = SS[id];
 	if (!s) return;
@@ -405,6 +397,7 @@ function initNavScroll() {
 
 	let scrollLockTimer = null;
 	let isScrolling = false;
+	let navTicking = false; // Performance throttle lock
 
 	function unlockNav() {
 		window._isNavLocked = false;
@@ -479,39 +472,50 @@ function initNavScroll() {
 	window.addEventListener(
 		"scroll",
 		() => {
-			if (window._isNavLocked) {
-				ly = window.scrollY;
-				delta = 0;
-				return;
-			}
-			if (hovering) {
-				ly = window.scrollY;
-				delta = 0;
-				return;
-			}
+			if (!navTicking) {
+				window.requestAnimationFrame(() => {
+					if (window._isNavLocked) {
+						ly = window.scrollY;
+						delta = 0;
+						navTicking = false;
+						return;
+					}
+					if (hovering) {
+						ly = window.scrollY;
+						delta = 0;
+						navTicking = false;
+						return;
+					}
 
-			const y = window.scrollY;
+					const y = window.scrollY;
 
-			if (y <= 0) {
-				showNav();
-				ly = y;
-				return;
-			}
-			if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) {
-				showNav();
-				ly = y;
-				return;
-			}
+					if (y <= 0) {
+						showNav();
+						ly = y;
+						navTicking = false;
+						return;
+					}
+					if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) {
+						showNav();
+						ly = y;
+						navTicking = false;
+						return;
+					}
 
-			const d = y - ly;
-			if (d > 0) {
-				delta = delta > 0 ? delta + d : d;
-				if (!hid && delta >= NAV_SCROLL_DOWN_PX) hideNav();
-			} else if (d < 0) {
-				delta = delta < 0 ? delta + d : d;
-				if (hid && -delta >= NAV_SCROLL_UP_PX) showNav();
+					const d = y - ly;
+					if (d > 0) {
+						delta = delta > 0 ? delta + d : d;
+						if (!hid && delta >= NAV_SCROLL_DOWN_PX) hideNav();
+					} else if (d < 0) {
+						delta = delta < 0 ? delta + d : d;
+						if (hid && -delta >= NAV_SCROLL_UP_PX) showNav();
+					}
+					ly = y;
+
+					navTicking = false;
+				});
+				navTicking = true;
 			}
-			ly = y;
 		},
 		{passive: true},
 	);
@@ -520,55 +524,60 @@ function initNavScroll() {
 	window._showNav = showNav;
 }
 
-/* ── SIDEBAR SCROLL PROGRESS & MAIN NAV STATE ── */
-/* ── UNIFIED SIDEBAR SCROLL PROGRESS ── */
+/* ── UNIFIED SIDEBAR SCROLL PROGRESS (PERFORMANCE OPTIMIZED) ── */
+let cachedAvailableSections = null;
+let sidebarTicking = false; // Performance throttle lock
+
 function updateSidebar() {
 	const fill = document.getElementById("sb-fill");
-	const tot = document.documentElement.scrollHeight - window.innerHeight;
-	if (fill) fill.style.width = (tot > 0 ? (window.scrollY / tot) * 100 : 0) + "%";
+	const scrollY = window.scrollY;
+	const winH = window.innerHeight;
+	const tot = document.documentElement.scrollHeight - winH;
 
-	// 1. Define ALL possible sections across all pages
-	const allSections = [
-		{id: "top", k: "top"},
-		{id: "about", k: "about"},
-		{id: "featured", k: "featured"},
-		{id: "contact", k: "contact"},
-		{id: "sec-tamu", k: "tamu"},
-		{id: "sec-dvhs", k: "dvhs"},
-		{id: "sec-events", k: "events"},
-		{id: "sec-infographic", k: "infographic"},
-		{id: "sec-cad", k: "cad"},
-	];
+	if (fill) fill.style.width = (tot > 0 ? (scrollY / tot) * 100 : 0) + "%";
 
-	// 2. Filter to only those that exist on the CURRENT page
-	const availableSections = allSections.filter((s) => document.getElementById(s.id));
+	// 1. Build and cache the sections array ONLY ONCE to save memory mapping overhead
+	if (!cachedAvailableSections) {
+		const allSections = [
+			{id: "top", k: "top"},
+			{id: "about", k: "about"},
+			{id: "featured", k: "featured"},
+			{id: "contact", k: "contact"},
+			{id: "sec-tamu", k: "tamu"},
+			{id: "sec-dvhs", k: "dvhs"},
+			{id: "sec-events", k: "events"},
+			{id: "sec-infographic", k: "infographic"},
+			{id: "sec-cad", k: "cad"},
+		];
+		// Filter to only those that exist on the CURRENT page
+		cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
+	}
 
 	let activeK = null;
-
 	const path = window.location.pathname;
-	anchor_loc = 0.45;
+	let anchor_loc = 0.45;
 	if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
 		anchor_loc = 0.6;
 	}
 
-	// 3. Determine active section based on scroll
-	availableSections.forEach(({id, k}) => {
+	// Cache the trigger calculation point
+	const triggerPoint = winH * anchor_loc;
+
+	// 2. Determine active section based on scroll using the cached array
+	cachedAvailableSections.forEach(({id, k}) => {
 		const el = document.getElementById(id);
-		if (el && el.getBoundingClientRect().top < window.innerHeight * anchor_loc) {
+		if (el && el.getBoundingClientRect().top < triggerPoint) {
 			activeK = k;
 		}
 	});
 
-	// 4. If we are at the very top, default to the first available section or "top"
-	if (window.scrollY < 400 && availableSections.length > 0) {
+	// 3. If we are at the very top, default to the first available section or "top"
+	if (scrollY < 400 && cachedAvailableSections.length > 0) {
 		updateURLd(null);
-		activeK = availableSections[0].k;
-		// if (document.querySelector('.sbn[data-k="top"]')) {
-		// 	activeK = "top";
-		// }
+		activeK = cachedAvailableSections[0].k;
 	}
 
-	// 5. Update UI only if we found an active section
+	// 4. Update UI only if we found an active section
 	if (activeK) {
 		document.querySelectorAll(".sbn").forEach((a) => {
 			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
@@ -584,7 +593,21 @@ function updateSidebar() {
 		}
 	}
 }
-window.addEventListener("scroll", updateSidebar, {passive: true});
+
+// Wrap the scroll listener in a requestAnimationFrame throttle
+window.addEventListener(
+	"scroll",
+	() => {
+		if (!sidebarTicking) {
+			window.requestAnimationFrame(() => {
+				updateSidebar();
+				sidebarTicking = false;
+			});
+			sidebarTicking = true;
+		}
+	},
+	{passive: true},
+);
 
 /* ── CAROUSELS ── */
 function initCarousels() {
@@ -830,7 +853,6 @@ function loadNav() {
 	});
 }
 /* ── UNIFIED INITIALIZATION ── */
-/* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
 	initSS();
 	initCarousels();
@@ -871,15 +893,15 @@ if (preloader) {
 		window.addEventListener("load", () => {
 			setTimeout(() => {
 				preloader.classList.add("hidden");
-				setTimeout(() => preloader.remove(), 800);
-			}, 2500);
+				setTimeout(() => preloader.remove(), 1000);
+			}, 2400);
 		});
 
 		// 3. Fallback logic
 		setTimeout(() => {
 			if (!preloader.classList.contains("hidden")) {
 				preloader.classList.add("hidden");
-				setTimeout(() => preloader.remove(), 800);
+				setTimeout(() => preloader.remove(), 1000);
 			}
 		}, 7000);
 	} else {
