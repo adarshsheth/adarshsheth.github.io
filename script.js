@@ -227,6 +227,15 @@ function ar(id, dir) {
 function ddNav(section) {
 	const c = SMAP[section];
 	if (!c) return;
+
+	// Check if the slideshow components exist on the current page.
+	// If they don't, we are not on the portfolio page, so redirect the browser.
+	if (!SS[c.ss]) {
+		window.location.href = "portfolio.html?section=" + section;
+		return;
+	}
+
+	// If we ARE on the portfolio page, execute the smooth slide transition as normal
 	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
 	sw(c.ss, c.i, section, true);
@@ -278,10 +287,10 @@ function handleURL() {
 function scrollToSec(id) {
 	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
-	
+
 	// If the target is 'top', force the window to scroll to absolute 0
 	if (id === "top") {
-		window.scrollTo({ top: 0, behavior: "smooth" });
+		window.scrollTo({top: 75, behavior: "smooth"});
 		return;
 	}
 
@@ -365,7 +374,7 @@ function closeSidebar() {
 /* ── HEADER SCROLL BEHAVIOR ────────────────────────────────────────── */
 const NAV_INITIAL_SHOW_ZONE_VH = 0.01;
 const NAV_SCROLL_DOWN_PX = 40;
-const NAV_SCROLL_UP_PX = 20;
+const NAV_SCROLL_UP_PX = 30;
 
 function initNavScroll() {
 	const hdr = document.getElementById("hdr");
@@ -380,15 +389,48 @@ function initNavScroll() {
 	window._isNavLocked = false;
 	window._navLockTimer = null;
 
+	let scrollLockTimer = null;
+	let isScrolling = false;
+
+	function unlockNav() {
+		window._isNavLocked = false;
+		window.removeEventListener("scroll", extendLock);
+		window.removeEventListener("scrollend", forceUnlock);
+		isScrolling = false;
+	}
+
+	function forceUnlock() {
+		clearTimeout(scrollLockTimer);
+		unlockNav();
+	}
+
+	function extendLock() {
+		isScrolling = true;
+		clearTimeout(scrollLockTimer);
+		// 250ms fallback covers main-thread lag and trackpad momentum tails
+		scrollLockTimer = setTimeout(unlockNav, 250);
+	}
+
 	window._lockNav = function () {
 		window._isNavLocked = true;
 		hovering = false;
-		clearTimeout(window._navLockTimer);
-		window._navLockTimer = setTimeout(() => {
-			window._isNavLocked = false;
-		}, 1200);
-	};
+		isScrolling = false;
 
+		// Clean slate to prevent double-call collisions
+		clearTimeout(scrollLockTimer);
+		window.removeEventListener("scroll", extendLock);
+		window.removeEventListener("scrollend", forceUnlock);
+
+		// Bind listeners
+		window.addEventListener("scroll", extendLock, {passive: true});
+		window.addEventListener("scrollend", forceUnlock, {passive: true});
+
+		// Give the browser 300ms to physically START the scroll
+		// (Crucial for cross-page loads where rendering delays the first frame)
+		scrollLockTimer = setTimeout(() => {
+			if (!isScrolling) unlockNav();
+		}, 300);
+	};
 	function showNav() {
 		if (hid) {
 			hdr.style.transition = "transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)";
@@ -473,6 +515,7 @@ function updateSidebar() {
 
 	// 1. Define ALL possible sections across all pages
 	const allSections = [
+		{id: "top", k: "top"},
 		{id: "about", k: "about"},
 		{id: "featured", k: "featured"},
 		{id: "contact", k: "contact"},
@@ -491,7 +534,7 @@ function updateSidebar() {
 	const path = window.location.pathname;
 	anchor_loc = 0.45;
 	if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
-		anchor_loc = 0.745;
+		anchor_loc = 0.6;
 	}
 
 	// 3. Determine active section based on scroll
@@ -503,9 +546,12 @@ function updateSidebar() {
 	});
 
 	// 4. If we are at the very top, default to the first available section or "top"
-	if (window.scrollY < 400) {
+	if (window.scrollY < 400 && availableSections.length > 0) {
 		updateURLd(null);
-		// activeK = availableSections.length > 0 ? availableSections[0].k : null;
+		activeK = availableSections[0].k;
+		// if (document.querySelector('.sbn[data-k="top"]')) {
+		// 	activeK = "top";
+		// }
 	}
 
 	// 5. Update UI only if we found an active section
@@ -717,73 +763,78 @@ function initCountUp() {
 
 /* ── DYNAMIC NAVBAR LOADER ── */
 function loadNav() {
-	const placeholder = document.getElementById("nav-placeholder");
-	const shroud = document.getElementById("blur-page"); // Reference the shroud
+	return new Promise((resolve) => {
+		const placeholder = document.getElementById("nav-placeholder");
+		const shroud = document.getElementById("blur-page");
 
-	if (!placeholder) {
-		initNavScroll();
-		return;
-	}
+		if (!placeholder) {
+			initNavScroll();
+			resolve();
+			return;
+		}
 
-	fetch("nav.html")
-		.then((response) => response.text())
-		.then((data) => {
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(data, "text/html");
-			const header = doc.querySelector("header");
+		fetch("nav.html")
+			.then((response) => response.text())
+			.then((data) => {
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(data, "text/html");
+				const header = doc.querySelector("header");
 
-			if (header) {
-				const currentPath = window.location.pathname.toLowerCase();
+				if (header) {
+					const currentPath = window.location.pathname.toLowerCase();
 
-				header.querySelectorAll(".ni").forEach((link) => {
-					link.classList.remove("active");
-					const linkText = link.textContent.trim().toLowerCase();
+					header.querySelectorAll(".ni").forEach((link) => {
+						link.classList.remove("active");
+						const linkText = link.textContent.trim().toLowerCase();
 
-					if (currentPath.includes("blog") && linkText === "blog") link.classList.add("active");
-					else if (currentPath.includes("resume") && linkText === "resume") link.classList.add("active");
-					else if (currentPath.includes("portfolio") && linkText.includes("portfolio")) link.classList.add("active");
-					else if ((currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site")) && linkText === "home")
-						link.classList.add("active");
-				});
-
-				placeholder.replaceWith(header);
-				initNavScroll();
-
-				// ── ADD THE HOVER LOGIC HERE ──
-				const navbox = header.querySelector(".navbox");
-				if (navbox && shroud) {
-					navbox.addEventListener("mouseenter", () => {
-						shroud.classList.add("visible");
+						if (currentPath.includes("blog") && linkText === "blog") link.classList.add("active");
+						else if (currentPath.includes("resume") && linkText === "resume") link.classList.add("active");
+						else if (currentPath.includes("portfolio") && linkText.includes("portfolio")) link.classList.add("active");
+						else if ((currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site")) && linkText === "home")
+							link.classList.add("active");
 					});
-					navbox.addEventListener("mouseleave", () => {
-						shroud.classList.remove("visible");
-					});
+
+					placeholder.replaceWith(header);
+					initNavScroll();
+
+					const navbox = header.querySelector(".navbox");
+					if (navbox && shroud) {
+						navbox.addEventListener("mouseenter", () => {
+							shroud.classList.add("visible");
+						});
+						navbox.addEventListener("mouseleave", () => {
+							shroud.classList.remove("visible");
+						});
+					}
 				}
-			}
-		})
-		.catch((error) => console.error("Error loading navigation:", error));
+				resolve(); // Signal that injection and initNavScroll are complete
+			})
+			.catch((error) => {
+				console.error("Error loading navigation:", error);
+				resolve();
+			});
+	});
 }
-
+/* ── UNIFIED INITIALIZATION ── */
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
-	loadNav();
 	initSS();
 	initCarousels();
 	initFadeIn();
 	initCountUp();
-	// initNavScroll();i
 
-	// Final measurements once layout is painted
-	requestAnimationFrame(() => {
-		Object.keys(TABS).forEach((id) => {
-			calcW(id);
-			setH(id, false);
+	// Wait for the Nav to load before handling URLs and Scrolls
+	loadNav().then(() => {
+		requestAnimationFrame(() => {
+			Object.keys(TABS).forEach((id) => {
+				calcW(id);
+				setH(id, false);
+			});
+			handleURL();
+			updateSidebar();
 		});
-		handleURL();
-		updateSidebar();
 	});
 }
-
 // Single initialization point handles both pre-loaded and dynamically injected scripts
 if (document.readyState === "complete" || document.readyState === "interactive") {
 	unifiedInit();

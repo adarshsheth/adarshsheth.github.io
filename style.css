@@ -562,10 +562,12 @@ section {
 }
 #hero h1 {
 	font-weight: 900;
+	/* font-style: italic; */
 	font-size: clamp(44px, 7vw, 88px);
 	line-height: 0.92;
 	letter-spacing: -0.01em;
 	color: white;
+	color: #373f35;
 	text-align: center;
 }
 #ibar {
@@ -649,7 +651,7 @@ section {
 	margin: 10px 0;
 	font-size: clamp(13.5px, 0.8vw, 50px);
 	color: var(--tdim);
-	line-height: 1.65;
+	line-height: 1.15;
 }
 
 .hbox-g b,
@@ -1373,7 +1375,7 @@ section {
 }
 .lb-bottom {
 	position: relative;
-	width: min(88vw, 400px);
+	width: min(50vw, 400px);
 	min-height: 38px;
 	display: flex;
 	align-items: center;
@@ -1441,6 +1443,7 @@ section {
 #about {
 	padding: 0 48px;
 	margin-top: 30px;
+	
 }
 .about-card {
 	position: relative;
@@ -1563,14 +1566,14 @@ section {
 	font-weight: 700;
 }
 .about-bio {
-	font-size: 15px;
+	font-size:  clamp(13.5px, 0.8vw, 50px);
 	color: var(--tdim);
 	line-height: 1.72;
 	margin-bottom: 10px;
 }
 .about-bio a {
 	color: var(--g);
-	font-style: italic;
+	/* font-style: italic; */
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	transition: color 0.15s;
@@ -2181,6 +2184,11 @@ footer {
 	.ecm span:not(:last-child)::after {
 		opacity: 0;
 	}
+	.lbi {
+	height: 40vw;
+	width: auto;
+	/* max-width: 88vw; */
+}
 }
 @media (max-width: 750px) {
 	.about-name {
@@ -2205,12 +2213,16 @@ footer {
 	/* Home Work Items */
 	.wi {
 		flex-direction: column;
+		width: 100%;
 	}
 	.wi-img-wrap {
 		width: 100%;
-		height: 100px;
+		height: 25vw;
 		border-right: none;
 		border-bottom: 1px solid var(--border);
+	}
+	.wi-bul {
+		gap: 0px !important;
 	}
 }
 @media (max-width: 750px) {
@@ -2226,7 +2238,10 @@ footer {
 	}
 	.insta-section {
 		flex: none;
-		width: 50%;
+		width: 100%;
+	}
+	.insta-photo-wrap {
+		aspect-ratio: 3/2;
 	}
 	.about-photo-wrap {
 		width: 20vw;
