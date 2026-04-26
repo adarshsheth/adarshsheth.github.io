@@ -158,7 +158,7 @@ function setH(id, animate) {
 	}
 }
 
-function sw(id, idx, section, doScroll) {
+function sw(id, idx, section, doScroll = true) {
 	const s = SS[id];
 	if (!s) return;
 	const prev = s.cur;
@@ -216,12 +216,26 @@ function sw(id, idx, section, doScroll) {
 	}
 }
 
+// function ar(id, dir) {
+// 	const s = SS[id];
+// 	if (!s) return;
+// 	const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir));
+// 	if (next === s.cur) return;
+// 	document.getElementById(TABS[id][next])?.click();
+// }
+
 function ar(id, dir) {
 	const s = SS[id];
 	if (!s) return;
 	const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir));
 	if (next === s.cur) return;
-	document.getElementById(TABS[id][next])?.click();
+
+	// Determine the string section name of the next slide (e.g., "red", "lsar")
+	const nextSection = RMAP[id][next];
+
+	// Call the slide-switch function directly, explicitly passing FALSE
+	// so that clicking arrows does NOT trigger the scroll behavior.
+	sw(id, next, nextSection, false);
 }
 
 function ddNav(section) {
