@@ -580,7 +580,7 @@ section {
 
 /* ══ HERO & INTRO BAR ── */
 #hero {
-	padding: 0 48px;
+	padding: 20px 48px 0 48px;
 }
 #hero h1 {
 	/* text-decoration: underline wavy 1px; */
@@ -1801,7 +1801,7 @@ section {
 	align-items: center;
 	justify-content: center;
 	color: var(--tdim);
-	font-size: clamp(12px, 1vw, 40px);
+	font-size: clamp(10px, 0.7vw, 40px);
 	transition:
 		color 0.2s,
 		border-color 0.2s,
@@ -2256,6 +2256,11 @@ footer {
 		width: auto;
 		/* max-width: 88vw; */
 	}
+
+	.about-card:hover .about-badge {
+	transform: translateX(-10vw);
+
+}
 }
 @media (max-width: 750px) {
 	.about-name {
