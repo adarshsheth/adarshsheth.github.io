@@ -4,7 +4,10 @@
 <head>
     <title>Redirecting...</title>
     <script>
-        // Define your URL mappings here
+        // Use the actual repository name as the prefix
+        const repoPrefix = "/site";
+
+        // Your custom URL mappings
         const redirectMap = {
             "/engineering": "/portfolio",
             "/engineering-portfolio": "/portfolio",
@@ -17,15 +20,25 @@
             "/about-me": "/"
         };
 
-        // Get the current path (e.g., "/foresite")
-        const path = window.location.pathname.replace(/\/$/, "");
+        // 1. Get the current path (e.g., "/site/engineering")
+        let path = window.location.pathname;
 
-        if (redirectMap[path]) {
-            // If the typo exists in our list, go to the correct page
-            window.location.replace(redirectMap[path]);
+        // 2. Remove the "/site" prefix so we can check our map
+        // This turns "/site/engineering" into "/engineering"
+        let cleanPath = path.startsWith(repoPrefix)
+            ? path.substring(repoPrefix.length)
+            : path;
+
+        // 3. Remove trailing slash (turns "/engineering/" into "/engineering")
+        cleanPath = cleanPath.replace(/\/$/, "");
+
+        // 4. Check if the "clean" path is in our map
+        if (redirectMap[cleanPath]) {
+            // Redirect back to /site + the correct page
+            window.location.replace(repoPrefix + redirectMap[cleanPath]);
         } else {
-            // Optional: If no match is found, send them to the home page
-            window.location.replace("/");
+            // If no match, just go back to the home page of the site
+            window.location.replace(repoPrefix + "/");
         }
     </script>
 </head>
