@@ -493,38 +493,25 @@ section {
 }
 .sh h2 {
 	font-weight: 900;
-	/* font-size: clamp(26px, 4.5vw, 70px); */
-	font-size: clamp(28px, 3vw, 70px);
+	font-size: clamp(26px, 4.5vw, 70px);
 	letter-spacing: 0.01em;
 	white-space: nowrap;
-	/* color: var(--title); */
+	color: var(--title);
 	/* color: var(--surface); */
-	color: var(--accent);
 	/* -webkit-text-stroke: 0.3px var(--dimtitle); */
 	text-shadow: 0 0 5px rgb(136, 136, 136, 0.5);
 	padding: 0 4px;
 	transition: color 0.1s ease-in-out;
-	
 }
 .sh-r {
 	flex: 1;
 	height: 15px;
-	/* background: white; */
-	background: var(--accent);
+	background: white;
+	/* background: var(--surface); */
+	/* border: 0.3px solid var(--border); */
+	/* box-shadow: 0 0 5px rgb(136, 136, 136,0.5); */
 	transition: background 0.1s ease-in-out;
 }
-
-/* ── NEW: Control the left line specifically ── */
-.sh .sh-r:first-child {
-	flex: none; /* Prevents the left line from expanding */
-	width: calc(48px - 12px); /* 48px negative margin minus the 12px flex gap */
-}
-
-/* ── NEW: Ensure the right line takes up the remaining space ── */
-.sh .sh-r:last-child {
-	flex: 1; 
-}
-
 .sh-pulse-btn {
 	background: none;
 	border: none;
@@ -768,10 +755,8 @@ section {
 	padding: 36px 48px 0;
 }
 .tlbox {
-	/* background: var(--surface); */
-	/* background: #0c0c0c; */
-	/* border: 1.5px solid var(--border); */
-	border: 2.5px solid var(--border);
+	background: var(--surface);
+	border: 1.5px solid var(--border);
 	border-radius: var(--r);
 	padding: 20px 24px;
 	margin: 0 -24px;
@@ -864,8 +849,7 @@ section {
 .tglbl {
 	font-size: 11px;
 	font-style: italic;
-	/* color: white; */
-	color: var(--dimtitle);
+	color: white;
 	margin-right: 4px;
 	white-space: nowrap;
 	line-height: 1.35;
@@ -880,11 +864,9 @@ section {
 	align-items: center;
 	height: 30px;
 	padding: 0 15px;
-	/* border: 1.5px solid white; */
-	border: 1.5px solid var(--dimtitle);
+	border: 1.5px solid white;
 	background: transparent;
-	/* color: white; */
-	color: var(--dimtitle);
+	color: white;
 	font-family: "Rubik", sans-serif;
 	font-weight: 700;
 	font-size: 12px;
@@ -910,8 +892,7 @@ section {
 	transform: translateY(-1px);
 }
 .tb:disabled {
-	/* background: white; */
-	background: var(--dimtitle);
+	background: white;
 	color: var(--bg);
 	cursor: default;
 }
@@ -987,8 +968,7 @@ section {
 /* Experience Cards */
 .ec {
 	background: var(--surface);
-	/* border: 1.5px solid var(--border); */
-	border: 2.5px solid var(--border);
+	border: 1.5px solid var(--border);
 	border-radius: var(--r);
 	overflow: hidden;
 	opacity: 0;
@@ -1509,10 +1489,8 @@ section {
 }
 .about-card {
 	position: relative;
-	/* background: var(--surface); */
-	background: #0c0c0c3d;
+	background: var(--surface);
 	border: 1.5px solid var(--border);
-	border: 2px solid var(--border);
 	border-radius: var(--r) 100px var(--r) 40px;
 	padding: 28px 32px;
 	margin-top: 14px;
