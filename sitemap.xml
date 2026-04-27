@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemasmap/0.9">
   
   <url>
-    <loc>https://adarshsheth.github.io/site/</loc>
+    <loc>https://adarshsheth.github.io/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://adarshsheth.github.io/site/portfolio.html</loc>
+    <loc>https://adarshsheth.github.io/portfolio.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://adarshsheth.github.io/site/artwork.html</loc>
+    <loc>https://adarshsheth.github.io/artwork.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://adarshsheth.github.io/site/resume.html</loc>
+    <loc>https://adarshsheth.github.io/resume.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://adarshsheth.github.io/site/blog.html</loc>
+    <loc>https://adarshsheth.github.io/blog.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
