@@ -2260,6 +2260,7 @@ footer {
 	.about-card:hover .about-badge {
 	transform: translateX(-10vw);
 
+	
 }
 }
 @media (max-width: 750px) {
