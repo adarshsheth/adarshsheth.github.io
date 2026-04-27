@@ -1041,7 +1041,7 @@ section {
 .ecm {
 	display: flex;
 	align-items: baseline;
-	gap: 9px;
+	gap: 5px;
 	flex-wrap: wrap;
 	margin-top: 4px;
 	margin: 10px 0;
@@ -1049,15 +1049,18 @@ section {
 	font-size: clamp(13.5px, 0.9vw, 50px);
 	font-style: normal;
 	font-weight: 500;
-	color: var(--badge);
+	color: var(--gl);
 	text-transform: uppercase;
 }
 .ecm span:not(:last-child)::after {
 	content: " \00B7 "; /* Unicode for a middle dot (·). You can also use " • " */
-	margin: 0 2px; /* Adjust the spacing around the dot */
-	opacity: 0.6; /* Optional: dims the dot slightly so it doesn't distract from the text */
+	content: " // ";
+	margin: 0 5px; /* Adjust the spacing around the dot */
+	opacity: 1.0; /* Optional: dims the dot slightly so it doesn't distract from the text */
 	font-weight: normal;
-	color: --tdim;
+	color: var(--tdim);
+	color: var(--accent);
+	color: white;
 }
 /* .ecmeta { font-size: clamp(11px,1vw,20px); color: var(--tdim); line-height: 1.3; } */
 /* .ecrole { font-size: clamp(11px,1vw,20px); font-style: italic; font-weight: 300; color: var(--tdim); } */
