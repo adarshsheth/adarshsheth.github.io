@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Redirecting...</title>
+    <script>
+        // Define your URL mappings here
+        const redirectMap = {
+            "/engineering": "/portfolio",
+            "/engineering-portfolio": "/portfolio",
+            "/projects": "/portfolio",
+            "/design-teams": "/portfolio",
+            "/experience": "/portfolio",
+            "/artwork": "/photography",
+            "/about": "/",
+            "/contact": "/",
+            "/about-me": "/"
+        };
+
+        // Get the current path (e.g., "/foresite")
+        const path = window.location.pathname.replace(/\/$/, "");
+
+        if (redirectMap[path]) {
+            // If the typo exists in our list, go to the correct page
+            window.location.replace(redirectMap[path]);
+        } else {
+            // Optional: If no match is found, send them to the home page
+            window.location.replace("/");
+        }
+    </script>
+</head>
+
+<body>
+    <p>Redirecting you to the right place...</p>
+</body>
+
+</html>
