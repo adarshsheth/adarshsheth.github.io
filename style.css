@@ -3,9 +3,15 @@
 	/* --bg: #0a0a0a; */
 	/* --bg: #222222; */
 	--bg: #303030;
+	/* --bg: #8b8b8b; */
 	/* --surface: #111111; */
-	--surface: #0c0c0c;
+	--surface-full: #0c0c0caf;
+	/* --surface-full: rgb(37, 39, 38); */
+	--surface: rgba(37, 39, 38, 0.75); /* e */
+	--surface: #282928; /* e */
 	--surface2: #111111;
+	/* --surface2: #00000088; */
+	/* --surface2: pink; */
 	--border: #444444;
 	/* --border: #2a2c2a; */
 	/* --border: white; */
@@ -14,6 +20,8 @@
 	--gl: #8da084;
 	--gpale: rgba(100, 118, 97, 0.25);
 	--accent: #c8a84b;
+	--port-header: var(--g);
+	--port-hover: var(--gl);
 	--accentpale: #1d1c1c;
 	--highlight: #615739;
 	--text: #d0d3cd;
@@ -289,7 +297,8 @@ header {
 	padding: 2px 16px 2px 26px;
 	font-size: 12px;
 	font-weight: 500;
-	color: var(---dull);
+	/* color: var(---dull); */
+	color: var(--surface);
 	transition:
 		background 0.15s,
 		color 0.15s;
@@ -329,7 +338,7 @@ header {
 	left: 0;
 	bottom: 0;
 	width: var(--sw);
-	background: var(--surface);
+	background: var(--surface-full);
 	border-right: 1px solid var(--border);
 	z-index: 400;
 	display: flex;
@@ -499,6 +508,7 @@ section {
 	margin: 0 -48px;
 }
 .sh h2 {
+	font-family: 'Rubik', sans-serif;
 	font-weight: 900;
 	/* font-size: clamp(26px, 4.5vw, 70px); */
 	font-size: clamp(28px, 3vw, 70px);
@@ -506,19 +516,21 @@ section {
 	white-space: nowrap;
 	/* color: var(--title); */
 	/* color: var(--surface); */
-	color: var(--accent);
+	/* color: var(--accent); */
+	color: var(--port-header);
 	/* -webkit-text-stroke: 0.3px var(--dimtitle); */
 	/* text-shadow: 0 0 5px rgb(136, 136, 136, 0.5); */
 	padding: 0 4px;
-	transition: color 0.1s ease-in-out;
+	transition: color 0.21s ease-in-out;
 	
 }
 .sh-r {
 	flex: 1;
 	height: 15px;
 	/* background: white; */
-	background: var(--accent);
-	transition: background 0.1s ease-in-out;
+	/* background: var(--accent); */
+	background: var(--port-header);
+	transition: background 0.21s ease-in-out;
 }
 
 /* ── NEW: Control the left line specifically ── */
@@ -532,7 +544,7 @@ section {
 	flex: 1; 
 }
 
-.sh-pulse-btn {
+/* .sh-pulse-btn {
 	background: none;
 	border: none;
 	padding: 0 4px 0 0;
@@ -550,14 +562,27 @@ section {
 }
 .sh-pulse-btn:hover ~ .sh-r {
 	background: var(--accent);
+} */
+
+.sh-pulse-btn {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+.sh-pulse-btn:hover h2 {
+	/* color: var(--accent); */
+	color: var(--port-hover);
+}
+.sh:has(.sh-pulse-btn:hover) .sh-r {
+	/* background: var(--accent); */
+	background: var(--port-hover);
 }
 
-.pulse-dot {
+/* .pulse-dot {
 	width: clamp(20px, 2vw, 50px);
 	height: clamp(20px, 2vw, 50px);
 	border-radius: 50%;
 	background: white;
-	/* background: var(--surface); */
 	flex-shrink: 0;
 	animation: sectionPulse 2.5s ease-in-out infinite;
 	transition: background 0.2s;
@@ -566,12 +591,11 @@ section {
 	100%,
 	0% {
 		box-shadow: 0 0 0 0 rgba(208, 211, 205, 0.5);
-		/* box-shadow: 0 0 0 0 rgba(208, 211, 205, 0.3); */
 	}
 	100% {
 		box-shadow: 0 0 0 10px rgba(208, 211, 205, 0);
 	}
-}
+} */
 
 .copy-toast {
 	position: fixed;
@@ -780,13 +804,15 @@ section {
 	padding: 36px 48px 0;
 }
 .tlbox {
-	/* background: var(--surface); */
+	background: var(--surface);
 	/* background: #0c0c0c; */
 	/* border: 1.5px solid var(--border); */
 	border: 2.5px solid var(--border);
 	border-radius: var(--r);
-	padding: 20px 24px;
-	margin: 0 -24px;
+	/* padding: 20px 24px; */
+	padding: 20px;
+	/* margin: 0 -24px; */
+	margin: 0;
 	transition:
 		border-color 0.25s,
 		box-shadow 0.25s,
@@ -1045,7 +1071,7 @@ section {
 	flex-wrap: wrap;
 	margin-top: 4px;
 	margin: 10px 0;
-	line-height: 0.4;
+	line-height: 0.8;
 	font-size: clamp(13.5px, 0.9vw, 50px);
 	font-style: normal;
 	font-weight: 500;
@@ -1060,7 +1086,7 @@ section {
 	font-weight: normal;
 	color: var(--tdim);
 	color: var(--accent);
-	color: white;
+	color: var(--dimtitle);
 }
 /* .ecmeta { font-size: clamp(11px,1vw,20px); color: var(--tdim); line-height: 1.3; } */
 /* .ecrole { font-size: clamp(11px,1vw,20px); font-style: italic; font-weight: 300; color: var(--tdim); } */
@@ -1237,18 +1263,19 @@ section {
 /* Stat Rows */
 .srow {
 	display: flex;
-	gap: 1px;
-	background: var(--border);
+	/* gap: 1px; */
+	/* background: var(--border); */
 	border: 1px solid var(--border);
 	border-radius: 8px;
 	overflow: hidden;
 	margin: 10px 0;
 }
 .scell {
-	background: var(--surface2);
+	/* background: var(--surface2); */
 	flex: 1;
 	min-width: 80px;
 	padding: 12px 14px;
+	border: 1px solid var(--border);
 }
 .slbl {
 	font-size: 10px;
@@ -1524,17 +1551,19 @@ section {
 }
 .about-card {
 	position: relative;
-	/* background: var(--surface); */
+	background: var(--surface);
 	/* background: #0c0c0c3d; */
 	border: 1.5px solid var(--border);
 	border: 2px solid var(--border);
-	border-radius: var(--r) 100px var(--r) 40px;
+	/* border-radius: var(--r) 100px var(--r) 40px; */
+	border-radius: 40px;
 	padding: 28px 32px;
 	margin-top: 14px;
 	transition:
 		border-color 0.25s,
 		box-shadow 0.25s,
-		transform 0.25s;
+		transform 0.25s,
+		border-radius 0.5s;
 	width: clamp(50%, 1000px, 100%);
 }
 .about-card:hover {
@@ -1543,6 +1572,8 @@ section {
 		0 0 7px 4px rgba(100, 118, 97, 0.1),
 		0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform: scale(1.005);
+		border-radius: 40px 150px 40px 40px;
+
 }
 .about-card:hover .about-badge {
 	border-color: rgba(100, 118, 97, 0.6);
@@ -1556,8 +1587,9 @@ section {
 	position: absolute;
 	top: -15px;
 	right: 25%;
-	/* background: var(--surface); */
-	background: var(--bg);
+	background: var(--surface);
+	/* background: var(--bg); */
+	/* background: #3f403f; */
 	/* border: 1.5px solid var(--border); */
 	border: 2px solid var(--border);
 	border-radius: 5px;
@@ -1571,7 +1603,7 @@ section {
 	transition:
 		border-color 0.25s,
 		color 0.25s,
-		transform 0.25s,
+		transform 0.5s,
 		box-shadow 0.25s;
 	
 }
@@ -1694,7 +1726,7 @@ section {
 	font-weight: 700;
 	color: var(--dimtitle);
 	letter-spacing: 0.08em;
-	/* background: var(--surface); */
+	background: var(--surface);
 	transition:
 		border-color 0.2s,
 		color 0.2s,
@@ -1839,7 +1871,7 @@ section {
 	height: clamp(22px, 1.7vw, 50px);
 	border-radius: 7px;
 	border: 1.5px solid var(--border);
-	/* background: var(--surface); */
+	background: var(--surface);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -1856,7 +1888,7 @@ section {
 	background: var(--gpale);
 }
 .insta-card {
-	background: #0d0d0d;
+	background: var(--surface);
 	border: 1.5px solid var(--border);
 	border-radius: var(--r);
 	overflow: hidden;
@@ -1894,13 +1926,13 @@ section {
 .insta-username {
 	font-weight: 700;
 	/* font-size: 12px; */
-		font-size: clamp(13px,0.75vw,30px);
+		font-size: clamp(14px,0.75vw,30px);
 	color: var(--text);
 	line-height: 1.2;
 }
 .insta-location {
 	/* font-size: 10px; */
-		font-size: clamp(10px,0.6vw,20px);
+		font-size: clamp(12px,0.6vw,20px);
 
 	color: var(--tdim);
 	display: flex;
@@ -2012,7 +2044,7 @@ section {
 }
 .insta-caption {
 	/* font-size: 11.5px; */
-			font-size: clamp(10px,0.6vw,20px);
+			font-size: clamp(12px,0.6vw,20px);
 
 	color: var(--tdim);
 	line-height: 1.5;
@@ -2029,7 +2061,7 @@ section {
 .contact-card {
 	display: grid;
 	grid-template-columns: 210px 1fr;
-	background: var(--surface);
+	/* background: var(--surface); */
 	border: 1.5px solid var(--border);
 	border-radius: var(--r);
 	overflow: hidden;
@@ -2046,7 +2078,8 @@ section {
 	transform: scale(1.005);
 }
 .contact-left {
-	background: #0d0d0d;
+	/* background: #0d0d0d; */
+	background: var(--surface);
 	padding: 32px 22px;
 	display: flex;
 	flex-direction: column;
@@ -2080,7 +2113,7 @@ section {
 	gap: 4px;
 }
 .form-label {
-	font-size: 9.5px;
+	font-size: clamp(9.5px,0.6vw,20px);
 	font-weight: 700;
 	letter-spacing: 0.12em;
 	color: var(--tmut);
@@ -2090,7 +2123,8 @@ section {
 	color: var(--accent);
 }
 .form-input {
-	background: #161616;
+	/* background: #161616; */
+	background: var(--surface);
 	border: 1px solid var(--border);
 	border-radius: 6px;
 	padding: 8px 12px;
@@ -2140,7 +2174,8 @@ textarea.form-input {
 	/* margin: 0 calc(2.75vw + 10px); */
 }
 footer {
-	background: #080808;
+	/* background: #080808; */
+	background: var(--surface-full);
 	padding: 18px 48px;
 	display: flex;
 	align-items: center;
@@ -2245,6 +2280,7 @@ footer {
 
 	/* Adjust Paddings & Margins */
 	.sb,
+	#tls,
 	#hero,
 	#about,
 	#featured,
