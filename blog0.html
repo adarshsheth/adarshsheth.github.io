@@ -237,11 +237,13 @@
 
         // Clean, direct function without the proxy
             async function fetchHashnode(query, variables = {}) {
-                const res = await fetch('https://gql.hashnode.com/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query, variables })
-                });
+                const res = await fetch('./blog-data.json')
+                    .then(res => res.json())
+                    .then(res => {
+                        // The data is now safely loaded directly from your own server
+                        const posts = res.data?.publication?.posts?.edges || [];
+                        // ... rest of your rendering code
+                    });
                 return res.json();
             }
 

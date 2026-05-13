@@ -1,0 +1,26 @@
+name: Fetch Hashnode Blog
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs automatically every hour
+  workflow_dispatch: # Allows you to trigger it manually
+
+jobs:
+  fetch-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Fetch from Hashnode and save to JSON
+        run: |
+          curl -X POST https://gql.hashnode.com/ \
+          -H "Content-Type: application/json" \
+          -d '{"query":"query { publication(host: \"javascript-journey-by-navdeep.hashnode.dev\") { posts(first: 20) { edges { node { slug title brief publishedAt coverImage { url } tags { name } } } } } }"}' \
+          > blog-data.json
+          
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add blog-data.json
+          git commit -m "Auto-update blog data" || exit 0
+          git push
