@@ -146,7 +146,6 @@
             color: var(--tmut);
         }
     </style>
-
 </head>
 
 <body>
@@ -223,11 +222,8 @@
     <script src="script.js"></script>
     <script>
         // ==========================================
-        // HEADLESS BLOG ENGINE VIA HASHNODE API V2
+        // STATIC BLOG ENGINE (Reads from GitHub Actions JSON)
         // ==========================================
-        const HASHNODE_HOST = "javascript-journey-by-navdeep.hashnode.dev";
-        // <-- CHANGE THIS TO YOUR PUBLICATION URL
-
         const urlParams = new URLSearchParams(window.location.search);
         const postSlug = urlParams.get('post');
 
@@ -235,49 +231,26 @@
         const postEl = document.getElementById('blog-post');
         const loader = document.getElementById('blog-loading');
 
-        // Clean, direct function without the proxy
-            async function fetchHashnode(query, variables = {}) {
-                const res = await fetch('./blog-data.json')
-                    .then(res => res.json())
-                    .then(res => {
-                        // The data is now safely loaded directly from your own server
-                        const posts = res.data?.publication?.posts?.edges || [];
-                        // ... rest of your rendering code
-                    });
-                return res.json();
-            }
+        async function initBlog() {
+            try {
+                // Fetch the local JSON file created by GitHub Actions
+                const response = await fetch('./blog-data.json');
+                if (!response.ok) throw new Error("Local data file not found. Ensure GitHub Actions ran successfully.");
 
-        if (postSlug) {
-            // 1. Render Specific Article
-            const query = `
-				query SinglePost($host: String!, $slug: String!) {
-					publication(host: $host) {
-						id
-						post(slug: $slug) {
-							id
-							title
-							publishedAt
-							author { name }
-							tags { name }
-							content { html }
-						}
-					}
-				}
-			`;
+                const res = await response.json();
+                const posts = res.data?.publication?.posts?.edges || [];
+                loader.style.display = 'none';
 
-            fetchHashnode(query, { host: HASHNODE_HOST, slug: postSlug })
-                .then(res => {
-                    // Check for GraphQL explicit errors
-                    if (res.errors) throw new Error(res.errors[0].message);
+                if (postSlug) {
+                    // VIEW: SINGLE ARTICLE
+                    const postNode = posts.find(edge => edge.node.slug === postSlug);
+                    if (!postNode) throw new Error("Article not found in local records.");
 
-                    const post = res.data?.publication?.post;
-                    if (!post) throw new Error("Transmission missing or deleted.");
-
-                    loader.style.display = 'none';
+                    const post = postNode.node;
                     postEl.style.display = 'block';
 
                     document.getElementById('post-title').innerText = post.title;
-                    document.getElementById('post-author').innerText = post.author?.name || 'Unknown';
+                    document.getElementById('post-author').innerText = "Navdeep";
 
                     // Format Categories (Tags) safely
                     const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');
@@ -289,73 +262,39 @@
 
                     // Update page metadata
                     document.title = `${post.title} | Blog | AS`;
-                })
-                .catch(err => {
-                    loader.innerText = `Error: ${err.message || "Connection failed."}`;
-                    console.error(err);
-                });
-
-        } else {
-            // 2. Render Article Feed (Landing Page)
-            const query = `
-				query Publication($host: String!) {
-					publication(host: $host) {
-						id
-						posts(first: 20) {
-							edges {
-								node {
-									id
-									title
-									brief
-									slug
-									publishedAt
-									coverImage { url }
-									tags { name }
-								}
-							}
-						}
-					}
-				}
-			`;
-
-            fetchHashnode(query, { host: HASHNODE_HOST })
-                .then(res => {
-                    // Check for GraphQL explicit errors
-                    if (res.errors) throw new Error(res.errors[0].message);
-
-                    loader.style.display = 'none';
+                } else {
+                    // VIEW: LANDING PAGE FEED
                     listEl.style.display = 'flex';
-
-                    const posts = res.data?.publication?.posts?.edges || [];
-
                     if (posts.length === 0) {
-                        listEl.innerHTML = "<div class='dbox'>No transmission records found for this publication.</div>";
+                        listEl.innerHTML = "<div class='dbox'>No transmission records found.</div>";
                         return;
                     }
 
                     // Build custom UI cards safely checking for null tags or images
                     listEl.innerHTML = posts.map(({ node }) => `
-						<a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
-							${node.coverImage?.url ? `
-							<div class="wi-img-wrap" style="width: 260px;">
-								<img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
-							</div>` : ''}
-							<div class="wi-body" style="padding: 24px;">
-								<h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
-								<p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
-								<div class="ecm" style="margin-top:16px;">
-									${(node.tags || []).slice(0, 4).map(tag => `<span>${tag.name}</span>`).join('')}
-									<span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-								</div>
-							</div>
-						</a>
-					`).join('');
-                })
-                .catch(err => {
-                    loader.innerText = `Error: ${err.message || "Failed to synchronize feed."}`;
-                    console.error(err);
-                });
+                        <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+                            ${node.coverImage?.url ? `
+                            <div class="wi-img-wrap" style="width: 260px;">
+                                <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+                            </div>` : ''}
+                            <div class="wi-body" style="padding: 24px;">
+                                <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
+                                <p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
+                                <div class="ecm" style="margin-top:16px;">
+                                    ${(node.tags || []).slice(0, 4).map(tag => `<span>${tag.name}</span>`).join('')}
+                                    <span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                </div>
+                            </div>
+                        </a>
+                    `).join('');
+                }
+            } catch (err) {
+                loader.innerText = `Update in progress: ${err.message}`;
+                console.error(err);
+            }
         }
+
+        initBlog();
     </script>
 </body>
 
