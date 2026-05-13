@@ -1,26 +1,54 @@
 name: Fetch Hashnode Blog
 on:
   schedule:
-    - cron: '0 * * * *' # Runs automatically every hour
-  workflow_dispatch: # Allows you to trigger it manually
+    - cron: '0 * * * *' # Updates every hour
+  workflow_dispatch: # Allows you to click "Run" manually
 
 jobs:
   fetch-posts:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - name: Fetch from Hashnode and save to JSON
-        run: |
-          curl -X POST https://gql.hashnode.com/ \
-          -H "Content-Type: application/json" \
-          -d '{"query":"query { publication(host: \"javascript-journey-by-navdeep.hashnode.dev\") { posts(first: 20) { edges { node { slug title brief publishedAt coverImage { url } tags { name } } } } } }"}' \
-          > blog-data.json
+      - name: Fetch Data with JavaScript
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Write the GraphQL query cleanly without fighting Bash quotes!
+            const query = `
+              query { 
+                publication(host: "javascript-journey-by-navdeep.hashnode.dev") { 
+                  posts(first: 20) { 
+                    edges { 
+                      node { 
+                        slug 
+                        title 
+                        brief 
+                        publishedAt 
+                        coverImage { url } 
+                        tags { name } 
+                        content { html } 
+                      } 
+                    } 
+                  } 
+                } 
+              }`;
+              
+            // Fetch the data from Hashnode
+            const response = await fetch('https://gql.hashnode.com/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query })
+            });
+            
+            // Save it directly to the JSON file
+            const data = await response.text();
+            require('fs').writeFileSync('blog-data.json', data);
           
-      - name: Commit and push if changed
+      - name: Deploy Data
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add blog-data.json
-          git commit -m "Auto-update blog data" || exit 0
+          git commit -m "Sync blog data" || exit 0
           git push
