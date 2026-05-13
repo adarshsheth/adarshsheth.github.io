@@ -903,7 +903,7 @@ if (preloader) {
 				preloader.classList.add("hidden");
 				setTimeout(() => preloader.remove(), 1000);
 			}
-		}, 7000);
+		}, 5000);
 	} else {
 		// --- RETURNING PAGE LOAD ---
 		// They have the flag. Instantly remove the preloader without any waiting.

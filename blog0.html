@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow">
+    <meta name="keywords"
+        content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
+    <meta name="theme-color" content="#647661">
+    <link rel="author" href="https://www.linkedin.com/in/adarsh-sheth/">
+    <meta property="og:site_name" content="Adarsh Sheth" />
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog | AS">
+    <meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+
+    <link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
+    <link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
+
+    <title>Blog | AS</title>
+    <meta property="og:title" content="Blog | AS">
+    <meta name="description" content="A collection of Adarsh's blog articles.">
+    <meta property="og:description" content="A collection of Adarsh's blog articles.">
+    <meta property="og:url" content="https://adarshsheth.github.io/blog">
+    <link rel="canonical" href="https://adarshsheth.github.io/blog">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        /* Blog Container Specifics */
+        #blog-container {
+            padding: 20px 48px 60px;
+            max-width: 11000px;
+        }
+
+        @media (max-width: 1050px) {
+            #blog-container {
+                padding: 20px 22px 60px;
+            }
+        }
+
+        /* Typography & formatting for rendered HTML from API */
+        #post-body h2 {
+            font-weight: 900;
+            font-size: clamp(22px, 2.5vw, 36px);
+            color: var(--port-header);
+            margin: 40px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        #post-body h3 {
+            font-weight: 700;
+            font-size: clamp(18px, 2vw, 26px);
+            color: var(--dimtitle);
+            margin: 28px 0 12px;
+        }
+
+        #post-body p {
+            font-size: clamp(14px, 0.9vw, 20px);
+            line-height: 1.75;
+            margin-bottom: 18px;
+            color: var(--text);
+        }
+
+        /* Indented Quote Boxes */
+        #post-body blockquote {
+            background: rgba(0, 0, 0, 0.32);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 6px 6px 0;
+            padding: 16px 20px;
+            margin: 24px 0;
+            font-size: clamp(14px, 0.9vw, 20px);
+            color: var(--tdim);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        #post-body blockquote p {
+            margin-bottom: 0;
+            color: inherit;
+        }
+
+        #post-body pre {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: var(--r);
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        #post-body code {
+            font-family: monospace;
+            color: var(--gl);
+            background: rgba(0, 0, 0, 0.25);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        #post-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        #post-body a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        #post-body a:hover {
+            color: var(--gl);
+        }
+
+        #post-body img {
+            border-radius: var(--r);
+            margin: 24px 0;
+            width: 100%;
+            border: 1px solid var(--border);
+        }
+
+        #post-body ul,
+        #post-body ol {
+            margin-left: 20px;
+            margin-bottom: 18px;
+            color: var(--text);
+            line-height: 1.75;
+            font-size: clamp(14px, 0.9vw, 20px);
+        }
+
+        #post-body li {
+            margin-bottom: 8px;
+        }
+
+        #post-body li::marker {
+            color: var(--tmut);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="blur-page"></div>
+    <div id="nav-placeholder"></div>
+    <div id="sb-overlay"></div>
+
+    <aside id="sb">
+        <div id="sb-hdr">Sections</div>
+        <div id="sb-prog">
+            <div id="sb-fill"></div>
+        </div>
+        <nav id="sb-nav">
+            <a class="sbn active" href="#top" data-k="top">
+                <span class="sbdot"></span>
+                <span class="sblbl">Articles</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div id="mn">
+        <div id="top"></div>
+
+        <section id="hero">
+            <h1>BLOG</h1>
+        </section>
+
+        <div id="blog-container">
+
+            <div id="blog-loading"
+                style="text-align:center; padding: 40px; color:var(--g); font-weight:700; letter-spacing: 0.1em; text-transform: uppercase;">
+                Loading transmission...
+            </div>
+
+            <div id="blog-list" class="fw-grid" style="display:none; flex-direction:column; gap: 20px;">
+            </div>
+
+            <div id="blog-post" style="display:none;">
+                <button onclick="window.location.href='?'" class="pbtn"
+                    style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
+
+                <div class="ech" style="padding: 0 0 20px 0;">
+                    <h2 id="post-title" class="ect"
+                        style="color: var(--title); font-size: clamp(28px, 3vw, 50px); line-height: 1.1;"></h2>
+                    <div
+                        style="color: var(--g); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px;">
+                        Written by <span id="post-author" style="color: var(--accent);"></span>
+                    </div>
+                    <div id="post-meta" class="ecm" style="margin-top: 10px;"></div>
+                </div>
+
+                <div id="post-body" class="cbody full" style="margin-top:10px; padding: 0;">
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="ficons">
+                <a href="javascript:void(0)" onclick="window.scrollTo(0,0)" class="fi" title="Back to top">▲</a>
+                <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
+            </div>
+            <nav class="fnav">
+                <a href="/">HOME</a>
+                <a href="portfolio">PORTFOLIO</a>
+                <a href="resume">RESUME</a>
+                <a href="blog" class="fp">BLOG</a>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // ==========================================
+        // HEADLESS BLOG ENGINE VIA HASHNODE API V2
+        // ==========================================
+        const HASHNODE_HOST = "javascript-journey-by-navdeep.hashnode.dev";
+        // <-- CHANGE THIS TO YOUR PUBLICATION URL
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postSlug = urlParams.get('post');
+
+        const listEl = document.getElementById('blog-list');
+        const postEl = document.getElementById('blog-post');
+        const loader = document.getElementById('blog-loading');
+
+        // Clean, direct function without the proxy
+            async function fetchHashnode(query, variables = {}) {
+                const res = await fetch('https://gql.hashnode.com/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query, variables })
+                });
+                return res.json();
+            }
+
+        if (postSlug) {
+            // 1. Render Specific Article
+            const query = `
+				query SinglePost($host: String!, $slug: String!) {
+					publication(host: $host) {
+						id
+						post(slug: $slug) {
+							id
+							title
+							publishedAt
+							author { name }
+							tags { name }
+							content { html }
+						}
+					}
+				}
+			`;
+
+            fetchHashnode(query, { host: HASHNODE_HOST, slug: postSlug })
+                .then(res => {
+                    // Check for GraphQL explicit errors
+                    if (res.errors) throw new Error(res.errors[0].message);
+
+                    const post = res.data?.publication?.post;
+                    if (!post) throw new Error("Transmission missing or deleted.");
+
+                    loader.style.display = 'none';
+                    postEl.style.display = 'block';
+
+                    document.getElementById('post-title').innerText = post.title;
+                    document.getElementById('post-author').innerText = post.author?.name || 'Unknown';
+
+                    // Format Categories (Tags) safely
+                    const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');
+                    const dateStr = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    document.getElementById('post-meta').innerHTML = `${tagsHtml} <span>${dateStr}</span>`;
+
+                    // Inject rendered HTML content
+                    document.getElementById('post-body').innerHTML = post.content?.html || '';
+
+                    // Update page metadata
+                    document.title = `${post.title} | Blog | AS`;
+                })
+                .catch(err => {
+                    loader.innerText = `Error: ${err.message || "Connection failed."}`;
+                    console.error(err);
+                });
+
+        } else {
+            // 2. Render Article Feed (Landing Page)
+            const query = `
+				query Publication($host: String!) {
+					publication(host: $host) {
+						id
+						posts(first: 20) {
+							edges {
+								node {
+									id
+									title
+									brief
+									slug
+									publishedAt
+									coverImage { url }
+									tags { name }
+								}
+							}
+						}
+					}
+				}
+			`;
+
+            fetchHashnode(query, { host: HASHNODE_HOST })
+                .then(res => {
+                    // Check for GraphQL explicit errors
+                    if (res.errors) throw new Error(res.errors[0].message);
+
+                    loader.style.display = 'none';
+                    listEl.style.display = 'flex';
+
+                    const posts = res.data?.publication?.posts?.edges || [];
+
+                    if (posts.length === 0) {
+                        listEl.innerHTML = "<div class='dbox'>No transmission records found for this publication.</div>";
+                        return;
+                    }
+
+                    // Build custom UI cards safely checking for null tags or images
+                    listEl.innerHTML = posts.map(({ node }) => `
+						<a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+							${node.coverImage?.url ? `
+							<div class="wi-img-wrap" style="width: 260px;">
+								<img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+							</div>` : ''}
+							<div class="wi-body" style="padding: 24px;">
+								<h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
+								<p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
+								<div class="ecm" style="margin-top:16px;">
+									${(node.tags || []).slice(0, 4).map(tag => `<span>${tag.name}</span>`).join('')}
+									<span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+								</div>
+							</div>
+						</a>
+					`).join('');
+                })
+                .catch(err => {
+                    loader.innerText = `Error: ${err.message || "Failed to synchronize feed."}`;
+                    console.error(err);
+                });
+        }
+    </script>
+</body>
+
+</html>
