@@ -4,19 +4,23 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      # Using Node 22+ entirely removes the deprecation warnings
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           
       - name: Install dependencies
-        run: npm install @notionhq/client notion-to-md marked
+        run: |
+          npm init -y
+          npm install @notionhq/client@latest notion-to-md@latest marked@latest
 
       - name: Run Fetch Script
         run: node build.js
