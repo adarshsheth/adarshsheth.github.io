@@ -4,149 +4,152 @@ on:
     - cron: '0 * * * *' # Updates automatically every hour
   workflow_dispatch: # Allows manual trigger
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build-blog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Notion and Markdown Parsers
+      # 1. Officially setup Node to permanently silence deprecation warnings
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 2. Install dependencies securely in the workspace
+      - name: Install Dependencies
         run: |
           npm init -y
           npm install @notionhq/client notion-to-md marked
 
+      # 3. Create a native Node script and execute it directly
       - name: Fetch and Download Assets
-        uses: actions/github-script@v7
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-        with:
-          script: |
-            const { Client } = require("@notionhq/client");
-            const { NotionToMarkdown } = require("notion-to-md");
-            const { marked } = require("marked");
-            const fs = require('fs');
-            const path = require('path');
-            const https = require('https');
+        run: |
+          cat << 'EOF' > build.js
+          const { Client } = require("@notionhq/client");
+          const { NotionToMarkdown } = require("notion-to-md");
+          const { marked } = require("marked");
+          const fs = require('fs');
+          const path = require('path');
+          const https = require('https');
 
-            const notion = new Client({ auth: process.env.NOTION_API_KEY });
-            const n2m = new NotionToMarkdown({ notionClient: notion });
+          const notion = new Client({ auth: process.env.NOTION_API_KEY });
+          const n2m = new NotionToMarkdown({ notionClient: notion });
 
-            // Helper to download files locally and ensure they survive expiration
-            async function downloadFile(url, destPath) {
-              return new Promise((resolve, reject) => {
-                const file = fs.createWriteStream(destPath);
-                https.get(url, (response) => {
-                  if (response.statusCode !== 200) {
-                    reject(new Error(`Failed to download: ${response.statusCode}`));
-                    return;
-                  }
-                  response.pipe(file);
-                  file.on('finish', () => {
-                    file.close(resolve);
-                  });
-                }).on('error', (err) => {
-                  fs.unlink(destPath, () => reject(err));
+          async function downloadFile(url, destPath) {
+            return new Promise((resolve, reject) => {
+              const file = fs.createWriteStream(destPath);
+              https.get(url, (response) => {
+                if (response.statusCode !== 200) {
+                  reject(new Error(`Failed to download: ${response.statusCode}`));
+                  return;
+                }
+                response.pipe(file);
+                file.on('finish', () => {
+                  file.close(resolve);
                 });
+              }).on('error', (err) => {
+                fs.unlink(destPath, () => reject(err));
               });
+            });
+          }
+
+          async function buildBlog() {
+            const imgDir = path.join(process.cwd(), 'media', 'blog');
+            if (!fs.existsSync(imgDir)) {
+              fs.mkdirSync(imgDir, { recursive: true });
             }
 
-            async function buildBlog() {
-              // Ensure local image asset directories exist
-              const imgDir = path.join(process.cwd(), 'media', 'blog');
-              if (!fs.existsSync(imgDir)) {
-                fs.mkdirSync(imgDir, { recursive: true });
+            const db = await notion.databases.query({
+              database_id: process.env.NOTION_DATABASE_ID,
+            });
+
+            const edges = [];
+
+            for (const page of db.results) {
+              const props = page.properties;
+              const title = props.Name?.title[0]?.plain_text || "Untitled";
+              const slug = props.Slug?.rich_text[0]?.plain_text || page.id;
+              const brief = props.Brief?.rich_text[0]?.plain_text || "";
+              const publishedAt = props.Date?.date?.start || page.created_time;
+              const tags = props.Tags?.multi_select || [];
+              
+              let localCoverUrl = null;
+              if (page.cover) {
+                const remoteCoverUrl = page.cover.external ? page.cover.external.url : page.cover.file.url;
+                const coverExt = remoteCoverUrl.split('?')[0].split('.').pop() || 'jpg';
+                const coverFilename = `cover-${slug}.${coverExt}`;
+                const coverDest = path.join(imgDir, coverFilename);
+                
+                try {
+                  await downloadFile(remoteCoverUrl, coverDest);
+                  localCoverUrl = `media/blog/${coverFilename}`;
+                  console.log(`Downloaded cover for: ${slug}`);
+                } catch (e) {
+                  console.error(`Failed downloading cover for ${slug}:`, e.message);
+                }
               }
 
-              const db = await notion.databases.query({
-                database_id: process.env.NOTION_DATABASE_ID,
-              });
-
-              const edges = [];
-
-              for (const page of db.results) {
-                const props = page.properties;
-                const title = props.Name?.title[0]?.plain_text || "Untitled";
-                const slug = props.Slug?.rich_text[0]?.plain_text || page.id;
-                const brief = props.Brief?.rich_text[0]?.plain_text || "";
-                const publishedAt = props.Date?.date?.start || page.created_time;
-                const tags = props.Tags?.multi_select || [];
-                
-                // 1. Download & Localize Page Cover Image
-                let localCoverUrl = null;
-                if (page.cover) {
-                  const remoteCoverUrl = page.cover.external ? page.cover.external.url : page.cover.file.url;
-                  const coverExt = remoteCoverUrl.split('?')[0].split('.').pop() || 'jpg';
-                  const coverFilename = `cover-${slug}.${coverExt}`;
-                  const coverDest = path.join(imgDir, coverFilename);
-                  
-                  try {
-                    await downloadFile(remoteCoverUrl, coverDest);
-                    localCoverUrl = `media/blog/${coverFilename}`;
-                    console.log(`Downloaded cover for: ${slug}`);
-                  } catch (e) {
-                    console.error(`Failed downloading cover for ${slug}:`, e.message);
-                  }
-                }
-
-                // 2. Parse Post Body Content & Localize Inline Body Images
-                const mdBlocks = await n2m.pageToMarkdown(page.id);
-                
-                // Intercept markdown image strings to download them
-                let imgCount = 0;
-                for (const block of mdBlocks) {
-                  if (block.type === 'image') {
-                    // Extract URL out of markdown text structure
-                    const match = block.parent.match(/\((https?:\/\/.*?)\)/);
-                    if (match && match[1]) {
-                      const remoteImgUrl = match[1];
-                      const imgExt = remoteImgUrl.split('?')[0].split('.').pop() || 'png';
-                      const imgFilename = `img-${slug}-${imgCount}.${imgExt}`;
-                      const imgDest = path.join(imgDir, imgFilename);
-                      
-                      try {
-                        await downloadFile(remoteImgUrl, imgDest);
-                        // Modify markdown target to resolve permanently to local asset
-                        block.parent = block.parent.replace(remoteImgUrl, `media/blog/${imgFilename}`);
-                        imgCount++;
-                      } catch (e) {
-                        console.error(`Failed parsing inline image block:`, e.message);
-                      }
+              const mdBlocks = await n2m.pageToMarkdown(page.id);
+              
+              let imgCount = 0;
+              for (const block of mdBlocks) {
+                if (block.type === 'image') {
+                  const match = block.parent.match(/\((https?:\/\/.*?)\)/);
+                  if (match && match[1]) {
+                    const remoteImgUrl = match[1];
+                    const imgExt = remoteImgUrl.split('?')[0].split('.').pop() || 'png';
+                    const imgFilename = `img-${slug}-${imgCount}.${imgExt}`;
+                    const imgDest = path.join(imgDir, imgFilename);
+                    
+                    try {
+                      await downloadFile(remoteImgUrl, imgDest);
+                      block.parent = block.parent.replace(remoteImgUrl, `media/blog/${imgFilename}`);
+                      imgCount++;
+                    } catch (e) {
+                      console.error(`Failed parsing inline image block:`, e.message);
                     }
                   }
                 }
-
-                const mdString = n2m.toMarkdownString(mdBlocks);
-                const htmlContent = marked.parse(mdString.parent || mdString);
-
-                edges.push({
-                  node: {
-                    id: page.id,
-                    slug: slug,
-                    title: title,
-                    brief: brief,
-                    publishedAt: publishedAt,
-                    coverImage: localCoverUrl ? { url: localCoverUrl } : null,
-                    tags: tags,
-                    content: { html: htmlContent }
-                  }
-                });
               }
 
-              const finalJson = { data: { publication: { posts: { edges: edges } } } };
-              fs.writeFileSync('blog-data.json', JSON.stringify(finalJson, null, 2));
-              console.log("Notion migration process successfully compiled.");
-            }
-            
-            await buildBlog();
+              const mdString = n2m.toMarkdownString(mdBlocks);
+              const htmlContent = marked.parse(mdString.parent || mdString);
 
+              edges.push({
+                node: {
+                  id: page.id,
+                  slug: slug,
+                  title: title,
+                  brief: brief,
+                  publishedAt: publishedAt,
+                  coverImage: localCoverUrl ? { url: localCoverUrl } : null,
+                  tags: tags,
+                  content: { html: htmlContent }
+                }
+              });
+            }
+
+            const finalJson = { data: { publication: { posts: { edges: edges } } } };
+            fs.writeFileSync('blog-data.json', JSON.stringify(finalJson, null, 2));
+            console.log("Notion migration process successfully compiled.");
+          }
+          
+          buildBlog().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          EOF
+          node build.js
+
+      # 4. Commit to the repository
       - name: Deploy Data & Downloaded Images
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git add blog-data.json media/blog/
+          git add blog-data.json media/blog/ || true
           git commit -m "Sync Notion data and local images" || exit 0
           git push
