@@ -173,7 +173,7 @@
             <h1>BLOG</h1>
         </section>
 
-        <div id="blog-container">
+        <div id="blog-container" style="padding-top: 20px">
 
             <div id="blog-loading"
                 style="text-align:center; padding: 40px; color:var(--g); font-weight:700; letter-spacing: 0.1em; text-transform: uppercase;">
@@ -250,7 +250,7 @@
                     postEl.style.display = 'block';
 
                     document.getElementById('post-title').innerText = post.title;
-                    document.getElementById('post-author').innerText = "Navdeep";
+                    document.getElementById('post-author').innerText = "Adarsh Shet";
 
                     // Format Categories (Tags) safely
                     const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');
