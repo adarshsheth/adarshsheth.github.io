@@ -118,8 +118,12 @@ async function run() {
 				processedBlocks.push(b);
 
 				// FIX 3: Inject a literal HTML comment wedge between adjacent quotes
-				if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
-					processedBlocks.push({type: "paragraph", parent: ""});
+				// if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
+				// 	processedBlocks.push({type: "paragraph", parent: ""});
+				// }
+				// THE FIX: If this block and the one before it are BOTH quotes, inject a hidden HTML wedge
+				if (i > 0 && b.type === "quote" && blocks[i - 1].type === "quote") {
+					blocks.splice(i, 0, {type: "paragraph", parent: "<div style='display:none;'></div>"});
 				}
 			}
 
