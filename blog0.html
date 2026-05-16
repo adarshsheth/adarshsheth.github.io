@@ -54,6 +54,8 @@
             margin: 40px 0 16px;
             padding-bottom: 8px;
             border-bottom: 2px solid var(--border);
+
+            scroll-margin-top: 30px;
         }
 
         #post-body h3 {
@@ -282,7 +284,7 @@
     <script src="script.js"></script>
     <script>
         // ==========================================
-        // STATIC BLOG ENGINE (Reads from GitHub Actions JSON)
+        // DYNAMIC BLOG ENGiNE & SIDEBAR SYNCHRONIZER
         // ==========================================
         const urlParams = new URLSearchParams(window.location.search);
         const postSlug = urlParams.get('post');
@@ -291,20 +293,112 @@
         const postEl = document.getElementById('blog-post');
         const loader = document.getElementById('blog-loading');
 
+        // Disables global sidebar calculations in script.js when viewing an article
+        if (postSlug) {
+            window.isViewingDynamicPost = true;
+        }
+
+        function generateBlogSidebar() {
+            const sbNav = document.getElementById('sb-nav');
+            if (!sbNav) return;
+
+            const h2Elements = document.querySelectorAll('#post-body h2');
+
+            // View Mode: Inside a specific article with available headings
+            if (postSlug && h2Elements.length > 0) {
+                let sidebarHtml = `
+                    <a class="sbn" href="?">
+                        <span class="sbdot"></span>
+                        <span class="sblbl">« Back to Feed</span>
+                    </a>
+                    <div style="height: 1px; background: var(--border); margin: 10px 14px;"></div>
+                `;
+
+                h2Elements.forEach((h2, index) => {
+                    // Inject programmatic IDs if they don't exist
+                    const headerId = h2.id || `heading-${index}`;
+                    h2.id = headerId;
+
+                    // Clean text rendering: strip markdown artifacts safely
+                    const cleanText = h2.innerText
+                        .replace(/[/*_#~`➤]/g, '')
+                        .replace(/^[-\s•]+/, '')
+                        .trim();
+
+                    // Generate as STANDARD nav items instead of sub-nav items
+                    sidebarHtml += `
+                        <a class="sbn sbn-article" href="#${headerId}" id="nav-link-${headerId}">
+                            <span class="sbdot"></span>
+                            <span class="sblbl">${cleanText}</span>
+                        </a>
+                    `;
+                });
+
+                sbNav.innerHTML = sidebarHtml;
+
+                // Fire ScrollSpy binding engine
+                initBlogScrollSpy();
+            } else {
+                // View Mode: Landing Feed view default fallback state
+                sbNav.innerHTML = `
+                        <a class="sbn active" href="?" data-k="top">
+                            <span class="sbdot"></span>
+                            <span class="sblbl">Articles</span>
+                        </a>
+                    `;
+            }
+        }
+
+        function initBlogScrollSpy() {
+                // CHANGED: Now looks for the new standard article links
+                const subLinks = document.querySelectorAll('.sbn-article');
+                const headers = document.querySelectorAll('#post-body h2');
+                let sidebarTicking = false;
+
+                window.addEventListener('scroll', () => {
+                    if (!sidebarTicking) {
+                        window.requestAnimationFrame(() => {
+                            let currentActiveId = "";
+                            const triggerOffset = window.innerHeight * 0.35;
+
+                            headers.forEach(header => {
+                                const rect = header.getBoundingClientRect();
+                                // Mark item active when passing the top zone threshold of viewport
+                                if (rect.top < triggerOffset) {
+                                    currentActiveId = header.id;
+                                }
+                            });
+
+                            // Edge-case fix: If user scrolls back to absolute top, clear active highlight states
+                            if (window.scrollY < 150 && headers.length > 0) {
+                                currentActiveId = "";
+                            }
+
+                            subLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === `#${currentActiveId}`) {
+                                    link.classList.add('active');
+                                }
+                            });
+
+                            sidebarTicking = false;
+                        });
+                        sidebarTicking = true;
+                    }
+                }, { passive: true });
+            }
         async function initBlog() {
             try {
-                // Fetch the local JSON file created by GitHub Actions
                 const response = await fetch('./blog-data.json');
-                if (!response.ok) throw new Error("Local data file not found. Ensure GitHub Actions ran successfully.");
+                if (!response.ok) throw new Error("Transmission ledger payload unreadable.");
 
                 const res = await response.json();
                 const posts = res.data?.publication?.posts?.edges || [];
                 loader.style.display = 'none';
 
                 if (postSlug) {
-                    // VIEW: SINGLE ARTICLE
                     const postNode = posts.find(edge => edge.node.slug === postSlug);
-                    if (!postNode) throw new Error("Article not found in local records.");
+                    if (!postNode) throw new Error("Target transmission vector hash missing.");
 
                     const post = postNode.node;
                     postEl.style.display = 'block';
@@ -312,45 +406,45 @@
                     document.getElementById('post-title').innerText = post.title;
                     document.getElementById('post-author').innerText = "Adarsh Sheth";
 
-                    // Format Categories (Tags) safely
                     const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');
                     const dateStr = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                     document.getElementById('post-meta').innerHTML = `${tagsHtml} <span>${dateStr}</span>`;
 
-                    // Inject rendered HTML content
                     document.getElementById('post-body').innerHTML = post.content?.html || '';
-
-                    // Update page metadata
                     document.title = `${post.title} | Blog | AS`;
                 } else {
-                    // VIEW: LANDING PAGE FEED
                     listEl.style.display = 'flex';
                     if (posts.length === 0) {
                         listEl.innerHTML = "<div class='dbox'>No transmission records found.</div>";
+                        generateBlogSidebar();
                         return;
                     }
 
-                    // Build custom UI cards safely checking for null tags or images
                     listEl.innerHTML = posts.map(({ node }) => `
-                        <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
-                            ${node.coverImage?.url ? `
-                            <div class="wi-img-wrap" style="width: 260px;">
-                                <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
-                            </div>` : ''}
-                            <div class="wi-body" style="padding: 24px;">
-                                <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
-                                <p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
-                                <div class="ecm" style="margin-top:16px;">
-                                    ${(node.tags || []).slice(0, 4).map(tag => `<span>${tag.name}</span>`).join('')}
-                                    <span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                            <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+                                ${node.coverImage?.url ? `
+                                <div class="wi-img-wrap" style="width: 260px;">
+                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+                                </div>` : ''}
+                                <div class="wi-body" style="padding: 24px;">
+                                    <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
+                                    <p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
+                                    <div class="ecm" style="margin-top:16px;">
+                                        ${(node.tags || []).slice(0, 4).map(tag => `<span>${tag.name}</span>`).join('')}
+                                        <span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    `).join('');
+                            </a>
+                        `).join('');
                 }
+
+                // Hydrate rendering layout maps onto the sidebar
+                generateBlogSidebar();
+
             } catch (err) {
-                loader.innerText = `Update in progress: ${err.message}`;
+                loader.innerText = `Update error sequence: ${err.message}`;
                 console.error(err);
+                generateBlogSidebar();
             }
         }
 

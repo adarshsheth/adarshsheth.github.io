@@ -529,10 +529,14 @@ let cachedAvailableSections = null;
 let sidebarTicking = false; // Performance throttle lock
 
 function updateSidebar() {
+	// --- ADD THIS GUARD TO AVOID CONFLICT ---
+	if (window.isViewingDynamicPost) return; 
+
 	const fill = document.getElementById("sb-fill");
 	const scrollY = window.scrollY;
 	const winH = window.innerHeight;
 	const tot = document.documentElement.scrollHeight - winH;
+    
 
 	if (fill) fill.style.width = (tot > 0 ? (scrollY / tot) * 100 : 0) + "%";
 
