@@ -80,30 +80,26 @@ async function run() {
 			// 		}
 			// 	}
 			// }
-
+			// Build a new array to handle injections without messing up loop order
+			const processedBlocks = [];
 			let imgCount = 0;
 
-			// Iterate backwards so we can safely inject new items into the array without messing up the loop
-			for (let i = blocks.length - 1; i >= 0; i--) {
+			for (let i = 0; i < blocks.length; i++) {
 				const b = blocks[i];
 
-				// if (b.type === "image") {
-				// 	const match = b.parent.match(/\((https?:\/\/.*?)\)/);
-				// 	if (match && match[1]) {
-				// 		const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
-				// 		await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
-				// 		b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
-				// 		imgCount++;
-				// 	}
-				// }
-
+				// FIX 1: Forward loop ensures images are processed in correct chronological order
 				if (b.type === "image") {
 					const urlMatch = b.parent.match(/\((https?:\/\/.*?)\)/);
-					const altMatch = b.parent.match(/!\[(.*?)\]/); // Extracts the hidden caption
+					const altMatch = b.parent.match(/!\[(.*?)\]/);
 
 					if (urlMatch && urlMatch[1]) {
 						const rawUrl = urlMatch[1];
-						const caption = altMatch && altMatch[1] ? altMatch[1] : "";
+						let caption = altMatch && altMatch[1] ? altMatch[1] : "";
+
+						// FIX 2: Filter out Notion's auto-generated generic filenames
+						if (/^image\.(png|jpe?g|gif|webp)$/i.test(caption) || caption === "image") {
+							caption = "";
+						}
 
 						const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
 						await download(rawUrl, dest).catch((e) => console.log(`  Image warning: ${e.message}`));
@@ -111,7 +107,6 @@ async function run() {
 						const localUrl = `media/blog/${slug}-${imgCount}.jpg`;
 
 						if (caption) {
-							// Wrap in a figure to force the caption to display visually
 							b.parent = `<figure><img src="${localUrl}" alt="${caption}"><figcaption>${caption}</figcaption></figure>`;
 						} else {
 							b.parent = `<img src="${localUrl}" alt="">`;
@@ -120,14 +115,19 @@ async function run() {
 					}
 				}
 
-				// THE FIX: If this block and the one before it are BOTH quotes, inject a hidden break between them
-				if (i > 0 && b.type === "quote" && blocks[i - 1].type === "quote") {
-					blocks.splice(i, 0, {type: "paragraph", parent: ""});
+				processedBlocks.push(b);
+
+				// FIX 3: Inject a literal HTML comment wedge between adjacent quotes
+				if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
+					processedBlocks.push({type: "paragraph", parent: ""});
 				}
 			}
 
-			// const htmlContent = marked.parse(n2m.toMarkdownString(blocks).parent || "");
-			let rawMd = n2m.toMarkdownString(blocks).parent || "";
+			// Pass the new, wedged array to the Markdown stringifier
+			let rawMd = n2m.toMarkdownString(processedBlocks).parent || "";
+
+
+			
 
 			// Merge adjacent Markdown links that point to the exact same URL
 			const mergeLinksRegex = /\[([^\]]+)\]\(([^)]+)\)(\s*)\[([^\]]+)\]\(\2\)/g;
