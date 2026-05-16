@@ -2548,3 +2548,11 @@ footer {
 		transform: translateY(0);
 	}
 }
+
+
+
+/* Ensures bold text inside a link also changes color on hover */
+        #post-body blockquote a:hover strong,
+        #post-body blockquote a:hover b {
+            color: inherit; 
+        }

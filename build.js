@@ -81,7 +81,19 @@ async function run() {
 				}
 			}
 
-			const htmlContent = marked.parse(n2m.toMarkdownString(blocks).parent || "");
+			// const htmlContent = marked.parse(n2m.toMarkdownString(blocks).parent || "");
+			let rawMd = n2m.toMarkdownString(blocks).parent || "";
+
+			// Merge adjacent Markdown links that point to the exact same URL
+			const mergeLinksRegex = /\[([^\]]+)\]\(([^)]+)\)(\s*)\[([^\]]+)\]\(\2\)/g;
+			while (mergeLinksRegex.test(rawMd)) {
+				rawMd = rawMd.replace(mergeLinksRegex, "[$1$3$4]($2)");
+			}
+
+			const htmlContent = marked.parse(rawMd);
+
+
+			
 
 			edges.push({
 				node: {
