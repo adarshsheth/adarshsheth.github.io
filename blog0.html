@@ -157,7 +157,7 @@
         
 /* Image and Caption Styling */
         #post-body figure {
-            margin: 24px 0; /* Handles the spacing for the whole image/caption block */
+            margin: 24px; /* Handles the spacing for the whole image/caption block */
             display: block;
         }
 
@@ -309,7 +309,7 @@
                     postEl.style.display = 'block';
 
                     document.getElementById('post-title').innerText = post.title;
-                    document.getElementById('post-author').innerText = "Adarsh Shet";
+                    document.getElementById('post-author').innerText = "Adarsh Sheth";
 
                     // Format Categories (Tags) safely
                     const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');

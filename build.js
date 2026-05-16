@@ -123,7 +123,33 @@ async function run() {
 			} while (rawMd !== prevMd);
 
 			// Parse the fully cleaned Markdown into HTML
-			const htmlContent = marked.parse(rawMd, {breaks: true});
+			// const htmlContent = marked.parse(rawMd, {breaks: true});
+
+			// --- FIX PART 5: Image Captions ---
+			// Instruct 'marked' to wrap images with alt-text in <figure> and <figcaption> tags
+			const renderer = new marked.Renderer();
+			renderer.image = function (href, title, text) {
+				const imgHtml = `<img src="${href}" alt="${text || ""}">`;
+				// If there is alt text (a caption from Notion), wrap it in a figure
+				if (text) {
+					return `<figure>${imgHtml}<figcaption>${text}</figcaption></figure>`;
+				}
+				return imgHtml; // Otherwise, just return the standard image
+			};
+
+			// Parse the fully cleaned Markdown into HTML using the custom renderer
+			const htmlContent = marked.parse(rawMd, { breaks: true, renderer: renderer });
+			
+
+
+
+
+
+
+
+
+
+			
 
 			edges.push({
 				node: {
