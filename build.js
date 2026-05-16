@@ -32,7 +32,7 @@ async function run() {
 
 	console.log("Fetching database directly via API...");
 
-	// THE FIX: We use native fetch to completely bypass the SDK bug
+	// We use native fetch to completely bypass the SDK bug
 	const dbResponse = await fetch(`https://api.notion.com/v1/databases/${process.env.NOTION_DATABASE_ID}/query`, {
 		method: "POST",
 		headers: {
@@ -67,78 +67,42 @@ async function run() {
 			}
 
 			const blocks = await n2m.pageToMarkdown(page.id);
-			// let imgCount = 0;
-
-			// for (const b of blocks) {
-			// 	if (b.type === "image") {
-			// 		const match = b.parent.match(/\((https?:\/\/.*?)\)/);
-			// 		if (match && match[1]) {
-			// 			const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
-			// 			await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
-			// 			b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
-			// 			imgCount++;
-			// 		}
-			// 	}
-			// }
-			// Build a new array to handle injections without messing up loop order
-			const processedBlocks = [];
 			let imgCount = 0;
 
-			for (let i = 0; i < blocks.length; i++) {
-				const b = blocks[i];
-
-				// FIX 1: Forward loop ensures images are processed in correct chronological order
+			// --- FIX PART 1: The Original Image Loop (Forward) ---
+			// We process this exactly as it was, guaranteeing images and captions download in perfect order.
+			for (const b of blocks) {
 				if (b.type === "image") {
-					const urlMatch = b.parent.match(/\((https?:\/\/.*?)\)/);
-					const altMatch = b.parent.match(/!\[(.*?)\]/);
-
-					if (urlMatch && urlMatch[1]) {
-						const rawUrl = urlMatch[1];
-						let caption = altMatch && altMatch[1] ? altMatch[1] : "";
-
-						// FIX 2: Filter out Notion's auto-generated generic filenames
-						if (/^image\.(png|jpe?g|gif|webp)$/i.test(caption) || caption === "image") {
-							caption = "";
-						}
-
+					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
+					if (match && match[1]) {
 						const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
-						await download(rawUrl, dest).catch((e) => console.log(`  Image warning: ${e.message}`));
-
-						const localUrl = `media/blog/${slug}-${imgCount}.jpg`;
-
-						if (caption) {
-							b.parent = `<figure><img src="${localUrl}" alt="${caption}"><figcaption>${caption}</figcaption></figure>`;
-						} else {
-							b.parent = `<img src="${localUrl}" alt="">`;
-						}
+						await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
+						b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
 						imgCount++;
 					}
 				}
+			}
 
-				processedBlocks.push(b);
-
-				// FIX 3: Inject a literal HTML comment wedge between adjacent quotes
-				// if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
-				// 	processedBlocks.push({type: "paragraph", parent: ""});
-				// }
-				// THE FIX: If this block and the one before it are BOTH quotes, inject a hidden HTML wedge
-				if (i > 0 && b.type === "quote" && blocks[i - 1].type === "quote") {
+			// --- FIX PART 2: The Quote Separator (Backward) ---
+			// By iterating backwards, we inject the hidden HTML wedges between consecutive quote blocks
+			// WITHOUT messing up the array indexing of the blocks we haven't checked yet.
+			for (let i = blocks.length - 1; i > 0; i--) {
+				if (blocks[i].type === "quote" && blocks[i - 1].type === "quote") {
 					blocks.splice(i, 0, {type: "paragraph", parent: "<div style='display:none;'></div>"});
 				}
 			}
 
-			// Pass the new, wedged array to the Markdown stringifier
-			let rawMd = n2m.toMarkdownString(processedBlocks).parent || "";
+			let rawMd = n2m.toMarkdownString(blocks).parent || "";
 
-
-			
-
-			// Merge adjacent Markdown links that point to the exact same URL
+			// --- FIX PART 3: The Link Merger ---
+			// Scans the raw Markdown and stitches back together any links with identical URLs that
+			// Notion split up due to partial bolding.
 			const mergeLinksRegex = /\[([^\]]+)\]\(([^)]+)\)(\s*)\[([^\]]+)\]\(\2\)/g;
 			while (mergeLinksRegex.test(rawMd)) {
 				rawMd = rawMd.replace(mergeLinksRegex, "[$1$3$4]($2)");
 			}
 
+			// Finally, parse the fully cleaned Markdown into HTML
 			const htmlContent = marked.parse(rawMd);
 
 			edges.push({
