@@ -67,10 +67,14 @@ async function run() {
 			}
 
 			const blocks = await n2m.pageToMarkdown(page.id);
+			const processedBlocks = [];
 			let imgCount = 0;
 
-			// --- FIX PART 1: The Original Image Loop ---
-			for (const b of blocks) {
+			// Iterate through the raw AST blocks to safely modify structure
+			for (let i = 0; i < blocks.length; i++) {
+				const b = blocks[i];
+
+				// --- FIX PART 1: Handle Images ---
 				if (b.type === "image") {
 					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
 					if (match && match[1]) {
@@ -80,26 +84,46 @@ async function run() {
 						imgCount++;
 					}
 				}
+
+				// --- FIX PART 2: Quote Soft-Breaks & Spacing ---
+				if (b.type === "quote") {
+					// 1. Remove the markdown quote symbol (">") from all lines to get the raw text
+					let rawQuoteText = b.parent.replace(/^>\s?/gm, "");
+
+					// 2. Preserve soft newlines by replacing `\n` with explicit `<br>` tags
+					// This guarantees they stay on new lines without breaking the blockquote structure
+					rawQuoteText = rawQuoteText.replace(/\n/g, "<br>");
+
+					// 3. Re-wrap as a single-line markdown quote
+					b.parent = `> ${rawQuoteText}`;
+				}
+
+				processedBlocks.push(b);
+
+				// --- FIX PART 3: Separate Back-to-Back Quotes ---
+				// Inject an invisible div between consecutive quotes to force 'marked' to render separate <blockquote> elements
+				if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
+					processedBlocks.push({
+						type: "html",
+						parent: "<div style='display:none;'></div>",
+						children: [],
+					});
+				}
 			}
 
-			let rawMd = n2m.toMarkdownString(blocks).parent || "";
+			// Convert the perfectly formatted blocks back into a Markdown string
+			let rawMd = n2m.toMarkdownString(processedBlocks).parent || "";
 
-			// --- NEW FIX PART 2: The Quote Separator ---
-			// Scans for two separate blockquotes separated by empty lines, and injects
-			// an invisible div. This explicitly forces 'marked' to close the first
-			// box and draw a completely new, separate box for the next.
-			rawMd = rawMd.replace(/(^>.*$)\n{2,}(?=>)/gm, "$1\n\n<div style='display:none;'></div>\n\n");
-
-			// --- FIX PART 3: The Link Merger ---
-			// Scans the raw Markdown and stitches back together any links with identical URLs
+			// --- FIX PART 4: The Link Merger ---
+			// Stitches back together split links with identical URLs.
+			// Using [ \t]* instead of \s* ensures we ONLY merge links on the same line, preventing massive text duplication across newlines.
 			let prevMd;
 			do {
 				prevMd = rawMd;
-				rawMd = rawMd.replace(/\[([^\]]+)\]\(([^)]+)\)(\s*)\[([^\]]+)\]\(\2\)/g, "[$1$3$4]($2)");
+				rawMd = rawMd.replace(/\[([^\]]+)\]\(([^)]+)\)([ \t]*)\[([^\]]+)\]\(\2\)/g, "[$1$3$4]($2)");
 			} while (rawMd !== prevMd);
 
-			// Finally, parse the fully cleaned Markdown into HTML
-			// Using { breaks: true } ensures soft-breaks (Shift+Enter) are preserved as <br> tags
+			// Parse the fully cleaned Markdown into HTML
 			const htmlContent = marked.parse(rawMd, {breaks: true});
 
 			edges.push({
