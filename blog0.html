@@ -437,7 +437,7 @@
                     listEl.innerHTML = posts.map(({ node }) => `
                             <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
-                                <div class="wi-img-wrap" style="width: 260px;">
+                                <div class="wi-img-wrap">
                                     <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
                                 </div>` : ''}
                                 <div class="wi-body" style="padding: 24px;">
