@@ -20,6 +20,7 @@
 	--gl: #8da084;
 	--gpale: rgba(100, 118, 97, 0.25);
 	--accent: #c8a84b;
+	--accent2: #ac9142;
 	--port-header: var(--g);
 	--port-hover: var(--gl);
 	--accentpale: #1d1c1c;
@@ -71,6 +72,9 @@ body {
 a {
 	text-decoration: none;
 	color: inherit;
+}
+a:hover {
+	color: var(--accent2) !important;
 }
 img {
 	display: block;
@@ -701,7 +705,7 @@ section {
 }
 .pbtn:hover {
 	background: var(--accent);
-	color: #1a1300;
+	color: var(--bg);
 }
 
 /* ── READABILITY / LAYOUT HELPERS ADDED FOR EC BLOCKS ── */
@@ -1696,14 +1700,14 @@ section {
 	margin-bottom: 10px;
 }
 .about-bio a {
-	color: var(--g);
+	color: var(--accent);
 	/* font-style: italic; */
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	transition: color 0.15s;
 }
 .about-bio a:hover {
-	color: var(--accent);
+	color: var(--accent2);
 }
 
 /* Featured Work Feed */
