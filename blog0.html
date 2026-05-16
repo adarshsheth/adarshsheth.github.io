@@ -88,18 +88,22 @@
             color: inherit;
         } */
 
-/* Indented Quote Boxes */
+        /* Indented Quote Boxes */
         #post-body blockquote {
             background: transparent;
             border: none;
-            border-left: 3px solid var(--g); /* The solid green line */
+            border-left: 3px solid var(--g);
+            /* The solid green line */
             border-radius: 0;
-            padding: 2px 0 2px 18px; /* Indents text away from the line */
+            padding: 2px 0 2px 18px;
+            /* Indents text away from the line */
             margin: 24px 0;
             font-size: clamp(14px, 0.9vw, 20px);
-            color: var(--gl); /* Muted greenish-grey text */
+            color: var(--gl);
+            /* Muted greenish-grey text */
             line-height: 1.6;
-            font-style: normal; /* Removed italics to match your reference */
+            font-style: normal;
+            /* Removed italics to match your reference */
         }
 
         #post-body blockquote p {
@@ -110,7 +114,7 @@
         /* Targets bolded text inside the block (e.g., "Duke:", "NYU:") */
         #post-body blockquote strong,
         #post-body blockquote b {
-            color: var(--g); 
+            color: var(--g);
             font-weight: 700;
         }
 
@@ -164,9 +168,15 @@
 
         #post-body img {
             border-radius: var(--r);
-            margin: 24px 0;
-            width: 100%;
+            margin: 24px auto;
+            /* Changed from '24px 0' to center the image */
+            display: block;
+            /* Required for 'auto' margins to work */
             border: 1px solid var(--border);
+
+            /* The responsive magic */
+            width: 100%;
+            max-width: clamp(400px, 75%, 850px);
         }
 
         #post-body ul,
