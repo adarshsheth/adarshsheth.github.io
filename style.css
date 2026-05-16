@@ -198,7 +198,11 @@ header {
 	gap: 7px;
 	flex: 1;
 	justify-content: center;
-	padding: 0 clamp(10px, 5vw, 500px);
+	/* padding: 0 clamp(10px, 5vw, 500px); */
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 100px;  /* Increases the gap after the logo */
+	padding-right: 5px;  /* Shrinks the gap on the right side */
 }
 
 .ni {
@@ -214,7 +218,9 @@ header {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
+	/* gap: 10px; */
 	padding: 7px 14px;
+	/* padding: 7px 20px; */
 	border-radius: 100px;
 	white-space: nowrap;
 	z-index: 0;
@@ -1573,7 +1579,7 @@ section {
 		0 0 7px 4px rgba(100, 118, 97, 0.1),
 		0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform: scale(1.005);
-		border-radius: 30px 120px 120px 30px;
+		/* border-radius: 30px 120px 120px 30px; */
 
 }
 .about-card:hover .about-badge {
