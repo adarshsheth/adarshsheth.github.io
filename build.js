@@ -69,8 +69,7 @@ async function run() {
 			const blocks = await n2m.pageToMarkdown(page.id);
 			let imgCount = 0;
 
-			// --- FIX PART 1: The Original Image Loop (Forward) ---
-			// We process this exactly as it was, guaranteeing images and captions download in perfect order.
+			// --- FIX PART 1: The Original Image Loop ---
 			for (const b of blocks) {
 				if (b.type === "image") {
 					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
@@ -83,27 +82,25 @@ async function run() {
 				}
 			}
 
-			// --- FIX PART 2: The Quote Separator (Backward) ---
-			// By iterating backwards, we inject the hidden HTML wedges between consecutive quote blocks
-			// WITHOUT messing up the array indexing of the blocks we haven't checked yet.
-			for (let i = blocks.length - 1; i > 0; i--) {
-				if (blocks[i].type === "quote" && blocks[i - 1].type === "quote") {
-					blocks.splice(i, 0, {type: "paragraph", parent: "<div style='display:none;'></div>"});
-				}
-			}
-
 			let rawMd = n2m.toMarkdownString(blocks).parent || "";
 
+			// --- NEW FIX PART 2: The Quote Separator ---
+			// Scans for two separate blockquotes separated by empty lines, and injects
+			// an invisible div. This explicitly forces 'marked' to close the first
+			// box and draw a completely new, separate box for the next.
+			rawMd = rawMd.replace(/(^>.*$)\n{2,}(?=>)/gm, "$1\n\n<div style='display:none;'></div>\n\n");
+
 			// --- FIX PART 3: The Link Merger ---
-			// Scans the raw Markdown and stitches back together any links with identical URLs that
-			// Notion split up due to partial bolding.
-			const mergeLinksRegex = /\[([^\]]+)\]\(([^)]+)\)(\s*)\[([^\]]+)\]\(\2\)/g;
-			while (mergeLinksRegex.test(rawMd)) {
-				rawMd = rawMd.replace(mergeLinksRegex, "[$1$3$4]($2)");
-			}
+			// Scans the raw Markdown and stitches back together any links with identical URLs
+			let prevMd;
+			do {
+				prevMd = rawMd;
+				rawMd = rawMd.replace(/\[([^\]]+)\]\(([^)]+)\)(\s*)\[([^\]]+)\]\(\2\)/g, "[$1$3$4]($2)");
+			} while (rawMd !== prevMd);
 
 			// Finally, parse the fully cleaned Markdown into HTML
-			const htmlContent = marked.parse(rawMd);
+			// Using { breaks: true } ensures soft-breaks (Shift+Enter) are preserved as <br> tags
+			const htmlContent = marked.parse(rawMd, {breaks: true});
 
 			edges.push({
 				node: {
