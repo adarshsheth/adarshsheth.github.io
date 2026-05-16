@@ -2560,7 +2560,7 @@ footer {
 
 /* 1. Reduce the bottom margin of the first quote */
 #post-body blockquote:has(+ .quote-spacer) {
-    margin-bottom: 2px; /* <-- EDIT THIS VALUE to control the gap */
+    margin-bottom: 0px; /* <-- EDIT THIS VALUE to control the gap */
 }
 
 /* 2. Kill the top margin of the second quote so it doesn't push down */
