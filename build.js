@@ -101,11 +101,10 @@ async function run() {
 				processedBlocks.push(b);
 
 				// --- FIX PART 3: Separate Back-to-Back Quotes ---
-				// Inject an invisible div between consecutive quotes to force 'marked' to render separate <blockquote> elements
 				if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
 					processedBlocks.push({
 						type: "html",
-						parent: "<div style='display:none;'></div>",
+						parent: "<div class='quote-spacer' style='display:none;'></div>",
 						children: [],
 					});
 				}
