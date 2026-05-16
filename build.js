@@ -123,33 +123,30 @@ async function run() {
 			} while (rawMd !== prevMd);
 
 			// Parse the fully cleaned Markdown into HTML
-			// const htmlContent = marked.parse(rawMd, {breaks: true});
+			// const htmlContent = marked.parse(rawMd, { breaks: true });
 
-			// --- FIX PART 5: Image Captions ---
-			// Instruct 'marked' to wrap images with alt-text in <figure> and <figcaption> tags
-			const renderer = new marked.Renderer();
-			renderer.image = function (href, title, text) {
-				const imgHtml = `<img src="${href}" alt="${text || ""}">`;
-				// If there is alt text (a caption from Notion), wrap it in a figure
-				if (text) {
-					return `<figure>${imgHtml}<figcaption>${text}</figcaption></figure>`;
+			// Parse the fully cleaned Markdown into standard HTML first
+			let htmlContent = marked.parse(rawMd, {breaks: true});
+
+			// --- FIX PART 5: Image Captions (Bulletproof Version) ---
+			// We bypass the 'marked' renderer API entirely so version changes don't break the code.
+
+			// 1. Strip the <p> tags that 'marked' automatically puts around standalone images
+			htmlContent = htmlContent.replace(/<p>\s*(<img[^>]+>)\s*<\/p>/gi, "$1");
+
+			// 2. Find any <img> tag, extract its alt text, and wrap it in a <figure>
+			htmlContent = htmlContent.replace(/<img([^>]+)>/gi, (match, attrs) => {
+				const altMatch = attrs.match(/alt="([^"]+)"/i);
+
+				// If alt text exists and isn't just empty space, create the caption
+				if (altMatch && altMatch[1].trim() !== "") {
+					const altText = altMatch[1];
+					return `<figure>${match}<figcaption>${altText}</figcaption></figure>`;
 				}
-				return imgHtml; // Otherwise, just return the standard image
-			};
 
-			// Parse the fully cleaned Markdown into HTML using the custom renderer
-			const htmlContent = marked.parse(rawMd, { breaks: true, renderer: renderer });
-			
-
-
-
-
-
-
-
-
-
-			
+				// If no caption, just return the normal image
+				return match;
+			});
 
 			edges.push({
 				node: {
