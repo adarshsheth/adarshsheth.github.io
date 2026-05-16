@@ -206,18 +206,40 @@
             color: var(--gl);
         }
 
+        
+        
+/* Image and Caption Styling */
+        #post-body figure {
+            margin: 24px 0; /* Handles the spacing for the whole image/caption block */
+            display: block;
+        }
+
         #post-body img {
             border-radius: var(--r);
-            margin: 24px 0;
-            /* Changed from '24px 0' to center the image */
-            display: block;
-            /* Required for 'auto' margins to work */
+            margin: 24px 0; /* Fallback margin for images without captions */
+            display: block; 
             border: 1px solid var(--border);
-
-            /* The responsive magic */
-            width: 100%;
-            max-width: clamp(400px, 75%, 850px);
+            width: 100%; 
+            max-width: clamp(400px, 75%, 850px); 
         }
+
+        /* When an image is inside a figure, remove its bottom margin so the caption hugs it tightly */
+        #post-body figure img {
+            margin: 0; 
+        }
+
+        #post-body figcaption {
+            margin-top: 8px; /* Small, tight gap between the image and the text */
+            font-size: 13px;
+            color: var(--tdim); /* Uses your dimmer text color */
+            font-style: italic;
+            line-height: 1.4;
+            max-width: clamp(400px, 75%, 850px); /* Keeps the caption aligned with the max image width */
+        }
+
+
+
+
 
         #post-body ul,
         #post-body ol {

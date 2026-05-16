@@ -67,17 +67,62 @@ async function run() {
 			}
 
 			const blocks = await n2m.pageToMarkdown(page.id);
+			// let imgCount = 0;
+
+			// for (const b of blocks) {
+			// 	if (b.type === "image") {
+			// 		const match = b.parent.match(/\((https?:\/\/.*?)\)/);
+			// 		if (match && match[1]) {
+			// 			const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
+			// 			await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
+			// 			b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
+			// 			imgCount++;
+			// 		}
+			// 	}
+			// }
+
 			let imgCount = 0;
 
-			for (const b of blocks) {
+			// Iterate backwards so we can safely inject new items into the array without messing up the loop
+			for (let i = blocks.length - 1; i >= 0; i--) {
+				const b = blocks[i];
+
+				// if (b.type === "image") {
+				// 	const match = b.parent.match(/\((https?:\/\/.*?)\)/);
+				// 	if (match && match[1]) {
+				// 		const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
+				// 		await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
+				// 		b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
+				// 		imgCount++;
+				// 	}
+				// }
+
 				if (b.type === "image") {
-					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
-					if (match && match[1]) {
+					const urlMatch = b.parent.match(/\((https?:\/\/.*?)\)/);
+					const altMatch = b.parent.match(/!\[(.*?)\]/); // Extracts the hidden caption
+
+					if (urlMatch && urlMatch[1]) {
+						const rawUrl = urlMatch[1];
+						const caption = altMatch && altMatch[1] ? altMatch[1] : "";
+
 						const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
-						await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
-						b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
+						await download(rawUrl, dest).catch((e) => console.log(`  Image warning: ${e.message}`));
+
+						const localUrl = `media/blog/${slug}-${imgCount}.jpg`;
+
+						if (caption) {
+							// Wrap in a figure to force the caption to display visually
+							b.parent = `<figure><img src="${localUrl}" alt="${caption}"><figcaption>${caption}</figcaption></figure>`;
+						} else {
+							b.parent = `<img src="${localUrl}" alt="">`;
+						}
 						imgCount++;
 					}
+				}
+
+				// THE FIX: If this block and the one before it are BOTH quotes, inject a hidden break between them
+				if (i > 0 && b.type === "quote" && blocks[i - 1].type === "quote") {
+					blocks.splice(i, 0, {type: "paragraph", parent: ""});
 				}
 			}
 
@@ -91,9 +136,6 @@ async function run() {
 			}
 
 			const htmlContent = marked.parse(rawMd);
-
-
-			
 
 			edges.push({
 				node: {
