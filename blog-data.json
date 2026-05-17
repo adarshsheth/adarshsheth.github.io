@@ -5,11 +5,31 @@
         "edges": [
           {
             "node": {
+              "id": "36389dc7-2ec4-8052-b9e0-f0fdb705e7e5",
+              "slug": "refrigerator",
+              "title": "Refrigerator",
+              "brief": "The inner workings of the refrigerator.",
+              "publishedAt": "2026-05-17",
+              "tags": [
+                {
+                  "id": "e16c7eb0-4e60-4c7f-b85c-132fbe25644f",
+                  "name": "Engineering",
+                  "color": "blue"
+                }
+              ],
+              "coverImage": null,
+              "content": {
+                "html": "<p>Refrigerators function with a 4 process heat pump </p>\n<p><a href=\"https://prod-files-secure.s3.us-west-2.amazonaws.com/fb509f77-8039-42a9-adb5-2f20e24db210/387307a4-d65d-4cbb-9158-024e2a34d9e4/refrigerator.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4667DCTY4QM%2F20260517%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260517T073433Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjENf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQCf6cCuVOmZz15vieKZnW8Dr3lHF3Mk0ZPE0MKqtP50WwIhAKjSoVPvRkc35FPPhmeitj0en5bvDN%2B%2BId4RIPRIw4fBKogECKD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgwjLKlXsiOpvPC%2FH3gq3AMp8fZQ72NkqnFPtbWN7dfcasiseBapLnna4q9YNo3XEZpNUq7MEEHl0SHwVE5Cj6ie6WgXplJD%2FMr1iK0J7ORGasQA2Mk2iBkgullkO%2BC3pUZxYgLKAwIvOqiLwTIIEyUEkN1%2Femok5uORvj8YNkWrXV%2Fi%2BrdxNtTn5iX1Exv13B7Sll4X9PkfGzVR81wVc7DjeadECsTko2VFBhQdcwk55IeT%2BBLNHSuzfYsNBGGINN47RiBi9klPxoZuzUbZcSml%2FoiXwrthJXwAVdScLT22maJrm0HuPoROr1BUXAaFlRMrCB%2BOKC0mIbdheALLfuMpOFTfxJTc%2FNsXNXMCKD7BBV3ieW3QXQv01WvDWFSLVpxDW5j63hWT6%2BcKCGEM5VKb99NCjhZL%2Fv1VnWOek9YQeUDOyOyujehjiveXt2DMv134AGYvLddGtQ3oHQSefzadboV3iq4hcv9HZf9AOwgm%2FlXQz6cQvfCZbKrIDiFxSM7HFePvKJJ98i0zNhwGWA4Ki1G5Ft3SM3NaBx8T5skEVQqsKSCQwzk96YnYb1qCg10RG3V%2BB7ENsQB7WC25OZJiOtFI%2Bm3q2GVIA%2BZGHY16Dm8He1vTYZOsCGqJQCbH7FW45wmRaKhVog5sqzD7vqXQBjqkAcPkP3B9Uau30w3HIl3BjvLqNl%2FZEhYD976CckkpO22dxTTbGJfUXCI%2Flsh0ImR%2F0Ni8Gwtl0xnPt2hbgEj6I5ZPIxfuoJytu5x3UsXqrIevhAkl8TBp0LENcKxy1kdkzCeE%2FVkO0JdHjoTczN2Fqpv66fdYRmviNJZZEMihej2tbVb8sBwMaeZip6dH8qiPzw7JwAkKa0i7jx1Bf7wtx4KJ8Aav&X-Amz-Signature=ea92bad8e66638330d15b97aa175e6852f4b6a137740eb6bbad7990c749ce272&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject\">refrigerator.pdf</a></p>\n"
+              }
+            }
+          },
+          {
+            "node": {
               "id": "36389dc7-2ec4-8069-8dbd-fe0575520d93",
               "slug": "quotes",
               "title": "Quotebook",
               "brief": "Collection of quotes",
-              "publishedAt": "2026-05-17T07:07:00.000Z",
+              "publishedAt": "2025-12-01",
               "tags": [],
               "coverImage": {
                 "url": "media/blog/quotes-cover.jpg"
