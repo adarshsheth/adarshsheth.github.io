@@ -33,6 +33,26 @@
     <link rel="stylesheet" href="style.css" />
 
     <style>
+        
+        /* Article Cover Banner */
+        #post-cover-wrap {
+            display: none; /* Hidden by default if no image exists */
+            width: 100%;
+            height: clamp(150px, 25vw, 300px); /* Keeps it a thin strip that scales down gracefully on mobile */
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1.5px solid var(--border);
+        }
+
+        #post-cover-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image stretches beautifully without distorting */
+            display: block;
+        }
+        
+        
         /* Blog Container Specifics */
         #blog-container {
             padding: 20px 48px 60px;
@@ -59,10 +79,12 @@
         }
 
         #post-body h3 {
-            font-weight: 700;
+            font-weight: 900;
             font-size: clamp(18px, 2vw, 26px);
             color: var(--dimtitle);
-            margin: 28px 0 12px;
+            color: #686868;
+            /* margin: 28px 0 12px; */
+            text-transform: uppercase;
         }
 
         #post-body p {
@@ -109,6 +131,7 @@
 
         #post-body blockquote a {
             color: inherit;
+            /* color: var(--accent); */
             text-decoration: none;
         }
 
@@ -220,6 +243,26 @@
         #blog-list .wi {
             border-radius: 20px;
         }
+
+        /* Article Cover Image (Matches Text Width) */
+        #post-cover-wrap {
+            display: none; 
+            width: 100%;
+            max-width: 1100px; /* Matches the exact width of your #post-body text */
+            height: clamp(200px, 35vw, 450px); /* Taller, better proportions for a standard image */
+            border-radius: 12px; /* Matches your site's standard rounding */
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1.5px solid var(--border);
+        }
+
+        #post-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            /* object-position: 80% 20%;  */
+        }
     </style>
 </head>
 
@@ -259,9 +302,12 @@
             </div>
 
             <div id="blog-post" style="display:none;">
-                <button onclick="window.location.href='?'" class="pbtn"
-                    style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
-
+                <button onclick="window.location.href='?'" class="pbtn" style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
+            
+                <div id="post-cover-wrap">
+                    <img id="post-cover-img" src="" alt="Article Cover">
+                </div>
+            
                 <div class="ech" style="padding: 0 0 20px 0;">
                     <h2 id="post-title" class="ect"
                         style="color: var(--title); font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;"></h2>
@@ -416,6 +462,16 @@
 
                     const post = postNode.node;
                     postEl.style.display = 'block';
+
+                    // NEW: Load the cover image if it exists
+                    const coverWrap = document.getElementById('post-cover-wrap');
+                    const coverImg = document.getElementById('post-cover-img');
+                    if (post.coverImage?.url) {
+                        coverImg.src = post.coverImage.url;
+                        coverWrap.style.display = 'block';
+                    } else {
+                        coverWrap.style.display = 'none';
+                    }
 
                     document.getElementById('post-title').innerText = post.title;
                     document.getElementById('post-author').innerText = "Adarsh Sheth";
