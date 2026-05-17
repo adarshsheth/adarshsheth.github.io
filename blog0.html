@@ -33,19 +33,36 @@
     <link rel="stylesheet" href="style.css" />
 
     <style>
+        /* 2-Column Desktop Blog Feed */
+        #blog-list {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 26px;
+            align-items: stretch;
+            /* Forces cards in the same row to be equal height */
+        }
+
+        /* Tablet: Back to 1 column (Image stays on left) */
+        @media (max-width: 1350px) {
+            #blog-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Clickable tags in the article feed */
         .feed-tag-link {
             color: var(--accent) !important;
             cursor: pointer;
             position: relative;
-            z-index: 2; /* Ensures it is clickable over the main card link */
+            z-index: 2;
+            /* Ensures it is clickable over the main card link */
             transition: color 0.2s;
         }
 
         .feed-tag-link:hover {
             color: var(--accent2) !important;
         }
-/* Blog Category Filter Buttons */
+
+        /* Blog Category Filter Buttons */
         .filter-btn {
             display: inline-flex;
             align-items: center;
@@ -78,9 +95,11 @@
 
         /* Article Cover Banner */
         #post-cover-wrap {
-            display: none; /* Hidden by default if no image exists */
+            display: none;
+            /* Hidden by default if no image exists */
             width: 100%;
-            height: clamp(150px, 25vw, 300px); /* Keeps it a thin strip that scales down gracefully on mobile */
+            height: clamp(150px, 25vw, 300px);
+            /* Keeps it a thin strip that scales down gracefully on mobile */
             border-radius: 20px;
             overflow: hidden;
             margin-bottom: 30px;
@@ -90,11 +109,12 @@
         #post-cover-wrap img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures the image stretches beautifully without distorting */
+            object-fit: cover;
+            /* Ensures the image stretches beautifully without distorting */
             display: block;
         }
-        
-        
+
+
         /* Blog Container Specifics */
         #blog-container {
             padding: 20px 48px 60px;
@@ -289,11 +309,14 @@
 
         /* Article Cover Image (Matches Text Width) */
         #post-cover-wrap {
-            display: none; 
+            display: none;
             width: 100%;
-            max-width: 1100px; /* Matches the exact width of your #post-body text */
-            height: clamp(200px, 35vw, 450px); /* Taller, better proportions for a standard image */
-            border-radius: 12px; /* Matches your site's standard rounding */
+            max-width: 1100px;
+            /* Matches the exact width of your #post-body text */
+            height: clamp(200px, 35vw, 450px);
+            /* Taller, better proportions for a standard image */
+            border-radius: 12px;
+            /* Matches your site's standard rounding */
             overflow: hidden;
             margin-bottom: 30px;
             border: 1.5px solid var(--border);
@@ -302,7 +325,7 @@
         #post-cover-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            object-fit: cover;
             display: block;
             /* object-position: 80% 20%;  */
         }
@@ -335,27 +358,30 @@
         </section>
 
         <div id="blog-container" style="margin-top: 40px">
-        
+
             <div id="blog-loading"
                 style="text-align:center; padding: 40px; color:var(--g); font-weight:700; letter-spacing: 0.1em; text-transform: uppercase;">
                 Loading transmission...
             </div>
-        
+
             <div id="blog-filters" style="display:none; flex-wrap: wrap; gap: 8px; margin-bottom: 34px;"></div>
-        
-            <div id="blog-list" class="fw-grid" style="display:none; flex-direction:column; gap: 20px;">
+
+            <!-- <div id="blog-list" class="fw-grid" style="display:none; flex-direction:column; gap: 20px;"> -->
+            <div id="blog-list" class="fw-grid" style="display:none;">
             </div>
 
             <div id="blog-post" style="display:none;">
-                <button onclick="window.location.href='?'" class="pbtn" style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
-            
+                <button onclick="window.location.href='?'" class="pbtn"
+                    style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
+
                 <div id="post-cover-wrap">
                     <img id="post-cover-img" src="" alt="Article Cover">
                 </div>
-            
+
                 <div class="ech" style="padding: 0 0 20px 0;">
                     <h2 id="post-title" class="ect"
-                        style="color: var(--title); font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;"></h2>
+                        style="color: var(--title); font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
+                    </h2>
                     <div
                         style="color: var(--g); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
                         Written by <span id="post-author" style="color: var(--accent);"></span>
@@ -523,7 +549,7 @@
                     // NEW: Check if 'ChatGPT' exists in the article's tags
                     const hasGptTag = (post.tags || []).some(tag => tag.name === "ChatGPT");
                     document.getElementById('post-author').innerText = hasGptTag ? "ChatGPT" : "Adarsh Sheth";
-                    
+
                     const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');
                     const dateStr = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                     document.getElementById('post-meta').innerHTML = `${tagsHtml} <span>${dateStr}</span>`;
@@ -531,7 +557,7 @@
                     document.getElementById('post-body').innerHTML = post.content?.html || '';
                     document.title = `${post.title} | Blog | AS`;
                 } else {
-                    listEl.style.display = 'flex';
+                    listEl.style.display = 'grid';
                     const filtersEl = document.getElementById('blog-filters');
                     filtersEl.style.display = 'flex';
 
@@ -544,7 +570,8 @@
 
                     // Generate the filter buttons
                     filtersEl.innerHTML = `
-                        <button class="filter-btn active" data-tag="ALL">ALL</button>
+                        <button class="filter-btn" data-tag="ALL">ALL</button>
+                        <button class="filter-btn active" data-tag="DEFAULT">DEFAULT</button>
                         ${uniqueTags.map(tag => `<button class="filter-btn" data-tag="${tag}">${tag}</button>`).join('')}
                     `;
 
@@ -553,6 +580,13 @@
                         // Filter the posts array
                         const filtered = posts.filter(edge => {
                             if (filterTag === "ALL") return true;
+
+                            // NEW: If "DEFAULT" is selected, return only posts that DO NOT have the ChatGPT tag
+                            if (filterTag === "DEFAULT") {
+                                return !(edge.node.tags || []).some(t => t.name === "ChatGPT");
+                            }
+
+                            // Standard filtering for all other tags
                             return (edge.node.tags || []).some(t => t.name === filterTag);
                         });
 
@@ -592,8 +626,8 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
                         }
                     });
 
-                    // Initial render showing ALL posts
-                    renderFeed("ALL");
+                    // Initial render showing DEFAULT posts
+                    renderFeed("DEFAULT");
                 }
                 // Hydrate rendering layout maps onto the sidebar
                 generateBlogSidebar();
@@ -607,16 +641,16 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
 
         // initBlog();
         // THE JAVASCRIPT BOUNCER
-            // const passcode = prompt("Enter passcode to access transmission records:");
+        // const passcode = prompt("Enter passcode to access transmission records:");
 
-            // if (passcode === "") { // <-- Change your password here
-                initBlog();
-            // } else {
-            //     // What happens if they get it wrong or hit cancel
-            //     loader.innerText = "ACCESS DENIED. INCORRECT PASSCODE.";
-            //     loader.style.color = "#e63946"; // Turns the text red
-            //     document.getElementById('sb').style.display = 'none'; // Hides the sidebar
-            // }
+        // if (passcode === "") { // <-- Change your password here
+        initBlog();
+        // } else {
+        //     // What happens if they get it wrong or hit cancel
+        //     loader.innerText = "ACCESS DENIED. INCORRECT PASSCODE.";
+        //     loader.style.color = "#e63946"; // Turns the text red
+        //     document.getElementById('sb').style.display = 'none'; // Hides the sidebar
+        // }
     </script>
 </body>
 
