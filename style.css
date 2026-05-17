@@ -20,7 +20,8 @@
 	--gl: #8da084;
 	--gpale: rgba(100, 118, 97, 0.25);
 	--accent: #c8a84b;
-	--accent2: #ac9142;
+	/* --accent2: #ac9142; */
+	--accent2: #857032;
 	--port-header: var(--g);
 	--port-hover: var(--gl);
 	--accentpale: #1d1c1c;
@@ -243,7 +244,7 @@ header {
 	transition: left 0s;
 }
 .ni:hover {
-	color: #fff;
+	color: #fff !important;
 }
 .ni:hover::after {
 	left: 0;
@@ -314,7 +315,7 @@ header {
 		color 0.15s;
 }
 .dd-lnk:hover {
-	color: var(--g);
+	color: var(--g) !important;
 }
 .single-subnav {
 	padding: 2px 15px 2px 7px !important;

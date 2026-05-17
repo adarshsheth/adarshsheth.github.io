@@ -33,7 +33,18 @@
     <link rel="stylesheet" href="style.css" />
 
     <style>
-        
+        /* Clickable tags in the article feed */
+        .feed-tag-link {
+            color: var(--accent) !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 2; /* Ensures it is clickable over the main card link */
+            transition: color 0.2s;
+        }
+
+        .feed-tag-link:hover {
+            color: var(--accent2) !important;
+        }
 /* Blog Category Filter Buttons */
         .filter-btn {
             display: inline-flex;
@@ -51,12 +62,12 @@
             cursor: pointer;
             transition: all 0.2s;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            /* margin-bottom: 10px; */
         }
 
         .filter-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent2);
+            color: var(--accent2);
         }
 
         .filter-btn.active {
@@ -107,6 +118,7 @@
             border-bottom: 2px solid var(--border);
 
             scroll-margin-top: 30px;
+            text-transform: uppercase;
         }
 
         #post-body h3 {
@@ -329,7 +341,7 @@
                 Loading transmission...
             </div>
         
-            <div id="blog-filters" style="display:none; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;"></div>
+            <div id="blog-filters" style="display:none; flex-wrap: wrap; gap: 8px; margin-bottom: 34px;"></div>
         
             <div id="blog-list" class="fw-grid" style="display:none; flex-direction:column; gap: 20px;">
             </div>
@@ -557,7 +569,7 @@
                                     <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
                                     <p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
                                     <div class="ecm" style="margin-top:16px;">
-                                        ${(node.tags || []).slice(0, 4).map(tag => `<span>${tag.name}</span>`).join('')}
+${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick="event.preventDefault(); event.stopPropagation(); document.querySelector('.filter-btn[data-tag=\\'${tag.name}\\']')?.click(); window.scrollTo({top: 0, behavior: 'smooth'});">${tag.name}</span>`).join('')}                                        
                                         <span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                                     </div>
                                 </div>
@@ -592,16 +604,16 @@
 
         // initBlog();
         // THE JAVASCRIPT BOUNCER
-            const passcode = prompt("Enter passcode to access transmission records:");
+            // const passcode = prompt("Enter passcode to access transmission records:");
 
-            if (passcode === "s") { // <-- Change your password here
+            // if (passcode === "") { // <-- Change your password here
                 initBlog();
-            } else {
-                // What happens if they get it wrong or hit cancel
-                loader.innerText = "ACCESS DENIED. INCORRECT PASSCODE.";
-                loader.style.color = "#e63946"; // Turns the text red
-                document.getElementById('sb').style.display = 'none'; // Hides the sidebar
-            }
+            // } else {
+            //     // What happens if they get it wrong or hit cancel
+            //     loader.innerText = "ACCESS DENIED. INCORRECT PASSCODE.";
+            //     loader.style.color = "#e63946"; // Turns the text red
+            //     document.getElementById('sb').style.display = 'none'; // Hides the sidebar
+            // }
     </script>
 </body>
 
