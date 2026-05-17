@@ -34,6 +34,37 @@
 
     <style>
         
+/* Blog Category Filter Buttons */
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            height: 32px;
+            padding: 0 16px;
+            border: 1.5px solid var(--dimtitle);
+            background: transparent;
+            color: var(--dimtitle);
+            font-family: "Rubik", sans-serif;
+            font-weight: 700;
+            font-size: 11.5px;
+            letter-spacing: 0.1em;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active {
+            /* background: var(--surface2); */
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         /* Article Cover Banner */
         #post-cover-wrap {
             display: none; /* Hidden by default if no image exists */
@@ -292,12 +323,14 @@
         </section>
 
         <div id="blog-container" style="margin-top: 40px">
-
+        
             <div id="blog-loading"
                 style="text-align:center; padding: 40px; color:var(--g); font-weight:700; letter-spacing: 0.1em; text-transform: uppercase;">
                 Loading transmission...
             </div>
-
+        
+            <div id="blog-filters" style="display:none; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;"></div>
+        
             <div id="blog-list" class="fw-grid" style="display:none; flex-direction:column; gap: 20px;">
             </div>
 
@@ -484,13 +517,37 @@
                     document.title = `${post.title} | Blog | AS`;
                 } else {
                     listEl.style.display = 'flex';
-                    if (posts.length === 0) {
-                        listEl.innerHTML = "<div class='dbox'>No transmission records found.</div>";
-                        generateBlogSidebar();
-                        return;
-                    }
+                    const filtersEl = document.getElementById('blog-filters');
+                    filtersEl.style.display = 'flex';
 
-                    listEl.innerHTML = posts.map(({ node }) => `
+                    // Extract all unique categories from the posts
+                    const allTags = new Set();
+                    posts.forEach(edge => {
+                        (edge.node.tags || []).forEach(tag => allTags.add(tag.name));
+                    });
+                    const uniqueTags = Array.from(allTags).sort();
+
+                    // Generate the filter buttons
+                    filtersEl.innerHTML = `
+                        <button class="filter-btn active" data-tag="ALL">ALL</button>
+                        ${uniqueTags.map(tag => `<button class="filter-btn" data-tag="${tag}">${tag}</button>`).join('')}
+                    `;
+
+                    // Helper function to render cards based on the selected tag
+                    function renderFeed(filterTag) {
+                        // Filter the posts array
+                        const filtered = posts.filter(edge => {
+                            if (filterTag === "ALL") return true;
+                            return (edge.node.tags || []).some(t => t.name === filterTag);
+                        });
+
+                        if (filtered.length === 0) {
+                            listEl.innerHTML = "<div class='dbox'>No transmission records found for this category.</div>";
+                            return;
+                        }
+
+                        // Map the filtered posts to HTML
+                        listEl.innerHTML = filtered.map(({ node }) => `
                             <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
                                 <div class="wi-img-wrap">
@@ -506,8 +563,23 @@
                                 </div>
                             </a>
                         `).join('');
-                }
+                    }
 
+                    // Add click listeners to the buttons
+                    filtersEl.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('filter-btn')) {
+                            // Swap the active class
+                            filtersEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                            e.target.classList.add('active');
+
+                            // Re-render the feed with the new tag
+                            renderFeed(e.target.getAttribute('data-tag'));
+                        }
+                    });
+
+                    // Initial render showing ALL posts
+                    renderFeed("ALL");
+                }
                 // Hydrate rendering layout maps onto the sidebar
                 generateBlogSidebar();
 
@@ -518,7 +590,18 @@
             }
         }
 
-        initBlog();
+        // initBlog();
+        // THE JAVASCRIPT BOUNCER
+            const passcode = prompt("Enter passcode to access transmission records:");
+
+            if (passcode === "s") { // <-- Change your password here
+                initBlog();
+            } else {
+                // What happens if they get it wrong or hit cancel
+                loader.innerText = "ACCESS DENIED. INCORRECT PASSCODE.";
+                loader.style.color = "#e63946"; // Turns the text red
+                document.getElementById('sb').style.display = 'none'; // Hides the sidebar
+            }
     </script>
 </body>
 
