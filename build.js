@@ -4,18 +4,34 @@ const {marked} = require("marked");
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
+const sharp = require("sharp"); // <-- NEW: Added Sharp compressor
 
 const notion = new Client({auth: process.env.NOTION_API_KEY});
 const n2m = new NotionToMarkdown({notionClient: notion});
 
-const download = (url, dest) =>
+// <-- NEW: Upgraded download function with compression and caching
+const downloadAndCompress = (url, dest) =>
 	new Promise((resolve, reject) => {
+		// CACHING: If the compressed image already exists, skip downloading!
+		if (fs.existsSync(dest)) {
+			return resolve();
+		}
+
 		https
 			.get(url, (res) => {
 				if (res.statusCode !== 200) return reject(new Error(`Status: ${res.statusCode}`));
+
+				// THE COMPRESSOR: Resizes huge images down to max 1400px wide,
+				// and converts them to highly compressed WebP format.
+				const compressor = sharp().resize({width: 1400, withoutEnlargement: true}).webp({quality: 80});
+
 				const file = fs.createWriteStream(dest);
-				res.pipe(file);
+
+				// Pipe the download directly through the compressor and into the file
+				res.pipe(compressor).pipe(file);
+
 				file.on("finish", () => file.close(resolve));
+				compressor.on("error", reject);
 			})
 			.on("error", reject);
 	});
@@ -23,7 +39,8 @@ const download = (url, dest) =>
 async function run() {
 	console.log("Starting Notion sync...");
 
-	const imgDir = path.join(__dirname, "media", "blog");
+	// <-- CHANGED: Updated directory to point to the compressed subfolder
+	const imgDir = path.join(__dirname, "media", "blog", "compressed");
 	if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir, {recursive: true});
 
 	if (!process.env.NOTION_API_KEY || !process.env.NOTION_DATABASE_ID) {
@@ -68,9 +85,10 @@ async function run() {
 			if (page.cover) {
 				const rawUrl = page.cover.external?.url || page.cover.file?.url;
 				if (rawUrl) {
-					const dest = path.join(imgDir, `${slug}-cover.jpg`);
-					await download(rawUrl, dest).catch((e) => console.log(`  Cover warning: ${e.message}`));
-					coverUrl = `media/blog/${slug}-cover.jpg`;
+					// <-- CHANGED: Switched to .webp and updated the URL path to the compressed folder
+					const dest = path.join(imgDir, `${slug}-cover.webp`);
+					await downloadAndCompress(rawUrl, dest).catch((e) => console.log(`  Cover warning: ${e.message}`));
+					coverUrl = `media/blog/compressed/${slug}-cover.webp`;
 				}
 			}
 
@@ -86,9 +104,10 @@ async function run() {
 				if (b.type === "image") {
 					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
 					if (match && match[1]) {
-						const dest = path.join(imgDir, `${slug}-${imgCount}.jpg`);
-						await download(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
-						b.parent = b.parent.replace(match[1], `media/blog/${slug}-${imgCount}.jpg`);
+						// <-- CHANGED: Switched to .webp and updated the URL path to the compressed folder
+						const dest = path.join(imgDir, `${slug}-${imgCount}.webp`);
+						await downloadAndCompress(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
+						b.parent = b.parent.replace(match[1], `media/blog/compressed/${slug}-${imgCount}.webp`);
 						imgCount++;
 					}
 				}
@@ -123,22 +142,16 @@ async function run() {
 
 			// --- FIX PART 4: The Link Merger ---
 			// Stitches back together split links with identical URLs.
-			// Using [ \t]* instead of \s* ensures we ONLY merge links on the same line, preventing massive text duplication across newlines.
 			let prevMd;
 			do {
 				prevMd = rawMd;
 				rawMd = rawMd.replace(/\[([^\]]+)\]\(([^)]+)\)([ \t]*)\[([^\]]+)\]\(\2\)/g, "[$1$3$4]($2)");
 			} while (rawMd !== prevMd);
 
-			// Parse the fully cleaned Markdown into HTML
-			// const htmlContent = marked.parse(rawMd, { breaks: true });
-
 			// Parse the fully cleaned Markdown into standard HTML first
 			let htmlContent = marked.parse(rawMd, {breaks: true});
 
-			// --- FIX PART 5: Image Captions (Bulletproof Version) ---
-			// We bypass the 'marked' renderer API entirely so version changes don't break the code.
-
+			// --- FIX PART 5: Image Captions ---
 			// 1. Strip the <p> tags that 'marked' automatically puts around standalone images
 			htmlContent = htmlContent.replace(/<p>\s*(<img[^>]+>)\s*<\/p>/gi, "$1");
 

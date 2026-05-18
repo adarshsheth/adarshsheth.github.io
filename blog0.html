@@ -38,7 +38,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 26px;
             align-items: stretch;
-            /* Forces cards in the same row to be equal height */
         }
 
         /* Tablet: Back to 1 column (Image stays on left) */
@@ -54,7 +53,6 @@
             cursor: pointer;
             position: relative;
             z-index: 2;
-            /* Ensures it is clickable over the main card link */
             transition: color 0.2s;
         }
 
@@ -79,7 +77,6 @@
             cursor: pointer;
             transition: all 0.2s;
             text-transform: uppercase;
-            /* margin-bottom: 10px; */
         }
 
         .filter-btn:hover {
@@ -88,32 +85,74 @@
         }
 
         .filter-btn.active {
-            /* background: var(--surface2); */
             border-color: var(--accent);
             color: var(--accent);
         }
 
-        /* Article Cover Banner */
+        /* ------------------------------------------- */
+        /* SKELETON LOADING FOR FEED THUMBNAILS ONLY   */
+        /* ------------------------------------------- */
+
+        /* Placeholder Backgrounds */
+        .wi-img-wrap {
+            background: var(--surface);
+            position: relative;
+        }
+
+        /* The sweeping light pulse */
+        .wi-img-wrap.is-loading::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+            animation: pulseLoad 1.5s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes pulseLoad {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Hidden initial state for images */
+        .wi-thumb {
+            opacity: 0 !important;
+            /* Force hide until loaded */
+            /* transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; */
+        }
+
+        /* Fade in once loaded */
+        .wi-thumb.is-loaded {
+            opacity: 1 !important;
+        }
+
+        /* Article Cover Image Shape Specifics */
         #post-cover-wrap {
             display: none;
-            /* Hidden by default if no image exists */
             width: 100%;
-            height: clamp(150px, 25vw, 300px);
-            /* Keeps it a thin strip that scales down gracefully on mobile */
-            border-radius: 20px;
+            max-width: 1100px;
+            height: clamp(200px, 35vw, 450px);
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 30px;
             border: 1.5px solid var(--border);
         }
 
-        #post-cover-wrap img {
+        #post-cover-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Ensures the image stretches beautifully without distorting */
             display: block;
         }
-
 
         /* Blog Container Specifics */
         #blog-container {
@@ -131,12 +170,10 @@
         #post-body h2 {
             font-weight: 900;
             font-size: clamp(22px, 2.5vw, 36px);
-            /* color: var(--port-header); */
             color: var(--dimtitle);
             margin: 40px 0 16px;
             padding-bottom: 8px;
             border-bottom: 2px solid var(--border);
-
             scroll-margin-top: 30px;
             text-transform: uppercase;
         }
@@ -144,9 +181,7 @@
         #post-body h3 {
             font-weight: 900;
             font-size: clamp(18px, 2vw, 26px);
-            color: var(--dimtitle);
             color: #686868;
-            /* margin: 28px 0 12px; */
             text-transform: uppercase;
         }
 
@@ -157,31 +192,23 @@
             color: var(--text);
         }
 
-
-
-
-        /* Indented Quote Boxes (Updated for continuous border on soft-breaks) */
+        /* Indented Quote Boxes */
         #post-body blockquote {
             background: transparent;
             border: none;
             border-left: 3px solid var(--g);
-            /* Line applied to the outer blockquote */
             padding: 2px 0 2px 18px;
-            /* Padding moved to the outer blockquote */
-            /* margin: 24px 0; */
             margin: 0px 0 20px 0;
         }
 
         #post-body blockquote p {
             margin-bottom: 16px;
-            /* Spacing between soft-breaks */
             font-size: clamp(14px, 0.9vw, 20px);
             color: var(--gl);
             line-height: 1.6;
             font-style: normal;
         }
 
-        /* Removes the extra gap after the very last paragraph in a quote block */
         #post-body blockquote p:last-child {
             margin-bottom: 0;
         }
@@ -194,7 +221,6 @@
 
         #post-body blockquote a {
             color: inherit;
-            /* color: var(--accent); */
             text-decoration: none;
         }
 
@@ -203,13 +229,10 @@
             text-decoration: underline;
         }
 
-        /* Ensures bold text inside a link also changes color on hover */
         #post-body blockquote a:hover strong,
         #post-body blockquote a:hover b {
             color: inherit;
         }
-
-
 
         #post-body pre {
             background: var(--surface2);
@@ -245,45 +268,33 @@
             color: var(--accent2);
         }
 
-
-
         /* Image and Caption Styling */
         #post-body figure {
             margin: 24px 0 0 0;
-            /* Handles the spacing for the whole image/caption block */
             display: block;
         }
 
         #post-body img {
             border-radius: var(--r);
             margin: 24px 0 0 0;
-            /* Fallback margin for images without captions */
             display: block;
             border: 1px solid var(--border);
             width: 100%;
             max-width: clamp(400px, 40%, 700px);
         }
 
-        /* When an image is inside a figure, remove its bottom margin so the caption hugs it tightly */
         #post-body figure img {
             margin: 0;
         }
 
         #post-body figcaption {
             margin-top: 8px;
-            /* Small, tight gap between the image and the text */
             font-size: 13px;
             color: var(--tdim);
-            /* Uses your dimmer text color */
             font-style: italic;
             line-height: 1.4;
             max-width: clamp(400px, 75%, 850px);
-            /* Keeps the caption aligned with the max image width */
         }
-
-
-
-
 
         #post-body ul,
         #post-body ol {
@@ -305,29 +316,6 @@
         /* Targets ONLY the article cards on the blog feed */
         #blog-list .wi {
             border-radius: 20px;
-        }
-
-        /* Article Cover Image (Matches Text Width) */
-        #post-cover-wrap {
-            display: none;
-            width: 100%;
-            max-width: 1100px;
-            /* Matches the exact width of your #post-body text */
-            height: clamp(200px, 35vw, 450px);
-            /* Taller, better proportions for a standard image */
-            border-radius: 12px;
-            /* Matches your site's standard rounding */
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1.5px solid var(--border);
-        }
-
-        #post-cover-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            /* object-position: 80% 20%;  */
         }
     </style>
 </head>
@@ -366,7 +354,6 @@
 
             <div id="blog-filters" style="display:none; flex-wrap: wrap; gap: 8px; margin-bottom: 34px;"></div>
 
-            <!-- <div id="blog-list" class="fw-grid" style="display:none; flex-direction:column; gap: 20px;"> -->
             <div id="blog-list" class="fw-grid" style="display:none;">
             </div>
 
@@ -375,7 +362,7 @@
                     style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
 
                 <div id="post-cover-wrap">
-                    <img id="post-cover-img" src="" alt="Article Cover">
+                    <img id="post-cover-img" src="" alt="Article Cover" fetchpriority="high">
                 </div>
 
                 <div class="ech" style="padding: 0 0 20px 0;">
@@ -390,7 +377,6 @@
                 </div>
 
                 <div id="post-body" class="cbody full" style="margin-top:10px; padding: 0;">
-                    <!-- <div id="post-body" class="cbody full" style="margin-top:20px;"> -->
                 </div>
             </div>
 
@@ -481,7 +467,6 @@
         }
 
         function initBlogScrollSpy() {
-            // CHANGED: Now looks for the new standard article links
             const subLinks = document.querySelectorAll('.sbn-article');
             const headers = document.querySelectorAll('#post-body h2');
             let sidebarTicking = false;
@@ -494,13 +479,11 @@
 
                         headers.forEach(header => {
                             const rect = header.getBoundingClientRect();
-                            // Mark item active when passing the top zone threshold of viewport
                             if (rect.top < triggerOffset) {
                                 currentActiveId = header.id;
                             }
                         });
 
-                        // Edge-case fix: If user scrolls back to absolute top, clear active highlight states
                         if (window.scrollY < 150 && headers.length > 0) {
                             currentActiveId = "";
                         }
@@ -518,6 +501,7 @@
                 }
             }, { passive: true });
         }
+
         async function initBlog() {
             try {
                 const response = await fetch('./blog-data.json');
@@ -534,11 +518,13 @@
                     const post = postNode.node;
                     postEl.style.display = 'block';
 
-                    // NEW: Load the cover image if it exists
+                    // Reverted: Article Cover loads normally without JS animation logic
                     const coverWrap = document.getElementById('post-cover-wrap');
                     const coverImg = document.getElementById('post-cover-img');
+
                     if (post.coverImage?.url) {
                         coverImg.src = post.coverImage.url;
+                        coverImg.setAttribute('data-slug', post.slug);
                         coverWrap.style.display = 'block';
                     } else {
                         coverWrap.style.display = 'none';
@@ -546,7 +532,6 @@
 
                     document.getElementById('post-title').innerText = post.title;
 
-                    // NEW: Check if 'ChatGPT' exists in the article's tags
                     const hasGptTag = (post.tags || []).some(tag => tag.name === "ChatGPT");
                     document.getElementById('post-author').innerText = hasGptTag ? "ChatGPT" : "Adarsh Sheth";
 
@@ -561,32 +546,24 @@
                     const filtersEl = document.getElementById('blog-filters');
                     filtersEl.style.display = 'flex';
 
-                    // Extract all unique categories from the posts
                     const allTags = new Set();
                     posts.forEach(edge => {
                         (edge.node.tags || []).forEach(tag => allTags.add(tag.name));
                     });
                     const uniqueTags = Array.from(allTags).sort();
 
-                    // Generate the filter buttons
                     filtersEl.innerHTML = `
                         <button class="filter-btn" data-tag="ALL">ALL</button>
                         <button class="filter-btn active" data-tag="DEFAULT">DEFAULT</button>
                         ${uniqueTags.map(tag => `<button class="filter-btn" data-tag="${tag}">${tag}</button>`).join('')}
                     `;
 
-                    // Helper function to render cards based on the selected tag
                     function renderFeed(filterTag) {
-                        // Filter the posts array
                         const filtered = posts.filter(edge => {
                             if (filterTag === "ALL") return true;
-
-                            // NEW: If "DEFAULT" is selected, return only posts that DO NOT have the ChatGPT tag
                             if (filterTag === "DEFAULT") {
                                 return !(edge.node.tags || []).some(t => t.name === "ChatGPT");
                             }
-
-                            // Standard filtering for all other tags
                             return (edge.node.tags || []).some(t => t.name === filterTag);
                         });
 
@@ -595,12 +572,11 @@
                             return;
                         }
 
-                        // Map the filtered posts to HTML
                         listEl.innerHTML = filtered.map(({ node }) => `
                             <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
-                                <div class="wi-img-wrap">
-                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+                                <div class="wi-img-wrap is-loading">
+                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" onload="this.parentElement.classList.remove('is-loading'); this.classList.add('is-loaded');">
                                 </div>` : ''}
                                 <div class="wi-body" style="padding: 24px;">
                                     <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
@@ -614,22 +590,16 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
                         `).join('');
                     }
 
-                    // Add click listeners to the buttons
                     filtersEl.addEventListener('click', (e) => {
                         if (e.target.classList.contains('filter-btn')) {
-                            // Swap the active class
                             filtersEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                             e.target.classList.add('active');
-
-                            // Re-render the feed with the new tag
                             renderFeed(e.target.getAttribute('data-tag'));
                         }
                     });
 
-                    // Initial render showing DEFAULT posts
                     renderFeed("DEFAULT");
                 }
-                // Hydrate rendering layout maps onto the sidebar
                 generateBlogSidebar();
 
             } catch (err) {
@@ -639,18 +609,7 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
             }
         }
 
-        // initBlog();
-        // THE JAVASCRIPT BOUNCER
-        // const passcode = prompt("Enter passcode to access transmission records:");
-
-        // if (passcode === "") { // <-- Change your password here
         initBlog();
-        // } else {
-        //     // What happens if they get it wrong or hit cancel
-        //     loader.innerText = "ACCESS DENIED. INCORRECT PASSCODE.";
-        //     loader.style.color = "#e63946"; // Turns the text red
-        //     document.getElementById('sb').style.display = 'none'; // Hides the sidebar
-        // }
     </script>
 </body>
 
