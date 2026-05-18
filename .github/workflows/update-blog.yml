@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm init -y
-          npm install @notionhq/client@latest notion-to-md@latest marked@latest
+          npm install @notionhq/client@latest notion-to-md@latest marked@latest sharp
 
       - name: Run Fetch Script
         run: node build.js

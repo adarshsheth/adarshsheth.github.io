@@ -36,7 +36,7 @@
         /* 2-Column Desktop Blog Feed */
         #blog-list {
             grid-template-columns: repeat(2, 1fr);
-            gap: 26px;
+            gap: 15px;
             align-items: stretch;
         }
 
@@ -87,52 +87,6 @@
         .filter-btn.active {
             border-color: var(--accent);
             color: var(--accent);
-        }
-
-        /* ------------------------------------------- */
-        /* SKELETON LOADING FOR FEED THUMBNAILS ONLY   */
-        /* ------------------------------------------- */
-
-        /* Placeholder Backgrounds */
-        .wi-img-wrap {
-            background: var(--surface);
-            position: relative;
-        }
-
-        /* The sweeping light pulse */
-        .wi-img-wrap.is-loading::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-            animation: pulseLoad 1.5s infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes pulseLoad {
-            0% {
-                transform: translateX(-100%);
-            }
-
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        /* Hidden initial state for images */
-        .wi-thumb {
-            opacity: 0 !important;
-            /* Force hide until loaded */
-            /* transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; */
-        }
-
-        /* Fade in once loaded */
-        .wi-thumb.is-loaded {
-            opacity: 1 !important;
         }
 
         /* Article Cover Image Shape Specifics */
@@ -345,6 +299,16 @@
             <h1>BLOG</h1>
         </section>
 
+        <div id="ibar" style="margin:30px 0 -30px 0; background: transparent; border: 0px">
+            <p>Note: several articles here are part of a collection of short essays written by Chat GPT, exploring
+                thought-provoking philosophical ideas that unpack
+                historical, psychological, and sociological influences to understand what we think (or have thought)
+                and why. The
+                purpose of pasting these here is to highlight ideas that don't get much attention or bring new
+                perspectives to already
+                contentious issues.</p>
+        </div>
+
         <div id="blog-container" style="margin-top: 40px">
 
             <div id="blog-loading"
@@ -504,7 +468,8 @@
 
         async function initBlog() {
             try {
-                const response = await fetch('./blog-data.json');
+                // Keep the timestamp cache-buster here so new articles load properly when pushed
+                const response = await fetch('./blog-data.json?nocache=' + new Date().getTime());
                 if (!response.ok) throw new Error("Transmission ledger payload unreadable.");
 
                 const res = await response.json();
@@ -518,7 +483,6 @@
                     const post = postNode.node;
                     postEl.style.display = 'block';
 
-                    // Reverted: Article Cover loads normally without JS animation logic
                     const coverWrap = document.getElementById('post-cover-wrap');
                     const coverImg = document.getElementById('post-cover-img');
 
@@ -572,11 +536,13 @@
                             return;
                         }
 
+                        // REMOVED: Skeleton loader class, inline JS onload rules, and lazy loading
+                        // It will now map clean, un-obstructed image tags.
                         listEl.innerHTML = filtered.map(({ node }) => `
                             <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
-                                <div class="wi-img-wrap is-loading">
-                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" onload="this.parentElement.classList.remove('is-loading'); this.classList.add('is-loaded');">
+                                <div class="wi-img-wrap">
+                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
                                 </div>` : ''}
                                 <div class="wi-body" style="padding: 24px;">
                                     <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
