@@ -1,29 +1,41 @@
+/* ══ CUSTOM CURSOR (disabled – set true to enable) ══ */
+const ENABLE_CUSTOM_CURSOR = false;
+/*
+if (ENABLE_CUSTOM_CURSOR) {
+  // inject cursor element
+  const curEl = document.createElement('div');
+  curEl.id = 'cur';
+  document.body.appendChild(curEl);
+  // inject cursor CSS
+  const curStyle = document.createElement('style');
+  curStyle.textContent = `
+    *{cursor:none!important}
+    #cur{position:fixed;width:9px;height:9px;border-radius:50%;background:var(--accent);
+      pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
+      transition:transform .08s,opacity .2s;animation:curPulse 2.4s ease-in-out infinite}
+    #cur.clicking{transform:translate(-50%,-50%) scale(1.8);opacity:.6}
+    @keyframes curPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,168,75,.5)}
+      50%{box-shadow:0 0 0 7px rgba(200,168,75,0)}}
+  `;
+  document.head.appendChild(curStyle);
+  document.addEventListener('mousemove', e => {
+    curEl.style.left = e.clientX + 'px';
+    curEl.style.top  = e.clientY + 'px';
+  });
+  document.addEventListener('mousedown', () => curEl.classList.add('clicking'));
+  document.addEventListener('mouseup',   () => curEl.classList.remove('clicking'));
+}
+*/
+
 /* ── SVG PERFECT TRACE CALCULATOR ── */
 // Mathematically calculates the length of your logo paths to prevent GPU over-draw lag
 document.addEventListener("DOMContentLoaded", () => {
 	document.querySelectorAll(".logo-path").forEach((path) => {
 		const length = path.getTotalLength();
+		// Send exact length back to CSS variables
 		path.style.setProperty("--path-length", length);
 	});
 });
-
-/* ── ASYNC IMAGE DECODING (PERFORMANCE BOOST) ── */
-// Offloads image decoding from the main UI thread to prevent scroll jank
-function optimizeImages() {
-	const applyAsync = (img) => {
-		if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
-	};
-	document.querySelectorAll("img").forEach(applyAsync);
-
-	new MutationObserver((mutations) => {
-		mutations.forEach((m) => {
-			m.addedNodes.forEach((node) => {
-				if (node.tagName === "IMG") applyAsync(node);
-				else if (node.querySelectorAll) node.querySelectorAll("img").forEach(applyAsync);
-			});
-		});
-	}).observe(document.body, {childList: true, subtree: true});
-}
 
 /* ══ SLIDE CONFIG ══ */
 const TABS = {
@@ -67,8 +79,9 @@ function initSS() {
 		const cont = document.getElementById(id);
 		if (!clip || !fr || !cont) return;
 		const slides = fr.querySelectorAll(".ssslide");
-		SS[id] = {clip, cont, fr, slides, cur: 0, w: 0, lastH: null};
+		SS[id] = {clip, cont, fr, slides, cur: 0, w: 0};
 
+		// init visibility
 		slides.forEach((sl, i) => {
 			sl.style.visibility = i === 0 ? "visible" : "hidden";
 		});
@@ -76,18 +89,14 @@ function initSS() {
 		calcW(id);
 		setH(id, false);
 
-		let resizeTimer;
 		new ResizeObserver(() => {
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(() => {
-				calcW(id);
-				fr.style.transition = "none";
-				fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
-				requestAnimationFrame(() => {
-					fr.style.transition = "";
-				});
-				setH(id, false);
-			}, 60);
+			calcW(id);
+			fr.style.transition = "none";
+			fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
+			requestAnimationFrame(() => {
+				fr.style.transition = "";
+			});
+			setH(id, false);
 		}).observe(clip);
 
 		slides.forEach((sl) =>
@@ -113,9 +122,6 @@ function setH(id, animate) {
 	if (!card) return;
 	const h = card.offsetHeight;
 	if (!h) return;
-
-	if (s.lastH === h && !animate) return;
-	s.lastH = h;
 
 	const clip = s.clip;
 	const wrapper = clip.closest(".ss-wrapper");
@@ -162,7 +168,7 @@ function sw(id, idx, section, doScroll = true) {
 			const b = document.getElementById(bid);
 			if (b) b.disabled = i === idx;
 		});
-		updateURLd(section);
+		updateURL(section);
 		if (doScroll) {
 			if (window._lockNav) window._lockNav();
 			if (window._hideNav) window._hideNav();
@@ -186,6 +192,8 @@ function sw(id, idx, section, doScroll = true) {
 		const newCard = newSlide.querySelector(".ec");
 		if (newCard) {
 			newCard.classList.remove("visible");
+			// Force a browser reflow. This flushes the CSS changes, guaranteeing the
+			// browser registers the card at opacity: 0 BEFORE we add the visible class back.
 			void newCard.offsetWidth;
 			newCard.classList.add("visible");
 		}
@@ -199,7 +207,7 @@ function sw(id, idx, section, doScroll = true) {
 		if (b) b.disabled = i === idx;
 	});
 
-	updateURLd(section);
+	updateURL(section);
 	if (doScroll) {
 		if (window._lockNav) window._lockNav();
 		if (window._hideNav) window._hideNav();
@@ -213,70 +221,67 @@ function ar(id, dir) {
 	if (!s) return;
 	const next = Math.max(0, Math.min(s.slides.length - 1, s.cur + dir));
 	if (next === s.cur) return;
+
+	// Determine the string section name of the next slide (e.g., "red", "lsar")
 	const nextSection = RMAP[id][next];
+
+	// Call the slide-switch function directly, explicitly passing FALSE
+	// so that clicking arrows does NOT trigger the scroll behavior.
 	sw(id, next, nextSection, false);
 }
 
 function ddNav(section) {
 	const c = SMAP[section];
 	if (!c) return;
+
+	// Check if the slideshow components exist on the current page.
+	// If they don't, we are not on the portfolio page, so redirect the browser.
 	if (!SS[c.ss]) {
 		window.location.href = "portfolio.html?section=" + section;
 		return;
 	}
+
+	// If we ARE on the portfolio page, execute the smooth slide transition as normal
 	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
 	sw(c.ss, c.i, section, true);
 }
 
-/* ── URL HELPERS & SUB-NAV HIGHLIGHTING ─────────────────────────────── */
+/* ── URL HELPERS & SUB-NAV HIGHLIGHTING ── */
 let lastSec = null,
 	debT = null;
 
-// INSTANT UI UPDATE: Bypasses heavy history APIs and DOM reads completely
-function updateSubNav(sec) {
+function updateSubNav() {
+	const currentSec = new URLSearchParams(window.location.search).get("section");
 	document.querySelectorAll(".sbn-sub").forEach((a) => {
-		const isMatch = a.dataset.sub === sec;
-		// Only write to the DOM if the state actually needs to change
-		if (a.classList.contains("active") !== isMatch) {
-			a.classList.toggle("active", isMatch);
-		}
+		a.classList.toggle("active", a.dataset.sub === currentSec);
 	});
 }
 
-// DEBOUNCED HISTORY UPDATE: Safely pushes the URL without locking the main thread
-function updateURLHistory(s) {
+function updateURL(s) {
+	if (s === lastSec) {
+		updateSubNav();
+		return;
+	}
+	lastSec = s;
 	const u = new URL(window.location.href);
-	const currentParam = u.searchParams.get("section");
-
-	if (s === currentParam || (!s && !currentParam)) return;
-
 	if (s) {
 		u.searchParams.set("section", s);
 	} else {
 		u.searchParams.delete("section");
 	}
-
-	try {
-		history.replaceState(null, "", u.toString());
-	} catch (e) {}
+	history.replaceState(null, "", u.toString());
+	updateSubNav();
 }
 
 function updateURLd(s) {
-	if (s === lastSec) return;
-	lastSec = s;
-
-	// 1. INSTANTLY update the visual subnav (removes all UI lag)
-	updateSubNav(s);
-
-	// 2. DEBOUNCE the heavy browser history manipulation
 	clearTimeout(debT);
-	debT = setTimeout(() => updateURLHistory(s), 150);
+	debT = setTimeout(() => updateURL(s), 150);
 }
 
 function handleURL() {
 	const s = new URLSearchParams(window.location.search).get("section");
-	updateSubNav(s);
+	updateSubNav();
 	if (!s || !SMAP[s]) return;
 	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
@@ -289,11 +294,13 @@ function scrollToSec(id) {
 	if (window._lockNav) window._lockNav();
 	if (window._hideNav) window._hideNav();
 
+	// If the target is 'top', force the window to scroll to absolute 0
 	if (id === "top") {
 		window.scrollTo({top: 75, behavior: "smooth"});
 		return;
 	}
 
+	// Otherwise, scroll to the specific element ID
 	const el = document.getElementById(id);
 	if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
 }
@@ -341,18 +348,20 @@ document.addEventListener("click", (e) => {
 
 	if (!sb || !overlay) return;
 
+	// 1. If the hamburger menu is clicked, toggle the sidebar
 	if (btn) {
 		const isOpen = sb.classList.contains("sb-open");
 		if (!isOpen) {
 			sb.classList.add("sb-open");
 			overlay.classList.add("show");
-			document.body.style.overflow = "hidden";
+			document.body.style.overflow = "hidden"; // Stop the background from scrolling
 		} else {
 			closeSidebar();
 		}
 		return;
 	}
 
+	// 2. If the user clicks the dark overlay, or clicks a link inside the sidebar, close it
 	if (e.target.matches("#sb-overlay") || e.target.closest(".sbn, .sbn-sub, .tb")) {
 		if (sb.classList.contains("sb-open")) {
 			closeSidebar();
@@ -365,129 +374,174 @@ function closeSidebar() {
 	const overlay = document.getElementById("sb-overlay");
 	if (sb) sb.classList.remove("sb-open");
 	if (overlay) overlay.classList.remove("show");
-	document.body.style.overflow = "";
+	document.body.style.overflow = ""; // Restore scrolling
 }
 
-/* ── UNIFIED SCROLL ENGINE (NAV & SIDEBAR) ─────────────────────────── */
-let isScrollTicking = false;
-let cachedAvailableSections = null;
-
-// Nav State Variables
+/* ── HEADER SCROLL BEHAVIOR ────────────────────────────────────────── */
+const NAV_INITIAL_SHOW_ZONE_VH = 0.000001;
+// const NAV_SCROLL_DOWN_PX = 40;
 const NAV_SCROLL_DOWN_PX = 10;
 const NAV_SCROLL_UP_PX = 30;
-let navHovering = false;
-let navHid = false;
-let navDelta = 0;
-let navLy = 0;
 
-// Nav Locks
-window._isNavLocked = false;
-let scrollLockTimer = null;
-let isScrolling = false;
-
-function unlockNav() {
-	window._isNavLocked = false;
-	window.removeEventListener("scroll", extendLock);
-	window.removeEventListener("scrollend", forceUnlock);
-	isScrolling = false;
-}
-
-function forceUnlock() {
-	clearTimeout(scrollLockTimer);
-	unlockNav();
-}
-
-function extendLock() {
-	isScrolling = true;
-	clearTimeout(scrollLockTimer);
-	scrollLockTimer = setTimeout(unlockNav, 250);
-}
-
-window._lockNav = function () {
-	window._isNavLocked = true;
-	navHovering = false;
-	isScrolling = false;
-	clearTimeout(scrollLockTimer);
-	window.removeEventListener("scroll", extendLock);
-	window.removeEventListener("scrollend", forceUnlock);
-	window.addEventListener("scroll", extendLock, {passive: true});
-	window.addEventListener("scrollend", forceUnlock, {passive: true});
-	scrollLockTimer = setTimeout(() => {
-		if (!isScrolling) unlockNav();
-	}, 300);
-};
-
-function initNavHoverStates() {
+function initNavScroll() {
 	const hdr = document.getElementById("hdr");
 	const dd = document.getElementById("nav-dd");
 	if (!hdr) return;
 
-	window._showNav = function () {
-		if (navHid) {
+	let hovering = false;
+	let ly = window.scrollY;
+	let delta = 0;
+	let hid = false;
+
+	window._isNavLocked = false;
+	window._navLockTimer = null;
+
+	let scrollLockTimer = null;
+	let isScrolling = false;
+	let navTicking = false; // Performance throttle lock
+
+	function unlockNav() {
+		window._isNavLocked = false;
+		window.removeEventListener("scroll", extendLock);
+		window.removeEventListener("scrollend", forceUnlock);
+		isScrolling = false;
+	}
+
+	function forceUnlock() {
+		clearTimeout(scrollLockTimer);
+		unlockNav();
+	}
+
+	function extendLock() {
+		isScrolling = true;
+		clearTimeout(scrollLockTimer);
+		// 250ms fallback covers main-thread lag and trackpad momentum tails
+		scrollLockTimer = setTimeout(unlockNav, 250);
+	}
+
+	window._lockNav = function () {
+		window._isNavLocked = true;
+		hovering = false;
+		isScrolling = false;
+
+		// Clean slate to prevent double-call collisions
+		clearTimeout(scrollLockTimer);
+		window.removeEventListener("scroll", extendLock);
+		window.removeEventListener("scrollend", forceUnlock);
+
+		// Bind listeners
+		window.addEventListener("scroll", extendLock, {passive: true});
+		window.addEventListener("scrollend", forceUnlock, {passive: true});
+
+		// Give the browser 300ms to physically START the scroll
+		// (Crucial for cross-page loads where rendering delays the first frame)
+		scrollLockTimer = setTimeout(() => {
+			if (!isScrolling) unlockNav();
+		}, 300);
+	};
+	function showNav() {
+		if (hid) {
 			hdr.style.transition = "transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1)";
 			hdr.style.transform = "translateY(0)";
-			navHid = false;
-			navDelta = 0;
+			hid = false;
+			delta = 0;
 		}
-	};
+	}
 
-	window._hideNav = function () {
-		if (!navHid) {
+	function hideNav() {
+		if (!hid) {
 			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
 			hdr.style.transform = "translateY(-150%)";
-			navHid = true;
-			navDelta = 0;
+			hid = true;
+			delta = 0;
 		}
-	};
+	}
 
 	[hdr, dd].forEach((el) => {
 		if (!el) return;
 		el.addEventListener("mouseenter", () => {
 			if (window._isNavLocked) return;
-			navHovering = true;
-			window._showNav();
+			hovering = true;
+			showNav();
 		});
 		el.addEventListener("mouseleave", () => {
-			navHovering = false;
-			navLy = window.scrollY;
+			hovering = false;
+			ly = window.scrollY;
 		});
 	});
+
+	window.addEventListener(
+		"scroll",
+		() => {
+			if (!navTicking) {
+				window.requestAnimationFrame(() => {
+					if (window._isNavLocked) {
+						ly = window.scrollY;
+						delta = 0;
+						navTicking = false;
+						return;
+					}
+					if (hovering) {
+						ly = window.scrollY;
+						delta = 0;
+						navTicking = false;
+						return;
+					}
+
+					const y = window.scrollY;
+
+					if (y <= 0) {
+						showNav();
+						ly = y;
+						navTicking = false;
+						return;
+					}
+					if (y < window.innerHeight * NAV_INITIAL_SHOW_ZONE_VH) {
+						showNav();
+						ly = y;
+						navTicking = false;
+						return;
+					}
+
+					const d = y - ly;
+					if (d > 0) {
+						delta = delta > 0 ? delta + d : d;
+						if (!hid && delta >= NAV_SCROLL_DOWN_PX) hideNav();
+					} else if (d < 0) {
+						delta = delta < 0 ? delta + d : d;
+						if (hid && -delta >= NAV_SCROLL_UP_PX) showNav();
+					}
+					ly = y;
+
+					navTicking = false;
+				});
+				navTicking = true;
+			}
+		},
+		{passive: true},
+	);
+
+	window._hideNav = hideNav;
+	window._showNav = showNav;
 }
 
-function runCoreScrollTasks(sy) {
-	// --- NAV SCROLL LOGIC ---
-	if (window._isNavLocked || navHovering) {
-		navLy = sy;
-		navDelta = 0;
-	} else if (sy <= 75) {
-		window._showNav();
-		navLy = sy;
-	} else {
-		const d = sy - navLy;
-		if (d > 0) {
-			navDelta = navDelta > 0 ? navDelta + d : d;
-			if (!navHid && navDelta >= NAV_SCROLL_DOWN_PX) window._hideNav();
-		} else if (d < 0) {
-			navDelta = navDelta < 0 ? navDelta + d : d;
-			if (navHid && -navDelta >= NAV_SCROLL_UP_PX) window._showNav();
-		}
-		navLy = sy;
-	}
+/* ── UNIFIED SIDEBAR SCROLL PROGRESS (PERFORMANCE OPTIMIZED) ── */
+let cachedAvailableSections = null;
+let sidebarTicking = false; // Performance throttle lock
 
-	// --- SIDEBAR TRACKING LOGIC ---
+function updateSidebar() {
+	// --- ADD THIS GUARD TO AVOID CONFLICT ---
+	if (window.isViewingDynamicPost) return; 
+
 	const fill = document.getElementById("sb-fill");
+	const scrollY = window.scrollY;
 	const winH = window.innerHeight;
 	const tot = document.documentElement.scrollHeight - winH;
-	if (fill) fill.style.width = (tot > 0 ? (sy / tot) * 100 : 0) + "%";
+    
 
-	// Apply parallax to the blog cover image if we are viewing a post
-	const coverWrap = document.getElementById("post-cover-wrap");
-	if (coverWrap && window.isViewingDynamicPost) {
-		coverWrap.style.transform = `translateY(${sy * 0.35}px)`;
-	}
+	if (fill) fill.style.width = (tot > 0 ? (scrollY / tot) * 100 : 0) + "%";
 
-	if (window.isViewingDynamicPost) return;
-
+	// 1. Build and cache the sections array ONLY ONCE to save memory mapping overhead
 	if (!cachedAvailableSections) {
 		const allSections = [
 			{id: "top", k: "top"},
@@ -500,14 +554,21 @@ function runCoreScrollTasks(sy) {
 			{id: "sec-infographic", k: "infographic"},
 			{id: "sec-cad", k: "cad"},
 		];
+		// Filter to only those that exist on the CURRENT page
 		cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
 	}
 
 	let activeK = null;
 	const path = window.location.pathname;
-	const anchor_loc = path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
+	let anchor_loc = 0.45;
+	if (path.endsWith("index.html") || path === "/" || path.endsWith("/")) {
+		anchor_loc = 0.6;
+	}
+
+	// Cache the trigger calculation point
 	const triggerPoint = winH * anchor_loc;
 
+	// 2. Determine active section based on scroll using the cached array
 	cachedAvailableSections.forEach(({id, k}) => {
 		const el = document.getElementById(id);
 		if (el && el.getBoundingClientRect().top < triggerPoint) {
@@ -515,38 +576,39 @@ function runCoreScrollTasks(sy) {
 		}
 	});
 
-	if (sy < 400 && cachedAvailableSections.length > 0) {
+	// 3. If we are at the very top, default to the first available section or "top"
+	if (scrollY < 400 && cachedAvailableSections.length > 0) {
 		updateURLd(null);
 		activeK = cachedAvailableSections[0].k;
 	}
 
+	// 4. Update UI only if we found an active section
 	if (activeK) {
 		document.querySelectorAll(".sbn").forEach((a) => {
 			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
-			if (a.classList.contains("active") !== isMatch) {
-				a.classList.toggle("active", isMatch);
-			}
+			a.classList.toggle("active", isMatch);
 		});
 
+		// Update URL/History (Portfolio logic)
 		const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
 		const ssId = ssMap[activeK];
-		if (ssId && SS[ssId] && sy >= 400) {
+		if (ssId && SS[ssId]) {
 			const sec = RMAP[ssId]?.[SS[ssId].cur];
 			if (sec) updateURLd(sec);
 		}
 	}
 }
 
-// Single Event Listener
+// Wrap the scroll listener in a requestAnimationFrame throttle
 window.addEventListener(
 	"scroll",
 	() => {
-		if (!isScrollTicking) {
+		if (!sidebarTicking) {
 			window.requestAnimationFrame(() => {
-				runCoreScrollTasks(window.scrollY);
-				isScrollTicking = false;
+				updateSidebar();
+				sidebarTicking = false;
 			});
-			isScrollTicking = true;
+			sidebarTicking = true;
 		}
 	},
 	{passive: true},
@@ -701,10 +763,13 @@ document.addEventListener("keydown", (e) => {
 
 /* ── CARD FADE-IN ── */
 function initFadeIn() {
+	// Only apply the initial visible class to the currently active cards.
+	// This prevents the "instant pop" bug on inactive cards when you switch tabs later.
 	Object.values(SS).forEach((s) => {
 		if (s.slides && s.slides[s.cur]) {
 			const card = s.slides[s.cur].querySelector(".ec");
 			if (card) {
+				// Small timeout allows the layout to settle before triggering the CSS transition
 				setTimeout(() => card.classList.add("visible"), 50);
 			}
 		}
@@ -745,7 +810,7 @@ function loadNav() {
 		const shroud = document.getElementById("blur-page");
 
 		if (!placeholder) {
-			initNavHoverStates();
+			initNavScroll();
 			resolve();
 			return;
 		}
@@ -772,7 +837,7 @@ function loadNav() {
 					});
 
 					placeholder.replaceWith(header);
-					initNavHoverStates();
+					initNavScroll();
 
 					const navbox = header.querySelector(".navbox");
 					if (navbox && shroud) {
@@ -784,7 +849,7 @@ function loadNav() {
 						});
 					}
 				}
-				resolve();
+				resolve(); // Signal that injection and initNavScroll are complete
 			})
 			.catch((error) => {
 				console.error("Error loading navigation:", error);
@@ -792,15 +857,14 @@ function loadNav() {
 			});
 	});
 }
-
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
-	optimizeImages();
 	initSS();
 	initCarousels();
 	initFadeIn();
 	initCountUp();
 
+	// Wait for the Nav to load before handling URLs and Scrolls
 	loadNav().then(() => {
 		requestAnimationFrame(() => {
 			Object.keys(TABS).forEach((id) => {
@@ -808,11 +872,11 @@ function unifiedInit() {
 				setH(id, false);
 			});
 			handleURL();
-			runCoreScrollTasks(window.scrollY);
+			updateSidebar();
 		});
 	});
 }
-
+// Single initialization point handles both pre-loaded and dynamically injected scripts
 if (document.readyState === "complete" || document.readyState === "interactive") {
 	unifiedInit();
 } else {
@@ -825,9 +889,12 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 const preloader = document.getElementById("site-preloader");
 
 if (preloader) {
+	// Check if the browser flag DOES NOT exist yet
 	if (!sessionStorage.getItem("preloaderSeen")) {
+		// 1. Set the flag so they don't see it again this session
 		sessionStorage.setItem("preloaderSeen", "true");
 
+		// 2. Run your normal animation logic
 		window.addEventListener("load", () => {
 			setTimeout(() => {
 				preloader.classList.add("hidden");
@@ -835,6 +902,7 @@ if (preloader) {
 			}, 2400);
 		});
 
+		// 3. Fallback logic
 		setTimeout(() => {
 			if (!preloader.classList.contains("hidden")) {
 				preloader.classList.add("hidden");
@@ -842,6 +910,8 @@ if (preloader) {
 			}
 		}, 5000);
 	} else {
+		// --- RETURNING PAGE LOAD ---
+		// They have the flag. Instantly remove the preloader without any waiting.
 		preloader.remove();
 	}
 }

@@ -1,139 +1,61 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- <title>Adarsh Sheth</title> -->
-		<!-- <link rel="icon" type="image/x-icon" href="media/logo/AS.ico"> -->
-		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-		<link rel="stylesheet" href="style.css" />
-	</head>
-
-	<body>
-		<!-- HEADER -->
-		<header id="hdr">
-			
-			<div class="mobile-box">
-			<button class="mobile-menu-btn" aria-label="Toggle Sidebar Navigation">
-				<i class="fas fa-bars"></i>
-			</button>
-			</div>
-
-			<div class="navbox">
-				
-				<nav class="navbar">
-					<a href="/">
-						<img
-							src="media/logo/AS_tr.png"
-							alt="AS"
-							class="logo-icon" />
-					</a>
-					<a href="/" style="text-decoration: none">
-						<div class="logo">
-							ADARSH
-							<br />
-							SHETH
-						</div>
-					</a>
-
-
-				
-
-					<div class="nav-center">
-						<a href="/" class="ni">HOME</a>
-						<div class="ndrop">
-							<a href="portfolio" class="ni active">
-								PORTFOLIO
-								<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
-							</a>
-							<div class="nav-dd" id="nav-dd">
-								<span class="dd-hdr" id="submenu1">ENGINEERING</span>
-								<a
-									class="dd-lnk"
-									href="portfolio?section=vfd"
-									onclick="
-										ddNav('vfd');
-										return false;
-									">
-									DESIGN TEAMS
-								</a>
-								<a
-									class="dd-lnk"
-									href="portfolio?section=ignite25"
-									onclick="
-										ddNav('ignite25');
-										return false;
-									">
-									EVENTS &amp; CHALLENGES
-								</a>
-								<a
-									class="dd-lnk"
-									href="portfolio?section=everyday-engineering"
-									onclick="
-										ddNav('everyday-engineering');
-										return false;
-									">
-									PERSONAL PROJECTS
-								</a>
-								<span class="dd-hdr">ARTWORK</span>
-								<a class="dd-lnk" href="photography">ARTWORK PORTFOLIO</a>
-							</div>
-						</div>
-						<div class="ndrop">
-							<a href="resume" class="ni active">
-								RESUME
-								<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
-							</a>
-							<div class="nav-dd single-subnav" id="nav-dd" >
-								<a class="dd-lnk single-subnav" href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LINKEDIN</a>
-							</div>
-						</div>
-						<a href="blog" class="ni">BLOG</a>
-					</div>
-					<!-- <a href="/#contact" class="ncontact">
-						CONTACT ME
-						<i class="fas fa-users" style="font-size: 11px"></i>
-					</a> -->
-				</nav>
-			</div>
-		</header>
-
-<!-- <div id="sb-overlay"></div>
-<aside id="sb">
-	<div id="sb-hdr">Navigation</div>
-	<div id="sb-prog">
-		<div id="sb-fill"></div>
+<header id="hdr">
+	<div class="mobile-box">
+		<button class="mobile-menu-btn" aria-label="Toggle Sidebar Navigation">
+			<i class="fas fa-bars"></i>
+		</button>
 	</div>
-	<nav id="sb-nav">
-		<a class="sbn active" href="portfolio" onclick="scrollToSec('top'); return false;" data-k="top">
-			<span class="sbdot"></span>
-			<span class="sblbl">Top of Page</span>
-		</a>
-	</nav>
-</aside> -->
-		<main id="mn">
-			<div style="padding: 28px; max-width: 920px; margin: 120px auto 2000px auto; color: var(--text)">
-				<h1 style="color: var(--title)">Top Navbar — Preview</h1>
-				<p style="color: var(--tdim)">Scroll down to see header hide behavior; hover the header to keep it visible.</p>
-				<p>Placeholder content...</p>
-			</div>
-		</main>
 
-		<footer>
-			<div class="ficons">
-				<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-				<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-				<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-			</div>
-			<nav class="fnav">
-				<a href="/">HOME</a>
-				<a href="portfolio">PORTFOLIO</a>
-				<a href="resume">RESUME</a>
-				<a href="blog">BLOG</a>
-			</nav>
-		</footer>
+	<div class="navbox">
+		<nav class="navbar">
+			<a href="/">
+				<img src="media/logo/AS_tr.png" alt="AS" class="logo-icon" fetchpriority="high" />
+			</a>
+			<a href="/" style="text-decoration: none">
+				<div class="logo">
+					ADARSH
+					<br />
+					SHETH
+				</div>
+			</a>
 
-		<script src="script.js"></script>
-	</body>
-</html>
+			<div class="nav-center">
+				<a href="/" class="ni">HOME</a>
+
+				<div class="ndrop">
+					<a href="portfolio" class="ni active">
+						PORTFOLIO
+						<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
+					</a>
+					<div class="nav-dd" id="nav-dd">
+						<span class="dd-hdr" id="submenu1">ENGINEERING</span>
+						<a class="dd-lnk" href="portfolio?section=vfd" onclick="ddNav('vfd'); return false;">
+							DESIGN TEAMS
+						</a>
+						<a class="dd-lnk" href="portfolio?section=ignite25" onclick="ddNav('ignite25'); return false;">
+							EVENTS &amp; CHALLENGES
+						</a>
+						<a class="dd-lnk" href="portfolio?section=everyday-engineering"
+							onclick="ddNav('everyday-engineering'); return false;">
+							PERSONAL PROJECTS
+						</a>
+						<span class="dd-hdr">ARTWORK</span>
+						<a class="dd-lnk" href="photography">ARTWORK PORTFOLIO</a>
+					</div>
+				</div>
+
+				<div class="ndrop">
+					<a href="resume" class="ni active">
+						RESUME
+						<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
+					</a>
+					<div class="nav-dd single-subnav" id="nav-dd">
+						<a class="dd-lnk single-subnav" href="https://www.linkedin.com/in/adarsh-sheth/"
+							target="_blank">LINKEDIN</a>
+					</div>
+				</div>
+
+				<a href="blog" class="ni">BLOG</a>
+			</div>
+		</nav>
+	</div>
+</header>

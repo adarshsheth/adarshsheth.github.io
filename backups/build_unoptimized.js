@@ -4,7 +4,7 @@ const {marked} = require("marked");
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
-const sharp = require("sharp");
+const sharp = require("sharp"); // Added Sharp compressor
 
 const notion = new Client({auth: process.env.NOTION_API_KEY});
 const n2m = new NotionToMarkdown({notionClient: notion});
@@ -85,17 +85,13 @@ async function run() {
 
 			console.log(`Processing article: ${slug}`);
 
-			// OPTIMIZATION: Collect all image promises to execute concurrently
-			const imagePromises = [];
-
 			let coverUrl = null;
 			if (page.cover) {
 				const rawUrl = page.cover.external?.url || page.cover.file?.url;
 				if (rawUrl) {
 					// Appends the edit timestamp to the filename for cache busting
 					const dest = path.join(imgDir, `${slug}-cover-${lastEdited}.webp`);
-					// Push to execution array WITHOUT blocking the thread
-					imagePromises.push(downloadAndCompress(rawUrl, dest).catch((e) => console.log(`  Cover warning: ${e.message}`)));
+					await downloadAndCompress(rawUrl, dest).catch((e) => console.log(`  Cover warning: ${e.message}`));
 					coverUrl = `media/blog/compressed/${slug}-cover-${lastEdited}.webp`;
 				}
 			}
@@ -114,8 +110,7 @@ async function run() {
 					if (match && match[1]) {
 						// Appends the edit timestamp to inline image filenames
 						const dest = path.join(imgDir, `${slug}-${imgCount}-${lastEdited}.webp`);
-						// Push to execution array WITHOUT blocking the thread
-						imagePromises.push(downloadAndCompress(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`)));
+						await downloadAndCompress(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
 						b.parent = b.parent.replace(match[1], `media/blog/compressed/${slug}-${imgCount}-${lastEdited}.webp`);
 						imgCount++;
 					}
@@ -143,11 +138,6 @@ async function run() {
 						children: [],
 					});
 				}
-			}
-
-			// OPTIMIZATION: Await ALL images for this article concurrently before proceeding
-			if (imagePromises.length > 0) {
-				await Promise.all(imagePromises);
 			}
 
 			// Convert the perfectly formatted blocks back into a Markdown string
