@@ -557,6 +557,25 @@
 
     <script src="script.js"></script>
     <script>
+
+    // Add this helper function
+    function navigateToPost(slug) {
+        // Update URL without reload
+        window.history.pushState({ post: slug }, '', `?post=${slug}`);
+        // Run the render logic
+        renderPost(slug);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Handle Browser Back/Forward buttons
+    window.onpopstate = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('post');
+        if (slug) renderPost(slug);
+        else window.location.reload(); // Simple fallback for feed
+    };
+
+
         const urlParams = new URLSearchParams(window.location.search);
         const postSlug = urlParams.get('post');
         const URLFilter = urlParams.get('category');
@@ -571,15 +590,16 @@
         }
 
         function generateBlogSidebar() {
-            const sbNav = document.getElementById('sb-nav');
-            if (!sbNav) return;
+            requestAnimationFrame(() => {
+                const sbNav = document.getElementById('sb-nav');
+                if (!sbNav) return;
 
-            // AFTER
-            const h2Elements = document.querySelectorAll('#post-body h2, #post-body h3');
-            const hasH2 = document.querySelector('#post-body h2') !== null;
+                // AFTER
+                const h2Elements = document.querySelectorAll('#post-body h2, #post-body h3');
+                const hasH2 = document.querySelector('#post-body h2') !== null;
 
-            if (postSlug && h2Elements.length > 0) {
-                let sidebarHtml = `
+                if (postSlug && h2Elements.length > 0) {
+                    let sidebarHtml = `
                     <a class="sbn" href="?">
                         <span class="sbdot" style="background: var(--accent);"></span>
                         <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
@@ -587,38 +607,39 @@
                     <div style="height: 2px; background: var(--g); margin: 10px 14px;"></div>
                 `;
 
-                h2Elements.forEach((h2, index) => {
-                    const headerId = h2.id || `heading-${index}`;
-                    h2.id = headerId;
+                    h2Elements.forEach((h2, index) => {
+                        const headerId = h2.id || `heading-${index}`;
+                        h2.id = headerId;
 
-                    const cleanText = h2.innerText
-                        .replace(/[/*_#~`➤]/g, '')
-                        .replace(/^[-\s•]+/, '')
-                        .trim();
+                        const cleanText = h2.innerText
+                            .replace(/[/*_#~`➤]/g, '')
+                            .replace(/^[-\s•]+/, '')
+                            .trim();
 
-                    const isH3 = h2.tagName.toLowerCase() === 'h3';
-                    // Only indent if it's an h3 AND the article contains h2s
-                    const isSubHeading = isH3 && hasH2;
-                    const indentStyle = isSubHeading ? 'margin-left: 20px; font-size: 0.85em; opacity: 0.8;' : '';
+                        const isH3 = h2.tagName.toLowerCase() === 'h3';
+                        // Only indent if it's an h3 AND the article contains h2s
+                        const isSubHeading = isH3 && hasH2;
+                        const indentStyle = isSubHeading ? 'margin-left: 20px; font-size: 0.85em; opacity: 0.8;' : '';
 
-                    sidebarHtml += `
+                        sidebarHtml += `
                         <a class="sbn sbn-article" href="#${headerId}" id="nav-link-${headerId}" style="${indentStyle}">
                             <span class="sbdot" style="${isSubHeading ? 'width: 4px; height: 4px;' : ''}"></span>
                             <span class="sblbl">${cleanText}</span>
                         </a>
                     `;
-                });
+                    });
 
-                sbNav.innerHTML = sidebarHtml;
-                initBlogScrollSpy();
-            } else if (!document.querySelector('.filter-sidebar-btn')) {
-                sbNav.innerHTML = `
+                    sbNav.innerHTML = sidebarHtml;
+                    initBlogScrollSpy();
+                } else if (!document.querySelector('.filter-sidebar-btn')) {
+                    sbNav.innerHTML = `
                         <a class="sbn active" href="?" data-k="top">
                             <span class="sbdot"></span>
                             <span class="sblbl">Articles</span>
                         </a>
                     `;
-            }
+                }
+            });
         }
 
         /* --- OPTIMIZATION 2: Eliminated Layout Thrashing --- */
@@ -698,7 +719,7 @@
                 const res = await fetchBlogData();
                 const posts = res.data?.publication?.posts?.edges || [];
                 loader.style.display = 'none';
-
+                if (postSlug) postEl.classList.add('loading');
                 if (postSlug) {
                     const postNode = posts.find(edge => edge.node.slug === postSlug);
                     if (!postNode) throw new Error("Target transmission vector hash missing.");
@@ -780,6 +801,7 @@
                     } else {
                         similarContainer.style.display = 'none';
                     }
+                    generateBlogSidebar();
 
                 } else {
                     const coverWrap = document.getElementById('post-cover-wrap');
@@ -894,9 +916,10 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
                     });
 
                     renderFeed(initialActiveTag);
+                    generateBlogSidebar(); // <--- MOVE HERE
                 }
-                generateBlogSidebar();
-
+                // Add this to fade in the post container once content is ready
+                postEl.classList.remove('loading');
             } catch (err) {
                 loader.innerText = `Update error sequence: ${err.message}`;
                 console.error(err);
