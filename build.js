@@ -4,12 +4,12 @@ const {marked} = require("marked");
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
-const sharp = require("sharp"); // <-- NEW: Added Sharp compressor
+const sharp = require("sharp"); // Added Sharp compressor
 
 const notion = new Client({auth: process.env.NOTION_API_KEY});
 const n2m = new NotionToMarkdown({notionClient: notion});
 
-// <-- NEW: Upgraded download function with compression and caching
+// Upgraded download function with compression and caching
 const downloadAndCompress = (url, dest) =>
 	new Promise((resolve, reject) => {
 		// CACHING: If the compressed image already exists, skip downloading!
@@ -39,7 +39,7 @@ const downloadAndCompress = (url, dest) =>
 async function run() {
 	console.log("Starting Notion sync...");
 
-	// <-- CHANGED: Updated directory to point to the compressed subfolder
+	// Directory to point to the compressed subfolder
 	const imgDir = path.join(__dirname, "media", "blog", "compressed");
 	if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir, {recursive: true});
 
@@ -79,16 +79,20 @@ async function run() {
 		try {
 			const props = page.properties;
 			const slug = props.Slug?.rich_text[0]?.plain_text || page.id;
+
+			// Get the exact millisecond the Notion page was last edited
+			const lastEdited = new Date(page.last_edited_time).getTime();
+
 			console.log(`Processing article: ${slug}`);
 
 			let coverUrl = null;
 			if (page.cover) {
 				const rawUrl = page.cover.external?.url || page.cover.file?.url;
 				if (rawUrl) {
-					// <-- CHANGED: Switched to .webp and updated the URL path to the compressed folder
-					const dest = path.join(imgDir, `${slug}-cover.webp`);
+					// Appends the edit timestamp to the filename for cache busting
+					const dest = path.join(imgDir, `${slug}-cover-${lastEdited}.webp`);
 					await downloadAndCompress(rawUrl, dest).catch((e) => console.log(`  Cover warning: ${e.message}`));
-					coverUrl = `media/blog/compressed/${slug}-cover.webp`;
+					coverUrl = `media/blog/compressed/${slug}-cover-${lastEdited}.webp`;
 				}
 			}
 
@@ -100,25 +104,24 @@ async function run() {
 			for (let i = 0; i < blocks.length; i++) {
 				const b = blocks[i];
 
-				// --- FIX PART 1: Handle Images ---
+				// --- Handle Images ---
 				if (b.type === "image") {
 					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
 					if (match && match[1]) {
-						// <-- CHANGED: Switched to .webp and updated the URL path to the compressed folder
-						const dest = path.join(imgDir, `${slug}-${imgCount}.webp`);
+						// Appends the edit timestamp to inline image filenames
+						const dest = path.join(imgDir, `${slug}-${imgCount}-${lastEdited}.webp`);
 						await downloadAndCompress(match[1], dest).catch((e) => console.log(`  Image warning: ${e.message}`));
-						b.parent = b.parent.replace(match[1], `media/blog/compressed/${slug}-${imgCount}.webp`);
+						b.parent = b.parent.replace(match[1], `media/blog/compressed/${slug}-${imgCount}-${lastEdited}.webp`);
 						imgCount++;
 					}
 				}
 
-				// --- FIX PART 2: Quote Soft-Breaks & Spacing ---
+				// --- Quote Soft-Breaks & Spacing ---
 				if (b.type === "quote") {
 					// 1. Remove the markdown quote symbol (">") from all lines to get the raw text
 					let rawQuoteText = b.parent.replace(/^>\s?/gm, "");
 
 					// 2. Preserve soft newlines by replacing `\n` with explicit `<br>` tags
-					// This guarantees they stay on new lines without breaking the blockquote structure
 					rawQuoteText = rawQuoteText.replace(/\n/g, "<br>");
 
 					// 3. Re-wrap as a single-line markdown quote
@@ -127,7 +130,7 @@ async function run() {
 
 				processedBlocks.push(b);
 
-				// --- FIX PART 3: Separate Back-to-Back Quotes ---
+				// --- Separate Back-to-Back Quotes ---
 				if (b.type === "quote" && i < blocks.length - 1 && blocks[i + 1].type === "quote") {
 					processedBlocks.push({
 						type: "html",
@@ -140,7 +143,7 @@ async function run() {
 			// Convert the perfectly formatted blocks back into a Markdown string
 			let rawMd = n2m.toMarkdownString(processedBlocks).parent || "";
 
-			// --- FIX PART 4: The Link Merger ---
+			// --- The Link Merger ---
 			// Stitches back together split links with identical URLs.
 			let prevMd;
 			do {
@@ -151,7 +154,7 @@ async function run() {
 			// Parse the fully cleaned Markdown into standard HTML first
 			let htmlContent = marked.parse(rawMd, {breaks: true});
 
-			// --- FIX PART 5: Image Captions ---
+			// --- Image Captions ---
 			// 1. Strip the <p> tags that 'marked' automatically puts around standalone images
 			htmlContent = htmlContent.replace(/<p>\s*(<img[^>]+>)\s*<\/p>/gi, "$1");
 
