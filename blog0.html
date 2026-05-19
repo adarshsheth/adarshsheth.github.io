@@ -33,6 +33,11 @@
     <link rel="stylesheet" href="style.css" />
 
     <style>
+        :root {
+            --text: #b3b3b3;
+
+        }
+
         /* 2-Column Desktop Blog Feed */
         #blog-list {
             grid-template-columns: repeat(2, 1fr);
@@ -40,10 +45,36 @@
             align-items: stretch;
         }
 
+
+        /* Controls the line below the article title, author, and tags */
+        #blog-post .ech {
+            border-bottom: 3px solid var(--border) !important; /* Change thickness and color here */
+            margin-bottom: 30px;
+        }
+
         /* Tablet: Back to 1 column (Image stays on left) */
         @media (max-width: 1350px) {
             #blog-list {
                 grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 1150px) {
+            #blog-list .wi-img-wrap {
+                height: 1vw;
+            }
+
+            #blog-list .ecm span:not(:last-child)::after,
+            #blog-list .ecm a:not(:last-child)::after {
+                opacity: 1 !important;
+            }
+
+            #blog-list .ecm {
+                flex-direction: row !important;
+                align-items: baseline !important;
+                flex-wrap: wrap;
+                /* Allows it to naturally wrap if the screen gets super tiny */
             }
         }
 
@@ -89,16 +120,33 @@
             color: var(--accent);
         }
 
-        /* Article Cover Image Shape Specifics */
+        /* ------------------------------------------- */
+        /* FULL-BLEED BACKGROUND ARTICLE COVER         */
+        /* ------------------------------------------- */
         #post-cover-wrap {
             display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1100px;
-            height: clamp(200px, 35vw, 450px);
-            border-radius: 12px;
+            max-width: 100%;
+            height: 600px;
+            opacity: 0.5;
+            /* Adjust this to control how far down the page the image reaches */
+            z-index: -1;
+            /* Places it behind the text */
             overflow: hidden;
-            margin-bottom: 30px;
-            border: 1.5px solid var(--border);
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+
+        #post-cover-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            /* Darkens the image so your white text pops */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+            pointer-events: none;
         }
 
         #post-cover-img {
@@ -120,29 +168,69 @@
             }
         }
 
+        /* bold text */
+        #post-body strong,
+        #post-body b {
+            font-weight: 500;
+        }
+
         /* Typography & formatting for rendered HTML from API */
+        #similar-articles-container h1,
+        #post-body h1 {
+            font-weight: 900 !important;
+            margin: 40px 0 16px;
+            color: var(--accent) !important;
+            font-size: clamp(28px, 3vw, 50px);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
         #post-body h2 {
-            font-weight: 900;
+            font-weight: 900 !important;
             font-size: clamp(22px, 2.5vw, 36px);
-            color: var(--dimtitle);
+            color: var(--text);
             margin: 40px 0 16px;
             padding-bottom: 8px;
-            border-bottom: 2px solid var(--border);
+            border-bottom: 3px solid var(--border);
             scroll-margin-top: 30px;
             text-transform: uppercase;
         }
 
         #post-body h3 {
-            font-weight: 900;
+            font-weight: 900 !important;
             font-size: clamp(18px, 2vw, 26px);
-            color: #686868;
+            color: var(--dimtitle);
             text-transform: uppercase;
+            margin-top: 20px;
+            position: relative;
+            /* <--- ADD THIS */
+            padding-bottom: 8px;
+        }
+
+        #post-body h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: calc(var(--article-width) / 15);
+            background: color-mix(in srgb, var(--border) 50%, transparent);
+        }
+
+        /* 2. Bold text overrides */
+        #post-body h1 strong,
+        #post-body h1 b,
+        #post-body h2 strong,
+        #post-body h2 b,
+        #post-body h3 strong,
+        #post-body h3 b {
+            font-weight: 900 !important;
         }
 
         #post-body p {
             font-size: clamp(14px, 0.9vw, 20px);
-            line-height: 1.75;
-            margin-bottom: 18px;
+            line-height: 1.5;
+            margin-bottom: 5px;
             color: var(--text);
         }
 
@@ -152,7 +240,6 @@
             border: none;
             border-left: 3px solid var(--g);
             padding: 2px 0 2px 18px;
-            margin: 0px 0 20px 0;
         }
 
         #post-body blockquote p {
@@ -253,9 +340,8 @@
         #post-body ul,
         #post-body ol {
             margin-left: 20px;
-            margin-bottom: 18px;
             color: var(--text);
-            line-height: 1.75;
+            line-height: 1.5;
             font-size: clamp(14px, 0.9vw, 20px);
         }
 
@@ -265,11 +351,102 @@
 
         #post-body li::marker {
             color: var(--tmut);
+            color: var(--dimtitle);
         }
 
         /* Targets ONLY the article cards on the blog feed */
         #blog-list .wi {
             border-radius: 20px;
+        }
+
+        /* ------------------------------------------- */
+        /* NEW ARTICLE FEATURES (Nav, Tags, Similar)   */
+        /* ------------------------------------------- */
+
+        /* Top Nav & Arrows */
+        .post-top-nav {
+            display: flex;
+            justify-content: flex-start;
+            /* Pushes everything to the left */
+            gap: 20px;
+            /* Adds a nice space between the button and the arrows */
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .post-arrows {
+            display: flex;
+            gap: 10px;
+        }
+
+        .post-arrow-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .post-arrow-btn:hover:not(.disabled) {
+            color: var(--bg) !important;
+            background: var(--accent);
+        }
+
+        .post-arrow-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Article Meta Tag Links */
+        .article-tag-link {
+            color: inherit !important;
+            text-decoration: none;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .article-tag-link:hover {
+            color: var(--text) !important;
+        }
+
+        .ecm a:not(:last-child)::after {
+            content: " // ";
+            margin: 0 5px;
+            opacity: 1.0;
+            font-weight: normal;
+            color: var(--dimtitle);
+        }
+
+        /* Similar Articles Section */
+        .similar-hdr {
+            font-weight: 900;
+            font-size: clamp(18px, 2vw, 24px);
+            color: var(--dimtitle);
+            margin: 60px 0 20px;
+            padding-bottom: 10px;
+            padding-top: 30px;
+            border-bottom: 3px solid var(--border);
+            text-transform: uppercase;
+        }
+
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 800px) {
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -292,7 +469,11 @@
         </nav>
     </aside>
 
-    <div id="mn">
+    <div id="mn" style="position: relative; z-index: 1; min-height: 100vh;">
+        <div id="post-cover-wrap">
+            <img id="post-cover-img" src="" alt="Article Cover" fetchpriority="high">
+        </div>
+
         <div id="top"></div>
 
         <section id="hero">
@@ -300,16 +481,13 @@
         </section>
 
         <div id="ibar" style="margin:30px 0 -30px 0; background: transparent; border: 0px">
-            <p>Note: several articles here are part of a collection of short essays written by Chat GPT, exploring
-                thought-provoking philosophical ideas that unpack
-                historical, psychological, and sociological influences to understand what we think (or have thought)
-                and why. The
-                purpose of pasting these here is to highlight ideas that don't get much attention or bring new
-                perspectives to already
-                contentious issues.</p>
+            <p>Welcome to my blog! These are a collection of my articles, projects, and prompted ChatGPT essays that
+                cover philosophical, political, and engineering
+                topics often with historical, psychological, and sociological influences to understand what we think
+                (and have thought) and why.</p>
         </div>
 
-        <div id="blog-container" style="margin-top: 40px">
+        <div id="blog-container" style="margin-top: 40px; position: relative;">
 
             <div id="blog-loading"
                 style="text-align:center; padding: 40px; color:var(--g); font-weight:700; letter-spacing: 0.1em; text-transform: uppercase;">
@@ -322,25 +500,30 @@
             </div>
 
             <div id="blog-post" style="display:none;">
-                <button onclick="window.location.href='?'" class="pbtn"
-                    style="margin-bottom:30px; border-radius: 100px;">Back to Feed</button>
-
-                <div id="post-cover-wrap">
-                    <img id="post-cover-img" src="" alt="Article Cover" fetchpriority="high">
+                <div class="post-top-nav">
+                    <button onclick="window.location.href='?'" class="pbtn"
+                        style="border-radius: 100px; margin-bottom: 0;">Back to Feed</button>
+                    <div class="post-arrows" id="post-nav-arrows">
+                    </div>
                 </div>
 
                 <div class="ech" style="padding: 0 0 20px 0;">
                     <h2 id="post-title" class="ect"
-                        style="color: var(--title); font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
+                        style="color: var(--accent) !important; font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
                     </h2>
                     <div
-                        style="color: var(--g); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
-                        Written by <span id="post-author" style="color: var(--accent);"></span>
+                        style="color: var(--accent2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
+                        Written by <span id="post-author" style="color: var(--accent2);"></span>
                     </div>
-                    <div id="post-meta" class="ecm" style="margin-top: 10px;"></div>
+                    <div id="post-meta" class="ecm" style="margin-top: 10px; color: var(--accent2);"></div>
                 </div>
 
                 <div id="post-body" class="cbody full" style="margin-top:10px; padding: 0;">
+                </div>
+
+                <div id="similar-articles-container" style="display: none;">
+                    <h1 class="similar-hdr">Similar Articles</h1>
+                    <div id="similar-articles-grid" class="similar-grid"></div>
                 </div>
             </div>
 
@@ -369,6 +552,8 @@
         // ==========================================
         const urlParams = new URLSearchParams(window.location.search);
         const postSlug = urlParams.get('post');
+        // Check if there is an existing category filter path present
+        const URLFilter = urlParams.get('category');
 
         const listEl = document.getElementById('blog-list');
         const postEl = document.getElementById('blog-post');
@@ -376,6 +561,7 @@
 
         // Disables global sidebar calculations in script.js when viewing an article
         if (postSlug) {
+            document.getElementById('ibar').style.display = 'none'; // Hides ibar on article load
             window.isViewingDynamicPost = true;
         }
 
@@ -392,7 +578,7 @@
                         <span class="sbdot"></span>
                         <span class="sblbl">Back to Feed</span>
                     </a>
-                    <div style="height: 1px; background: var(--border); margin: 10px 14px;"></div>
+                    <div style="height: 2px; background: var(--g); margin: 10px 14px;"></div>
                 `;
 
                 h2Elements.forEach((h2, index) => {
@@ -419,8 +605,9 @@
 
                 // Fire ScrollSpy binding engine
                 initBlogScrollSpy();
-            } else {
-                // View Mode: Landing Feed view default fallback state
+            } else if (!document.querySelector('.filter-sidebar-btn')) {
+                // View Mode: Landing Feed view default fallback state 
+                // Only runs if the dynamic filters haven't populated it yet
                 sbNav.innerHTML = `
                         <a class="sbn active" href="?" data-k="top">
                             <span class="sbdot"></span>
@@ -494,18 +681,72 @@
                         coverWrap.style.display = 'none';
                     }
 
+                    // --- NEW: Left/Right Arrow Navigation ---
+                    const currentIndex = posts.findIndex(edge => edge.node.slug === postSlug);
+                    const prevPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1].node : null; // Older
+                    const nextPost = currentIndex > 0 ? posts[currentIndex - 1].node : null; // Newer
+
+                    document.getElementById('post-nav-arrows').innerHTML = `
+                        <a href="${prevPost ? `?post=${prevPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!prevPost ? 'disabled' : ''}" title="${prevPost ? 'Previous: ' + prevPost.title : ''}">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="${nextPost ? `?post=${nextPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!nextPost ? 'disabled' : ''}" title="${nextPost ? 'Next: ' + nextPost.title : ''}">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    `;
+
                     document.getElementById('post-title').innerText = post.title;
 
                     const hasGptTag = (post.tags || []).some(tag => tag.name === "ChatGPT");
                     document.getElementById('post-author').innerText = hasGptTag ? "ChatGPT" : "Adarsh Sheth";
 
-                    const tagsHtml = (post.tags || []).map(tag => `<span>${tag.name}</span>`).join('');
+                    // --- CHANGED: Meta tags are now formatted as <a> links that route to the filter ---
+                    const tagsHtml = (post.tags || []).map(tag => `<a href="?category=${encodeURIComponent(tag.name.toLowerCase())}" class="article-tag-link">${tag.name}</a>`).join('');
                     const dateStr = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                     document.getElementById('post-meta').innerHTML = `${tagsHtml} <span>${dateStr}</span>`;
 
                     document.getElementById('post-body').innerHTML = post.content?.html || '';
                     document.title = `${post.title} | Blog | AS`;
+
+                    // --- NEW: Similar Articles Generator ---
+                    const currentTags = (post.tags || []).map(t => t.name);
+                    const similarPosts = posts
+                        .filter(edge => edge.node.slug !== postSlug) // Exclude current article
+                        .map(edge => {
+                            const edgeTags = (edge.node.tags || []).map(t => t.name);
+                            const sharedCount = edgeTags.filter(t => currentTags.includes(t)).length;
+                            return { node: edge.node, sharedCount };
+                        })
+                        .filter(item => item.sharedCount > 0) // Must share at least 1 tag
+                        .sort((a, b) => b.sharedCount - a.sharedCount || new Date(b.node.publishedAt) - new Date(a.node.publishedAt))
+                        .slice(0, 2); // Get the top 2
+
+                    const similarContainer = document.getElementById('similar-articles-container');
+                    const similarGrid = document.getElementById('similar-articles-grid');
+
+                    if (similarPosts.length > 0) {
+                        similarContainer.style.display = 'block';
+                        similarGrid.innerHTML = similarPosts.map(({ node }) => `
+                            <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+                                ${node.coverImage?.url ? `
+                                <div class="wi-img-wrap">
+                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+                                </div>` : ''}
+                                <div class="wi-body" style="padding: 18px 20px;">
+                                    <h3 class="wi-title" style="font-size: clamp(14px, 1.2vw, 20px); margin-bottom: 6px;">${node.title}</h3>
+                                    <p class="wi-text" style="font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${node.brief}</p>
+                                </div>
+                            </a>
+                        `).join('');
+                    } else {
+                        similarContainer.style.display = 'none';
+                    }
+
                 } else {
+                    // NEW: Ensure cover image is hidden when going back to the feed
+                    const coverWrap = document.getElementById('post-cover-wrap');
+                    if (coverWrap) coverWrap.style.display = 'none';
+
                     listEl.style.display = 'grid';
                     const filtersEl = document.getElementById('blog-filters');
                     filtersEl.style.display = 'flex';
@@ -516,11 +757,53 @@
                     });
                     const uniqueTags = Array.from(allTags).sort();
 
+                    // Convert the URL parameter to lowercase and find the matching exact tag
+                    let initialActiveTag = "DEFAULT";
+                    if (URLFilter) {
+                        const lowerParam = URLFilter.toLowerCase();
+                        if (lowerParam === "all") initialActiveTag = "ALL";
+                        else if (lowerParam === "default") initialActiveTag = "DEFAULT";
+                        else {
+                            // Find the actual tag ignoring case differences
+                            const matchedTag = uniqueTags.find(t => t.toLowerCase() === lowerParam);
+                            if (matchedTag) initialActiveTag = matchedTag;
+                        }
+                    }
+
                     filtersEl.innerHTML = `
-                        <button class="filter-btn" data-tag="ALL">ALL</button>
-                        <button class="filter-btn active" data-tag="DEFAULT">DEFAULT</button>
-                        ${uniqueTags.map(tag => `<button class="filter-btn" data-tag="${tag}">${tag}</button>`).join('')}
+                        <button class="filter-btn ${initialActiveTag === 'ALL' ? 'active' : ''}" data-tag="ALL">ALL</button>
+                        <button class="filter-btn ${initialActiveTag === 'DEFAULT' ? 'active' : ''}" data-tag="DEFAULT">DEFAULT</button>
+                        ${uniqueTags.map(tag => `<button class="filter-btn ${initialActiveTag === tag ? 'active' : ''}" data-tag="${tag}">${tag}</button>`).join('')}
                     `;
+
+                    // NEW: Render Sidebar Filters
+                    const sbNav = document.getElementById('sb-nav');
+                    if (sbNav) {
+                        sbNav.innerHTML = `
+                            <a class="sbn ${initialActiveTag === 'ALL' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="ALL">
+                                <span class="sbdot"></span>
+                                <span class="sblbl">ALL</span>
+                            </a>
+                            <a class="sbn ${initialActiveTag === 'DEFAULT' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="DEFAULT">
+                                <span class="sbdot"></span>
+                                <span class="sblbl">DEFAULT</span>
+                            </a>
+                            ${uniqueTags.map(tag => `
+                            <a class="sbn ${initialActiveTag === tag ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="${tag}">
+                                <span class="sbdot"></span>
+                                <span class="sblbl">${tag}</span>
+                            </a>`).join('')}
+                        `;
+
+                        // Add click listener that tricks the sidebar buttons into clicking the main top buttons!
+                        sbNav.addEventListener('click', (e) => {
+                            const btn = e.target.closest('.filter-sidebar-btn');
+                            if (btn) {
+                                const targetTag = btn.getAttribute('data-tag');
+                                document.querySelector(`.filter-btn[data-tag="${targetTag}"]`)?.click();
+                            }
+                        });
+                    }
 
                     function renderFeed(filterTag) {
                         const filtered = posts.filter(edge => {
@@ -536,8 +819,6 @@
                             return;
                         }
 
-                        // REMOVED: Skeleton loader class, inline JS onload rules, and lazy loading
-                        // It will now map clean, un-obstructed image tags.
                         listEl.innerHTML = filtered.map(({ node }) => `
                             <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
@@ -558,13 +839,30 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
 
                     filtersEl.addEventListener('click', (e) => {
                         if (e.target.classList.contains('filter-btn')) {
+                            const targetTag = e.target.getAttribute('data-tag');
+
+                            // Top filters visual update
                             filtersEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                             e.target.classList.add('active');
-                            renderFeed(e.target.getAttribute('data-tag'));
+
+                            // Sidebar filters visual update
+                            const sbNav = document.getElementById('sb-nav');
+                            if (sbNav) {
+                                sbNav.querySelectorAll('.filter-sidebar-btn').forEach(btn => btn.classList.remove('active'));
+                                sbNav.querySelector(`.filter-sidebar-btn[data-tag="${targetTag}"]`)?.classList.add('active');
+                            }
+
+                    // Push selected tracking variable states natively into history matrix layers
+                            const currentURL = new URL(window.location.href);
+                            currentURL.searchParams.set('category', targetTag.toLowerCase());
+                            window.history.pushState({}, '', currentURL);
+
+                            renderFeed(targetTag);
                         }
                     });
 
-                    renderFeed("DEFAULT");
+                    // Initial render matching up with validation structures
+                    renderFeed(initialActiveTag);
                 }
                 generateBlogSidebar();
 

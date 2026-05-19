@@ -378,8 +378,9 @@ function closeSidebar() {
 }
 
 /* ── HEADER SCROLL BEHAVIOR ────────────────────────────────────────── */
-const NAV_INITIAL_SHOW_ZONE_VH = 0.01;
-const NAV_SCROLL_DOWN_PX = 40;
+const NAV_INITIAL_SHOW_ZONE_VH = 0.000001;
+// const NAV_SCROLL_DOWN_PX = 40;
+const NAV_SCROLL_DOWN_PX = 10;
 const NAV_SCROLL_UP_PX = 30;
 
 function initNavScroll() {
