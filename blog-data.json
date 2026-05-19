@@ -8,7 +8,7 @@
               "id": "36389dc7-2ec4-80ba-9ac3-e7c32900fc0f",
               "slug": "death-row",
               "title": "Ethics of Death Penalty",
-              "brief": "",
+              "brief": "Historical and psychological context for what is now capital punishment.",
               "publishedAt": "2026-05-17",
               "tags": [
                 {
@@ -128,7 +128,7 @@
               "id": "36389dc7-2ec4-80e2-8166-cfbef59026c4",
               "slug": "mirrored-unethical-behavior",
               "title": "Mirrored Unethical Behavior",
-              "brief": "",
+              "brief": "Is unethical behavior justified when it is mirrored — do two wrongs make a right?",
               "publishedAt": "2026-05-17",
               "tags": [
                 {
@@ -182,7 +182,7 @@
               "id": "36389dc7-2ec4-80a3-88b6-fe3f4d01aac8",
               "slug": "morality-under-pressure",
               "title": "Morality Under Pressure",
-              "brief": "",
+              "brief": "The psychological impacts of maintained stress on morality.",
               "publishedAt": "2026-05-17",
               "tags": [
                 {
@@ -208,8 +208,8 @@
             "node": {
               "id": "36389dc7-2ec4-8091-9d22-f2698b0154c2",
               "slug": "inaction",
-              "title": "The Silent Accomplice — When Inaction Becomes Evil",
-              "brief": "",
+              "title": "When Inaction Becomes Evil",
+              "brief": "Is inaction as bad as evil action?",
               "publishedAt": "2026-05-17",
               "tags": [
                 {
