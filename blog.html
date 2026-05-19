@@ -451,14 +451,47 @@
             opacity: 0;
         } */
 
-        #blog-post {
+        /* #blog-post {
             transition: opacity 0.3s ease-in-out;
             opacity: 1;
         }
 
         #blog-post.loading {
             opacity: 0;
+        } */
+        #blog-post {
+            opacity: 1;
+            transform: translateY(0px);
+            transition:
+                opacity 0.22s ease,
+                transform 0.22s ease;
+            will-change: opacity, transform;
         }
+
+        #blog-post.loading {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }
+
+        #sb-nav {
+            transition: opacity 0.18s ease;
+        }
+
+        #sb-nav.loading {
+            opacity: 0.55;
+        }
+
+
+/* #post-body {
+    display: block !important; 
+    min-height: 200px; 
+    opacity: 1 !important;
+}
+
+.cbody.full {
+    display: block !important;
+} */
     </style>
 </head>
 
@@ -558,23 +591,45 @@
     <script src="script.js"></script>
     <script>
 
-    // Add this helper function
-    function navigateToPost(slug) {
-        // Update URL without reload
-        window.history.pushState({ post: slug }, '', `?post=${slug}`);
-        // Run the render logic
-        renderPost(slug);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+        // Add this helper function
+        async function navigateToPost(slug, pushState = true) {
+            if (!slug || isPostTransitioning || slug === activePostSlug) return;
 
-    // Handle Browser Back/Forward buttons
-    window.onpopstate = function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('post');
-        if (slug) renderPost(slug);
-        else window.location.reload(); // Simple fallback for feed
-    };
+            isPostTransitioning = true;
 
+            const sbNav = document.getElementById('sb-nav');
+
+            postEl.classList.add('loading');
+            sbNav?.classList.add('loading');
+
+            await new Promise(resolve => setTimeout(resolve, 180));
+
+            if (pushState) {
+                window.history.pushState({ post: slug }, '', `?post=${slug}`);
+            }
+
+            await renderPost(slug);
+
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                postEl.classList.remove('loading');
+                sbNav?.classList.remove('loading');
+
+                isPostTransitioning = false;
+            });
+        }
+
+        // Handle Browser Back/Forward buttons
+        window.onpopstate = async function () {
+            const slug = new URLSearchParams(window.location.search).get('post');
+
+            if (slug) {
+                await navigateToPost(slug, false);
+            } else {
+                window.location.href = 'blog';
+            }
+        };
 
         const urlParams = new URLSearchParams(window.location.search);
         const postSlug = urlParams.get('post');
@@ -584,62 +639,68 @@
         const postEl = document.getElementById('blog-post');
         const loader = document.getElementById('blog-loading');
 
+        let BLOG_POSTS = [];
+        let activePostSlug = postSlug;
+        let isPostTransitioning = false;
+
         if (postSlug) {
             document.getElementById('ibar').style.display = 'none';
             window.isViewingDynamicPost = true;
         }
 
         function generateBlogSidebar() {
-            requestAnimationFrame(() => {
-                const sbNav = document.getElementById('sb-nav');
-                if (!sbNav) return;
+            const sbNav = document.getElementById('sb-nav');
+            if (!sbNav) return;
 
-                // AFTER
-                const h2Elements = document.querySelectorAll('#post-body h2, #post-body h3');
-                const hasH2 = document.querySelector('#post-body h2') !== null;
+            const hElements = [...document.querySelectorAll('#post-body h2, #post-body h3')];
+            const hasH2 = document.querySelector('#post-body h2') !== null;
 
-                if (postSlug && h2Elements.length > 0) {
-                    let sidebarHtml = `
-                    <a class="sbn" href="?">
-                        <span class="sbdot" style="background: var(--accent);"></span>
-                        <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
-                    </a>
-                    <div style="height: 2px; background: var(--g); margin: 10px 14px;"></div>
-                `;
+            if (!activePostSlug || hElements.length === 0) {
+                sbNav.innerHTML = `
+            <a class="sbn active" href="?" data-k="top">
+                <span class="sbdot"></span>
+                <span class="sblbl">Articles</span>
+            </a>
+        `;
+                return;
+            }
 
-                    h2Elements.forEach((h2, index) => {
-                        const headerId = h2.id || `heading-${index}`;
-                        h2.id = headerId;
+            const sidebarHtml = hElements.map((heading, index) => {
+                const id = heading.id || `heading-${index}`;
+                heading.id = id;
 
-                        const cleanText = h2.innerText
-                            .replace(/[/*_#~`➤]/g, '')
-                            .replace(/^[-\s•]+/, '')
-                            .trim();
+                const isH3 = heading.tagName.toLowerCase() === 'h3';
+                const isSub = isH3 && hasH2;
 
-                        const isH3 = h2.tagName.toLowerCase() === 'h3';
-                        // Only indent if it's an h3 AND the article contains h2s
-                        const isSubHeading = isH3 && hasH2;
-                        const indentStyle = isSubHeading ? 'margin-left: 20px; font-size: 0.85em; opacity: 0.8;' : '';
+                const text = heading.innerText
+                    .replace(/[/*_#~`➤]/g, '')
+                    .replace(/^[-\s•]+/, '')
+                    .trim();
 
-                        sidebarHtml += `
-                        <a class="sbn sbn-article" href="#${headerId}" id="nav-link-${headerId}" style="${indentStyle}">
-                            <span class="sbdot" style="${isSubHeading ? 'width: 4px; height: 4px;' : ''}"></span>
-                            <span class="sblbl">${cleanText}</span>
-                        </a>
-                    `;
-                    });
+                return `
+    <a class="sbn sbn-article"
+       href="#${id}"
+       id="nav-link-${id}"
+       onclick="window._lockNav();" 
+       style="${isSub ? 'margin-left:20px;font-size:.85em;opacity:.8;' : ''}">
+        <span class="sbdot" style="${isSub ? 'width:4px;height:4px;' : ''}"></span>
+        <span class="sblbl">${text}</span>
+    </a>
+`;
+            }).join('');
 
-                    sbNav.innerHTML = sidebarHtml;
-                    initBlogScrollSpy();
-                } else if (!document.querySelector('.filter-sidebar-btn')) {
-                    sbNav.innerHTML = `
-                        <a class="sbn active" href="?" data-k="top">
-                            <span class="sbdot"></span>
-                            <span class="sblbl">Articles</span>
-                        </a>
-                    `;
-                }
-            });
+            sbNav.innerHTML = `
+        <a class="sbn" href="?">
+            <span class="sbdot" style="background: var(--accent);"></span>
+            <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
+        </a>
+
+        <div style="height:2px;background:var(--g);margin:10px 14px;"></div>
+
+        ${sidebarHtml}
+    `;
+
+            initBlogScrollSpy();
         }
 
         /* --- OPTIMIZATION 2: Eliminated Layout Thrashing --- */
@@ -711,98 +772,120 @@
 
             return data;
         }
+        async function renderPost(slug) {
+                activePostSlug = slug;
 
+                const postNode = BLOG_POSTS.find(edge => edge.node.slug === slug);
+
+                if (!postNode) {
+                    throw new Error('Target transmission vector hash missing.');
+                }
+
+                const post = postNode.node;
+
+                document.getElementById('ibar').style.display = 'none';
+
+                listEl.style.display = 'none';
+                document.getElementById('blog-filters').style.display = 'none';
+
+                postEl.style.display = 'block';
+
+                window.isViewingDynamicPost = true;
+
+                const coverWrap = document.getElementById('post-cover-wrap');
+                const coverImg = document.getElementById('post-cover-img');
+
+                if (post.coverImage?.url) {
+                    coverWrap.style.display = 'block';
+                    coverImg.src = post.coverImage.url;
+                } else {
+                    coverWrap.style.display = 'none';
+                }
+
+                preloadAdjacentImages(slug);
+
+                const currentIndex = BLOG_POSTS.findIndex(edge => edge.node.slug === slug);
+
+                const prevPost = currentIndex > 0
+                    ? BLOG_POSTS[currentIndex - 1].node
+                    : null;
+
+                const nextPost = currentIndex < BLOG_POSTS.length - 1
+                    ? BLOG_POSTS[currentIndex + 1].node
+                    : null;
+
+                document.getElementById('post-nav-arrows').innerHTML = `
+        <button
+            class="post-arrow-btn ${!prevPost ? 'disabled' : ''}"
+            ${prevPost ? `onclick="navigateToPost('${prevPost.slug}')"` : ''}
+            title="${prevPost ? `Previous: ${prevPost.title}` : ''}">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <button
+            class="post-arrow-btn ${!nextPost ? 'disabled' : ''}"
+            ${nextPost ? `onclick="navigateToPost('${nextPost.slug}')"` : ''}
+            title="${nextPost ? `Next: ${nextPost.title}` : ''}">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    `;
+
+                document.getElementById('post-title').innerText = post.title;
+
+                const hasGptTag = (post.tags || []).some(tag => tag.name === 'ChatGPT');
+
+                document.getElementById('post-author').innerText = hasGptTag
+                    ? 'ChatGPT'
+                    : 'Adarsh Sheth';
+
+                const textContent = post.content?.html.replace(/<[^>]*>?/gm, '') || '';
+                const wordCount = textContent.split(/\s+/).length;
+                const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+                const tagsHtml = (post.tags || [])
+                    .map(tag => `
+            <a href="?category=${encodeURIComponent(tag.name.toLowerCase())}"
+               class="article-tag-link">${tag.name}</a>
+        `)
+                    .join('');
+
+                const dateStr = new Date(post.publishedAt).toLocaleDateString(
+                    'en-US',
+                    {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    }
+                );
+
+                document.getElementById('post-meta').innerHTML = `
+        ${tagsHtml}
+        <span>${dateStr}</span>
+        <span>
+            <i class="far fa-clock" style="font-size:11px;"></i>
+            ${readingTime} min read
+        </span>
+    `;
+
+                document.getElementById('post-body').innerHTML = post.content?.html || '';
+
+                document.title = `${post.title} | Blog | AS`;
+
+                generateBlogSidebar();
+
+                runCoreScrollTasks(window.scrollY);
+            }
         async function initBlog() {
-            await loadNav();
+            // await loadNav();
             try {
                 // Instantly requests data from the smart cache function
                 const res = await fetchBlogData();
                 const posts = res.data?.publication?.posts?.edges || [];
+                BLOG_POSTS = posts;
                 loader.style.display = 'none';
                 if (postSlug) postEl.classList.add('loading');
                 if (postSlug) {
-                    const postNode = posts.find(edge => edge.node.slug === postSlug);
-                    if (!postNode) throw new Error("Target transmission vector hash missing.");
-
-                    const post = postNode.node;
-                    postEl.style.display = 'block';
-
-                    const coverWrap = document.getElementById('post-cover-wrap');
-                    const coverImg = document.getElementById('post-cover-img');
-
-                    if (post.coverImage?.url) {
-                        coverImg.src = post.coverImage.url;
-                        coverImg.setAttribute('data-slug', post.slug);
-                        coverWrap.style.display = 'block';
-                    } else {
-                        coverWrap.style.display = 'none';
-                    }
-
-                    const currentIndex = posts.findIndex(edge => edge.node.slug === postSlug);
-                    const prevPost = currentIndex > 0 ? posts[currentIndex - 1].node : null;
-                    const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1].node : null;
-
-                    document.getElementById('post-nav-arrows').innerHTML = `
-                        <a href="${prevPost ? `?post=${prevPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!prevPost ? 'disabled' : ''}" title="${prevPost ? 'Previous: ' + prevPost.title : ''}">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                        <a href="${nextPost ? `?post=${nextPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!nextPost ? 'disabled' : ''}" title="${nextPost ? 'Next: ' + nextPost.title : ''}">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    `;
-
-                    document.getElementById('post-title').innerText = post.title;
-
-                    const hasGptTag = (post.tags || []).some(tag => tag.name === "ChatGPT");
-                    document.getElementById('post-author').innerText = hasGptTag ? "ChatGPT" : "Adarsh Sheth";
-
-                    // Calculate estimated reading time (average 200 words per minute)
-                    const textContent = post.content?.html.replace(/<[^>]*>?/gm, '') || "";
-                    const wordCount = textContent.split(/\s+/).length;
-                    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-
-                    const tagsHtml = (post.tags || []).map(tag => `<a href="?category=${encodeURIComponent(tag.name.toLowerCase())}" class="article-tag-link">${tag.name}</a>`).join('');
-                    const dateStr = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                    document.getElementById('post-meta').innerHTML = `${tagsHtml} <span>${dateStr}</span> <span><i class="far fa-clock" style="font-size: 11px;"></i> ${readingTime} min read</span>`;
-
-                    document.getElementById('post-body').innerHTML = post.content?.html || '';
-                    document.title = `${post.title} | Blog | AS`;
-
-                    const currentTags = (post.tags || []).map(t => t.name);
-                    const similarPosts = posts
-                        .filter(edge => edge.node.slug !== postSlug)
-                        .map(edge => {
-                            const edgeTags = (edge.node.tags || []).map(t => t.name);
-                            const sharedCount = edgeTags.filter(t => currentTags.includes(t)).length;
-                            return { node: edge.node, sharedCount };
-                        })
-                        .filter(item => item.sharedCount > 0)
-                        .sort((a, b) => b.sharedCount - a.sharedCount || new Date(b.node.publishedAt) - new Date(a.node.publishedAt))
-                        .slice(0, 2);
-
-                    const similarContainer = document.getElementById('similar-articles-container');
-                    const similarGrid = document.getElementById('similar-articles-grid');
-
-                    if (similarPosts.length > 0) {
-                        similarContainer.style.display = 'block';
-                        /* --- OPTIMIZATION 3: Native Image Deferring (loading="lazy" decoding="async") --- */
-                        similarGrid.innerHTML = similarPosts.map(({ node }) => `
-                            <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
-                                ${node.coverImage?.url ? `
-                                <div class="wi-img-wrap">
-                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" loading="lazy" decoding="async">
-                                </div>` : ''}
-                                <div class="wi-body" style="padding: 18px 20px;">
-                                    <h3 class="wi-title" style="font-size: clamp(14px, 1.2vw, 20px); margin-bottom: 6px;">${node.title}</h3>
-                                    <p class="wi-text" style="font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${node.brief}</p>
-                                </div>
-                            </a>
-                        `).join('');
-                    } else {
-                        similarContainer.style.display = 'none';
-                    }
-                    generateBlogSidebar();
-
+                    await renderPost(postSlug);
                 } else {
                     const coverWrap = document.getElementById('post-cover-wrap');
                     if (coverWrap) coverWrap.style.display = 'none';
@@ -877,7 +960,9 @@
 
                         /* --- OPTIMIZATION 3: Native Image Deferring --- */
                         listEl.innerHTML = filtered.map(({ node }) => `
-                            <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+                        <a href="?post=${node.slug}"
+                            onclick="event.preventDefault(); navigateToPost('${node.slug}')"
+                            class="wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
                                 <div class="wi-img-wrap">
                                     <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" loading="lazy" decoding="async">
@@ -923,10 +1008,27 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
             } catch (err) {
                 loader.innerText = `Update error sequence: ${err.message}`;
                 console.error(err);
+
+                // ADD THIS: Ensure content is visible even if an error occurs
+                postEl.classList.remove('loading');
+                postEl.style.display = 'block';
+
                 generateBlogSidebar();
             }
         }
+        function preloadAdjacentImages(slug) {
+            const currentIndex = BLOG_POSTS.findIndex(edge => edge.node.slug === slug);
 
+            [currentIndex - 1, currentIndex + 1].forEach(index => {
+                const post = BLOG_POSTS[index]?.node;
+
+                if (!post?.coverImage?.url) return;
+
+                const img = new Image();
+                img.decoding = 'async';
+                img.src = post.coverImage.url;
+            });
+        }
         initBlog();
     </script>
 </body>

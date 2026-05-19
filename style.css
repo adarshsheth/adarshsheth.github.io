@@ -1118,6 +1118,10 @@ section {
 	color: var(--accent);
 	text-decoration: underline;
 	text-underline-offset: 2px;
+	transition: color 0.2s;
+}
+.cbul a:hover {
+	color: var(--accent2);
 }
 .csub {
 	margin-top: 12px;
