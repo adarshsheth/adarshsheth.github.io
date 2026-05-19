@@ -441,13 +441,24 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* #blog-post {
+            transition: opacity 0.25s ease-in-out;
+            opacity: 1;
+        }
+
+        #blog-post.hidden {
+            opacity: 0;
+        } */
+
         #blog-post {
-    transition: opacity 0.25s ease-in-out;
-    opacity: 1;
-}
-#blog-post.hidden {
-    opacity: 0;
-}
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+        }
+
+        #blog-post.loading {
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -570,8 +581,8 @@
             if (postSlug && h2Elements.length > 0) {
                 let sidebarHtml = `
                     <a class="sbn" href="?">
-                        <span class="sbdot"></span>
-                        <span class="sblbl">Back to Feed</span>
+                        <span class="sbdot" style="background: var(--accent);"></span>
+                        <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
                     </a>
                     <div style="height: 2px; background: var(--g); margin: 10px 14px;"></div>
                 `;
@@ -612,45 +623,45 @@
 
         /* --- OPTIMIZATION 2: Eliminated Layout Thrashing --- */
         function initBlogScrollSpy() {
-                const subLinks = document.querySelectorAll('.sbn-article');
-                const headers = Array.from(document.querySelectorAll('#post-body h2, #post-body h3'));
-                if (!headers.length) return;
+            const subLinks = document.querySelectorAll('.sbn-article');
+            const headers = Array.from(document.querySelectorAll('#post-body h2, #post-body h3'));
+            if (!headers.length) return;
 
-                // We store the status of every header
-                const visibleHeaders = new Set();
+            // We store the status of every header
+            const visibleHeaders = new Set();
 
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            visibleHeaders.add(entry.target.id);
-                        } else {
-                            visibleHeaders.delete(entry.target.id);
-                        }
-                    });
-
-                    // Identify the top-most visible header by checking DOM order
-                    let activeId = null;
-                    for (const header of headers) {
-                        if (visibleHeaders.has(header.id)) {
-                            activeId = header.id;
-                            break; // Stop at the first (highest) one found
-                        }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        visibleHeaders.add(entry.target.id);
+                    } else {
+                        visibleHeaders.delete(entry.target.id);
                     }
-
-                    // Apply the 'active' state only to the winning ID
-                    if (activeId) {
-                        subLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
-                        });
-                    }
-                }, {
-                    // Tighten the trigger area so fewer headers are "active" at once
-                    rootMargin: '-50px 0px -85% 0px',
-                    threshold: 0
                 });
 
-                headers.forEach(header => observer.observe(header));
-            }
+                // Identify the top-most visible header by checking DOM order
+                let activeId = null;
+                for (const header of headers) {
+                    if (visibleHeaders.has(header.id)) {
+                        activeId = header.id;
+                        break; // Stop at the first (highest) one found
+                    }
+                }
+
+                // Apply the 'active' state only to the winning ID
+                if (activeId) {
+                    subLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
+                    });
+                }
+            }, {
+                // Tighten the trigger area so fewer headers are "active" at once
+                rootMargin: '-50px 0px -85% 0px',
+                threshold: 0
+            });
+
+            headers.forEach(header => observer.observe(header));
+        }
         /* --- OPTIMIZATION 1: Smart Session Cache --- */
         async function fetchBlogData() {
             const cacheKey = 'blogDataCache';
