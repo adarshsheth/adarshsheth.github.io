@@ -699,8 +699,10 @@
 
                     // --- NEW: Left/Right Arrow Navigation ---
                     const currentIndex = posts.findIndex(edge => edge.node.slug === postSlug);
-                    const prevPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1].node : null; // Older
-                    const nextPost = currentIndex > 0 ? posts[currentIndex - 1].node : null; // Newer
+
+                    // Swapped because of reverse chronological sort
+                    const prevPost = currentIndex > 0 ? posts[currentIndex - 1].node : null; // Newer
+                    const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1].node : null; // Older
 
                     document.getElementById('post-nav-arrows').innerHTML = `
                         <a href="${prevPost ? `?post=${prevPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!prevPost ? 'disabled' : ''}" title="${prevPost ? 'Previous: ' + prevPost.title : ''}">
