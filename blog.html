@@ -19,25 +19,6 @@
     <link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
     <link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
 
-    <script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "Person",
-		  "name": "Adarsh Sheth",
-		  "jobTitle": "Aerospace Engineer",
-		  "url": "https://adarshsheth.github.io",
-		  "sameAs": [
-		    "https://www.linkedin.com/in/adarsh-sheth/"
-		  ],
-		  "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
-		  "affiliation": {
-		    "@type": "Organization",
-		    "name": "Texas A&M University"
-		  }
-		}
-		</script>
-
-
     <title>Blog | AS</title>
     <meta property="og:title" content="Blog | AS">
     <meta name="description" content="A collection of Adarsh's blog articles.">
@@ -45,62 +26,450 @@
     <meta property="og:url" content="https://adarshsheth.github.io/blog">
     <link rel="canonical" href="https://adarshsheth.github.io/blog">
 
-
-
     <link
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
 
+    <style>
+        :root {
+            --text: #b3b3b3;
+
+        }
+
+        /* 2-Column Desktop Blog Feed */
+        #blog-list {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            align-items: stretch;
+        }
+
+
+        /* Controls the line below the article title, author, and tags */
+/* 1. The Container (Remove the old border and add relative positioning) */
+        #blog-post .ech {
+            position: relative; /* <-- Anchors the custom line below */
+            margin-bottom: 30px;
+            border-bottom: none !important; /* <--- ADD THIS to kill the global grey border */
+        }
+
+        /* 2. The Custom Line (Controls the width and color) */
+        #blog-post .ech::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px; /* Thickness of the line */
+            /* width: 10%; */
+            width: calc(var(--article-width) / 15);
+            background: var(--accent); /* Color of the line */
+        }
+
+        /* Tablet: Back to 1 column (Image stays on left) */
+        @media (max-width: 1350px) {
+            #blog-list {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 1150px) {
+            #blog-list .wi-img-wrap {
+                height: 1vw;
+            }
+
+            #blog-list .ecm span:not(:last-child)::after,
+            #blog-list .ecm a:not(:last-child)::after {
+                opacity: 1 !important;
+            }
+
+            #blog-list .ecm {
+                flex-direction: row !important;
+                align-items: baseline !important;
+                flex-wrap: wrap;
+                /* Allows it to naturally wrap if the screen gets super tiny */
+            }
+        }
+
+        /* Clickable tags in the article feed */
+        .feed-tag-link {
+            color: var(--accent) !important;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.2s;
+        }
+
+        .feed-tag-link:hover {
+            color: var(--accent2) !important;
+        }
+
+        /* Blog Category Filter Buttons */
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            height: 32px;
+            padding: 0 16px;
+            border: 1.5px solid var(--dimtitle);
+            background: transparent;
+            color: var(--dimtitle);
+            font-family: "Rubik", sans-serif;
+            font-weight: 700;
+            font-size: 11.5px;
+            letter-spacing: 0.1em;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent2);
+            color: var(--accent2);
+        }
+
+        .filter-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ------------------------------------------- */
+        /* FULL-BLEED BACKGROUND ARTICLE COVER         */
+        /* ------------------------------------------- */
+        #post-cover-wrap {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 600px;
+            opacity: 0.5;
+            /* Adjust this to control how far down the page the image reaches */
+            z-index: -1;
+            /* Places it behind the text */
+            overflow: hidden;
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+
+        #post-cover-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            /* Darkens the image so your white text pops */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        #post-cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Blog Container Specifics */
+        #blog-container {
+            padding: 20px 48px 60px;
+            max-width: 11000px;
+        }
+
+        @media (max-width: 1050px) {
+            #blog-container {
+                padding: 20px 22px 60px;
+            }
+        }
+
+        /* bold text */
+        #post-body strong,
+        #post-body b {
+            font-weight: 500;
+        }
+
+        /* Typography & formatting for rendered HTML from API */
+        #similar-articles-container h1,
+        #post-body h1 {
+            font-weight: 900 !important;
+            /* margin: 40px 0 16px; */
+            margin: 50px 0 25px;
+            color: var(--accent) !important;
+            font-size: clamp(28px, 3vw, 50px);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        #post-body h2 {
+            font-weight: 900 !important;
+            font-size: clamp(22px, 2.5vw, 36px);
+            color: var(--text);
+            margin: 40px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--border);
+            /* border-bottom: 3px solid color-mix(in srgb, var(--border) 50%, transparent); */
+            scroll-margin-top: 30px;
+            text-transform: uppercase;
+            /* max-width: 100%; */
+        }
+
+        #post-body h3 {
+            font-weight: 900 !important;
+            font-size: clamp(18px, 2vw, 26px);
+            color: var(--dimtitle);
+            text-transform: uppercase;
+            margin-top: 20px;
+            position: relative;
+            /* <--- ADD THIS */
+            padding-bottom: 8px;
+        }
+
+        #post-body h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: calc(var(--article-width) / 15);
+            background: color-mix(in srgb, var(--border) 50%, transparent);
+        }
+
+        /* 2. Bold text overrides */
+        #post-body h1 strong,
+        #post-body h1 b,
+        #post-body h2 strong,
+        #post-body h2 b,
+        #post-body h3 strong,
+        #post-body h3 b {
+            font-weight: 900 !important;
+        }
+
+        #post-body p {
+            font-size: clamp(14px, 0.9vw, 20px);
+            line-height: 1.5;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        /* Indented Quote Boxes */
+        #post-body blockquote {
+            background: transparent;
+            border: none;
+            border-left: 3px solid var(--g);
+            padding: 2px 0 2px 18px;
+        }
+
+        #post-body blockquote p {
+            margin-bottom: 16px;
+            font-size: clamp(14px, 0.9vw, 20px);
+            color: var(--gl);
+            line-height: 1.6;
+            font-style: normal;
+        }
+
+        #post-body blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        #post-body blockquote strong,
+        #post-body blockquote b {
+            color: var(--g);
+            font-weight: 700;
+        }
+
+        #post-body blockquote a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        #post-body blockquote a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        #post-body blockquote a:hover strong,
+        #post-body blockquote a:hover b {
+            color: inherit;
+        }
+
+        #post-body pre {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: var(--r);
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        #post-body code {
+            font-family: monospace;
+            color: var(--gl);
+            background: rgba(0, 0, 0, 0.25);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        #post-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        #post-body a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        #post-body a:hover {
+            color: var(--accent2);
+        }
+
+        /* Image and Caption Styling */
+        #post-body figure {
+            margin: 24px 0 0 0;
+            display: block;
+        }
+
+        #post-body img {
+            border-radius: var(--r);
+            margin: 24px 0 0 0;
+            display: block;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: clamp(400px, 40%, 700px);
+        }
+
+        #post-body figure img {
+            margin: 0;
+        }
+
+        #post-body figcaption {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--tdim);
+            font-style: italic;
+            line-height: 1.4;
+            max-width: clamp(400px, 75%, 850px);
+        }
+
+        #post-body ul,
+        #post-body ol {
+            margin-left: 20px;
+            color: var(--text);
+            line-height: 1.5;
+            font-size: clamp(14px, 0.9vw, 20px);
+        }
+
+        #post-body li {
+            margin-bottom: 8px;
+        }
+
+        #post-body li::marker {
+            color: var(--tmut);
+            color: var(--dimtitle);
+        }
+
+        /* Targets ONLY the article cards on the blog feed */
+        #blog-list .wi {
+            border-radius: 20px;
+        }
+
+        /* ------------------------------------------- */
+        /* NEW ARTICLE FEATURES (Nav, Tags, Similar)   */
+        /* ------------------------------------------- */
+
+        /* Top Nav & Arrows */
+        .post-top-nav {
+            display: flex;
+            justify-content: flex-start;
+            /* Pushes everything to the left */
+            gap: 20px;
+            /* Adds a nice space between the button and the arrows */
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .post-arrows {
+            display: flex;
+            gap: 10px;
+        }
+
+        .post-arrow-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            font-size: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .post-arrow-btn:hover:not(.disabled) {
+            color: var(--bg) !important;
+            background: var(--accent);
+        }
+
+        .post-arrow-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Article Meta Tag Links */
+        .article-tag-link {
+            color: inherit !important;
+            text-decoration: none;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .article-tag-link:hover {
+            color: var(--text) !important;
+        }
+
+        .ecm a:not(:last-child)::after {
+            content: " // ";
+            margin: 0 5px;
+            opacity: 1.0;
+            font-weight: normal;
+            color: var(--dimtitle);
+        }
+
+        /* Similar Articles Section */
+        .similar-hdr {
+            font-weight: 900;
+            font-size: clamp(18px, 2vw, 24px);
+            color: var(--dimtitle);
+            margin: 60px 0 20px;
+            padding-bottom: 10px;
+            padding-top: 30px;
+            border-bottom: 3px solid var(--accent);
+            text-transform: uppercase;
+        }
+
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 800px) {
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-
-    <!-- <div id="site-preloader">
-		<div class="preloader-content">
-
-
-			<svg class="preloader-svg" viewBox="0 0 955 955" xmlns="http://www.w3.org/2000/svg">
-				<ellipse class="blob b-green" cx="477.5" cy="477.5" rx="440" ry="280" />
-
-				<ellipse class="blob b-gold" cx="477.5" cy="477.5" rx="360" ry="340" />
-
-				<path class="logo-path" pathLength="1"
-					d="M830 200q24 0 41 17l33 26 24 19 18 15q6 5 4 11t-9 5H581q-19 0-34 12-18 12-24 33-8 27 8 52 17 26 48 27l183 1q35 0 68 12 21 9 40 23a170 170 0 0 1 63 107l3 33a168 168 0 0 1-101 152 241 241 0 0 1-49 14H659q-5 0-8-5l-26-50-20-35 8-1h150q32-1 54-24 17-17 21-40 3-19-3-38-10-27-35-42-15-9-34-10H582a145 145 0 0 1-60-15q-9-2-13-11l-31-58-28-53q-6-13-13-24-6-12-3-24a146 146 0 0 1 30-67 144 144 0 0 1 74-53q21-8 42-8l249-1z" />
-				<path class="logo-path" pathLength="1"
-					d="M238 507l-10 19-4 2h-97l-3-1 8-15 13-24 21-40 33-62 30-55 52-97q11-16 29-23l15-6q12-4 20 5l8 11 25 47 39 72 26 49 30 54 30 58 29 53 34 61 3 9-5 1h-94l-162-1q-24 0-43-17l-34-28-22-17-15 28-45 84-14 24q-10 16-28 23l-35 15-51 22-14 1c-4-10 2-18 6-26l13-23 21-41 33-61 29-55 8-13h287l9-1q5-1 3-7l-11-22-13-24-31-57-17-33-23-43-14 27-42 78z" />
-				<path class="logo-path" pathLength="1"
-					d="M613 706l28 53h-97q-5 0-8-4l-16-31-30-56-15-28-1-4h96q6 1 8 4l25 49z" />
-			</svg>
-
-
-
-			<div class="preloader-text">ADARSH SHETH</div>
-			<div class="preloader-subtext">AEROSPACE ENGINEER</div>
-		</div>
-	</div> -->
-
-
-    <!-- delete -->
-    <!-- <svg class="preloader-svg" viewBox="0 0 955 955" xmlns="http://www.w3.org/2000/svg">
-						<path class="blob b-green"
-							d="M238.75,286.5 C334.25,95.5 620.75,143.25 716.25,334.25 C811.75,525.25 668.5,811.75 477.5,811.75 C286.5,811.75 143.25,477.5 238.75,286.5 Z" />
-						<path class="blob b-gold"
-							d="M668.5,668.5 C811.75,525.25 764,286.5 620.75,191 C477.5,95.5 191,238.75 191,429.5 C191,620.75 525.25,811.75 668.5,668.5 Z" />
-						<path class="logo-path" pathLength="1"
-							d="M830 200q24 0 41 17l33 26 24 19 18 15q6 5 4 11t-9 5H581q-19 0-34 12-18 12-24 33-8 27 8 52 17 26 48 27l183 1q35 0 68 12 21 9 40 23a170 170 0 0 1 63 107l3 33a168 168 0 0 1-101 152 241 241 0 0 1-49 14H659q-5 0-8-5l-26-50-20-35 8-1h150q32-1 54-24 17-17 21-40 3-19-3-38-10-27-35-42-15-9-34-10H582a145 145 0 0 1-60-15q-9-2-13-11l-31-58-28-53q-6-13-13-24-6-12-3-24a146 146 0 0 1 30-67 144 144 0 0 1 74-53q21-8 42-8l249-1z" />
-						<path class="logo-path" pathLength="1"
-							d="M238 507l-10 19-4 2h-97l-3-1 8-15 13-24 21-40 33-62 30-55 52-97q11-16 29-23l15-6q12-4 20 5l8 11 25 47 39 72 26 49 30 54 30 58 29 53 34 61 3 9-5 1h-94l-162-1q-24 0-43-17l-34-28-22-17-15 28-45 84-14 24q-10 16-28 23l-35 15-51 22-14 1c-4-10 2-18 6-26l13-23 21-41 33-61 29-55 8-13h287l9-1q5-1 3-7l-11-22-13-24-31-57-17-33-23-43-14 27-42 78z" />
-						<path class="logo-path" pathLength="1" d="M613 706l28 53h-97q-5 0-8-4l-16-31-30-56-15-28-1-4h96q6 1 8 4l25 49z" />
-					</svg> -->
-
-
-
-
     <div id="blur-page"></div>
-
     <div id="nav-placeholder"></div>
     <div id="sb-overlay"></div>
 
@@ -117,20 +486,68 @@
         </nav>
     </aside>
 
-    <div id="mn">
+    <div id="mn" style="position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column;">
+        <div id="post-cover-wrap">
+            <img id="post-cover-img" src="" alt="Article Cover" fetchpriority="high">
+        </div>
+
         <div id="top"></div>
 
         <section id="hero">
             <h1>BLOG</h1>
         </section>
 
-        <div id="ibar" style="margin:20px 0">
-            <p>coming soon</p>
+        <div id="ibar" style="margin:30px 0 -30px 0; background: transparent; border: 0px">
+            <p>Welcome to my blog! These are a collection of my articles, projects, and prompted ChatGPT essays that
+                cover philosophical, political, and engineering
+                topics often with historical, psychological, and sociological influences to understand what we think
+                (and have thought) and why.</p>
+        </div>
+
+        <div id="blog-container" style="margin-top: 40px; position: relative; flex: 1;">
+            <div id="blog-loading"
+                style="text-align:center; padding: 40px; color:var(--g); font-weight:700; letter-spacing: 0.1em; text-transform: uppercase;">
+                Loading transmission...
+            </div>
+
+            <div id="blog-filters" style="display:none; flex-wrap: wrap; gap: 8px; margin-bottom: 34px;"></div>
+
+            <div id="blog-list" class="fw-grid" style="display:none;">
+            </div>
+
+            <div id="blog-post" style="display:none;">
+                <div class="post-top-nav">
+                    <button onclick="window.location.href='?'" class="pbtn"
+                        style="border-radius: 100px; margin-bottom: 0;">Back to Feed</button>
+                    <div class="post-arrows" id="post-nav-arrows">
+                    </div>
+                </div>
+
+                <div class="ech" style="padding: 0 0 20px 0;">
+                    <h2 id="post-title" class="ect"
+                        style="color: var(--accent) !important; font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
+                    </h2>
+                    <div
+                        style="color: var(--accent2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
+                        Written by <span id="post-author" style="color: var(--accent2);"></span>
+                    </div>
+                    <div id="post-meta" class="ecm" style="margin-top: 10px; color: var(--accent2);"></div>
+                </div>
+
+                <div id="post-body" class="cbody full" style="margin-top:10px; padding: 0;">
+                </div>
+
+                <div id="similar-articles-container" style="display: none;">
+                    <h1 class="similar-hdr">Similar Articles</h1>
+                    <div id="similar-articles-grid" class="similar-grid"></div>
+                </div>
+            </div>
+
         </div>
 
         <footer>
             <div class="ficons">
-                <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+                <a href="javascript:void(0)" onclick="window.scrollTo(0,0)" class="fi" title="Back to top">▲</a>
                 <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
                         class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
@@ -144,8 +561,338 @@
         </footer>
     </div>
 
-    <!-- <script src="nav.js"></script> -->
     <script src="script.js"></script>
+    <script>
+        // ==========================================
+        // DYNAMIC BLOG ENGiNE & SIDEBAR SYNCHRONIZER
+        // ==========================================
+        const urlParams = new URLSearchParams(window.location.search);
+        const postSlug = urlParams.get('post');
+        // Check if there is an existing category filter path present
+        const URLFilter = urlParams.get('category');
+
+        const listEl = document.getElementById('blog-list');
+        const postEl = document.getElementById('blog-post');
+        const loader = document.getElementById('blog-loading');
+
+        // Disables global sidebar calculations in script.js when viewing an article
+        if (postSlug) {
+            document.getElementById('ibar').style.display = 'none'; // Hides ibar on article load
+            window.isViewingDynamicPost = true;
+        }
+
+        function generateBlogSidebar() {
+            const sbNav = document.getElementById('sb-nav');
+            if (!sbNav) return;
+
+            const h2Elements = document.querySelectorAll('#post-body h2');
+
+            // View Mode: Inside a specific article with available headings
+            if (postSlug && h2Elements.length > 0) {
+                let sidebarHtml = `
+                    <a class="sbn" href="?">
+                        <span class="sbdot"></span>
+                        <span class="sblbl">Back to Feed</span>
+                    </a>
+                    <div style="height: 2px; background: var(--g); margin: 10px 14px;"></div>
+                `;
+
+                h2Elements.forEach((h2, index) => {
+                    // Inject programmatic IDs if they don't exist
+                    const headerId = h2.id || `heading-${index}`;
+                    h2.id = headerId;
+
+                    // Clean text rendering: strip markdown artifacts safely
+                    const cleanText = h2.innerText
+                        .replace(/[/*_#~`➤]/g, '')
+                        .replace(/^[-\s•]+/, '')
+                        .trim();
+
+                    // Generate as STANDARD nav items instead of sub-nav items
+                    sidebarHtml += `
+                        <a class="sbn sbn-article" href="#${headerId}" id="nav-link-${headerId}">
+                            <span class="sbdot"></span>
+                            <span class="sblbl">${cleanText}</span>
+                        </a>
+                    `;
+                });
+
+                sbNav.innerHTML = sidebarHtml;
+
+                // Fire ScrollSpy binding engine
+                initBlogScrollSpy();
+            } else if (!document.querySelector('.filter-sidebar-btn')) {
+                // View Mode: Landing Feed view default fallback state 
+                // Only runs if the dynamic filters haven't populated it yet
+                sbNav.innerHTML = `
+                        <a class="sbn active" href="?" data-k="top">
+                            <span class="sbdot"></span>
+                            <span class="sblbl">Articles</span>
+                        </a>
+                    `;
+            }
+        }
+
+        function initBlogScrollSpy() {
+            const subLinks = document.querySelectorAll('.sbn-article');
+            const headers = document.querySelectorAll('#post-body h2');
+            let sidebarTicking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!sidebarTicking) {
+                    window.requestAnimationFrame(() => {
+                        let currentActiveId = "";
+                        const triggerOffset = window.innerHeight * 0.35;
+
+                        headers.forEach(header => {
+                            const rect = header.getBoundingClientRect();
+                            if (rect.top < triggerOffset) {
+                                currentActiveId = header.id;
+                            }
+                        });
+
+                        if (window.scrollY < 150 && headers.length > 0) {
+                            currentActiveId = "";
+                        }
+
+                        subLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${currentActiveId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+
+                        sidebarTicking = false;
+                    });
+                    sidebarTicking = true;
+                }
+            }, { passive: true });
+        }
+
+        async function initBlog() {
+            try {
+                // Keep the timestamp cache-buster here so new articles load properly when pushed
+                const response = await fetch('./blog-data.json?nocache=' + new Date().getTime());
+                if (!response.ok) throw new Error("Transmission ledger payload unreadable.");
+
+                const res = await response.json();
+                const posts = res.data?.publication?.posts?.edges || [];
+                loader.style.display = 'none';
+
+                if (postSlug) {
+                    const postNode = posts.find(edge => edge.node.slug === postSlug);
+                    if (!postNode) throw new Error("Target transmission vector hash missing.");
+
+                    const post = postNode.node;
+                    postEl.style.display = 'block';
+
+                    const coverWrap = document.getElementById('post-cover-wrap');
+                    const coverImg = document.getElementById('post-cover-img');
+
+                    if (post.coverImage?.url) {
+                        coverImg.src = post.coverImage.url;
+                        coverImg.setAttribute('data-slug', post.slug);
+                        coverWrap.style.display = 'block';
+                    } else {
+                        coverWrap.style.display = 'none';
+                    }
+
+                    // --- NEW: Left/Right Arrow Navigation ---
+                    const currentIndex = posts.findIndex(edge => edge.node.slug === postSlug);
+
+                    // Swapped because of reverse chronological sort
+                    const prevPost = currentIndex > 0 ? posts[currentIndex - 1].node : null; // Newer
+                    const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1].node : null; // Older
+
+                    document.getElementById('post-nav-arrows').innerHTML = `
+                        <a href="${prevPost ? `?post=${prevPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!prevPost ? 'disabled' : ''}" title="${prevPost ? 'Previous: ' + prevPost.title : ''}">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="${nextPost ? `?post=${nextPost.slug}` : 'javascript:void(0)'}" class="post-arrow-btn ${!nextPost ? 'disabled' : ''}" title="${nextPost ? 'Next: ' + nextPost.title : ''}">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    `;
+
+                    document.getElementById('post-title').innerText = post.title;
+
+                    const hasGptTag = (post.tags || []).some(tag => tag.name === "ChatGPT");
+                    document.getElementById('post-author').innerText = hasGptTag ? "ChatGPT" : "Adarsh Sheth";
+
+                    // --- CHANGED: Meta tags are now formatted as <a> links that route to the filter ---
+                    const tagsHtml = (post.tags || []).map(tag => `<a href="?category=${encodeURIComponent(tag.name.toLowerCase())}" class="article-tag-link">${tag.name}</a>`).join('');
+                    const dateStr = new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    document.getElementById('post-meta').innerHTML = `${tagsHtml} <span>${dateStr}</span>`;
+
+                    document.getElementById('post-body').innerHTML = post.content?.html || '';
+                    document.title = `${post.title} | Blog | AS`;
+
+                    // --- NEW: Similar Articles Generator ---
+                    const currentTags = (post.tags || []).map(t => t.name);
+                    const similarPosts = posts
+                        .filter(edge => edge.node.slug !== postSlug) // Exclude current article
+                        .map(edge => {
+                            const edgeTags = (edge.node.tags || []).map(t => t.name);
+                            const sharedCount = edgeTags.filter(t => currentTags.includes(t)).length;
+                            return { node: edge.node, sharedCount };
+                        })
+                        .filter(item => item.sharedCount > 0) // Must share at least 1 tag
+                        .sort((a, b) => b.sharedCount - a.sharedCount || new Date(b.node.publishedAt) - new Date(a.node.publishedAt))
+                        .slice(0, 2); // Get the top 2
+
+                    const similarContainer = document.getElementById('similar-articles-container');
+                    const similarGrid = document.getElementById('similar-articles-grid');
+
+                    if (similarPosts.length > 0) {
+                        similarContainer.style.display = 'block';
+                        similarGrid.innerHTML = similarPosts.map(({ node }) => `
+                            <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+                                ${node.coverImage?.url ? `
+                                <div class="wi-img-wrap">
+                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+                                </div>` : ''}
+                                <div class="wi-body" style="padding: 18px 20px;">
+                                    <h3 class="wi-title" style="font-size: clamp(14px, 1.2vw, 20px); margin-bottom: 6px;">${node.title}</h3>
+                                    <p class="wi-text" style="font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${node.brief}</p>
+                                </div>
+                            </a>
+                        `).join('');
+                    } else {
+                        similarContainer.style.display = 'none';
+                    }
+
+                } else {
+                    // NEW: Ensure cover image is hidden when going back to the feed
+                    const coverWrap = document.getElementById('post-cover-wrap');
+                    if (coverWrap) coverWrap.style.display = 'none';
+
+                    listEl.style.display = 'grid';
+                    const filtersEl = document.getElementById('blog-filters');
+                    filtersEl.style.display = 'flex';
+
+                    const allTags = new Set();
+                    posts.forEach(edge => {
+                        (edge.node.tags || []).forEach(tag => allTags.add(tag.name));
+                    });
+                    const uniqueTags = Array.from(allTags).sort();
+
+                    // Convert the URL parameter to lowercase and find the matching exact tag
+                    let initialActiveTag = "DEFAULT";
+                    if (URLFilter) {
+                        const lowerParam = URLFilter.toLowerCase();
+                        if (lowerParam === "all") initialActiveTag = "ALL";
+                        else if (lowerParam === "default") initialActiveTag = "DEFAULT";
+                        else {
+                            // Find the actual tag ignoring case differences
+                            const matchedTag = uniqueTags.find(t => t.toLowerCase() === lowerParam);
+                            if (matchedTag) initialActiveTag = matchedTag;
+                        }
+                    }
+
+                    filtersEl.innerHTML = `
+                        <button class="filter-btn ${initialActiveTag === 'ALL' ? 'active' : ''}" data-tag="ALL">ALL</button>
+                        <button class="filter-btn ${initialActiveTag === 'DEFAULT' ? 'active' : ''}" data-tag="DEFAULT">DEFAULT</button>
+                        ${uniqueTags.map(tag => `<button class="filter-btn ${initialActiveTag === tag ? 'active' : ''}" data-tag="${tag}">${tag}</button>`).join('')}
+                    `;
+
+                    // NEW: Render Sidebar Filters
+                    const sbNav = document.getElementById('sb-nav');
+                    if (sbNav) {
+                        sbNav.innerHTML = `
+                            <a class="sbn ${initialActiveTag === 'ALL' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="ALL">
+                                <span class="sbdot"></span>
+                                <span class="sblbl">ALL</span>
+                            </a>
+                            <a class="sbn ${initialActiveTag === 'DEFAULT' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="DEFAULT">
+                                <span class="sbdot"></span>
+                                <span class="sblbl">DEFAULT</span>
+                            </a>
+                            ${uniqueTags.map(tag => `
+                            <a class="sbn ${initialActiveTag === tag ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="${tag}">
+                                <span class="sbdot"></span>
+                                <span class="sblbl">${tag}</span>
+                            </a>`).join('')}
+                        `;
+
+                        // Add click listener that tricks the sidebar buttons into clicking the main top buttons!
+                        sbNav.addEventListener('click', (e) => {
+                            const btn = e.target.closest('.filter-sidebar-btn');
+                            if (btn) {
+                                const targetTag = btn.getAttribute('data-tag');
+                                document.querySelector(`.filter-btn[data-tag="${targetTag}"]`)?.click();
+                            }
+                        });
+                    }
+
+                    function renderFeed(filterTag) {
+                        const filtered = posts.filter(edge => {
+                            if (filterTag === "ALL") return true;
+                            if (filterTag === "DEFAULT") {
+                                return !(edge.node.tags || []).some(t => t.name === "ChatGPT");
+                            }
+                            return (edge.node.tags || []).some(t => t.name === filterTag);
+                        });
+
+                        if (filtered.length === 0) {
+                            listEl.innerHTML = "<div class='dbox'>No transmission records found for this category.</div>";
+                            return;
+                        }
+
+                        listEl.innerHTML = filtered.map(({ node }) => `
+                            <a href="?post=${node.slug}" class="wi vis" style="max-width: 9000px; width: 100%;">
+                                ${node.coverImage?.url ? `
+                                <div class="wi-img-wrap">
+                                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image">
+                                </div>` : ''}
+                                <div class="wi-body" style="padding: 24px;">
+                                    <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 24px);">${node.title}</h3>
+                                    <p class="wi-text" style="margin-top: 8px;">${node.brief}</p>
+                                    <div class="ecm" style="margin-top:16px;">
+${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick="event.preventDefault(); event.stopPropagation(); document.querySelector('.filter-btn[data-tag=\\'${tag.name}\\']')?.click(); window.scrollTo({top: 0, behavior: 'smooth'});">${tag.name}</span>`).join('')}                                        
+                                        <span>${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        `).join('');
+                    }
+
+                    filtersEl.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('filter-btn')) {
+                            const targetTag = e.target.getAttribute('data-tag');
+
+                            // Top filters visual update
+                            filtersEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                            e.target.classList.add('active');
+
+                            // Sidebar filters visual update
+                            const sbNav = document.getElementById('sb-nav');
+                            if (sbNav) {
+                                sbNav.querySelectorAll('.filter-sidebar-btn').forEach(btn => btn.classList.remove('active'));
+                                sbNav.querySelector(`.filter-sidebar-btn[data-tag="${targetTag}"]`)?.classList.add('active');
+                            }
+
+                            // Push selected tracking variable states natively into history matrix layers
+                            const currentURL = new URL(window.location.href);
+                            currentURL.searchParams.set('category', targetTag.toLowerCase());
+                            window.history.pushState({}, '', currentURL);
+
+                            renderFeed(targetTag);
+                        }
+                    });
+
+                    // Initial render matching up with validation structures
+                    renderFeed(initialActiveTag);
+                }
+                generateBlogSidebar();
+
+            } catch (err) {
+                loader.innerText = `Update error sequence: ${err.message}`;
+                console.error(err);
+                generateBlogSidebar();
+            }
+        }
+
+        initBlog();
+    </script>
 </body>
 
 </html>
