@@ -54,6 +54,19 @@
             border-bottom: none !important; /* <--- ADD THIS to kill the global grey border */
         }
 
+#post-body {
+    max-width:  var(--article-width);;       /* Prevents the text from stretching too wide on huge monitors */
+    /* padding-left: 30px; */
+    /* padding-right: 30px; */
+    /* margin: 0 auto; */   /* OPTIONAL: Uncomment this line if you want to center the article block on the screen */
+}
+#post-cover-wrap {
+	max-width:  var(--article-width);       /* Matches the article width for a cleaner look */
+}
+.ech {
+	max-width: var(--article-width);
+}
+
         /* 2. The Custom Line (Controls the width and color) */
         #blog-post .ech::after {
             content: "";

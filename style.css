@@ -2628,15 +2628,3 @@ footer {
     margin-top: 0px; 
 }
 
-#post-body {
-    max-width:  var(--article-width);;       /* Prevents the text from stretching too wide on huge monitors */
-    /* padding-left: 30px; */
-    /* padding-right: 30px; */
-    /* margin: 0 auto; */   /* OPTIONAL: Uncomment this line if you want to center the article block on the screen */
-}
-#post-cover-wrap {
-	max-width:  var(--article-width);;       /* Matches the article width for a cleaner look */
-}
-.ech {
-	max-width: var(--article-width);
-}
