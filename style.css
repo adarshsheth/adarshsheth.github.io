@@ -838,6 +838,15 @@ section {
 	50% { transform: translateY(6px) translateZ(0); }
 }
 
+
+#timeline-iframe {
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+#timeline-iframe.loaded {
+    opacity: 1;
+}
+
 /* Tabs */
 .tg {
 	display: flex;
@@ -1248,7 +1257,7 @@ section {
 }
 .cw-inner.tall-h { height: 300px; }
 .cw-inner.port-h { height: min(45vh, 340px); }
-.cimg {
+/* .cimg {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -1257,7 +1266,24 @@ section {
 	object-fit: cover;
 	display: none;
 }
-.cimg.on { display: block; }
+.cimg.on { display: block; } */
+.cimg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	visibility: hidden;
+	z-index: 1;
+	transition: opacity 0.4s ease-in-out, visibility 0.4s; /* Bonus: Adds a smooth crossfade! */
+}
+.cimg.on { 
+	opacity: 1; 
+	visibility: visible;
+	z-index: 2;
+}
 .cimg.contain {
 	object-fit: contain;
 	background: transparent;

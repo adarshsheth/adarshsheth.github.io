@@ -22,7 +22,7 @@ html, body {
 }
 
 .gantt-container { 
-    background: #ccdbc9; 
+    /* background: #ccdbc9;  */
     border-radius: 12.5px; /* Scaled visually to 10px */
     width: 1075px; 
     height: 240px; 
@@ -57,7 +57,7 @@ html, body {
     .org-label {
       text-align: right;
       margin-bottom: 11px;
-      color: #28422e;
+      color: #c8a84b;
       font-weight: 600;
     }
 
@@ -79,7 +79,8 @@ html, body {
     }
 
     .year-label {
-      color: #28422e;
+      /* color: #c8a84b; */
+      color: #829c7e;
       font-weight: bold;
       width: 160px;
       text-align: center;
@@ -87,7 +88,7 @@ html, body {
 
     .years-divider {
       width: 100%;
-      border-bottom: 2.5px solid #28422e;
+      border-bottom: 2.5px solid #829c7e;
       opacity: 0.75;
       margin: 0;
       padding-top: 3px;
@@ -189,7 +190,7 @@ html, body {
       top: 40px;
       height: var(--org-divider-height);
       width: 2.5px;
-      background: #28422e;
+      background: #c8a84b;
       opacity: 0.75;
       z-index: 8;
       border-radius: 5px;
@@ -223,7 +224,7 @@ html, body {
       { role: "2X Activities Coordinator, Secretary", start: "March 2021", end: "June 2024", org: "➦", isLeft: false, row: 4, url: "portfolio.html?section=team-5776k" },
       { role: "Co-Founder and Captain, Team 5776K", start: "March 2022", end: "June 2024", org: "DVHS Robotics", isLeft: false, row: 5, url: "portfolio.html?section=team-5776k" },
       { role: "Paid Summer Camp Mentor", start: "July 2021", end: "July 2023", org: "➥", isLeft: false, row: 6, url: "portfolio.html?section=team-5776k" },
-      { role: "volunteer", isLeft: false, alignTo: 2, alignToPercent: 0, alignToOffsetX: -0.583, widthPx: 140, row: 5, offsetY: 0, z: 30, noBar: false, colorBar: true }
+      { role: "volunteer", isLeft: false, alignTo: 2, alignToPercent: 0, alignToOffsetX: -0.583, widthPx: 140, row: 5, offsetY: 0, z: 30, noBar: false, colorBar: true, color: "#000" }
     ];
     const chart = { width: 920, left: 0, right: 920, top: 0, bottom: 300, vertical_step: 35 * barScale, bar_height: 18 * barScale };
     const orgBuffer = 12;

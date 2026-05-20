@@ -1021,6 +1021,9 @@ function unifiedInit() {
 			const iframe = document.getElementById("timeline-iframe");
 			if (iframe && iframe.dataset.src) {
 				setTimeout(() => {
+					// When the iframe finishes downloading its content, trigger the CSS fade
+					iframe.onload = () => iframe.classList.add("loaded");
+					// Start the download
 					iframe.src = iframe.dataset.src;
 				}, 500);
 			}
