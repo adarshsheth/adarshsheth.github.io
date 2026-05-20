@@ -1169,6 +1169,15 @@ function unifiedInit() {
 	// 	}, 500);
 	// }
 
+	const iframe = document.getElementById("timeline-iframe");
+	if (iframe) {
+		iframe.onload = () => iframe.classList.add("loaded");
+		// If already loaded (e.g. from cache), trigger it manually
+		if (iframe.contentDocument && iframe.contentDocument.readyState === "complete") {
+			iframe.classList.add("loaded");
+		}
+	}
+
 	// Wait for the Nav to load BEFORE handling URLs and scroll tracking
 	loadNav().then(() => {
 		requestAnimationFrame(() => {
