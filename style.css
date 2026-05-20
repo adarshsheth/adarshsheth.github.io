@@ -1614,7 +1614,8 @@ section {
 } */
 .wi-img-wrap {
     width: 180px;
-    height: 100px; /* Force a consistent height */
+    /* height: 100px; */
+    min-height: 100px;
     overflow: hidden;
     flex-shrink: 0;
     border-right: 1px solid var(--border);
@@ -1843,6 +1844,11 @@ section {
 .insta-caption a {
 	color: var(--text);
 	font-weight: 700;
+}
+
+.wi-img-wrap, .cw-inner, .insta-photo-inner {
+    contain: strict;
+    aspect-ratio: 16 / 9;
 }
 
 /* Contact Form Component */

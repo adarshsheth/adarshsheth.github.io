@@ -9,21 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ── ASYNC IMAGE DECODING (PERFORMANCE BOOST) ── */
 // Offloads image decoding from the main UI thread to prevent scroll jank
-function optimizeImages() {
-	const applyAsync = (img) => {
-		if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
-	};
-	document.querySelectorAll("img").forEach(applyAsync);
+// function optimizeImages() {
+// 	const applyAsync = (img) => {
+// 		if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
+// 	};
+// 	document.querySelectorAll("img").forEach(applyAsync);
 
-	new MutationObserver((mutations) => {
-		mutations.forEach((m) => {
-			m.addedNodes.forEach((node) => {
-				if (node.tagName === "IMG") applyAsync(node);
-				else if (node.querySelectorAll) node.querySelectorAll("img").forEach(applyAsync);
-			});
-		});
-	}).observe(document.body, {childList: true, subtree: true});
-}
+// 	new MutationObserver((mutations) => {
+// 		mutations.forEach((m) => {
+// 			m.addedNodes.forEach((node) => {
+// 				if (node.tagName === "IMG") applyAsync(node);
+// 				else if (node.querySelectorAll) node.querySelectorAll("img").forEach(applyAsync);
+// 			});
+// 		});
+// 	}).observe(document.body, {childList: true, subtree: true});
+// }
 
 /* ══ SLIDE CONFIG ══ */
 const TABS = {
@@ -457,7 +457,7 @@ function initNavHoverStates() {
 function runCoreScrollTasks(sy) {
 	const hdr = document.getElementById("hdr");
 	if (!hdr) return;
-	
+
 	// --- NAV SCROLL LOGIC ---
 	if (window._isNavLocked || navHovering) {
 		navLy = sy;
@@ -539,7 +539,32 @@ function runCoreScrollTasks(sy) {
 		}
 	}
 }
+// function runCoreScrollTasks(sy) {
+// 	const hdr = document.getElementById("hdr");
+// 	if (!hdr) return;
 
+// 	// 1. Progress Bar (Cheap)
+// 	const fill = document.getElementById("sb-fill");
+// 	const tot = document.documentElement.scrollHeight - window.innerHeight;
+// 	if (fill) fill.style.width = (tot > 0 ? (sy / tot) * 100 : 0) + "%";
+
+// 	// 2. Navigation Hide/Show (Logic only)
+// 	if (window._isNavLocked || navHovering) return;
+
+// 	if (sy <= 75) {
+// 		window._showNav();
+// 	} else {
+// 		const d = sy - navLy;
+// 		if (d > 0) {
+// 			// Scrolling down
+// 			if (!navHid) window._hideNav();
+// 		} else if (d < 0) {
+// 			// Scrolling up
+// 			if (navHid) window._showNav();
+// 		}
+// 		navLy = sy;
+// 	}
+// }
 // Single Event Listener
 // window.addEventListener(
 // 	"scroll",
@@ -556,93 +581,110 @@ function runCoreScrollTasks(sy) {
 // );
 
 /* ── CAROUSELS ── */
+// function initCarousels() {
+// 	document.querySelectorAll(".cw").forEach((wrap) => {
+// 		const inner = wrap.querySelector(".cw-inner");
+// 		if (!inner) return;
+// 		const imgs = inner.querySelectorAll(".cimg");
+// 		if (!imgs.length) return;
+
+// 		let node = wrap,
+// 			dotsEl = null,
+// 			capEl = null;
+// 		for (let i = 0; i < 4; i++) {
+// 			node = node.nextElementSibling;
+// 			if (!node) break;
+// 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
+// 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
+// 		}
+
+// 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
+// 		let cur = 0,
+// 			timer = null;
+
+// 		function show(i) {
+// 			const prevEl = imgs[cur];
+// 			if (prevEl) prevEl.classList.remove("on");
+// 			if (dots[cur]) dots[cur].classList.remove("on");
+
+// 			cur = (i + imgs.length) % imgs.length;
+
+// 			const newEl = imgs[cur];
+// 			if (newEl) newEl.classList.add("on");
+// 			if (dots[cur]) dots[cur].classList.add("on");
+
+// 			if (capEl) {
+// 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+// 				const link = imgs[cur].dataset.link || "";
+// 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+// 				else capEl.textContent = cap;
+// 			}
+
+// 			const clip = wrap.closest(".ss-clip");
+// 			if (clip) {
+// 				const id = clip.id.replace("-clip", "");
+// 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
+// 			}
+// 		}
+
+// 		function startAutoPlay() {
+// 			clearTimeout(timer);
+// 			if (imgs.length <= 1) return;
+
+// 			let currentMedia = imgs[cur];
+// 			let duration = 5000;
+
+// 			if (currentMedia.dataset.interval) {
+// 				duration = parseInt(currentMedia.dataset.interval);
+// 			} else if (wrap.dataset.interval) {
+// 				duration = parseInt(wrap.dataset.interval);
+// 			} else if (currentMedia.tagName === "VIDEO") {
+// 				duration = 5000;
+// 			} else {
+// 				duration = 2000;
+// 			}
+
+// 			timer = setTimeout(() => {
+// 				show(cur + 1);
+// 				startAutoPlay();
+// 			}, duration);
+// 		}
+
+// 		dots.forEach((d, i) =>
+// 			d.addEventListener("click", (e) => {
+// 				e.stopPropagation();
+// 				show(i);
+// 				startAutoPlay();
+// 			}),
+// 		);
+
+// 		wrap.addEventListener("click", () => {
+// 			const tag = imgs[cur]?.tagName;
+// 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
+// 		});
+
+// 		show(0);
+// 		startAutoPlay();
+// 	});
+// }
 function initCarousels() {
-	document.querySelectorAll(".cw").forEach((wrap) => {
-		const inner = wrap.querySelector(".cw-inner");
-		if (!inner) return;
-		const imgs = inner.querySelectorAll(".cimg");
-		if (!imgs.length) return;
+	// Only initialize carousels that are currently visible
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					// Initialize the carousel logic only now
+					const wrap = entry.target;
+					setupCarousel(wrap); // Move your existing logic here
+					observer.unobserve(wrap); // Stop watching once initialized
+				}
+			});
+		},
+		{threshold: 0.1},
+	);
 
-		let node = wrap,
-			dotsEl = null,
-			capEl = null;
-		for (let i = 0; i < 4; i++) {
-			node = node.nextElementSibling;
-			if (!node) break;
-			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
-			if (!capEl && node.classList.contains("car-caption")) capEl = node;
-		}
-
-		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
-		let cur = 0,
-			timer = null;
-
-		function show(i) {
-			const prevEl = imgs[cur];
-			if (prevEl) prevEl.classList.remove("on");
-			if (dots[cur]) dots[cur].classList.remove("on");
-
-			cur = (i + imgs.length) % imgs.length;
-
-			const newEl = imgs[cur];
-			if (newEl) newEl.classList.add("on");
-			if (dots[cur]) dots[cur].classList.add("on");
-
-			if (capEl) {
-				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
-				const link = imgs[cur].dataset.link || "";
-				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-				else capEl.textContent = cap;
-			}
-
-			const clip = wrap.closest(".ss-clip");
-			if (clip) {
-				const id = clip.id.replace("-clip", "");
-				if (SS[id]) requestAnimationFrame(() => setH(id, true));
-			}
-		}
-
-		function startAutoPlay() {
-			clearTimeout(timer);
-			if (imgs.length <= 1) return;
-
-			let currentMedia = imgs[cur];
-			let duration = 5000;
-
-			if (currentMedia.dataset.interval) {
-				duration = parseInt(currentMedia.dataset.interval);
-			} else if (wrap.dataset.interval) {
-				duration = parseInt(wrap.dataset.interval);
-			} else if (currentMedia.tagName === "VIDEO") {
-				duration = 5000;
-			} else {
-				duration = 2000;
-			}
-
-			timer = setTimeout(() => {
-				show(cur + 1);
-				startAutoPlay();
-			}, duration);
-		}
-
-		dots.forEach((d, i) =>
-			d.addEventListener("click", (e) => {
-				e.stopPropagation();
-				show(i);
-				startAutoPlay();
-			}),
-		);
-
-		wrap.addEventListener("click", () => {
-			const tag = imgs[cur]?.tagName;
-			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
-		});
-
-		show(0);
-		startAutoPlay();
-	});
+	document.querySelectorAll(".cw").forEach((wrap) => observer.observe(wrap));
 }
-
 /* ── LIGHTBOX ── */
 let lbImgs = [],
 	lbCur = 0;
@@ -798,34 +840,37 @@ function loadNav() {
 
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
-    optimizeImages();
-    initSS();
-    initCarousels();
-    initFadeIn();
-    initCountUp();
+	// optimizeImages();
+	initSS();
+	initCarousels();
+	initFadeIn();
+	initCountUp();
 
-    // The scroll listener must live here, ensuring it only starts AFTER the nav exists
-    loadNav().then(() => {
-        
-        window.addEventListener("scroll", () => {
-            if (!isScrollTicking) {
-                window.requestAnimationFrame(() => {
-                    runCoreScrollTasks(window.scrollY);
-                    isScrollTicking = false;
-                });
-                isScrollTicking = true;
-            }
-        }, { passive: true });
+	// The scroll listener must live here, ensuring it only starts AFTER the nav exists
+	loadNav().then(() => {
+		window.addEventListener(
+			"scroll",
+			() => {
+				if (!isScrollTicking) {
+					window.requestAnimationFrame(() => {
+						runCoreScrollTasks(window.scrollY);
+						isScrollTicking = false;
+					});
+					isScrollTicking = true;
+				}
+			},
+			{passive: true},
+		);
 
-        requestAnimationFrame(() => {
-            Object.keys(TABS).forEach((id) => {
-                calcW(id);
-                setH(id, false);
-            });
-            handleURL();
-            runCoreScrollTasks(window.scrollY);
-        });
-    });
+		requestAnimationFrame(() => {
+			Object.keys(TABS).forEach((id) => {
+				calcW(id);
+				setH(id, false);
+			});
+			handleURL();
+			runCoreScrollTasks(window.scrollY);
+		});
+	});
 }
 
 if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -843,13 +888,18 @@ if (preloader) {
 	if (!sessionStorage.getItem("preloaderSeen")) {
 		sessionStorage.setItem("preloaderSeen", "true");
 
-		window.addEventListener("load", () => {
-			setTimeout(() => {
-				preloader.classList.add("hidden");
-				setTimeout(() => preloader.remove(), 1000);
-			}, 2400);
-		});
+		// window.addEventListener("load", () => {
+		// 	setTimeout(() => {
+		// 		preloader.classList.add("hidden");
+		// 		setTimeout(() => preloader.remove(), 1000);
+		// 	}, 2400);
+		// });
 
+		window.addEventListener("load", () => {
+			// Wait for the window to actually load, then fade out immediately
+			preloader.classList.add("hidden");
+			setTimeout(() => preloader.remove(), 1000);
+		});
 		setTimeout(() => {
 			if (!preloader.classList.contains("hidden")) {
 				preloader.classList.add("hidden");
