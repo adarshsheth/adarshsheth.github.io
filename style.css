@@ -176,8 +176,8 @@ header {
 	padding: 5px 5px;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 	transition: transform 0.45s ease-in-out;
-	will-change: transform;
-	transform: translateZ(0); /* GPU Accel */
+	/* will-change: transform; */
+	/* transform: translateZ(0); */
 }
 .navbox:hover {
 	transform: scale(1.012) translateZ(0);
@@ -354,7 +354,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	padding-top: calc(var(--sb) + 8px);
-	will-change: transform;
+	/* will-change: transform; */
 	backface-visibility: hidden;
 }
 
@@ -772,7 +772,7 @@ section {
 	padding: 20px;
 	margin: 0;
 	transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-	will-change: transform;
+	/* will-change: transform; */
 }
 .tlbox:hover {
 	border-color: rgba(100, 118, 97, 0.6);
@@ -883,7 +883,7 @@ section {
 	border-radius: 3px;
 	cursor: pointer;
 	transition: background 0.15s, color 0.15s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	will-change: transform;
+	/* will-change: transform; */
 }
 .tab-btns .tb:first-child { border-radius: 100px 20px 20px 100px; }
 .tab-btns .tb:last-child { border-radius: 20px 100px 100px 20px; }
@@ -918,7 +918,7 @@ section {
 .sscont { overflow: visible; }
 .ssfr {
 	display: flex;
-	will-change: transform;
+	/* will-change: transform; */
 	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .ssslide {
@@ -961,7 +961,7 @@ section {
 	opacity: 0;
 	transform: translateY(16px);
 	transition: border-color 0.25s, box-shadow 0.25s, opacity 0.5s, transform 0.5s;
-	will-change: transform, opacity;
+	/* will-change: transform, opacity; */
 }
 .ec.visible {
 	opacity: 1;
@@ -1207,7 +1207,7 @@ section {
 	letter-spacing: 0.05em;
 	text-decoration: none;
 	transition: border-color 0.15s, background 0.15s, transform 0.15s, color 0.15s;
-	will-change: transform;
+	/* will-change: transform; */
 }
 .clnk::before {
 	content: "";
@@ -1241,7 +1241,7 @@ section {
 	transition: transform 0.922s ease, box-shadow 0.22s ease;
 	margin-top: 0px;
 	margin-bottom: 2px;
-	will-change: transform;
+	/* will-change: transform; */
 }
 .cw:hover {
 	transform: scale(1.007) translateZ(0);
@@ -1440,7 +1440,7 @@ section {
 	margin-top: 14px;
 	transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s, border-radius 0.5s;
 	width: clamp(50%, 1000px, 100%);
-	will-change: transform;
+	/* will-change: transform; */
 }
 .about-card:hover {
 	border-color: rgba(100, 118, 97, 0.6);
@@ -1466,7 +1466,7 @@ section {
 	color: var(--g);
 	text-transform: uppercase;
 	transition: border-color 0.25s, color 0.25s, transform 0.5s, box-shadow 0.25s;
-	will-change: transform;
+	/* will-change: transform; */
 }
 .about-photo-wrap {
 	float: right;
@@ -1477,7 +1477,7 @@ section {
 	margin: 0 0 15px 25px;
 	shape-outside: circle(50%);
 	overflow: hidden;
-	transform: translateZ(0); 
+	/* transform: translateZ(0);  */
 }
 .about-photo {
 	width: 100%;
@@ -1618,7 +1618,7 @@ section {
 	transform: translateY(16px);
 	text-decoration: none;
 	transition: border-color 0.25s, box-shadow 0.25s, transform 0.4s, opacity 0.5s;
-	will-change: transform, opacity;
+	/* will-change: transform, opacity; */
 }
 .wi.vis {
 	opacity: 1;
@@ -1743,7 +1743,7 @@ section {
 	border-radius: var(--r);
 	overflow: hidden;
 	transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-	will-change: transform;
+	/* will-change: transform; */
 }
 .insta-card:hover {
 	border-color: rgba(100, 118, 97, 0.6);
@@ -1888,7 +1888,7 @@ section {
 	border-radius: var(--r);
 	overflow: hidden;
 	transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-	will-change: transform;
+	/* will-change: transform; */
 }
 .contact-card:hover {
 	border-color: rgba(100, 118, 97, 0.6);
