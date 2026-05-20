@@ -1557,48 +1557,48 @@
   <script>
     /* ── OPTIMIZATION: SMART VIDEO PERFORMANCE MANAGER ── */
     // Suspends video playback and decoding when videos are hidden in background carousels or off-screen
-    document.addEventListener("DOMContentLoaded", () => {
-      const videos = document.querySelectorAll("video.cimg");
+    // document.addEventListener("DOMContentLoaded", () => {
+    //   const videos = document.querySelectorAll("video.cimg");
 
-      const checkVideoState = (vid) => {
-        const isVisible = getComputedStyle(vid).display !== "none" && getComputedStyle(vid).visibility === "visible";
-        const isOn = vid.classList.contains("on");
+    //   const checkVideoState = (vid) => {
+    //     const isVisible = getComputedStyle(vid).display !== "none" && getComputedStyle(vid).visibility === "visible";
+    //     const isOn = vid.classList.contains("on");
 
-        if (isVisible && isOn) {
-          vid.play().catch(() => { });
-        } else {
-          vid.pause();
-        }
-      };
+    //     if (isVisible && isOn) {
+    //       vid.play().catch(() => { });
+    //     } else {
+    //       vid.pause();
+    //     }
+    //   };
 
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach(m => {
-          if (m.target.tagName === "VIDEO") checkVideoState(m.target);
-          else if (m.target.classList.contains("ssslide")) {
-            m.target.querySelectorAll("video").forEach(checkVideoState);
-          }
-        });
-      });
+    //   const observer = new MutationObserver((mutations) => {
+    //     mutations.forEach(m => {
+    //       if (m.target.tagName === "VIDEO") checkVideoState(m.target);
+    //       else if (m.target.classList.contains("ssslide")) {
+    //         m.target.querySelectorAll("video").forEach(checkVideoState);
+    //       }
+    //     });
+    //   });
 
-      videos.forEach(vid => {
-        checkVideoState(vid);
-        observer.observe(vid, { attributes: true, attributeFilter: ['class', 'style'] });
-        const slide = vid.closest('.ssslide');
-        if (slide) observer.observe(slide, { attributes: true, attributeFilter: ['style'] });
-      });
+    //   videos.forEach(vid => {
+    //     checkVideoState(vid);
+    //     observer.observe(vid, { attributes: true, attributeFilter: ['class', 'style'] });
+    //     const slide = vid.closest('.ssslide');
+    //     if (slide) observer.observe(slide, { attributes: true, attributeFilter: ['style'] });
+    //   });
 
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          const vid = e.target;
-          if (!e.isIntersecting) {
-            vid.pause();
-          } else {
-            checkVideoState(vid);
-          }
-        });
-      }, { threshold: 0.1 });
-      videos.forEach(v => io.observe(v));
-    });
+    //   const io = new IntersectionObserver(entries => {
+    //     entries.forEach(e => {
+    //       const vid = e.target;
+    //       if (!e.isIntersecting) {
+    //         vid.pause();
+    //       } else {
+    //         checkVideoState(vid);
+    //       }
+    //     });
+    //   }, { threshold: 0.1 });
+    //   videos.forEach(v => io.observe(v));
+    // });
   </script>
 </body>
 

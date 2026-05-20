@@ -2135,7 +2135,7 @@ footer {
 }
 
 @media (max-width: 1050px) {
-	:root { var(--navh): 25px; }
+	:root { --navh: 25px; }
 
 	.logo, .logo-icon, .ncontact { display: none !important; }
 	.mobile-box { display: inline-flex !important; }
