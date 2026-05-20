@@ -61,7 +61,7 @@ function initSS() {
 		calcW(id);
 		setH(id, false);
 
-		// INSTANT Resize calculations (No 60ms delay)
+		// INSTANT Resize calculations (No 60ms delay, restored from unoptimized)
 		new ResizeObserver(() => {
 			calcW(id);
 			fr.style.transition = "none";
@@ -215,7 +215,6 @@ function ddNav(section) {
 let lastSec = null,
 	debT = null;
 
-// INSTANT UI UPDATE
 function updateSubNav(sec) {
 	document.querySelectorAll(".sbn-sub").forEach((a) => {
 		const isMatch = a.dataset.sub === sec;
@@ -225,7 +224,6 @@ function updateSubNav(sec) {
 	});
 }
 
-// DEBOUNCED HISTORY UPDATE
 function updateURLHistory(s) {
 	const u = new URL(window.location.href);
 	const currentParam = u.searchParams.get("section");
@@ -514,29 +512,15 @@ function runCoreScrollTasks(sy) {
 
 /* ── CAROUSELS ── */
 function initCarousels() {
-	// Intersection Observer defers initialization until carousels are scrolled to
-	const observer = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const wrap = entry.target;
-					setupCarousel(wrap);
-					observer.unobserve(wrap);
-				}
-			});
-		},
-		{threshold: 0.1},
-	);
-
-	document.querySelectorAll(".cw").forEach((wrap) => observer.observe(wrap));
-
-	function setupCarousel(wrap) {
+	// REVERTED: IntersectionObserver removed completely. We loop over all carousels immediately on load.
+	document.querySelectorAll(".cw").forEach((wrap) => {
 		const inner = wrap.querySelector(".cw-inner");
 		if (!inner) return;
 		const imgs = inner.querySelectorAll(".cimg");
 		if (!imgs.length) return;
 
-		// INSTANT BATCH PRELOAD: Loads all images in THIS specific carousel instantly
+		// INSTANT REVERT: Swap data-src to src immediately on load.
+		// Doing this BEFORE initSS() ensures the images load and heights are computed properly.
 		imgs.forEach((img) => {
 			if (img.dataset.src) {
 				img.src = img.dataset.src;
@@ -622,7 +606,7 @@ function initCarousels() {
 
 		show(0);
 		startAutoPlay();
-	}
+	});
 }
 
 /* ── LIGHTBOX ── */
@@ -780,9 +764,10 @@ function loadNav() {
 
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
-	// 1. Run core UI and animations IMMEDIATELY (Do not wait for the network)
-	initSS();
+	// THE FIX: Carousels MUST run before initSS() to swap data-src back to src.
+	// Otherwise initSS measures images with 0 height, creating black screens!
 	initCarousels();
+	initSS();
 	initFadeIn();
 	initCountUp();
 
@@ -795,7 +780,7 @@ function unifiedInit() {
 		}, 500);
 	}
 
-	// 2. Wait for the Nav to load BEFORE handling URLs and scroll tracking
+	// Wait for the Nav to load BEFORE handling URLs and scroll tracking
 	loadNav().then(() => {
 		requestAnimationFrame(() => {
 			Object.keys(TABS).forEach((id) => {
@@ -836,12 +821,9 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 const preloader = document.getElementById("site-preloader");
 
 if (preloader) {
-	// Check if the browser flag DOES NOT exist yet
 	if (!sessionStorage.getItem("preloaderSeen")) {
-		// 1. Set the flag so they don't see it again this session
 		sessionStorage.setItem("preloaderSeen", "true");
 
-		// 2. Run your normal animation logic on load (restored to 2400ms from original file)
 		window.addEventListener("load", () => {
 			setTimeout(() => {
 				preloader.classList.add("hidden");
@@ -849,7 +831,6 @@ if (preloader) {
 			}, 2400);
 		});
 
-		// 3. Fallback logic in case 'load' event fails
 		setTimeout(() => {
 			if (!preloader.classList.contains("hidden")) {
 				preloader.classList.add("hidden");
@@ -857,8 +838,6 @@ if (preloader) {
 			}
 		}, 5000);
 	} else {
-		// --- RETURNING PAGE LOAD ---
-		// They have the flag. Instantly remove the preloader without any waiting.
 		preloader.remove();
 	}
 }
