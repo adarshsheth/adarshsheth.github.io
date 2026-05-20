@@ -694,8 +694,8 @@ function initCarousels() {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					const wrap = entry.target;
-					setupCarousel(wrap); 
-					observer.unobserve(wrap); 
+					setupCarousel(wrap);
+					observer.unobserve(wrap);
 				}
 			});
 		},
@@ -978,20 +978,53 @@ function loadNav() {
 // 	});
 // }
 
-function unifiedInit() {
-	// PHASE 1: Immediate Critical Tasks (Must happen now)
-	loadNav().then(() => {
-		// Essential DOM structure
-		// optimizeImages();
+// function unifiedInit() {
+// 	// PHASE 1: Immediate Critical Tasks (Must happen now)
+// 	loadNav().then(() => {
+// 		// Essential DOM structure
+// 		// optimizeImages();
 
-		// PHASE 2: Deferred Tasks (Run 200ms later so the browser can paint the UI)
+// 		// PHASE 2: Deferred Tasks (Run 200ms later so the browser can paint the UI)
+// 		setTimeout(() => {
+// 			initSS();
+// 			initCarousels();
+// 			initFadeIn();
+// 			initCountUp();
+
+// 			// Add scroll listener here now that everything is loaded
+// 			window.addEventListener(
+// 				"scroll",
+// 				() => {
+// 					if (!isScrollTicking) {
+// 						window.requestAnimationFrame(() => {
+// 							runCoreScrollTasks(window.scrollY);
+// 							isScrollTicking = false;
+// 						});
+// 						isScrollTicking = true;
+// 					}
+// 				},
+// 				{passive: true},
+// 			);
+// 		}, 200);
+// 	});
+// }
+
+function unifiedInit() {
+	loadNav().then(() => {
 		setTimeout(() => {
 			initSS();
 			initCarousels();
 			initFadeIn();
 			initCountUp();
 
-			// Add scroll listener here now that everything is loaded
+			// NEW: Load the iframe safely without blocking the main thread
+			const iframe = document.getElementById("timeline-iframe");
+			if (iframe && iframe.dataset.src) {
+				setTimeout(() => {
+					iframe.src = iframe.dataset.src;
+				}, 500);
+			}
+
 			window.addEventListener(
 				"scroll",
 				() => {
@@ -1024,20 +1057,18 @@ if (preloader) {
 	if (!sessionStorage.getItem("preloaderSeen")) {
 		sessionStorage.setItem("preloaderSeen", "true");
 
-		// window.addEventListener("load", () => {
-		// 	setTimeout(() => {
-		// 		preloader.classList.add("hidden");
-		// 		setTimeout(() => preloader.remove(), 1000);
-		// 	}, 2400);
-		// });
-
-		window.addEventListener("load", () => {
-			// Wait for the window to actually load, then fade out immediately
-			preloader.classList.add("hidden");
-			setTimeout(() => preloader.remove(), 1000);
+		// CHANGED: Use DOMContentLoaded instead of load
+		document.addEventListener("DOMContentLoaded", () => {
+			// Give the browser a tiny 100ms breathing room, then reveal the site
+			setTimeout(() => {
+				preloader.classList.add("hidden");
+				setTimeout(() => preloader.remove(), 1000);
+			}, 100);
 		});
+
+		// Fallback
 		setTimeout(() => {
-			if (!preloader.classList.contains("hidden")) {
+			if (preloader && !preloader.classList.contains("hidden")) {
 				preloader.classList.add("hidden");
 				setTimeout(() => preloader.remove(), 1000);
 			}

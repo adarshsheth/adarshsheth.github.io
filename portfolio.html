@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-<link rel="preload" href="style.css" as="style">
-<link rel="preload" href="media/logo/AS_tr.png" as="image">
+  <link rel="preload" href="style.css" as="style">
+  <link rel="preload" href="media/logo/AS_tr.png" as="image">
 
   <script type="application/ld+json">
 	{
@@ -172,7 +172,9 @@
         <p class="tlsub">A visual representation of my past and current experience — click any item to jump to
           its section</p>
         <div class="tlframe">
-          <iframe src="gantt.html" title="Experience Timeline" scrolling="no" loading="lazy"></iframe>
+          <!-- <iframe src="gantt.html" title="Experience Timeline" scrolling="no" loading="lazy"></iframe> -->
+          <iframe data-src="gantt.html" id="timeline-iframe" title="Experience Timeline" scrolling="no"
+            loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -294,8 +296,8 @@
                               loading="lazy" decoding="async" />
                             <img class="cimg" src="media/vfs/rev3_2.jpg" alt="Rev3 with Trees; P.C. Amogh"
                               loading="lazy" decoding="async" />
-                            <img class="cimg" src="media/vfs/rev3_3.jpg" alt="Rev3 in the Sky; P.C. Amogh" loading="lazy"
-                              decoding="async" />
+                            <img class="cimg" src="media/vfs/rev3_3.jpg" alt="Rev3 in the Sky; P.C. Amogh"
+                              loading="lazy" decoding="async" />
                             <img class="cimg" src="media/vfs/rev3_4.jpg" alt="Rev3 Resting; P.C. Amogh" loading="lazy"
                               decoding="async" />
                             <img class="cimg" src="media/vfs/minirev1.jpg" alt="Mini Rev; P.C. Amogh" loading="lazy"
@@ -1252,9 +1254,7 @@
                           <div>
                             <div class="cw">
                               <div class="cw-inner port-h">
-                                <img class="cimg on"
-                                  src="media/infographic/refrigerator.png"
-                                  alt="Refrigerator"
+                                <img class="cimg on" src="media/infographic/refrigerator.png" alt="Refrigerator"
                                   data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"
                                   style="border: none; pointer-events: none;" loading="lazy"></img>
                               </div>
