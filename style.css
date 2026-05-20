@@ -2099,7 +2099,7 @@ footer {
 }
 .preloader-subtext {
 	font-size: clamp(15px, 1vw, 50px);
-	font-weight: 300;
+	font-weight: 500;
 	letter-spacing: 0.15em;
 	color: var(--g);
 	opacity: 0;

@@ -143,6 +143,16 @@
             color: var(--accent);
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
         #post-cover-wrap {
             display: none;
             position: absolute;
@@ -156,6 +166,7 @@
             overflow: hidden;
             mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            animation: fadeIn 1s ease-in forwards;
         }
 
         #post-cover-wrap::after {
@@ -805,6 +816,10 @@
             if (post.coverImage?.url) {
                 coverWrap.style.display = 'block';
                 coverImg.src = post.coverImage.url;
+
+                coverWrap.style.animation = 'none'; // Stop the current animation
+                void coverWrap.offsetWidth;         // Force a DOM reflow (the browser re-calculates the style)
+                coverWrap.style.animation = 'fadeIn 1s ease-in forwards'; // Re-apply the animation
             } else {
                 coverWrap.style.display = 'none';
             }
@@ -924,31 +939,36 @@
                         ${uniqueTags.map(tag => `<button class="filter-btn ${initialActiveTag === tag ? 'active' : ''}" data-tag="${tag}">${tag}</button>`).join('')}
                     `;
 
+                    // NEW: Render Sidebar Filters
                     const sbNav = document.getElementById('sb-nav');
                     if (sbNav) {
-                        sbNav.innerHTML = `
-                            <a class="sbn ${initialActiveTag === 'ALL' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="ALL">
-                                <span class="sbdot"></span>
-                                <span class="sblbl">ALL</span>
-                            </a>
-                            <a class="sbn ${initialActiveTag === 'DEFAULT' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="DEFAULT">
-                                <span class="sbdot"></span>
-                                <span class="sblbl">DEFAULT</span>
-                            </a>
-                            ${uniqueTags.map(tag => `
-                            <a class="sbn ${initialActiveTag === tag ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="${tag}">
-                                <span class="sbdot"></span>
-                                <span class="sblbl">${tag}</span>
-                            </a>`).join('')}
-                        `;
+                        // Only inject if we haven't already populated these buttons
+                        if (!sbNav.querySelector('.filter-sidebar-btn')) {
+                            sbNav.innerHTML = `
+                                <a class="sbn ${initialActiveTag === 'ALL' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="ALL">
+                                    <span class="sbdot"></span>
+                                    <span class="sblbl">ALL</span>
+                                </a>
+                                <a class="sbn ${initialActiveTag === 'DEFAULT' ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="DEFAULT">
+                                    <span class="sbdot"></span>
+                                    <span class="sblbl">DEFAULT</span>
+                                </a>
+                                ${uniqueTags.map(tag => `
+                                <a class="sbn ${initialActiveTag === tag ? 'active' : ''} filter-sidebar-btn" href="javascript:void(0)" data-tag="${tag}">
+                                    <span class="sbdot"></span>
+                                    <span class="sblbl">${tag}</span>
+                                </a>`).join('')}
+                            `;
 
-                        sbNav.addEventListener('click', (e) => {
-                            const btn = e.target.closest('.filter-sidebar-btn');
-                            if (btn) {
-                                const targetTag = btn.getAttribute('data-tag');
-                                document.querySelector(`.filter-btn[data-tag="${targetTag}"]`)?.click();
-                            }
-                        });
+                            // Add the click listener
+                            sbNav.addEventListener('click', (e) => {
+                                const btn = e.target.closest('.filter-sidebar-btn');
+                                if (btn) {
+                                    const targetTag = btn.getAttribute('data-tag');
+                                    document.querySelector(`.filter-btn[data-tag="${targetTag}"]`)?.click();
+                                }
+                            });
+                        }
                     }
 
                     function renderFeed(filterTag) {
@@ -1008,7 +1028,7 @@ ${(node.tags || []).slice(0, 4).map(tag => `<span class="feed-tag-link" onclick=
                     });
 
                     renderFeed(initialActiveTag);
-                    generateBlogSidebar(); // <--- MOVE HERE
+                    // generateBlogSidebar();
                 }
                 // Add this to fade in the post container once content is ready
                 postEl.classList.remove('loading');
