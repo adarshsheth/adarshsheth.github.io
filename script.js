@@ -455,6 +455,9 @@ function initNavHoverStates() {
 }
 
 function runCoreScrollTasks(sy) {
+	const hdr = document.getElementById("hdr");
+	if (!hdr) return;
+	
 	// --- NAV SCROLL LOGIC ---
 	if (window._isNavLocked || navHovering) {
 		navLy = sy;
@@ -538,19 +541,19 @@ function runCoreScrollTasks(sy) {
 }
 
 // Single Event Listener
-window.addEventListener(
-	"scroll",
-	() => {
-		if (!isScrollTicking) {
-			window.requestAnimationFrame(() => {
-				runCoreScrollTasks(window.scrollY);
-				isScrollTicking = false;
-			});
-			isScrollTicking = true;
-		}
-	},
-	{passive: true},
-);
+// window.addEventListener(
+// 	"scroll",
+// 	() => {
+// 		if (!isScrollTicking) {
+// 			window.requestAnimationFrame(() => {
+// 				runCoreScrollTasks(window.scrollY);
+// 				isScrollTicking = false;
+// 			});
+// 			isScrollTicking = true;
+// 		}
+// 	},
+// 	{passive: true},
+// );
 
 /* ── CAROUSELS ── */
 function initCarousels() {
@@ -795,22 +798,34 @@ function loadNav() {
 
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
-	optimizeImages();
-	initSS();
-	initCarousels();
-	initFadeIn();
-	initCountUp();
+    optimizeImages();
+    initSS();
+    initCarousels();
+    initFadeIn();
+    initCountUp();
 
-	loadNav().then(() => {
-		requestAnimationFrame(() => {
-			Object.keys(TABS).forEach((id) => {
-				calcW(id);
-				setH(id, false);
-			});
-			handleURL();
-			runCoreScrollTasks(window.scrollY);
-		});
-	});
+    // The scroll listener must live here, ensuring it only starts AFTER the nav exists
+    loadNav().then(() => {
+        
+        window.addEventListener("scroll", () => {
+            if (!isScrollTicking) {
+                window.requestAnimationFrame(() => {
+                    runCoreScrollTasks(window.scrollY);
+                    isScrollTicking = false;
+                });
+                isScrollTicking = true;
+            }
+        }, { passive: true });
+
+        requestAnimationFrame(() => {
+            Object.keys(TABS).forEach((id) => {
+                calcW(id);
+                setH(id, false);
+            });
+            handleURL();
+            runCoreScrollTasks(window.scrollY);
+        });
+    });
 }
 
 if (document.readyState === "complete" || document.readyState === "interactive") {

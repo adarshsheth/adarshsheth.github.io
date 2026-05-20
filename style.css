@@ -1603,7 +1603,7 @@ section {
 	box-shadow: 0 0 7px 4px rgba(100, 118, 97, 0.1), 0 0 9px 4px rgba(100, 118, 97, 0.06);
 	transform: scale(1.008) translateZ(0);
 }
-.wi-img-wrap {
+/* .wi-img-wrap {
 	width: 180px;
 	min-height: 100px; 
 	overflow: hidden;
@@ -1611,6 +1611,15 @@ section {
 	border-right: 1px solid var(--border);
 	position: relative; 
 	aspect-ratio: 2 / 1;
+} */
+.wi-img-wrap {
+    width: 180px;
+    height: 100px; /* Force a consistent height */
+    overflow: hidden;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    position: relative;
+    aspect-ratio: 16 / 9; /* Keep the ratio consistent */
 }
 .wi-thumb {
 	width: 100%;
