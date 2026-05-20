@@ -77,17 +77,26 @@ function initSS() {
 		setH(id, false);
 
 		let resizeTimer;
+		// new ResizeObserver(() => {
+		// 	clearTimeout(resizeTimer);
+		// 	resizeTimer = setTimeout(() => {
+		// 		calcW(id);
+		// 		fr.style.transition = "none";
+		// 		fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
+		// 		requestAnimationFrame(() => {
+		// 			fr.style.transition = "";
+		// 		});
+		// 		setH(id, false);
+		// 	}, 60);
+		// }).observe(clip);
 		new ResizeObserver(() => {
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(() => {
-				calcW(id);
-				fr.style.transition = "none";
-				fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
-				requestAnimationFrame(() => {
-					fr.style.transition = "";
-				});
-				setH(id, false);
-			}, 60);
+			calcW(id);
+			fr.style.transition = "none";
+			fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
+			requestAnimationFrame(() => {
+				fr.style.transition = "";
+			});
+			setH(id, false);
 		}).observe(clip);
 
 		slides.forEach((sl) =>
@@ -791,7 +800,7 @@ function initCarousels() {
 			}
 			// -------------------------------------------------------------
 		}
-		
+
 		function startAutoPlay() {
 			clearTimeout(timer);
 			if (imgs.length <= 1) return;
@@ -1087,34 +1096,76 @@ function loadNav() {
 // 	});
 // }
 
-function unifiedInit() {
-	loadNav().then(() => {
-		// Initialize immediately, no artificial delays
-		initSS();
-		initCarousels();
-		initFadeIn();
-		initCountUp();
+// function unifiedInit() {
+// 	loadNav().then(() => {
+// 		// Initialize immediately, no artificial delays
+// 		initSS();
+// 		initCarousels();
+// 		initFadeIn();
+// 		initCountUp();
 
-		// Load the iframe safely
-		const iframe = document.getElementById("timeline-iframe");
-		if (iframe && iframe.dataset.src) {
+// 		// Load the iframe safely
+// 		const iframe = document.getElementById("timeline-iframe");
+// 		if (iframe && iframe.dataset.src) {
+// 			iframe.onload = () => iframe.classList.add("loaded");
+// 			iframe.src = iframe.dataset.src;
+// 		}
+
+// 		window.addEventListener(
+// 			"scroll",
+// 			() => {
+// 				if (!isScrollTicking) {
+// 					window.requestAnimationFrame(() => {
+// 						runCoreScrollTasks(window.scrollY);
+// 						isScrollTicking = false;
+// 					});
+// 					isScrollTicking = true;
+// 				}
+// 			},
+// 			{passive: true},
+// 		);
+// 	});
+// }
+
+function unifiedInit() {
+	// 1. Run core UI and animations IMMEDIATELY (Do not wait for the network)
+	initSS();
+	initCarousels();
+	initFadeIn();
+	initCountUp();
+
+	// Load the iframe safely without blocking the main thread
+	const iframe = document.getElementById("timeline-iframe");
+	if (iframe && iframe.dataset.src) {
+		setTimeout(() => {
 			iframe.onload = () => iframe.classList.add("loaded");
 			iframe.src = iframe.dataset.src;
-		}
+		}, 500);
+	}
 
-		window.addEventListener(
-			"scroll",
-			() => {
-				if (!isScrollTicking) {
-					window.requestAnimationFrame(() => {
-						runCoreScrollTasks(window.scrollY);
-						isScrollTicking = false;
-					});
-					isScrollTicking = true;
-				}
-			},
-			{passive: true},
-		);
+	// 2. Wait for the Nav to load BEFORE handling URLs and scroll tracking
+	loadNav().then(() => {
+		requestAnimationFrame(() => {
+			Object.keys(TABS).forEach((id) => {
+				calcW(id);
+				setH(id, false);
+			});
+			handleURL();
+
+			window.addEventListener(
+				"scroll",
+				() => {
+					if (!isScrollTicking) {
+						window.requestAnimationFrame(() => {
+							runCoreScrollTasks(window.scrollY);
+							isScrollTicking = false;
+						});
+						isScrollTicking = true;
+					}
+				},
+				{passive: true},
+			);
+		});
 	});
 }
 
