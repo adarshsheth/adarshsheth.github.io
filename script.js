@@ -511,22 +511,113 @@ function runCoreScrollTasks(sy) {
 }
 
 /* ── CAROUSELS ── */
+// function initCarousels() {
+// 	// REVERTED: IntersectionObserver removed completely. We loop over all carousels immediately on load.
+// 	document.querySelectorAll(".cw").forEach((wrap) => {
+// 		const inner = wrap.querySelector(".cw-inner");
+// 		if (!inner) return;
+// 		const imgs = inner.querySelectorAll(".cimg");
+// 		if (!imgs.length) return;
+
+// 		// INSTANT REVERT: Swap data-src to src immediately on load.
+// 		// Doing this BEFORE initSS() ensures the images load and heights are computed properly.
+// 		imgs.forEach((img) => {
+// 			if (img.dataset.src) {
+// 				img.src = img.dataset.src;
+// 				img.removeAttribute("data-src");
+// 			}
+// 		});
+
+// 		let node = wrap,
+// 			dotsEl = null,
+// 			capEl = null;
+// 		for (let i = 0; i < 4; i++) {
+// 			node = node.nextElementSibling;
+// 			if (!node) break;
+// 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
+// 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
+// 		}
+
+// 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
+// 		let cur = 0,
+// 			timer = null;
+
+// 		function show(i) {
+// 			const prevEl = imgs[cur];
+// 			if (prevEl) prevEl.classList.remove("on");
+// 			if (dots[cur]) dots[cur].classList.remove("on");
+
+// 			cur = (i + imgs.length) % imgs.length;
+
+// 			const newEl = imgs[cur];
+
+// 			if (newEl) newEl.classList.add("on");
+// 			if (dots[cur]) dots[cur].classList.add("on");
+
+// 			if (capEl) {
+// 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+// 				const link = imgs[cur].dataset.link || "";
+// 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+// 				else capEl.textContent = cap;
+// 			}
+
+// 			const clip = wrap.closest(".ss-clip");
+// 			if (clip) {
+// 				const id = clip.id.replace("-clip", "");
+// 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
+// 			}
+// 		}
+
+// 		function startAutoPlay() {
+// 			clearTimeout(timer);
+// 			if (imgs.length <= 1) return;
+
+// 			let currentMedia = imgs[cur];
+// 			let duration = 5000;
+
+// 			if (currentMedia.dataset.interval) {
+// 				duration = parseInt(currentMedia.dataset.interval);
+// 			} else if (wrap.dataset.interval) {
+// 				duration = parseInt(wrap.dataset.interval);
+// 			} else if (currentMedia.tagName === "VIDEO") {
+// 				duration = 6000;
+// 			} else {
+// 				duration = 3500;
+// 			}
+
+// 			timer = setTimeout(() => {
+// 				show(cur + 1);
+// 				startAutoPlay();
+// 			}, duration);
+// 		}
+
+// 		dots.forEach((d, i) =>
+// 			d.addEventListener("click", (e) => {
+// 				e.stopPropagation();
+// 				show(i);
+// 				startAutoPlay();
+// 			}),
+// 		);
+
+// 		wrap.addEventListener("click", () => {
+// 			const tag = imgs[cur]?.tagName;
+// 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
+// 		});
+
+// 		show(0);
+// 		startAutoPlay();
+// 	});
+// }
+
+/* ── CAROUSELS ── */
 function initCarousels() {
-	// REVERTED: IntersectionObserver removed completely. We loop over all carousels immediately on load.
 	document.querySelectorAll(".cw").forEach((wrap) => {
 		const inner = wrap.querySelector(".cw-inner");
 		if (!inner) return;
 		const imgs = inner.querySelectorAll(".cimg");
 		if (!imgs.length) return;
 
-		// INSTANT REVERT: Swap data-src to src immediately on load.
-		// Doing this BEFORE initSS() ensures the images load and heights are computed properly.
-		imgs.forEach((img) => {
-			if (img.dataset.src) {
-				img.src = img.dataset.src;
-				img.removeAttribute("data-src");
-			}
-		});
+		// ❌ THE EAGER LOAD LOOP HAS BEEN DELETED FROM HERE ❌
 
 		let node = wrap,
 			dotsEl = null,
@@ -550,6 +641,29 @@ function initCarousels() {
 			cur = (i + imgs.length) % imgs.length;
 
 			const newEl = imgs[cur];
+
+			// ✅ THE FIX: JUST-IN-TIME LAZY LOADING ✅
+			if (newEl && newEl.dataset.src) {
+				newEl.src = newEl.dataset.src;
+				
+				// Fixes the 0-height bug: recalculate height only when this specific media loads
+				const updateHeight = () => {
+					const clip = wrap.closest(".ss-clip");
+					if (clip) {
+						const id = clip.id.replace("-clip", "");
+						if (SS[id]) requestAnimationFrame(() => setH(id, true));
+					}
+				};
+
+				if (newEl.tagName === "VIDEO") {
+					newEl.addEventListener("loadeddata", updateHeight, {once: true});
+					newEl.load(); // Force the browser to start fetching the video
+				} else {
+					newEl.addEventListener("load", updateHeight, {once: true});
+				}
+				
+				newEl.removeAttribute("data-src");
+			}
 
 			if (newEl) newEl.classList.add("on");
 			if (dots[cur]) dots[cur].classList.add("on");
