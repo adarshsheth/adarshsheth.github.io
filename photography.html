@@ -97,15 +97,20 @@
     }
 
     /* ══ MASONRY GRID ── */
-    .masonry {
-      columns: 5 155px;
-      column-gap: 7px;
-      margin-bottom: 30px;
-      margin-top: 20px;
-    }
+.masonry {
+  columns: 5 155px;
+  column-gap: 7px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  opacity: 0; /* Keeps the chaotic rebalancing hidden */
+}
+
+.masonry.ready {
+  opacity: 1; /* Reveals the grid instantly once stable */
+}
 
     /* ══ PHOTO TILE ── */
-    .photo-tile {
+    /* .photo-tile {
       break-inside: avoid;
       display: block;
       position: relative;
@@ -113,11 +118,29 @@
       border-radius: 4px;
       margin-bottom: 7px;
       background: var(--surface);
-      /* fade-in starts hidden — same pattern as .ec in edit_portfolio.html */
       opacity: 0;
       transform: translateY(14px);
       transition: opacity .45s, transform .45s, box-shadow .25s;
-    }
+    } */
+
+    .photo-tile {
+  break-inside: avoid;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 7px;
+  background: var(--surface);
+  
+  /* Start further down for a longer, dreamier float */
+  opacity: 0;
+  transform: translateY(40px); 
+  
+  /* Slower duration with a soft deceleration (ease-out curve) */
+  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
+              box-shadow 0.25s;
+}
 
     .photo-tile.visible {
       opacity: 1;
@@ -128,7 +151,7 @@
       display: block;
       width: 100%;
       height: auto;
-      transition: transform .35s ease;
+      transition: transform .4s ease-in-out;
     }
 
     .photo-tile:hover img {
@@ -148,13 +171,29 @@
           var(--bg) 0%,
           #0a0a0a00 50%);
       opacity: 0;
-      transition: opacity .28s ease;
+      transition: opacity .4s ease-in-out;
       pointer-events: none;
       border-radius: inherit;
     }
 
     .photo-tile:hover::after {
       opacity: 1
+    }
+
+
+    /* ══ KEEPS FOOTER PINNED TO BOTTOM DURING LOAD ── */
+    #mn {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #mn > section.sb {
+      flex: 1; /* Forces the gallery section to stretch and fill empty space */
+    }
+    
+    footer {
+      margin-top: auto; /* Pushes the footer to the very end of the flex container */
     }
 
     /* Small expand icon, appears on hover */
@@ -173,7 +212,7 @@
       color: #222;
       opacity: 0;
       transform: scale(.75);
-      transition: opacity .22s, transform .22s;
+      transition: opacity .3s, transform .3s;
       pointer-events: none;
       z-index: 2;
     }
@@ -249,171 +288,178 @@
         <span class="sh-r"></span>
       </div> -->
 
-      <div class="masonry" id="gallery">
+<div class="masonry" id="gallery">
 
-        <div class="photo-tile" data-cap="Kenai Lake, Alaska">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245617/alaska1_qzsjf5.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Kenai Lake, Alaska"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Blackstone Bay, Alaska">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246021/alaska3_ccticg.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Blackstone Bay, Alaska"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246021/alaska3_ccticg.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246021/alaska3_ccticg.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Soldotna Creek Park, Alaska">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245951/alaska2_qfkrip.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Soldotna Creek Park, Alaska"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Alaskan River">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246853/alaska4_ietpty.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Alaskan River"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/alaska4_ietpty.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Alaskan Marina">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246854/alaska5_whxdtn.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Alaskan Marina"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Snow Cap Mountains, Alaska">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246851/alaska6_ojjydl.jpg" loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Snow Cap Mountains, Alaska"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Alaska">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246845/alaska8_rmfbzl.jpg" loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Alaska"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Smithsonian Museum of Natural History, DC">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245952/smithsonian_lwirmh.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Smithsonian Museum of Natural History, DC"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Library of Congress, DC">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245952/congress_wgl6xl.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Library of Congress, DC"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/congress_wgl6xl.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/congress_wgl6xl.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="DC Corridor">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245951/dc_tlt4dg.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="DC Corridor"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/dc_tlt4dg.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/dc_tlt4dg.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <!-- <div class="photo-tile" data-cap="Bay Bridge, SF">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245952/bay_bridge1_smphom.jpg" loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div> -->
+  <div class="photo-tile" data-cap="Yerba Buena Island, SF"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Yerba Buena Island, SF">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245952/bay_bridge2_jmnz1l.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Panorama Park, SF"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Panorama Park, SF">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246847/panorama_park_fssakn.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Astrophotography"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246848/astro_e7w6ym.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246848/astro_e7w6ym.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Astrophotography">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246848/astro_e7w6ym.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Plane Window"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Plane Window">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245953/plane_window_mttr1q.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Graffiti"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Graffiti">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245953/graffiti_z9ccvb.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Adolphus Hotel, Dallas"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Adolphus Hotel, Dallas">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245950/adolphus_kuohxi.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="NYC Skyline from NJ"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/nyc_cn81dm.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/nyc_cn81dm.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="NYC Skyline from NJ">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777245953/nyc_cn81dm.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Kyle Field, Texas A&M"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Kyle Field, Texas A&M">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246854/kyle_field_yjwup7.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Kyle Field Sunset, Texas A&M"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Kyle Field Sunset, Texas A&M">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246853/kyle_field2_ttxgdc.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Sunset on the Beach, Cabo, Mexico"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/mexico2_faqiha.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/mexico2_faqiha.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Sunset on the Beach, Cabo, Mexico">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246853/mexico2_faqiha.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Piña Colada, Cabo Mexico"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Pña Colada, Cabo Mexico">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246851/mexico1_m6firp.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Beach Silhouette"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Beach Silhouette">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246844/mexico3_ebmf9w.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Basilica de la Sagrada Familia, Barcelona, Spain"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Basilica de la Sagrada Familia, Barcelona, Spain">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246851/sagrada_familia_oyuge6.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+  <div class="photo-tile" data-cap="Succulent"
+    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg">
+    <img
+      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg" />
+    <span class="tile-icon"><i class="fas fa-expand"></i></span>
+  </div>
 
-        <div class="photo-tile" data-cap="Succulent">
-          <img src="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto/f_auto/v1777246846/succulent_dfz1fq.jpg"
-            loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+</div>
 
-        <!-- <div class="photo-tile" data-cap="">
-          <img src="" loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div> -->
-
-
-        <!-- <div class="photo-tile"
-          data-full="https://static.wixstatic.com/media/0d689f_961692c941c74b49819829ffbfd50087~mv2.jpg"
-          data-cap="Macaw parrot">
-          <img
-            src="https://static.wixstatic.com/media/0d689f_961692c941c74b49819829ffbfd50087~mv2.jpg/v1/fill/w_400,h_300,al_c,q_80,enc_avif,quality_auto/0d689f_961692c941c74b49819829ffbfd50087~mv2.jpg"
-            alt="Macaw parrot" loading="lazy" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div> -->
-
-      </div><!-- /.masonry -->
     </section>
 
     <footer>
@@ -434,83 +480,160 @@
 
   <script src="script.js"></script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Initialize Photo Tiles Staggered Fade-in (Top-to-Bottom)
-      const tiles = Array.from(document.querySelectorAll('.photo-tile'));
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const gallery = document.getElementById('gallery');
+    const tiles = Array.from(document.querySelectorAll('.photo-tile'));
+    const images = Array.from(gallery.querySelectorAll('img'));
+
+    // Remove lazy loading attributes to fetch thumbnails immediately
+    images.forEach(img => {
+      img.loading = "eager";
+      img.removeAttribute('loading');
+    });
+
+    let isInit = false;
+
+    function initGallery() {
+      if (isInit) return;
+      isInit = true;
+
+      gallery.classList.add('ready');
 
       const obs = new IntersectionObserver((entries, observer) => {
-        // Filter out elements that aren't intersecting
         const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        if (!visibleEntries.length) return;
 
-        // Sort elements by their vertical screen position (Top to Bottom)
-        visibleEntries.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        const rows = [];
+        const rowTolerance = 80;
 
-        // Apply the delay based on their new, vertically-sorted order
-        visibleEntries.forEach((entry, i) => {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 60); // Increased slightly to 60ms for a smoother vertical waterfall
-          observer.unobserve(entry.target);
+        visibleEntries.forEach(entry => {
+          const top = entry.boundingClientRect.top;
+          let placed = false;
+
+          for (let row of rows) {
+            if (Math.abs(row.top - top) < rowTolerance) {
+              row.entries.push(entry);
+              placed = true;
+              break;
+            }
+          }
+          if (!placed) {
+            rows.push({ top: top, entries: [entry] });
+          }
+        });
+
+        rows.sort((a, b) => a.top - b.top);
+
+        rows.forEach((row, rowIndex) => {
+          row.entries.forEach(entry => {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, rowIndex * 120);
+            observer.unobserve(entry.target);
+          });
         });
       }, { threshold: 0.04 });
 
       tiles.forEach(t => obs.observe(t));
+    }
 
-      // 2. Encapsulated Lightbox Logic
-      const lb = document.getElementById('lb');
-      const lbImg = document.getElementById('lbimg');
-      const lbCap = document.getElementById('lbcap');
-
-      // Map tile data to a photo array
-      const photos = tiles.map(t => ({
-        src: t.dataset.full || t.querySelector('img').src,
-        cap: t.dataset.cap || ''
-      }));
-
-      let currentIndex = 0;
-
-      function updateLightbox() {
-        if (!photos.length) return;
-        lbImg.src = photos[currentIndex].src;
-        lbCap.textContent = photos[currentIndex].cap;
-      }
-
-      function closeLightbox() {
-        lb.classList.remove('open');
-      }
-
-      function navigateLightbox(dir) {
-        if (!photos.length) return;
-        currentIndex = (currentIndex + dir + photos.length) % photos.length;
-        updateLightbox();
-      }
-
-      // Open lightbox when clicking a tile
-      tiles.forEach((tile, idx) => {
-        tile.addEventListener('click', () => {
-          currentIndex = idx;
-          updateLightbox();
-          lb.classList.add('open');
-        });
+    // Modern Promise-based loading & decoding pipeline
+    Promise.all(images.map(img => {
+      return new Promise((resolve) => {
+        if (img.complete) {
+          resolve();
+        } else {
+          img.onload = resolve;
+          img.onerror = resolve; // Ensure a broken image doesn't halt the whole gallery
+        }
+      }).then(() => {
+        // Force the browser to unpack the pixel data into memory before proceeding.
+        // This entirely prevents the "black box" rendering flash.
+        return img.decode ? img.decode().catch(() => { }) : Promise.resolve();
       });
+    })).then(() => {
+      initGallery();
+    });
 
-      // Attach events to Lightbox UI securely
-      document.getElementById('lb-bg').addEventListener('click', closeLightbox);
-      document.getElementById('lb-close').addEventListener('click', closeLightbox);
-      document.getElementById('lb-prev').addEventListener('click', () => navigateLightbox(-1));
-      document.getElementById('lb-next').addEventListener('click', () => navigateLightbox(1));
+    // Increased fallback timeout just in case network hangs. 
+    // Because payloads are now tiny, this should almost never trigger.
+    setTimeout(initGallery, 3000);
 
-      // Keyboard Navigation
-      document.addEventListener('keydown', (e) => {
-        if (!lb.classList.contains('open')) return;
-        if (e.key === 'ArrowRight') navigateLightbox(1);
-        if (e.key === 'ArrowLeft') navigateLightbox(-1);
-        if (e.key === 'Escape') closeLightbox();
+    // Lightbox Logic
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lbimg');
+    const lbCap = document.getElementById('lbcap');
+
+    // 1. Store BOTH the low-res and high-res URLs
+    const photos = tiles.map(t => ({
+      full: t.dataset.full,
+      thumb: t.querySelector('img').src,
+      cap: t.dataset.cap || ''
+    }));
+
+    let currentIndex = 0;
+    let highResPreloader = null;
+
+    function updateLightbox() {
+      if (!photos.length) return;
+
+      const currentData = photos[currentIndex];
+
+      // 2. Instantly show the cached thumbnail so there is no old-image flash
+      lbImg.src = currentData.thumb;
+      lbCap.textContent = currentData.cap;
+
+      // 3. Cancel any ongoing preloads if the user is clicking 'Next' very fast
+      if (highResPreloader) {
+        highResPreloader.onload = null;
+      }
+
+      // 4. Silently fetch the 4K version in the background
+      highResPreloader = new Image();
+      highResPreloader.src = currentData.full;
+
+      // 5. Seamlessly swap to the 4K version ONLY when it has fully downloaded
+      highResPreloader.onload = () => {
+        // Double-check the user hasn't clicked to a different photo while we were waiting
+        if (photos[currentIndex] === currentData) {
+          lbImg.src = currentData.full;
+        }
+      };
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('open');
+    }
+
+    function navigateLightbox(dir) {
+      if (!photos.length) return;
+      currentIndex = (currentIndex + dir + photos.length) % photos.length;
+      updateLightbox();
+    }
+
+    tiles.forEach((tile, idx) => {
+      tile.addEventListener('click', () => {
+        currentIndex = idx;
+        updateLightbox();
+        lb.classList.add('open');
       });
     });
-  </script>
 
+    document.getElementById('lb-bg').addEventListener('click', closeLightbox);
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', () => navigateLightbox(-1));
+    document.getElementById('lb-next').addEventListener('click', () => navigateLightbox(1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+  });
+</script>
+  
 </body>
 
 </html>
