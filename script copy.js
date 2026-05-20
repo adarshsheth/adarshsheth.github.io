@@ -1,6 +1,3 @@
-/* ── CUSTOM CURSOR (disabled – set true to enable) ── */
-const ENABLE_CUSTOM_CURSOR = false;
-
 /* ── SVG PERFECT TRACE CALCULATOR ── */
 // Mathematically calculates the length of your logo paths to prevent GPU over-draw lag
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,6 +6,24 @@ document.addEventListener("DOMContentLoaded", () => {
 		path.style.setProperty("--path-length", length);
 	});
 });
+
+/* ── ASYNC IMAGE DECODING (PERFORMANCE BOOST) ── */
+// Offloads image decoding from the main UI thread to prevent scroll jank
+// function optimizeImages() {
+// 	const applyAsync = (img) => {
+// 		if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
+// 	};
+// 	document.querySelectorAll("img").forEach(applyAsync);
+
+// 	new MutationObserver((mutations) => {
+// 		mutations.forEach((m) => {
+// 			m.addedNodes.forEach((node) => {
+// 				if (node.tagName === "IMG") applyAsync(node);
+// 				else if (node.querySelectorAll) node.querySelectorAll("img").forEach(applyAsync);
+// 			});
+// 		});
+// 	}).observe(document.body, {childList: true, subtree: true});
+// }
 
 /* ══ SLIDE CONFIG ══ */
 const TABS = {
@@ -61,7 +76,19 @@ function initSS() {
 		calcW(id);
 		setH(id, false);
 
-		// INSTANT Resize calculations (No 60ms delay)
+		let resizeTimer;
+		// new ResizeObserver(() => {
+		// 	clearTimeout(resizeTimer);
+		// 	resizeTimer = setTimeout(() => {
+		// 		calcW(id);
+		// 		fr.style.transition = "none";
+		// 		fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
+		// 		requestAnimationFrame(() => {
+		// 			fr.style.transition = "";
+		// 		});
+		// 		setH(id, false);
+		// 	}, 60);
+		// }).observe(clip);
 		new ResizeObserver(() => {
 			calcW(id);
 			fr.style.transition = "none";
@@ -215,25 +242,29 @@ function ddNav(section) {
 let lastSec = null,
 	debT = null;
 
-// INSTANT UI UPDATE
+// INSTANT UI UPDATE: Bypasses heavy history APIs and DOM reads completely
 function updateSubNav(sec) {
 	document.querySelectorAll(".sbn-sub").forEach((a) => {
 		const isMatch = a.dataset.sub === sec;
+		// Only write to the DOM if the state actually needs to change
 		if (a.classList.contains("active") !== isMatch) {
 			a.classList.toggle("active", isMatch);
 		}
 	});
 }
 
-// DEBOUNCED HISTORY UPDATE
+// DEBOUNCED HISTORY UPDATE: Safely pushes the URL without locking the main thread
 function updateURLHistory(s) {
 	const u = new URL(window.location.href);
 	const currentParam = u.searchParams.get("section");
 
 	if (s === currentParam || (!s && !currentParam)) return;
 
-	if (s) u.searchParams.set("section", s);
-	else u.searchParams.delete("section");
+	if (s) {
+		u.searchParams.set("section", s);
+	} else {
+		u.searchParams.delete("section");
+	}
 
 	try {
 		history.replaceState(null, "", u.toString());
@@ -244,7 +275,10 @@ function updateURLd(s) {
 	if (s === lastSec) return;
 	lastSec = s;
 
+	// 1. INSTANTLY update the visual subnav (removes all UI lag)
 	updateSubNav(s);
+
+	// 2. DEBOUNCE the heavy browser history manipulation
 	clearTimeout(debT);
 	debT = setTimeout(() => updateURLHistory(s), 150);
 }
@@ -347,6 +381,7 @@ function closeSidebar() {
 let isScrollTicking = false;
 let cachedAvailableSections = null;
 
+// Nav State Variables
 const NAV_SCROLL_DOWN_PX = 10;
 const NAV_SCROLL_UP_PX = 30;
 let navHovering = false;
@@ -354,6 +389,7 @@ let navHid = false;
 let navDelta = 0;
 let navLy = 0;
 
+// Nav Locks
 window._isNavLocked = false;
 let scrollLockTimer = null;
 let isScrolling = false;
@@ -450,12 +486,13 @@ function runCoreScrollTasks(sy) {
 		navLy = sy;
 	}
 
-	// --- SIDEBAR PROGRESS & BLOG LOGIC ---
+	// --- SIDEBAR TRACKING LOGIC ---
 	const fill = document.getElementById("sb-fill");
 	const winH = window.innerHeight;
 	const tot = document.documentElement.scrollHeight - winH;
 	if (fill) fill.style.width = (tot > 0 ? (sy / tot) * 100 : 0) + "%";
 
+	// Apply parallax to the blog cover image if we are viewing a post
 	const coverWrap = document.getElementById("post-cover-wrap");
 	if (coverWrap && window.isViewingDynamicPost) {
 		coverWrap.style.transform = `translateY(${sy * 0.35}px)`;
@@ -511,10 +548,156 @@ function runCoreScrollTasks(sy) {
 		}
 	}
 }
+// function runCoreScrollTasks(sy) {
+// 	const hdr = document.getElementById("hdr");
+// 	if (!hdr) return;
+
+// 	// 1. Progress Bar (Cheap)
+// 	const fill = document.getElementById("sb-fill");
+// 	const tot = document.documentElement.scrollHeight - window.innerHeight;
+// 	if (fill) fill.style.width = (tot > 0 ? (sy / tot) * 100 : 0) + "%";
+
+// 	// 2. Navigation Hide/Show (Logic only)
+// 	if (window._isNavLocked || navHovering) return;
+
+// 	if (sy <= 75) {
+// 		window._showNav();
+// 	} else {
+// 		const d = sy - navLy;
+// 		if (d > 0) {
+// 			// Scrolling down
+// 			if (!navHid) window._hideNav();
+// 		} else if (d < 0) {
+// 			// Scrolling up
+// 			if (navHid) window._showNav();
+// 		}
+// 		navLy = sy;
+// 	}
+// }
+// Single Event Listener
+// window.addEventListener(
+// 	"scroll",
+// 	() => {
+// 		if (!isScrollTicking) {
+// 			window.requestAnimationFrame(() => {
+// 				runCoreScrollTasks(window.scrollY);
+// 				isScrollTicking = false;
+// 			});
+// 			isScrollTicking = true;
+// 		}
+// 	},
+// 	{passive: true},
+// );
+
+/* ── CAROUSELS ── */
+// function initCarousels() {
+// 	document.querySelectorAll(".cw").forEach((wrap) => {
+// 		const inner = wrap.querySelector(".cw-inner");
+// 		if (!inner) return;
+// 		const imgs = inner.querySelectorAll(".cimg");
+// 		if (!imgs.length) return;
+
+// 		let node = wrap,
+// 			dotsEl = null,
+// 			capEl = null;
+// 		for (let i = 0; i < 4; i++) {
+// 			node = node.nextElementSibling;
+// 			if (!node) break;
+// 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
+// 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
+// 		}
+
+// 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
+// 		let cur = 0,
+// 			timer = null;
+
+// 		function show(i) {
+// 			const prevEl = imgs[cur];
+// 			if (prevEl) prevEl.classList.remove("on");
+// 			if (dots[cur]) dots[cur].classList.remove("on");
+
+// 			cur = (i + imgs.length) % imgs.length;
+
+// 			const newEl = imgs[cur];
+// 			if (newEl) newEl.classList.add("on");
+// 			if (dots[cur]) dots[cur].classList.add("on");
+
+// 			if (capEl) {
+// 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+// 				const link = imgs[cur].dataset.link || "";
+// 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+// 				else capEl.textContent = cap;
+// 			}
+
+// 			const clip = wrap.closest(".ss-clip");
+// 			if (clip) {
+// 				const id = clip.id.replace("-clip", "");
+// 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
+// 			}
+// 		}
+
+// 		function startAutoPlay() {
+// 			clearTimeout(timer);
+// 			if (imgs.length <= 1) return;
+
+// 			let currentMedia = imgs[cur];
+// 			let duration = 5000;
+
+// 			if (currentMedia.dataset.interval) {
+// 				duration = parseInt(currentMedia.dataset.interval);
+// 			} else if (wrap.dataset.interval) {
+// 				duration = parseInt(wrap.dataset.interval);
+// 			} else if (currentMedia.tagName === "VIDEO") {
+// 				duration = 5000;
+// 			} else {
+// 				duration = 2000;
+// 			}
+
+// 			timer = setTimeout(() => {
+// 				show(cur + 1);
+// 				startAutoPlay();
+// 			}, duration);
+// 		}
+
+// 		dots.forEach((d, i) =>
+// 			d.addEventListener("click", (e) => {
+// 				e.stopPropagation();
+// 				show(i);
+// 				startAutoPlay();
+// 			}),
+// 		);
+
+// 		wrap.addEventListener("click", () => {
+// 			const tag = imgs[cur]?.tagName;
+// 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
+// 		});
+
+// 		show(0);
+// 		startAutoPlay();
+// 	});
+// }
+// function initCarousels() {
+// 	// Only initialize carousels that are currently visible
+// 	const observer = new IntersectionObserver(
+// 		(entries) => {
+// 			entries.forEach((entry) => {
+// 				if (entry.isIntersecting) {
+// 					// Initialize the carousel logic only now
+// 					const wrap = entry.target;
+// 					setupCarousel(wrap); // Move your existing logic here
+// 					observer.unobserve(wrap); // Stop watching once initialized
+// 				}
+// 			});
+// 		},
+// 		{threshold: 0.1},
+// 	);
+
+// 	document.querySelectorAll(".cw").forEach((wrap) => observer.observe(wrap));
+// }
 
 /* ── CAROUSELS ── */
 function initCarousels() {
-	// Intersection Observer defers initialization until carousels are scrolled to
+	// Only initialize carousels that are currently visible to save performance
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
@@ -530,19 +713,149 @@ function initCarousels() {
 
 	document.querySelectorAll(".cw").forEach((wrap) => observer.observe(wrap));
 
+	// This is your original logic, now properly wrapped so it executes correctly
+	// function setupCarousel(wrap) {
+	// 	const inner = wrap.querySelector(".cw-inner");
+	// 	if (!inner) return;
+	// 	const imgs = inner.querySelectorAll(".cimg");
+	// 	if (!imgs.length) return;
+
+	// 	let node = wrap,
+	// 		dotsEl = null,
+	// 		capEl = null;
+	// 	for (let i = 0; i < 4; i++) {
+	// 		node = node.nextElementSibling;
+	// 		if (!node) break;
+	// 		if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
+	// 		if (!capEl && node.classList.contains("car-caption")) capEl = node;
+	// 	}
+
+	// 	const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
+	// 	let cur = 0,
+	// 		timer = null;
+
+	// 	// function show(i) {
+	// 	// 	const prevEl = imgs[cur];
+	// 	// 	if (prevEl) prevEl.classList.remove("on");
+	// 	// 	if (dots[cur]) dots[cur].classList.remove("on");
+
+	// 	// 	cur = (i + imgs.length) % imgs.length;
+
+	// 	// 	const newEl = imgs[cur];
+	// 	// 	if (newEl) newEl.classList.add("on");
+	// 	// 	if (dots[cur]) dots[cur].classList.add("on");
+
+	// 	// 	if (capEl) {
+	// 	// 		const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+	// 	// 		const link = imgs[cur].dataset.link || "";
+	// 	// 		if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+	// 	// 		else capEl.textContent = cap;
+	// 	// 	}
+
+	// 	// 	const clip = wrap.closest(".ss-clip");
+	// 	// 	if (clip) {
+	// 	// 		const id = clip.id.replace("-clip", "");
+	// 	// 		if (SS[id]) requestAnimationFrame(() => setH(id, true));
+	// 	// 	}
+	// 	// }
+
+	// 	function show(i) {
+	// 		const prevEl = imgs[cur];
+	// 		if (prevEl) prevEl.classList.remove("on");
+	// 		if (dots[cur]) dots[cur].classList.remove("on");
+
+	// 		cur = (i + imgs.length) % imgs.length;
+
+	// 		const newEl = imgs[cur];
+
+	// 		// --- NEW: Inject the image source right before showing it ---
+	// 		if (newEl && newEl.dataset.src) {
+	// 			newEl.src = newEl.dataset.src;
+	// 			newEl.removeAttribute("data-src");
+	// 		}
+	// 		// -----------------------------------------------------------
+
+	// 		if (newEl) newEl.classList.add("on");
+	// 		if (dots[cur]) dots[cur].classList.add("on");
+
+	// 		if (capEl) {
+	// 			const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+	// 			const link = imgs[cur].dataset.link || "";
+	// 			if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+	// 			else capEl.textContent = cap;
+	// 		}
+
+	// 		const clip = wrap.closest(".ss-clip");
+	// 		if (clip) {
+	// 			const id = clip.id.replace("-clip", "");
+	// 			if (SS[id]) requestAnimationFrame(() => setH(id, true));
+	// 		}
+
+	// 		// --- NEW: Quietly preload the NEXT slide in the background ---
+	// 		const nextIdx = (cur + 1) % imgs.length;
+	// 		const nextEl = imgs[nextIdx];
+	// 		if (nextEl && nextEl.dataset.src) {
+	// 			nextEl.src = nextEl.dataset.src;
+	// 			nextEl.removeAttribute("data-src");
+	// 		}
+	// 		// -------------------------------------------------------------
+	// 	}
+
+	// 	function startAutoPlay() {
+	// 		clearTimeout(timer);
+	// 		if (imgs.length <= 1) return;
+
+	// 		let currentMedia = imgs[cur];
+	// 		let duration = 5000;
+
+	// 		if (currentMedia.dataset.interval) {
+	// 			duration = parseInt(currentMedia.dataset.interval);
+	// 		} else if (wrap.dataset.interval) {
+	// 			duration = parseInt(wrap.dataset.interval);
+	// 		} else if (currentMedia.tagName === "VIDEO") {
+	// 			duration = 6000;
+	// 		} else {
+	// 			duration = 3500;
+	// 		}
+
+	// 		timer = setTimeout(() => {
+	// 			show(cur + 1);
+	// 			startAutoPlay();
+	// 		}, duration);
+	// 	}
+
+	// 	dots.forEach((d, i) =>
+	// 		d.addEventListener("click", (e) => {
+	// 			e.stopPropagation();
+	// 			show(i);
+	// 			startAutoPlay();
+	// 		}),
+	// 	);
+
+	// 	wrap.addEventListener("click", () => {
+	// 		const tag = imgs[cur]?.tagName;
+	// 		if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
+	// 	});
+
+	// 	show(0);
+	// 	startAutoPlay();
+	// }
 	function setupCarousel(wrap) {
 		const inner = wrap.querySelector(".cw-inner");
 		if (!inner) return;
 		const imgs = inner.querySelectorAll(".cimg");
 		if (!imgs.length) return;
 
-		// INSTANT BATCH PRELOAD: Loads all images in THIS specific carousel instantly
+		// --- NEW: Preload ALL images for this carousel immediately ---
+		// Because this function only runs when the user scrolls to this specific carousel,
+		// we can safely download all its images in the background without causing a network jam!
 		imgs.forEach((img) => {
 			if (img.dataset.src) {
 				img.src = img.dataset.src;
 				img.removeAttribute("data-src");
 			}
 		});
+		// -------------------------------------------------------------
 
 		let node = wrap,
 			dotsEl = null,
@@ -566,6 +879,9 @@ function initCarousels() {
 			cur = (i + imgs.length) % imgs.length;
 
 			const newEl = imgs[cur];
+
+			// The previous "preload next slide" logic has been removed here
+			// because everything is now batched seamlessly above.
 
 			if (newEl) newEl.classList.add("on");
 			if (dots[cur]) dots[cur].classList.add("on");
@@ -624,7 +940,6 @@ function initCarousels() {
 		startAutoPlay();
 	}
 }
-
 /* ── LIGHTBOX ── */
 let lbImgs = [],
 	lbCur = 0;
@@ -779,6 +1094,138 @@ function loadNav() {
 }
 
 /* ── UNIFIED INITIALIZATION ── */
+// function unifiedInit() {
+// 	// optimizeImages();
+// 	initSS();
+// 	initCarousels();
+// 	initFadeIn();
+// 	initCountUp();
+
+// 	// The scroll listener must live here, ensuring it only starts AFTER the nav exists
+// 	loadNav().then(() => {
+// 		window.addEventListener(
+// 			"scroll",
+// 			() => {
+// 				if (!isScrollTicking) {
+// 					window.requestAnimationFrame(() => {
+// 						runCoreScrollTasks(window.scrollY);
+// 						isScrollTicking = false;
+// 					});
+// 					isScrollTicking = true;
+// 				}
+// 			},
+// 			{passive: true},
+// 		);
+
+// 		requestAnimationFrame(() => {
+// 			Object.keys(TABS).forEach((id) => {
+// 				calcW(id);
+// 				setH(id, false);
+// 			});
+// 			handleURL();
+// 			runCoreScrollTasks(window.scrollY);
+// 		});
+// 	});
+// }
+
+// function unifiedInit() {
+// 	// PHASE 1: Immediate Critical Tasks (Must happen now)
+// 	loadNav().then(() => {
+// 		// Essential DOM structure
+// 		// optimizeImages();
+
+// 		// PHASE 2: Deferred Tasks (Run 200ms later so the browser can paint the UI)
+// 		setTimeout(() => {
+// 			initSS();
+// 			initCarousels();
+// 			initFadeIn();
+// 			initCountUp();
+
+// 			// Add scroll listener here now that everything is loaded
+// 			window.addEventListener(
+// 				"scroll",
+// 				() => {
+// 					if (!isScrollTicking) {
+// 						window.requestAnimationFrame(() => {
+// 							runCoreScrollTasks(window.scrollY);
+// 							isScrollTicking = false;
+// 						});
+// 						isScrollTicking = true;
+// 					}
+// 				},
+// 				{passive: true},
+// 			);
+// 		}, 200);
+// 	});
+// }
+
+// function unifiedInit() {
+// 	loadNav().then(() => {
+// 		setTimeout(() => {
+// 			initSS();
+// 			initCarousels();
+// 			initFadeIn();
+// 			initCountUp();
+
+// 			// NEW: Load the iframe safely without blocking the main thread
+// 			const iframe = document.getElementById("timeline-iframe");
+// 			if (iframe && iframe.dataset.src) {
+// 				setTimeout(() => {
+// 					// When the iframe finishes downloading its content, trigger the CSS fade
+// 					iframe.onload = () => iframe.classList.add("loaded");
+// 					// Start the download
+// 					iframe.src = iframe.dataset.src;
+// 				}, 500);
+// 			}
+
+// 			window.addEventListener(
+// 				"scroll",
+// 				() => {
+// 					if (!isScrollTicking) {
+// 						window.requestAnimationFrame(() => {
+// 							runCoreScrollTasks(window.scrollY);
+// 							isScrollTicking = false;
+// 						});
+// 						isScrollTicking = true;
+// 					}
+// 				},
+// 				{passive: true},
+// 			);
+// 		}, 200);
+// 	});
+// }
+
+// function unifiedInit() {
+// 	loadNav().then(() => {
+// 		// Initialize immediately, no artificial delays
+// 		initSS();
+// 		initCarousels();
+// 		initFadeIn();
+// 		initCountUp();
+
+// 		// Load the iframe safely
+// 		const iframe = document.getElementById("timeline-iframe");
+// 		if (iframe && iframe.dataset.src) {
+// 			iframe.onload = () => iframe.classList.add("loaded");
+// 			iframe.src = iframe.dataset.src;
+// 		}
+
+// 		window.addEventListener(
+// 			"scroll",
+// 			() => {
+// 				if (!isScrollTicking) {
+// 					window.requestAnimationFrame(() => {
+// 						runCoreScrollTasks(window.scrollY);
+// 						isScrollTicking = false;
+// 					});
+// 					isScrollTicking = true;
+// 				}
+// 			},
+// 			{passive: true},
+// 		);
+// 	});
+// }
+
 function unifiedInit() {
 	// 1. Run core UI and animations IMMEDIATELY (Do not wait for the network)
 	initSS();
@@ -817,9 +1264,6 @@ function unifiedInit() {
 				},
 				{passive: true},
 			);
-
-			// Force an initial update
-			runCoreScrollTasks(window.scrollY);
 		});
 	});
 }
@@ -836,29 +1280,26 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 const preloader = document.getElementById("site-preloader");
 
 if (preloader) {
-	// Check if the browser flag DOES NOT exist yet
 	if (!sessionStorage.getItem("preloaderSeen")) {
-		// 1. Set the flag so they don't see it again this session
 		sessionStorage.setItem("preloaderSeen", "true");
 
-		// 2. Run your normal animation logic on load (restored to 2400ms from original file)
-		window.addEventListener("load", () => {
+		// CHANGED: Use DOMContentLoaded instead of load
+		document.addEventListener("DOMContentLoaded", () => {
+			// Give the browser a tiny 100ms breathing room, then reveal the site
 			setTimeout(() => {
 				preloader.classList.add("hidden");
 				setTimeout(() => preloader.remove(), 1000);
-			}, 2400);
+			}, 100);
 		});
 
-		// 3. Fallback logic in case 'load' event fails
+		// Fallback
 		setTimeout(() => {
-			if (!preloader.classList.contains("hidden")) {
+			if (preloader && !preloader.classList.contains("hidden")) {
 				preloader.classList.add("hidden");
 				setTimeout(() => preloader.remove(), 1000);
 			}
 		}, 5000);
 	} else {
-		// --- RETURNING PAGE LOAD ---
-		// They have the flag. Instantly remove the preloader without any waiting.
 		preloader.remove();
 	}
 }
