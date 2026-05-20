@@ -34,7 +34,7 @@
 
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="media/logo/AS_tr.png" as="image">
-    
+
     <style>
         :root {
             --text: #b3b3b3;
@@ -490,7 +490,7 @@
         }
 
 
-/* #post-body {
+        /* #post-body {
     display: block !important; 
     min-height: 200px; 
     opacity: 1 !important;
@@ -615,11 +615,11 @@
                 window.history.pushState({ post: slug }, '', `?post=${slug}`);
             }
 
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
             await renderPost(slug);
 
             requestAnimationFrame(() => {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-
                 postEl.classList.remove('loading');
                 sbNav?.classList.remove('loading');
 
@@ -780,48 +780,48 @@
             return data;
         }
         async function renderPost(slug) {
-                activePostSlug = slug;
+            activePostSlug = slug;
 
-                const postNode = BLOG_POSTS.find(edge => edge.node.slug === slug);
+            const postNode = BLOG_POSTS.find(edge => edge.node.slug === slug);
 
-                if (!postNode) {
-                    throw new Error('Target transmission vector hash missing.');
-                }
+            if (!postNode) {
+                throw new Error('Target transmission vector hash missing.');
+            }
 
-                const post = postNode.node;
+            const post = postNode.node;
 
-                document.getElementById('ibar').style.display = 'none';
+            document.getElementById('ibar').style.display = 'none';
 
-                listEl.style.display = 'none';
-                document.getElementById('blog-filters').style.display = 'none';
+            listEl.style.display = 'none';
+            document.getElementById('blog-filters').style.display = 'none';
 
-                postEl.style.display = 'block';
+            postEl.style.display = 'block';
 
-                window.isViewingDynamicPost = true;
+            window.isViewingDynamicPost = true;
 
-                const coverWrap = document.getElementById('post-cover-wrap');
-                const coverImg = document.getElementById('post-cover-img');
+            const coverWrap = document.getElementById('post-cover-wrap');
+            const coverImg = document.getElementById('post-cover-img');
 
-                if (post.coverImage?.url) {
-                    coverWrap.style.display = 'block';
-                    coverImg.src = post.coverImage.url;
-                } else {
-                    coverWrap.style.display = 'none';
-                }
+            if (post.coverImage?.url) {
+                coverWrap.style.display = 'block';
+                coverImg.src = post.coverImage.url;
+            } else {
+                coverWrap.style.display = 'none';
+            }
 
-                preloadAdjacentImages(slug);
+            preloadAdjacentImages(slug);
 
-                const currentIndex = BLOG_POSTS.findIndex(edge => edge.node.slug === slug);
+            const currentIndex = BLOG_POSTS.findIndex(edge => edge.node.slug === slug);
 
-                const prevPost = currentIndex > 0
-                    ? BLOG_POSTS[currentIndex - 1].node
-                    : null;
+            const prevPost = currentIndex > 0
+                ? BLOG_POSTS[currentIndex - 1].node
+                : null;
 
-                const nextPost = currentIndex < BLOG_POSTS.length - 1
-                    ? BLOG_POSTS[currentIndex + 1].node
-                    : null;
+            const nextPost = currentIndex < BLOG_POSTS.length - 1
+                ? BLOG_POSTS[currentIndex + 1].node
+                : null;
 
-                document.getElementById('post-nav-arrows').innerHTML = `
+            document.getElementById('post-nav-arrows').innerHTML = `
         <button
             class="post-arrow-btn ${!prevPost ? 'disabled' : ''}"
             ${prevPost ? `onclick="navigateToPost('${prevPost.slug}')"` : ''}
@@ -837,35 +837,35 @@
         </button>
     `;
 
-                document.getElementById('post-title').innerText = post.title;
+            document.getElementById('post-title').innerText = post.title;
 
-                const hasGptTag = (post.tags || []).some(tag => tag.name === 'ChatGPT');
+            const hasGptTag = (post.tags || []).some(tag => tag.name === 'ChatGPT');
 
-                document.getElementById('post-author').innerText = hasGptTag
-                    ? 'ChatGPT'
-                    : 'Adarsh Sheth';
+            document.getElementById('post-author').innerText = hasGptTag
+                ? 'ChatGPT'
+                : 'Adarsh Sheth';
 
-                const textContent = post.content?.html.replace(/<[^>]*>?/gm, '') || '';
-                const wordCount = textContent.split(/\s+/).length;
-                const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+            const textContent = post.content?.html.replace(/<[^>]*>?/gm, '') || '';
+            const wordCount = textContent.split(/\s+/).length;
+            const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-                const tagsHtml = (post.tags || [])
-                    .map(tag => `
+            const tagsHtml = (post.tags || [])
+                .map(tag => `
             <a href="?category=${encodeURIComponent(tag.name.toLowerCase())}"
                class="article-tag-link">${tag.name}</a>
         `)
-                    .join('');
+                .join('');
 
-                const dateStr = new Date(post.publishedAt).toLocaleDateString(
-                    'en-US',
-                    {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                    }
-                );
+            const dateStr = new Date(post.publishedAt).toLocaleDateString(
+                'en-US',
+                {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }
+            );
 
-                document.getElementById('post-meta').innerHTML = `
+            document.getElementById('post-meta').innerHTML = `
         ${tagsHtml}
         <span>${dateStr}</span>
         <span>
@@ -874,14 +874,14 @@
         </span>
     `;
 
-                document.getElementById('post-body').innerHTML = post.content?.html || '';
+            document.getElementById('post-body').innerHTML = post.content?.html || '';
 
-                document.title = `${post.title} | Blog | AS`;
+            document.title = `${post.title} | Blog | AS`;
 
-                generateBlogSidebar();
+            generateBlogSidebar();
 
-                runCoreScrollTasks(window.scrollY);
-            }
+            runCoreScrollTasks(window.scrollY);
+        }
         async function initBlog() {
             // await loadNav();
             try {
