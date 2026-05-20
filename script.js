@@ -772,13 +772,13 @@ function unifiedInit() {
 	initCountUp();
 
 	// Load the iframe safely without blocking the main thread
-	const iframe = document.getElementById("timeline-iframe");
-	if (iframe && iframe.dataset.src) {
-		setTimeout(() => {
-			iframe.onload = () => iframe.classList.add("loaded");
-			iframe.src = iframe.dataset.src;
-		}, 500);
-	}
+	// const iframe = document.getElementById("timeline-iframe");
+	// if (iframe && iframe.dataset.src) {
+	// 	setTimeout(() => {
+	// 		iframe.onload = () => iframe.classList.add("loaded");
+	// 		iframe.src = iframe.dataset.src;
+	// 	}, 500);
+	// }
 
 	// Wait for the Nav to load BEFORE handling URLs and scroll tracking
 	loadNav().then(() => {
