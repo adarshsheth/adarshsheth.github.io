@@ -1009,39 +1009,70 @@ function loadNav() {
 // 	});
 // }
 
+// function unifiedInit() {
+// 	loadNav().then(() => {
+// 		setTimeout(() => {
+// 			initSS();
+// 			initCarousels();
+// 			initFadeIn();
+// 			initCountUp();
+
+// 			// NEW: Load the iframe safely without blocking the main thread
+// 			const iframe = document.getElementById("timeline-iframe");
+// 			if (iframe && iframe.dataset.src) {
+// 				setTimeout(() => {
+// 					// When the iframe finishes downloading its content, trigger the CSS fade
+// 					iframe.onload = () => iframe.classList.add("loaded");
+// 					// Start the download
+// 					iframe.src = iframe.dataset.src;
+// 				}, 500);
+// 			}
+
+// 			window.addEventListener(
+// 				"scroll",
+// 				() => {
+// 					if (!isScrollTicking) {
+// 						window.requestAnimationFrame(() => {
+// 							runCoreScrollTasks(window.scrollY);
+// 							isScrollTicking = false;
+// 						});
+// 						isScrollTicking = true;
+// 					}
+// 				},
+// 				{passive: true},
+// 			);
+// 		}, 200);
+// 	});
+// }
+
 function unifiedInit() {
 	loadNav().then(() => {
-		setTimeout(() => {
-			initSS();
-			initCarousels();
-			initFadeIn();
-			initCountUp();
+		// Initialize immediately, no artificial delays
+		initSS();
+		initCarousels();
+		initFadeIn();
+		initCountUp();
 
-			// NEW: Load the iframe safely without blocking the main thread
-			const iframe = document.getElementById("timeline-iframe");
-			if (iframe && iframe.dataset.src) {
-				setTimeout(() => {
-					// When the iframe finishes downloading its content, trigger the CSS fade
-					iframe.onload = () => iframe.classList.add("loaded");
-					// Start the download
-					iframe.src = iframe.dataset.src;
-				}, 500);
-			}
+		// Load the iframe safely
+		const iframe = document.getElementById("timeline-iframe");
+		if (iframe && iframe.dataset.src) {
+			iframe.onload = () => iframe.classList.add("loaded");
+			iframe.src = iframe.dataset.src;
+		}
 
-			window.addEventListener(
-				"scroll",
-				() => {
-					if (!isScrollTicking) {
-						window.requestAnimationFrame(() => {
-							runCoreScrollTasks(window.scrollY);
-							isScrollTicking = false;
-						});
-						isScrollTicking = true;
-					}
-				},
-				{passive: true},
-			);
-		}, 200);
+		window.addEventListener(
+			"scroll",
+			() => {
+				if (!isScrollTicking) {
+					window.requestAnimationFrame(() => {
+						runCoreScrollTasks(window.scrollY);
+						isScrollTicking = false;
+					});
+					isScrollTicking = true;
+				}
+			},
+			{passive: true},
+		);
 	});
 }
 
