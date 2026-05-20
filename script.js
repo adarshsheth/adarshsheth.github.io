@@ -725,6 +725,31 @@ function initCarousels() {
 		let cur = 0,
 			timer = null;
 
+		// function show(i) {
+		// 	const prevEl = imgs[cur];
+		// 	if (prevEl) prevEl.classList.remove("on");
+		// 	if (dots[cur]) dots[cur].classList.remove("on");
+
+		// 	cur = (i + imgs.length) % imgs.length;
+
+		// 	const newEl = imgs[cur];
+		// 	if (newEl) newEl.classList.add("on");
+		// 	if (dots[cur]) dots[cur].classList.add("on");
+
+		// 	if (capEl) {
+		// 		const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+		// 		const link = imgs[cur].dataset.link || "";
+		// 		if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+		// 		else capEl.textContent = cap;
+		// 	}
+
+		// 	const clip = wrap.closest(".ss-clip");
+		// 	if (clip) {
+		// 		const id = clip.id.replace("-clip", "");
+		// 		if (SS[id]) requestAnimationFrame(() => setH(id, true));
+		// 	}
+		// }
+
 		function show(i) {
 			const prevEl = imgs[cur];
 			if (prevEl) prevEl.classList.remove("on");
@@ -733,6 +758,14 @@ function initCarousels() {
 			cur = (i + imgs.length) % imgs.length;
 
 			const newEl = imgs[cur];
+
+			// --- NEW: Inject the image source right before showing it ---
+			if (newEl && newEl.dataset.src) {
+				newEl.src = newEl.dataset.src;
+				newEl.removeAttribute("data-src");
+			}
+			// -----------------------------------------------------------
+
 			if (newEl) newEl.classList.add("on");
 			if (dots[cur]) dots[cur].classList.add("on");
 
@@ -748,8 +781,17 @@ function initCarousels() {
 				const id = clip.id.replace("-clip", "");
 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
 			}
-		}
 
+			// --- NEW: Quietly preload the NEXT slide in the background ---
+			const nextIdx = (cur + 1) % imgs.length;
+			const nextEl = imgs[nextIdx];
+			if (nextEl && nextEl.dataset.src) {
+				nextEl.src = nextEl.dataset.src;
+				nextEl.removeAttribute("data-src");
+			}
+			// -------------------------------------------------------------
+		}
+		
 		function startAutoPlay() {
 			clearTimeout(timer);
 			if (imgs.length <= 1) return;
