@@ -23,7 +23,8 @@ const downloadAndCompress = (url, dest) =>
 
 				// THE COMPRESSOR: Resizes huge images down to max 1400px wide,
 				// and converts them to highly compressed WebP format.
-				const compressor = sharp().resize({width: 1400, withoutEnlargement: true}).webp({quality: 80});
+				// const compressor = sharp().resize({width: 1400, withoutEnlargement: true}).webp({quality: 80});
+				const compressor = sharp().resize({width: 800, withoutEnlargement: true}).webp({quality: 75});
 
 				const file = fs.createWriteStream(dest);
 
