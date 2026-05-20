@@ -714,11 +714,148 @@ function initCarousels() {
 	document.querySelectorAll(".cw").forEach((wrap) => observer.observe(wrap));
 
 	// This is your original logic, now properly wrapped so it executes correctly
+	// function setupCarousel(wrap) {
+	// 	const inner = wrap.querySelector(".cw-inner");
+	// 	if (!inner) return;
+	// 	const imgs = inner.querySelectorAll(".cimg");
+	// 	if (!imgs.length) return;
+
+	// 	let node = wrap,
+	// 		dotsEl = null,
+	// 		capEl = null;
+	// 	for (let i = 0; i < 4; i++) {
+	// 		node = node.nextElementSibling;
+	// 		if (!node) break;
+	// 		if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
+	// 		if (!capEl && node.classList.contains("car-caption")) capEl = node;
+	// 	}
+
+	// 	const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
+	// 	let cur = 0,
+	// 		timer = null;
+
+	// 	// function show(i) {
+	// 	// 	const prevEl = imgs[cur];
+	// 	// 	if (prevEl) prevEl.classList.remove("on");
+	// 	// 	if (dots[cur]) dots[cur].classList.remove("on");
+
+	// 	// 	cur = (i + imgs.length) % imgs.length;
+
+	// 	// 	const newEl = imgs[cur];
+	// 	// 	if (newEl) newEl.classList.add("on");
+	// 	// 	if (dots[cur]) dots[cur].classList.add("on");
+
+	// 	// 	if (capEl) {
+	// 	// 		const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+	// 	// 		const link = imgs[cur].dataset.link || "";
+	// 	// 		if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+	// 	// 		else capEl.textContent = cap;
+	// 	// 	}
+
+	// 	// 	const clip = wrap.closest(".ss-clip");
+	// 	// 	if (clip) {
+	// 	// 		const id = clip.id.replace("-clip", "");
+	// 	// 		if (SS[id]) requestAnimationFrame(() => setH(id, true));
+	// 	// 	}
+	// 	// }
+
+	// 	function show(i) {
+	// 		const prevEl = imgs[cur];
+	// 		if (prevEl) prevEl.classList.remove("on");
+	// 		if (dots[cur]) dots[cur].classList.remove("on");
+
+	// 		cur = (i + imgs.length) % imgs.length;
+
+	// 		const newEl = imgs[cur];
+
+	// 		// --- NEW: Inject the image source right before showing it ---
+	// 		if (newEl && newEl.dataset.src) {
+	// 			newEl.src = newEl.dataset.src;
+	// 			newEl.removeAttribute("data-src");
+	// 		}
+	// 		// -----------------------------------------------------------
+
+	// 		if (newEl) newEl.classList.add("on");
+	// 		if (dots[cur]) dots[cur].classList.add("on");
+
+	// 		if (capEl) {
+	// 			const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
+	// 			const link = imgs[cur].dataset.link || "";
+	// 			if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+	// 			else capEl.textContent = cap;
+	// 		}
+
+	// 		const clip = wrap.closest(".ss-clip");
+	// 		if (clip) {
+	// 			const id = clip.id.replace("-clip", "");
+	// 			if (SS[id]) requestAnimationFrame(() => setH(id, true));
+	// 		}
+
+	// 		// --- NEW: Quietly preload the NEXT slide in the background ---
+	// 		const nextIdx = (cur + 1) % imgs.length;
+	// 		const nextEl = imgs[nextIdx];
+	// 		if (nextEl && nextEl.dataset.src) {
+	// 			nextEl.src = nextEl.dataset.src;
+	// 			nextEl.removeAttribute("data-src");
+	// 		}
+	// 		// -------------------------------------------------------------
+	// 	}
+
+	// 	function startAutoPlay() {
+	// 		clearTimeout(timer);
+	// 		if (imgs.length <= 1) return;
+
+	// 		let currentMedia = imgs[cur];
+	// 		let duration = 5000;
+
+	// 		if (currentMedia.dataset.interval) {
+	// 			duration = parseInt(currentMedia.dataset.interval);
+	// 		} else if (wrap.dataset.interval) {
+	// 			duration = parseInt(wrap.dataset.interval);
+	// 		} else if (currentMedia.tagName === "VIDEO") {
+	// 			duration = 6000;
+	// 		} else {
+	// 			duration = 3500;
+	// 		}
+
+	// 		timer = setTimeout(() => {
+	// 			show(cur + 1);
+	// 			startAutoPlay();
+	// 		}, duration);
+	// 	}
+
+	// 	dots.forEach((d, i) =>
+	// 		d.addEventListener("click", (e) => {
+	// 			e.stopPropagation();
+	// 			show(i);
+	// 			startAutoPlay();
+	// 		}),
+	// 	);
+
+	// 	wrap.addEventListener("click", () => {
+	// 		const tag = imgs[cur]?.tagName;
+	// 		if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
+	// 	});
+
+	// 	show(0);
+	// 	startAutoPlay();
+	// }
 	function setupCarousel(wrap) {
 		const inner = wrap.querySelector(".cw-inner");
 		if (!inner) return;
 		const imgs = inner.querySelectorAll(".cimg");
 		if (!imgs.length) return;
+
+		// --- NEW: Preload ALL images for this carousel immediately ---
+		// Because this function only runs when the user scrolls to this specific carousel,
+		// we can safely download all its images in the background without causing a network jam!
+		imgs.forEach((img) => {
+			if (img.dataset.src) {
+				img.src = img.dataset.src;
+				img.removeAttribute("data-src");
+			}
+		});
+		// -------------------------------------------------------------
 
 		let node = wrap,
 			dotsEl = null,
@@ -734,31 +871,6 @@ function initCarousels() {
 		let cur = 0,
 			timer = null;
 
-		// function show(i) {
-		// 	const prevEl = imgs[cur];
-		// 	if (prevEl) prevEl.classList.remove("on");
-		// 	if (dots[cur]) dots[cur].classList.remove("on");
-
-		// 	cur = (i + imgs.length) % imgs.length;
-
-		// 	const newEl = imgs[cur];
-		// 	if (newEl) newEl.classList.add("on");
-		// 	if (dots[cur]) dots[cur].classList.add("on");
-
-		// 	if (capEl) {
-		// 		const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
-		// 		const link = imgs[cur].dataset.link || "";
-		// 		if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-		// 		else capEl.textContent = cap;
-		// 	}
-
-		// 	const clip = wrap.closest(".ss-clip");
-		// 	if (clip) {
-		// 		const id = clip.id.replace("-clip", "");
-		// 		if (SS[id]) requestAnimationFrame(() => setH(id, true));
-		// 	}
-		// }
-
 		function show(i) {
 			const prevEl = imgs[cur];
 			if (prevEl) prevEl.classList.remove("on");
@@ -768,12 +880,8 @@ function initCarousels() {
 
 			const newEl = imgs[cur];
 
-			// --- NEW: Inject the image source right before showing it ---
-			if (newEl && newEl.dataset.src) {
-				newEl.src = newEl.dataset.src;
-				newEl.removeAttribute("data-src");
-			}
-			// -----------------------------------------------------------
+			// The previous "preload next slide" logic has been removed here
+			// because everything is now batched seamlessly above.
 
 			if (newEl) newEl.classList.add("on");
 			if (dots[cur]) dots[cur].classList.add("on");
@@ -790,15 +898,6 @@ function initCarousels() {
 				const id = clip.id.replace("-clip", "");
 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
 			}
-
-			// --- NEW: Quietly preload the NEXT slide in the background ---
-			const nextIdx = (cur + 1) % imgs.length;
-			const nextEl = imgs[nextIdx];
-			if (nextEl && nextEl.dataset.src) {
-				nextEl.src = nextEl.dataset.src;
-				nextEl.removeAttribute("data-src");
-			}
-			// -------------------------------------------------------------
 		}
 
 		function startAutoPlay() {
