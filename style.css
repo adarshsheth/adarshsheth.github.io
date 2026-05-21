@@ -1544,7 +1544,7 @@ section {
 .about-bio {
 	font-size: clamp(13.5px, 0.8vw, 50px);
 	color: var(--tdim);
-	line-height: 1.72;
+	line-height: 1.2;
 	margin-bottom: 10px;
 }
 .about-bio a {
@@ -1555,6 +1555,39 @@ section {
 }
 .about-bio a:hover {
 	color: var(--accent2);
+}
+
+/* Custom About Section Bullets */
+.about-bio-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 8px 0 18px 0; /* Spacing top and bottom */
+    
+    /* Displays the 6 items in a clean 2-column grid on desktop, 1-column on mobile */
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); */
+    /* gap: 8px; */
+}
+
+.about-bio-list li {
+    position: relative;
+    padding-left: 16px;
+    font-size: clamp(13.5px, 0.8vw, 50px);
+    /* color: var(--text); */
+    color: var(--tdim);
+    /* font-weight: 300; */
+}
+
+/* Custom Yellow Bullet Point */
+.about-bio-list li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    /* color: var(--accent); */
+    color: var(--tdim);
+    font-size: 16px;
+    line-height: 1;
+    top: -1px;
 }
 
 /* Featured Work Feed */
