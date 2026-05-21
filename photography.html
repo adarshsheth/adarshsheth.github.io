@@ -615,28 +615,28 @@
       });
 
       // --- CUSTOM SCROLL SPY FOR SIDEBAR ---
-      window.addEventListener('scroll', () => {
-        const triggerPoint = window.innerHeight * 0.45;
-        const sections = [
-          { id: 'top', k: 'top' },
-          { id: 'sec-nature', k: 'nature' },
-          { id: 'sec-architecture', k: 'architecture' },
-          { id: 'sec-subject', k: 'subject' },
-          { id: 'sec-misc', k: 'misc' }
-        ];
+      // window.addEventListener('scroll', () => {
+      //   const triggerPoint = window.innerHeight * 0.45;
+      //   const sections = [
+      //     { id: 'top', k: 'top' },
+      //     { id: 'sec-nature', k: 'nature' },
+      //     { id: 'sec-architecture', k: 'architecture' },
+      //     { id: 'sec-subject', k: 'subject' },
+      //     { id: 'sec-misc', k: 'misc' }
+      //   ];
 
-        let activeK = 'top';
-        for (const sec of sections) {
-          const el = document.getElementById(sec.id);
-          if (el && el.getBoundingClientRect().top < triggerPoint) {
-            activeK = sec.k;
-          }
-        }
+      //   let activeK = 'top';
+      //   for (const sec of sections) {
+      //     const el = document.getElementById(sec.id);
+      //     if (el && el.getBoundingClientRect().top < triggerPoint) {
+      //       activeK = sec.k;
+      //     }
+      //   }
 
-        document.querySelectorAll('#sb-nav .sbn').forEach(a => {
-          a.classList.toggle('active', a.dataset.k === activeK);
-        });
-      }, { passive: true });
+      //   document.querySelectorAll('#sb-nav .sbn').forEach(a => {
+      //     a.classList.toggle('active', a.dataset.k === activeK);
+      //   });
+      // }, { passive: true });
       // --------------------------------------
     });
   </script>

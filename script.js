@@ -484,24 +484,32 @@ function runCoreScrollTasks(sy) {
 
 	if (window.isViewingDynamicPost) return;
 
-	if (!cachedAvailableSections) {
-		const allSections = [
-			{id: "top", k: "top"},
-			{id: "about", k: "about"},
-			{id: "featured", k: "featured"},
-			{id: "contact", k: "contact"},
-			{id: "sec-tamu", k: "tamu"},
-			{id: "sec-dvhs", k: "dvhs"},
-			{id: "sec-events", k: "events"},
-			{id: "sec-infographic", k: "infographic"},
-			{id: "sec-cad", k: "cad"},
-		];
-		cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
-	}
+if (!cachedAvailableSections) {
+	const allSections = [
+		{id: "top", k: "top"},
+		{id: "about", k: "about"},
+		{id: "featured", k: "featured"},
+		{id: "contact", k: "contact"},
+		{id: "sec-tamu", k: "tamu"},
+		{id: "sec-dvhs", k: "dvhs"},
+		{id: "sec-events", k: "events"},
+		{id: "sec-infographic", k: "infographic"},
+		{id: "sec-cad", k: "cad"},
+		// ADDED FOR PHOTOGRAPHY PAGE
+		{id: "sec-nature", k: "nature"},
+		{id: "sec-architecture", k: "architecture"},
+		{id: "sec-subject", k: "subject"},
+		{id: "sec-misc", k: "misc"},
+	];
+	cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
+}
 
 	let activeK = null;
+	// const path = window.location.pathname;
+	// const anchor_loc = path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
 	const path = window.location.pathname;
-	const anchor_loc = path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
+    // Lower threshold (0.1) for photography, standard (0.45) for others
+	const anchor_loc = (path.includes("photography")) ? 0.3 : (path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45);
 	const triggerPoint = winH * anchor_loc;
 
 	cachedAvailableSections.forEach(({id, k}) => {
