@@ -45,72 +45,68 @@
   <meta property="og:url" content="https://adarshsheth.github.io/photography">
   <link rel="canonical" href="https://adarshsheth.github.io/photography">
 
-
-
-
   <link
     href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 
-
-
   <style>
-
-/* 
-    .lbbox {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      z-index: 1;
-      max-height: 90vw;
-    }
-
-    .lbi {
-      height: auto;
-      width: 45vh;
-      max-width: 70vw;
-      border-radius: 8px;
-      object-fit: contain;
-    }
-
-    .lb-prev {
-      left: -52px
-    }
-
-    .lb-next {
-      right: -52px
-    } */
-
-   
     .hero-desc {
       padding: 14px 20%;
       font-size: 13.5px;
       font-style: italic;
       color: var(--tdim);
       line-height: 1.7;
-      /* max-width: 820px; */
       text-align: center;
     }
 
-    /* ══ MASONRY GRID ── */
-.masonry {
-  columns: 5 155px;
-  column-gap: 7px;
-  margin-bottom: 30px;
-  margin-top: 20px;
-  opacity: 0; /* Keeps the chaotic rebalancing hidden */
-}
+    /* ══ KEEPS FOOTER PINNED TO BOTTOM DURING LOAD ── */
+    #mn {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-.masonry.ready {
-  opacity: 1; /* Reveals the grid instantly once stable */
-}
+    /* ══ SECTION HEADERS (Blog Style) ── */
+    .photo-sh {
+      padding-top: 10px;
+    }
+
+    .photo-sh h2 {
+      color: var(--accent) !important;
+      font-size: clamp(28px, 3vw, 50px) !important;
+      font-weight: 900 !important;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      margin: 0;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .photo-sh .sh-r {
+      background: color-mix(in srgb, var(--border) 50%, transparent) !important;
+      height: 3px !important;
+    }
+
+    .photo-sh .sh-pulse-btn:hover h2 {
+      color: var(--accent2) !important;
+    }
+
+    /* ══ MASONRY GRID ── */
+    .masonry {
+      columns: 5 155px;
+      column-gap: 7px;
+      margin-bottom: 50px;
+      margin-top: 10px;
+      opacity: 0;
+    }
+
+    .masonry.ready {
+      opacity: 1;
+    }
 
     /* ══ PHOTO TILE ── */
-    /* .photo-tile {
+    .photo-tile {
       break-inside: avoid;
       display: block;
       position: relative;
@@ -118,29 +114,14 @@
       border-radius: 4px;
       margin-bottom: 7px;
       background: var(--surface);
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity .45s, transform .45s, box-shadow .25s;
-    } */
 
-    .photo-tile {
-  break-inside: avoid;
-  display: block;
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  margin-bottom: 7px;
-  background: var(--surface);
-  
-  /* Start further down for a longer, dreamier float */
-  opacity: 0;
-  transform: translateY(40px); 
-  
-  /* Slower duration with a soft deceleration (ease-out curve) */
-  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
-              transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
-              box-shadow 0.25s;
-}
+      opacity: 0;
+      transform: translateY(40px);
+
+      transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+        transform 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.25s;
+    }
 
     .photo-tile.visible {
       opacity: 1;
@@ -158,15 +139,10 @@
       transform: scale(1.045)
     }
 
-    /* White gradient overlay rising from bottom — the hover effect shown in screenshot */
     .photo-tile::after {
       content: '';
       position: absolute;
       inset: 0;
-      /* background: linear-gradient(to top,
-          rgba(255, 255, 255, .52) 0%,
-          rgba(255, 255, 255, .16) 36%,
-          rgba(255, 255, 255, 0) 62%); */
       background: linear-gradient(to top,
           var(--bg) 0%,
           #0a0a0a00 50%);
@@ -180,23 +156,10 @@
       opacity: 1
     }
 
-
-    /* ══ KEEPS FOOTER PINNED TO BOTTOM DURING LOAD ── */
-    #mn {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    #mn > section.sb {
-      flex: 1; /* Forces the gallery section to stretch and fill empty space */
-    }
-    
     footer {
-      margin-top: auto; /* Pushes the footer to the very end of the flex container */
+      margin-top: auto;
     }
 
-    /* Small expand icon, appears on hover */
     .tile-icon {
       position: absolute;
       bottom: 8px;
@@ -231,7 +194,6 @@
   <div id="sb-overlay"></div>
 
 
-  <!-- copy toast -->
   <div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
   <div id="lb">
@@ -247,19 +209,31 @@
     </div>
   </div>
 
-  <!-- SIDEBAR — artwork page, single entry -->
   <aside id="sb">
     <div id="sb-hdr">Sections</div>
     <div id="sb-prog">
       <div id="sb-fill"></div>
     </div>
     <nav id="sb-nav">
-      <a class="sbn active" href="#top" onclick="scrollToSec('top');return false" data-k="top">
-        <span class="sbdot"></span><span class="sblbl">Photography</span></a>
+      <a class="sbn active" href="javascript:void(0)" onclick="scrollToSec('top'); return false;" data-k="top">
+        <span class="sbdot"></span><span class="sblbl">Top of Page</span>
+      </a>
+      <a class="sbn" href="javascript:void(0)" onclick="scrollToSec('sec-nature'); return false;" data-k="nature">
+        <span class="sbdot"></span><span class="sblbl">Nature</span>
+      </a>
+      <a class="sbn" href="javascript:void(0)" onclick="scrollToSec('sec-architecture'); return false;"
+        data-k="architecture">
+        <span class="sbdot"></span><span class="sblbl">Architecture</span>
+      </a>
+      <a class="sbn" href="javascript:void(0)" onclick="scrollToSec('sec-subject'); return false;" data-k="subject">
+        <span class="sbdot"></span><span class="sblbl">Subject</span>
+      </a>
+      <a class="sbn" href="javascript:void(0)" onclick="scrollToSec('sec-misc'); return false;" data-k="misc">
+        <span class="sbdot"></span><span class="sblbl">:)</span>
+      </a>
     </nav>
   </aside>
 
-  <!-- MAIN -->
   <div id="mn">
     <div id="top"></div>
 
@@ -270,361 +244,390 @@
       Beyond capturing a moment in time, photos show the beauty of the natural world and the
       cultural additions humans make to it. See my work in painting, CGA, and origami as well.</p>
 
-    <section class="sb">
-      <!-- <div class="sh">
-        <button class="sh-pulse-btn" title="Photography">
-          <span class="pulse-dot"></span>
-        </button>
-        <h2>PHOTOGRAPHY</h2>
+    <section id="sec-nature" class="sb" style="padding-top: 20px;">
+      <div class="sh photo-sh">
         <span class="sh-r"></span>
-      </div> -->
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-nature', 'nature'); scrollToSec('sec-nature')">
+          <h2>NATURE</h2>
+        </button>
+        <span class="sh-r"></span>
+      </div>
 
-<div class="masonry" id="gallery">
+      <div class="masonry">
+        <div class="photo-tile" data-cap="Kenai Lake, Alaska"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Blackstone Bay, Alaska"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246021/alaska3_ccticg.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246021/alaska3_ccticg.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Soldotna Creek Park, Alaska"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Alaskan River"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/alaska4_ietpty.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Snow Cap Mountains, Alaska"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Alaska"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Astrophotography"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246848/astro_e7w6ym.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246848/astro_e7w6ym.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Sunset on the Beach, Cabo, Mexico"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/mexico2_faqiha.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/mexico2_faqiha.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Succulent"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+      </div>
+    </section>
 
-  <div class="photo-tile" data-cap="Kenai Lake, Alaska"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
+    <section id="sec-architecture" class="sb">
+      <div class="sh photo-sh">
+        <span class="sh-r"></span>
+        <button class="sh-pulse-btn"
+          onclick="copyAnchorURL('sec-architecture', 'architecture'); scrollToSec('sec-architecture')">
+          <h2>ARCHITECTURE</h2>
+        </button>
+        <span class="sh-r"></span>
+      </div>
 
-  <div class="photo-tile" data-cap="Blackstone Bay, Alaska"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246021/alaska3_ccticg.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246021/alaska3_ccticg.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
+      <div class="masonry">
+        <div class="photo-tile" data-cap="Smithsonian Museum of Natural History, DC"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Library of Congress, DC"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/congress_wgl6xl.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/congress_wgl6xl.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="DC Corridor"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/dc_tlt4dg.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/dc_tlt4dg.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Yerba Buena Island, SF"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Panorama Park, SF"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Adolphus Hotel, Dallas"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="NYC Skyline from NJ"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/nyc_cn81dm.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/nyc_cn81dm.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Kyle Field, Texas A&M"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Kyle Field Sunset, Texas A&M"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Basilica de la Sagrada Familia, Barcelona, Spain"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+      </div>
+    </section>
 
-  <div class="photo-tile" data-cap="Soldotna Creek Park, Alaska"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
+    <section id="sec-subject" class="sb">
+      <div class="sh photo-sh">
+        <span class="sh-r"></span>
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-subject', 'subject'); scrollToSec('sec-subject')">
+          <h2>SUBJECT</h2>
+        </button>
+        <span class="sh-r"></span>
+      </div>
 
-  <div class="photo-tile" data-cap="Alaskan River"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/alaska4_ietpty.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
+      <div class="masonry">
+        <div class="photo-tile" data-cap="Alaskan Marina"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Graffiti"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Piña Colada, Cabo Mexico"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+      </div>
+    </section>
 
-  <div class="photo-tile" data-cap="Alaskan Marina"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
+    <section id="sec-misc" class="sb">
+      <div class="sh photo-sh">
+        <span class="sh-r"></span>
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-misc', 'misc'); scrollToSec('sec-misc')">
+          <h2>:)</h2>
+        </button>
+        <span class="sh-r"></span>
+      </div>
 
-  <div class="photo-tile" data-cap="Snow Cap Mountains, Alaska"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Alaska"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Smithsonian Museum of Natural History, DC"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Library of Congress, DC"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/congress_wgl6xl.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/congress_wgl6xl.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="DC Corridor"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/dc_tlt4dg.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/dc_tlt4dg.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Yerba Buena Island, SF"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Panorama Park, SF"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Astrophotography"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246848/astro_e7w6ym.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246848/astro_e7w6ym.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Plane Window"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Graffiti"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Adolphus Hotel, Dallas"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="NYC Skyline from NJ"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/nyc_cn81dm.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/nyc_cn81dm.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Kyle Field, Texas A&M"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Kyle Field Sunset, Texas A&M"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Sunset on the Beach, Cabo, Mexico"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/mexico2_faqiha.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/mexico2_faqiha.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Piña Colada, Cabo Mexico"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Beach Silhouette"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Basilica de la Sagrada Familia, Barcelona, Spain"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-  <div class="photo-tile" data-cap="Succulent"
-    data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg">
-    <img
-      src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg" />
-    <span class="tile-icon"><i class="fas fa-expand"></i></span>
-  </div>
-
-</div>
-
+      <div class="masonry">
+        <div class="photo-tile" data-cap="Plane Window"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Beach Silhouette"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+      </div>
     </section>
 
     <footer>
       <div class="ficons">
         <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-        <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank">in</a>
-        <a href="mailto:adarshsheth@tamu.edu" class="fi">@</a>
+        <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
+            class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
       </div>
       <nav class="fnav">
         <a href="/">HOME</a>
-        <a href="portfolio" class="fp">PORTFOLIO</a>
+        <a href="portfolio">PORTFOLIO</a>
         <a href="resume">RESUME</a>
         <a href="blog">BLOG</a>
       </nav>
     </footer>
-  </div><!-- /mn -->
-
-
+  </div>
   <script src="script.js"></script>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const gallery = document.getElementById('gallery');
-    const tiles = Array.from(document.querySelectorAll('.photo-tile'));
-    const images = Array.from(gallery.querySelectorAll('img'));
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize multiple galleries
+      const galleries = Array.from(document.querySelectorAll('.masonry'));
+      const tiles = Array.from(document.querySelectorAll('.photo-tile'));
+      const images = Array.from(document.querySelectorAll('.photo-tile img'));
 
-    // Remove lazy loading attributes to fetch thumbnails immediately
-    images.forEach(img => {
-      img.loading = "eager";
-      img.removeAttribute('loading');
-    });
-
-    let isInit = false;
-
-    function initGallery() {
-      if (isInit) return;
-      isInit = true;
-
-      gallery.classList.add('ready');
-
-      const obs = new IntersectionObserver((entries, observer) => {
-        const visibleEntries = entries.filter(entry => entry.isIntersecting);
-        if (!visibleEntries.length) return;
-
-        const rows = [];
-        const rowTolerance = 80;
-
-        visibleEntries.forEach(entry => {
-          const top = entry.boundingClientRect.top;
-          let placed = false;
-
-          for (let row of rows) {
-            if (Math.abs(row.top - top) < rowTolerance) {
-              row.entries.push(entry);
-              placed = true;
-              break;
-            }
-          }
-          if (!placed) {
-            rows.push({ top: top, entries: [entry] });
-          }
-        });
-
-        rows.sort((a, b) => a.top - b.top);
-
-        rows.forEach((row, rowIndex) => {
-          row.entries.forEach(entry => {
-            setTimeout(() => {
-              entry.target.classList.add('visible');
-            }, rowIndex * 120);
-            observer.unobserve(entry.target);
-          });
-        });
-      }, { threshold: 0.04 });
-
-      tiles.forEach(t => obs.observe(t));
-    }
-
-    // Modern Promise-based loading & decoding pipeline
-    Promise.all(images.map(img => {
-      return new Promise((resolve) => {
-        if (img.complete) {
-          resolve();
-        } else {
-          img.onload = resolve;
-          img.onerror = resolve; // Ensure a broken image doesn't halt the whole gallery
-        }
-      }).then(() => {
-        // Force the browser to unpack the pixel data into memory before proceeding.
-        // This entirely prevents the "black box" rendering flash.
-        return img.decode ? img.decode().catch(() => { }) : Promise.resolve();
+      // Remove lazy loading attributes to fetch thumbnails immediately
+      images.forEach(img => {
+        img.loading = "eager";
+        img.removeAttribute('loading');
       });
-    })).then(() => {
-      initGallery();
-    });
 
-    // Increased fallback timeout just in case network hangs. 
-    // Because payloads are now tiny, this should almost never trigger.
-    setTimeout(initGallery, 3000);
+      let isInit = false;
 
-    // Lightbox Logic
-    const lb = document.getElementById('lb');
-    const lbImg = document.getElementById('lbimg');
-    const lbCap = document.getElementById('lbcap');
+      function initGallery() {
+        if (isInit) return;
+        isInit = true;
 
-    // 1. Store BOTH the low-res and high-res URLs
-    const photos = tiles.map(t => ({
-      full: t.dataset.full,
-      thumb: t.querySelector('img').src,
-      cap: t.dataset.cap || ''
-    }));
+        galleries.forEach(g => g.classList.add('ready'));
 
-    let currentIndex = 0;
-    let highResPreloader = null;
+        const obs = new IntersectionObserver((entries, observer) => {
+          const visibleEntries = entries.filter(entry => entry.isIntersecting);
+          if (!visibleEntries.length) return;
 
-    function updateLightbox() {
-      if (!photos.length) return;
+          const rows = [];
+          const rowTolerance = 80;
 
-      const currentData = photos[currentIndex];
+          visibleEntries.forEach(entry => {
+            const top = entry.boundingClientRect.top;
+            let placed = false;
 
-      // 2. Instantly show the cached thumbnail so there is no old-image flash
-      lbImg.src = currentData.thumb;
-      lbCap.textContent = currentData.cap;
+            for (let row of rows) {
+              if (Math.abs(row.top - top) < rowTolerance) {
+                row.entries.push(entry);
+                placed = true;
+                break;
+              }
+            }
+            if (!placed) {
+              rows.push({ top: top, entries: [entry] });
+            }
+          });
 
-      // 3. Cancel any ongoing preloads if the user is clicking 'Next' very fast
-      if (highResPreloader) {
-        highResPreloader.onload = null;
+          rows.sort((a, b) => a.top - b.top);
+
+          rows.forEach((row, rowIndex) => {
+            row.entries.forEach(entry => {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, rowIndex * 120);
+              observer.unobserve(entry.target);
+            });
+          });
+        }, { threshold: 0.04 });
+
+        tiles.forEach(t => obs.observe(t));
       }
 
-      // 4. Silently fetch the 4K version in the background
-      highResPreloader = new Image();
-      highResPreloader.src = currentData.full;
-
-      // 5. Seamlessly swap to the 4K version ONLY when it has fully downloaded
-      highResPreloader.onload = () => {
-        // Double-check the user hasn't clicked to a different photo while we were waiting
-        if (photos[currentIndex] === currentData) {
-          lbImg.src = currentData.full;
-        }
-      };
-    }
-
-    function closeLightbox() {
-      lb.classList.remove('open');
-    }
-
-    function navigateLightbox(dir) {
-      if (!photos.length) return;
-      currentIndex = (currentIndex + dir + photos.length) % photos.length;
-      updateLightbox();
-    }
-
-    tiles.forEach((tile, idx) => {
-      tile.addEventListener('click', () => {
-        currentIndex = idx;
-        updateLightbox();
-        lb.classList.add('open');
+      // Modern Promise-based loading & decoding pipeline
+      Promise.all(images.map(img => {
+        return new Promise((resolve) => {
+          if (img.complete) {
+            resolve();
+          } else {
+            img.onload = resolve;
+            img.onerror = resolve; // Ensure a broken image doesn't halt the whole gallery
+          }
+        }).then(() => {
+          return img.decode ? img.decode().catch(() => { }) : Promise.resolve();
+        });
+      })).then(() => {
+        initGallery();
       });
-    });
 
-    document.getElementById('lb-bg').addEventListener('click', closeLightbox);
-    document.getElementById('lb-close').addEventListener('click', closeLightbox);
-    document.getElementById('lb-prev').addEventListener('click', () => navigateLightbox(-1));
-    document.getElementById('lb-next').addEventListener('click', () => navigateLightbox(1));
+      // Increased fallback timeout just in case network hangs. 
+      setTimeout(initGallery, 3000);
 
-    document.addEventListener('keydown', (e) => {
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'ArrowRight') navigateLightbox(1);
-      if (e.key === 'ArrowLeft') navigateLightbox(-1);
-      if (e.key === 'Escape') closeLightbox();
+      // Lightbox Logic
+      const lb = document.getElementById('lb');
+      const lbImg = document.getElementById('lbimg');
+      const lbCap = document.getElementById('lbcap');
+
+      const photos = tiles.map(t => ({
+        full: t.dataset.full,
+        thumb: t.querySelector('img').src,
+        cap: t.dataset.cap || ''
+      }));
+
+      let currentIndex = 0;
+      let highResPreloader = null;
+
+      function updateLightbox() {
+        if (!photos.length) return;
+
+        const currentData = photos[currentIndex];
+
+        lbImg.src = currentData.thumb;
+        lbCap.textContent = currentData.cap;
+
+        if (highResPreloader) {
+          highResPreloader.onload = null;
+        }
+
+        highResPreloader = new Image();
+        highResPreloader.src = currentData.full;
+
+        highResPreloader.onload = () => {
+          if (photos[currentIndex] === currentData) {
+            lbImg.src = currentData.full;
+          }
+        };
+      }
+
+      function closeLightbox() {
+        lb.classList.remove('open');
+      }
+
+      function navigateLightbox(dir) {
+        if (!photos.length) return;
+        currentIndex = (currentIndex + dir + photos.length) % photos.length;
+        updateLightbox();
+      }
+
+      tiles.forEach((tile, idx) => {
+        tile.addEventListener('click', () => {
+          currentIndex = idx;
+          updateLightbox();
+          lb.classList.add('open');
+        });
+      });
+
+      document.getElementById('lb-bg').addEventListener('click', closeLightbox);
+      document.getElementById('lb-close').addEventListener('click', closeLightbox);
+      document.getElementById('lb-prev').addEventListener('click', () => navigateLightbox(-1));
+      document.getElementById('lb-next').addEventListener('click', () => navigateLightbox(1));
+
+      document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'Escape') closeLightbox();
+      });
+
+      // --- CUSTOM SCROLL SPY FOR SIDEBAR ---
+      window.addEventListener('scroll', () => {
+        const triggerPoint = window.innerHeight * 0.45;
+        const sections = [
+          { id: 'top', k: 'top' },
+          { id: 'sec-nature', k: 'nature' },
+          { id: 'sec-architecture', k: 'architecture' },
+          { id: 'sec-subject', k: 'subject' },
+          { id: 'sec-misc', k: 'misc' }
+        ];
+
+        let activeK = 'top';
+        for (const sec of sections) {
+          const el = document.getElementById(sec.id);
+          if (el && el.getBoundingClientRect().top < triggerPoint) {
+            activeK = sec.k;
+          }
+        }
+
+        document.querySelectorAll('#sb-nav .sbn').forEach(a => {
+          a.classList.toggle('active', a.dataset.k === activeK);
+        });
+      }, { passive: true });
+      // --------------------------------------
     });
-  });
-</script>
-  
+  </script>
 </body>
 
 </html>
