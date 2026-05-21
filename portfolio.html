@@ -59,6 +59,36 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH PHOTOGRAPHY STYLE ── */
+    .sh {
+      padding-top: 10px;
+    }
+
+    .sh h2 {
+      /* color: var(--g) !important; */
+      color: var(--accent) !important;
+      /* color: white !important; */
+      font-size: clamp(28px, 3vw, 50px) !important;
+      font-weight: 900 !important;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      margin: 0;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .sh .sh-r {
+      /* background: color-mix(in srgb, var(--border) 50%, transparent) !important; */
+      background: color-mix(in srgb, var(--accent) 50%, transparent) !important;
+      height: 3px !important;
+    }
+
+    .sh-pulse-btn:hover h2 {
+      /* color: var(--gl) !important; */
+      color: var(--accent2) !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -1636,7 +1666,7 @@
   </div>
   <script src="script.js"></script>
 
-  <script>
+  <!-- <script>
     /* ── OPTIMIZATION: SMART VIDEO PERFORMANCE MANAGER ── */
     // Suspends video playback and decoding when videos are hidden in background carousels or off-screen
     document.addEventListener("DOMContentLoaded", () => {
@@ -1680,6 +1710,26 @@
         });
       }, { threshold: 0.1 });
       videos.forEach(v => io.observe(v));
+    });
+  </script> -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const videos = document.querySelectorAll("video.cimg");
+
+      // Only use the highly-efficient IntersectionObserver to pause videos when scrolled off-screen
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          const vid = e.target;
+          if (!e.isIntersecting) {
+            vid.pause();
+          } else if (vid.classList.contains("on") && getComputedStyle(vid).display !== "none") {
+            vid.play().catch(() => { });
+          }
+        });
+      }, { threshold: 0.1 });
+
+      videos.forEach(vid => io.observe(vid));
     });
   </script>
 </body>

@@ -457,7 +457,7 @@ function runCoreScrollTasks(sy) {
 
 	const coverWrap = document.getElementById("post-cover-wrap");
 	if (coverWrap && window.isViewingDynamicPost) {
-		coverWrap.style.transform = `translateY(${sy * 0.35}px)`;
+		coverWrap.style.transform = `translateY(${sy * 0.55}px)`;
 	}
 
 	if (window.isViewingDynamicPost) return;
