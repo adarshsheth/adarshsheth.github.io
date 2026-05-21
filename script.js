@@ -342,6 +342,28 @@ function closeSidebar() {
 	document.body.style.overflow = "";
 }
 
+/* ── DESKTOP SIDEBAR HOVER EFFECT ── */
+// document.addEventListener("DOMContentLoaded", () => {
+// 	const sb = document.getElementById("sb");
+// 	const overlay = document.getElementById("sb-overlay");
+
+// 	if (sb && overlay) {
+// 		sb.addEventListener("mouseenter", () => {
+// 			// Only trigger on desktop screens (> 1050px)
+// 			if (window.innerWidth > 1050) {
+// 				overlay.classList.add("show");
+// 			}
+// 		});
+
+// 		sb.addEventListener("mouseleave", () => {
+// 			// Remove the overlay when mouse leaves, making sure we don't accidentally close a toggled mobile menu
+// 			if (window.innerWidth > 1050 && !sb.classList.contains("sb-open")) {
+// 				overlay.classList.remove("show");
+// 			}
+// 		});
+// 	}
+// });
+
 /* ── UNIFIED SCROLL ENGINE (NAV & SIDEBAR) ─────────────────────────── */
 let isScrollTicking = false;
 let cachedAvailableSections = null;
@@ -434,7 +456,7 @@ function runCoreScrollTasks(sy) {
 	if (window._isNavLocked || navHovering) {
 		navLy = sy;
 		navDelta = 0;
-	} else if (sy <= 75) {
+	} else if (sy <= 10) {
 		window._showNav();
 		navLy = sy;
 	} else {

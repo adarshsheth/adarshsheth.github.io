@@ -26,7 +26,8 @@
 	--sw: 250px;
 	--r: 10px;
 	--anchorh: 0px;
-	--sb: 70px;
+	/* --sb: 70px; */
+	--sb: 20px;
 	--dimtitle: #888888;
 	--bullbold: #525e44;
 	--title: #ffffff;
@@ -141,6 +142,32 @@ header {
 	align-items: center;
 	transition: transform 0.4s ease-in-out;
 	pointer-events: none;
+	/* padding-bottom: 100px; */
+}
+/* ── NEW: Gradient blur tied to the header's movements ── */
+header::before {
+	content: "";
+	position: absolute;
+	/* inset: 0; */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: -70px; /* Pulls the gradient 60px down BELOW the navbar */
+
+	z-index: -1; /* Puts the blur behind the nav buttons */
+	pointer-events: none;
+	transform: translateY(-20%);
+	
+	/* The dark gradient tint */
+	background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 100%, transparent) 0%, transparent 100%);
+	
+	/* The actual blur effect */
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	
+	/* A mask that fades the blur out smoothly at the bottom edge so there isn't a harsh line */
+	-webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+	mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
 }
 .mobile-box {
 	display: none;
@@ -216,7 +243,7 @@ header {
 	justify-content: center;
 	padding-top: 0;
 	padding-bottom: 0;
-	padding-left: 100px; 
+	padding-left: 20px; 
 	padding-right: 5px; 
 }
 
@@ -351,13 +378,14 @@ header {
 	bottom: 0;
 	width: var(--sw);
 	background: var(--surface-full);
-	border-right: 1px solid var(--border);
+	border-right: 2px solid var(--border);
 	z-index: 400;
 	display: flex;
 	flex-direction: column;
 	padding-top: calc(var(--sb) + 8px);
 	/* will-change: transform; */
 	backface-visibility: hidden;
+	box-shadow: 0 0 15px color-mix(in srgb, var(--border) 40%, transparent);
 }
 
 .ss-wrapper, .cbody, .ec {
@@ -483,8 +511,10 @@ header {
 	flex-direction: column;
 	padding-left: 29px;
 	gap: 4px;
-	margin-top: 2px;
-	margin-bottom: 8px;
+	/* margin-top: 2px;
+	margin-bottom: 8px; */
+	padding-top: 2px;
+	padding-bottom: 8px;
 }
 .sbn-sub {
 	font-size: clamp(10.5px, 0.5vw, 25px);
@@ -524,8 +554,8 @@ header {
 	position: fixed;
 	inset: 0;
 	background: rgba(0, 0, 0, 0.6);
-	backdrop-filter: blur(3px);
-	-webkit-backdrop-filter: blur(3px);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 	z-index: 399;
 	opacity: 0;
 	pointer-events: none;
@@ -594,9 +624,11 @@ section {
 .copy-toast {
 	position: fixed;
 	bottom: 28px;
-	left: 50%;
+	/* left: 50%; */
+	left: calc(50% + (var(--sw) / 2));
 	transform: translateX(-50%) translateY(20px);
-	background: var(--surface2);
+	background: color-mix(in srgb, var(--surface2) 70%, transparent);
+	backdrop-filter: blur(4px);
 	border: 1px solid var(--border);
 	border-radius: 100px;
 	padding: 8px 18px;
@@ -2173,8 +2205,10 @@ footer {
 }
 
 @media (max-width: 1050px) {
-	:root { --navh: 25px; }
-
+	:root { --navh: 25px; --sb: 70px;  }
+	.copy-toast {
+		left: 50%;
+	}
 	.logo, .logo-icon, .ncontact { display: none !important; }
 	.mobile-box { display: inline-flex !important; }
 	.mobile-menu-btn {
