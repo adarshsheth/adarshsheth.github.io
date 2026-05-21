@@ -166,7 +166,7 @@
             overflow: hidden;
             mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            animation: fadeIn 1s ease-in forwards;
+            animation: fadeIn 0.67s ease-in forwards;
         }
 
         #post-cover-wrap::after {
@@ -510,6 +510,25 @@
 .cbody.full {
     display: block !important;
 } */
+
+        /* --- SIMILAR ARTICLES SPECIFIC STYLING --- */
+        .similar-img-wrap {
+            aspect-ratio: auto !important;
+        }
+
+        @media (max-width: 1150px) {
+            .similar-img-wrap {
+                height: 140px !important;
+                /* Squashes the height on tablets */
+            }
+        }
+
+        @media (max-width: 800px) {
+            .similar-img-wrap {
+                height: 100px !important;
+                /* Heavily squashes the height on mobile */
+            }
+        }
     </style>
 </head>
 
@@ -819,7 +838,7 @@
 
                 coverWrap.style.animation = 'none'; // Stop the current animation
                 void coverWrap.offsetWidth;         // Force a DOM reflow (the browser re-calculates the style)
-                coverWrap.style.animation = 'fadeIn 1s ease-in forwards'; // Re-apply the animation
+                coverWrap.style.animation = 'fadeIn 0.67s ease-in forwards'; // Re-apply the animation
             } else {
                 coverWrap.style.display = 'none';
             }
@@ -893,6 +912,50 @@
 
             document.title = `${post.title} | Blog | AS`;
 
+            // --- NEW: SIMILAR ARTICLES LOGIC ---
+            const currentTags = post.tags ? post.tags.map(t => t.name) : [];
+
+            // 1. Try to find posts that share at least one tag
+            let similarPosts = BLOG_POSTS.filter(edge => {
+                if (edge.node.slug === slug) return false;
+                const edgeTags = edge.node.tags ? edge.node.tags.map(t => t.name) : [];
+                return edgeTags.some(t => currentTags.includes(t));
+            });
+
+            // 2. Fallback: If no similar tags exist, grab random articles
+            if (similarPosts.length === 0) {
+                let availablePosts = BLOG_POSTS.filter(edge => edge.node.slug !== slug);
+                // Shuffle the available posts randomly
+                similarPosts = availablePosts.sort(() => 0.5 - Math.random());
+            }
+
+            // 3. Limit to 4 articles for a clean 2x2 grid
+            similarPosts = similarPosts.slice(0, 4);
+
+            const similarContainer = document.getElementById('similar-articles-container');
+            const similarGrid = document.getElementById('similar-articles-grid');
+
+            if (similarPosts.length > 0) {
+                similarGrid.innerHTML = similarPosts.map(({ node }) => `
+            <a href="?post=${node.slug}" onclick="event.preventDefault(); navigateToPost('${node.slug}')" class="wi vis" style="width: 100%;">
+                ${node.coverImage?.url ? `
+                <div class="wi-img-wrap similar-img-wrap">
+                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" loading="lazy" decoding="async">
+                </div>` : ''}
+                <div class="wi-body" style="padding: 20px;">
+                    <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 20px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${node.title}</h3>
+                    <div class="ecm" style="margin-top:12px; flex-wrap: nowrap; overflow: hidden; white-space: nowrap;">
+                        ${(node.tags || []).slice(0, 3).map(tag => `<span style="flex-shrink: 0;">${tag.name}</span>`).join('')}
+                        <span style="flex-shrink: 0;">${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    </div>
+                </div>
+            </a>
+        `).join('');
+                similarContainer.style.display = 'block';
+            } else {
+                similarContainer.style.display = 'none';
+            }
+            // -----------------------------------
             generateBlogSidebar();
 
             runCoreScrollTasks(window.scrollY);

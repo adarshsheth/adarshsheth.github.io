@@ -58,7 +58,7 @@
 
   <style>
 
-
+/* 
     .lbbox {
       position: relative;
       display: flex;
@@ -83,7 +83,7 @@
 
     .lb-next {
       right: -52px
-    }
+    } */
 
    
     .hero-desc {
@@ -234,25 +234,16 @@
   <!-- copy toast -->
   <div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
-  <!-- LIGHTBOX -->
-  <!-- <div id="lb">
-    <div class="lbb" onclick="closeLb()"></div>
-    <div class="lbbox">
-      <button class="lbclose" onclick="closeLb()">×</button>
-      <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
-      <img id="lbimg" class="lbi" src="" alt="" />
-      <div id="lbcap" class="lbcap"></div>
-      <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
-    </div>
-  </div> -->
   <div id="lb">
     <div class="lbb" id="lb-bg"></div>
     <div class="lbbox">
       <button class="lbclose" id="lb-close">×</button>
-      <button class="lb-nav lb-prev" id="lb-prev">&#8249;</button>
       <img id="lbimg" class="lbi" src="" alt="" />
-      <div id="lbcap" class="lbcap"></div>
-      <button class="lb-nav lb-next" id="lb-next">&#8250;</button>
+      <div class="lb-bottom">
+        <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
+        <div id="lbcap" class="lbcap"></div>
+        <button class="lb-nav lb-n" id="lb-next">&#8250;</button>
+      </div>
     </div>
   </div>
 

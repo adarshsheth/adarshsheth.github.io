@@ -170,9 +170,9 @@ header {
 	width: auto;
 	border-radius: 100px;
 	border: 2px solid var(--gd);
-	background: #424b40b7;
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
+	background: hsla(109, 8%, 27%, 0.9);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
 	padding: 5px 5px;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 	transition: transform 0.45s ease-in-out;
@@ -1338,7 +1338,7 @@ section {
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.25s;
-	will-change: opacity;
+	/* will-change: opacity; */
 }
 #lb.open {
 	opacity: 1;
@@ -1348,8 +1348,8 @@ section {
 	position: absolute;
 	inset: 0;
 	background: rgba(35, 41, 34, 0.88);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
 	cursor: pointer;
 }
 .lbbox {
@@ -1362,7 +1362,8 @@ section {
 	max-width: 90vw;
 }
 .lbi {
-	height: 45vh;
+	/* height: 45vh; */
+	height: 55vh;
 	width: auto;
 	max-width: 88vw;
 	border-radius: 8px;
@@ -1370,7 +1371,8 @@ section {
 }
 .lb-bottom {
 	position: relative;
-	width: min(50vw, 400px);
+	/* width: min(50vw, 400px); */
+	width: min(50vw, 300px);
 	min-height: 38px;
 	display: flex;
 	align-items: center;

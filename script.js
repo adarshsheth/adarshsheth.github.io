@@ -82,6 +82,7 @@ function initSS() {
 
 function calcW(id) {
 	const s = SS[id];
+	if (!s) return; // <-- THE MISSING SAFETY CHECK
 	const w = s.clip.getBoundingClientRect().width;
 	if (w === 0) return;
 	s.w = w;
