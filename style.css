@@ -304,7 +304,8 @@ header::before {
 	position: absolute;
 	top: 100% !important;
 	left: 0%;
-	background: #ffffff9e;
+	/* background: #ffffff9e; */
+	background: rgba(255, 255, 255, 0.6);
 	border-radius: 12px;
 	min-width: 190px;
 	overflow: hidden;
@@ -436,14 +437,14 @@ header::before {
 	flex-shrink: 0;
 }
 #sb-fill {
-	height: 2px;
+	height: 3px;
 	background: var(--g);
 	width: 0%;
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: -1px;
 	transition: width 0.18s linear;
-	box-shadow: 0 0 5px var(--g);
+	box-shadow: 0 0 5px color-mix(in srgb, var(--gl) 50%, transparent);
 }
 #sb-nav {
 	flex: 1;
@@ -1048,7 +1049,9 @@ section {
 	font-weight: normal;
 	color: var(--dimtitle);
 }
-
+.ecdate {
+	color: var(--badge);
+}
 .echr {
 	display: flex;
 	justify-content: space-between;
@@ -2069,7 +2072,8 @@ footer {
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 14px;
-	border-top: 1px solid var(--border);
+	border-top: 2px solid var(--border);
+	box-shadow: 0 0 15px color-mix(in srgb, var(--border) 40%, transparent);
 }
 .fnav {
 	display: flex;

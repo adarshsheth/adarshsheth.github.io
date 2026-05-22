@@ -133,49 +133,27 @@
 						style="border: none; display: block; pointer-events: none; transform: scale(1.05);" /></a>
 				</div> -->
 				<!-- <embed src="media/resume.pdf" type="application/pdf" width="100%" height="100%"/> -->
-			
-
+	
+				
+				<!-- working resume pdf coded w/ google drive alt for mobile -->
+<!-- 
 				<div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
 					<iframe src="media/resume.pdf#toolbar=0&navpanes=0&view=FitH"
 						style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
 					</iframe>
+				</div> -->
+				<!-- <iframe src="https://docs.google.com/viewer?url=https://adarshsheth.github.io/media/resume.pdf&embedded=true"
+					style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
+				</iframe> -->
+
+				<div id="pdf-section">
+					<div style="width: 90vw; max-width: 1500px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
+						<iframe id="resume-iframe" style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
+						</iframe>
+					</div>
 				</div>
+				
 
-				<!-- <div id="pdf-section">
-					<div style="
-				            width: 80vw;
-				            max-width: 1000px; /* Capped the width so it doesn't get comically huge */
-				            border-radius: 12px;
-				            overflow: hidden;
-				            border: 1.5px solid var(--border);
-				            background: var(--surface);
-				            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-				            display: flex;
-				            justify-content: center;
-				        ">
-						<canvas id="resume-canvas" style="width: 100%; height: auto; display: block;"></canvas>
-					</div>
-				</div> -->
-
-				<!-- <div style="
-				            width: 80vw;
-				            max-width: 1000px;
-				            border-radius: 12px;
-				            overflow: hidden;
-				            border: 1.5px solid var(--border);
-				            background: var(--surface);
-				            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-				            display: flex;
-				            justify-content: center;
-				        ">
-					<div id="pdf-wrapper" style="position: relative; width: 100%;">
-						<canvas id="resume-canvas"
-							style="width: 100%; height: auto; display: block; image-rendering: high-quality;"></canvas>
-						<div id="text-layer" class="textLayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-						</div>
-					</div>
-				</div> -->
-			
 			</div>
 
 			<footer>
@@ -193,57 +171,26 @@
 			</footer>
 		</div>
 		<script src="script.js"></script>
-		<!-- <script src="nav.js"></scri 	pt> -->
-		<!-- <script>
+
+		<script>
 			document.addEventListener("DOMContentLoaded", function () {
-				// Point this to your actual PDF file in the media folder
-				const url = 'media/resume.pdf';
+				const iframe = document.getElementById("resume-iframe");
+				const absolutePdfUrl = "https://adarshsheth.github.io/media/resume.pdf";
+				const relativePdfUrl = "media/resume.pdf#toolbar=0&navpanes=0&view=FitH";
 
-				const renderPDF = async () => {
-					try {
-						// Fetch the PDF document
-						const pdf = await pdfjsLib.getDocument(url).promise;
+				// Detect mobile via screen width (matching your 900px CSS breakpoint) or User Agent
+				const isMobile = window.innerWidth <= 900 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-						// Fetch the first page (Assuming your resume is 1 page)
-						const page = await pdf.getPage(1);
-
-						const canvas = document.getElementById('resume-canvas');
-						const ctx = canvas.getContext('2d');
-
-						// 1. Get the High-DPI ratio of the user's screen (Usually 2 or 3 on modern laptops/phones)
-						const outputScale = (window.devicePixelRatio || 1)*1;
-
-						// 2. Render it at 2x scale natively first to guarantee crispness, then let CSS scale it down
-						const viewport = page.getViewport({ scale: 2.0 });
-
-						// 3. Set the physical pixel size of the canvas
-						canvas.width = Math.floor(viewport.width * outputScale);
-						canvas.height = Math.floor(viewport.height * outputScale);
-
-						// 4. Transform the context to account for high-DPI screens
-						const transform = outputScale !== 1
-							? [outputScale, 0, 0, outputScale, 0, 0]
-							: null;
-
-						const renderContext = {
-							canvasContext: ctx,
-							transform: transform,
-							viewport: viewport
-						};
-
-						// Draw the PDF to the screen!
-						await page.render(renderContext).promise;
-
-					} catch (error) {
-						console.error('Error rendering the PDF:', error);
-					}
-				};
-
-				renderPDF();
+				if (isMobile) {
+					// Mobile: Route through Google Docs Viewer
+					iframe.src = "https://docs.google.com/viewer?url=" + encodeURIComponent(absolutePdfUrl) + "&embedded=true";
+				} else {
+					// Desktop: Use native browser PDF viewer
+					iframe.src = relativePdfUrl;
+				}
 			});
-		</script> -->
+		</script>
 
-		<!-- <script>
 			document.addEventListener("DOMContentLoaded", function () {
 				const url = 'media/resume.pdf';
 

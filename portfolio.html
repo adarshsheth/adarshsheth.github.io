@@ -61,9 +61,18 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
+    :root {
+      --h2padding: 40px;
+    }
+
+    .sb {
+      padding-bottom: var(--h2padding);
+    }
+
     /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH PHOTOGRAPHY STYLE ── */
     .sh {
-      padding-top: 10px;
+      padding-top: calc(var(--h2padding) + 20px);
+      padding-bottom: 20px;
     }
 
     .sh h2 {
@@ -75,7 +84,7 @@
       letter-spacing: 0.01em;
       text-transform: uppercase;
       margin: 0;
-      padding-top: 20px;
+      /* padding-top: var(--h2padding); */
       transition: color 0.2s ease-in-out;
     }
 
@@ -84,7 +93,7 @@
       /* background: color-mix(in srgb, var(--accent) 50%, transparent) !important; */
       background: color-mix(in srgb, var(--g) 50%, transparent) !important;
       height: 3px !important;
-      margin-top: 20px;
+      /* margin-top: var(--h2padding); */
 
     }
 
@@ -203,8 +212,7 @@
     <section id="tls">
       <div class="tlbox">
         <h3>EXPERIENCE TIMELINE</h3>
-        <p class="tlsub">A visual representation of my past and current experience — click any item to jump to
-          its section</p>
+        <p class="tlsub">A timeline of my engineering portfolio. Click to jump to its section.</p>
         <div class="tlframe">
           <!-- <iframe src="gantt.html" title="Experience Timeline" scrolling="no" loading="lazy"></iframe> -->
           <!-- <iframe data-src="gantt.html" id="timeline-iframe" title="Experience Timeline" scrolling="no" 
@@ -256,8 +264,8 @@
                       <div>
                         <div class="ect">VERTICAL FLIGHT DESIGN TEAM</div>
                         <div class="ecm">
-                          <span class="ecrole">Aerodynamics Engineer</span>
                           <span class="ecdate">09/2025 – PRESENT</span>
+                          <span class="ecrole">Aerodynamics Engineer</span>
                           <span class="ecmeta">TEXAS A&amp;M, Design Team</span>
                         </div>
                       </div>
@@ -422,8 +430,8 @@
                       <div>
                         <div class="ect">ROCKET ENGINE DESIGN</div>
                         <div class="ecm">
-                          <span class="ecrole">Fluid Systems Engineer</span>
                           <span class="ecdate">02/2025 – 01/2026</span>
+                          <span class="ecrole">Fluid Systems Engineer</span>
                           <span class="ecmeta">TEXAS A&amp;M, Design Team</span>
                         </div>
                       </div>
@@ -516,8 +524,8 @@
                       <div>
                         <div class="ect">LUNAR SEARCH &amp; RESCUE DESIGN TEAM</div>
                         <div class="ecm">
-                          <span class="ecrole">Team Lead</span>
                           <span class="ecdate">FALL 2024</span>
+                          <span class="ecrole">Team Lead</span>
                           <span class="ecmeta">TEXAS A&amp;M, TAMU SEDS</span>
                         </div>
                       </div>
@@ -620,10 +628,9 @@
                       <div>
                         <div class="ect">TEAM 5776K, CO-FOUNDER &amp; CAPTAIN</div>
                         <div class="ecm">
-                          <span class="ecrole">VEX Robotics, "Spin Up" &amp; "Over
-                            Under"</span>
                           <span class="ecdate">2022-2024</span>
-                          <span class="ecmeta">Dougherty Valley High School</span>
+                          <span class="ecrole">VEX Robotics, "Spin Up" &amp; "Over Under"</span>
+                          <span class="ecmeta">Dougherty Valley High School Robotics</span>
                         </div>
                       </div>
                       <div class="eclogos darkimgs">
@@ -838,8 +845,9 @@
                       <div>
                         <div class="ect">CABINET</div>
                         <div class="ecm">
-                          <span class="ecrole">Secretary and 2× Activities Coordinator</span>
                           <span class="ecdate">2021–2024</span>
+                          <span class="ecrole">Secretary and 2× Activities Coordinator</span>
+                          <span class="ecmeta">Dougherty Valley High School Robotics</span>
                         </div>
                       </div>
                       <div class="eclogos darkimgs">
@@ -963,8 +971,8 @@
                         <div class="ect">IGNITE DESIGN CHALLENGE: VERTICAL FLIGHT RESCUE MISSION
                         </div>
                         <div class="ecm">
-                          <span class="ecmeta">Student Engineers' Council</span>
                           <span class="ecdate">NOVEMBER 2025, 9-DAY EVENT</span>
+                          <span class="ecmeta">Student Engineers' Council</span>
                           <span class="ecmeta">TEXAS A&amp;M</span>
                         </div>
                       </div>
@@ -997,8 +1005,7 @@
 
                       <div class="cslbl" style="margin-top:12px">Constraint Analysis + Iterative
                         Sizing Method</div>
-                      <p class="hbox"
-                        style="font-size:clamp(13.5px, 0.9vw, 50px);color:var(--tdim);margin-bottom:8px">
+                      <p class="hbox" style="font-size:clamp(13.5px, 0.9vw, 50px);color:var(--tdim);margin-bottom:8px">
                         Iterated
                         through <b>2,362,692</b> sizing configurations, varying:<br><b style="color: var(--tdim)">[1]
                           MTOW, [2] S</b> (wing planform area),
@@ -1338,7 +1345,7 @@
                       <div>
                         <div class="ect">EVERYDAY ENGINEERING SERIES</div>
                         <div class="ecm">
-                          <span class="ecdate">ARRIVING SOON · SUMMER &amp; FALL 2025</span>
+                          <span class="ecdate">SUMMER &amp; FALL 2025</span>
                         </div>
                       </div>
                     </div>
