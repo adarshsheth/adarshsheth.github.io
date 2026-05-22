@@ -81,7 +81,7 @@ a {
 }
 a:hover {
 	/* color: var(--accent2) !important; */
-	color: var(--accent2);
+	color: var(--accent);
 }
 img {
 	display: block;
@@ -678,7 +678,7 @@ section {
 	line-height: 1.65;
 }
 #ibar p a {
-	color: var(--accent);
+	color: var(--accent2);
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
@@ -713,17 +713,20 @@ section {
 
 /* ── READABILITY / LAYOUT HELPERS ── */
 .hbox {
-	background: rgba(200, 168, 75, 0.07);
-	border-left: 3px solid var(--accent);
+	/* background: rgba(200, 168, 75, 0.07); */
+	background: color-mix(in srgb, var(--text) 4%, transparent);
+	/* border-left: 3px solid var(--accent2); */
+	border-left: 3px solid var(--badge);
 	border-radius: 0 6px 6px 0;
 	padding: 10px 14px;
 	margin: 10px 0;
 	font-size: clamp(13.5px, 0.8vw, 50px);
 	color: #888888;
-	line-height: 1.65;
+	/* line-height: 1.5; */
 }
 .hbox b, .hbox strong {
-	color: var(--accent);
+	/* color: var(--accent2); */
+	color: var(--badge);
 	font-weight: 700;
 }
 .hbox p + p {
@@ -1004,7 +1007,9 @@ section {
 }
 .ec.visible:hover {
 	border-color: rgba(100, 118, 97, 0.6);
+	/* border-color: color-mix(in srgb, var(--accent) 60%, transparent); */
 	box-shadow: 0 0 7px 4px rgba(100, 118, 97, 0.1), 0 0 9px 4px rgba(100, 118, 97, 0.06);
+	/* box-shadow: 0 0 7px 4px color-mix(in srgb, var(--accent) 5%, transparent), 0 0 9px 4px color-mix(in srgb, var(--accent) 5%, transparent); */
 	transform-origin: top left;
 	transform: translateY(0) scale(1.01) translateZ(0);
 }
@@ -1032,7 +1037,8 @@ section {
 	font-size: clamp(13px, 0.7vw, 50px);
 	font-style: normal;
 	font-weight: 700;
-	color: var(--g);
+	/* color: var(--g); */
+	color: var(--bullbold);
 	text-transform: uppercase;
 }
 .ecm span:not(:last-child)::after {
@@ -1159,13 +1165,13 @@ section {
 }
 .cbul i { font-style: italic; }
 .cbul a {
-	color: var(--accent);
+	color: var(--accent2);
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	transition: color 0.2s;
 }
 .cbul a:hover {
-	color: var(--accent2);
+	color: var(--accent);
 }
 .csub {
 	margin-top: 12px;
@@ -1357,7 +1363,7 @@ section {
 	text-align: center;
 }
 .car-caption a {
-	color: var(--accent);
+	color: var(--accent2);
 	text-decoration: underline;
 	text-underline-offset: 2px;
 }
@@ -1421,7 +1427,7 @@ section {
 	flex: 1;
 	max-width: 100%;
 }
-.lbcap a { color: var(--accent); }
+.lbcap a { color: var(--accent2); }
 .lbclose {
 	position: absolute;
 	top: -38px;
@@ -1580,13 +1586,18 @@ section {
 	margin-bottom: 10px;
 }
 .about-bio a {
-	color: var(--accent);
+	color: var(--accent2);
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	transition: color 0.15s;
 }
-.about-bio a:hover {
+.about-bio-list li a {
 	color: var(--accent2);
+	transition: color 0.15s;
+}
+.about-bio a:hover, 
+.about-bio-list li a:hover {
+	color: var(--accent);
 }
 
 /* Custom About Section Bullets */
@@ -2291,3 +2302,29 @@ footer {
 	.insta-photo-wrap { aspect-ratio: 4/3; }
 	.about-photo-wrap { width: 20vw; height: 20vw; }
 }
+
+/* ══ 3D PERSPECTIVE HOVER EFFECT ── */
+/* .ec.visible {
+    perspective: 10000px;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.25s, box-shadow 0.25s;
+}
+
+.ec.visible:hover {
+    border-color: rgba(100, 118, 97, 0.6);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 7px 4px rgba(100, 118, 97, 0.1);
+    transform: perspective(10000px) rotateX(-5deg) rotateY(-5deg) scale(1.0) translateZ(-20px);
+} */
+
+/* ══ FEATURED WORK 3D HOVER EFFECT ── */
+/* .wi {
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                border-color 0.25s, 
+                box-shadow 0.25s, 
+                opacity 0.5s;
+    transform-style: preserve-3d;
+}
+
+.wi.vis:hover {
+    transform: perspective(3000px) rotateX(20deg) rotateY(-1deg) translateZ(0px);    
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 12px rgba(100, 118, 97, 0.3);
+} */

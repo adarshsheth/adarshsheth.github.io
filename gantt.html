@@ -8,7 +8,10 @@
       --org-shift: 90px;
       --gantt-shift: 70px;
       --container-shift: 0px;
-      --org-divider-height: 150px;
+      --org-divider-height: 175px;
+      --g: #829c7e;
+      --accent: #c8a84b;
+      --accent2: #525e44;
     }
 
 html, body { 
@@ -57,7 +60,8 @@ html, body {
     .org-label {
       text-align: right;
       margin-bottom: 11px;
-      color: #c8a84b;
+      /* color: var(--accent); */
+      color: var(--g);
       font-weight: 600;
     }
 
@@ -112,7 +116,8 @@ html, body {
       display: flex;
       align-items: center;
       font-weight: bold;
-      color: #829c7e;
+      color: var(--g);
+      color: var(--accent2);
       white-space: nowrap;
       margin-left: 8px;
       z-index: 1;
@@ -190,7 +195,8 @@ html, body {
       top: 40px;
       height: var(--org-divider-height);
       width: 2.5px;
-      background: #c8a84b;
+      background: var(--accent);
+      background: var(--g);
       opacity: 0.75;
       z-index: 8;
       border-radius: 5px;
@@ -253,7 +259,7 @@ html, body {
         if (typeof exp.alignTo === 'number' && experiences[exp.alignTo]) { let ref = experiences[exp.alignTo]; let refLeft = dateToX(ref.start); let refRight = dateToX(ref.end === 'Present' ? 'Present' : ref.end); let refWidth = refRight - refLeft; let pct = (typeof exp.alignToPercent === 'number') ? exp.alignToPercent : 0.5; let anchorX = refLeft + refWidth * pct; if (typeof exp.alignToOffsetX === 'number') { const frac = exp.alignToOffsetX; anchorX += frac * chart.width; } if (typeof exp.widthPx === 'number') { barWidth = exp.widthPx; left = anchorX; } else { barWidth = 120; left = anchorX - barWidth * 0.5; } right = left + barWidth; }
         else if (exp.start && exp.end) { left = dateToX(exp.start); right = dateToX(exp.end === 'Present' ? 'Present' : exp.end); barWidth = right - left; }
         else { left = 0; barWidth = (typeof exp.widthPx === 'number') ? exp.widthPx : 120; right = left + barWidth; }
-        let bgColor = exp.colorBar === true ? '#727272' : '#829c7e'; if (typeof exp.color === 'string') bgColor = exp.color;
+        let bgColor = exp.colorBar === true ? 'var(--accent)' : 'var(--g)'; if (typeof exp.color === 'string') bgColor = exp.color;
         let z = (typeof exp.z === 'number') ? exp.z : 2;
         let placeRight = (exp.isLeft === false);
         let roleHtml = '';
