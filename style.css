@@ -2062,7 +2062,7 @@ textarea.form-input {
 /* ══════════════════════════════════════════════════════════ */
 .div {
 	border: none;
-	border-top: 1px solid var(--border);
+	border-top: 2px solid color-mix(in srgb, var(--border) 50%, transparent);
 }
 footer {
 	background: var(--surface-full);
@@ -2220,7 +2220,7 @@ footer {
 }
 
 @media (max-width: 1050px) {
-	:root { --navh: 25px; --sb: 70px;  }
+	:root { --navh: 25px; --sb: 70px; }
 	.copy-toast {
 		left: 50%;
 	}
