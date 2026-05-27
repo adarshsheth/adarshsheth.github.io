@@ -37,17 +37,17 @@
             --g: #647661;
             --gd: #232922;
         }
-    
+
         body {
             background: var(--bg);
             color: var(--text);
         }
-    
+
         a {
             color: inherit;
             text-decoration: none;
         }
-    
+
         a:hover {
             color: var(--g);
         }
@@ -182,7 +182,7 @@
             left: 0;
             width: 100%;
             max-width: 100%;
-            height: 600px;
+            height: 500px;
             opacity: 0.5;
             z-index: -1;
             overflow: hidden;
@@ -344,7 +344,7 @@
         }
 
         #post-body a {
-            color: var(--accent);
+            color: var(--accent2);
             text-decoration: underline;
             text-underline-offset: 3px;
             transition: color 0.2s;
@@ -724,7 +724,11 @@
                 return;
             }
 
-            const sidebarHtml = hElements.map((heading, index) => {
+            let sidebarHtml = '';
+            let openSubnav = false;
+            let openGroup = false;
+
+            hElements.forEach((heading, index) => {
                 const id = heading.id || `heading-${index}`;
                 heading.id = id;
 
@@ -736,25 +740,66 @@
                     .replace(/^[-\s•]+/, '')
                     .trim();
 
-                return `
-    <a class="sbn sbn-article"
-       href="#${id}"
-       id="nav-link-${id}"
-       onclick="window._lockNav();" 
-       style="${isSub ? 'margin-left:20px;font-size:.85em;opacity:.8;' : ''}">
-        <span class="sbdot" style="${isSub ? 'width:4px;height:4px;' : ''}"></span>
-        <span class="sblbl">${text}</span>
-    </a>
-`;
-            }).join('');
+                if (isSub) {
+                    if (!openSubnav) {
+                        if (!openGroup) {
+                            sidebarHtml += '<div class="sb-group">';
+                            openGroup = true;
+                        }
+                        sidebarHtml += '<div class="sb-subnav">';
+                        openSubnav = true;
+                    }
 
+                    sidebarHtml += `
+        <a class="sbn sbn-sub"
+           href="#${id}"
+           id="nav-link-${id}"
+           onclick="window._lockNav();">
+            <span class="sblbl">${text}</span>
+        </a>
+    `;
+                } else {
+                    if (openSubnav) {
+                        sidebarHtml += '</div></div>';
+                        openSubnav = false;
+                        openGroup = false;
+                    }
+
+                    if (openGroup) {
+                        sidebarHtml += '</div>';
+                        openGroup = false;
+                    }
+
+                    sidebarHtml += `
+    <div class="sb-group">
+        <a class="sbn sbn-article"
+           href="#${id}"
+           id="nav-link-${id}"
+           onclick="window._lockNav();">
+            <span class="sbdot"></span>
+            <span class="sblbl">${text}</span>
+        </a>
+    `;
+                    openGroup = true;
+                }
+            });
+
+            if (openSubnav) {
+                sidebarHtml += '</div></div>';
+            } else if (openGroup) {
+                sidebarHtml += '</div>';
+            }
+
+            //     sbNav.innerHTML = `
+            // <a class="sbn" href="?">
+            //     <span class="sbdot" style="background: var(--accent);"></span>
+            //     <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
+            // </a>
             sbNav.innerHTML = `
         <a class="sbn" href="?">
-            <span class="sbdot" style="background: var(--accent);"></span>
-            <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
+            <span class="sblbl" style="color: var(--accent2); font-weight: 700; margin-bottom: -5px;">Back to Feed</span>
         </a>
-
-        <div style="height:2px;background:var(--g);margin:10px 14px;"></div>
+        <div style="height:2px;background:color-mix(in srgb, var(--border) 50%, transparent);margin:10px 14px;"></div>
 
         ${sidebarHtml}
     `;
@@ -764,7 +809,7 @@
 
         /* --- OPTIMIZATION 2: Eliminated Layout Thrashing --- */
         function initBlogScrollSpy() {
-            const subLinks = document.querySelectorAll('.sbn-article');
+            const subLinks = document.querySelectorAll('.sbn-article, .sbn-sub');
             const headers = Array.from(document.querySelectorAll('#post-body h2, #post-body h3'));
             if (!headers.length) return;
 
