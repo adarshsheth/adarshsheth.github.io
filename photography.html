@@ -61,17 +61,17 @@
       --gd: #232922;
       --tdim: #7a7e76;
     }
-  
+
     body {
       background: var(--bg);
       color: var(--text);
     }
-  
+
     a {
       color: inherit;
       text-decoration: none;
     }
-  
+
     a:hover {
       color: var(--g);
     }
@@ -118,8 +118,8 @@
     }
 
     /* .photo-sh .sh-pulse-btn:hover h2 { */
-      /* color: var(--accent2) !important; */
-      /* fr comment color: var(--gl) !important; */
+    /* color: var(--accent2) !important; */
+    /* fr comment color: var(--gl) !important; */
     /* } */
 
     /* ══ MASONRY GRID ── */
@@ -141,7 +141,8 @@
       display: block;
       position: relative;
       overflow: hidden;
-      border-radius: 5px; /* was 4px before */
+      border-radius: 5px;
+      /* was 4px before */
       margin-bottom: var(--img-gap);
       background: var(--surface);
 
@@ -170,6 +171,32 @@
       transform: scale(1.045)
     }
 
+    .photo-tile::before {
+      content: attr(data-cap);
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 44px 10px 10px;
+      color: var(--tdim);
+      font-size: 11px;
+      line-height: 1.3;
+      background: linear-gradient(to top, rgba(10, 10, 10, 0.92), rgba(10, 10, 10, 0));
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .3s ease-in-out, transform .5s ease-in-out;
+      pointer-events: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      z-index: 1;
+    }
+
+    .photo-tile:hover::before {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .photo-tile::after {
       content: '';
       position: absolute;
@@ -181,6 +208,7 @@
       transition: opacity .4s ease-in-out;
       pointer-events: none;
       border-radius: inherit;
+      z-index: 0;
     }
 
     .photo-tile:hover::after {
@@ -273,9 +301,7 @@
     <section id="hero">
       <h1>PHOTOGRAPHY</h1>
     </section>
-    <p class="hero-desc">Photography, particularly of nature and architecture, is a keen passion of mine.
-      Beyond capturing a moment in time, photos show the beauty of the natural world and the
-      cultural additions humans make to it. See my work in painting, CGA, and origami as well.</p>
+    <!-- <p class="hero-desc">I enjoy capturing the natural and man-made beauty of the world around me.</p> -->
 
     <section id="sec-nature" class="sb" style="padding-top: 20px;">
       <div class="sh photo-sh">
@@ -287,6 +313,30 @@
       </div>
 
       <div class="masonry">
+        <div class="photo-tile" data-cap="Point Lobos, CA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880400/PXL_20260313_233818274_zgksky.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880400/PXL_20260313_233818274_zgksky.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Big Sur, CA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880400/PXL_20260313_222008094.PANO_1_a4t9je.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880400/PXL_20260313_222008094.PANO_1_a4t9je.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Hole in the Wall Beach, CA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880400/1779875345487346103011648357299_vfek6h.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880400/1779875345487346103011648357299_vfek6h.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Ocean Long Exposure; Davenport, CA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880400/PXL_20250712_232552763.LONG_EXPOSURE-01.COVER_vatg1n.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880400/PXL_20250712_232552763.LONG_EXPOSURE-01.COVER_vatg1n.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
         <div class="photo-tile" data-cap="Kenai Lake, Alaska"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg">
           <img
@@ -305,12 +355,12 @@
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
-        <div class="photo-tile" data-cap="Alaskan River"
+        <!-- <div class="photo-tile" data-cap="Alaskan River"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/alaska4_ietpty.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+        </div> -->
         <div class="photo-tile" data-cap="Snow Cap Mountains, Alaska"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg">
           <img
@@ -323,16 +373,40 @@
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246845/alaska8_rmfbzl.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
+        <div class="photo-tile" data-cap="Trees and Leaves"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246845/1779875367750525274062943198236_tivcpm.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246845/1779875367750525274062943198236_tivcpm.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Alaskan Marina"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <!-- <div class="photo-tile" data-cap="San Gregorio State Beach, CA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/17798755412704274374387688795219_ucpnty.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/17798755412704274374387688795219_ucpnty.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div> -->
         <div class="photo-tile" data-cap="Astrophotography"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246848/astro_e7w6ym.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246848/astro_e7w6ym.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
-        <div class="photo-tile" data-cap="Sunset on the Beach, Cabo, Mexico"
+        <div class="photo-tile" data-cap="Sunset on the Beach; Cabo, Mexico"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/mexico2_faqiha.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/mexico2_faqiha.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Anchorage, Alaska; Aerial View"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/17798754184721461866927109379769_qtth0f.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/17798754184721461866927109379769_qtth0f.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
 
@@ -350,10 +424,34 @@
       </div>
 
       <div class="masonry">
+        <div class="photo-tile" data-cap="Washington Monument View from Old Post Office Tower, DC"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880401/17798751388139168485597503991745_uaupgs.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880401/17798751388139168485597503991745_uaupgs.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Morocco"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880401/PXL_20260105_110419229_gvp2l0.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880401/PXL_20260105_110419229_gvp2l0.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
         <div class="photo-tile" data-cap="Smithsonian Museum of Natural History, DC"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/smithsonian_lwirmh.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Morocco Road"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/PXL_20260105_144330517.PANO_2_ol3qwg.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/PXL_20260105_144330517.PANO_2_ol3qwg.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Washington DC Subway Station Tunnel"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/PXL_20250626_233310936.MP_2_vqbqkc.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/PXL_20250626_233310936.MP_2_vqbqkc.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
         <div class="photo-tile" data-cap="Library of Congress, DC"
@@ -362,20 +460,26 @@
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/congress_wgl6xl.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
-        <div class="photo-tile" data-cap="DC Corridor"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/dc_tlt4dg.jpg">
+        <!-- <div class="photo-tile" data-cap="DC Corridor"
+  data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245951/dc_tlt4dg.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245951/dc_tlt4dg.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+        </div> -->
         <div class="photo-tile" data-cap="Yerba Buena Island, SF"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
+        <div class="photo-tile" data-cap="Bay Bridge, SF"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245952/17798754560287464469759233212995_tlkk4b.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245952/17798754560287464469759233212995_tlkk4b.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
 
-        <div class="photo-tile" data-cap="Adolphus Hotel, Dallas"
+        <div class="photo-tile" data-cap="Adolphus Hotel; Dallas, TX"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245950/adolphus_kuohxi.jpg" />
@@ -393,16 +497,35 @@
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/kyle_field_yjwup7.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
+        <div class="photo-tile"
+          data-cap="Washington Monument and William Jefferson Clinton Building View from Old Post Office Tower, DC"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880401/17798752655505443550288773672955_xswrcg.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880401/17798752655505443550288773672955_xswrcg.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
         <div class="photo-tile" data-cap="Kyle Field Sunset, Texas A&M"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246853/kyle_field2_ttxgdc.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
-        <div class="photo-tile" data-cap="Basilica de la Sagrada Familia, Barcelona, Spain"
+        <div class="photo-tile" data-cap="Basilica de la Sagrada Familia; Barcelona, Spain"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/sagrada_familia_oyuge6.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Graffiti, Bay Area"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Dallas Convention Center, TX"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/17798755003151350355288370544407_ilhe3c.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/17798755003151350355288370544407_ilhe3c.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
       </div>
@@ -418,47 +541,47 @@
       </div>
 
       <div class="masonry">
-        <div class="photo-tile" data-cap="Alaskan Marina"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg">
+        <div class="photo-tile" data-cap="Squirrel on Rattlesnake Ledge; Seattle, WA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880375/PXL_20260508_160623870_ywua5b.jpg">
           <img
-            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246854/alaska5_whxdtn.jpg" />
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880375/PXL_20260508_160623870_ywua5b.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
-        <div class="photo-tile" data-cap="Panorama Park, SF"
+        <div class="photo-tile" data-cap="Squirrel Overlooking Rattlesnake Ledge; Seattle, WA"
+          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1779880375/PXL_20260508_160802898_yoroow.jpg">
+          <img
+            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1779880375/PXL_20260508_160802898_yoroow.jpg" />
+          <span class="tile-icon"><i class="fas fa-expand"></i></span>
+        </div>
+        <div class="photo-tile" data-cap="Silhouette @ Panorama Park, SF"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246847/panorama_park_fssakn.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
 
-        <div class="photo-tile" data-cap="Piña Colada, Cabo Mexico"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
-          <img
-            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
         <div class="photo-tile" data-cap="Beach Silhouette"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
-          <img
-            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+        data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
+        <img
+        src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
+        <span class="tile-icon"><i class="fas fa-expand"></i></span>
+      </div>
+      <div class="photo-tile" data-cap="Piña Colada, Cabo, Mexico"
+        data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
+        <img
+          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
+        <span class="tile-icon"><i class="fas fa-expand"></i></span>
+      </div>
         <div class="photo-tile" data-cap="Succulent"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
-        <div class="photo-tile" data-cap="Plane Window"
+        <div class="photo-tile" data-cap="Plane Window Overlooking Anchorage, Alaska"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg">
           <img
             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/plane_window_mttr1q.jpg" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
-        <div class="photo-tile" data-cap="Graffiti"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg">
-          <img
-            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777245953/graffiti_z9ccvb.jpg" />
           <span class="tile-icon"><i class="fas fa-expand"></i></span>
         </div>
       </div>

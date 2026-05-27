@@ -1681,14 +1681,16 @@ section {
 	position: relative;
 	background: var(--surface);
 	border: 2px solid var(--border);
-	border-radius: 30px;
+	/* border-radius: 30px; */
+	border-radius: 15px;
 	padding: 28px 32px;
 	margin-top: 14px;
 	transition:
-		border-color 0.25s,
+		/* border-color 0.25s,
 		box-shadow 0.25s,
 		transform 0.25s,
-		border-radius 0.5s;
+		border-radius 0.5s; */
+		all 0.3s ease-in-out;
 	width: clamp(50%, 1000px, 100%);
 	/* will-change: transform; */
 }
@@ -1705,6 +1707,16 @@ section {
 	box-shadow:
 		0 0 4px 4px rgba(100, 118, 97, 0.1),
 		0 0 4px 4px rgba(100, 118, 97, 0.06);
+}
+.about-card:hover .about-name {
+	color: var(--gl);
+}
+.about-card:hover .name-chevron {
+	border-top-color: var(--gl);
+	transform: translateY(-4px) translateZ(0);
+}
+.about-card:hover .about-role {
+	transform: translateX(5px);
 }
 .about-badge {
 	position: absolute;
@@ -1794,6 +1806,8 @@ section {
 	color: var(--tdim);
 	margin: 0px 0 16px;
 	font-weight: 700;
+	font-style: italic;
+	transition: all 0.25s;
 }
 .about-bio {
 	font-size: clamp(13.5px, 0.8vw, 50px);
@@ -1862,7 +1876,8 @@ section {
 .fw-title {
 	font-weight: 900;
 	font-size: clamp(26px, 3.5vw, 44px);
-	color: var(--text);
+	/* color: var(--text); */
+	color: var(--dimtitle);
 	letter-spacing: 0.02em;
 }
 .fw-see-btn {
@@ -1967,6 +1982,9 @@ section {
 .wi.vis:hover .wi-thumb {
 	transform: scale(1.1) translateZ(0);
 }
+.wi.vis:hover .wi-bul {
+	transform: translateX(8px);
+}
 .wi-body {
 	padding: 16px 20px;
 	flex: 1;
@@ -1989,6 +2007,7 @@ section {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
+	transition: all 0.3s ease-out;
 }
 .wi-bul > li {
 	position: relative;
