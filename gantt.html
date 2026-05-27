@@ -12,7 +12,8 @@
       --g: #829c7e;
       --accent: #c8a84b;
       --accent2: #525e44;
-      --width-gap: 550px;
+      --width-gap: 920px;
+  
     }
 
 html, body { 
@@ -23,7 +24,8 @@ html, body {
     background: transparent; 
     font-family: Rubik, sans-serif; 
     /* width: 860px; */
-    width: 750px;
+    width: calc(var(--width-gap) + var(--org-shift) + var(--gantt-shift) + var(--container-shift));
+    /* width: 750px; */
     /* width: 100%; */
        /* 1075px * 0.8 scale = 860px. Explicitly stops iframe bounding bugs */
 }
@@ -32,7 +34,8 @@ html, body {
     /* background: #ccdbc9;  */
     border-radius: 12.5px; /* Scaled visually to 10px */
     /* width: 1075px;  */
-    width: 750px; 
+    width: calc(var(--width-gap) + var(--org-shift) + var(--gantt-shift) + var(--container-shift)); 
+    /* width: 750px;  */
     /* width: 100%;  */
     height: 240px; 
     padding: 15px 0px; 
@@ -111,7 +114,7 @@ html, body {
 
     .timeline {
       position: relative;
-      /* width: 920px; */
+      /* width: 20px; */
       width: var(--width-gap);
       height: 300px;
       margin: 0;
@@ -213,6 +216,10 @@ html, body {
     .gantt-bar.alt-color {
       opacity: 0.5;
     }
+
+    @media (max-width: 1050px) {
+      :root {--width-gap: 550px; }
+    }
   </style>
 </head>
 
@@ -238,11 +245,14 @@ html, body {
       { role: "Cabinet Member", start: "March 2021", end: "June 2024", org: "➦", isLeft: false, row: 4, url: "portfolio.html?section=cabinet" },
       { role: "Co-Founder and Captain", start: "March 2022", end: "June 2024", org: "DVHS Robotics", isLeft: false, row: 5, url: "portfolio.html?section=team-5776k" },
       { role: "Paid Summer Camp Mentor", start: "July 2021", end: "July 2023", org: "➥", isLeft: false, row: 6, url: "portfolio.html?section=cabinet" },
-      { role: "", isLeft: false, alignTo: 0, alignToPercent: 0, alignToOffsetX: -0.583, widthPx: 140, row: 6, offsetY: 0, z: 30, noBar: false, colorBar: true, color: "#000",  url: "portfolio.html?section=cabinet" }
+      { role: "", isLeft: false, alignTo: 0, alignToPercent: 0, alignToOffsetX: -0.555, widthPx: 140, row: 6, offsetY: 0, z: 30, noBar: false, colorBar: true, color: "#000",  url: "portfolio.html?section=cabinet" }
     ];
     const root = document.documentElement;
-    const chartWidth = parseFloat(getComputedStyle(root).getPropertyValue('--width-gap')) || 920;
-    const chart = { width: chartWidth, left: 0, right: chartWidth, top: 0, bottom: 300, vertical_step: 35 * barScale, bar_height: 18 * barScale };
+    function getChartWidth() {
+      const width = parseFloat(getComputedStyle(root).getPropertyValue('--width-gap'));
+      return Number.isFinite(width) && width > 0 ? width : 920;
+    }
+    const chart = { left: 0, right: 0, top: 0, bottom: 300, vertical_step: 35 * barScale, bar_height: 18 * barScale };
     const orgBuffer = 12;
     const yr = new Date();
     const chart_year_start = 2021;
@@ -253,6 +263,9 @@ html, body {
       let parts = dateStr.replace(",", "").split(" "); let month = months[parts[0].slice(0, 3)] || 0; let year = parseInt(parts[1]); let yearFrac = year - chart_year_start + month / 12; return chart.left + (yearFrac / (chart_year_end - chart_year_start + 1)) * chart.width;
     }
     function renderGantt() {
+      const chartWidth = getChartWidth();
+      chart.width = chartWidth;
+      chart.right = chartWidth;
       let orgHtml = "";
       experiences.forEach(function (exp) { if (exp.org) { let lbl = `<div class="org-label" style="font-size:${16 * barScale * orgScale}px;height:${chart.bar_height}px;line-height:${chart.bar_height}px;">${exp.org}</div>`; orgHtml += exp.url ? `<a class="gantt-link" data-url="${exp.url}" href="#">${lbl}</a>` : lbl; } });
       document.getElementById("orgcol").innerHTML = orgHtml;
@@ -282,6 +295,7 @@ html, body {
       document.getElementById("gantt").innerHTML = ganttHtml;
       setTimeout(function () { document.querySelectorAll('.gantt-link').forEach(function (link) { link.addEventListener('click', function (e) { e.preventDefault(); var u = link.getAttribute('data-url'); if (u) { window.parent.postMessage({ type: 'navigate', url: u }, '*'); } }); }); }, 150);
     }
+    window.addEventListener('resize', renderGantt);
     renderGantt();
   </script>
 </body>

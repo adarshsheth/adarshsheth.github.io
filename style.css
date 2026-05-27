@@ -974,6 +974,7 @@ section {
 }
 .tlframe iframe {
 	width: 100%;
+	/* min-width: 900px; */
 	min-width: 600px;
 	height: 195px;
 	border: none;
