@@ -251,11 +251,21 @@ function updateURLd(s) {
 function handleURL() {
 	const s = new URLSearchParams(window.location.search).get("section");
 	updateSubNav(s);
-	if (!s || !SMAP[s]) return;
-	if (window._lockNav) window._lockNav();
-	if (window._hideNav) window._hideNav();
-	const {ss, i} = SMAP[s];
-	sw(ss, i, s, true);
+	if (!s) return;
+	if (SMAP[s]) {
+		if (window._lockNav) window._lockNav();
+		if (window._hideNav) window._hideNav();
+		const {ss, i} = SMAP[s];
+		sw(ss, i, s, true);
+		return;
+	}
+
+	const el = document.getElementById(s);
+	if (el) {
+		if (window._lockNav) window._lockNav();
+		if (window._hideNav) window._hideNav();
+		el.scrollIntoView({behavior: "smooth", block: "start"});
+	}
 }
 
 /* ── SMOOTH SCROLL NAVIGATOR ── */
@@ -275,7 +285,12 @@ function scrollToSec(id) {
 function copyAnchorURL(sectionId, defaultSlide) {
 	const u = new URL(window.location.href);
 	u.hash = "";
-	if (defaultSlide) u.searchParams.set("section", defaultSlide);
+	if (defaultSlide && SMAP[defaultSlide]) {
+		u.searchParams.set("section", defaultSlide);
+	} else if (sectionId) {
+		u.searchParams.delete("section");
+		u.hash = sectionId;
+	}
 	const text = u.toString();
 	const toast = document.getElementById("copy-toast");
 	const fallback = () => {
@@ -368,8 +383,20 @@ function closeSidebar() {
 let isScrollTicking = false;
 let cachedAvailableSections = null;
 
-const NAV_SCROLL_DOWN_PX = 10;
-const NAV_SCROLL_UP_PX = 30;
+// Navbar scroll sensitivity: how many pixels of scroll before hiding/showing the header.
+// Desktop and mobile can use different thresholds.
+const NAV_SCROLL_DOWN_PX_DESKTOP = 10;
+const NAV_SCROLL_UP_PX_DESKTOP = 30;
+const NAV_SCROLL_DOWN_PX_MOBILE = 100;
+const NAV_SCROLL_UP_PX_MOBILE = 30;
+
+function getNavScrollThresholds() {
+	if (window.innerWidth <= 1050) {
+		return {down: NAV_SCROLL_DOWN_PX_MOBILE, up: NAV_SCROLL_UP_PX_MOBILE};
+	}
+	return {down: NAV_SCROLL_DOWN_PX_DESKTOP, up: NAV_SCROLL_UP_PX_DESKTOP};
+}
+
 let navHovering = false;
 let navHid = false;
 let navDelta = 0;
@@ -461,12 +488,13 @@ function runCoreScrollTasks(sy) {
 		navLy = sy;
 	} else {
 		const d = sy - navLy;
+		const {down: navScrollDownPx, up: navScrollUpPx} = getNavScrollThresholds();
 		if (d > 0) {
 			navDelta = navDelta > 0 ? navDelta + d : d;
-			if (!navHid && navDelta >= NAV_SCROLL_DOWN_PX) window._hideNav();
+			if (!navHid && navDelta >= navScrollDownPx) window._hideNav();
 		} else if (d < 0) {
 			navDelta = navDelta < 0 ? navDelta + d : d;
-			if (navHid && -navDelta >= NAV_SCROLL_UP_PX) window._showNav();
+			if (navHid && -navDelta >= navScrollUpPx) window._showNav();
 		}
 		navLy = sy;
 	}
@@ -484,32 +512,32 @@ function runCoreScrollTasks(sy) {
 
 	if (window.isViewingDynamicPost) return;
 
-if (!cachedAvailableSections) {
-	const allSections = [
-		{id: "top", k: "top"},
-		{id: "about", k: "about"},
-		{id: "featured", k: "featured"},
-		{id: "contact", k: "contact"},
-		{id: "sec-tamu", k: "tamu"},
-		{id: "sec-dvhs", k: "dvhs"},
-		{id: "sec-events", k: "events"},
-		{id: "sec-infographic", k: "infographic"},
-		{id: "sec-cad", k: "cad"},
-		// ADDED FOR PHOTOGRAPHY PAGE
-		{id: "sec-nature", k: "nature"},
-		{id: "sec-architecture", k: "architecture"},
-		{id: "sec-subject", k: "subject"},
-		{id: "sec-misc", k: "misc"},
-	];
-	cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
-}
+	if (!cachedAvailableSections) {
+		const allSections = [
+			{id: "top", k: "top"},
+			{id: "about", k: "about"},
+			{id: "featured", k: "featured"},
+			{id: "contact", k: "contact"},
+			{id: "sec-tamu", k: "tamu"},
+			{id: "sec-dvhs", k: "dvhs"},
+			{id: "sec-events", k: "events"},
+			{id: "sec-infographic", k: "infographic"},
+			{id: "sec-cad", k: "cad"},
+			// ADDED FOR PHOTOGRAPHY PAGE
+			{id: "sec-nature", k: "nature"},
+			{id: "sec-architecture", k: "architecture"},
+			{id: "sec-subject", k: "subject"},
+			{id: "sec-misc", k: "misc"},
+		];
+		cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
+	}
 
 	let activeK = null;
 	// const path = window.location.pathname;
 	// const anchor_loc = path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
 	const path = window.location.pathname;
-    // Lower threshold (0.1) for photography, standard (0.45) for others
-	const anchor_loc = (path.includes("photography")) ? 0.3 : (path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45);
+	// Lower threshold (0.1) for photography, standard (0.45) for others
+	const anchor_loc = path.includes("photography") ? 0.3 : path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
 	const triggerPoint = winH * anchor_loc;
 
 	cachedAvailableSections.forEach(({id, k}) => {
@@ -676,7 +704,7 @@ if (!cachedAvailableSections) {
 // 			// ✅ THE FIX: JUST-IN-TIME LAZY LOADING ✅
 // 			if (newEl && newEl.dataset.src) {
 // 				newEl.src = newEl.dataset.src;
-				
+
 // 				// Fixes the 0-height bug: recalculate height only when this specific media loads
 // 				const updateHeight = () => {
 // 					const clip = wrap.closest(".ss-clip");
@@ -692,7 +720,7 @@ if (!cachedAvailableSections) {
 // 				} else {
 // 					newEl.addEventListener("load", updateHeight, {once: true});
 // 				}
-				
+
 // 				newEl.removeAttribute("data-src");
 // 			}
 
@@ -936,7 +964,7 @@ function initCarousels() {
 		// THE FIX: Added an isInit flag to handle the first load safely
 		function show(i, isInit = false) {
 			const targetCur = (i + imgs.length) % imgs.length;
-			
+
 			// THE FIX: Ignore clicks on the dot that is already active
 			if (!isInit && targetCur === cur) return;
 
@@ -968,7 +996,7 @@ function initCarousels() {
 					}
 				}
 			}
-			
+
 			if (dots[cur]) dots[cur].classList.add("on");
 
 			if (capEl) {
@@ -1127,6 +1155,21 @@ function initCountUp() {
 	document.querySelectorAll(".srow").forEach((r) => obs.observe(r));
 }
 
+/* ── PAGE ACTIVE LINK HELPERS ── */
+function applyPageActiveState(currentPath, links) {
+	links.forEach((link) => {
+		link.classList.remove("active");
+		const linkText = link.textContent.trim().toLowerCase();
+		const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+
+		if (currentPath.includes("blog") && linkText === "blog") link.classList.add("active");
+		else if (currentPath.includes("resume") && linkText === "resume") link.classList.add("active");
+		else if (isPortfolioPath && linkText.includes("portfolio")) link.classList.add("active");
+		else if ((currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site")) && linkText === "home")
+			link.classList.add("active");
+	});
+}
+
 /* ── DYNAMIC NAVBAR LOADER ── */
 function loadNav() {
 	return new Promise((resolve) => {
@@ -1149,16 +1192,8 @@ function loadNav() {
 				if (header) {
 					const currentPath = window.location.pathname.toLowerCase();
 
-					header.querySelectorAll(".ni").forEach((link) => {
-						link.classList.remove("active");
-						const linkText = link.textContent.trim().toLowerCase();
-
-						if (currentPath.includes("blog") && linkText === "blog") link.classList.add("active");
-						else if (currentPath.includes("resume") && linkText === "resume") link.classList.add("active");
-						else if (currentPath.includes("portfolio") && linkText.includes("portfolio")) link.classList.add("active");
-						else if ((currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site")) && linkText === "home")
-							link.classList.add("active");
-					});
+					applyPageActiveState(currentPath, header.querySelectorAll(".ni"));
+					applyPageActiveState(currentPath, document.querySelectorAll("footer .fnav a"));
 
 					placeholder.replaceWith(header);
 					initNavHoverStates();
