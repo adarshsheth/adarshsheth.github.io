@@ -1207,6 +1207,28 @@ function loadNav() {
 							shroud.classList.remove("visible");
 						});
 					}
+
+					const dropdownParents = header.querySelectorAll(".ndrop");
+					dropdownParents.forEach((drop) => {
+						const mainLink = drop.querySelector(":scope > .ni");
+						if (!mainLink) return;
+						mainLink.addEventListener("click", (e) => {
+							if (window.innerWidth > 1050) return;
+							if (!drop.classList.contains("open")) {
+								e.preventDefault();
+								dropdownParents.forEach((other) => {
+									if (other !== drop) other.classList.remove("open");
+								});
+								drop.classList.add("open");
+							}
+						});
+					});
+
+					document.addEventListener("click", (e) => {
+						if (window.innerWidth > 1050) return;
+						if (e.target.closest(".ndrop")) return;
+						dropdownParents.forEach((other) => other.classList.remove("open"));
+					});
 				}
 				resolve();
 			})

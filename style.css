@@ -337,7 +337,8 @@ header::before {
 	padding-bottom: 25px;
 	margin-bottom: -25px;
 }
-.ndrop:hover .nav-dd {
+.ndrop:hover .nav-dd,
+.ndrop.open .nav-dd {
 	display: block !important;
 }
 .nav-dd {
