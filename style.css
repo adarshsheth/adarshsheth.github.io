@@ -71,7 +71,8 @@
 	--not-white: #b3b3b3;
 	--not-black: #6b6b6b;
 	/* --nav-drop: #647661cb; */
-	--nav-drop: #4c594acb;
+	/* --nav-drop:  #404b3fcb; */
+	--nav-drop:  #4c594acb;
 }
 
 /* ── SELECTION HIGHLIGHT ── */
@@ -199,8 +200,7 @@ header::before {
 
 	z-index: -1; /* Puts the blur behind the nav buttons */
 	pointer-events: none;
-	/* transform: translateY(-20%); */
-	transform: translateY(-100%);
+	transform: translateY(-20%);
 
 	/* The dark gradient tint */
 	background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 100%, transparent) 0%, transparent 100%);

@@ -456,8 +456,11 @@ function initNavHoverStates() {
 		if (!navHid) {
 			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
 			hdr.style.transform = "translateY(-150%)";
+			// hdr.style.transition = "transform 0.48s cubic-bezier(0.4, 0, 0.8, 1)";
+			// hdr.style.transform = "translateY(-250%)";
 			navHid = true;
 			navDelta = 0;
+			hdr.querySelectorAll(".ndrop.open").forEach((drop) => drop.classList.remove("open"));
 		}
 	};
 
@@ -552,21 +555,21 @@ function runCoreScrollTasks(sy) {
 		activeK = cachedAvailableSections[0].k;
 	}
 
-	if (activeK) {
-		document.querySelectorAll(".sbn").forEach((a) => {
-			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
-			if (a.classList.contains("active") !== isMatch) {
-				a.classList.toggle("active", isMatch);
-			}
-		});
-
-		const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
-		const ssId = ssMap[activeK];
-		if (ssId && SS[ssId] && sy >= 400) {
-			const sec = RMAP[ssId]?.[SS[ssId].cur];
-			if (sec) updateURLd(sec);
+if (activeK) {
+	document.querySelectorAll(".sbn[data-k]").forEach((a) => {
+		const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
+		if (a.classList.contains("active") !== isMatch) {
+			a.classList.toggle("active", isMatch);
 		}
+	});
+
+	const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
+	const ssId = ssMap[activeK];
+	if (ssId && SS[ssId] && sy >= 400) {
+		const sec = RMAP[ssId]?.[SS[ssId].cur];
+		if (sec) updateURLd(sec);
 	}
+}
 }
 
 /* ── CAROUSELS ── */
@@ -1275,8 +1278,20 @@ function loadNav() {
 				});
 			});
 
+			// document.addEventListener("click", (e) => {
+			// 	if (window.innerWidth > 1050) return;
+			// 	if (e.target.closest(".ndrop")) return;
+			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
+			// });
 			document.addEventListener("click", (e) => {
 				if (window.innerWidth > 1050) return;
+
+				// Force close the dropdown if a sub-link is clicked
+				if (e.target.closest(".dd-lnk")) {
+					dropdownParents.forEach((other) => other.classList.remove("open"));
+					return;
+				}
+
 				if (e.target.closest(".ndrop")) return;
 				dropdownParents.forEach((other) => other.classList.remove("open"));
 			});
