@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-	<head>
+
+<head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="robots" content="index, follow">
@@ -14,10 +15,10 @@
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Resume | AS">
 	<meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
-	
+
 	<link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
 	<link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
-	
+
 	<script type="application/ld+json">
 		{
 		  "@context": "https://schema.org",
@@ -35,14 +36,12 @@
 		  }
 		}
 		</script>
-	
-	
+
+
 	<title>Resume | AS</title>
 	<meta property="og:title" content="Resume | AS">
-	<meta name="description"
-		content="See Adarsh Sheth's aerospace engineering resume.">
-	<meta property="og:description"
-		content="See Adarsh Sheth's aerospace engineering resume.">
+	<meta name="description" content="See Adarsh Sheth's aerospace engineering resume.">
+	<meta property="og:description" content="See Adarsh Sheth's aerospace engineering resume.">
 	<meta property="og:url" content="https://adarshsheth.github.io/resume">
 	<link rel="canonical" href="https://adarshsheth.github.io/resume">
 
@@ -55,99 +54,123 @@
 
 
 
-		<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-		<style>
-			:root {
-				--bg: #0a0a0a;
-				--text: #d0d3cd;
-				--g: #647661;
-				--gd: #232922;
-			}
-		
-			body {
-				background: var(--bg);
-				color: var(--text);
-			}
-		
-			a {
-				color: inherit;
-				text-decoration: none;
-			}
-		
-			a:hover {
-				color: var(--g);
-			}
-		</style>
-		<link rel="stylesheet" href="style.css" />
-		<style>
-			/* ── RESUME SPECIFIC STYLES ── */
+	<link
+		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<style>
+		:root {
+			--bg: #0a0a0a;
+			--text: #d0d3cd;
+			--g: #647661;
+			--gd: #232922;
+		}
+
+		body {
+			background: var(--bg);
+			color: var(--text);
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: var(--g);
+		}
+	</style>
+	<link rel="stylesheet" href="style.css" />
+	<style>
+		/* ── RESUME SPECIFIC STYLES ── */
+		#pdf-section {
+			padding: 28px 48px 52px;
+			display: flex;
+			justify-content: center;
+			/* Centers the PDF embed */
+		}
+
+		@media (max-width: 900px) {
 			#pdf-section {
-				padding: 28px 48px 52px;
-				display: flex;
-				justify-content: center; /* Centers the PDF embed */
+				padding: 20px 22px 40px;
 			}
-			@media (max-width: 900px) {
-				#pdf-section {
-					padding: 20px 22px 40px;
-				}
-			}
-		</style>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+		}
+	</style>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 		<script>
 			// Tell PDF.js where to find its background worker
 			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 		</script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" /> -->
-	</head>
-	<body>
-			<div id="blur-page"></div>
+</head>
 
-		<div id="nav-placeholder"></div>
-		<script>
-			try {
-				const cachedNav = localStorage.getItem("siteNavHTML");
-				if (cachedNav) {
-					const doc = new DOMParser().parseFromString(cachedNav, "text/html");
-					const header = doc.querySelector("header");
-					if (header) {
-						header.querySelectorAll(".active").forEach((el) => el.classList.remove("active"));
-						document.getElementById("nav-placeholder").outerHTML = header.outerHTML;
-					}
-				}
-			} catch (e) { }
-		</script>
-			<div id="sb-overlay"></div>
+<body>
+	<div id="blur-page"></div>
+
+	<div id="nav-placeholder"></div>
+	<script>
+		// Instantly inject the nav from cache to prevent UI flashing
+		const cachedNav = sessionStorage.getItem("rawNavHTML");
+		if (cachedNav) {
+			// 1. Inject the cached HTML
+			document.getElementById("nav-placeholder").outerHTML = cachedNav;
+
+			// 2. Instantly fix the active states before the browser paints
+			const currentPath = window.location.pathname.toLowerCase();
+			const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+			const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+
+			const header = document.getElementById("hdr");
+			if (header) {
+				header.querySelectorAll(".ni").forEach(link => {
+					link.classList.remove("active"); // Strip the cached "ghost" state
+
+					// Apply the correct state for the current page
+					const text = link.textContent.trim().toLowerCase();
+					if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+					else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+					else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+					else if (isHomePath && text === "home") link.classList.add("active");
+				});
+			}
+		}
+	</script>
+
+	<div id="sb-overlay"></div>
 
 
-		<aside id="sb">
-			<div id="sb-hdr">Sections</div>
-			<div id="sb-prog"><div id="sb-fill"></div></div>
-			<nav id="sb-nav">
-				<a class="sbn active" href="#top" data-k="top">
-					<span class="sbdot"></span>
-					<span class="sblbl">Resume PDF</span>
-				</a>
-			</nav>
-		</aside>
+	<aside id="sb">
+		<div id="sb-hdr">Sections</div>
+		<div id="sb-prog">
+			<div id="sb-fill"></div>
+		</div>
+		<nav id="sb-nav">
+			<a class="sbn active" href="#top" data-k="top">
+				<span class="sbdot"></span>
+				<span class="sblbl">Resume PDF</span>
+			</a>
+		</nav>
+	</aside>
 
-		<div id="mn">
-			<div id="top"></div>
+	<div id="mn">
+		<div id="top"></div>
 
-			<section id="hero"><h1>RESUME</h1></section>
+		<section id="hero">
+			<h1>RESUME</h1>
+		</section>
 
-			<div id="ibar">
-				<p>
-					Adarsh Sheth · Aerospace Engineering · Texas A&amp;M University ·
-					<a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a>
-					·
-					<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
-				</p>
-				<a href="media/resume.pdf" download class="pbtn">DOWNLOAD PDF</a>
-			</div>
+		<div id="ibar">
+			<p>
+				Adarsh Sheth · Aerospace Engineering · Texas A&amp;M University ·
+				<a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a>
+				·
+				<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
+			</p>
+			<a href="media/resume.pdf" download class="pbtn">DOWNLOAD PDF</a>
+		</div>
 
-			<div id="pdf-section">
-				<!-- <div
+		<div id="pdf-section">
+			<!-- <div
 					style="
 						
 						width: clamp(50vw, 100vw, 1000px);
@@ -167,126 +190,130 @@
 						height="100%"
 						style="border: none; display: block; pointer-events: none; transform: scale(1.05);" /></a>
 				</div> -->
-				<!-- <embed src="media/resume.pdf" type="application/pdf" width="100%" height="100%"/> -->
-	
-				
-				<!-- working resume pdf coded w/ google drive alt for mobile -->
-<!-- 
+			<!-- <embed src="media/resume.pdf" type="application/pdf" width="100%" height="100%"/> -->
+
+
+			<!-- working resume pdf coded w/ google drive alt for mobile -->
+			<!-- 
 				<div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
 					<iframe src="media/resume.pdf#toolbar=0&navpanes=0&view=FitH"
 						style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
 					</iframe>
 				</div> -->
-				<!-- <iframe src="https://docs.google.com/viewer?url=https://adarshsheth.github.io/media/resume.pdf&embedded=true"
+			<!-- <iframe src="https://docs.google.com/viewer?url=https://adarshsheth.github.io/media/resume.pdf&embedded=true"
 					style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
 				</iframe> -->
 
-				<div id="pdf-section">
-					<div style="width: 90vw; max-width: 1500px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
-						<iframe id="resume-iframe" style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
-						</iframe>
-					</div>
+			<div id="pdf-section">
+				<div
+					style="width: 90vw; max-width: 1500px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
+					<iframe id="resume-iframe"
+						style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
+					</iframe>
 				</div>
-				
-
 			</div>
 
-			<footer>
-				<div class="ficons">
-					<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-					<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-					<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-				</div>
-				<nav class="fnav">
-					<a href="/">HOME</a>
-					<a href="portfolio">PORTFOLIO</a>
-					<a href="resume" class="fp">RESUME</a>
-					<a href="blog">BLOG</a>
-				</nav>
-			</footer>
+
 		</div>
-		<script src="script.js"></script>
 
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-				const iframe = document.getElementById("resume-iframe");
-				const absolutePdfUrl = "https://adarshsheth.github.io/media/resume.pdf";
-				const relativePdfUrl = "media/resume.pdf#toolbar=0&navpanes=0&view=FitH";
+		<footer>
+			<div class="ficons">
+				<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+				<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
+						class="fab fa-linkedin-in"></i></a>
+				<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
+			</div>
+			<nav class="fnav">
+				<a href="/">HOME</a>
+				<a href="portfolio">PORTFOLIO</a>
+				<a href="resume" class="fp">RESUME</a>
+				<a href="blog">BLOG</a>
+			</nav>
+		</footer>
+	</div>
+	<script src="script.js"></script>
 
-				// Detect mobile via screen width (matching your 900px CSS breakpoint) or User Agent
-				const isMobile = window.innerWidth <= 900 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const iframe = document.getElementById("resume-iframe");
+			const absolutePdfUrl = "https://adarshsheth.github.io/media/resume.pdf";
+			const relativePdfUrl = "media/resume.pdf#toolbar=0&navpanes=0&view=FitH";
 
-				if (isMobile) {
-					// Mobile: Route through Google Docs Viewer
-					iframe.src = "https://docs.google.com/viewer?url=" + encodeURIComponent(absolutePdfUrl) + "&embedded=true";
-				} else {
-					// Desktop: Use native browser PDF viewer
-					iframe.src = relativePdfUrl;
-				}
-			});
-		</script>
+			// Detect mobile via screen width (matching your 900px CSS breakpoint) or User Agent
+			const isMobile = window.innerWidth <= 900 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-			document.addEventListener("DOMContentLoaded", function () {
-				const url = 'media/resume.pdf';
+			if (isMobile) {
+				// Mobile: Route through Google Docs Viewer
+				iframe.src = "https://docs.google.com/viewer?url=" + encodeURIComponent(absolutePdfUrl) + "&embedded=true";
+			} else {
+				// Desktop: Use native browser PDF viewer
+				iframe.src = relativePdfUrl;
+			}
+		});
+	</script>
 
-				const renderPDF = async () => {
-					try {
-						const pdf = await pdfjsLib.getDocument(url).promise;
-						const page = await pdf.getPage(1);
+	document.addEventListener("DOMContentLoaded", function () {
+	const url = 'media/resume.pdf';
 
-						const canvas = document.getElementById('resume-canvas');
-						const ctx = canvas.getContext('2d');
-						const textLayerDiv = document.getElementById('text-layer');
+	const renderPDF = async () => {
+	try {
+	const pdf = await pdfjsLib.getDocument(url).promise;
+	const page = await pdf.getPage(1);
 
-						// 1. RENDER THE CRISP VISUALS (The Canvas)
-						const outputScale = (window.devicePixelRatio || 1) * 2;
-						const viewport = page.getViewport({ scale: 3.0 });
+	const canvas = document.getElementById('resume-canvas');
+	const ctx = canvas.getContext('2d');
+	const textLayerDiv = document.getElementById('text-layer');
 
-						canvas.width = Math.floor(viewport.width * outputScale);
-						canvas.height = Math.floor(viewport.height * outputScale);
+	// 1. RENDER THE CRISP VISUALS (The Canvas)
+	const outputScale = (window.devicePixelRatio || 1) * 2;
+	const viewport = page.getViewport({ scale: 3.0 });
 
-						const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+	canvas.width = Math.floor(viewport.width * outputScale);
+	canvas.height = Math.floor(viewport.height * outputScale);
 
-						await page.render({
-							canvasContext: ctx,
-							transform: transform,
-							viewport: viewport
-						}).promise;
+	const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
 
-						// 2. RENDER THE SELECTABLE TEXT (The Text Layer)
-						// Calculate the exact CSS display scale to match the responsive width of the canvas
-						const displayScale = canvas.clientWidth / page.getViewport({ scale: 1.0 }).width;
-						const textViewport = page.getViewport({ scale: displayScale });
+	await page.render({
+	canvasContext: ctx,
+	transform: transform,
+	viewport: viewport
+	}).promise;
 
-						const textContent = await page.getTextContent();
+	// 2. RENDER THE SELECTABLE TEXT (The Text Layer)
+	// Calculate the exact CSS display scale to match the responsive width of the canvas
+	const displayScale = canvas.clientWidth / page.getViewport({ scale: 1.0 }).width;
+	const textViewport = page.getViewport({ scale: displayScale });
 
-						// Clear the layer (crucial for window resizing) and set the scale CSS variable
-						textLayerDiv.innerHTML = '';
-						textLayerDiv.style.setProperty('--scale-factor', displayScale);
+	const textContent = await page.getTextContent();
 
-						// Draw the invisible text perfectly over the canvas pixels
-						await pdfjsLib.renderTextLayer({
-							textContentSource: textContent,
-							container: textLayerDiv,
-							viewport: textViewport,
-							textDivs: []
-						}).promise;
+	// Clear the layer (crucial for window resizing) and set the scale CSS variable
+	textLayerDiv.innerHTML = '';
+	textLayerDiv.style.setProperty('--scale-factor', displayScale);
 
-					} catch (error) {
-						console.error('Error rendering the PDF:', error);
-					}
-				};
+	// Draw the invisible text perfectly over the canvas pixels
+	await pdfjsLib.renderTextLayer({
+	textContentSource: textContent,
+	container: textLayerDiv,
+	viewport: textViewport,
+	textDivs: []
+	}).promise;
 
-				// 3. HANDLE WINDOW RESIZING
-				// If the user resizes their browser, the canvas shrinks, so we need to recalculate the text layer bounds
-				let resizeTimer;
-				window.addEventListener('resize', () => {
-					clearTimeout(resizeTimer);
-					resizeTimer = setTimeout(renderPDF, 250);
-				});
+	} catch (error) {
+	console.error('Error rendering the PDF:', error);
+	}
+	};
 
-				renderPDF();
-			});
-		</script> -->
-	</body>
+	// 3. HANDLE WINDOW RESIZING
+	// If the user resizes their browser, the canvas shrinks, so we need to recalculate the text layer bounds
+	let resizeTimer;
+	window.addEventListener('resize', () => {
+	clearTimeout(resizeTimer);
+	resizeTimer = setTimeout(renderPDF, 250);
+	});
+
+	renderPDF();
+	});
+	</script> -->
+</body>
+
 </html>

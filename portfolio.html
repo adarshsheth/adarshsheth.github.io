@@ -25,6 +25,7 @@
 
   <link rel="preload" href="style.css" as="style">
   <link rel="preload" href="media/logo/AS_tr.png" as="image">
+  <link rel="preload" href="nav.html" as="fetch" crossorigin="anonymous">
 
   <script type="application/ld+json">
 	{
@@ -134,20 +135,34 @@
 
 <body>
   <div id="blur-page"></div>
-  <div id="nav-placeholder"></div>
-  <script>
-    try {
-      const cachedNav = localStorage.getItem("siteNavHTML");
-      if (cachedNav) {
-        const doc = new DOMParser().parseFromString(cachedNav, "text/html");
-        const header = doc.querySelector("header");
-        if (header) {
-          header.querySelectorAll(".active").forEach((el) => el.classList.remove("active"));
-          document.getElementById("nav-placeholder").outerHTML = header.outerHTML;
-        }
-      }
-    } catch (e) { }
-  </script>
+<div id="nav-placeholder"></div>
+<script>
+  // Instantly inject the nav from cache to prevent UI flashing
+  const cachedNav = sessionStorage.getItem("rawNavHTML");
+  if (cachedNav) {
+    // 1. Inject the cached HTML
+    document.getElementById("nav-placeholder").outerHTML = cachedNav;
+
+    // 2. Instantly fix the active states before the browser paints
+    const currentPath = window.location.pathname.toLowerCase();
+    const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+    const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+
+    const header = document.getElementById("hdr");
+    if (header) {
+      header.querySelectorAll(".ni").forEach(link => {
+        link.classList.remove("active"); // Strip the cached "ghost" state
+
+        // Apply the correct state for the current page
+        const text = link.textContent.trim().toLowerCase();
+        if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+        else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+        else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+        else if (isHomePath && text === "home") link.classList.add("active");
+      });
+    }
+  }
+</script>
 
   <div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
@@ -366,7 +381,7 @@
                         </li>
                       </ul>
                     </div>
-                    <div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
                       <div>
                         <div class="cw">
                           <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
@@ -611,7 +626,7 @@
                           advancement without single-point bottlenecks</div>
                       </div>
                     </div>
-                    <div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
                       <div>
                         <div class="cw">
                           <div class="cw-inner">
@@ -933,7 +948,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
                       <div>
                         <div class="cw">
                           <div class="cw-inner">
@@ -1218,7 +1233,7 @@
                         </div>
                       </div>
                     </div>
-                    <div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 300px)); gap: 16px; margin-top: 10px">
                       <div style="flex: 1;">
                         <div class="cw">
                           <div class="cw-inner">
@@ -1366,7 +1381,8 @@
         <div class="tab-btns">
           <button class="tb" id="btn-everyday" onclick="sw('ss6', 0, 'everyday-engineering')" disabled>EVERYDAY
             ENGINEERING</button>
-          <button class="tb" id="btn-aeroinfo" onclick="sw('ss6', 1, 'aerodynamics-infographics')">AERO INFOGRAPHICS</button>
+          <button class="tb" id="btn-aeroinfo" onclick="sw('ss6', 1, 'aerodynamics-infographics')">AERODYMAICS
+            INFOGRAPHICS</button>
         </div>
       </div>
       <div class="ss-wrapper" id="sw6">
@@ -1397,7 +1413,7 @@
                       </ul>
                       <div
                         style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
-                        <div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
                           <div>
                             <div class="cw">
                               <div class="cw-inner port-h">
@@ -1452,7 +1468,7 @@
                       <div>
                         <div class="cbody">
                           <div
-                            style="margin-left:-15px !important;">
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 500px)); gap: 16px; margin-top:0px; margin-left:-15px !important;">
                             <div>
                               <div class="cw">
                                 <div class="cw-inner" style="height: auto; aspect-ratio: 11 / 6;">

@@ -1171,48 +1171,95 @@ function applyPageActiveState(currentPath, links) {
 }
 
 /* ── DYNAMIC NAVBAR LOADER ── */
+// function loadNav() {
+// 	return new Promise((resolve) => {
+// 		const placeholder = document.getElementById("nav-placeholder");
+// 		const shroud = document.getElementById("blur-page");
+
+// 		if (!placeholder) {
+// 			initNavHoverStates();
+// 			resolve();
+// 			return;
+// 		}
+
+// 		fetch("nav.html")
+// 			.then((response) => response.text())
+// 			.then((data) => {
+// 				const parser = new DOMParser();
+// 				const doc = parser.parseFromString(data, "text/html");
+// 				const header = doc.querySelector("header");
+
+// 				if (header) {
+// 					const currentPath = window.location.pathname.toLowerCase();
+
+// 					applyPageActiveState(currentPath, header.querySelectorAll(".ni"));
+// 					applyPageActiveState(currentPath, document.querySelectorAll("footer .fnav a"));
+
+// 					placeholder.replaceWith(header);
+// 					initNavHoverStates();
+
+// 					const navbox = header.querySelector(".navbox");
+// 					if (navbox && shroud) {
+// 						navbox.addEventListener("mouseenter", () => {
+// 							shroud.classList.add("visible");
+// 						});
+// 						navbox.addEventListener("mouseleave", () => {
+// 							shroud.classList.remove("visible");
+// 						});
+// 					}
+
+// 					const dropdownParents = header.querySelectorAll(".ndrop");
+// 					dropdownParents.forEach((drop) => {
+// 						const mainLink = drop.querySelector(":scope > .ni");
+// 						if (!mainLink) return;
+// 						mainLink.addEventListener("click", (e) => {
+// 							if (window.innerWidth > 1050) return;
+// 							if (!drop.classList.contains("open")) {
+// 								e.preventDefault();
+// 								dropdownParents.forEach((other) => {
+// 									if (other !== drop) other.classList.remove("open");
+// 								});
+// 								drop.classList.add("open");
+// 							}
+// 						});
+// 					});
+
+// 					document.addEventListener("click", (e) => {
+// 						if (window.innerWidth > 1050) return;
+// 						if (e.target.closest(".ndrop")) return;
+// 						dropdownParents.forEach((other) => other.classList.remove("open"));
+// 					});
+// 				}
+// 				resolve();
+// 			})
+// 			.catch((error) => {
+// 				console.error("Error loading navigation:", error);
+// 				resolve();
+// 			});
+// 	});
+// }
+/* ── DYNAMIC NAVBAR LOADER ── */
 function loadNav() {
 	return new Promise((resolve) => {
 		const placeholder = document.getElementById("nav-placeholder");
+		let header = document.getElementById("hdr"); // Will exist if inline script injected it
 		const shroud = document.getElementById("blur-page");
-		const cacheKey = "siteNavHTML";
-		const existingHeader = document.getElementById("hdr");
 
-		const applyHeader = (header) => {
+		// Helper function to attach all event listeners once the nav is in the DOM
+		function setupNav(hdr) {
 			const currentPath = window.location.pathname.toLowerCase();
-			const currentHeader = document.getElementById("hdr");
-			const needsAttach = !currentHeader || !currentHeader.isConnected || currentHeader.outerHTML !== header.outerHTML;
-
-			if (currentHeader && currentHeader.isConnected) {
-				if (currentHeader.outerHTML !== header.outerHTML) {
-					currentHeader.replaceWith(header);
-				}
-			} else if (placeholder) {
-				placeholder.replaceWith(header);
-			}
-
-			const targetHeader = document.getElementById("hdr");
-			if (!targetHeader) return;
-
-			applyPageActiveState(currentPath, targetHeader.querySelectorAll(".ni"));
+			applyPageActiveState(currentPath, hdr.querySelectorAll(".ni"));
 			applyPageActiveState(currentPath, document.querySelectorAll("footer .fnav a"));
-
-			if (!needsAttach) return;
 
 			initNavHoverStates();
 
-			const navbox = targetHeader.querySelector(".navbox");
+			const navbox = hdr.querySelector(".navbox");
 			if (navbox && shroud) {
-				navbox.addEventListener("mouseenter", () => {
-					shroud.classList.add("visible");
-				});
-				navbox.addEventListener("mouseleave", () => {
-					shroud.classList.remove("visible");
-				});
+				navbox.addEventListener("mouseenter", () => shroud.classList.add("visible"));
+				navbox.addEventListener("mouseleave", () => shroud.classList.remove("visible"));
 			}
 
-			const dropdownParents = targetHeader.querySelectorAll(".ndrop");
-			const closeAllDropdowns = () => dropdownParents.forEach((other) => other.classList.remove("open"));
+			const dropdownParents = hdr.querySelectorAll(".ndrop");
 			dropdownParents.forEach((drop) => {
 				const mainLink = drop.querySelector(":scope > .ni");
 				if (!mainLink) return;
@@ -1226,44 +1273,52 @@ function loadNav() {
 						drop.classList.add("open");
 					}
 				});
-				drop.querySelectorAll(".dd-lnk").forEach((link) => {
-					link.addEventListener("click", (event) => {
-						event.stopPropagation();
-						closeAllDropdowns();
-					});
-				});
 			});
 
 			document.addEventListener("click", (e) => {
 				if (window.innerWidth > 1050) return;
 				if (e.target.closest(".ndrop")) return;
-				closeAllDropdowns();
+				dropdownParents.forEach((other) => other.classList.remove("open"));
 			});
-		};
 
-		const parseNav = (html) => {
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(html, "text/html");
-			return doc.querySelector("header");
-		};
-
-		const cachedNav = localStorage.getItem(cacheKey);
-		if (cachedNav && !existingHeader && placeholder) {
-			const cachedHeader = parseNav(cachedNav);
-			if (cachedHeader) {
-				applyHeader(cachedHeader);
-			}
+			resolve();
 		}
 
+		// SCENARIO 1: The inline script already injected the cached nav instantly
+		if (header && !placeholder) {
+			setupNav(header);
+			
+			// Fetch silently in the background to ensure the cache stays up-to-date
+			fetch("nav.html")
+				.then(res => res.text())
+				.then(data => {
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(data, "text/html");
+					const fetchedHeader = doc.querySelector("header");
+					if (fetchedHeader) sessionStorage.setItem("rawNavHTML", fetchedHeader.outerHTML);
+				}).catch(() => {});
+			return;
+		}
+
+		// SCENARIO 2: First load (no cache available yet). Must fetch over network.
 		fetch("nav.html")
 			.then((response) => response.text())
 			.then((data) => {
-				localStorage.setItem(cacheKey, data);
-				const header = parseNav(data);
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(data, "text/html");
+				header = doc.querySelector("header");
+
 				if (header) {
-					applyHeader(header);
+					// Save to cache for the next page load!
+					sessionStorage.setItem("rawNavHTML", header.outerHTML);
+					
+					if (placeholder) {
+						placeholder.replaceWith(header);
+					}
+					setupNav(header);
+				} else {
+					resolve();
 				}
-				resolve();
 			})
 			.catch((error) => {
 				console.error("Error loading navigation:", error);

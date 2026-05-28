@@ -25,6 +25,7 @@
 
 	<link rel="preload" href="style.css" as="style">
 	<link rel="preload" href="media/logo/AS_tr.png" as="image">
+	<link rel="preload" href="nav.html" as="fetch" crossorigin="anonymous">
 
 	<script type="application/ld+json">
 		{
@@ -107,20 +108,34 @@
 	</div>
 
 	<div id="blur-page"></div>
-	<div id="nav-placeholder"></div>
-	<script>
-		try {
-			const cachedNav = localStorage.getItem("siteNavHTML");
-			if (cachedNav) {
-				const doc = new DOMParser().parseFromString(cachedNav, "text/html");
-				const header = doc.querySelector("header");
-				if (header) {
-					header.querySelectorAll(".active").forEach((el) => el.classList.remove("active"));
-					document.getElementById("nav-placeholder").outerHTML = header.outerHTML;
-				}
-			}
-		} catch (e) { }
-	</script>
+<div id="nav-placeholder"></div>
+<script>
+	// Instantly inject the nav from cache to prevent UI flashing
+	const cachedNav = sessionStorage.getItem("rawNavHTML");
+	if (cachedNav) {
+		// 1. Inject the cached HTML
+		document.getElementById("nav-placeholder").outerHTML = cachedNav;
+
+		// 2. Instantly fix the active states before the browser paints
+		const currentPath = window.location.pathname.toLowerCase();
+		const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+		const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+
+		const header = document.getElementById("hdr");
+		if (header) {
+			header.querySelectorAll(".ni").forEach(link => {
+				link.classList.remove("active"); // Strip the cached "ghost" state
+
+				// Apply the correct state for the current page
+				const text = link.textContent.trim().toLowerCase();
+				if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+				else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+				else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+				else if (isHomePath && text === "home") link.classList.add("active");
+			});
+		}
+	}
+</script>
 	<div id="sb-overlay"></div>
 
 	<aside id="sb">

@@ -68,6 +68,10 @@
 	--ec-card-lines-color: var(--border);
 	/* --img-gap: 7px; */
 	--img-gap: 8px;
+	--not-white: #b3b3b3;
+	--not-black: #6b6b6b;
+	/* --nav-drop: #647661cb; */
+	--nav-drop: #4c594acb;
 }
 
 /* ── SELECTION HIGHLIGHT ── */
@@ -347,7 +351,7 @@ header::before {
 	top: 100% !important;
 	left: 0%;
 	/* background: #ffffff9e; */
-	background: rgba(255, 255, 255, 0.6);
+	background: rgba(255, 255, 255, 0.9);
 	border-radius: 12px;
 	min-width: 190px;
 	overflow: hidden;
@@ -371,7 +375,7 @@ header::before {
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	color: white;
-	background: #647661cb;
+	background: var(--nav-drop);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 #submenu1 {
@@ -383,13 +387,15 @@ header::before {
 	font-size: 12px;
 	font-weight: 500;
 	/* color: var(--surface); */
-	color: var(--gd);
+	/* color: var(--gd); */
+	/* color: var(--tdim); */
+	color: var(--nav-drop);
 	transition:
 		background 0.15s,
 		color 0.15s;
 }
 .dd-lnk:hover {
-	color: var(--g) !important;
+	color: var(--gd) !important;
 }
 .single-subnav {
 	padding: 2px 15px 2px 7px !important;
@@ -1015,7 +1021,7 @@ section {
 
 #timeline-iframe {
 	opacity: 0;
-	transition: opacity 1.2s ease-in-out;
+	transition: opacity .8s ease-out;
 }
 #timeline-iframe.loaded {
 	opacity: 1;
@@ -1193,10 +1199,13 @@ section {
 	border-color: color-mix(in srgb, var(--accent2) 100%, transparent);
 	box-shadow:
 	0 0 7px 4px color-mix(in srgb, var(--accent) 10%, transparent), 0 0 9px 4px color-mix(in srgb, var(--accent) 6%, transparent);
-	--miniheader: var(--accent2);
+	/* --miniheader: var(--accent2); */
+	/* --miniheader: var(--not-white); */
+	/* --miniheader: var(--not-black); */
 }
 .ec.visible:hover .ect {
 	color: var(--accent2);
+	/* color: var(--not-white); */
 }
 
 
@@ -1237,7 +1246,8 @@ section {
 	font-style: normal;
 	font-weight: 700;
 	/* color: var(--g); */
-	color: var(--bullbold);
+	/* color: var(--bullbold); */
+	color: var(--tdim);
 	text-transform: uppercase;
 }
 .ecm span:not(:last-child)::after {
@@ -1248,7 +1258,8 @@ section {
 	color: var(--dimtitle);
 }
 .ecdate {
-	color: var(--badge);
+	/* color: var(--badge); */
+	color: var(--accent2);
 }
 .echr {
 	display: flex;
@@ -1755,6 +1766,7 @@ section {
 	box-shadow:
 		0 0 4px 4px rgba(100, 118, 97, 0.1),
 		0 0 4px 4px rgba(100, 118, 97, 0.06);
+	color: var(--g);
 }
 .about-card:hover .about-name {
 	color: var(--gl);
@@ -1778,7 +1790,8 @@ section {
 	font-size: 14px;
 	font-weight: 800;
 	letter-spacing: 0.2em;
-	color: var(--g);
+	/* color: var(--g); */
+	color: var(--border);
 	text-transform: uppercase;
 	transition:
 		border-color 0.25s,
