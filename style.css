@@ -2495,11 +2495,16 @@ footer {
 	fill: var(--accent);
 	animation-delay: 0.6s;
 }
+.b-accent2 {
+	fill: var(--accent2);
+	animation-delay: 0.45s;
+}
 .logo-path {
 	fill: var(--text);
 	fill-opacity: 0;
 	stroke: var(--text);
-	stroke-width: 4px;
+	/* stroke-width: 4px; */
+	stroke-width: 8px;
 	stroke-dasharray: 1;
 	stroke-dashoffset: 1;
 	transform: translateZ(0);

@@ -1175,60 +1175,93 @@ function loadNav() {
 	return new Promise((resolve) => {
 		const placeholder = document.getElementById("nav-placeholder");
 		const shroud = document.getElementById("blur-page");
+		const cacheKey = "siteNavHTML";
+		const existingHeader = document.getElementById("hdr");
 
-		if (!placeholder) {
+		const applyHeader = (header) => {
+			const currentPath = window.location.pathname.toLowerCase();
+			const currentHeader = document.getElementById("hdr");
+			const needsAttach = !currentHeader || !currentHeader.isConnected || currentHeader.outerHTML !== header.outerHTML;
+
+			if (currentHeader && currentHeader.isConnected) {
+				if (currentHeader.outerHTML !== header.outerHTML) {
+					currentHeader.replaceWith(header);
+				}
+			} else if (placeholder) {
+				placeholder.replaceWith(header);
+			}
+
+			const targetHeader = document.getElementById("hdr");
+			if (!targetHeader) return;
+
+			applyPageActiveState(currentPath, targetHeader.querySelectorAll(".ni"));
+			applyPageActiveState(currentPath, document.querySelectorAll("footer .fnav a"));
+
+			if (!needsAttach) return;
+
 			initNavHoverStates();
-			resolve();
-			return;
+
+			const navbox = targetHeader.querySelector(".navbox");
+			if (navbox && shroud) {
+				navbox.addEventListener("mouseenter", () => {
+					shroud.classList.add("visible");
+				});
+				navbox.addEventListener("mouseleave", () => {
+					shroud.classList.remove("visible");
+				});
+			}
+
+			const dropdownParents = targetHeader.querySelectorAll(".ndrop");
+			const closeAllDropdowns = () => dropdownParents.forEach((other) => other.classList.remove("open"));
+			dropdownParents.forEach((drop) => {
+				const mainLink = drop.querySelector(":scope > .ni");
+				if (!mainLink) return;
+				mainLink.addEventListener("click", (e) => {
+					if (window.innerWidth > 1050) return;
+					if (!drop.classList.contains("open")) {
+						e.preventDefault();
+						dropdownParents.forEach((other) => {
+							if (other !== drop) other.classList.remove("open");
+						});
+						drop.classList.add("open");
+					}
+				});
+				drop.querySelectorAll(".dd-lnk").forEach((link) => {
+					link.addEventListener("click", (event) => {
+						event.stopPropagation();
+						closeAllDropdowns();
+					});
+				});
+			});
+
+			document.addEventListener("click", (e) => {
+				if (window.innerWidth > 1050) return;
+				if (e.target.closest(".ndrop")) return;
+				closeAllDropdowns();
+			});
+		};
+
+		const parseNav = (html) => {
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, "text/html");
+			return doc.querySelector("header");
+		};
+
+		const cachedNav = localStorage.getItem(cacheKey);
+		if (cachedNav && !existingHeader && placeholder) {
+			const cachedHeader = parseNav(cachedNav);
+			if (cachedHeader) {
+				applyHeader(cachedHeader);
+			}
 		}
 
 		fetch("nav.html")
 			.then((response) => response.text())
 			.then((data) => {
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(data, "text/html");
-				const header = doc.querySelector("header");
-
+				localStorage.setItem(cacheKey, data);
+				const header = parseNav(data);
 				if (header) {
-					const currentPath = window.location.pathname.toLowerCase();
-
-					applyPageActiveState(currentPath, header.querySelectorAll(".ni"));
-					applyPageActiveState(currentPath, document.querySelectorAll("footer .fnav a"));
-
-					placeholder.replaceWith(header);
-					initNavHoverStates();
-
-					const navbox = header.querySelector(".navbox");
-					if (navbox && shroud) {
-						navbox.addEventListener("mouseenter", () => {
-							shroud.classList.add("visible");
-						});
-						navbox.addEventListener("mouseleave", () => {
-							shroud.classList.remove("visible");
-						});
-					}
-
-					const dropdownParents = header.querySelectorAll(".ndrop");
-					dropdownParents.forEach((drop) => {
-						const mainLink = drop.querySelector(":scope > .ni");
-						if (!mainLink) return;
-						mainLink.addEventListener("click", (e) => {
-							if (window.innerWidth > 1050) return;
-							if (!drop.classList.contains("open")) {
-								e.preventDefault();
-								dropdownParents.forEach((other) => {
-									if (other !== drop) other.classList.remove("open");
-								});
-								drop.classList.add("open");
-							}
-						});
-					});
-
-					document.addEventListener("click", (e) => {
-						if (window.innerWidth > 1050) return;
-						if (e.target.closest(".ndrop")) return;
-						dropdownParents.forEach((other) => other.classList.remove("open"));
-					});
+					applyHeader(header);
 				}
 				resolve();
 			})
@@ -1304,6 +1337,78 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 /* ══════════════════════════════════════════════════════════ */
 /* ══ PRELOADER LOGIC                                      ── */
 /* ══════════════════════════════════════════════════════════ */
+function buildStarPath({cx = 477.5, cy = 477.5, points = 7, outer = 380, length = 0.32, round = 0.18, rotation = 0}) {
+	points = Math.max(3, Math.round(points));
+	outer = Math.max(0, outer);
+	length = Math.min(1, Math.max(0, length));
+	round = Math.min(1, Math.max(0, round));
+	rotation = Number(rotation) || 0;
+
+	if (length === 0) {
+		const r = outer;
+		return `M ${cx - r} ${cy} a ${r} ${r} 0 1 0 ${r * 2} 0 a ${r} ${r} 0 1 0 ${-r * 2} 0`;
+	}
+
+	const inner = outer * Math.max(0, 1 - length);
+	const step = Math.PI / points;
+	const startAngle = Math.PI / 2 - (rotation * Math.PI) / 180;
+	const vertices = [];
+
+	for (let i = 0; i < points * 2; i += 1) {
+		const angle = startAngle + i * step;
+		const radius = i % 2 === 0 ? outer : inner;
+		vertices.push([cx + Math.cos(angle) * radius, cy - Math.sin(angle) * radius]);
+	}
+
+	if (round <= 0) {
+		return (
+			vertices.reduce((path, [x, y], index) => {
+				return `${path}${index === 0 ? "M" : "L"} ${x.toFixed(3)} ${y.toFixed(3)}`;
+			}, "") + " Z"
+		);
+	}
+
+	const smooth = round * 2.5;
+	const pointsWithHandles = vertices.map((current, idx, list) => {
+		const previous = list[(idx + list.length - 1) % list.length];
+		const next = list[(idx + 1) % list.length];
+		return {
+			point: current,
+			start: [current[0] + (previous[0] - current[0]) * smooth, current[1] + (previous[1] - current[1]) * smooth],
+			end: [current[0] + (next[0] - current[0]) * smooth, current[1] + (next[1] - current[1]) * smooth],
+		};
+	});
+
+	let path = "";
+	for (let i = 0; i < pointsWithHandles.length; i += 1) {
+		const {point, start} = pointsWithHandles[i];
+		const next = pointsWithHandles[(i + 1) % pointsWithHandles.length];
+		if (i === 0) {
+			path += `M ${start[0].toFixed(3)} ${start[1].toFixed(3)}`;
+		}
+		path += ` Q ${point[0].toFixed(3)} ${point[1].toFixed(3)} ${next.start[0].toFixed(3)} ${next.start[1].toFixed(3)}`;
+	}
+	return path + " Z";
+}
+
+function initPreloaderStars() {
+	document.querySelectorAll(".preloader-svg .blob").forEach((node) => {
+		const dataset = node.dataset;
+		const starPath = buildStarPath({
+			cx: parseFloat(dataset.starCx) || 477.5,
+			cy: parseFloat(dataset.starCy) || 477.5,
+			points: parseFloat(dataset.starPoints) || 7,
+			outer: parseFloat(dataset.starOuter) || 380,
+			length: parseFloat(dataset.starLength) || 0.32,
+			round: parseFloat(dataset.starRound) || 0.18,
+			rotation: parseFloat(dataset.starRotation) || 0,
+		});
+		node.setAttribute("d", starPath);
+	});
+}
+
+initPreloaderStars();
+
 const preloader = document.getElementById("site-preloader");
 
 if (preloader) {

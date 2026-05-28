@@ -557,8 +557,19 @@
 <body>
     <div id="blur-page"></div>
     <div id="nav-placeholder"></div>
-    <div id="sb-overlay"></div>
-
+    <script>
+        try {
+            const cachedNav = localStorage.getItem("siteNavHTML");
+            if (cachedNav) {
+                const doc = new DOMParser().parseFromString(cachedNav, "text/html");
+                const header = doc.querySelector("header");
+                if (header) {
+                    header.querySelectorAll(".active").forEach((el) => el.classList.remove("active"));
+                    document.getElementById("nav-placeholder").outerHTML = header.outerHTML;
+                }
+            }
+        } catch (e) { }
+    </script>
     <aside id="sb">
         <div id="sb-hdr">Sections</div>
         <div id="sb-prog">
