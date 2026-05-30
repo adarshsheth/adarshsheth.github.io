@@ -342,7 +342,14 @@ header::before {
 	padding-bottom: 25px;
 	margin-bottom: -25px;
 }
-.ndrop:hover .nav-dd,
+/* Only apply hover effects on devices with a mouse */
+@media (hover: hover) {
+	.ndrop:hover .nav-dd {
+		display: block !important;
+	}
+}
+
+/* Mobile taps rely strictly on this class */
 .ndrop.open .nav-dd {
 	display: block !important;
 }
