@@ -2887,7 +2887,8 @@ footer {
 /* 2. EXPANDED STATE (Applies to all) */
 .ec.is-expanded {
 	max-height: none !important;
-	overflow: visible;
+	/* overflow: visible; */
+	overflow: hidden;
 }
 .ec.is-expanded .ec-collapse-overlay {
     display: flex;
@@ -2923,4 +2924,15 @@ footer {
 	border-color: var(--accent2);
 	background: var(--accent2);
 	transform: translateY(-4px);
+}
+
+/* Enables smooth horizontal swiping on main cards */
+/* .ss-clip {
+    touch-action: pan-y;
+} */
+
+/* Enables smooth horizontal swiping and prevents native "Go Back" browser gestures */
+.ss-clip {
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
 }

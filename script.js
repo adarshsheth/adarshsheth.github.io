@@ -1581,6 +1581,96 @@ function initCollapsibleCards() {
 		card.appendChild(overlay);
 	});
 }
+/* ── TOUCH SWIPE NAVIGATION FOR MAIN CARDS ONLY ── */
+// function initSwipeNav() {
+// 	Object.keys(SS).forEach(id => {
+// 		const s = SS[id];
+// 		if (!s || !s.clip) return;
+
+// 		let touchStartX = 0;
+// 		let touchStartY = 0;
+
+// 		s.clip.addEventListener('touchstart', e => {
+// 			if (e.touches.length > 1) return; // Ignore multi-touch/pinches
+// 			touchStartX = e.changedTouches[0].screenX;
+// 			touchStartY = e.changedTouches[0].screenY;
+// 		}, { passive: true });
+
+// 		s.clip.addEventListener('touchend', e => {
+// 			const touchEndX = e.changedTouches[0].screenX;
+// 			const touchEndY = e.changedTouches[0].screenY;
+
+// 			const diffX = touchStartX - touchEndX;
+// 			const diffY = touchStartY - touchEndY;
+
+// 			// Thresholds: minimum 50px swipe, and must be mostly horizontal
+// 			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+// 				if (diffX > 0) {
+// 					ar(id, 1); // Swiped Left -> Next Slide
+// 				} else {
+// 					ar(id, -1); // Swiped Right -> Prev Slide
+// 				}
+// 			}
+// 		}, { passive: true });
+// 	});
+// }
+
+/* ── TOUCH & TRACKPAD SWIPE NAVIGATION FOR MAIN CARDS ── */
+function initSwipeNav() {
+	Object.keys(SS).forEach(id => {
+		const s = SS[id];
+		if (!s || !s.clip) return;
+
+		// 1. MOBILE TOUCH LOGIC
+		let touchStartX = 0;
+		let touchStartY = 0;
+
+		s.clip.addEventListener('touchstart', e => {
+			if (e.touches.length > 1) return; 
+			touchStartX = e.changedTouches[0].screenX;
+			touchStartY = e.changedTouches[0].screenY;
+		}, { passive: true });
+
+		s.clip.addEventListener('touchend', e => {
+			const touchEndX = e.changedTouches[0].screenX;
+			const touchEndY = e.changedTouches[0].screenY;
+
+			const diffX = touchStartX - touchEndX;
+			const diffY = touchStartY - touchEndY;
+
+			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+				if (diffX > 0) ar(id, 1); // Swiped Left -> Next
+				else ar(id, -1);          // Swiped Right -> Prev
+			}
+		}, { passive: true });
+
+		// 2. DESKTOP TRACKPAD LOGIC
+		let isTrackpadSwiping = false;
+
+		s.clip.addEventListener('wheel', e => {
+			// If we recently triggered a swipe, ignore further scroll events 
+			// to prevent rapid-fire skipping while the slide is animating.
+			if (isTrackpadSwiping) return;
+
+			// Check if the scroll is predominantly horizontal and forceful enough
+			if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+				
+				isTrackpadSwiping = true;
+
+				if (e.deltaX > 0) {
+					ar(id, 1);  // Scrolled Right (2-finger swipe left) -> Next
+				} else {
+					ar(id, -1); // Scrolled Left (2-finger swipe right) -> Prev
+				}
+
+				// Lock the trackpad for 600ms (gives time for the CSS animation to finish)
+				setTimeout(() => {
+					isTrackpadSwiping = false;
+				}, 600);
+			}
+		}, { passive: true }); 
+	});
+}
 
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
@@ -1589,6 +1679,7 @@ function unifiedInit() {
 	initCarousels();
 	initCollapsibleCards();
 	initSS();
+	initSwipeNav();
 	initFadeIn();
 	initCountUp();
 

@@ -66,17 +66,17 @@
       --g: #647661;
       --gd: #232922;
     }
-  
+
     body {
       background: var(--bg);
       color: var(--text);
     }
-  
+
     a {
       color: inherit;
       text-decoration: none;
     }
-  
+
     a:hover {
       color: var(--g);
     }
@@ -121,8 +121,8 @@
     }
 
     /* .sh-pulse-btn:hover h2 { */
-      /* color: var(--gl) !important; */
-      /* fr comment color: var(--accent2) !important; */
+    /* color: var(--gl) !important; */
+    /* fr comment color: var(--accent2) !important; */
     /* } */
 
     /* @media (max-width: 1050px) {
@@ -135,34 +135,34 @@
 
 <body>
   <div id="blur-page"></div>
-<div id="nav-placeholder"></div>
-<script>
-  // Instantly inject the nav from cache to prevent UI flashing
-  const cachedNav = sessionStorage.getItem("rawNavHTML");
-  if (cachedNav) {
-    // 1. Inject the cached HTML
-    document.getElementById("nav-placeholder").outerHTML = cachedNav;
+  <div id="nav-placeholder"></div>
+  <script>
+    // Instantly inject the nav from cache to prevent UI flashing
+    const cachedNav = sessionStorage.getItem("rawNavHTML");
+    if (cachedNav) {
+      // 1. Inject the cached HTML
+      document.getElementById("nav-placeholder").outerHTML = cachedNav;
 
-    // 2. Instantly fix the active states before the browser paints
-    const currentPath = window.location.pathname.toLowerCase();
-    const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
-    const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+      // 2. Instantly fix the active states before the browser paints
+      const currentPath = window.location.pathname.toLowerCase();
+      const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+      const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
 
-    const header = document.getElementById("hdr");
-    if (header) {
-      header.querySelectorAll(".ni").forEach(link => {
-        link.classList.remove("active"); // Strip the cached "ghost" state
+      const header = document.getElementById("hdr");
+      if (header) {
+        header.querySelectorAll(".ni").forEach(link => {
+          link.classList.remove("active"); // Strip the cached "ghost" state
 
-        // Apply the correct state for the current page
-        const text = link.textContent.trim().toLowerCase();
-        if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
-        else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
-        else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
-        else if (isHomePath && text === "home") link.classList.add("active");
-      });
+          // Apply the correct state for the current page
+          const text = link.textContent.trim().toLowerCase();
+          if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+          else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+          else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+          else if (isHomePath && text === "home") link.classList.add("active");
+        });
+      }
     }
-  }
-</script>
+  </script>
 
   <div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
@@ -381,7 +381,8 @@
                         </li>
                       </ul>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                    <div
+                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
                       <div>
                         <div class="cw">
                           <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
@@ -626,7 +627,8 @@
                           advancement without single-point bottlenecks</div>
                       </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                    <div
+                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
                       <div>
                         <div class="cw">
                           <div class="cw-inner">
@@ -948,7 +950,8 @@
                         </ul>
                       </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                    <div
+                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
                       <div>
                         <div class="cw">
                           <div class="cw-inner">
@@ -1233,7 +1236,8 @@
                         </div>
                       </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 300px)); gap: 16px; margin-top: 10px">
+                    <div
+                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 300px)); gap: 16px; margin-top: 10px">
                       <div style="flex: 1;">
                         <div class="cw">
                           <div class="cw-inner">
@@ -1413,7 +1417,8 @@
                       </ul>
                       <div
                         style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                        <div
+                          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
                           <div>
                             <div class="cw">
                               <div class="cw-inner port-h">
