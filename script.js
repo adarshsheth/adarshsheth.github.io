@@ -452,15 +452,34 @@ function initNavHoverStates() {
 		}
 	};
 
+	// window._hideNav = function () {
+	// 	if (!navHid) {
+	// 		hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
+	// 		hdr.style.transform = "translateY(-150%)";
+	// 		// hdr.style.transition = "transform 0.48s cubic-bezier(0.4, 0, 0.8, 1)";
+	// 		// hdr.style.transform = "translateY(-250%)";
+	// 		navHid = true;
+	// 		navDelta = 0;
+	// 		hdr.querySelectorAll(".ndrop.open").forEach((drop) => drop.classList.remove("open"));
+	// 	}
+	// };
+
 	window._hideNav = function () {
 		if (!navHid) {
 			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
 			hdr.style.transform = "translateY(-150%)";
-			// hdr.style.transition = "transform 0.48s cubic-bezier(0.4, 0, 0.8, 1)";
-			// hdr.style.transform = "translateY(-250%)";
 			navHid = true;
 			navDelta = 0;
-			hdr.querySelectorAll(".ndrop.open").forEach((drop) => drop.classList.remove("open"));
+
+			// Force close mobile dropdowns and OVERRIDE lingering :hover CSS
+			hdr.querySelectorAll(".ndrop").forEach((drop) => {
+				drop.classList.remove("open");
+				const navDd = drop.querySelector(".nav-dd");
+				if (navDd) {
+					navDd.style.setProperty("display", "none", "important");
+					setTimeout(() => navDd.style.removeProperty("display"), 300);
+				}
+			});
 		}
 	};
 
@@ -555,21 +574,21 @@ function runCoreScrollTasks(sy) {
 		activeK = cachedAvailableSections[0].k;
 	}
 
-if (activeK) {
-	document.querySelectorAll(".sbn[data-k]").forEach((a) => {
-		const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
-		if (a.classList.contains("active") !== isMatch) {
-			a.classList.toggle("active", isMatch);
-		}
-	});
+	if (activeK) {
+		document.querySelectorAll(".sbn[data-k]").forEach((a) => {
+			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
+			if (a.classList.contains("active") !== isMatch) {
+				a.classList.toggle("active", isMatch);
+			}
+		});
 
-	const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
-	const ssId = ssMap[activeK];
-	if (ssId && SS[ssId] && sy >= 400) {
-		const sec = RMAP[ssId]?.[SS[ssId].cur];
-		if (sec) updateURLd(sec);
+		const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
+		const ssId = ssMap[activeK];
+		if (ssId && SS[ssId] && sy >= 400) {
+			const sec = RMAP[ssId]?.[SS[ssId].cur];
+			if (sec) updateURLd(sec);
+		}
 	}
-}
 }
 
 /* ── CAROUSELS ── */
@@ -1283,17 +1302,76 @@ function loadNav() {
 			// 	if (e.target.closest(".ndrop")) return;
 			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
 			// });
+
+			// document.addEventListener("click", (e) => {
+			// 	if (window.innerWidth > 1050) return;
+
+			// 	// Force close the dropdown if a sub-link is clicked
+			// 	if (e.target.closest(".dd-lnk")) {
+			// 		dropdownParents.forEach((other) => other.classList.remove("open"));
+			// 		return;
+			// 	}
+
+			// 	if (e.target.closest(".ndrop")) return;
+			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
+			// });
+
+			// // 1. Standard global click to close menus when clicking outside
+			// document.addEventListener("click", (e) => {
+			// 	if (window.innerWidth > 1050) return;
+			// 	if (e.target.closest(".ndrop")) return;
+			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
+			// });
+
+			// // 2. Direct click listeners on sub-links to bypass the "return false;" block
+			// hdr.querySelectorAll(".dd-lnk").forEach((link) => {
+			// 	link.addEventListener("click", () => {
+			// 		if (window.innerWidth <= 1050) {
+			// 			dropdownParents.forEach((drop) => {
+			// 				drop.classList.remove("open"); // Strip the open class
+
+			// 				// Instantly vanish the dropdown to bypass CSS transition lag
+			// 				const navDd = drop.querySelector(".nav-dd");
+			// 				if (navDd) {
+			// 					navDd.style.display = "none";
+			// 					// Restore default display state after the navbar has hidden
+			// 					setTimeout(() => (navDd.style.display = ""), 300);
+			// 				}
+			// 			});
+			// 		}
+			// 	});
+			// });
+
+			// 1. Standard global click to close menus when clicking outside
 			document.addEventListener("click", (e) => {
 				if (window.innerWidth > 1050) return;
-
-				// Force close the dropdown if a sub-link is clicked
-				if (e.target.closest(".dd-lnk")) {
-					dropdownParents.forEach((other) => other.classList.remove("open"));
-					return;
-				}
-
 				if (e.target.closest(".ndrop")) return;
-				dropdownParents.forEach((other) => other.classList.remove("open"));
+				dropdownParents.forEach((drop) => {
+					drop.classList.remove("open");
+					const navDd = drop.querySelector(".nav-dd");
+					if (navDd) {
+						navDd.style.setProperty("display", "none", "important");
+						setTimeout(() => navDd.style.removeProperty("display"), 300);
+					}
+				});
+			});
+
+			// 2. Direct click listeners on sub-links to bypass the "return false;" block
+			hdr.querySelectorAll(".dd-lnk").forEach((link) => {
+				link.addEventListener("click", () => {
+					if (window.innerWidth <= 1050) {
+						dropdownParents.forEach((drop) => {
+							drop.classList.remove("open");
+
+							// Override the !important CSS rule to instantly vanish the dropdown
+							const navDd = drop.querySelector(".nav-dd");
+							if (navDd) {
+								navDd.style.setProperty("display", "none", "important");
+								setTimeout(() => navDd.style.removeProperty("display"), 300);
+							}
+						});
+					}
+				});
 			});
 
 			resolve();
@@ -1302,16 +1380,17 @@ function loadNav() {
 		// SCENARIO 1: The inline script already injected the cached nav instantly
 		if (header && !placeholder) {
 			setupNav(header);
-			
+
 			// Fetch silently in the background to ensure the cache stays up-to-date
 			fetch("nav.html")
-				.then(res => res.text())
-				.then(data => {
+				.then((res) => res.text())
+				.then((data) => {
 					const parser = new DOMParser();
 					const doc = parser.parseFromString(data, "text/html");
 					const fetchedHeader = doc.querySelector("header");
 					if (fetchedHeader) sessionStorage.setItem("rawNavHTML", fetchedHeader.outerHTML);
-				}).catch(() => {});
+				})
+				.catch(() => {});
 			return;
 		}
 
@@ -1326,7 +1405,7 @@ function loadNav() {
 				if (header) {
 					// Save to cache for the next page load!
 					sessionStorage.setItem("rawNavHTML", header.outerHTML);
-					
+
 					if (placeholder) {
 						placeholder.replaceWith(header);
 					}
