@@ -483,16 +483,30 @@ function initNavHoverStates() {
 	// 	}
 	// };
 
+	// window._hideNav = function () {
+	// 	if (!navHid) {
+	// 		hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
+	// 		hdr.style.transform = "translateY(-150%)";
+	// 		// hdr.style.transform = "translateY(-15%)";
+	// 		navHid = true;
+	// 		navDelta = 0;
+
+	// 		// Instantly close mobile dropdowns
+	// 		hdr.querySelectorAll(".ndrop").forEach((drop) => drop.classList.remove("open"));
+	// 	}
+	// };
+
 	window._hideNav = function () {
 		if (!navHid) {
 			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
 			hdr.style.transform = "translateY(-150%)";
-			// hdr.style.transform = "translateY(-15%)";
 			navHid = true;
 			navDelta = 0;
 
-			// Instantly close mobile dropdowns
+			// Instantly close mobile dropdowns and clear the sticky blur overlay
 			hdr.querySelectorAll(".ndrop").forEach((drop) => drop.classList.remove("open"));
+			const shroud = document.getElementById("blur-page");
+			if (shroud) shroud.classList.remove("visible");
 		}
 	};
 
@@ -1355,8 +1369,6 @@ function loadNav() {
 			// 	});
 			// });
 
-
-			
 			// // 1. Standard global click to close menus when clicking outside
 			// document.addEventListener("click", (e) => {
 			// 	if (window.innerWidth > 1050) return;
@@ -1397,10 +1409,22 @@ function loadNav() {
 			});
 
 			// 2. Direct click listeners on sub-links
+			// hdr.querySelectorAll(".dd-lnk").forEach((link) => {
+			// 	link.addEventListener("click", () => {
+			// 		if (window.innerWidth <= 1050) {
+			// 			dropdownParents.forEach((drop) => drop.classList.remove("open"));
+			// 		}
+			// 	});
+			// });
+
+			// 2. Direct click listeners on sub-links
 			hdr.querySelectorAll(".dd-lnk").forEach((link) => {
 				link.addEventListener("click", () => {
 					if (window.innerWidth <= 1050) {
 						dropdownParents.forEach((drop) => drop.classList.remove("open"));
+
+						// Instantly remove the blur effect so it doesn't linger over the page
+						if (shroud) shroud.classList.remove("visible");
 					}
 				});
 			});
