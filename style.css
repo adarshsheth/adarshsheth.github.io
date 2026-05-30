@@ -2781,12 +2781,12 @@ footer {
 	
 	/* Functional logic for mobile-only collapse */
     .ec.mobile-collapsible.is-collapsed {
-        max-height: 450px; 
+        max-height: 450px !important; 
         overflow: hidden;
         position: relative;
     }
     .ec.collapsible.is-collapsed {
-        max-height: 450px;
+        max-height: 450px !important;
     }
         .ec.mobile-collapsible.is-collapsed .ec-collapse-overlay {
         display: flex; 
