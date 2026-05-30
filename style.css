@@ -2768,24 +2768,29 @@ footer {
 	}
 
     /* Functional logic for mobile-only collapse */
-    .ec.mobile-collapsible.is-collapsed {
+    /* .ec.mobile-collapsible.is-collapsed {
         max-height: var(--collapse-h, 450px);
         overflow: hidden;
         position: relative;
     }
     .ec.mobile-collapsible.is-collapsed .ec-collapse-overlay {
-        display: flex; /* Show overlay */
+        display: flex; 
+    } */
+
+	
+	
+	/* Functional logic for mobile-only collapse */
+    .ec.mobile-collapsible.is-collapsed {
+        max-height: 450px; 
+        overflow: hidden;
+        position: relative;
     }
-
-
-
-
-
-
-
-
-
-
+    .ec.collapsible.is-collapsed {
+        max-height: 450px;
+    }
+        .ec.mobile-collapsible.is-collapsed .ec-collapse-overlay {
+        display: flex; 
+    }
 
 }
 
