@@ -1421,11 +1421,62 @@ function loadNav() {
 	});
 }
 
+/* ── COLLAPSIBLE EC CARDS ── */
+function initCollapsibleCards() {
+	document.querySelectorAll('.ec.collapsible').forEach(card => {
+		// Define default height or grab the override from the HTML tag
+		const defaultHeight = 450;
+		const h = card.dataset.collapseHeight || defaultHeight;
+		
+		card.style.setProperty('--collapse-h', h + 'px');
+		card.classList.add('is-collapsed');
+
+		// Create the overlay and button
+		const overlay = document.createElement('div');
+		overlay.className = 'ec-collapse-overlay';
+		overlay.innerHTML = `<button class="ec-show-more-btn">Show More <i class="fas fa-chevron-down" style="margin-left: 5px;"></i></button>`;
+
+		const btn = overlay.querySelector('.ec-show-more-btn');
+		btn.addEventListener('click', function(e) {
+			e.stopPropagation();
+			const isCol = card.classList.contains('is-collapsed');
+
+			if (isCol) {
+				card.classList.remove('is-collapsed');
+				card.classList.add('is-expanded');
+				btn.innerHTML = `Show Less <i class="fas fa-chevron-up" style="margin-left: 5px;"></i>`;
+			} else {
+				card.classList.add('is-collapsed');
+				card.classList.remove('is-expanded');
+				btn.innerHTML = `Show More <i class="fas fa-chevron-down" style="margin-left: 5px;"></i>`;
+
+				// Smoothly scroll back into view if the user scrolled far down the expanded card
+				const rect = card.getBoundingClientRect();
+				const navH = window.innerWidth > 1050 ? 75 : 50;
+				if (rect.top < navH) {
+					window.scrollBy({ top: rect.top - navH - 20, behavior: 'smooth' });
+				}
+			}
+
+			// Force the layout to update, then tell the slideshow wrapper to transition to the new height
+			const clip = card.closest('.ss-clip');
+			if (clip) {
+				const ssId = clip.id.replace('-clip', '');
+				void card.offsetHeight; // Flushes CSS changes
+				requestAnimationFrame(() => setH(ssId, true));
+			}
+		});
+
+		card.appendChild(overlay);
+	});
+}
+
 /* ── UNIFIED INITIALIZATION ── */
 function unifiedInit() {
 	// THE FIX: Carousels MUST run before initSS() to swap data-src back to src.
 	// Otherwise initSS measures images with 0 height, creating black screens!
 	initCarousels();
+	initCollapsibleCards();
 	initSS();
 	initFadeIn();
 	initCountUp();

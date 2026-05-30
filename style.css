@@ -2619,7 +2619,7 @@ footer {
 
 }
 
-/* sidebar collapses */
+/* sidebar collapses and ec border color changes */
 @media (max-width: 1050px) {
 
 	:root {
@@ -2737,6 +2737,30 @@ footer {
 	.about-card:hover .about-badge {
 		transform: translateX(-10vw) translateZ(0);
 	}
+	.ec-show-more-btn {
+	color: var(--bg);
+	border: 2px solid var(--accent2);
+	/* border-color: var(--accent2); */
+	background: var(--accent2);
+	}
+	.ec-show-more-btn:hover {
+	background: var(--surface2);
+	border: 2px solid var(--accent2);
+	color: var(--accent2);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /* ec cards split from 2 columns to 2 rows (text and images) */
@@ -2798,3 +2822,86 @@ footer {
     transform: perspective(3000px) rotateX(20deg) rotateY(-1deg) translateZ(0px);    
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 12px rgba(100, 118, 97, 0.3);
 } */
+
+/* ══════════════════════════════════════════════════════════ */
+/* ══ COLLAPSIBLE EC CARDS                                 ── */
+/* ══════════════════════════════════════════════════════════ */
+
+.ec.collapsible.is-collapsed {
+	max-height: var(--collapse-h, 450px);
+	overflow: hidden;
+	position: relative;
+}
+
+.ec.collapsible.is-expanded {
+	max-height: none;
+	position: relative;
+}
+
+/* Gradient overlay at the bottom of a collapsed card */
+.ec-collapse-overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 160px;
+	/* Fades out text seamlessly into the app's dark background */
+	background: linear-gradient(to bottom, transparent, var(--bg) 80%, var(--bg));
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding-bottom: 25px;
+	z-index: 10;
+	pointer-events: none; /* Allows scrolling/clicking through the gradient */
+}
+
+/* Turns the overlay into a neat footer row when expanded */
+.ec.collapsible.is-expanded .ec-collapse-overlay {
+	position: relative;
+	height: auto;
+	background: var(--surface2);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	/* border-top: var(--ec-card-lines) solid var(--ec-card-lines-color); */
+}
+
+.ec-show-more-btn {
+	pointer-events: auto;
+	/* border: 1.5px solid var(--border); */
+	/* color: var(--text); */
+
+
+	background: var(--surface2);
+	border: 2px solid var(--accent2);
+	color: var(--accent2);
+
+	/* color: var(--bg); */
+	/* border: 2px solid var(--accent2); */
+	/* background: var(--accent2); */
+
+	
+	padding: 9px 24px;
+	border-radius: 100px;
+	font-family: "Rubik", sans-serif;
+	font-weight: 700;
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-flex;
+	align-items: center;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.ec-show-more-btn:hover {
+	color: var(--bg);
+	border-color: var(--accent2);
+	background: var(--accent2);
+
+	/* background: var(--surface2);
+	border: 2px solid var(--accent2);
+	color: var(--accent2); */
+
+	transform: translateY(-4px);
+}
