@@ -2737,19 +2737,38 @@ footer {
 	.about-card:hover .about-badge {
 		transform: translateX(-10vw) translateZ(0);
 	}
-	.ec-show-more-btn {
+	/* .ec-show-more-btn {
 	color: var(--bg);
 	border: 2px solid var(--accent2);
-	/* border-color: var(--accent2); */
 	background: var(--accent2);
 	}
 	.ec-show-more-btn:hover {
 	background: var(--surface2);
 	border: 2px solid var(--accent2);
 	color: var(--accent2);
+	} */
+
+/* User's Mobile Button Inversion */
+	.ec-show-more-btn {
+        color: var(--bg);
+        border: 2px solid var(--accent2);
+        background: var(--accent2);
+	}
+	.ec-show-more-btn:hover {
+        background: var(--surface2);
+        border: 2px solid var(--accent2);
+        color: var(--accent2);
 	}
 
-
+    /* Functional logic for mobile-only collapse */
+    .ec.mobile-collapsible.is-collapsed {
+        max-height: var(--collapse-h, 450px);
+        overflow: hidden;
+        position: relative;
+    }
+    .ec.mobile-collapsible.is-collapsed .ec-collapse-overlay {
+        display: flex; /* Show overlay */
+    }
 
 
 
@@ -2827,59 +2846,52 @@ footer {
 /* ══ COLLAPSIBLE EC CARDS                                 ── */
 /* ══════════════════════════════════════════════════════════ */
 
-.ec.collapsible.is-collapsed {
-	max-height: var(--collapse-h, 450px);
-	overflow: hidden;
-	position: relative;
-}
-
-.ec.collapsible.is-expanded {
-	max-height: none;
-	position: relative;
-}
-
-/* Gradient overlay at the bottom of a collapsed card */
+/* BASE OVERLAY STYLES (Hidden by default on desktop) */
 .ec-collapse-overlay {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 160px;
-	/* Fades out text seamlessly into the app's dark background */
 	background: linear-gradient(to bottom, transparent, var(--bg) 80%, var(--bg));
-	display: flex;
+	display: none; 
 	align-items: flex-end;
 	justify-content: center;
 	padding-bottom: 25px;
 	z-index: 10;
-	pointer-events: none; /* Allows scrolling/clicking through the gradient */
+	pointer-events: none; 
 }
 
-/* Turns the overlay into a neat footer row when expanded */
-.ec.collapsible.is-expanded .ec-collapse-overlay {
+/* 1. EXPLICIT DESKTOP & MOBILE COLLAPSE (.collapsible) */
+.ec.collapsible.is-collapsed {
+	max-height: var(--collapse-h, 450px);
+	overflow: hidden;
+	position: relative;
+}
+.ec.collapsible.is-collapsed .ec-collapse-overlay {
+    display: flex;
+}
+
+/* 2. EXPANDED STATE (Applies to all) */
+.ec.is-expanded {
+	max-height: none !important;
+	overflow: visible;
+}
+.ec.is-expanded .ec-collapse-overlay {
+    display: flex;
 	position: relative;
 	height: auto;
 	background: var(--surface2);
 	padding-top: 15px;
 	padding-bottom: 15px;
-	/* border-top: var(--ec-card-lines) solid var(--ec-card-lines-color); */
 }
 
+/* 3. BASE BUTTON AESTHETICS */
 .ec-show-more-btn {
 	pointer-events: auto;
-	/* border: 1.5px solid var(--border); */
-	/* color: var(--text); */
-
-
 	background: var(--surface2);
 	border: 2px solid var(--accent2);
 	color: var(--accent2);
-
-	/* color: var(--bg); */
-	/* border: 2px solid var(--accent2); */
-	/* background: var(--accent2); */
-
-	
 	padding: 9px 24px;
 	border-radius: 100px;
 	font-family: "Rubik", sans-serif;
@@ -2898,10 +2910,5 @@ footer {
 	color: var(--bg);
 	border-color: var(--accent2);
 	background: var(--accent2);
-
-	/* background: var(--surface2);
-	border: 2px solid var(--accent2);
-	color: var(--accent2); */
-
 	transform: translateY(-4px);
 }
