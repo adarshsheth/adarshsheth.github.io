@@ -65,7 +65,7 @@ function initSS() {
 		new ResizeObserver(() => {
 			calcW(id);
 			fr.style.transition = "none";
-			fr.style.transform = `translateX(-${SS[id].cur * SS[id].w}px)`;
+			fr.style.transform = `translateX(-${SS[id].cur * (SS[id].w + 100)}px)`;
 			requestAnimationFrame(() => {
 				fr.style.transition = "";
 			});
@@ -135,11 +135,81 @@ function setH(id, animate) {
 	}
 }
 
+// function sw(id, idx, section, doScroll = true) {
+// 	const s = SS[id];
+// 	if (!s) return;
+// 	const prev = s.cur;
+
+// 	if (prev === idx) {
+// 		(TABS[id] || []).forEach((bid, i) => {
+// 			const b = document.getElementById(bid);
+// 			if (b) b.disabled = i === idx;
+// 		});
+// 		updateURLd(section);
+// 		if (doScroll) {
+// 			if (window._lockNav) window._lockNav();
+// 			if (window._hideNav) window._hideNav();
+// 			const el = document.getElementById(ANC[id]);
+// 			if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
+// 		}
+// 		return;
+// 	}
+// 	s.cur = idx;
+
+// 	const prevSlide = s.slides[prev];
+// 	if (prevSlide) {
+// 		const prevCard = prevSlide.querySelector(".ec");
+// 		if (prevCard) prevCard.classList.remove("visible");
+// 		prevSlide.style.visibility = "hidden";
+// 	}
+// 	// const prevSlide = s.slides[prev];
+// 	// if (prevSlide) {
+// 	// 	const prevCard = prevSlide.querySelector(".ec");
+// 	// 	if (prevCard) prevCard.classList.remove("visible");
+
+// 	// 	// THE FIX: Delay the visibility toggle so the card can slide and fade out smoothly
+// 	// 	setTimeout(() => {
+// 	// 		// Ensure the user hasn't quickly navigated back to this slide
+// 	// 		if (s.cur !== prev) {
+// 	// 			prevSlide.style.visibility = "hidden";
+// 	// 		}
+// 	// 	}, 500); // 500ms covers both the 0.4s slide and 0.5s fade transitions
+// 	// }
+
+// 	const newSlide = s.slides[idx];
+// 	if (newSlide) {
+// 		newSlide.style.visibility = "visible";
+// 		const newCard = newSlide.querySelector(".ec");
+// 		if (newCard) {
+// 			newCard.classList.remove("visible");
+// 			void newCard.offsetWidth;
+// 			newCard.classList.add("visible");
+// 		}
+// 	}
+
+// 	s.fr.style.transform = `translateX(-${idx * s.w}px)`;
+// 	requestAnimationFrame(() => setH(id, true));
+
+// 	(TABS[id] || []).forEach((bid, i) => {
+// 		const b = document.getElementById(bid);
+// 		if (b) b.disabled = i === idx;
+// 	});
+
+// 	updateURLd(section);
+// 	if (doScroll) {
+// 		if (window._lockNav) window._lockNav();
+// 		if (window._hideNav) window._hideNav();
+// 		const el = document.getElementById(ANC[id]);
+// 		if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
+// 	}
+// }
+
 function sw(id, idx, section, doScroll = true) {
 	const s = SS[id];
 	if (!s) return;
 	const prev = s.cur;
 
+	// If clicking the currently active tab, just handle routing/scrolling
 	if (prev === idx) {
 		(TABS[id] || []).forEach((bid, i) => {
 			const b = document.getElementById(bid);
@@ -154,34 +224,66 @@ function sw(id, idx, section, doScroll = true) {
 		}
 		return;
 	}
+
 	s.cur = idx;
 
-	const prevSlide = s.slides[prev];
-	if (prevSlide) {
-		const prevCard = prevSlide.querySelector(".ec");
-		if (prevCard) prevCard.classList.remove("visible");
-		prevSlide.style.visibility = "hidden";
-	}
-
-	const newSlide = s.slides[idx];
-	if (newSlide) {
-		newSlide.style.visibility = "visible";
-		const newCard = newSlide.querySelector(".ec");
-		if (newCard) {
-			newCard.classList.remove("visible");
-			void newCard.offsetWidth;
-			newCard.classList.add("visible");
-		}
-	}
-
-	s.fr.style.transform = `translateX(-${idx * s.w}px)`;
-	requestAnimationFrame(() => setH(id, true));
-
+	// Update tab button styles instantly
 	(TABS[id] || []).forEach((bid, i) => {
 		const b = document.getElementById(bid);
 		if (b) b.disabled = i === idx;
 	});
 
+	const prevSlide = s.slides[prev];
+	const newSlide = s.slides[idx];
+
+	// 1. Start fading down the old card
+	if (prevSlide) {
+		const prevCard = prevSlide.querySelector(".ec");
+		if (prevCard) prevCard.classList.remove("visible");
+	}
+
+	// if (prevSlide) {
+	// 	prevSlide.style.visibility = "hidden";
+	// 	const prevCard = prevSlide.querySelector(".ec");
+	// 	if (prevCard) {
+	// 		prevCard.classList.remove("visible");
+	// 		prevCard.style.transition = "none";
+	// 		prevCard.style.opacity = "0";
+	// 		prevCard.style.transform = "translateY(16px)";
+	// 	}
+	// }
+
+	// Clear the timer if the user rapid-clicks tabs
+	if (s.swTimer) clearTimeout(s.swTimer);
+
+	// 2. Wait for the fade-out, snap the container, and fade-in the new card
+	s.swTimer = setTimeout(() => {
+		// Hide all slides except the target to prevent visual ghosting
+		s.slides.forEach((sl, i) => {
+			if (i !== s.cur) sl.style.visibility = "hidden";
+		});
+
+		// INSTANTLY snap the container horizontally (kills the "side business")
+		s.fr.style.transition = "none";
+		s.fr.style.transform = `translateX(-${idx * s.w}px)`;
+		s.fr.style.transform = `translateX(-${idx * (s.w + 100)}px)`;
+
+		// Show the new slide container and trigger its upward fade
+		if (newSlide) {
+			newSlide.style.visibility = "visible";
+			const newCard = newSlide.querySelector(".ec");
+			if (newCard) {
+				newCard.classList.remove("visible");
+				void newCard.offsetWidth; // Force CSS reflow so it starts at the bottom
+				newCard.classList.add("visible");
+			}
+		}
+
+		// Smoothly adjust the wrapper height to fit the new card
+		requestAnimationFrame(() => setH(id, true));
+	}, 150); // 350ms gives the outgoing CSS opacity transition time to vanish smoothly
+
+	// URL and Scrolling handling
 	updateURLd(section);
 	if (doScroll) {
 		if (window._lockNav) window._lockNav();
@@ -1482,7 +1584,7 @@ function loadNav() {
 // 		// Define default height or grab the override from the HTML tag
 // 		const defaultHeight = 450;
 // 		const h = card.dataset.collapseHeight || defaultHeight;
-		
+
 // 		card.style.setProperty('--collapse-h', h + 'px');
 // 		card.classList.add('is-collapsed');
 
@@ -1528,52 +1630,52 @@ function loadNav() {
 
 /* ── COLLAPSIBLE EC CARDS ── */
 function initCollapsibleCards() {
-	document.querySelectorAll('.ec').forEach(card => {
+	document.querySelectorAll(".ec").forEach((card) => {
 		// If you didn't manually tag it as 'collapsible' for desktop, tag it for mobile-only
-		const isAlwaysCollapsible = card.classList.contains('collapsible');
+		const isAlwaysCollapsible = card.classList.contains("collapsible");
 		if (!isAlwaysCollapsible) {
-			card.classList.add('mobile-collapsible');
+			card.classList.add("mobile-collapsible");
 		}
 
 		// Define default height or grab the override from the HTML tag
 		const defaultHeight = 450;
 		const h = card.dataset.collapseHeight || defaultHeight;
-		
-		card.style.setProperty('--collapse-h', h + 'px');
-		card.classList.add('is-collapsed');
+
+		card.style.setProperty("--collapse-h", h + "px");
+		card.classList.add("is-collapsed");
 
 		// Create the overlay and button
-		const overlay = document.createElement('div');
-		overlay.className = 'ec-collapse-overlay';
+		const overlay = document.createElement("div");
+		overlay.className = "ec-collapse-overlay";
 		overlay.innerHTML = `<button class="ec-show-more-btn">Show More <i class="fas fa-chevron-down" style="margin-left: 5px;"></i></button>`;
 
-		const btn = overlay.querySelector('.ec-show-more-btn');
-		btn.addEventListener('click', function(e) {
+		const btn = overlay.querySelector(".ec-show-more-btn");
+		btn.addEventListener("click", function (e) {
 			e.stopPropagation();
-			const isCol = card.classList.contains('is-collapsed');
+			const isCol = card.classList.contains("is-collapsed");
 
 			if (isCol) {
-				card.classList.remove('is-collapsed');
-				card.classList.add('is-expanded');
+				card.classList.remove("is-collapsed");
+				card.classList.add("is-expanded");
 				btn.innerHTML = `Show Less <i class="fas fa-chevron-up" style="margin-left: 5px;"></i>`;
 			} else {
-				card.classList.add('is-collapsed');
-				card.classList.remove('is-expanded');
+				card.classList.add("is-collapsed");
+				card.classList.remove("is-expanded");
 				btn.innerHTML = `Show More <i class="fas fa-chevron-down" style="margin-left: 5px;"></i>`;
 
 				// Smoothly scroll back into view if the user scrolled far down the expanded card
 				const rect = card.getBoundingClientRect();
 				const navH = window.innerWidth > 1050 ? 75 : 50;
 				if (rect.top < navH) {
-					window.scrollBy({ top: rect.top - navH - 20, behavior: 'smooth' });
+					window.scrollBy({top: rect.top - navH - 20, behavior: "smooth"});
 				}
 			}
 
 			// Force the layout to update, then tell the slideshow wrapper to transition
-			const clip = card.closest('.ss-clip');
+			const clip = card.closest(".ss-clip");
 			if (clip) {
-				const ssId = clip.id.replace('-clip', '');
-				void card.offsetHeight; 
+				const ssId = clip.id.replace("-clip", "");
+				void card.offsetHeight;
 				requestAnimationFrame(() => setH(ssId, true));
 			}
 		});
@@ -1617,7 +1719,7 @@ function initCollapsibleCards() {
 
 /* ── TOUCH & TRACKPAD SWIPE NAVIGATION FOR MAIN CARDS ── */
 function initSwipeNav() {
-	Object.keys(SS).forEach(id => {
+	Object.keys(SS).forEach((id) => {
 		const s = SS[id];
 		if (!s || !s.clip) return;
 
@@ -1625,50 +1727,63 @@ function initSwipeNav() {
 		let touchStartX = 0;
 		let touchStartY = 0;
 
-		s.clip.addEventListener('touchstart', e => {
-			if (e.touches.length > 1) return; 
-			touchStartX = e.changedTouches[0].screenX;
-			touchStartY = e.changedTouches[0].screenY;
-		}, { passive: true });
+		s.clip.addEventListener(
+			"touchstart",
+			(e) => {
+				if (e.touches.length > 1) return;
+				touchStartX = e.changedTouches[0].screenX;
+				touchStartY = e.changedTouches[0].screenY;
+			},
+			{passive: true},
+		);
 
-		s.clip.addEventListener('touchend', e => {
-			const touchEndX = e.changedTouches[0].screenX;
-			const touchEndY = e.changedTouches[0].screenY;
+		s.clip.addEventListener(
+			"touchend",
+			(e) => {
+				const touchEndX = e.changedTouches[0].screenX;
+				const touchEndY = e.changedTouches[0].screenY;
 
-			const diffX = touchStartX - touchEndX;
-			const diffY = touchStartY - touchEndY;
+				const diffX = touchStartX - touchEndX;
+				const diffY = touchStartY - touchEndY;
 
-			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-				if (diffX > 0) ar(id, 1); // Swiped Left -> Next
-				else ar(id, -1);          // Swiped Right -> Prev
-			}
-		}, { passive: true });
+				if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+					if (diffX > 0)
+						ar(id, 1); // Swiped Left -> Next
+					else ar(id, -1); // Swiped Right -> Prev
+				}
+			},
+			{passive: true},
+		);
 
 		// 2. DESKTOP TRACKPAD LOGIC
 		let isTrackpadSwiping = false;
 
-		s.clip.addEventListener('wheel', e => {
-			// If we recently triggered a swipe, ignore further scroll events 
-			// to prevent rapid-fire skipping while the slide is animating.
-			if (isTrackpadSwiping) return;
+		s.clip.addEventListener(
+			"wheel",
+			(e) => {
+				// If we recently triggered a swipe, ignore further scroll events
+				// to prevent rapid-fire skipping while the slide is animating.
+				if (isTrackpadSwiping) return;
 
-			// Check if the scroll is predominantly horizontal and forceful enough
-			if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
-				
-				isTrackpadSwiping = true;
+				// Check if the scroll is predominantly horizontal and forceful enough
+				if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+					isTrackpadSwiping = true;
 
-				if (e.deltaX > 0) {
-					ar(id, 1);  // Scrolled Right (2-finger swipe left) -> Next
-				} else {
-					ar(id, -1); // Scrolled Left (2-finger swipe right) -> Prev
+					if (e.deltaX > 0) {
+						ar(id, 1); // Scrolled Right (2-finger swipe left) -> Next
+					} else {
+						ar(id, -1); // Scrolled Left (2-finger swipe right) -> Prev
+					}
+
+					// Lock the trackpad for 600ms (gives time for the CSS animation to finish)
+					setTimeout(() => {
+						isTrackpadSwiping = false;
+					}, 400);
+					// adjust to finetune scroll left right delay
 				}
-
-				// Lock the trackpad for 600ms (gives time for the CSS animation to finish)
-				setTimeout(() => {
-					isTrackpadSwiping = false;
-				}, 600);
-			}
-		}, { passive: true }); 
+			},
+			{passive: true},
+		);
 	});
 }
 

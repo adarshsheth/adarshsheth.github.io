@@ -1120,6 +1120,7 @@ section {
 }
 .ssfr {
 	display: flex;
+	gap: 100px;
 	/* will-change: transform; */
 	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1174,18 +1175,23 @@ section {
 	overflow: hidden;
 	opacity: 0;
 	transform: translateY(16px);
-	transition:
+	/* transform: translateY(20px); */
+	/* transition:
 		border-color 0.25s,
 		box-shadow 0.25s,
 		opacity 0.5s,
-		transform 0.5s;
+		transform 0.5s; */
+	/* transition: opacity 0.3s ease-out, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); */
+	/* transition: opacity 0.3s ease-out, transform 0.4s ease-out; */
+		/* this controls the NEIGHBORING slide's transform */
+	transition: all 0.15s ease-out;
 	/* will-change: transform, opacity; */
 }
 .ec.visible {
 	opacity: 1;
 	transform-origin: top left;
 	transform: translateY(0) scale(1) translateZ(0);
-	transition: all 0.3 ease-in-out;
+	transition: all 0.3s ease-in-out;
 
 	/* border-color: color-mix(in srgb, var(--accent2) 70%, transparent); */
 	/* box-shadow:
@@ -1210,6 +1216,9 @@ section {
 	/* --miniheader: var(--accent2); */
 	/* --miniheader: var(--not-white); */
 	/* --miniheader: var(--not-black); */
+	/* transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; */
+	transition: all 0.3s ease-out;
+		/* floating up transition time */
 }
 .ec.visible:hover .ect {
 	color: var(--accent2);
@@ -2627,12 +2636,18 @@ footer {
 }
 
 /* sidebar collapses and ec border color changes */
+/* the "mobile" view for all intensive purposes */
 @media (max-width: 1050px) {
 
 	:root {
 		--navh: 25px;
 		--sb: 70px;
 		--h2padding: 10px;
+		/* --tempaccent: var(--accent2); */
+		--accent: #857032;
+		--accent2: #c8a84b;
+
+		
 	}
 	.ec.visible {border-color: color-mix(in srgb, var(--accent2) 100%, transparent);}
 	.copy-toast {
@@ -2894,7 +2909,7 @@ footer {
     display: flex;
 	position: relative;
 	height: auto;
-	background: var(--surface2);
+	/* background: var(--surface2); */
 	padding-top: 15px;
 	padding-bottom: 15px;
 }
