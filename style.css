@@ -2642,12 +2642,7 @@ footer {
 	:root {
 		--navh: 25px;
 		--sb: 70px;
-		--h2padding: 10px;
-		/* --tempaccent: var(--accent2); */
-		--accent: #857032;
-		--accent2: #c8a84b;
-
-		
+		--h2padding: 10px;		
 	}
 	.ec.visible {border-color: color-mix(in srgb, var(--accent2) 100%, transparent);}
 	.copy-toast {
