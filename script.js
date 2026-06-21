@@ -452,15 +452,34 @@ function initNavHoverStates() {
 		}
 	};
 
+	// window._hideNav = function () {
+	// 	if (!navHid) {
+	// 		hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
+	// 		hdr.style.transform = "translateY(-150%)";
+	// 		// hdr.style.transition = "transform 0.48s cubic-bezier(0.4, 0, 0.8, 1)";
+	// 		// hdr.style.transform = "translateY(-250%)";
+	// 		navHid = true;
+	// 		navDelta = 0;
+	// 		hdr.querySelectorAll(".ndrop.open").forEach((drop) => drop.classList.remove("open"));
+	// 	}
+	// };
+
 	window._hideNav = function () {
 		if (!navHid) {
 			hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
 			hdr.style.transform = "translateY(-150%)";
-			// hdr.style.transition = "transform 0.48s cubic-bezier(0.4, 0, 0.8, 1)";
-			// hdr.style.transform = "translateY(-250%)";
 			navHid = true;
 			navDelta = 0;
-			hdr.querySelectorAll(".ndrop.open").forEach((drop) => drop.classList.remove("open"));
+
+			// Force close mobile dropdowns and OVERRIDE lingering :hover CSS
+			hdr.querySelectorAll(".ndrop").forEach((drop) => {
+				drop.classList.remove("open");
+				const navDd = drop.querySelector(".nav-dd");
+				if (navDd) {
+					navDd.style.setProperty("display", "none", "important");
+					setTimeout(() => navDd.style.removeProperty("display"), 300);
+				}
+			});
 		}
 	};
 
@@ -1283,17 +1302,78 @@ function loadNav() {
 			// 	if (e.target.closest(".ndrop")) return;
 			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
 			// });
+
+			// document.addEventListener("click", (e) => {
+			// 	if (window.innerWidth > 1050) return;
+
+			// 	// Force close the dropdown if a sub-link is clicked
+			// 	if (e.target.closest(".dd-lnk")) {
+			// 		dropdownParents.forEach((other) => other.classList.remove("open"));
+			// 		return;
+			// 	}
+
+			// 	if (e.target.closest(".ndrop")) return;
+			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
+			// });
+
+
+			
+			// // 1. Standard global click to close menus when clicking outside
+			// document.addEventListener("click", (e) => {
+			// 	if (window.innerWidth > 1050) return;
+			// 	if (e.target.closest(".ndrop")) return;
+			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
+			// });
+
+			// // 2. Direct click listeners on sub-links to bypass the "return false;" block
+			// hdr.querySelectorAll(".dd-lnk").forEach((link) => {
+			// 	link.addEventListener("click", () => {
+			// 		if (window.innerWidth <= 1050) {
+			// 			dropdownParents.forEach((drop) => {
+			// 				drop.classList.remove("open"); // Strip the open class
+
+			// 				// Instantly vanish the dropdown to bypass CSS transition lag
+			// 				const navDd = drop.querySelector(".nav-dd");
+			// 				if (navDd) {
+			// 					navDd.style.display = "none";
+			// 					// Restore default display state after the navbar has hidden
+			// 					setTimeout(() => (navDd.style.display = ""), 300);
+			// 				}
+			// 			});
+			// 		}
+			// 	});
+			// });
+
+			// 1. Standard global click to close menus when clicking outside
 			document.addEventListener("click", (e) => {
 				if (window.innerWidth > 1050) return;
-
-				// Force close the dropdown if a sub-link is clicked
-				if (e.target.closest(".dd-lnk")) {
-					dropdownParents.forEach((other) => other.classList.remove("open"));
-					return;
-				}
-
 				if (e.target.closest(".ndrop")) return;
-				dropdownParents.forEach((other) => other.classList.remove("open"));
+				dropdownParents.forEach((drop) => {
+					drop.classList.remove("open");
+					const navDd = drop.querySelector(".nav-dd");
+					if (navDd) {
+						navDd.style.setProperty("display", "none", "important");
+						setTimeout(() => navDd.style.removeProperty("display"), 300);
+					}
+				});
+			});
+
+			// 2. Direct click listeners on sub-links to bypass the "return false;" block
+			hdr.querySelectorAll(".dd-lnk").forEach((link) => {
+				link.addEventListener("click", () => {
+					if (window.innerWidth <= 1050) {
+						dropdownParents.forEach((drop) => {
+							drop.classList.remove("open");
+
+							// Override the !important CSS rule to instantly vanish the dropdown
+							const navDd = drop.querySelector(".nav-dd");
+							if (navDd) {
+								navDd.style.setProperty("display", "none", "important");
+								setTimeout(() => navDd.style.removeProperty("display"), 300);
+							}
+						});
+					}
+				});
 			});
 
 			resolve();
