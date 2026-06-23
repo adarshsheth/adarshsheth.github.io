@@ -70,14 +70,17 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin: 0;
-      opacity: 0.7;
+      /* opacity: 0.7; */
       /* color: var(--dimtitle); */
-      color: var(--accent2);
+      /* color: var(--accent2); */
+      /* color: var(--border); */
+      color: color-mix(in srgb, var(--dimtitle) 50%, transparent); 
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
     }
     .sh h2:hover {
-      color: color-mix(in srgb, var(--accent2) 60%, transparent);
+      color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
+      /* color: color-mix(in srgb, var(--accent2) 60%, transparent); */
       /* opacity: 0.1; */
       /* color:  var(--border); */
     }
@@ -92,15 +95,22 @@
     }
 
     .sh .sh-r {
-      height: 6px !important;
+      /* height: 6px !important;
       opacity: 0.2;
-      /* background: var(--dimtitle); */
-      background: var(--accent2);
+      background: var(--border); */
+      height: 10px !important;
+      opacity: 0.1;
+      /* background: var(--border); */
+      background: var(--dimtitle);
+      /* background: var(--accent2); */
+      /* background: var(--g); */
     }
 
     .div {
-      margin-top: 0px !important;
-      opacity: 0;
+      display: none !important; 
+    }
+    .portfolio-sec {
+      padding-bottom: 15px !important;
     }
 
     /* .portfolio-sec {
@@ -112,7 +122,7 @@
       /* justify-content: center; */
       justify-content: left;
       gap: 10px;
-      margin: 40px 48px 10px;
+      margin: 60px 48px 20px;
       flex-wrap: wrap;
     }
 
@@ -171,8 +181,8 @@
     .ec-item {
       break-inside: avoid;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease-out, transform 1s cubic-bezier(0.22, 0.9, 0.25, 1);
+      transform: translateY(10px);
+      transition: opacity .7s ease-out, transform .7s cubic-bezier(0.22, 0.9, 0.25, 1);
     }
 
     .ec-item.visible {
@@ -185,13 +195,14 @@
     .ec-card {
       /* background: var(--surface); */
       background: color-mix(in srgb, var(--surface) 80%, transparent);
-      border: 2px solid var(--border);
+      /* border: 2px solid var(--border); */
+      border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
       /* border-radius: 14px; */
       border-radius: 10px;
       overflow: hidden;
       transition: transform 0.3s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .ec-card:hover {
@@ -201,11 +212,9 @@
       transform: translateY(-3px);
     }
 
-    .ec-card.open {
+    /* .ec-card.open {
       border-color: var(--accent2);
-      /* border-color: var(--g); */
-      /* background: var(--surface2); */
-    }
+    } */
 
     /* SUMMARY VIEW (Always Visible) */
     .ec-summary {
@@ -214,18 +223,33 @@
       gap: 24px;
       cursor: pointer;
       position: relative;
+      transition: grid-template-columns 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), gap 0.4s ease;
     }
 
-    .ec-thumb {
+.ec-thumb {
+      position: relative; 
       width: 100%;
-      /* height: 220px; */
       height: 100%;
-      /* min-height: 220px; */
       background: #111;
       overflow: hidden;
+      min-height: 0; 
+      transition: all 0.3s ease-in-out;
     }
 
+    /* When Expanded: Shrink the thumbnail column to 10px */
+    .ec-card.open .ec-summary {
+      grid-template-columns: 15px 1fr;
+      gap: 18px; /* Slightly tighter gap to bring text closer to the accent bar */
+    }
+    .ec-card.open .ec-thumb {
+      opacity: 0.3;
+    }
+
+
     .ec-thumb img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -296,9 +320,10 @@
       transform: rotate(180deg);
     }
 
-    /* MOBILE ADJUSTMENTS FOR SUMMARY */
+/* MOBILE ADJUSTMENTS FOR SUMMARY */
     @media (max-width: 800px) {
-      .ec-summary {
+      .ec-summary,
+      .ec-card.open .ec-summary{
         grid-template-columns: 1fr;
         gap: 0;
       }
@@ -306,11 +331,22 @@
       .ec-thumb {
         height: 200px;
         min-height: auto;
+        /* Add transition to animate the height */
+        transition: height 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
+      }
+
+      /* Shrink to a thin horizontal strip on mobile */
+      .ec-card.open .ec-thumb {
+        height: 0px;
+        width: 100% !important;
       }
 
       .ec-info {
         padding: 20px;
       }
+      .ec-card.open .ec-summary {
+      grid-template-columns: 1fr;
+    }
     }
 
     /* DETAILS VIEW (Hidden by Default, Expands on Click) */
@@ -474,16 +510,12 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
 
-    .card-lb-close {
+    /* .card-lb-close {
       position: sticky;
       top: 0;
       left: 100%;
-      /* transform: translate(8px, -8px); */
-      /* transform: translate(2px, -2px); */
       transform: translate(-10px, 10px);
       background: var(--bg);
-      /* border: 2px solid var(--border);
-      color: var(--border); */
       border: 2px solid var(--accent2);
       color: var(--accent2);
       width: 32px;
@@ -498,8 +530,31 @@
       z-index: 2;
       float: right;
       transition: all 0.4s ease-in-out;
-      /* margin: 10px 10px -36px 0; */
-      /* margin: 10px 10px 0px 0; */
+
+    } */
+
+    .card-lb-close {
+      position: sticky;
+      top: 10px; /* Distance from top while scrolling */
+      left: auto; 
+      float: none; /* Prevents it from squeezing the image horizontally */
+      margin-left: auto; /* Pushes the button to the right */
+      margin-bottom: -32px; /* Erases its height footprint so the image slides up underneath it */
+      transform: translateX(-10px); /* 10px padding from the right edge */
+      background: var(--bg);
+      border: 2px solid var(--accent2);
+      color: var(--accent2);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 20px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10; /* Ensures it stays clickable above the image */
+      transition: all 0.4s ease-in-out;
     }
 
     .card-lb-close:hover {
@@ -724,9 +779,9 @@
     <!-- GLOBAL FILTER BUTTONS -->
     <div class="portfolio-filters">
       <button class="filter-btn active" data-tag="all" onclick="filterPortfolio('all')">ALL / DEFAULT</button>
-      <button class="filter-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">eVTOL &amp;
+      <button class="filter-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">eVTOL &
         AERONAUTICS</button>
-      <button class="filter-btn" data-tag="space" onclick="filterPortfolio('space')">ROCKETRY &amp; SPACE</button>
+      <button class="filter-btn" data-tag="space" onclick="filterPortfolio('space')">ROCKETRY & SPACE</button>
       <button class="filter-btn" data-tag="robotics" onclick="filterPortfolio('robotics')">ROBOTICS</button>
       <button class="filter-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL
         ENGINEERING</button>
@@ -786,7 +841,7 @@
                   <div>
                     <div class="hbox"><b>Competitions:</b> Design-Build-Vertical Flight
                       (DBVF) · Student Unmanned Aerial Systems Competition (SUAS)</div>
-                    <div class="cslbl" style="margin-top:10px">VTOL Design &amp; Research</div>
+                    <div class="cslbl" style="margin-top:10px">VTOL Design & Research</div>
                     <ul class="cbul">
                       <li>Analyzed multicopter and winged configuraions for maximum <b>[1]
                           hover stability</b> (static; dynamic
@@ -797,7 +852,7 @@
                         rate</li>
                     </ul>
 
-                    <div class="cslbl" style="margin-top:10px">Simulation &amp; Modeling</div>
+                    <div class="cslbl" style="margin-top:10px">Simulation & Modeling</div>
                     <ul class="cbul">
                       <li>Programmed <b>Monte Carlo simulation</b> to generate 1,000 flight
                         mission path combinations, optimized for points and risk under
@@ -936,9 +991,9 @@
                     <div class="ec-subtitle">Fluid Systems Engineer | 02/2025 – 01/2026</div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                    <span class="badge">P&amp;ID</span>
+                    <span class="badge">P&ID</span>
                     <span class="badge">FMEA</span>
-                    <span class="badge">V&amp;V</span>
+                    <span class="badge">V&V</span>
                   </div>
                   <p class="ec-brief">Designed and tested fluid systems, feedline assemblies, and P&ID
                     documentation.
@@ -953,24 +1008,24 @@
               <div class="ec-details-inner">
                 <div class="cbody wimg">
                   <div>
-                    <div class="cslbl">Design &amp; Documentation</div>
+                    <div class="cslbl">Design & Documentation</div>
                     <ul class="cbul">
                       <li>Presented at <b>PDR</b> (assembly visualization) and <b>CDR</b>
                         (nitrous fill
                         process, orifice)</li>
-                      <li>N2O line leak and pressure <b>test planning</b> (P&amp;ID,
+                      <li>N2O line leak and pressure <b>test planning</b> (P&ID,
                         procedure)
                       </li>
                       <li>Developed feedline <b>assembly diagram</b> mapping all fitting
                         interfaces (NPT, JIC, SL, CGA) and control elements (NCS, check
-                        valve, PRV, PSV) for P&amp;ID traceability</li>
+                        valve, PRV, PSV) for P&ID traceability</li>
                     </ul>
                     <div class="cslbl" style="margin-top:12px">Engineering Work</div>
                     <ul class="cbul">
                       <li>Researched <b>precision machining</b> approach to bore an 11"
                         thin-walled tube; opted for o-rings to absorb micro-irregularities
                       </li>
-                      <li>Followed <b>Verification &amp; Validation</b> framework through CRR,
+                      <li>Followed <b>Verification & Validation</b> framework through CRR,
                         schematic development, design review gates, testing, and analysis
                       </li>
                       <li>Failure mode effects and analysis (FMEA) for upper nitrous line,
@@ -1035,7 +1090,7 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">LUNAR SEARCH &amp; RESCUE</h3>
+                    <h3 class="ec-title">LUNAR SEARCH & RESCUE</h3>
                     <div class="ec-subtitle">Team Lead | FALL 2024</div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
@@ -1145,7 +1200,7 @@
                 <div>
                   <div class="ec-info-header">
                     <h3 class="ec-title">TEAM 5776K</h3>
-                    <div class="ec-subtitle">Co-Founder &amp; Captain | 2022-2024</div>
+                    <div class="ec-subtitle">Co-Founder & Captain | 2022-2024</div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">PROJECT MANAGEMENT</span>
@@ -1197,7 +1252,7 @@
                     </div>
                     <ul class="cbul">
                       <li>[1] Strict adherance to the <b>engineering design process (EDP)</b>
-                        with equal emphasis on design, build, code, strategy, &amp;
+                        with equal emphasis on design, build, code, strategy, &
                         documentation
                         <ul>
                           <li>Complete overhaul over documentation with a
@@ -1231,7 +1286,7 @@
                       <div class="cslbl">Technical Contributions</div>
                       <div class="brow" style="padding: 0 0 8px">
                         <span class="badge">CAD</span>
-                        <span class="badge">T&amp;E</span>
+                        <span class="badge">T&E</span>
                         <span class="badge">EDP</span>
                         <span class="badge">SYSTEMS INTEGRATION</span>
                         <span class="badge">RC DRIVER</span>
@@ -1370,7 +1425,7 @@
                 <div>
                   <div class="ec-info-header">
                     <h3 class="ec-title">DVHS ROBOTICS CABINET</h3>
-                    <div class="ec-subtitle">Secretary &amp; Activities Coordinator | 2021–2024
+                    <div class="ec-subtitle">Secretary & Activities Coordinator | 2021–2024
                     </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
@@ -1410,7 +1465,7 @@
                       </ul>
                     </div>
                     <div>
-                      <div class="cslbl">Documentation &amp; Operations</div>
+                      <div class="cslbl">Documentation & Operations</div>
                       <ul class="cbul">
                         <li>More than <b>doubled the tournament planning and operations
                             documentation</b> following COVID-induced knowledge
@@ -1470,7 +1525,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-events'); scrollToSec('sec-events')">
-          <h2>EVENTS <span class="amp">&amp;</span> CHALLENGES</h2>
+          <h2>EVENTS <span class="amp">&</span> CHALLENGES</h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -1514,7 +1569,7 @@
                           href="https://drive.google.com/file/d/19SYPEDsY0PNyN1dCVNX07h_ps6wy2DeA/view?usp=sharing"
                           target="_blank">2025 VFS Project</a></u> of the TAMU SEC-hosted
                       Ignite Challenge. Designed a search
-                      &amp; rescue lift + cruise eVTOL to drop a 5 lb package to a stranded
+                      & rescue lift + cruise eVTOL to drop a 5 lb package to a stranded
                       hiker at [1] 10,000
                       ft, [2] under 20-40 kt winds, [3] 500 ft cloud cover, and [4] fog with
                       50%
@@ -1692,7 +1747,7 @@
                       </ul>
                     </div>
                     <div>
-                      <div class="cslbl">Safety &amp; Prototype</div>
+                      <div class="cslbl">Safety & Prototype</div>
                       <ul class="cbul">
                         <li>Minimized safety and security concerns with bi-directional
                           <b>control rods</b> nested between plates, maintaining complete
@@ -1872,7 +1927,7 @@
                 <div>
                   <div class="ec-info-header">
                     <h3 class="ec-title">EVERYDAY ENGINEERING</h3>
-                    <div class="ec-subtitle">Infographic Series | SUMMER &amp; FALL 2025</div>
+                    <div class="ec-subtitle">Infographic Series | SUMMER & FALL 2025</div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">THERMODYNAMICS</span>
@@ -2008,7 +2063,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-cad'); scrollToSec('sec-cad')">
-          <h2> EXPERIENCES <span class="amp">&amp;</span> CAD</h2>
+          <h2> EXPERIENCES <span class="amp">&</span> CAD</h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -2253,6 +2308,7 @@
         </div>
 
       </div>
+      <div style="margin-top: 30px"></div>
     </section>
 
     <footer>
@@ -2370,19 +2426,40 @@
       }
     });
 
+    // // --- FLOAT-UP REVEAL ON SCROLL ---
+    // function pfInitReveal() {
+    //   const obs = new IntersectionObserver((entries) => {
+    //     entries.forEach((entry) => {
+    //       if (entry.isIntersecting) {
+    //         entry.target.classList.add('visible');
+    //         obs.unobserve(entry.target);
+    //       }
+    //     });
+    //   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    //   document.querySelectorAll('.ec-item').forEach((item) => obs.observe(item));
+    // }
     // --- FLOAT-UP REVEAL ON SCROLL ---
-    function pfInitReveal() {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
+      let pfRevealObserver = null; // Global reference so we can reset it
+
+      function pfInitReveal() {
+        if (pfRevealObserver) pfRevealObserver.disconnect(); // Prevent duplicate observers on tab switch
+
+        pfRevealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              pfRevealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.ec-item').forEach((item) => {
+          // Only observe items that need to be animated
+          if (!item.classList.contains('visible')) {
+            pfRevealObserver.observe(item);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.ec-item').forEach((item) => obs.observe(item));
-    }
-    
+      }
     
     
   document.addEventListener('DOMContentLoaded', () => {
@@ -2428,13 +2505,34 @@
         let hasVisibleCards = false;
         const items = sec.querySelectorAll('.ec-item');
 
+        // items.forEach(item => {
+        //   const tags = item.dataset.tags.split(' ');
+        //   if (tag === 'all' || tags.includes(tag)) {
+        //     item.style.display = 'block';
+        //     hasVisibleCards = true;
+        //   } else {
+        //     item.style.display = 'none';
+        //   }
+        // });
         items.forEach(item => {
           const tags = item.dataset.tags.split(' ');
           if (tag === 'all' || tags.includes(tag)) {
+            // 1. Kill the transition so it doesn't smoothly animate backwards
+            item.style.transition = 'none';
+
             item.style.display = 'block';
+            item.classList.remove('visible'); // Snap to the bottom instantly
+
+            // 2. Force the browser to register the instant reset before moving on
+            void item.offsetWidth;
+
+            // 3. Turn the transition back on so it can float up smoothly
+            item.style.transition = '';
+
             hasVisibleCards = true;
           } else {
             item.style.display = 'none';
+            item.classList.remove('visible');
           }
         });
 
@@ -2450,10 +2548,18 @@
       });
 
       // Force a recalculation of active scroll-spy items in script.js (if applicable)
-      if (typeof runCoreScrollTasks === 'function') {
-        runCoreScrollTasks(window.scrollY);
-      }
+    //   if (typeof runCoreScrollTasks === 'function') {
+    //     runCoreScrollTasks(window.scrollY);
+    //   }
+    // }
+    // Force a recalculation of active scroll-spy items in script.js (if applicable)
+    if (typeof runCoreScrollTasks === 'function') {
+      runCoreScrollTasks(window.scrollY);
     }
+
+    // Re-trigger the scroll observer so the newly filtered items float up!
+    setTimeout(() => pfInitReveal(), 50);
+  }
   </script>
 </body>
 
