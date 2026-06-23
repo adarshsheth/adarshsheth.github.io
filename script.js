@@ -698,26 +698,31 @@ function runCoreScrollTasks(sy) {
 		}
 	});
 
-	if (sy < 400 && cachedAvailableSections.length > 0) {
+	if (sy < 100 && cachedAvailableSections.length > 0) { //400 initially for sy<
 		updateURLd(null);
 		activeK = cachedAvailableSections[0].k;
 	}
-
-	if (activeK) {
-		document.querySelectorAll(".sbn[data-k]").forEach((a) => {
-			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
-			if (a.classList.contains("active") !== isMatch) {
-				a.classList.toggle("active", isMatch);
-			}
-		});
-
-		const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
-		const ssId = ssMap[activeK];
-		if (ssId && SS[ssId] && sy >= 400) {
-			const sec = RMAP[ssId]?.[SS[ssId].cur];
-			if (sec) updateURLd(sec);
-		}
+	// bottom of page edge case
+	if (window.innerHeight + Math.ceil(sy) >= document.documentElement.scrollHeight - 50) {
+		activeK = cachedAvailableSections[cachedAvailableSections.length - 1].k;
 	}
+
+
+if (activeK) {
+	document.querySelectorAll(".sbn[data-k]").forEach((a) => {
+		const isMatch = a.dataset.k === activeK; /* Removed the hardcoded TAMU/DVHS bug */
+		if (a.classList.contains("active") !== isMatch) {
+			a.classList.toggle("active", isMatch);
+		}
+	});
+
+	const ssMap = {tamu: "ss7", dvhs: "ss8", events: "ss3", infographic: "ss6", cad: "ss9"};
+	const ssId = ssMap[activeK];
+	if (ssId && SS[ssId] && sy >= 400) {
+		const sec = RMAP[ssId]?.[SS[ssId].cur];
+		if (sec) updateURLd(sec);
+	}
+}
 }
 
 /* ── CAROUSELS ── */

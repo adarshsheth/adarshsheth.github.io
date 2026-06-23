@@ -67,13 +67,14 @@
     .sh h2 {
       font-size: 16px !important;
       font-weight: 900 !important;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       margin: 0;
       opacity: 0.7;
       /* color: var(--dimtitle); */
       color: var(--accent2);
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+      margin-left: -2px;
     }
     .sh h2:hover {
       color: color-mix(in srgb, var(--accent2) 60%, transparent);
@@ -170,8 +171,8 @@
     .ec-item {
       break-inside: avoid;
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.9, 0.25, 1);
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s cubic-bezier(0.22, 0.9, 0.25, 1);
     }
 
     .ec-item.visible {
@@ -185,7 +186,8 @@
       /* background: var(--surface); */
       background: color-mix(in srgb, var(--surface) 80%, transparent);
       border: 2px solid var(--border);
-      border-radius: 14px;
+      /* border-radius: 14px; */
+      border-radius: 10px;
       overflow: hidden;
       transition: transform 0.3s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease;
       backdrop-filter: blur(8px);
@@ -193,7 +195,7 @@
     }
 
     .ec-card:hover {
-      border-color: color-mix(in srgb, var(--accent2) 80%, transparent);
+      /* border-color: color-mix(in srgb, var(--accent2) 80%, transparent); */
       /* border-color: color-mix(in srgb, var(--g) 80%, transparent); */
       /* box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); */
       transform: translateY(-3px);
@@ -216,7 +218,8 @@
 
     .ec-thumb {
       width: 100%;
-      height: 220px;
+      /* height: 220px; */
+      height: 100%;
       /* min-height: 220px; */
       background: #111;
       overflow: hidden;
@@ -254,10 +257,9 @@
       transition: color 0.2s ease;
     }
 
-    .ec-card:hover .ec-title {
+    /* .ec-card:hover .ec-title {
       color: var(--accent2);
-      /* color: var(--g); */
-    }
+    } */
 
     .ec-subtitle {
       font-size: 13px;
@@ -270,7 +272,7 @@
     .ec-brief {
       font-size: 13.5px;
       line-height: 1.6;
-      color: var(--text);
+      color: var(--dimtitle);
       margin: 12px 0;
     }
 
@@ -350,15 +352,56 @@
       display: grid;
       /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
       grid-template-columns: repeat(4, 1fr);
+      align-items: stretch;
       gap: 15px;
     }
+    /* .card-stack.tile-mode .ec-item {
+      display: flex;
+    }
+    .card-stack.tile-mode .ec-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-stack.tile-mode .ec-summary {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
+    .card-stack.tile-mode .ec-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-stack.tile-mode .ec-brief {
+      flex: 1;
+    } */
+    /* GOOFY ABOVE */
+
+    /* @media (max-width: 800px) {
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr;
+      }
+    } */
     @media (max-width: 800px) {
+      .card-stack.tile-mode {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      /* Reduce font sizes slightly to prevent 2-column text overflow on small screens */
+      .card-stack.tile-mode .ec-title { font-size: 13px; }
+      .card-stack.tile-mode .ec-subtitle { font-size: 9px; letter-spacing: 0; }
+      .card-stack.tile-mode .ec-info { padding: 12px; }
+    }
+    
+    /* Optional: Fallback to 1 column only on extremely thin phones */
+    @media (max-width: 450px) {
       .card-stack.tile-mode {
         grid-template-columns: 1fr;
       }
     }
-
+    
     .card-stack.tile-mode .ec-summary {
       grid-template-columns: 1fr;
       gap: 0;
@@ -425,7 +468,7 @@
       width: min(900px, 100%);
       max-height: 88vh;
       overflow-y: auto;
-      background: var(--bg);
+      background: color-mix(in srgb, var(--bg) 80%, transparent 0%);
       border: 2px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -470,6 +513,12 @@
     #card-lb-content .ec-summary {
       cursor: default;
     }
+    
+    .card-lb-box::-webkit-scrollbar { width: 4px; }
+    .card-lb-box::-webkit-scrollbar-track {
+      margin: 14px 0; /* Prevents scrollbar from crossing the 14px border-radius */
+      border-radius: 14px; 
+    }
 
     #card-lb-content .ec-card {
       border: none;
@@ -482,6 +531,102 @@
     #card-lb-content .ec-card:hover {
       transform: none;
       box-shadow: none;
+    }
+
+    /* next 2 prevent hover interactions in lightbox mode */
+    #card-lb-content .ec-card:hover .ec-title {
+      color: var(--dimtitle);
+    }
+
+    /* Prevent Thumbnail Zoom */
+    #card-lb-content .ec-card:hover .ec-thumb img {
+      transform: scale(1);
+    }
+    #card-lb-content .expand-prompt {
+      display: none !important;
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+    /* blog */
+    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
+    .card-stack.tile-mode {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: stretch; /* Stretches the invisible grid cells to match the tallest item */
+      gap: 15px;
+    }
+
+    /* 1. Force the wrapper to fill the stretched grid cell */
+    .card-stack.tile-mode .ec-item {
+      display: block;
+      height: 100%; 
+    }
+
+    /* 2. Force the card to fill the wrapper as a Flex container */
+    .card-stack.tile-mode .ec-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%; 
+    }
+
+    /* 3. Override default grid: Make summary a Flex column that absorbs empty space */
+    .card-stack.tile-mode .ec-summary {
+      display: flex !important;
+      flex-direction: column;
+      flex: 1; 
+      gap: 0;
+    }
+
+    /* 4. Lock the thumbnail to a fixed size so it doesn't distort */
+    .card-stack.tile-mode .ec-thumb {
+      height: 190px;
+      min-height: 190px;
+      flex-shrink: 0;
+    }
+
+    /* 5. Force the info text block to push down and fill the remaining height */
+    .card-stack.tile-mode .ec-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1; 
+      padding: 14px 16px 16px;
+    }
+
+    /* --- Typography Adjustments --- */
+    .card-stack.tile-mode .ec-info-header { margin-bottom: 0; }
+    .card-stack.tile-mode .ec-title { font-size: 15px; margin-bottom: 4px; }
+    .card-stack.tile-mode .ec-subtitle { font-size: 10.5px; }
+
+    /* --- Hide expandable elements in tile view --- */
+    .card-stack.tile-mode .expand-prompt,
+    .card-stack.tile-mode .ec-details {
+      display: none;
+    }
+
+    /* --- Mobile Breakpoints --- */
+    @media (max-width: 800px) {
+      .card-stack.tile-mode {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card-stack.tile-mode .ec-title { font-size: 13px; }
+      .card-stack.tile-mode .ec-subtitle { font-size: 9px; letter-spacing: 0; }
+      .card-stack.tile-mode .ec-info { padding: 12px; }
+    }
+    
+    @media (max-width: 450px) {
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -595,7 +740,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tamu'); scrollToSec('sec-tamu')">
-          <h2>TECHNICAL DESIGN TEAMS <span style="font-size: 0.5em; vertical-align: middle;">@ TAMU</span>
+          <h2>TECHNICAL DESIGN TEAMS <span style="font-size: 0.6em; vertical-align: middle;">@ TAMU</span>
           </h2>
         </button>
         <span class="sh-r"></span>
@@ -981,7 +1126,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-dvhs'); scrollToSec('sec-dvhs')">
-          <h2>HIGH SCHOOL ROBOTICS <span style="font-size: 0.5em; vertical-align: middle;">@ DVHS</span></h2>
+          <h2>HIGH SCHOOL ROBOTICS <span style="font-size: 0.6em; vertical-align: middle;">@ DVHS</span></h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -2237,13 +2382,31 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.ec-item').forEach((item) => obs.observe(item));
     }
-    document.addEventListener('DOMContentLoaded', () => {
-      pfInitReveal();
-      if (typeof filterPortfolio === 'function') filterPortfolio('all');
-    });
+    
+    
+    
+  document.addEventListener('DOMContentLoaded', () => {
+    pfInitReveal();
+    if (typeof filterPortfolio === 'function') {
+      // Read URL parameter on load
+      const urlParams = new URLSearchParams(window.location.search);
+      const filterTag = urlParams.get('filter') || 'all';
+      filterPortfolio(filterTag);
+    }
+  });
 
-    // --- FILTER & SIDEBAR SYNC LOGIC ---
-    function filterPortfolio(tag) {
+  // --- FILTER & SIDEBAR SYNC LOGIC ---
+  function filterPortfolio(tag) {
+    // Update URL silently
+    const url = new URL(window.location);
+    if (tag === 'all') {
+      url.searchParams.delete('filter');
+    } else {
+      url.searchParams.set('filter', tag);
+    }
+    window.history.replaceState({}, '', url);
+
+  // 0. Switch between tile grid (all) and single-column list (any specific category)
       // 0. Switch between tile grid (all) and single-column list (any specific category)
       pfCloseLightbox();
       document.querySelectorAll('.card-stack').forEach((stack) => {
