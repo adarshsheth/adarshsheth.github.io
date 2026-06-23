@@ -294,7 +294,7 @@
     }
 
     .ec-brief {
-      font-size: 13.5px;
+      font-size: clamp(11px, 0.7vw, 16px);
       line-height: 1.6;
       color: var(--dimtitle);
       margin: 12px 0;
@@ -421,9 +421,25 @@
         grid-template-columns: 1fr;
       }
     } */
+    @media (max-width: 1650px) {
+      .card-stack.tile-mode {
+        grid-template-columns: repeat(3, 1fr)  !important;
+      }
+    }
+    @media (max-width: 1350px) {
+      .card-stack.tile-mode {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    /* @media (max-width: 700px) {
+      .card-stack.tile-mode {
+        grid-template-columns: repeat(1, 1fr) !important;
+      }
+    } */
+
     @media (max-width: 800px) {
       .card-stack.tile-mode {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
       }
       /* Reduce font sizes slightly to prevent 2-column text overflow on small screens */
       .card-stack.tile-mode .ec-title { font-size: 13px; }
