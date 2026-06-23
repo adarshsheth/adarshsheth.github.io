@@ -65,53 +65,29 @@
   <style>
     /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH BLOG STYLE ── */
     .sh h2 {
-      font-size: 16px !important;
+      font-size: clamp(24px, 2.5vw, 40px) !important;
       font-weight: 900 !important;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
       margin: 0;
-      opacity: 0.7;
-      /* color: var(--dimtitle); */
-      color: var(--accent2);
-      transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    }
-    .sh h2:hover {
-      color: color-mix(in srgb, var(--accent2) 60%, transparent);
-      /* opacity: 0.1; */
-      /* color:  var(--border); */
-    }
-
-    .sh-pulse-btn:hover h2 {
-      opacity: 0.95;
-    }
-
-    .sh {
-      padding-top: 16px !important;
-      padding-bottom: 16px !important;
+      transition: color 0.2s ease-in-out;
     }
 
     .sh .sh-r {
-      height: 6px !important;
-      opacity: 0.2;
-      /* background: var(--dimtitle); */
-      background: var(--accent2);
+      height: 3px !important;
     }
-
     .div {
-      margin-top: 0px !important;
-      opacity: 0;
+      margin-top: 30px !important;
     }
-
     /* .portfolio-sec {
       scroll-margin-top: 0px !important;
     } */
     /* --- GLOBAL FILTER BUTTONS --- */
     .portfolio-filters {
       display: flex;
-      /* justify-content: center; */
-      justify-content: left;
+      justify-content: center;
       gap: 10px;
-      margin: 40px 48px 10px;
+      margin: 20px 48px 10px;
       flex-wrap: wrap;
     }
 
@@ -127,31 +103,21 @@
       font-weight: 700;
       font-size: 11.5px;
       letter-spacing: 0.1em;
-      /* border-radius: 100px; */
-      border-radius: 6px;
+      border-radius: 100px;
       cursor: pointer;
-      transition: all 0.4s ease-out;
+      transition: all 0.2s;
       text-transform: uppercase;
     }
 
     .filter-btn:hover {
-      /* border-color: var(--g);
-      color: var(--g); */
       border-color: var(--accent2);
       color: var(--accent2);
-      transform: translateY(-1px);
     }
 
     .filter-btn.active {
-      /* border-color: var(--accent);
+      border-color: var(--accent);
       color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 10%, transparent); */
-      /* border-color: var(--g);
-      color: var(--bg);
-      background: var(--g); */
-      border-color: var(--accent2);
-      color: var(--bg);
-      background: var(--accent2);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
     }
 
     @media (max-width: 1050px) {
@@ -162,21 +128,21 @@
 
     /* --- MODERN ACCORDION CARD UI --- */
     .card-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+      /* display: flex;
+      flex-direction: column; */
+      
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      /* margin-top: 10px; */
 
+      /* column-count: 2;
+      column-gap: 25px;
+      margin-top: 10px; */
+    }
     .ec-item {
       break-inside: avoid;
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.9, 0.25, 1);
-    }
-
-    .ec-item.visible {
-      opacity: 1;
-      transform: translateY(0);
+      /* margin-bottom: 25px; */
     }
 
 
@@ -189,19 +155,18 @@
       overflow: hidden;
       transition: transform 0.3s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease;
       backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+	    -webkit-backdrop-filter: blur(8px);
+      /* height: 200px; */
     }
 
     .ec-card:hover {
       border-color: color-mix(in srgb, var(--accent2) 80%, transparent);
-      /* border-color: color-mix(in srgb, var(--g) 80%, transparent); */
-      /* box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); */
-      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
     }
 
     .ec-card.open {
       border-color: var(--accent2);
-      /* border-color: var(--g); */
       /* background: var(--surface2); */
     }
 
@@ -216,7 +181,7 @@
 
     .ec-thumb {
       width: 100%;
-      height: 220px;
+      height: 260px;
       /* min-height: 220px; */
       background: #111;
       overflow: hidden;
@@ -256,7 +221,6 @@
 
     .ec-card:hover .ec-title {
       color: var(--accent2);
-      /* color: var(--g); */
     }
 
     .ec-subtitle {
@@ -344,145 +308,6 @@
       background: transparent;
       padding: 0 24px 24px;
     }
-
-    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
-    .card-stack.tile-mode {
-      display: grid;
-      /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
-    @media (max-width: 800px) {
-      .card-stack.tile-mode {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card-stack.tile-mode .ec-summary {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .card-stack.tile-mode .ec-thumb {
-      height: 190px;
-    }
-
-    .card-stack.tile-mode .ec-info {
-      padding: 14px 16px 16px;
-    }
-
-    .card-stack.tile-mode .ec-info-header {
-      margin-bottom: 0;
-    }
-
-    .card-stack.tile-mode .ec-title {
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .card-stack.tile-mode .ec-subtitle {
-      font-size: 10.5px;
-    }
-
-
-    .card-stack.tile-mode .expand-prompt,
-    .card-stack.tile-mode .ec-details {
-      display: none;
-    }
-
-    /* ══ CARD CONTENT LIGHTBOX (opened from a tile in tile mode) ══ */
-    #card-lb {
-      position: fixed;
-      inset: 0;
-      z-index: 9998;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s;
-      padding: 40px 20px;
-    }
-
-    #card-lb.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .card-lb-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(10, 10, 10, 0.82);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      cursor: pointer;
-    }
-
-    .card-lb-box {
-      position: relative;
-      z-index: 1;
-      width: min(900px, 100%);
-      max-height: 88vh;
-      overflow-y: auto;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    }
-
-    .card-lb-close {
-      position: sticky;
-      top: 0;
-      left: 100%;
-      /* transform: translate(8px, -8px); */
-      /* transform: translate(2px, -2px); */
-      transform: translate(-10px, 10px);
-      background: var(--bg);
-      /* border: 2px solid var(--border);
-      color: var(--border); */
-      border: 2px solid var(--accent2);
-      color: var(--accent2);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 20px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-      float: right;
-      transition: all 0.4s ease-in-out;
-      /* margin: 10px 10px -36px 0; */
-      /* margin: 10px 10px 0px 0; */
-    }
-
-    .card-lb-close:hover {
-      /* border-color: var(--accent2);
-      color: var(--accent2); */
-      background: var(--accent2);
-      border-color: var(--accent2);
-      color: var(--bg);
-    }
-
-    #card-lb-content .ec-summary {
-      cursor: default;
-    }
-
-    #card-lb-content .ec-card {
-      border: none;
-      border-radius: 0;
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
-
-    #card-lb-content .ec-card:hover {
-      transform: none;
-      box-shadow: none;
-    }
   </style>
 </head>
 
@@ -508,15 +333,6 @@
   </div>
 
   <div id="sb-overlay"></div>
-
-  <!-- CARD CONTENT LIGHTBOX (opened from a tile while the "All" filter is active) -->
-  <div id="card-lb">
-    <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
-    <div class="card-lb-box">
-      <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
-      <div id="card-lb-content"></div>
-    </div>
-  </div>
 
   <!-- DYNAMIC SIDEBAR NAV -->
   <aside id="sb">
@@ -566,7 +382,7 @@
       <h1>ENGINEERING PORTFOLIO</h1>
     </section>
 
-    <!-- <section id="tls">
+    <section id="tls">
       <div class="tlbox">
         <h3>EXPERIENCE TIMELINE</h3>
         <p class="tlsub">A timeline of my engineering portfolio.</p>
@@ -574,7 +390,7 @@
           <iframe id="timeline-iframe" src="gantt.html" title="Experience Timeline" scrolling="no"></iframe>
         </div>
       </div>
-    </section> -->
+    </section>
 
     <!-- GLOBAL FILTER BUTTONS -->
     <div class="portfolio-filters">
@@ -601,7 +417,7 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- VFD -->
         <div class="ec-item" id="vfd" data-tags="evtol">
           <div class="ec-card">
@@ -986,7 +802,7 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- 5776K -->
         <div class="ec-item" id="team-5776k" data-tags="robotics">
           <div class="ec-card">
@@ -1330,7 +1146,7 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- Ignite 25 -->
         <div class="ec-item" id="ignite25" data-tags="evtol">
           <div class="ec-card">
@@ -1713,7 +1529,7 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- Everyday Engineering -->
         <div class="ec-item" id="everyday-engineering" data-tags="general">
           <div class="ec-card">
@@ -1868,7 +1684,7 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- Boy Scouts -->
         <div class="ec-item" id="boy-scouts" data-tags="general">
           <div class="ec-card">
@@ -2149,15 +1965,6 @@
 
     // --- ACCORDION TOGGLE LOGIC ---
     function toggleCardDetails(element) {
-      const item = element.closest('.ec-item');
-      if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
-
-      const stack = element.closest('.card-stack');
-      if (stack && stack.classList.contains('tile-mode')) {
-        pfOpenLightbox(element);
-        return;
-      }
-
       const card = element.closest('.ec-card');
       card.classList.toggle('open');
       const icon = element.querySelector('.expand-icon');
@@ -2175,81 +1982,8 @@
       }
     }
 
-    // --- CARD CONTENT LIGHTBOX (tile mode only) ---
-    let pfLbHome = null;
-
-    function pfOpenLightbox(element) {
-      const item = element.closest('.ec-item');
-      if (!item) return;
-      pfLbHome = { node: item, parent: item.parentNode, next: item.nextSibling };
-
-      const content = document.getElementById('card-lb-content');
-      content.innerHTML = '';
-      content.appendChild(item);
-      item.classList.add('in-lightbox');
-
-      const card = item.querySelector('.ec-card');
-      if (card) {
-        card.classList.add('open');
-        const icon = card.querySelector('.expand-icon');
-        if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-      }
-
-      document.getElementById('card-lb').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function pfCloseLightbox() {
-      const lb = document.getElementById('card-lb');
-      lb.classList.remove('open');
-      document.body.style.overflow = '';
-
-      if (pfLbHome) {
-        const { node, parent, next } = pfLbHome;
-        node.classList.remove('in-lightbox');
-        const card = node.querySelector('.ec-card');
-        if (card) {
-          card.classList.remove('open');
-          const icon = card.querySelector('.expand-icon');
-          if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        }
-        if (next) parent.insertBefore(node, next);
-        else parent.appendChild(node);
-        pfLbHome = null;
-      }
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && document.getElementById('card-lb').classList.contains('open')) {
-        pfCloseLightbox();
-      }
-    });
-
-    // --- FLOAT-UP REVEAL ON SCROLL ---
-    function pfInitReveal() {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.ec-item').forEach((item) => obs.observe(item));
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      pfInitReveal();
-      if (typeof filterPortfolio === 'function') filterPortfolio('all');
-    });
-
     // --- FILTER & SIDEBAR SYNC LOGIC ---
     function filterPortfolio(tag) {
-      // 0. Switch between tile grid (all) and single-column list (any specific category)
-      pfCloseLightbox();
-      document.querySelectorAll('.card-stack').forEach((stack) => {
-        stack.classList.toggle('tile-mode', tag === 'all');
-      });
-
       // 1. Update filter buttons UI
       document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.dataset.tag === tag) {

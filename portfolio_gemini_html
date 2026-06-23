@@ -63,55 +63,29 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH BLOG STYLE ── */
+    /* ══ OVERRIDE DEFAULT SECTION HEADERS FOR SUBTLE, MODERN UI ── */
     .sh h2 {
-      font-size: 16px !important;
-      font-weight: 900 !important;
-      letter-spacing: 0.2em;
+      font-size: clamp(14px, 1.2vw, 20px) !important;
+      font-weight: 500 !important;
       text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: color-mix(in srgb, var(--tdim) 40%, transparent);
+      /* Low-visibility color */
       margin: 0;
-      opacity: 0.7;
-      /* color: var(--dimtitle); */
-      color: var(--accent2);
-      transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-    }
-    .sh h2:hover {
-      color: color-mix(in srgb, var(--accent2) 60%, transparent);
-      /* opacity: 0.1; */
-      /* color:  var(--border); */
-    }
-
-    .sh-pulse-btn:hover h2 {
-      opacity: 0.95;
-    }
-
-    .sh {
-      padding-top: 16px !important;
-      padding-bottom: 16px !important;
+      transition: color 0.3s ease;
     }
 
     .sh .sh-r {
-      height: 6px !important;
-      opacity: 0.2;
-      /* background: var(--dimtitle); */
-      background: var(--accent2);
+      height: 1px !important;
+      background: color-mix(in srgb, var(--border) 40%, transparent) !important;
     }
 
-    .div {
-      margin-top: 0px !important;
-      opacity: 0;
-    }
-
-    /* .portfolio-sec {
-      scroll-margin-top: 0px !important;
-    } */
     /* --- GLOBAL FILTER BUTTONS --- */
     .portfolio-filters {
       display: flex;
-      /* justify-content: center; */
-      justify-content: left;
+      justify-content: center;
       gap: 10px;
-      margin: 40px 48px 10px;
+      margin: 10px 48px 30px;
       flex-wrap: wrap;
     }
 
@@ -127,62 +101,191 @@
       font-weight: 700;
       font-size: 11.5px;
       letter-spacing: 0.1em;
-      /* border-radius: 100px; */
-      border-radius: 6px;
+      border-radius: 100px;
       cursor: pointer;
-      transition: all 0.4s ease-out;
+      transition: all 0.2s;
       text-transform: uppercase;
     }
 
     .filter-btn:hover {
-      /* border-color: var(--g);
-      color: var(--g); */
       border-color: var(--accent2);
       color: var(--accent2);
-      transform: translateY(-1px);
     }
 
     .filter-btn.active {
-      /* border-color: var(--accent);
+      border-color: var(--accent);
       color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 10%, transparent); */
-      /* border-color: var(--g);
-      color: var(--bg);
-      background: var(--g); */
-      border-color: var(--accent2);
-      color: var(--bg);
-      background: var(--accent2);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
     }
 
     @media (max-width: 1050px) {
       .portfolio-filters {
-        margin: 20px 22px 40px;
+        margin: 10px 22px 25px;
       }
     }
 
-    /* --- MODERN ACCORDION CARD UI --- */
-    .card-stack {
+    /* --- COMMON LAYOUT & SPACING --- */
+    .portfolio-sec {
+      padding-top: 20px !important;
+      margin-top: 15px !important;
+    }
+
+    .sh {
+      margin-bottom: 20px !important;
+    }
+
+    /* --- VIEW MODE 1: DYNAMIC TILE GRID ("All" filter) --- */
+    #mn.view-tiles .card-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      #mn.view-tiles .card-stack {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #mn.view-tiles .ec-card {
+      height: 100%;
       display: flex;
       flex-direction: column;
+      border-radius: 12px;
+      cursor: pointer;
+      background: color-mix(in srgb, var(--surface) 80%, transparent);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.3s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #mn.view-tiles .ec-card:hover {
+      border-color: color-mix(in srgb, var(--accent2) 80%, transparent);
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #mn.view-tiles .ec-summary {
+      grid-template-columns: 1fr !important;
+      gap: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      cursor: inherit;
+    }
+
+    #mn.view-tiles .ec-thumb {
+      width: 100%;
+      height: 180px;
+      min-height: auto;
+      border-radius: 12px 12px 0 0;
+      background: #111;
+      overflow: hidden;
+    }
+
+    #mn.view-tiles .ec-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    #mn.view-tiles .ec-card:hover .ec-thumb img {
+      transform: scale(1.05);
+    }
+
+    #mn.view-tiles .ec-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    #mn.view-tiles .ec-title {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      font-weight: 900;
+      color: var(--dimtitle);
+      text-transform: uppercase;
+      line-height: 1.1;
+      transition: color 0.2s ease;
+    }
+
+    #mn.view-tiles .ec-card:hover .ec-title {
+      color: var(--accent2);
+    }
+
+    #mn.view-tiles .ec-subtitle {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--tdim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    #mn.view-tiles .brow,
+    #mn.view-tiles .ec-brief,
+    #mn.view-tiles .expand-prompt,
+    #mn.view-tiles .ec-details {
+      display: none;
+    }
+
+    /* Lightbox customizations for project details in tile view */
+    #lb.project-view .lbbox {
+      padding: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      max-width: 650px;
+    }
+
+    #lb.project-view .lbi {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      max-height: none;
+      object-position: center;
+      border-radius: 0;
+    }
+
+    #lb.project-view .lb-bottom {
+      padding: 24px;
+      text-align: left;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 12px;
+      width: 100%;
     }
 
-    .ec-item {
-      break-inside: avoid;
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 0.9, 0.25, 1);
+    #lb.project-view .lbcap {
+      color: var(--dimtitle);
+      font-weight: 800;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      text-align: left;
     }
 
-    .ec-item.visible {
-      opacity: 1;
-      transform: translateY(0);
+    #lb.project-view .lb-brief {
+      color: var(--text);
+      font-size: 13.5px;
+      line-height: 1.6;
+      text-align: left;
+      margin-top: 5px;
     }
 
+    /* --- VIEW MODE 2: FULL-WIDTH STACKED (Other filters) --- */
+    #mn.view-stacked .card-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
 
-
-    .ec-card {
-      /* background: var(--surface); */
+    #mn.view-stacked .ec-card {
       background: color-mix(in srgb, var(--surface) 80%, transparent);
       border: 2px solid var(--border);
       border-radius: 14px;
@@ -192,59 +295,51 @@
       -webkit-backdrop-filter: blur(8px);
     }
 
-    .ec-card:hover {
+    #mn.view-stacked .ec-card:hover {
       border-color: color-mix(in srgb, var(--accent2) 80%, transparent);
-      /* border-color: color-mix(in srgb, var(--g) 80%, transparent); */
-      /* box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); */
-      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
     }
 
-    .ec-card.open {
+    #mn.view-stacked .ec-card.open {
       border-color: var(--accent2);
-      /* border-color: var(--g); */
-      /* background: var(--surface2); */
     }
 
-    /* SUMMARY VIEW (Always Visible) */
-    .ec-summary {
-      display: grid;
-      grid-template-columns: 280px 1fr;
+    #mn.view-stacked .ec-summary {
+      display: grid !important;
+      grid-template-columns: 280px 1fr !important;
       gap: 24px;
       cursor: pointer;
       position: relative;
     }
 
-    .ec-thumb {
+    #mn.view-stacked .ec-thumb {
       width: 100%;
-      height: 220px;
-      /* min-height: 220px; */
+      height: 260px;
       background: #111;
       overflow: hidden;
+      border-radius: 14px 0 0 14px;
     }
 
-    .ec-thumb img {
+    #mn.view-stacked .ec-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
 
-    .ec-card:hover .ec-thumb img {
+    #mn.view-stacked .ec-card:hover .ec-thumb img {
       transform: scale(1.05);
     }
 
-    .ec-info {
+    #mn.view-stacked .ec-info {
       padding: 24px 24px 24px 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .ec-info-header {
-      margin-bottom: 12px;
-    }
-
-    .ec-title {
+    #mn.view-stacked .ec-title {
       font-size: clamp(18px, 1.5vw, 26px);
       font-weight: 900;
       color: var(--dimtitle);
@@ -254,12 +349,11 @@
       transition: color 0.2s ease;
     }
 
-    .ec-card:hover .ec-title {
+    #mn.view-stacked .ec-card:hover .ec-title {
       color: var(--accent2);
-      /* color: var(--g); */
     }
 
-    .ec-subtitle {
+    #mn.view-stacked .ec-subtitle {
       font-size: 13px;
       font-weight: 700;
       color: var(--tdim);
@@ -267,14 +361,15 @@
       letter-spacing: 0.05em;
     }
 
-    .ec-brief {
+    #mn.view-stacked .ec-brief {
       font-size: 13.5px;
       line-height: 1.6;
       color: var(--text);
       margin: 12px 0;
+      display: block;
     }
 
-    .expand-prompt {
+    #mn.view-stacked .expand-prompt {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -286,202 +381,74 @@
       margin-top: 10px;
     }
 
-    .expand-icon {
+    #mn.view-stacked .expand-icon {
       transition: transform 0.3s ease;
     }
 
-    .ec-card.open .expand-icon {
+    #mn.view-stacked .ec-card.open .expand-icon {
       transform: rotate(180deg);
     }
 
-    /* MOBILE ADJUSTMENTS FOR SUMMARY */
-    @media (max-width: 800px) {
-      .ec-summary {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .ec-thumb {
-        height: 200px;
-        min-height: auto;
-      }
-
-      .ec-info {
-        padding: 20px;
-      }
-    }
-
-    /* DETAILS VIEW (Hidden by Default, Expands on Click) */
-    .ec-details {
-      display: grid;
+    #mn.view-stacked .ec-details {
+      display: grid !important;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .ec-details-inner {
+    #mn.view-stacked .ec-details-inner {
       overflow: hidden;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
-    .ec-card.open .ec-details {
+    #mn.view-stacked .ec-card.open .ec-details {
       grid-template-rows: 1fr;
     }
 
-    .ec-card.open .ec-details-inner {
+    #mn.view-stacked .ec-card.open .ec-details-inner {
       opacity: 1;
       padding-top: 15px;
       border-top: 1px solid var(--border);
     }
 
-    /* Adjust padding inside the original elements so they sit nicely in the expanded view */
-    .ec-details-inner .cbody {
+    #mn.view-stacked .ec-details-inner .cbody {
       padding: 20px 24px;
     }
 
-    .ec-details-inner .clinks {
+    #mn.view-stacked .ec-details-inner .clinks {
       border-top: none;
       background: transparent;
       padding: 0 24px 24px;
     }
 
-    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
-    .card-stack.tile-mode {
-      display: grid;
-      /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
-
     @media (max-width: 800px) {
-      .card-stack.tile-mode {
-        grid-template-columns: 1fr;
+      #mn.view-stacked .ec-summary {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      #mn.view-stacked .ec-thumb {
+        height: 200px;
+        border-radius: 14px 14px 0 0;
+      }
+
+      #mn.view-stacked .ec-info {
+        padding: 20px;
       }
     }
 
-    .card-stack.tile-mode .ec-summary {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .card-stack.tile-mode .ec-thumb {
-      height: 190px;
-    }
-
-    .card-stack.tile-mode .ec-info {
-      padding: 14px 16px 16px;
-    }
-
-    .card-stack.tile-mode .ec-info-header {
-      margin-bottom: 0;
-    }
-
-    .card-stack.tile-mode .ec-title {
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .card-stack.tile-mode .ec-subtitle {
-      font-size: 10.5px;
-    }
-
-
-    .card-stack.tile-mode .expand-prompt,
-    .card-stack.tile-mode .ec-details {
-      display: none;
-    }
-
-    /* ══ CARD CONTENT LIGHTBOX (opened from a tile in tile mode) ══ */
-    #card-lb {
-      position: fixed;
-      inset: 0;
-      z-index: 9998;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* --- MINOR REDESIGN: FLOAT-UP ANIMATION --- */
+    .animate-on-scroll {
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s;
-      padding: 40px 20px;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
 
-    #card-lb.open {
+    .animate-on-scroll.float-up-visible {
       opacity: 1;
-      pointer-events: all;
-    }
-
-    .card-lb-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(10, 10, 10, 0.82);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      cursor: pointer;
-    }
-
-    .card-lb-box {
-      position: relative;
-      z-index: 1;
-      width: min(900px, 100%);
-      max-height: 88vh;
-      overflow-y: auto;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    }
-
-    .card-lb-close {
-      position: sticky;
-      top: 0;
-      left: 100%;
-      /* transform: translate(8px, -8px); */
-      /* transform: translate(2px, -2px); */
-      transform: translate(-10px, 10px);
-      background: var(--bg);
-      /* border: 2px solid var(--border);
-      color: var(--border); */
-      border: 2px solid var(--accent2);
-      color: var(--accent2);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 20px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-      float: right;
-      transition: all 0.4s ease-in-out;
-      /* margin: 10px 10px -36px 0; */
-      /* margin: 10px 10px 0px 0; */
-    }
-
-    .card-lb-close:hover {
-      /* border-color: var(--accent2);
-      color: var(--accent2); */
-      background: var(--accent2);
-      border-color: var(--accent2);
-      color: var(--bg);
-    }
-
-    #card-lb-content .ec-summary {
-      cursor: default;
-    }
-
-    #card-lb-content .ec-card {
-      border: none;
-      border-radius: 0;
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
-
-    #card-lb-content .ec-card:hover {
-      transform: none;
-      box-shadow: none;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -493,9 +460,9 @@
   <div class="copy-toast" id="copy-toast">LINK COPIED!</div>
 
   <div id="lb">
-    <div class="lbb" onclick="closeLb()"></div>
+    <div class="lbb" onclick="customCloseLb()"></div>
     <div class="lbbox">
-      <button class="lbclose" onclick="closeLb()">×</button>
+      <button class="lbclose" onclick="customCloseLb()">×</button>
       <img id="lbimg" class="lbi" src="" alt="" />
       <video id="lbvid" class="lbi" src="" controls autoplay loop style="display: none;"></video>
       <iframe id="lbframe" class="lbi" src="" style="display: none; border: none; background: white;"></iframe>
@@ -509,15 +476,6 @@
 
   <div id="sb-overlay"></div>
 
-  <!-- CARD CONTENT LIGHTBOX (opened from a tile while the "All" filter is active) -->
-  <div id="card-lb">
-    <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
-    <div class="card-lb-box">
-      <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
-      <div id="card-lb-content"></div>
-    </div>
-  </div>
-
   <!-- DYNAMIC SIDEBAR NAV -->
   <aside id="sb">
     <div id="sb-hdr">Sections</div>
@@ -530,7 +488,6 @@
         <span class="sblbl">Top of Page</span>
       </a>
 
-      <!-- Subnavs removed to prevent filtering conflicts. Links directly to sections. -->
       <a class="sbn" href="#sec-tamu" onclick="scrollToSec('sec-tamu'); return false;" data-k="tamu">
         <span class="sbdot"></span>
         <span class="sblbl">Design Teams @ TAMU</span>
@@ -559,25 +516,25 @@
     </nav>
   </aside>
 
-  <div id="mn">
+  <div id="mn" class="view-tiles">
     <div id="top"></div>
 
     <section id="hero">
-      <h1>ENGINEERING PORTFOLIO</h1>
+      <h1 class="animate-on-scroll">ENGINEERING PORTFOLIO</h1>
     </section>
 
-    <!-- <section id="tls">
-      <div class="tlbox">
+    <section id="tls">
+      <div class="tlbox animate-on-scroll">
         <h3>EXPERIENCE TIMELINE</h3>
         <p class="tlsub">A timeline of my engineering portfolio.</p>
         <div class="tlframe">
           <iframe id="timeline-iframe" src="gantt.html" title="Experience Timeline" scrolling="no"></iframe>
         </div>
       </div>
-    </section> -->
+    </section>
 
     <!-- GLOBAL FILTER BUTTONS -->
-    <div class="portfolio-filters">
+    <div class="portfolio-filters animate-on-scroll">
       <button class="filter-btn active" data-tag="all" onclick="filterPortfolio('all')">ALL / DEFAULT</button>
       <button class="filter-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">eVTOL &amp;
         AERONAUTICS</button>
@@ -592,7 +549,7 @@
     <!-- SEC: TECHNICAL DESIGN TEAMS (TAMU)             -->
     <!-- ============================================== -->
     <section id="sec-tamu" class="sb portfolio-sec" data-k="tamu">
-      <div class="sh">
+      <div class="sh animate-on-scroll">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tamu'); scrollToSec('sec-tamu')">
           <h2>TECHNICAL DESIGN TEAMS <span style="font-size: 0.5em; vertical-align: middle;">@ TAMU</span>
@@ -601,12 +558,12 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- VFD -->
-        <div class="ec-item" id="vfd" data-tags="evtol">
+        <div class="ec-item animate-on-scroll" id="vfd" data-tags="evtol">
           <div class="ec-card">
             <!-- SUMMARY PROFILE -->
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_1_yxkery.jpg"
@@ -776,9 +733,9 @@
         </div>
 
         <!-- RED -->
-        <div class="ec-item" id="red" data-tags="space">
+        <div class="ec-item animate-on-scroll" id="red" data-tags="space">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252406/hotfire_c6ezkb.jpg"
@@ -879,9 +836,9 @@
         </div>
 
         <!-- LSAR -->
-        <div class="ec-item" id="lsar" data-tags="space robotics">
+        <div class="ec-item animate-on-scroll" id="lsar" data-tags="space robotics">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269924/code1_il79oi.png"
@@ -971,14 +928,13 @@
         </div>
 
       </div>
-      <hr class="div" style="margin-top: 50px;" />
     </section>
 
     <!-- ============================================== -->
     <!-- SEC: HIGH SCHOOL ROBOTICS (DVHS)               -->
     <!-- ============================================== -->
     <section id="sec-dvhs" class="sb portfolio-sec" data-k="dvhs">
-      <div class="sh">
+      <div class="sh animate-on-scroll">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-dvhs'); scrollToSec('sec-dvhs')">
           <h2>HIGH SCHOOL ROBOTICS <span style="font-size: 0.5em; vertical-align: middle;">@ DVHS</span></h2>
@@ -986,11 +942,11 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- 5776K -->
-        <div class="ec-item" id="team-5776k" data-tags="robotics">
+        <div class="ec-item animate-on-scroll" id="team-5776k" data-tags="robotics">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779258496/su_front_x2m8ea.png"
@@ -1213,9 +1169,9 @@
         </div>
 
         <!-- Cabinet -->
-        <div class="ec-item" id="cabinet" data-tags="robotics general">
+        <div class="ec-item animate-on-scroll" id="cabinet" data-tags="robotics general">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779258495/tournament_mze4lg.jpg"
@@ -1315,14 +1271,13 @@
         </div>
 
       </div>
-      <hr class="div" style="margin-top: 50px;" />
     </section>
 
     <!-- ============================================== -->
     <!-- SEC: EVENTS & CHALLENGES                       -->
     <!-- ============================================== -->
     <section id="sec-events" class="sb portfolio-sec" data-k="events">
-      <div class="sh">
+      <div class="sh animate-on-scroll">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-events'); scrollToSec('sec-events')">
           <h2>EVENTS <span class="amp">&amp;</span> CHALLENGES</h2>
@@ -1330,11 +1285,11 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- Ignite 25 -->
-        <div class="ec-item" id="ignite25" data-tags="evtol">
+        <div class="ec-item animate-on-scroll" id="ignite25" data-tags="evtol">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779258706/cad_ifhxyl.png"
@@ -1496,9 +1451,9 @@
         </div>
 
         <!-- Aggies Invent -->
-        <div class="ec-item" id="invent" data-tags="general">
+        <div class="ec-item animate-on-scroll" id="invent" data-tags="general">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269609/cad1_wydkd3.png"
@@ -1608,9 +1563,9 @@
         </div>
 
         <!-- Ignite 24 -->
-        <div class="ec-item" id="ignite" data-tags="space">
+        <div class="ec-item animate-on-scroll" id="ignite" data-tags="space">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269685/cad_imp8ai.jpg"
@@ -1698,14 +1653,13 @@
         </div>
 
       </div>
-      <hr class="div" style="margin-top: 50px;" />
     </section>
 
     <!-- ============================================== -->
     <!-- SEC: PERSONAL PROJECTS                         -->
     <!-- ============================================== -->
     <section id="sec-infographic" class="sb portfolio-sec" data-k="infographic">
-      <div class="sh">
+      <div class="sh animate-on-scroll">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-infographic'); scrollToSec('sec-infographic')">
           <h2>PERSONAL PROJECTS</h2>
@@ -1713,11 +1667,11 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- Everyday Engineering -->
-        <div class="ec-item" id="everyday-engineering" data-tags="general">
+        <div class="ec-item animate-on-scroll" id="everyday-engineering" data-tags="general">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269730/refrigerator_l4gkgt.png"
@@ -1783,9 +1737,9 @@
         </div>
 
         <!-- Infographic 2.0 -->
-        <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol">
+        <div class="ec-item animate-on-scroll" id="aerodynamics-infographics" data-tags="evtol">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269733/aero2_gtphbq.png"
@@ -1853,14 +1807,13 @@
         </div>
 
       </div>
-      <hr class="div" style="margin-top: 50px;" />
     </section>
 
     <!-- ============================================== -->
     <!-- SEC: EXPERIENCES / CAD                         -->
     <!-- ============================================== -->
     <section id="sec-cad" class="sb portfolio-sec" data-k="cad">
-      <div class="sh">
+      <div class="sh animate-on-scroll">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-cad'); scrollToSec('sec-cad')">
           <h2> EXPERIENCES <span class="amp">&amp;</span> CAD</h2>
@@ -1868,11 +1821,11 @@
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode">
+      <div class="card-stack">
         <!-- Boy Scouts -->
-        <div class="ec-item" id="boy-scouts" data-tags="general">
+        <div class="ec-item animate-on-scroll" id="boy-scouts" data-tags="general">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269870/finished2_ket3pr.jpg"
@@ -1966,9 +1919,9 @@
         </div>
 
         <!-- 737-800 CAD -->
-        <div class="ec-item" id="737-800-cad" data-tags="evtol">
+        <div class="ec-item animate-on-scroll" id="737-800-cad" data-tags="evtol">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269792/environment1_y41pk2.avif"
@@ -2031,9 +1984,9 @@
         </div>
 
         <!-- Formula 1 Brake Pedal -->
-        <div class="ec-item" id="formula-sae" data-tags="general">
+        <div class="ec-item animate-on-scroll" id="formula-sae" data-tags="general">
           <div class="ec-card">
-            <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-summary" onclick="handleCardClick(this)">
               <div class="ec-thumb">
                 <img
                   src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269730/f1_brake_smb5u0.jpg"
@@ -2129,6 +2082,22 @@
   <script src="script.js"></script>
 
   <script>
+    // --- ANIMATE ON SCROLL ---
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('float-up-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+      // Initialize view
+      filterPortfolio('all');
+    });
+
     // --- VIDEO MANAGER ---
     document.addEventListener("DOMContentLoaded", () => {
       const videos = document.querySelectorAll("video.cimg");
@@ -2147,17 +2116,55 @@
       videos.forEach(vid => io.observe(vid));
     });
 
+    // --- CUSTOM LIGHTBOX CLOSE LOGIC ---
+    function customCloseLb() {
+      if (typeof closeLb === 'function') {
+        closeLb();
+      } else {
+        document.getElementById('lb').classList.remove('open');
+      }
+      document.getElementById("lb").classList.remove("project-view");
+      document.querySelectorAll('.lb-nav').forEach(nav => nav.style.display = 'flex');
+    }
+
+    // --- CARD CLICK LOGIC ---
+    function handleCardClick(element) {
+      const mn = document.getElementById('mn');
+      if (mn.classList.contains('view-tiles')) {
+        const item = element.closest('.ec-item');
+        const img = element.querySelector('.ec-thumb img').src;
+        const title = element.querySelector('.ec-title').innerText;
+        const briefEl = element.querySelector('.ec-brief');
+        const brief = briefEl ? briefEl.innerText : '';
+
+        openProjectLightbox(img, title, brief);
+      } else {
+        toggleCardDetails(element);
+      }
+    }
+
+    function openProjectLightbox(imgSrc, title, brief) {
+      const lb = document.getElementById("lb");
+      const lbImg = document.getElementById("lbimg");
+      const lbVid = document.getElementById("lbvid");
+      const lbFrame = document.getElementById("lbframe");
+      const lbCap = document.getElementById("lbcap");
+
+      lbImg.style.display = "block";
+      if (lbVid) lbVid.style.display = "none";
+      if (lbFrame) lbFrame.style.display = "none";
+
+      lbImg.src = imgSrc;
+      lbCap.innerHTML = `<div class="lbcap">${title}</div><div class="lb-brief">${brief}</div>`;
+
+      lb.classList.add("open", "project-view");
+
+      // Hide standard lightbox nav arrows for this view
+      document.querySelectorAll('.lb-nav').forEach(nav => nav.style.display = 'none');
+    }
+
     // --- ACCORDION TOGGLE LOGIC ---
     function toggleCardDetails(element) {
-      const item = element.closest('.ec-item');
-      if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
-
-      const stack = element.closest('.card-stack');
-      if (stack && stack.classList.contains('tile-mode')) {
-        pfOpenLightbox(element);
-        return;
-      }
-
       const card = element.closest('.ec-card');
       card.classList.toggle('open');
       const icon = element.querySelector('.expand-icon');
@@ -2166,7 +2173,7 @@
         icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
       } else {
         icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        // Optional: Scroll back to top of card if collapsing it pushes it out of view
+        // Scroll back to top of card if collapsing it pushes it out of view
         const rect = card.getBoundingClientRect();
         if (rect.top < 0) {
           const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
@@ -2175,81 +2182,8 @@
       }
     }
 
-    // --- CARD CONTENT LIGHTBOX (tile mode only) ---
-    let pfLbHome = null;
-
-    function pfOpenLightbox(element) {
-      const item = element.closest('.ec-item');
-      if (!item) return;
-      pfLbHome = { node: item, parent: item.parentNode, next: item.nextSibling };
-
-      const content = document.getElementById('card-lb-content');
-      content.innerHTML = '';
-      content.appendChild(item);
-      item.classList.add('in-lightbox');
-
-      const card = item.querySelector('.ec-card');
-      if (card) {
-        card.classList.add('open');
-        const icon = card.querySelector('.expand-icon');
-        if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-      }
-
-      document.getElementById('card-lb').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function pfCloseLightbox() {
-      const lb = document.getElementById('card-lb');
-      lb.classList.remove('open');
-      document.body.style.overflow = '';
-
-      if (pfLbHome) {
-        const { node, parent, next } = pfLbHome;
-        node.classList.remove('in-lightbox');
-        const card = node.querySelector('.ec-card');
-        if (card) {
-          card.classList.remove('open');
-          const icon = card.querySelector('.expand-icon');
-          if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        }
-        if (next) parent.insertBefore(node, next);
-        else parent.appendChild(node);
-        pfLbHome = null;
-      }
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && document.getElementById('card-lb').classList.contains('open')) {
-        pfCloseLightbox();
-      }
-    });
-
-    // --- FLOAT-UP REVEAL ON SCROLL ---
-    function pfInitReveal() {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.ec-item').forEach((item) => obs.observe(item));
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      pfInitReveal();
-      if (typeof filterPortfolio === 'function') filterPortfolio('all');
-    });
-
     // --- FILTER & SIDEBAR SYNC LOGIC ---
     function filterPortfolio(tag) {
-      // 0. Switch between tile grid (all) and single-column list (any specific category)
-      pfCloseLightbox();
-      document.querySelectorAll('.card-stack').forEach((stack) => {
-        stack.classList.toggle('tile-mode', tag === 'all');
-      });
-
       // 1. Update filter buttons UI
       document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.dataset.tag === tag) {
@@ -2259,7 +2193,23 @@
         }
       });
 
-      // 2. Filter the cards and keep track of empty sections
+      // 2. Set layout container mode
+      const mn = document.getElementById('mn');
+      if (tag === 'all') {
+        mn.classList.remove('view-stacked');
+        mn.classList.add('view-tiles');
+        // Collapse all cards before switching to tiles to reset UI
+        document.querySelectorAll('.ec-card.open').forEach(card => {
+          card.classList.remove('open');
+          const icon = card.querySelector('.expand-icon');
+          if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        });
+      } else {
+        mn.classList.remove('view-tiles');
+        mn.classList.add('view-stacked');
+      }
+
+      // 3. Filter the cards and keep track of empty sections
       const sections = document.querySelectorAll('.portfolio-sec');
       sections.forEach(sec => {
         let hasVisibleCards = false;
@@ -2275,10 +2225,10 @@
           }
         });
 
-        // 3. Hide the entire section if it's empty
+        // 4. Hide the entire section if it's empty
         sec.style.display = hasVisibleCards ? 'block' : 'none';
 
-        // 4. Hide the corresponding sidebar link so users can't click to an empty space
+        // 5. Hide the corresponding sidebar link so users can't click to an empty space
         const secId = sec.getAttribute('data-k');
         const sidebarLink = document.querySelector(`.sbn[data-k="${secId}"]`);
         if (sidebarLink) {
