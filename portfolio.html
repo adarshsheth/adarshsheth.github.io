@@ -172,13 +172,15 @@
       border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
       border-radius: 10px;
       overflow: hidden;
-      transition: transform 0.5s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: all 0.3s ease-in-out;
+      /* transition: transform 0.5s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease; */
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
     }
 
     .ec-card:hover {
       transform: translateY(-3px);
+      background: color-mix(in srgb, var(--dimtitle) 7%, transparent);      
     }
 
     /* SUMMARY VIEW (Always Visible) */
@@ -686,6 +688,47 @@
       padding-left: 24px;
     }
 
+
+
+
+
+
+
+/* 1. Add bottom padding so text clears the blur when fully scrolled */
+    #card-lb-content {
+      padding-bottom: 20px; 
+    }
+
+    /* 2. Sticky blur overlay inside the scrolling modal */
+    .card-lb-box::after {
+      content: '';
+      position: sticky;
+      bottom: -1px;
+      display: block;
+      width: 100%;
+      height: 60px;
+      margin-top: -60px; /* Pull it up so it overlays the content */
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      pointer-events: none; /* Prevents the invisible box from blocking links */
+      z-index: 10;
+      border-radius: 0 0 12px 12px;
+      /* transition: opacity 0.3s ease;  */
+    }
+    /* Hides the gradient when user reaches the bottom */
+    .card-lb-box.at-bottom::after {
+      opacity: 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
     @media (max-width: 800px) {
       #card-lb-content .ec-card.open .ec-info {
         padding-left: 20px;
@@ -808,7 +851,7 @@
 
     <div id="master-card-pool" style="display: none;">
 
-      <div class="ec-item" id="vfd" data-tags="evtol" data-sections="teams">
+      <div class="ec-item" id="vfd" data-tags="evtol" data-sections="teams" data-order="1">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -887,53 +930,54 @@
                     <li>Shadowed in hexacopter dynamics modeling using MatLab and Simulink
                     </li>
                   </ul>
-                  </div>
-                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
-                    <div>
-                      <div class="cw">
-                        <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
-                          <img class="cimg on"
-                            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD1_zgkpwb.png"
-                            alt="SimScale CFD Pressure Vector Field" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD2_cr9w1z.png"
-                            alt="SimScale CFD Velocity Vector Field" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269896/group1_bvcy2q.png"
-                            alt="VFD Group Photo @ Lab" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_1_yxkery.jpg"
-                            alt="Rev3 in the Sunset; P.C. Amogh" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252212/group2_igqmhn.jpg"
-                            alt="VFD Group Photo @ Flight Testing" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_2_hcfswz.jpg"
-                            alt="Rev3 with Trees; P.C. Amogh" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_3_wfvvwk.jpg"
-                            alt="Rev3 in the Sky; P.C. Amogh" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_4_zdovan.jpg"
-                            alt="Rev3 Resting; P.C. Amogh" decoding="async" width="800" height="600" />
-                          <img class="cimg"
-                            data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/minirev1_jqpmyo.jpg"
-                            alt="Mini Rev; P.C. Amogh" decoding="async" width="800" height="600" />
-                        </div>
+                </div>
+                <div
+                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                  <div>
+                    <div class="cw">
+                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                        <img class="cimg on"
+                          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD1_zgkpwb.png"
+                          alt="SimScale CFD Pressure Vector Field" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD2_cr9w1z.png"
+                          alt="SimScale CFD Velocity Vector Field" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269896/group1_bvcy2q.png"
+                          alt="VFD Group Photo @ Lab" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_1_yxkery.jpg"
+                          alt="Rev3 in the Sunset; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252212/group2_igqmhn.jpg"
+                          alt="VFD Group Photo @ Flight Testing" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_2_hcfswz.jpg"
+                          alt="Rev3 with Trees; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_3_wfvvwk.jpg"
+                          alt="Rev3 in the Sky; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_4_zdovan.jpg"
+                          alt="Rev3 Resting; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/minirev1_jqpmyo.jpg"
+                          alt="Mini Rev; P.C. Amogh" decoding="async" width="800" height="600" />
                       </div>
-                      <div class="cdots">
-                        <span class="cdot on"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                        <span class="cdot"></span>
-                      </div>
-                      <div class="car-caption"></div>
                     </div>
+                    <div class="cdots">
+                      <span class="cdot on"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                    </div>
+                    <div class="car-caption"></div>
+                  </div>
 
                   <div>
                     <div class="cw">
@@ -941,7 +985,8 @@
                         <video class="cimg on"
                           src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.mp4"
                           poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.jpg"
-                          data-cap="Rev3 1st Ground Test Timelapse" preload="metadata" autoplay playsinline muted loop></video>
+                          data-cap="Rev3 1st Ground Test Timelapse" preload="metadata" autoplay playsinline muted
+                          loop></video>
                         <video class="cimg"
                           data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250772/flyby_gb0mba.mp4"
                           poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250772/flyby_gb0mba.jpg"
@@ -949,7 +994,8 @@
                         <video class="cimg"
                           data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250763/payload_drop_kldl3y.mp4"
                           poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250763/payload_drop_kldl3y.jpg"
-                          data-cap="Rev3 25-26 Challenge Payload Drop" preload="metadata" autoplay playsinline muted loop></video>
+                          data-cap="Rev3 25-26 Challenge Payload Drop" preload="metadata" autoplay playsinline muted
+                          loop></video>
                         <video class="cimg"
                           data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250782/april_tag_srdw0n.mp4"
                           poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250782/april_tag_srdw0n.jpg"
@@ -964,24 +1010,24 @@
                     </div>
                     <div class="car-caption"></div>
                   </div>
-                  </div>
-                  </div>
-                  <div class="clinks">
-                    <a href="https://www.tamuvfs.org/programs/vfd" class="clnk" target="_blank">TAMU
-                      VFD (Design Team)</a>
-                    <a href="https://www.tamuvfs.org/" class="clnk" target="_blank">TAMU VFS
-                      (Society)</a>
-                    <a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight"
-                      class="clnk" target="_blank">DBVF Competition</a>
-                    <a href="https://suas-competition.org/" class="clnk" target="_blank">SUAS
-                      Competition</a>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
+                </div>
+              </div>
+              <div class="clinks">
+                <a href="https://www.tamuvfs.org/programs/vfd" class="clnk" target="_blank">TAMU
+                  VFD (Design Team)</a>
+                <a href="https://www.tamuvfs.org/" class="clnk" target="_blank">TAMU VFS
+                  (Society)</a>
+                <a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight"
+                  class="clnk" target="_blank">DBVF Competition</a>
+                <a href="https://suas-competition.org/" class="clnk" target="_blank">SUAS
+                  Competition</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="red" data-tags="space" data-sections="teams">
+      <div class="ec-item" id="red" data-tags="space" data-sections="teams" data-order="2">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1082,13 +1128,13 @@
                   </div>
                   <div class="car-caption"></div>
                 </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="lsar" data-tags="space robotics" data-sections="teams leadership">
+      <div class="ec-item" id="lsar" data-tags="space robotics" data-sections="teams leadership"  data-order="3">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1181,10 +1227,10 @@
               </div>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="team-5776k" data-tags="robotics" data-sections="teams">
+      <div class="ec-item" id="team-5776k" data-tags="robotics" data-sections="teams"  data-order="4">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1262,10 +1308,11 @@
                           match strategy flow charts, rebuild evolution, tournament
                           analysis, and more
                         </li>
-                        <li>Set an <a href="https://www.robotevents.com/teams/V5RC/5776K" target="_blank">award-winning</a> and
-                          <b>regional
+                        <li>Set an <a href="https://www.robotevents.com/teams/V5RC/5776K"
+                            target="_blank">award-winning</a> and <b>regional
                             standard</b>; established a long-term, team- and
-                          club-wide <a href="https://drive.google.com/file/d/1v2JI6vdVOjkvcKaRRn0QNg-9YZk53PBu/view?usp=drive_link"
+                          club-wide <a
+                            href="https://drive.google.com/file/d/1v2JI6vdVOjkvcKaRRn0QNg-9YZk53PBu/view?usp=drive_link"
                             target="_blank">knowledge base</a></li>
                       </ul>
                     </li>
@@ -1300,16 +1347,17 @@
                       </li>
 
                       <li><b>Authored</b> a technical guide for tuning 14 individual
-                        factors of 2 <a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
+                        factors of 2 <a
+                          href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
                           target="_blank">launching mechanisms</a> and <a
                           href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
                           target="_blank">pneumatics</a>.
                       </li>
                       <li>Team driver for 2 seasons - handled dynamic 2x2 match strategy
                         under tournament pressure</li>
-                      </ul>
-                      </div>
-                      </div>
+                    </ul>
+                  </div>
+                </div>
 
                 <div>
                   <div class="cw">
@@ -1349,20 +1397,23 @@
                       <video class="cimg on"
                         src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258310/pneumatics_bazbbt.mp4"
                         poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258310/pneumatics_bazbbt.jpg"
-                        data-cap="VEX Over Under Pneumatics Linkage in Fusion 360" preload="metadata" autoplay playsinline muted
-                        loop></video>
+                        data-cap="VEX Over Under Pneumatics Linkage in Fusion 360" preload="metadata" autoplay
+                        playsinline muted loop></video>
                       <video class="cimg"
                         data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258309/motors_j2rtlt.mp4"
                         poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258309/motors_j2rtlt.jpg"
-                        data-cap="VEX Over Under Motors in Fusion 360" preload="metadata" autoplay playsinline muted loop></video>
+                        data-cap="VEX Over Under Motors in Fusion 360" preload="metadata" autoplay playsinline muted
+                        loop></video>
                       <video class="cimg"
                         data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258305/overcentered_lxu0e1.mp4"
                         poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258305/overcentered_lxu0e1.jpg"
-                        data-cap="Overcentered Linkage CAD Demo" preload="metadata" autoplay playsinline muted loop></video>
+                        data-cap="Overcentered Linkage CAD Demo" preload="metadata" autoplay playsinline muted
+                        loop></video>
                       <video class="cimg"
                         data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258288/rapid_fire_y4s1wo.mp4"
                         poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258288/rapid_fire_y4s1wo.jpg"
-                        data-cap="VEX Spin Up Rapid Fire Demo" preload="metadata" autoplay playsinline muted loop></video>
+                        data-cap="VEX Spin Up Rapid Fire Demo" preload="metadata" autoplay playsinline muted
+                        loop></video>
                       <video class="cimg"
                         data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258288/long_distance_zyxhw3.mp4"
                         poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779258288/long_distance_zyxhw3.jpg"
@@ -1396,19 +1447,19 @@
               <div class="clinks">
                 <a href="https://dvhsrobotics.com/5776k" class="clnk" target="_blank">5776K Team
                   Page</a>
-                <a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link" class="clnk"
-                  target="_blank">Launch Mechanism Guide</a>
-                <a href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link" class="clnk"
-                  target="_blank">Pneumatics Guide</a>
-                <a href="https://drive.google.com/file/d/1v2JI6vdVOjkvcKaRRn0QNg-9YZk53PBu/view?usp=drive_link" class="clnk"
-                  target="_blank">Build Master Guide</a>
+                <a href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
+                  class="clnk" target="_blank">Launch Mechanism Guide</a>
+                <a href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
+                  class="clnk" target="_blank">Pneumatics Guide</a>
+                <a href="https://drive.google.com/file/d/1v2JI6vdVOjkvcKaRRn0QNg-9YZk53PBu/view?usp=drive_link"
+                  class="clnk" target="_blank">Build Master Guide</a>
               </div>
-              </div>
-              </div>
-              </div>
-              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="cabinet" data-tags="robotics general" data-sections="leadership">
+      <div class="ec-item" id="cabinet" data-tags="robotics general" data-sections="leadership"  data-order="14">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1504,17 +1555,17 @@
               <div class="clinks">
                 <a href="https://dvhsrobotics.com" class="clnk" target="_blank">DVHS Robotics
                   Website</a>
-                <a href="https://drive.google.com/file/d/1Kq_CT_gwh9PQUwIG_DKVLsDDyLbhlnw_/view?usp=drive_link" class="clnk"
-                  target="_blank">Tournament Info Sheet</a>
-                <a href="https://drive.google.com/file/d/1zcrVtenKBXx-OvSwMueGLIWpefscydoA/view?usp=drive_link" class="clnk"
-                  target="_blank">Summer Camp Info Sheet</a>
+                <a href="https://drive.google.com/file/d/1Kq_CT_gwh9PQUwIG_DKVLsDDyLbhlnw_/view?usp=drive_link"
+                  class="clnk" target="_blank">Tournament Info Sheet</a>
+                <a href="https://drive.google.com/file/d/1zcrVtenKBXx-OvSwMueGLIWpefscydoA/view?usp=drive_link"
+                  class="clnk" target="_blank">Summer Camp Info Sheet</a>
               </div>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="ignite25" data-tags="evtol" data-sections="leadership">
+      <div class="ec-item" id="ignite25" data-tags="evtol" data-sections="leadership" data-order="10">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1617,7 +1668,7 @@
                       improve drag fidelity,
                       inputted sensor weight/power data into sizing code</li>
                   </ul>
-                  </div>
+                </div>
 
                 <div>
 
@@ -1663,26 +1714,26 @@
                     <span class="cdot"></span>
                   </div>
                   <div class="car-caption"></div>
-                  </div>
-                  </div>
-                  <div class="clinks">
-                    <a href="https://drive.google.com/file/d/1XP52uZKHq7R6t1SHoBJ9R2c1tkdMTihA/view?usp=drive_link" class="clnk"
-                      target="_blank">Technical Report</a>
-                    <a href="https://drive.google.com/file/d/1_NK7D4Gie4QOqw32j35ixrSi9OcJ5t7E/view?usp=drive_link" class="clnk"
-                      target="_blank">Critical Design Report</a>
-                    <a href="https://drive.google.com/file/d/1pSSM1pRsnWw9S6wjG2zJPjncEtlu-JU2/view?usp=drive_link" class="clnk"
-                      target="_blank">Final Presentation</a>
-                    <a href="https://drive.google.com/file/d/1V8jssSzRQDpFXssSCmxBZzqEPAbdiM38/view?usp=drive_link" class="clnk"
-                      target="_blank">Aerodynamic Sizing Code</a>
-                    <a href="https://drive.google.com/file/d/1je4cFfocnW2mQj8Sin3O-2y_ZJ0LxwPC/view?usp=drive_link" class="clnk"
-                      target="_blank">Search Algorithm Code</a>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
+                </div>
+              </div>
+              <div class="clinks">
+                <a href="https://drive.google.com/file/d/1XP52uZKHq7R6t1SHoBJ9R2c1tkdMTihA/view?usp=drive_link"
+                  class="clnk" target="_blank">Technical Report</a>
+                <a href="https://drive.google.com/file/d/1_NK7D4Gie4QOqw32j35ixrSi9OcJ5t7E/view?usp=drive_link"
+                  class="clnk" target="_blank">Critical Design Report</a>
+                <a href="https://drive.google.com/file/d/1pSSM1pRsnWw9S6wjG2zJPjncEtlu-JU2/view?usp=drive_link"
+                  class="clnk" target="_blank">Final Presentation</a>
+                <a href="https://drive.google.com/file/d/1V8jssSzRQDpFXssSCmxBZzqEPAbdiM38/view?usp=drive_link"
+                  class="clnk" target="_blank">Aerodynamic Sizing Code</a>
+                <a href="https://drive.google.com/file/d/1je4cFfocnW2mQj8Sin3O-2y_ZJ0LxwPC/view?usp=drive_link"
+                  class="clnk" target="_blank">Search Algorithm Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="invent" data-tags="general" data-sections="leadership">
+      <div class="ec-item" id="invent" data-tags="general" data-sections="leadership"  data-order="11">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1782,8 +1833,8 @@
                       <div class="cw-inner">
                         <video class="cimg on"
                           src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1779269659/3d_print_ocbwbc.mp4"
-                          data-cap="Small Modular Reactor Plate Design Prototype" preload="metadata" autoplay playsinline muted
-                          loop></video>
+                          data-cap="Small Modular Reactor Plate Design Prototype" preload="metadata" autoplay
+                          playsinline muted loop></video>
                       </div>
                     </div>
                     <div class="cdots">
@@ -1791,14 +1842,14 @@
                     </div>
                     <div class="car-caption"></div>
                   </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div class="ec-item" id="ignite" data-tags="space" data-sections="leadership">
+      <div class="ec-item" id="ignite" data-tags="space" data-sections="leadership"  data-order="13">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1886,10 +1937,10 @@
                   </div>
                   <div class="car-caption"></div>
                 </div>
-                </div>
-                </div>
-                </div>
-                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="ec-item" id="everyday-engineering" data-tags="general" data-sections="misc">
@@ -1930,7 +1981,8 @@
                     <li>Delves into mechanical, thermodynamics, electric, and/or software
                       functions and processes</li>
                   </ul>
-                  <div style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                  <div
+                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
                     <div
                       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
                       <div>
@@ -1938,7 +1990,8 @@
                           <div class="cw-inner port-h">
                             <img class="cimg on"
                               src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269730/refrigerator_l4gkgt.png"
-                              alt="Refrigerator" data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"
+                              alt="Refrigerator"
+                              data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"
                               style="border: none; pointer-events: none;"></img>
                           </div>
                         </div>
@@ -1949,15 +2002,15 @@
                 </div>
               </div>
               <div class="clinks">
-                <a href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing" class="clnk"
-                  target="_blank">
+                <a href="https://drive.google.com/file/d/1nRwzXwhBUyb_sET75SgGUZvrAi4VPA33/view?usp=sharing"
+                  class="clnk" target="_blank">
                   Preview
                 </a>
               </div>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
 
       <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol" data-sections="misc">
         <div class="ec-card">
@@ -2027,7 +2080,7 @@
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </div>
 
       <div class="ec-item" id="boy-scouts" data-tags="general" data-sections="misc">
@@ -2119,16 +2172,16 @@
                   </div>
                   <div class="car-caption"></div>
                 </div>
-                </div>
-                <div class="clinks">
-                  <a href="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/" class="clnk"
-                    target="_blank">Eagle Project Article</a>
-                  <a href="https://www.troop888.us/resources/how-to/" class="clnk" target="_blank">Knowledge Base</a>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
+              </div>
+              <div class="clinks">
+                <a href="https://www.troop888.us/adarsh-sheth-builds-greenhouse-bench-for-fertile-groundworks/"
+                  class="clnk" target="_blank">Eagle Project Article</a>
+                <a href="https://www.troop888.us/resources/how-to/" class="clnk" target="_blank">Knowledge Base</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="ec-item" id="737-800-cad" data-tags="evtol" data-sections="misc">
         <div class="ec-card">
@@ -2193,8 +2246,8 @@
               </div>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
 
       <div class="ec-item" id="formula-sae" data-tags="general" data-sections="misc">
         <div class="ec-card">
@@ -2271,11 +2324,11 @@
               </div>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
 
     </div>
-    
+
     <section id="sec-teams" class="sb portfolio-sec" data-k="teams">
       <div class="sh">
         <span class="sh-r"></span>
@@ -2284,11 +2337,11 @@
         </button>
         <span class="sh-r"></span>
       </div>
-    
+
       <div class="card-stack tile-mode" id="stack-teams"></div>
       <hr class="div" style="margin-top: 50px;" />
     </section>
-    
+
     <section id="sec-leadership" class="sb portfolio-sec" data-k="leadership">
       <div class="sh">
         <span class="sh-r"></span>
@@ -2297,11 +2350,11 @@
         </button>
         <span class="sh-r"></span>
       </div>
-    
+
       <div class="card-stack tile-mode" id="stack-leadership"></div>
       <hr class="div" style="margin-top: 50px;" />
     </section>
-    
+
     <section id="sec-misc" class="sb portfolio-sec" data-k="misc">
       <div class="sh">
         <span class="sh-r"></span>
@@ -2310,11 +2363,10 @@
         </button>
         <span class="sh-r"></span>
       </div>
-<div class="card-stack tile-mode" id="stack-misc"></div>
+
+      <div class="card-stack tile-mode" id="stack-misc"></div>
     </section>
-    <section>
-      <div style="margin-top: 40px"></div>
-    </section>
+    <section> <div style="margin-top: 40px"></div></section>
 
     <footer>
       <div class="ficons">
@@ -2507,31 +2559,45 @@
       const stacks = {
         'teams': document.getElementById('stack-teams'),
         'leadership': document.getElementById('stack-leadership'),
-        'misc': document.getElementById('stack-m          
-          };
-           // Safely move existing cards back to the po          re-evaluate placement
+        'misc': document.getElementById('stack-misc')
+      };
+
+      // Safely move existing cards back to the pool to re-evaluate placement
       Object.values(stacks).forEach(stack => {
-        while (stack.            ld) {
-          poo          ndC        (stack.        tChild);
+        while (stack.firstChild) {
+          pool.appendChild(stack.firstChild);
         }
       });
 
-            nst allCards = Array.from(pool.c        ren);
+      const allCards = Array.from(pool.children);
 
-      allCards.for          ard => {
-        const tags = card.dataset.tags.split('                  const isVisible = (tag === 'all' || tags.includes(ta                    if (isVisible) {
-                  t sections = card.dataset.sec                ' ');
-          let targetSec = section                       // LOGIC: If filter is applied ('all              lt)            rd ha          iple sections, assign to secondary section.
-          if (ta          'all' && sections.length > 1) {
-            targetSec = se            ];
+      // Sort cards numerically by their data-order attribute (cards without it default to 999)
+      allCards.sort((a, b) => {
+        const orderA = a.dataset.order ? parseInt(a.dataset.order) : 999;
+        const orderB = b.dataset.order ? parseInt(b.dataset.order) : 999;
+        return orderA - orderB;
+      });
+
+      allCards.forEach(card => {
+        const tags = card.dataset.tags.split(' ');
+        const isVisible = (tag === 'all' || tags.includes(tag));
+
+        if (isVisible) {
+          const sections = card.dataset.sections.split(' ');
+          let targetSec = sections[0];
+
+          // LOGIC: If filter is applied ('all' is default), and card has multiple sections, assign to secondary section.
+          if (tag !== 'all' && sections.length > 1) {
+            targetSec = sections[1];
           }
 
           card.style.display = 'block';
-          card.cl              move('visible');
+          card.classList.remove('visible');
 
-          if (stacks[targetSec]) {                             stacks[targetSec].appendChild(card);
+          if (stacks[targetSec]) {
+            stacks[targetSec].appendChild(card);
           }
-                  else {
+        } else {
           card.style.display = 'none';
           card.classList.remove('visible');
         }
@@ -2539,8 +2605,8 @@
 
       const sections = document.querySelectorAll('.portfolio-sec');
       sections.forEach(sec => {
-        const sta         sec.querySelector('.card-stack');
-            const hasVisibleCards = stack &&           children.length > 0;
+        const stack = sec.querySelector('.card-stack');
+        const hasVisibleCards = stack && stack.children.length > 0;
 
         sec.style.display = hasVisibleCards ? 'block' : 'none';
 
