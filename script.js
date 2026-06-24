@@ -698,14 +698,19 @@ function runCoreScrollTasks(sy) {
 		}
 	});
 
-	if (sy < 400 && cachedAvailableSections.length > 0) {
+	if (sy < 100 && cachedAvailableSections.length > 0) {
+		//400 initially for sy<
 		updateURLd(null);
 		activeK = cachedAvailableSections[0].k;
+	}
+	// bottom of page edge case
+	if (window.innerHeight + Math.ceil(sy) >= document.documentElement.scrollHeight - 50) {
+		activeK = cachedAvailableSections[cachedAvailableSections.length - 1].k;
 	}
 
 	if (activeK) {
 		document.querySelectorAll(".sbn[data-k]").forEach((a) => {
-			const isMatch = a.dataset.k === activeK || (a.dataset.k === "tamu" && activeK === "dvhs");
+			const isMatch = a.dataset.k === activeK; /* Removed the hardcoded TAMU/DVHS bug */
 			if (a.classList.contains("active") !== isMatch) {
 				a.classList.toggle("active", isMatch);
 			}
@@ -1197,10 +1202,88 @@ function initCarousels() {
 			}),
 		);
 
-		wrap.addEventListener("click", () => {
+		let wasSwiped = false; // Prevents opening the lightbox when you just meant to swipe
+
+		wrap.addEventListener("click", (e) => {
+			if (wasSwiped) {
+				e.preventDefault();
+				return;
+			}
 			const tag = imgs[cur]?.tagName;
 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
 		});
+
+		// --- ADDED: TOUCH & TRACKPAD SWIPE NAVIGATION ---
+
+		// 1. Mobile Touch Swipe
+		let touchStartX = 0;
+		let touchStartY = 0;
+
+		wrap.addEventListener(
+			"touchstart",
+			(e) => {
+				if (e.touches.length > 1) return;
+				touchStartX = e.changedTouches[0].screenX;
+				touchStartY = e.changedTouches[0].screenY;
+			},
+			{passive: true},
+		);
+
+		wrap.addEventListener(
+			"touchend",
+			(e) => {
+				const touchEndX = e.changedTouches[0].screenX;
+				const touchEndY = e.changedTouches[0].screenY;
+				const diffX = touchStartX - touchEndX;
+				const diffY = touchStartY - touchEndY;
+
+				// Thresholds: minimum 40px swipe, and must be mostly horizontal
+				if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+					wasSwiped = true;
+
+					if (diffX > 0)
+						show(cur + 1); // Swiped left -> next image
+					else show(cur - 1); // Swiped right -> prev image
+
+					startAutoPlay();
+
+					// Reset the swipe lock shortly after the click event fires
+					setTimeout(() => {
+						wasSwiped = false;
+					}, 100);
+				}
+			},
+			{passive: true},
+		);
+
+		// 2. Desktop Trackpad Swipe
+		let isTrackpadSwiping = false;
+
+		wrap.addEventListener(
+			"wheel",
+			(e) => {
+				if (isTrackpadSwiping) return;
+
+				// Ensure the scroll is horizontal and forceful enough
+				if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+					isTrackpadSwiping = true;
+
+					if (e.deltaX > 0)
+						show(cur + 1); // Scrolled right -> next image
+					else show(cur - 1); // Scrolled left -> prev image
+
+					startAutoPlay();
+
+					// Lock the trackpad for 500ms so you don't rapid-fire skip through images
+					setTimeout(() => {
+						isTrackpadSwiping = false;
+					}, 500);
+				}
+			},
+			{passive: true},
+		);
+
+		// ------------------------------------------------
 
 		// Pass true for the initial load so it bypasses the redundancy check
 		show(0, true);
