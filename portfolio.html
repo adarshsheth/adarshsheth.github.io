@@ -70,19 +70,13 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin: 0;
-      /* opacity: 0.7; */
-      /* color: var(--dimtitle); */
-      /* color: var(--accent2); */
-      /* color: var(--border); */
-      color: color-mix(in srgb, var(--dimtitle) 50%, transparent); 
+      color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
     }
+
     .sh h2:hover {
       color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
-      /* color: color-mix(in srgb, var(--accent2) 60%, transparent); */
-      /* opacity: 0.1; */
-      /* color:  var(--border); */
     }
 
     .sh-pulse-btn:hover h2 {
@@ -95,31 +89,22 @@
     }
 
     .sh .sh-r {
-      /* height: 6px !important;
-      opacity: 0.2;
-      background: var(--border); */
       height: 10px !important;
       opacity: 0.1;
-      /* background: var(--border); */
       background: var(--dimtitle);
-      /* background: var(--accent2); */
-      /* background: var(--g); */
     }
 
     .div {
-      display: none !important; 
+      display: none !important;
     }
+
     .portfolio-sec {
       padding-bottom: 15px !important;
     }
 
-    /* .portfolio-sec {
-      scroll-margin-top: 0px !important;
-    } */
     /* --- GLOBAL FILTER BUTTONS --- */
     .portfolio-filters {
       display: flex;
-      /* justify-content: center; */
       justify-content: left;
       gap: 10px;
       margin: 60px 48px 20px;
@@ -138,7 +123,6 @@
       font-weight: 700;
       font-size: 11.5px;
       letter-spacing: 0.1em;
-      /* border-radius: 100px; */
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.4s ease-out;
@@ -146,20 +130,12 @@
     }
 
     .filter-btn:hover {
-      /* border-color: var(--g);
-      color: var(--g); */
       border-color: var(--accent2);
       color: var(--accent2);
       transform: translateY(-1px);
     }
 
     .filter-btn.active {
-      /* border-color: var(--accent);
-      color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 10%, transparent); */
-      /* border-color: var(--g);
-      color: var(--bg);
-      background: var(--g); */
       border-color: var(--accent2);
       color: var(--bg);
       background: var(--accent2);
@@ -190,31 +166,19 @@
       transform: translateY(0);
     }
 
-
-
     .ec-card {
-      /* background: var(--surface); */
       background: color-mix(in srgb, var(--surface) 80%, transparent);
-      /* border: 2px solid var(--border); */
       border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
-      /* border-radius: 14px; */
       border-radius: 10px;
       overflow: hidden;
-      transition: transform 0.3s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.5s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease;
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
     }
 
     .ec-card:hover {
-      /* border-color: color-mix(in srgb, var(--accent2) 80%, transparent); */
-      /* border-color: color-mix(in srgb, var(--g) 80%, transparent); */
-      /* box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); */
       transform: translateY(-3px);
     }
-
-    /* .ec-card.open {
-      border-color: var(--accent2);
-    } */
 
     /* SUMMARY VIEW (Always Visible) */
     .ec-summary {
@@ -226,25 +190,26 @@
       transition: grid-template-columns 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), gap 0.4s ease;
     }
 
-.ec-thumb {
-      position: relative; 
+    .ec-thumb {
+      position: relative;
       width: 100%;
       height: 100%;
       background: #111;
       overflow: hidden;
-      min-height: 0; 
-      transition: all 0.3s ease-in-out;
+      min-height: 0;
+      /* transition: all 0.3s ease-in-out; */
+      transition: opacity 0.3s ease-in-out, height 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
     }
 
     /* When Expanded: Shrink the thumbnail column to 10px */
     .ec-card.open .ec-summary {
       grid-template-columns: 15px 1fr;
-      gap: 18px; /* Slightly tighter gap to bring text closer to the accent bar */
+      gap: 18px;
     }
+
     .ec-card.open .ec-thumb {
       opacity: 0.3;
     }
-
 
     .ec-thumb img {
       position: absolute;
@@ -267,8 +232,46 @@
       justify-content: space-between;
     }
 
+    /* ══ LOGO ALIGNMENT IN CARD HEADERS ══ */
     .ec-info-header {
       margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ec-info-header-text {
+      flex: 1;
+    }
+
+    .ec-info-header .eclogos {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+      /* margin-right: 30px; */
+    }
+
+    .ec-info-header .eclogos img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .card-stack.tile-mode .ec-info-header .eclogos img {
+      height: 24px;
+    }
+
+    @media (max-width: 800px) {
+      .ec-info-header .eclogos img {
+        height: 30px;
+      }
+
+      .card-stack.tile-mode .ec-info-header .eclogos img {
+        height: 20px;
+      }
     }
 
     .ec-title {
@@ -281,10 +284,6 @@
       transition: color 0.2s ease;
     }
 
-    /* .ec-card:hover .ec-title {
-      color: var(--accent2);
-    } */
-
     .ec-subtitle {
       font-size: 13px;
       font-weight: 700;
@@ -294,10 +293,24 @@
     }
 
     .ec-brief {
-      font-size: clamp(11px, 0.7vw, 16px);
+      font-size: clamp(13px, 0.8vw, 16px);
       line-height: 1.6;
       color: var(--dimtitle);
       margin: 12px 0;
+      max-width: 800px;
+    }
+
+    .card-stack.tile-mode .ec-brief {
+      font-size: clamp(11px, 0.7vw, 14px);
+      width: 100%;
+      /* <-- Change this to your preferred tile size */
+    }
+    .card-stack.tile-mode .badge {
+      font-size: clamp(8px, 0.5vw, 40px);
+    }
+
+    .card-stack.tile-mode .ec-thumb {
+      opacity: 1;
     }
 
     .expand-prompt {
@@ -320,10 +333,11 @@
       transform: rotate(180deg);
     }
 
-/* MOBILE ADJUSTMENTS FOR SUMMARY */
+    /* MOBILE ADJUSTMENTS FOR SUMMARY */
     @media (max-width: 800px) {
+
       .ec-summary,
-      .ec-card.open .ec-summary{
+      .ec-card.open .ec-summary {
         grid-template-columns: 1fr;
         gap: 0;
       }
@@ -331,11 +345,9 @@
       .ec-thumb {
         height: 200px;
         min-height: auto;
-        /* Add transition to animate the height */
         transition: height 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
       }
 
-      /* Shrink to a thin horizontal strip on mobile */
       .ec-card.open .ec-thumb {
         height: 0px;
         width: 100% !important;
@@ -344,9 +356,10 @@
       .ec-info {
         padding: 20px;
       }
+
       .ec-card.open .ec-summary {
-      grid-template-columns: 1fr;
-    }
+        grid-template-columns: 1fr;
+      }
     }
 
     /* DETAILS VIEW (Hidden by Default, Expands on Click) */
@@ -368,11 +381,10 @@
 
     .ec-card.open .ec-details-inner {
       opacity: 1;
-      padding-top: 15px;
+      /* padding-top: 15px; */
       border-top: 1px solid var(--border);
     }
 
-    /* Adjust padding inside the original elements so they sit nicely in the expanded view */
     .ec-details-inner .cbody {
       padding: 20px 24px;
     }
@@ -386,74 +398,48 @@
     /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
     .card-stack.tile-mode {
       display: grid;
-      /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
       grid-template-columns: repeat(4, 1fr);
       align-items: stretch;
       gap: 15px;
     }
-    /* .card-stack.tile-mode .ec-item {
-      display: flex;
-    }
-    .card-stack.tile-mode .ec-card {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .card-stack.tile-mode .ec-summary {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
 
-    .card-stack.tile-mode .ec-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-stack.tile-mode .ec-brief {
-      flex: 1;
-    } */
-    /* GOOFY ABOVE */
-
-    /* @media (max-width: 800px) {
-      .card-stack.tile-mode {
-        grid-template-columns: 1fr;
-      }
-    } */
     @media (max-width: 1650px) {
       .card-stack.tile-mode {
-        grid-template-columns: repeat(3, 1fr)  !important;
+        grid-template-columns: repeat(3, 1fr) !important;
       }
     }
+
     @media (max-width: 1350px) {
       .card-stack.tile-mode {
         grid-template-columns: repeat(2, 1fr) !important;
       }
     }
-    /* @media (max-width: 700px) {
-      .card-stack.tile-mode {
-        grid-template-columns: repeat(1, 1fr) !important;
-      }
-    } */
 
     @media (max-width: 800px) {
       .card-stack.tile-mode {
         grid-template-columns: repeat(2, 1fr) !important;
       }
-      /* Reduce font sizes slightly to prevent 2-column text overflow on small screens */
-      .card-stack.tile-mode .ec-title { font-size: 13px; }
-      .card-stack.tile-mode .ec-subtitle { font-size: 9px; letter-spacing: 0; }
-      .card-stack.tile-mode .ec-info { padding: 12px; }
+
+      .card-stack.tile-mode .ec-title {
+        font-size: 13px;
+      }
+
+      .card-stack.tile-mode .ec-subtitle {
+        font-size: 9px;
+        letter-spacing: 0;
+      }
+
+      .card-stack.tile-mode .ec-info {
+        padding: 12px;
+      }
     }
-    
-    /* Optional: Fallback to 1 column only on extremely thin phones */
+
     @media (max-width: 450px) {
       .card-stack.tile-mode {
         grid-template-columns: 1fr;
       }
     }
-    
+
     .card-stack.tile-mode .ec-summary {
       grid-template-columns: 1fr;
       gap: 0;
@@ -467,10 +453,6 @@
       padding: 14px 16px 16px;
     }
 
-    .card-stack.tile-mode .ec-info-header {
-      margin-bottom: 0;
-    }
-
     .card-stack.tile-mode .ec-title {
       font-size: 15px;
       margin-bottom: 4px;
@@ -480,14 +462,13 @@
       font-size: 10.5px;
     }
 
-
     .card-stack.tile-mode .expand-prompt,
     .card-stack.tile-mode .ec-details {
       display: none;
     }
 
     /* ══ CARD CONTENT LIGHTBOX (opened from a tile in tile mode) ══ */
-    #card-lb {
+    /* #card-lb {
       position: fixed;
       inset: 0;
       z-index: 9998;
@@ -496,7 +477,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s;
+      transition: all 0.35s ease-in-out;
       padding: 40px 20px;
     }
 
@@ -512,6 +493,122 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       cursor: pointer;
+    } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* 1. The wrapper just toggles visibility, NO opacity fades here! */
+    #card-lb {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      /* Replaces pointer-events/opacity */
+      transition: visibility 0.4s;
+      padding: 40px 20px;
+    }
+
+    #card-lb.open {
+      visibility: visible;
+    }
+
+    /* 2. The backdrop explicitly animates from 0 blur to 8px blur */
+    .card-lb-backdrop {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+
+      /* STARTING STATE: completely clear and unblurred */
+      background: rgba(10, 10, 10, 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+
+      /* Explicitly transition ONLY background and filters */
+      transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out, -webkit-backdrop-filter 0.4s ease-in-out;
+    }
+
+    /* ENDING STATE: dark and blurred */
+    #card-lb.open .card-lb-backdrop {
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* 3. The popup box fades itself in independently */
+    .card-lb-box {
+      position: relative;
+      z-index: 1;
+      width: min(900px, 100%);
+      max-height: 88vh;
+      overflow-y: auto;
+      background: color-mix(in srgb, var(--bg) 80%, transparent 0%);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+      /* STARTING STATE for the box */
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      /* Adds a premium little slide-up effect */
+      transition: opacity 0.4s ease-in-out, transform 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
+    }
+
+
+
+
+
+
+
+
+
+
+    /* AFTER */
+    #card-lb {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      transition: visibility 0.25s;
+      /* Sped up */
+      padding: 40px 20px;
+    }
+
+    #card-lb.open {
+      visibility: visible;
+    }
+
+    .card-lb-backdrop {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background: rgba(10, 10, 10, 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: background 0.25s ease-in-out, backdrop-filter 0.25s ease-in-out, -webkit-backdrop-filter 0.25s ease-in-out;
+      /* Sped up */
+    }
+
+    #card-lb.open .card-lb-backdrop {
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .card-lb-box {
@@ -524,42 +621,82 @@
       border: 2px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      /* Subtler drop and scale */
+      transition: opacity 0.25s ease-in-out, transform 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
+      /* Sped up */
     }
 
-    /* .card-lb-close {
-      position: sticky;
-      top: 0;
-      left: 100%;
-      transform: translate(-10px, 10px);
-      background: var(--bg);
-      border: 2px solid var(--accent2);
-      color: var(--accent2);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 20px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-      float: right;
-      transition: all 0.4s ease-in-out;
 
-    } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ENDING STATE for the box */
+    #card-lb.open .card-lb-box {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .card-lb-box {
+      position: relative;
+      z-index: 1;
+      width: min(900px, 100%);
+      max-height: 88vh;
+      overflow-y: auto;
+      background: color-mix(in srgb, var(--bg) 10%, transparent 0%);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
     .card-lb-close {
       position: sticky;
-      top: 10px; /* Distance from top while scrolling */
-      left: auto; 
-      float: none; /* Prevents it from squeezing the image horizontally */
-      margin-left: auto; /* Pushes the button to the right */
-      margin-bottom: -32px; /* Erases its height footprint so the image slides up underneath it */
-      transform: translateX(-10px); /* 10px padding from the right edge */
-      background: var(--bg);
-      border: 2px solid var(--accent2);
-      color: var(--accent2);
+      top: 10px;
+      left: auto;
+      float: none;
+      margin-left: auto;
+      margin-bottom: -32px;
+      transform: translateX(-10px);
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--border);
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -569,26 +706,28 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 10; /* Ensures it stays clickable above the image */
+      z-index: 10;
       transition: all 0.4s ease-in-out;
+      opacity: 0;
     }
 
     .card-lb-close:hover {
-      /* border-color: var(--accent2);
-      color: var(--accent2); */
-      background: var(--accent2);
+      /* background: var(--accent2); */
       border-color: var(--accent2);
-      color: var(--bg);
+      color: var(--accent2);
     }
 
     #card-lb-content .ec-summary {
       cursor: default;
     }
-    
-    .card-lb-box::-webkit-scrollbar { width: 4px; }
+
+    .card-lb-box::-webkit-scrollbar {
+      width: 4px;
+    }
+
     .card-lb-box::-webkit-scrollbar-track {
-      margin: 14px 0; /* Prevents scrollbar from crossing the 14px border-radius */
-      border-radius: 14px; 
+      margin: 14px 0;
+      border-radius: 14px;
     }
 
     #card-lb-content .ec-card {
@@ -604,100 +743,83 @@
       box-shadow: none;
     }
 
-    /* next 2 prevent hover interactions in lightbox mode */
     #card-lb-content .ec-card:hover .ec-title {
       color: var(--dimtitle);
     }
 
-    /* Prevent Thumbnail Zoom */
     #card-lb-content .ec-card:hover .ec-thumb img {
       transform: scale(1);
     }
+
     #card-lb-content .expand-prompt {
       display: none !important;
     }
-    
 
-
-
-
-
-
-
-
-
-
-
-    /* blog */
-    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
-    .card-stack.tile-mode {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      align-items: stretch; /* Stretches the invisible grid cells to match the tallest item */
-      gap: 15px;
+    /* Remove thumbnail entirely inside the lightbox */
+    #card-lb-content .ec-card.open .ec-summary {
+      grid-template-columns: 1fr;
+      gap: 0;
+      /* margin-left: 20px; */
     }
 
-    /* 1. Force the wrapper to fill the stretched grid cell */
+    #card-lb-content .ec-card.open .ec-thumb {
+      display: none;
+
+    }
+
+    /* Restore the left padding that the thumbnail previously occupied */
+    #card-lb-content .ec-card.open .ec-info {
+      padding-left: 24px;
+    }
+
+    @media (max-width: 800px) {
+      #card-lb-content .ec-card.open .ec-info {
+        padding-left: 20px;
+      }
+    }
+
+
+
+
+
+
+
+
+
+    /* blog tile mode overrides */
     .card-stack.tile-mode .ec-item {
       display: block;
-      height: 100%; 
+      height: 100%;
     }
 
-    /* 2. Force the card to fill the wrapper as a Flex container */
     .card-stack.tile-mode .ec-card {
       display: flex;
       flex-direction: column;
-      height: 100%; 
+      height: 100%;
     }
 
-    /* 3. Override default grid: Make summary a Flex column that absorbs empty space */
     .card-stack.tile-mode .ec-summary {
       display: flex !important;
       flex-direction: column;
-      flex: 1; 
+      flex: 1;
       gap: 0;
     }
 
-    /* 4. Lock the thumbnail to a fixed size so it doesn't distort */
     .card-stack.tile-mode .ec-thumb {
       height: 190px;
       min-height: 190px;
       flex-shrink: 0;
     }
 
-    /* 5. Force the info text block to push down and fill the remaining height */
     .card-stack.tile-mode .ec-info {
       display: flex;
       flex-direction: column;
-      flex: 1; 
+      flex: 1;
       padding: 14px 16px 16px;
     }
 
-    /* --- Typography Adjustments --- */
-    .card-stack.tile-mode .ec-info-header { margin-bottom: 0; }
-    .card-stack.tile-mode .ec-title { font-size: 15px; margin-bottom: 4px; }
-    .card-stack.tile-mode .ec-subtitle { font-size: 10.5px; }
-
-    /* --- Hide expandable elements in tile view --- */
-    .card-stack.tile-mode .expand-prompt,
-    .card-stack.tile-mode .ec-details {
-      display: none;
-    }
-
-    /* --- Mobile Breakpoints --- */
-    @media (max-width: 800px) {
-      .card-stack.tile-mode {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .card-stack.tile-mode .ec-title { font-size: 13px; }
-      .card-stack.tile-mode .ec-subtitle { font-size: 9px; letter-spacing: 0; }
-      .card-stack.tile-mode .ec-info { padding: 12px; }
-    }
-    
-    @media (max-width: 450px) {
-      .card-stack.tile-mode {
-        grid-template-columns: 1fr;
-      }
+    body.filtering-active * {
+      transition: none !important;
     }
   </style>
 </head>
@@ -725,7 +847,6 @@
 
   <div id="sb-overlay"></div>
 
-  <!-- CARD CONTENT LIGHTBOX (opened from a tile while the "All" filter is active) -->
   <div id="card-lb">
     <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
     <div class="card-lb-box">
@@ -734,7 +855,6 @@
     </div>
   </div>
 
-  <!-- DYNAMIC SIDEBAR NAV -->
   <aside id="sb">
     <div id="sb-hdr">Sections</div>
     <div id="sb-prog">
@@ -746,7 +866,6 @@
         <span class="sblbl">Top of Page</span>
       </a>
 
-      <!-- Subnavs removed to prevent filtering conflicts. Links directly to sections. -->
       <a class="sbn" href="#sec-tamu" onclick="scrollToSec('sec-tamu'); return false;" data-k="tamu">
         <span class="sbdot"></span>
         <span class="sblbl">Design Teams @ TAMU</span>
@@ -782,17 +901,6 @@
       <h1>ENGINEERING PORTFOLIO</h1>
     </section>
 
-    <!-- <section id="tls">
-      <div class="tlbox">
-        <h3>EXPERIENCE TIMELINE</h3>
-        <p class="tlsub">A timeline of my engineering portfolio.</p>
-        <div class="tlframe">
-          <iframe id="timeline-iframe" src="gantt.html" title="Experience Timeline" scrolling="no"></iframe>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- GLOBAL FILTER BUTTONS -->
     <div class="portfolio-filters">
       <button class="filter-btn active" data-tag="all" onclick="filterPortfolio('all')">ALL / DEFAULT</button>
       <button class="filter-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">eVTOL &
@@ -804,9 +912,6 @@
     </div>
 
 
-    <!-- ============================================== -->
-    <!-- SEC: TECHNICAL DESIGN TEAMS (TAMU)             -->
-    <!-- ============================================== -->
     <section id="sec-tamu" class="sb portfolio-sec" data-k="tamu">
       <div class="sh">
         <span class="sh-r"></span>
@@ -818,10 +923,8 @@
       </div>
 
       <div class="card-stack tile-mode">
-        <!-- VFD -->
         <div class="ec-item" id="vfd" data-tags="evtol">
           <div class="ec-card">
-            <!-- SUMMARY PROFILE -->
             <div class="ec-summary" onclick="toggleCardDetails(this)">
               <div class="ec-thumb">
                 <img
@@ -831,8 +934,14 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">Vertical Flight Design Team</h3>
-                    <div class="ec-subtitle">Aerodynamics Engineer | 09/2025 – PRESENT</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">Vertical Flight Design Team</h3>
+                      <div class="ec-subtitle">Aerodynamics Engineer | 09/2025 – PRESENT</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/vfd.png" alt="VFD" decoding="async" />
+                      <img src="media/logo/vfs.png" alt="VFS" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">TRADE-OFF ANALYSIS</span>
@@ -850,7 +959,6 @@
               </div>
             </div>
 
-            <!-- EXPANDABLE DETAILS -->
             <div class="ec-details">
               <div class="ec-details-inner">
                 <div class="cbody flex-img">
@@ -991,7 +1099,6 @@
           </div>
         </div>
 
-        <!-- RED -->
         <div class="ec-item" id="red" data-tags="space">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1003,8 +1110,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">ROCKET ENGINE DESIGN</h3>
-                    <div class="ec-subtitle">Fluid Systems Engineer | 02/2025 – 01/2026</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">ROCKET ENGINE DESIGN</h3>
+                      <div class="ec-subtitle">Fluid Systems Engineer | 02/2025 – 01/2026</div>
+                    </div>
+                    <div class="eclogos darkimgs" style="background: black !important; border: white 1.5px solid">
+                      <img src="media/logo/red_name.jpg" alt="RED" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">P&ID</span>
@@ -1094,7 +1206,6 @@
           </div>
         </div>
 
-        <!-- LSAR -->
         <div class="ec-item" id="lsar" data-tags="space robotics">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1106,8 +1217,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">LUNAR SEARCH & RESCUE</h3>
-                    <div class="ec-subtitle">Team Lead | FALL 2024</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">LUNAR SEARCH & RESCUE</h3>
+                      <div class="ec-subtitle">Team Lead | FALL 2024</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/seds.png" alt="SEDS" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">PYTHON</span>
@@ -1190,9 +1306,6 @@
       <hr class="div" style="margin-top: 50px;" />
     </section>
 
-    <!-- ============================================== -->
-    <!-- SEC: HIGH SCHOOL ROBOTICS (DVHS)               -->
-    <!-- ============================================== -->
     <section id="sec-dvhs" class="sb portfolio-sec" data-k="dvhs">
       <div class="sh">
         <span class="sh-r"></span>
@@ -1203,7 +1316,6 @@
       </div>
 
       <div class="card-stack tile-mode">
-        <!-- 5776K -->
         <div class="ec-item" id="team-5776k" data-tags="robotics">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1215,8 +1327,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">TEAM 5776K</h3>
-                    <div class="ec-subtitle">Co-Founder & Captain | 2022-2024</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">TEAM 5776K</h3>
+                      <div class="ec-subtitle">Co-Founder & Captain | 2022-2024</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/kiwi.png" alt="5776K" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">PROJECT MANAGEMENT</span>
@@ -1428,7 +1545,6 @@
           </div>
         </div>
 
-        <!-- Cabinet -->
         <div class="ec-item" id="cabinet" data-tags="robotics general">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1440,8 +1556,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">DVHS ROBOTICS CABINET</h3>
-                    <div class="ec-subtitle">Secretary & Activities Coordinator | 2021–2024
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">DVHS ROBOTICS CABINET</h3>
+                      <div class="ec-subtitle">Secretary & Activities Coordinator | 2021–2024
+                      </div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/5776.png" alt="5776" decoding="async" />
                     </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
@@ -1534,9 +1655,6 @@
       <hr class="div" style="margin-top: 50px;" />
     </section>
 
-    <!-- ============================================== -->
-    <!-- SEC: EVENTS & CHALLENGES                       -->
-    <!-- ============================================== -->
     <section id="sec-events" class="sb portfolio-sec" data-k="events">
       <div class="sh">
         <span class="sh-r"></span>
@@ -1547,7 +1665,6 @@
       </div>
 
       <div class="card-stack tile-mode">
-        <!-- Ignite 25 -->
         <div class="ec-item" id="ignite25" data-tags="evtol">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1559,8 +1676,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">IGNITE: VERTICAL FLIGHT RESCUE</h3>
-                    <div class="ec-subtitle">SEC @ TAMU | NOVEMBER 2025</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">IGNITE: VERTICAL FLIGHT RESCUE</h3>
+                      <div class="ec-subtitle">SEC @ TAMU | NOVEMBER 2025</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/sec.jpg" alt="SEC" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">AERODYNAMICS</span>
@@ -1711,7 +1833,6 @@
           </div>
         </div>
 
-        <!-- Aggies Invent -->
         <div class="ec-item" id="invent" data-tags="general">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1723,8 +1844,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">AGGIES INVENT</h3>
-                    <div class="ec-subtitle">TEXAS A&M | MARCH 2025</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">AGGIES INVENT</h3>
+                      <div class="ec-subtitle">TEXAS A&M | MARCH 2025</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/invent.jpg" alt="Invent" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">PROTOTYPING</span>
@@ -1823,7 +1949,6 @@
           </div>
         </div>
 
-        <!-- Ignite 24 -->
         <div class="ec-item" id="ignite" data-tags="space">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1835,8 +1960,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">AGGIES IGNITE</h3>
-                    <div class="ec-subtitle">TEXAS A&M | DECEMBER 2024</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">AGGIES IGNITE</h3>
+                      <div class="ec-subtitle">TEXAS A&M | DECEMBER 2024</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/sec.jpg" alt="SEC" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">AERODYNAMICS</span>
@@ -1917,9 +2047,6 @@
       <hr class="div" style="margin-top: 50px;" />
     </section>
 
-    <!-- ============================================== -->
-    <!-- SEC: PERSONAL PROJECTS                         -->
-    <!-- ============================================== -->
     <section id="sec-infographic" class="sb portfolio-sec" data-k="infographic">
       <div class="sh">
         <span class="sh-r"></span>
@@ -1930,7 +2057,6 @@
       </div>
 
       <div class="card-stack tile-mode">
-        <!-- Everyday Engineering -->
         <div class="ec-item" id="everyday-engineering" data-tags="general">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1942,8 +2068,10 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">EVERYDAY ENGINEERING</h3>
-                    <div class="ec-subtitle">Infographic Series | SUMMER & FALL 2025</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">EVERYDAY ENGINEERING</h3>
+                      <div class="ec-subtitle">Infographic Series | SUMMER & FALL 2025</div>
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">THERMODYNAMICS</span>
@@ -1998,7 +2126,6 @@
           </div>
         </div>
 
-        <!-- Infographic 2.0 -->
         <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -2010,8 +2137,10 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">AEROSPACE INFOGRAPHIC 2.0</h3>
-                    <div class="ec-subtitle">Educational Series | 03–04-2025 TO PRESENT</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">AEROSPACE INFOGRAPHIC 2.0</h3>
+                      <div class="ec-subtitle">Educational Series | 03–04-2025 TO PRESENT</div>
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">AERODYNAMICS</span>
@@ -2072,9 +2201,6 @@
       <hr class="div" style="margin-top: 50px;" />
     </section>
 
-    <!-- ============================================== -->
-    <!-- SEC: EXPERIENCES / CAD                         -->
-    <!-- ============================================== -->
     <section id="sec-cad" class="sb portfolio-sec" data-k="cad">
       <div class="sh">
         <span class="sh-r"></span>
@@ -2085,7 +2211,6 @@
       </div>
 
       <div class="card-stack tile-mode">
-        <!-- Boy Scouts -->
         <div class="ec-item" id="boy-scouts" data-tags="general">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -2097,8 +2222,13 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">BOY SCOUTS: EAGLE SCOUT</h3>
-                    <div class="ec-subtitle">Troop 888 | 2017–2022</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">BOY SCOUTS: EAGLE SCOUT</h3>
+                      <div class="ec-subtitle">Troop 888 | 2017–2022</div>
+                    </div>
+                    <div class="eclogos darkimgs">
+                      <img src="media/logo/888.png" alt="888" decoding="async" />
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">LEADERSHIP</span>
@@ -2181,7 +2311,6 @@
           </div>
         </div>
 
-        <!-- 737-800 CAD -->
         <div class="ec-item" id="737-800-cad" data-tags="evtol">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -2193,8 +2322,10 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">BOEING 737-800 CAD</h3>
-                    <div class="ec-subtitle">Independent Project | Fusion 360</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">BOEING 737-800 CAD</h3>
+                      <div class="ec-subtitle">Independent Project | Fusion 360</div>
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">SURFACE MODELING</span>
@@ -2246,7 +2377,6 @@
           </div>
         </div>
 
-        <!-- Formula 1 Brake Pedal -->
         <div class="ec-item" id="formula-sae" data-tags="general">
           <div class="ec-card">
             <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -2258,8 +2388,10 @@
               <div class="ec-info">
                 <div>
                   <div class="ec-info-header">
-                    <h3 class="ec-title">FORMULA 1 BRAKE PEDAL</h3>
-                    <div class="ec-subtitle">Design Concept | FALL 2025</div>
+                    <div class="ec-info-header-text">
+                      <h3 class="ec-title">FORMULA 1 BRAKE PEDAL</h3>
+                      <div class="ec-subtitle">Design Concept | FALL 2025</div>
+                    </div>
                   </div>
                   <div class="brow" style="padding: 0; margin-bottom: 10px;">
                     <span class="badge">STRESS ANALYSIS</span>
@@ -2394,11 +2526,17 @@
 
     // --- CARD CONTENT LIGHTBOX (tile mode only) ---
     let pfLbHome = null;
+    let pfLbClone = null; // Store a visual clone reference
 
     function pfOpenLightbox(element) {
       const item = element.closest('.ec-item');
       if (!item) return;
-      pfLbHome = { node: item, parent: item.parentNode, next: item.nextSibling };
+
+      // Create a static visual clone to leave behind in the grid
+      pfLbClone = item.cloneNode(true);
+      item.parentNode.insertBefore(pfLbClone, item);
+
+      pfLbHome = { node: item, parent: item.parentNode };
 
       const content = document.getElementById('card-lb-content');
       content.innerHTML = '';
@@ -2416,23 +2554,70 @@
       document.body.style.overflow = 'hidden';
     }
 
+    // function pfCloseLightbox() {
+    //   const lb = document.getElementById('card-lb');
+    //   lb.classList.remove('open');
+    //   document.body.style.overflow = '';
+
+    //   if (pfLbHome) {
+    //     const { node, parent } = pfLbHome;
+
+    //     // Remove the open state immediately to trigger internal card animations
+    //     const card = node.querySelector('.ec-card');
+    //     if (card) {
+    //       card.classList.remove('open');
+    //       const icon = card.querySelector('.expand-icon');
+    //       if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+    //     }
+
+    //     // Wait for the 0.4s lightbox fade CSS to finish before moving the DOM node
+    //     setTimeout(() => {
+    //       node.classList.remove('in-lightbox');
+
+    //       // Replace the fake clone with the real interactive node
+    //       if (pfLbClone && pfLbClone.parentNode) {
+    //         pfLbClone.parentNode.replaceChild(node, pfLbClone);
+    //       } else {
+    //         parent.appendChild(node);
+    //       }
+
+    //       pfLbClone = null;
+    //       pfLbHome = null;
+    //     }, 400);
+    //   }
+    // }
+
     function pfCloseLightbox() {
       const lb = document.getElementById('card-lb');
       lb.classList.remove('open');
       document.body.style.overflow = '';
 
       if (pfLbHome) {
-        const { node, parent, next } = pfLbHome;
-        node.classList.remove('in-lightbox');
-        const card = node.querySelector('.ec-card');
-        if (card) {
-          card.classList.remove('open');
-          const icon = card.querySelector('.expand-icon');
-          if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        }
-        if (next) parent.insertBefore(node, next);
-        else parent.appendChild(node);
-        pfLbHome = null;
+        const { node, parent } = pfLbHome;
+
+        // Wait for the 0.25s lightbox fade CSS to finish before collapsing the card and moving it
+        setTimeout(() => {
+
+          // Now that the lightbox is fully invisible, collapse the card
+          const card = node.querySelector('.ec-card');
+          if (card) {
+            card.classList.remove('open');
+            const icon = card.querySelector('.expand-icon');
+            if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+          }
+
+          node.classList.remove('in-lightbox');
+
+          // Replace the fake clone with the real interactive node
+          if (pfLbClone && pfLbClone.parentNode) {
+            pfLbClone.parentNode.replaceChild(node, pfLbClone);
+          } else {
+            parent.appendChild(node);
+          }
+
+          pfLbClone = null;
+          pfLbHome = null;
+        }, 250);
       }
     }
 
@@ -2442,71 +2627,56 @@
       }
     });
 
-    // // --- FLOAT-UP REVEAL ON SCROLL ---
-    // function pfInitReveal() {
-    //   const obs = new IntersectionObserver((entries) => {
-    //     entries.forEach((entry) => {
-    //       if (entry.isIntersecting) {
-    //         entry.target.classList.add('visible');
-    //         obs.unobserve(entry.target);
-    //       }
-    //     });
-    //   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    //   document.querySelectorAll('.ec-item').forEach((item) => obs.observe(item));
-    // }
     // --- FLOAT-UP REVEAL ON SCROLL ---
-      let pfRevealObserver = null; // Global reference so we can reset it
+    let pfRevealObserver = null;
 
-      function pfInitReveal() {
-        if (pfRevealObserver) pfRevealObserver.disconnect(); // Prevent duplicate observers on tab switch
+    function pfInitReveal() {
+      if (pfRevealObserver) pfRevealObserver.disconnect();
 
-        pfRevealObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              pfRevealObserver.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.ec-item').forEach((item) => {
-          // Only observe items that need to be animated
-          if (!item.classList.contains('visible')) {
-            pfRevealObserver.observe(item);
+      pfRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            pfRevealObserver.unobserve(entry.target);
           }
         });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.ec-item').forEach((item) => {
+        if (!item.classList.contains('visible')) {
+          pfRevealObserver.observe(item);
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      pfInitReveal();
+      if (typeof filterPortfolio === 'function') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterTag = urlParams.get('filter') || 'all';
+        filterPortfolio(filterTag);
       }
-    
-    
-  document.addEventListener('DOMContentLoaded', () => {
-    pfInitReveal();
-    if (typeof filterPortfolio === 'function') {
-      // Read URL parameter on load
-      const urlParams = new URLSearchParams(window.location.search);
-      const filterTag = urlParams.get('filter') || 'all';
-      filterPortfolio(filterTag);
-    }
-  });
+    });
 
-  // --- FILTER & SIDEBAR SYNC LOGIC ---
-  function filterPortfolio(tag) {
-    // Update URL silently
-    const url = new URL(window.location);
-    if (tag === 'all') {
-      url.searchParams.delete('filter');
-    } else {
-      url.searchParams.set('filter', tag);
-    }
-    window.history.replaceState({}, '', url);
+    // --- FILTER & SIDEBAR SYNC LOGIC ---
+    function filterPortfolio(tag) {
+      const url = new URL(window.location);
+      if (tag === 'all') {
+        url.searchParams.delete('filter');
+      } else {
+        url.searchParams.set('filter', tag);
+      }
+      window.history.replaceState({}, '', url);
 
-  // 0. Switch between tile grid (all) and single-column list (any specific category)
-      // 0. Switch between tile grid (all) and single-column list (any specific category)
       pfCloseLightbox();
+
+      // Prevent layout shift transitions from firing
+      document.body.classList.add('filtering-active');
+
       document.querySelectorAll('.card-stack').forEach((stack) => {
         stack.classList.toggle('tile-mode', tag === 'all');
       });
 
-      // 1. Update filter buttons UI
       document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.dataset.tag === tag) {
           btn.classList.add('active');
@@ -2515,36 +2685,16 @@
         }
       });
 
-      // 2. Filter the cards and keep track of empty sections
       const sections = document.querySelectorAll('.portfolio-sec');
       sections.forEach(sec => {
         let hasVisibleCards = false;
         const items = sec.querySelectorAll('.ec-item');
 
-        // items.forEach(item => {
-        //   const tags = item.dataset.tags.split(' ');
-        //   if (tag === 'all' || tags.includes(tag)) {
-        //     item.style.display = 'block';
-        //     hasVisibleCards = true;
-        //   } else {
-        //     item.style.display = 'none';
-        //   }
-        // });
         items.forEach(item => {
           const tags = item.dataset.tags.split(' ');
           if (tag === 'all' || tags.includes(tag)) {
-            // 1. Kill the transition so it doesn't smoothly animate backwards
-            item.style.transition = 'none';
-
             item.style.display = 'block';
-            item.classList.remove('visible'); // Snap to the bottom instantly
-
-            // 2. Force the browser to register the instant reset before moving on
-            void item.offsetWidth;
-
-            // 3. Turn the transition back on so it can float up smoothly
-            item.style.transition = '';
-
+            item.classList.remove('visible');
             hasVisibleCards = true;
           } else {
             item.style.display = 'none';
@@ -2552,10 +2702,8 @@
           }
         });
 
-        // 3. Hide the entire section if it's empty
         sec.style.display = hasVisibleCards ? 'block' : 'none';
 
-        // 4. Hide the corresponding sidebar link so users can't click to an empty space
         const secId = sec.getAttribute('data-k');
         const sidebarLink = document.querySelector(`.sbn[data-k="${secId}"]`);
         if (sidebarLink) {
@@ -2563,19 +2711,17 @@
         }
       });
 
-      // Force a recalculation of active scroll-spy items in script.js (if applicable)
-    //   if (typeof runCoreScrollTasks === 'function') {
-    //     runCoreScrollTasks(window.scrollY);
-    //   }
-    // }
-    // Force a recalculation of active scroll-spy items in script.js (if applicable)
-    if (typeof runCoreScrollTasks === 'function') {
-      runCoreScrollTasks(window.scrollY);
+      if (typeof runCoreScrollTasks === 'function') {
+        runCoreScrollTasks(window.scrollY);
+      }
+
+      // Force reflow and restore transitions
+      void document.body.offsetWidth;
+      document.body.classList.remove('filtering-active');
+
+      setTimeout(() => pfInitReveal(), 50);
     }
 
-    // Re-trigger the scroll observer so the newly filtered items float up!
-    setTimeout(() => pfInitReveal(), 50);
-  }
   </script>
 </body>
 

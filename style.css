@@ -25,7 +25,8 @@
 	--text: #d0d3cd;
 	--tdim: #7a7e76;
 	--tmut: var(--tdim);
-	--miniheader: var(--dimtitle);
+	/* --miniheader: var(--dimtitle); */
+	--miniheader: #616161;
 	--dull: #4f5348;
 	--navh: 50px;
 	--sw: 250px;
@@ -92,17 +93,41 @@
 html {
 	scroll-behavior: smooth;
 }
+body::before {
+  content: "";
+  
+  /* Lock it to the viewport, replicating 'background-attachment: fixed' */
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  /* Push it behind your website content */
+  z-index: -1; 
+  
+  /* Your background image settings */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1638555063519-d009e6f3b28b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-repeat: no-repeat; 
+  background-size: cover;
+  background-position: center; 
+  
+  /* Apply the blur */
+  filter: blur(4px); 
+  
+  /* Scale it up slightly to hide the unblurred edges caused by the filter */
+  transform: scale(1.05); 
+}
+
 body {
-	font-family: "Rubik", sans-serif;
-	/* background: var(--bg); */
-	background-image: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1638555063519-d009e6f3b28b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+	font-family: "Rubik", sans-serif;	
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1638555063519-d009e6f3b28b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
 	background-repeat: no-repeat; 
 	background-size: cover;
 	background-position: center; 
 	background-attachment: fixed;
-	background-color: var(--bg);
-	/* background-blend-mode: overlay; */
-	
+	background-color: var(--bg); */
+
 	color: var(--text);
 	font-weight: 300;
 	font-size: 14px;
@@ -496,10 +521,12 @@ header::before {
 #sb-hdr {
 	padding: 10px 14px 7px;
 	font-size: clamp(13.5px, 0.8vw, 30px);
-	font-weight: 700;
-	letter-spacing: 0.2em;
+	font-weight: 800;
+	letter-spacing: 0.1em;
 	/* color: var(--g); */
-	color: var(--sb-active);
+	/* color: var(--sb-active); */
+	/* color: var(--border); */
+	color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
 	border-bottom: 1px solid var(--border);
 	text-transform: uppercase;
 }
@@ -1336,8 +1363,7 @@ section {
 	/* background: transparent; */
 	border: 1px solid var(--badge);
 	color: var(--badge);
-	/* font-size: clamp(11px, 0.7vw, 40px); */
-	font-size: clamp(8px, 0.5vw, 40px);
+	font-size: clamp(11px, 0.6vw, 40px);
 	font-weight: 500;
 	letter-spacing: 0.1em;
 	white-space: nowrap;
@@ -1449,9 +1475,12 @@ section {
 	text-transform: uppercase;
 	margin-bottom: 5px;
 	padding-top: 15px;
+	/* padding-top: 0; */
 	transition: 0.3s ease-in-out;
 }
-
+.cslbl:first-child {
+    padding-top: 0;
+}
 /* Stat Rows */
 .srow {
 	display: flex;
