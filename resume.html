@@ -20,23 +20,22 @@
 	<link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
 
 	<script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "Person",
-		  "name": "Adarsh Sheth",
-		  "jobTitle": "Aerospace Engineer",
-		  "url": "https://adarshsheth.github.io",
-		  "sameAs": [
-		    "https://www.linkedin.com/in/adarsh-sheth/"
-		  ],
-		  "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
-		  "affiliation": {
-		    "@type": "Organization",
-		    "name": "Texas A&M University"
-		  }
-		}
-		</script>
-
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Adarsh Sheth",
+      "jobTitle": "Aerospace Engineer",
+      "url": "https://adarshsheth.github.io",
+      "sameAs": [
+        "https://www.linkedin.com/in/adarsh-sheth/"
+      ],
+      "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Texas A&M University"
+      }
+    }
+</script>
 
 	<title>Resume | AS</title>
 	<meta property="og:title" content="Resume | AS">
@@ -45,25 +44,27 @@
 	<meta property="og:url" content="https://adarshsheth.github.io/resume">
 	<link rel="canonical" href="https://adarshsheth.github.io/resume">
 
-
-
-
-
-
-
-
-
-
 	<link
 		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
 		rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<!-- PDF.js Library For Native Smooth Rendering -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+	<script>
+		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" />
+
 	<style>
 		:root {
 			--bg: #0a0a0a;
 			--text: #d0d3cd;
 			--g: #647661;
 			--gd: #232922;
+			--dimtitle: #888888;
+			--accent2: #857032;
+			--surface: rgba(40, 41, 40, 0.08);
+			--border: #444444;
 		}
 
 		body {
@@ -82,40 +83,185 @@
 	</style>
 	<link rel="stylesheet" href="style.css" />
 	<style>
-		/* ── RESUME SPECIFIC STYLES ── */
-		#pdf-section {
-			padding: 28px 48px 52px;
+		/* ── TABS UI STYLES (Pulled from Portfolio) ── */
+		.portfolio-filters {
 			display: flex;
 			justify-content: center;
-			/* Centers the PDF embed */
+			gap: 10px;
+			margin: 40px 48px 25px;
+			flex-wrap: wrap;
 		}
 
+		.filter-btn {
+			display: inline-flex;
+			align-items: center;
+			height: 32px;
+			padding: 0 16px;
+			border: 1.5px solid var(--dimtitle);
+			background: transparent;
+			color: var(--dimtitle);
+			font-family: "Rubik", sans-serif;
+			font-weight: 700;
+			font-size: 11.5px;
+			letter-spacing: 0.1em;
+			border-radius: 6px;
+			cursor: pointer;
+			transition: all 0.4s ease-out;
+			text-transform: uppercase;
+		}
+
+		.filter-btn:hover {
+			border-color: var(--accent2);
+			color: var(--accent2);
+			transform: translateY(-1px);
+		}
+
+		.filter-btn.active {
+			border-color: var(--accent2);
+			color: var(--bg);
+			background: var(--accent2);
+		}
+
+		/* ── NATIVE PDF VIEWER STYLES ── */
+		#pdf-section {
+			padding: 10px 48px 52px;
+			display: flex;
+			justify-content: center;
+			min-height: 80vh;
+		}
+
+		#pdf-container {
+			width: 100%;
+			max-width: 1000px;
+			/* Adjust max-width to your preference */
+			border-radius: 12px;
+			overflow: hidden;
+			border: 1.5px solid var(--border);
+			background: var(--surface);
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+			opacity: 1;
+			transition: opacity 0.15s ease-in-out;
+		}
+
+		.pdf-page-wrapper {
+			position: relative;
+			width: 100%;
+			background-color: white;
+			/* Needed for transparent PDF backgrounds */
+		}
+
+		.pdf-page-wrapper:not(:last-child) {
+			border-bottom: 2px solid var(--border);
+		}
+
+		.pdf-page-canvas {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+		/* Keep the PDF.js text layer perfectly aligned */
+		.textLayer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow: hidden;
+			line-height: 1.0;
+		}
+
+		/* Mobile adjustments */
 		@media (max-width: 900px) {
+			.portfolio-filters {
+				margin: 10px 22px 20px;
+			}
+
 			#pdf-section {
-				padding: 20px 22px 40px;
+				padding: 10px 22px 40px;
 			}
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+		/* ── FLOATING DOWNLOAD BUTTON ── */
+		.pdf-wrapper {
+			position: relative;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		.floating-dl-btn {
+			position: absolute;
+			top: 20px;
+			right: 25px;
+			z-index: 100;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 16px;
+			border-radius: 100px;
+			background: rgba(10, 10, 10, 0.7);
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			border: 1.5px solid var(--border);
+			color: var(--text);
+			font-weight: 700;
+			font-size: 11px;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			transition: all 0.2s ease;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+		}
+
+		.floating-dl-btn:hover {
+			background: var(--accent2);
+			border-color: var(--accent2);
+			/* color: var(--bg); */
+			color: white;
+			transform: translateY(-2px);
+		}
+
+		/* Hide it on super small mobile screens if it covers too much text, or adjust positioning */
+		@media (max-width: 500px) {
+			.floating-dl-btn {
+				top: 10px;
+				right: 10px;
+				padding: 6px 12px;
+				font-size: 10px;
+			}
+		}
+
+		/* @media (max-width: 500px) {
+			.floating-dl-btn span {
+				display: none;
+			}
+			
+			.floating-dl-btn {
+				padding: 8px 12px;
+			}
+		} */
 	</style>
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-		<script>
-			// Tell PDF.js where to find its background worker
-			pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-		</script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" /> -->
 </head>
 
 <body>
 	<div id="blur-page"></div>
-
 	<div id="nav-placeholder"></div>
 	<script>
 		// Instantly inject the nav from cache to prevent UI flashing
 		const cachedNav = sessionStorage.getItem("rawNavHTML");
 		if (cachedNav) {
-			// 1. Inject the cached HTML
 			document.getElementById("nav-placeholder").outerHTML = cachedNav;
-
-			// 2. Instantly fix the active states before the browser paints
 			const currentPath = window.location.pathname.toLowerCase();
 			const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
 			const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
@@ -123,9 +269,7 @@
 			const header = document.getElementById("hdr");
 			if (header) {
 				header.querySelectorAll(".ni").forEach(link => {
-					link.classList.remove("active"); // Strip the cached "ghost" state
-
-					// Apply the correct state for the current page
+					link.classList.remove("active");
 					const text = link.textContent.trim().toLowerCase();
 					if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
 					else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
@@ -138,17 +282,26 @@
 
 	<div id="sb-overlay"></div>
 
-
 	<aside id="sb">
-		<div id="sb-hdr">Sections</div>
-		<div id="sb-prog">
-			<div id="sb-fill"></div>
-		</div>
+		<div id="sb-hdr">Resumes</div>
 		<nav id="sb-nav">
-			<a class="sbn active" href="#top" data-k="top">
+			<a class="sbn active" href="#" onclick="switchResume('general', 'media/resume.pdf'); return false;"
+				data-k="general">
 				<span class="sbdot"></span>
-				<span class="sblbl">Resume PDF</span>
+				<span class="sblbl">General Resume</span>
 			</a>
+			<!-- <a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume.pdf'); return false;" data-k="vfd">
+				<span class="sbdot"></span>
+				<span class="sblbl">Vertical Flight</span>
+			</a>
+			<a class="sbn" href="#" onclick="switchResume('cs', 'media/resume.pdf'); return false;" data-k="cs">
+				<span class="sbdot"></span>
+				<span class="sblbl">Computer Science</span>
+			</a>
+			<a class="sbn" href="#" onclick="switchResume('se', 'media/resume.pdf'); return false;" data-k="se">
+				<span class="sbdot"></span>
+				<span class="sblbl">Systems Engineering</span>
+			</a> -->
 		</nav>
 	</aside>
 
@@ -159,61 +312,39 @@
 			<h1>RESUME</h1>
 		</section>
 
-		<div id="ibar">
+		<div id="ibar" style="margin: 20px 0px;">
 			<p>
-				Adarsh Sheth · Aerospace Engineering · Texas A&amp;M University ·
+				Adarsh Sheth ·
 				<a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a>
 				·
 				<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
 			</p>
-			<a href="media/resume.pdf" download class="pbtn">DOWNLOAD PDF</a>
+			<!-- <a href="media/resume.pdf" id="download-btn" download class="pbtn">DOWNLOAD PDF</a> -->
 		</div>
 
+		<!-- TABS UI FOR MULTIPLE RESUMES -->
+		<div class="portfolio-filters">
+			<!-- For now, they all route to media/resume.pdf. Simply update the arguments later -->
+			<button class="filter-btn active" id="tab-general"
+				onclick="switchResume('general', 'media/resume.pdf')">GENERAL</button>
+			<!-- <button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume_vf.pdf')">VERTICAL
+				FLIGHT</button>
+			<button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume_systems.pdf')">SYSTEMS
+				ENGINEERING</button>
+			<button class="filter-btn" id="tab-cs" onclick="switchResume('cs', 'media/resume_cs.pdf')">COMPUTER
+				SCIENCE</button> -->
+		</div>
+
+		<!-- CLEAN NATIVE PDF.JS VIEWER (With Floating Download) -->
 		<div id="pdf-section">
-			<!-- <div
-					style="
-						
-						width: clamp(50vw, 100vw, 1000px);
-						aspect-ratio: 8.5 / 11;
-						max-width: 1200px;
-						
-						border-radius: 12px;
-						overflow: hidden;
-						border: 1.5px solid var(--border);
-						background: var(--surface);
-						box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-					">
-					<a href="media/resume.pdf"><embed
-						src="media/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-						type="application/pdf"
-						width="100%"
-						height="100%"
-						style="border: none; display: block; pointer-events: none; transform: scale(1.05);" /></a>
-				</div> -->
-			<!-- <embed src="media/resume.pdf" type="application/pdf" width="100%" height="100%"/> -->
-
-
-			<!-- working resume pdf coded w/ google drive alt for mobile -->
-			<!-- 
-				<div style="width: 100%; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
-					<iframe src="media/resume.pdf#toolbar=0&navpanes=0&view=FitH"
-						style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
-					</iframe>
-				</div> -->
-			<!-- <iframe src="https://docs.google.com/viewer?url=https://adarshsheth.github.io/media/resume.pdf&embedded=true"
-					style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
-				</iframe> -->
-
-			<div id="pdf-section">
-				<div
-					style="width: 90vw; max-width: 1500px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border);">
-					<iframe id="resume-iframe"
-						style="width: 100%; height: 80vh; min-height: 800px; border: none; display: block;">
-					</iframe>
+			<div class="pdf-wrapper">
+				<a href="media/resume.pdf" id="floating-dl-btn" download class="floating-dl-btn">
+					<i class="fas fa-download"></i> DOWNLOAD
+				</a>
+				<div id="pdf-container">
+					<!-- Canvas and text layers are injected dynamically here -->
 				</div>
 			</div>
-
-
 		</div>
 
 		<footer>
@@ -231,88 +362,109 @@
 			</nav>
 		</footer>
 	</div>
+
 	<script src="script.js"></script>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const iframe = document.getElementById("resume-iframe");
-			const absolutePdfUrl = "https://adarshsheth.github.io/media/resume.pdf";
-			const relativePdfUrl = "media/resume.pdf#toolbar=0&navpanes=0&view=FitH";
+		// ── DYNAMIC RESUME LOGIC ──
+		let currentPdfUrl = 'media/resume.pdf';
 
-			// Detect mobile via screen width (matching your 900px CSS breakpoint) or User Agent
-			const isMobile = window.innerWidth <= 900 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+		function switchResume(tabId, pdfUrl) {
+			// 1. Update Active Tab Buttons
+			document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+			document.getElementById('tab-' + tabId).classList.add('active');
 
-			if (isMobile) {
-				// Mobile: Route through Google Docs Viewer
-				iframe.src = "https://docs.google.com/viewer?url=" + encodeURIComponent(absolutePdfUrl) + "&embedded=true";
-			} else {
-				// Desktop: Use native browser PDF viewer
-				iframe.src = relativePdfUrl;
+			// 2. Update Floating Download Button Link
+			const dlBtn = document.getElementById('floating-dl-btn');
+			if (dlBtn) dlBtn.href = pdfUrl;
+
+			// 3. Re-render the PDF with the new source
+			currentPdfUrl = pdfUrl;
+			renderPDF();
+		}
+		// ── NATIVE PDF.JS RENDERING ENGINE ──
+		const renderPDF = async () => {
+			const container = document.getElementById('pdf-container');
+
+			// 1. INSTANT FEEDBACK: Dim the container so the user knows it's working, 
+			// without waiting for the whole file to download first.
+			container.style.opacity = '0.3';
+
+			try {
+				// 2. Fetch the new PDF at maximum speed
+				const pdf = await pdfjsLib.getDocument(currentPdfUrl).promise;
+
+				// 3. Clear out the old one
+				container.innerHTML = '';
+
+				// Loop through and render all pages of the NEW pdf
+				for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+					const page = await pdf.getPage(pageNum);
+
+					const pageWrapper = document.createElement('div');
+					pageWrapper.className = 'pdf-page-wrapper';
+
+					const canvas = document.createElement('canvas');
+					canvas.className = 'pdf-page-canvas';
+					const ctx = canvas.getContext('2d');
+
+					const textLayerDiv = document.createElement('div');
+					textLayerDiv.className = 'textLayer';
+
+					pageWrapper.appendChild(canvas);
+					pageWrapper.appendChild(textLayerDiv);
+					container.appendChild(pageWrapper);
+
+					const containerWidth = container.clientWidth;
+					const unscaledViewport = page.getViewport({ scale: 1.0 });
+					const displayScale = containerWidth / unscaledViewport.width;
+					const viewport = page.getViewport({ scale: displayScale });
+
+					const outputScale = (window.devicePixelRatio || 1) * 2;
+					canvas.width = Math.floor(viewport.width * outputScale);
+					canvas.height = Math.floor(viewport.height * outputScale);
+					canvas.style.height = Math.floor(viewport.height) + "px";
+
+					const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+					await page.render({
+						canvasContext: ctx,
+						transform: transform,
+						viewport: viewport
+					}).promise;
+
+					textLayerDiv.style.width = Math.floor(viewport.width) + 'px';
+					textLayerDiv.style.height = Math.floor(viewport.height) + 'px';
+					textLayerDiv.style.setProperty('--scale-factor', displayScale);
+
+					const textContent = await page.getTextContent();
+					await pdfjsLib.renderTextLayer({
+						textContentSource: textContent,
+						container: textLayerDiv,
+						viewport: viewport,
+						textDivs: []
+					}).promise;
+				}
+
+				// 4. Fade back to full visibility instantly!
+				container.style.opacity = '1';
+
+			} catch (error) {
+				console.error('Error rendering the PDF:', error);
+				container.style.opacity = '1'; // Ensure it doesn't get stuck dim on error
 			}
+		};
+
+		// Keep the PDF perfectly scaled if the user rotates their mobile device or resizes browser
+		let resizeTimer;
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(renderPDF, 250);
 		});
+
+		// Initial Load
+		document.addEventListener("DOMContentLoaded", renderPDF);
 	</script>
-
-	<!-- document.addEventListener("DOMContentLoaded", function () {
-	const url = 'media/resume.pdf';
-
-	const renderPDF = async () => {
-	try {
-	const pdf = await pdfjsLib.getDocument(url).promise;
-	const page = await pdf.getPage(1);
-
-	const canvas = document.getElementById('resume-canvas');
-	const ctx = canvas.getContext('2d');
-	const textLayerDiv = document.getElementById('text-layer');
-
-	// 1. RENDER THE CRISP VISUALS (The Canvas)
-	const outputScale = (window.devicePixelRatio || 1) * 2;
-	const viewport = page.getViewport({ scale: 3.0 });
-
-	canvas.width = Math.floor(viewport.width * outputScale);
-	canvas.height = Math.floor(viewport.height * outputScale);
-
-	const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-
-	await page.render({
-	canvasContext: ctx,
-	transform: transform,
-	viewport: viewport
-	}).promise;
-
-	// 2. RENDER THE SELECTABLE TEXT (The Text Layer)
-	// Calculate the exact CSS display scale to match the responsive width of the canvas
-	const displayScale = canvas.clientWidth / page.getViewport({ scale: 1.0 }).width;
-	const textViewport = page.getViewport({ scale: displayScale });
-
-	const textContent = await page.getTextContent();
-
-	// Clear the layer (crucial for window resizing) and set the scale CSS variable
-	textLayerDiv.innerHTML = '';
-	textLayerDiv.style.setProperty('--scale-factor', displayScale);
-
-	// Draw the invisible text perfectly over the canvas pixels
-	await pdfjsLib.renderTextLayer({
-	textContentSource: textContent,
-	container: textLayerDiv,
-	viewport: textViewport,
-	textDivs: []
-	}).promise;
-
-	} catch (error) {
-	console.error('Error rendering the PDF:', error);
-	}
-	};
-
-	// 3. HANDLE WINDOW RESIZING
-	// If the user resizes their browser, the canvas shrinks, so we need to recalculate the text layer bounds
-	let resizeTimer;
-	window.addEventListener('resize', () => {
-	clearTimeout(resizeTimer);
-	resizeTimer = setTimeout(renderPDF, 250);
-	});
-
-	renderPDF();
-	}); -->
 </body>
 
 </html>
