@@ -180,7 +180,7 @@
 
     .ec-card:hover {
       transform: translateY(-3px);
-      background: color-mix(in srgb, var(--dimtitle) 7%, transparent);      
+      background: color-mix(in srgb, var(--dimtitle) 7%, transparent);
     }
 
     /* SUMMARY VIEW (Always Visible) */
@@ -311,7 +311,7 @@
     }
 
     /* .card-stack.tile-mode .badge { */
-      /* font-size: clamp(8px, 0.5vw, 18px); */
+    /* font-size: clamp(8px, 0.5vw, 18px); */
     /* } */
 
     .card-stack.tile-mode .ec-thumb {
@@ -365,6 +365,7 @@
       .ec-card.open .ec-summary {
         grid-template-columns: 1fr;
       }
+
     }
 
     /* DETAILS VIEW (Hidden by Default, Expands on Click) */
@@ -400,42 +401,52 @@
       padding: 0 24px 24px;
     }
 
-/* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
-.card-stack.tile-mode {
-  display: grid;
-  /* Automatically adds columns as the screen gets wider.
+    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
+    .card-stack.tile-mode {
+      display: grid;
+      /* Automatically adds columns as the screen gets wider.
      Tiles stay between 300px and 400px, preventing infinite stretching. */
-  grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
-  justify-content: start; /* Keeps the grid left-aligned if there's leftover space */
-  align-items: stretch;
-  gap: 15px;
-}
+      grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+      justify-content: start;
+      /* Keeps the grid left-aligned if there's leftover space */
+      align-items: stretch;
+      gap: 15px;
+    }
 
-/* Cap the maximum width of the full-width list items so they don't stretch forever */
-.card-stack:not(.tile-mode) {
-  max-width: 1200px; /* You can adjust this value to your preferred readable width */
-}
+    /* Cap the maximum width of the full-width list items so they don't stretch forever */
+    .card-stack:not(.tile-mode) {
+      max-width: 1200px;
+      /* You can adjust this value to your preferred readable width */
+    }
 
-/* Typography adjustments for smaller screens */
-@media (max-width: 800px) {
-  .card-stack.tile-mode .ec-title {
-    font-size: 13px;
-  }
-  .card-stack.tile-mode .ec-subtitle {
-    font-size: 9px;
-    letter-spacing: 0;
-  }
-  .card-stack.tile-mode .ec-info {
-    padding: 12px;
-  }
-}
+    /* Typography adjustments for smaller screens */
+    @media (max-width: 800px) {
+      .card-stack.tile-mode .ec-title {
+        font-size: 13px;
+      }
 
-/* Force a single column on tiny mobile screens */
-@media (max-width: 450px) {
-  .card-stack.tile-mode {
-    grid-template-columns: 1fr;
-  }
-}
+      .card-stack.tile-mode .ec-subtitle {
+        font-size: 9px;
+        letter-spacing: 0;
+      }
+
+      .card-stack.tile-mode .ec-info {
+        padding: 12px;
+      }
+
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    /* Force a single column on tiny mobile screens */
+    @media (max-width: 450px) {
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr;
+      }
+
+    }
 
     .card-stack.tile-mode .ec-summary {
       grid-template-columns: 1fr;
@@ -510,7 +521,7 @@
       position: relative;
       z-index: 1;
       /* width: min(900px, 100%); */
-      min-width: min(max(1200px,50%), 100%);
+      min-width: min(max(1200px, 50%), 100%);
       max-height: 88vh;
       overflow-y: auto;
       background: color-mix(in srgb, var(--bg) 80%, transparent 0%);
@@ -689,9 +700,9 @@
 
 
 
-/* 1. Add bottom padding so text clears the blur when fully scrolled */
+    /* 1. Add bottom padding so text clears the blur when fully scrolled */
     #card-lb-content {
-      padding-bottom: 20px; 
+      padding-bottom: 20px;
     }
 
     /* 2. Sticky blur overlay inside the scrolling modal */
@@ -702,13 +713,16 @@
       display: block;
       width: 100%;
       height: 60px;
-      margin-top: -60px; /* Pull it up so it overlays the content */
+      margin-top: -60px;
+      /* Pull it up so it overlays the content */
       background: linear-gradient(to bottom, transparent, var(--bg));
-      pointer-events: none; /* Prevents the invisible box from blocking links */
+      pointer-events: none;
+      /* Prevents the invisible box from blocking links */
       z-index: 10;
       border-radius: 0 0 12px 12px;
       /* transition: opacity 0.3s ease;  */
     }
+
     /* Hides the gradient when user reaches the bottom */
     .card-lb-box.at-bottom::after {
       opacity: 0;
@@ -762,8 +776,102 @@
       padding: 14px 16px 16px;
     }
 
-    body.filtering-active * {
+    /* body.filtering-active * {
       transition: none !important;
+    } */
+
+    body.filtering-active .ec-item,
+    body.filtering-active .card-stack {
+      transition: none !important;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
+    .card-stack.tile-mode {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+      justify-content: start;
+      align-items: stretch;
+      gap: 15px;
+    }
+
+    .card-stack:not(.tile-mode) {
+      max-width: 1200px;
+    }
+
+    .card-stack.tile-mode .ec-summary {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    /* Base Desktop Thumbnail Height */
+    .card-stack.tile-mode .ec-thumb {
+      height: 190px;
+      min-height: 190px;
+    }
+
+    .card-stack.tile-mode .ec-info {
+      padding: 14px 16px 16px;
+    }
+
+    .card-stack.tile-mode .ec-title {
+      font-size: clamp(15px, 1.2vw, 25px);
+      margin-bottom: 4px;
+    }
+
+    .card-stack.tile-mode .ec-subtitle {
+      font-size: 10.5px;
+    }
+
+    .card-stack.tile-mode .expand-prompt,
+    .card-stack.tile-mode .ec-details {
+      display: none;
+    }
+
+    /* === MOBILE ADJUSTMENTS FOR TILE MODE === */
+    /* (This MUST come after the base rules above so it can override them) */
+    @media (max-width: 800px) {
+
+      /* Forces 1 item per row full-width */
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr;
+      }
+
+      /* Shrinks the thumbnail height on mobile */
+      .card-stack.tile-mode .ec-thumb,
+      .ec-thumb {
+        height: 130px;
+        min-height: 130px;
+      }
+
+      /* Shrinks typography and padding to fit */
+      .card-stack.tile-mode .ec-title {
+        font-size: 13px;
+      }
+
+      .card-stack.tile-mode .ec-subtitle {
+        font-size: 9px;
+        letter-spacing: 0;
+      }
+
+      .card-stack.tile-mode .ec-info {
+        padding: 12px;
+      }
     }
   </style>
 </head>
@@ -1129,7 +1237,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="lsar" data-tags="space robotics" data-sections="teams leadership"  data-order="3">
+      <div class="ec-item" id="lsar" data-tags="space robotics" data-sections="teams leadership" data-order="3">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1225,7 +1333,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="team-5776k" data-tags="robotics" data-sections="teams"  data-order="4">
+      <div class="ec-item" id="team-5776k" data-tags="robotics" data-sections="teams" data-order="4">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1454,7 +1562,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="cabinet" data-tags="robotics general" data-sections="leadership"  data-order="14">
+      <div class="ec-item" id="cabinet" data-tags="robotics general" data-sections="leadership" data-order="14">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1728,7 +1836,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="invent" data-tags="general" data-sections="leadership"  data-order="11">
+      <div class="ec-item" id="invent" data-tags="general" data-sections="leadership" data-order="11">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1844,7 +1952,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="ignite" data-tags="space" data-sections="leadership"  data-order="13">
+      <div class="ec-item" id="ignite" data-tags="space" data-sections="leadership" data-order="13">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2361,7 +2469,9 @@
 
       <div class="card-stack tile-mode" id="stack-misc"></div>
     </section>
-    <section> <div style="margin-top: 40px"></div></section>
+    <section>
+      <div style="margin-top: 40px"></div>
+    </section>
 
     <footer>
       <div class="ficons">

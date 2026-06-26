@@ -662,24 +662,20 @@ function runCoreScrollTasks(sy) {
 	}
 
 	if (window.isViewingDynamicPost) return;
-
+	
 	if (!cachedAvailableSections) {
-		const allSections = [
-			{id: "top", k: "top"},
-			{id: "about", k: "about"},
-			{id: "featured", k: "featured"},
-			{id: "contact", k: "contact"},
-			{id: "sec-tamu", k: "tamu"},
-			{id: "sec-dvhs", k: "dvhs"},
-			{id: "sec-events", k: "events"},
-			{id: "sec-infographic", k: "infographic"},
-			{id: "sec-cad", k: "cad"},
-			// ADDED FOR PHOTOGRAPHY PAGE
-			{id: "sec-nature", k: "nature"},
-			{id: "sec-architecture", k: "architecture"},
-			{id: "sec-subject", k: "subject"},
-			{id: "sec-misc", k: "misc"},
-		];
+		// Automatically build the sections array by reading the sidebar links
+		const sidebarLinks = document.querySelectorAll("#sb-nav .sbn");
+
+		const allSections = Array.from(sidebarLinks).map((link) => {
+			return {
+				// Strip the '#' from the href to get the raw element ID
+				id: link.getAttribute("href").replace("#", ""),
+				k: link.getAttribute("data-k"),
+			};
+		});
+
+		// Filter out any sections that don't actually exist on the current page
 		cachedAvailableSections = allSections.filter((s) => document.getElementById(s.id));
 	}
 

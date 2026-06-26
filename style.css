@@ -1591,6 +1591,11 @@ section {
 }
 
 /* Carousels & Media Elements */
+/* .cw, .cw-inner {
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+} */
+
 .cw {
 	position: relative;
 	border-radius: 8px;
