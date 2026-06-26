@@ -278,7 +278,8 @@
     }
 
     .ec-title {
-      font-size: clamp(18px, 1.5vw, 26px);
+      font-size: clamp(18px, 1.5vw, 40px);
+      /* font-size: clamp(18px, 1.5vw, 26px); */
       font-weight: 900;
       color: var(--dimtitle);
       text-transform: uppercase;
@@ -309,9 +310,9 @@
       /* <-- Change this to your preferred tile size */
     }
 
-    .card-stack.tile-mode .badge {
-      font-size: clamp(8px, 0.5vw, 40px);
-    }
+    /* .card-stack.tile-mode .badge { */
+      /* font-size: clamp(8px, 0.5vw, 18px); */
+    /* } */
 
     .card-stack.tile-mode .ec-thumb {
       opacity: 1;
@@ -399,50 +400,42 @@
       padding: 0 24px 24px;
     }
 
-    /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
-    .card-stack.tile-mode {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      align-items: stretch;
-      gap: 15px;
-    }
+/* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
+.card-stack.tile-mode {
+  display: grid;
+  /* Automatically adds columns as the screen gets wider.
+     Tiles stay between 300px and 400px, preventing infinite stretching. */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+  justify-content: start; /* Keeps the grid left-aligned if there's leftover space */
+  align-items: stretch;
+  gap: 15px;
+}
 
-    @media (max-width: 1650px) {
-      .card-stack.tile-mode {
-        grid-template-columns: repeat(3, 1fr) !important;
-      }
-    }
+/* Cap the maximum width of the full-width list items so they don't stretch forever */
+.card-stack:not(.tile-mode) {
+  max-width: 1200px; /* You can adjust this value to your preferred readable width */
+}
 
-    @media (max-width: 1350px) {
-      .card-stack.tile-mode {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
-    }
+/* Typography adjustments for smaller screens */
+@media (max-width: 800px) {
+  .card-stack.tile-mode .ec-title {
+    font-size: 13px;
+  }
+  .card-stack.tile-mode .ec-subtitle {
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+  .card-stack.tile-mode .ec-info {
+    padding: 12px;
+  }
+}
 
-    @media (max-width: 800px) {
-      .card-stack.tile-mode {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
-
-      .card-stack.tile-mode .ec-title {
-        font-size: 13px;
-      }
-
-      .card-stack.tile-mode .ec-subtitle {
-        font-size: 9px;
-        letter-spacing: 0;
-      }
-
-      .card-stack.tile-mode .ec-info {
-        padding: 12px;
-      }
-    }
-
-    @media (max-width: 450px) {
-      .card-stack.tile-mode {
-        grid-template-columns: 1fr;
-      }
-    }
+/* Force a single column on tiny mobile screens */
+@media (max-width: 450px) {
+  .card-stack.tile-mode {
+    grid-template-columns: 1fr;
+  }
+}
 
     .card-stack.tile-mode .ec-summary {
       grid-template-columns: 1fr;
@@ -458,7 +451,8 @@
     }
 
     .card-stack.tile-mode .ec-title {
-      font-size: 15px;
+      /* font-size: 15px; */
+      font-size: clamp(15px, 1.2vw, 25px);
       margin-bottom: 4px;
     }
 
@@ -515,7 +509,8 @@
     .card-lb-box {
       position: relative;
       z-index: 1;
-      width: min(900px, 100%);
+      /* width: min(900px, 100%); */
+      min-width: min(max(1200px,50%), 100%);
       max-height: 88vh;
       overflow-y: auto;
       background: color-mix(in srgb, var(--bg) 80%, transparent 0%);

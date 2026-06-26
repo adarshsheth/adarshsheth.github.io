@@ -520,6 +520,7 @@ header::before {
 } */
 #sb-hdr {
 	padding: 10px 14px 7px;
+	/* font-size: clamp(13.5px, 0.8vw, 30px); */
 	font-size: clamp(13.5px, 0.8vw, 30px);
 	font-weight: 800;
 	letter-spacing: 0.1em;
@@ -558,7 +559,8 @@ header::before {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	padding: 8px 14px;
+	/* padding: 8px 14px; */
+	padding: 4px 14px;
 	/* Replaced background transition with transform for smooth sliding */
 	transition: transform 0.2s ease-out;
 	text-decoration: none;
@@ -569,7 +571,8 @@ header::before {
 }
 /* main sidebar item text on reg */
 .sblbl {
-	font-size: clamp(11.5px, 0.6vw, 25px);
+	/* font-size: clamp(11.5px, 0.6vw, 25px); */
+	font-size: clamp(10px, 0.6vw, 15px);
 	font-weight: 500;
 	letter-spacing: 0.07em;
 	color: var(--sb-text);
@@ -635,7 +638,8 @@ header::before {
 
 /* sub sidebar item text on reg */
 .sbn-sub {
-	font-size: clamp(10.5px, 0.5vw, 25px);
+	/* font-size: clamp(10.5px, 0.5vw, 25px); */
+	font-size: clamp(10.5px, 0.5vw, 15px);
 	font-weight: 500;
 	color: var(--sb-text);
 	text-transform: uppercase;
@@ -881,7 +885,8 @@ section {
 	border-radius: 0 6px 6px 0;
 	padding: 10px 14px;
 	margin: 10px 0;
-	font-size: clamp(13.5px, 0.8vw, 50px);
+	/* font-size: clamp(13.5px, 0.8vw, 50px); */
+	font-size: clamp(13.5px, 0.8vw, 30px);
 	color: #888888;
 	/* line-height: 1.5; */
 }
@@ -1355,7 +1360,7 @@ section {
 	gap: 5px;
 }
 .badge {
-	margin-top: 5px;
+	margin-top: 2px;
 	display: inline-flex;
 	align-items: center;
 	padding: 2px 9px;
@@ -1363,7 +1368,8 @@ section {
 	/* background: transparent; */
 	border: 1px solid var(--badge);
 	color: var(--badge);
-	font-size: clamp(11px, 0.6vw, 40px);
+	/* font-size: clamp(11px, 0.6vw, 40px); */
+	font-size: clamp(10px, 0.6vw, 15px);
 	font-weight: 500;
 	letter-spacing: 0.1em;
 	white-space: nowrap;
@@ -1412,7 +1418,8 @@ section {
 .cbul > li {
 	position: relative;
 	padding-left: 16px;
-	font-size: clamp(13.5px, 0.8vw, 50px);
+	/* font-size: clamp(13.5px, 0.8vw, 50px); */
+	font-size: clamp(13.5px, 0.8vw, 30px);
 	line-height: 1.15;
 	color: var(--tdim);
 	padding-bottom: 3px;
@@ -1433,7 +1440,8 @@ section {
 }
 .cbul > li > ul > li {
 	position: relative;
-	font-size: clamp(13.5px, 0.8vw, 50px);
+	/* font-size: clamp(13.5px, 0.8vw, 50px); */
+	font-size: clamp(13.5px, 0.8vw, 25px);
 	color: var(--tdim);
 	line-height: 1.15;
 	padding-bottom: 3px;
@@ -1443,7 +1451,8 @@ section {
 	position: absolute;
 	left: -14px;
 	color: var(--tdim);
-	font-size: clamp(13.5px, 0.8vw, 50px);
+	/* font-size: clamp(13.5px, 0.8vw, 50px); */
+	font-size: clamp(13.5px, 0.8vw, 25px);
 }
 .cbul b,
 .cbul strong {
@@ -1468,7 +1477,8 @@ section {
 	border-top: 1px solid var(--border);
 }
 .cslbl {
-	font-size: clamp(13.5px, 0.9vw, 50px);
+	/* font-size: clamp(13.5px, 0.9vw, 50px); */
+	font-size: clamp(13.5px, 0.9vw, 30px);
 	font-weight: 800;
 	letter-spacing: 0.1em;
 	color: var(--miniheader);
@@ -1542,7 +1552,10 @@ section {
 	/* color: var(--tdim); */
 	color: var(--border);
 	text-transform: uppercase;
-	font-size: clamp(11px, 0.6vw, 30px);
+	/* font-size: clamp(11px, 0.6vw, 30px); */
+	font-size: clamp(11px, 0.6vw, 20px);
+	padding: clamp(10px, 0.6vw, 15px);
+	padding: clamp(5px, 0.3vw, 15px) 10px;
 	font-weight: 600;
 	letter-spacing: 0.05em;
 	text-decoration: none;
