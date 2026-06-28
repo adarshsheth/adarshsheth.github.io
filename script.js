@@ -662,7 +662,7 @@ function runCoreScrollTasks(sy) {
 	}
 
 	if (window.isViewingDynamicPost) return;
-	
+
 	if (!cachedAvailableSections) {
 		// Automatically build the sections array by reading the sidebar links
 		const sidebarLinks = document.querySelectorAll("#sb-nav .sbn");
@@ -684,7 +684,7 @@ function runCoreScrollTasks(sy) {
 	// const anchor_loc = path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
 	const path = window.location.pathname;
 	// Lower threshold (0.1) for photography, standard (0.45) for others
-	const anchor_loc = path.includes("photography") ? 0.3 : path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.6 : 0.45;
+	const anchor_loc = path.includes("photography") ? 0.3 : path.endsWith("index.html") || path === "/" || path.endsWith("/") ? 0.3 : 0.45;
 	const triggerPoint = winH * anchor_loc;
 
 	cachedAvailableSections.forEach(({id, k}) => {
@@ -700,8 +700,14 @@ function runCoreScrollTasks(sy) {
 		activeK = cachedAvailableSections[0].k;
 	}
 	// bottom of page edge case
+	// if (window.innerHeight + Math.ceil(sy) >= document.documentElement.scrollHeight - 50) {
+	// 	activeK = cachedAvailableSections[cachedAvailableSections.length - 1].k;
+	// }
+	// bottom of page edge case
 	if (window.innerHeight + Math.ceil(sy) >= document.documentElement.scrollHeight - 50) {
-		activeK = cachedAvailableSections[cachedAvailableSections.length - 1].k;
+		if (cachedAvailableSections.length > 0) {
+			activeK = cachedAvailableSections[cachedAvailableSections.length - 1].k;
+		}
 	}
 
 	if (activeK) {
@@ -1904,13 +1910,30 @@ function unifiedInit() {
 			});
 			handleURL();
 
+			// window.addEventListener(
+			// 	"scroll",
+			// 	() => {
+			// 		if (!isScrollTicking) {
+			// 			window.requestAnimationFrame(() => {
+			// 				runCoreScrollTasks(window.scrollY);
+			// 				isScrollTicking = false;
+			// 			});
+			// 			isScrollTicking = true;
+			// 		}
+			// 	},
+			// 	{passive: true},
+			// );
+
 			window.addEventListener(
 				"scroll",
 				() => {
 					if (!isScrollTicking) {
 						window.requestAnimationFrame(() => {
-							runCoreScrollTasks(window.scrollY);
-							isScrollTicking = false;
+							try {
+								runCoreScrollTasks(window.scrollY);
+							} finally {
+								isScrollTicking = false;
+							}
 						});
 						isScrollTicking = true;
 					}

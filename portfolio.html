@@ -193,6 +193,17 @@
       transition: grid-template-columns 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), gap 0.4s ease;
     }
 
+    
+    /* .ec-summary {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      cursor: pointer;
+      position: relative;
+      transition: grid-template-columns 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), gap 0.4s ease;
+    } */
+
+
     .ec-thumb {
       position: relative;
       width: 100%;
@@ -229,7 +240,8 @@
     }
 
     .ec-info {
-      padding: 24px 24px 24px 0;
+      /* padding: 24px 24px 24px 0; */
+      padding: 16px 20px 16px 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -328,6 +340,7 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-top: 10px;
+      /* display: none; */
     }
 
     .expand-icon {
@@ -873,6 +886,82 @@
       .card-stack.tile-mode .ec-info {
         padding: 12px;
       }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    .ec-info-header {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ec-info-header-text {
+      flex: 1;
+    }
+
+    .ec-info-header .eclogos {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .ec-info-header .eclogos img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .card-stack.tile-mode .ec-info-header .eclogos img {
+      height: 24px;
+    }
+
+    @media (max-width: 800px) {
+      .ec-info-header .eclogos img {
+        height: 24px;
+      }
+
+      .card-stack.tile-mode .ec-info-header .eclogos img {
+        height: 20px;
+      }
+    }
+
+    .ec-title {
+      font-size: clamp(18px, 1.5vw, 26px); /* Un-commented the smaller clamp */
+      font-weight: 900;
+      color: var(--dimtitle);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .ec-subtitle {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tdim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ec-brief {
+      font-size: clamp(13px, 0.8vw, 16px);
+      line-height: 1.45;
+      color: var(--dimtitle);
+      margin: 8px 0;
+      max-width: 800px;
     }
   </style>
 </head>

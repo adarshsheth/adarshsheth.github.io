@@ -90,6 +90,20 @@
 
 	<style>
 		/* Full Screen Hero Section */
+		/* #about {
+			margin-top: calc(-1 * (var(--navh) + 50px));
+			padding-top: calc(var(--navh) + 50px);
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+				background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.98)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') center/cover no-repeat !important;
+			background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.98)), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat !important;
+			border-bottom: 1px solid var(--border);
+		} */
+
 		#about {
 			margin-top: calc(-1 * (var(--navh) + 50px));
 			padding-top: calc(var(--navh) + 50px);
@@ -99,6 +113,7 @@
 			justify-content: center;
 			align-items: center;
 			position: relative;
+			/* Removed the hard background and border from the parent */
 			background: transparent !important;
 			border-bottom: none;
 			border-bottom: 1px solid var(--border);
@@ -108,11 +123,20 @@
 			content: "";
 			position: absolute;
 			inset: 0;
+			/* Moves the image to the background layer */
 			background: linear-gradient(rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.95) 100%), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
 			z-index: -1;
+			/* Fades the image out at the bottom so the underlying body background bleeds through perfectly */
 			-webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+			/* mask-image: linear-gradient(to bottom, black 75%, transparent 100%); */
 			mask-image: linear-gradient(to bottom, black 5%, transparent 100%);
 		}
+
+
+
+
+
+
 
 		.about-box {
 			margin-bottom: 0 !important;
@@ -174,6 +198,7 @@
 
 		.btn-primary:hover {
 			background: transparent;
+			/* background: color-mix(in srgb, var(--accent) 5%, transparent); */
 			color: var(--accent);
 			transform: translateY(-2px);
 		}
@@ -242,8 +267,7 @@
 			height: 200px;
 			margin: 0;
 			border-radius: 50%;
-			/* border: 3px solid color-mix(in srgb, var(--g) 40%, transparent); */
-			border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
+			border: 3px solid color-mix(in srgb, var(--g) 40%, transparent);
 			overflow: hidden;
 		}
 
@@ -252,6 +276,7 @@
 			height: 100%;
 			object-fit: cover;
 			transform: scale(1.1);
+			/* transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); */
 			transition: transform 0.3s ease-out;
 		}
 
@@ -262,33 +287,6 @@
 		.bio-text-content {
 			flex: 1;
 			min-width: 300px;
-		}
-
-		/* ── LAYOUT & MARGIN ALIGNMENTS ── */
-		#portfolio-overview,
-		#photography {
-			padding: 40px 48px 52px;
-			max-width: 1300px;
-			margin: 0;
-		}
-
-		/* ── GANTT CHART (TIMELINE) IMPROVEMENTS ── */
-		.tl-wrapper {
-			position: relative;
-			width: 100%;
-			padding: 0 16px;
-			/* Extra breathing room for scrollbar */
-		}
-
-		.tlframe {
-			padding-bottom: 6px;
-			/* Lift scrollbar off the bottom absolute edge */
-		}
-
-		.tlframe iframe {
-			min-width: 800px !important;
-			/* Optimizes the white space gap on the right */
-			width: 100%;
 		}
 
 		/* ── PORTFOLIO OVERVIEW CARDS (Imported from portfolio.html) ── */
@@ -389,44 +387,35 @@
 			max-width: 800px;
 		}
 
+		/* Photography Section Constraints */
+		#photography {
+			padding: 40px 48px 52px;
+			max-width: 1300px;
+		}
+
 		.insta-wrapper {
 			max-width: 450px;
 		}
 
+
 		@media (max-width: 1050px) {
 			#about {
+				/* Matches the global #mn padding to perfectly eliminate the black gap */
 				margin-top: calc(-1 * (var(--navh) + 50px));
 				padding-top: calc(var(--navh) + 50px);
 			}
 
-			/* Unified mobile padding constraints */
 			#bio {
-				padding: 60px 22px !important;
-			}
-
-			.bio-img-container {
-				width: 100px;
-				height: 100px;
-
-			}
-
-			#portfolio-overview,
-			#photography {
-				padding: 40px 22px 52px !important;
+				padding: 60px 22px;
 			}
 
 			.bio-flex {
+				/* Forces left alignment and stacks the image/text neatly */
 				justify-content: flex-start;
 				text-align: left;
 				flex-direction: column;
 				align-items: flex-start;
 				gap: 25px;
-			}
-
-			.tl-wrapper {
-				/* Applies a seamless fade-out on the right side to indicate horizontal scroll capability */
-				-webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-				mask-image: linear-gradient(to right, black 85%, transparent 100%);
 			}
 		}
 
@@ -540,10 +529,9 @@
 				</div>
 				<p class="about-bio"
 					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6">
-					I'm a rising junior Aerospace Engineering student at Texas A&M University.
-					Driven by a deep fascination for vertical flight and end-to-end systems integration, I love
-					tackling rigorous engineering challenges, from design and sizing flight vehicles to conducting
-					complex aerodynamic trade studies.
+					I'm a junior Aerospace Engineering student at Texas A&M University driven by a deep fascination
+					for vertical flight and end-to-end systems design. From conceptualizing eVTOLs to conducting CFD
+					simulations and engineering rocketry components, I love tackling complex aerodynamic challenges.
 				</p>
 				<div class="hero-buttons">
 					<a href="#bio" class="hero-btn btn-primary"
@@ -568,18 +556,17 @@
 			</div>
 			<div class="bio-flex">
 				<div class="bio-img-container">
-					<img src="media/artwork/pfp2.jpg" alt="Adarsh Sheth" loading="lazy" decoding="async" />
+					<img src="media/artwork/pfp.avif" alt="Adarsh Sheth" loading="lazy" decoding="async" />
 				</div>
 				<div class="bio-text-content">
 					<p class="about-bio" style="width: 100%; font-size: clamp(14px, 1vw, 18px); line-height: 1.7;">
-						Beyond my work in aerospace engineering, I'm an avid photographer with a keen eye for capturing
-						the beauty of
-						nature and urban landscapes around the world.
+						Outside of calculating trajectories and designing aircraft components, I'm an avid photographer
+						with a keen eye for capturing the beauty of nature and urban landscapes around the world.
 						<br><br>
-						I thrive in environments where creativity meets analytical rigor - whether that's iterating
-						through designs in CAD, managing engineering workflows for large teams, or framing the
-						perfect shot behind a camera lens. I am constantly looking to bridge the gap between heavy,
-						multidisciplinary engineering principles and intuitive, real-world execution.
+						I thrive in environments where creativity meets analytical rigor—whether that's iterating
+						through designs in the CAD lab, troubleshooting on the launch pad, or framing the perfect shot
+						behind a camera lens. I'm always looking to bridge the gap between heavy engineering principles
+						and intuitive, real-world execution.
 					</p>
 				</div>
 			</div>
@@ -587,7 +574,7 @@
 
 		<hr class="div" style="margin: 0px 0 0" />
 
-		<section id="portfolio-overview">
+		<section id="portfolio-overview" style="padding: 40px 48px 52px; max-width: 1300px;">
 			<div class="fw-head" style="margin-bottom: 26px;">
 				<span class="fw-title">PORTFOLIO OVERVIEW</span>
 				<a href="portfolio.html" class="fw-see-btn" title="View Full Portfolio">
@@ -596,15 +583,22 @@
 			</div>
 
 
-			<div id="tls">
-				<div class="tlbox">
-					<div class="tl-wrapper">
-						<div class="tlframe">
-							<iframe src="/gantt.html" title="Experience Timeline" scrolling="no"></iframe>
-						</div>
-					</div>
-				</div>
-			</div>
+<div id="tls">
+<div class="tlbox">
+	<!-- <h3>EXPERIENCE TIMELINE</h3> -->
+	<!-- <p class="tlsub">A visual representation of my past and current experience — click any item to jump to -->
+	<!-- its section</p> -->
+	<div class="tlframe">
+		<iframe src="/gantt.html" title="Experience Timeline" scrolling="no"></iframe>
+	</div>
+</div>
+</div>
+
+
+
+
+
+
 
 			<div class="card-stack">
 				<a href="portfolio.html?filter=evtol" class="ec-card-link">
@@ -699,66 +693,65 @@
 				</a>
 			</div>
 			<a href="photography.html">
-				<div class="insta-wrapper">
-					<div class="insta-card">
-						<div class="insta-profile">
-							<img class="insta-avatar" src="media/artwork/pfp.avif" alt="asheth.png" width="100"
-								height="100" loading="lazy" decoding="async" />
-							<div class="insta-user-info">
-								<div class="insta-username">asheth.png</div>
-								<div class="insta-location">
-									<i class="fas fa-map-pin" style="color: var(--g); font-size: 10px"></i>
-									around the world
-								</div>
-							</div>
-						</div>
-
-						<div class="insta-photo-wrap" id="igWrap">
-							<div class="insta-photo-inner">
-								<img class="insta-photo ion"
-									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg"
-									alt="Bay Bridge" width="800" height="800" loading="lazy" decoding="async" />
-								<img class="insta-photo"
-									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg"
-									alt="Alaska 1" width="800" height="800" loading="lazy" decoding="async" />
-								<img class="insta-photo"
-									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg"
-									width="800" height="800" loading="lazy" decoding="async" />
-								<img class="insta-photo"
-									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246021/alaska3_ccticg.jpg"
-									alt="Alaska 3" width="800" height="800" loading="lazy" decoding="async" />
-								<img class="insta-photo"
-									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg"
-									alt="Alaska 4" width="800" height="800" loading="lazy" decoding="async" />
-								<img class="insta-photo"
-									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg"
-									alt="Alaska 5" width="800" height="800" loading="lazy" decoding="async" />
-							</div>
-						</div>
-
-						<div class="insta-actions">
-							<i class="far fa-heart insta-act heart"></i>
-							<i class="far fa-comment insta-act"></i>
-							<i class="far fa-paper-plane insta-act"></i>
-							<i class="far fa-bookmark insta-act insta-bm"></i>
-						</div>
-						<div class="insta-dots" id="igDots">
-							<span class="insta-dot ion"></span>
-							<span class="insta-dot"></span>
-							<span class="insta-dot"></span>
-							<span class="insta-dot"></span>
-							<span class="insta-dot"></span>
-							<span class="insta-dot"></span>
-						</div>
-						<div class="insta-footer">
-							<div class="insta-caption">
-								<a href="photography.html" target="_blank">adarshs_photos: </a>just a few photos I
-								took...
+			<div class="insta-wrapper" style="max-width:450px;"> <!-- add  ec-card class -->
+				 <div class="insta-card"> <!--class remove: insta-card -->
+					<div class="insta-profile">
+						<img class="insta-avatar" src="media/artwork/pfp.avif" alt="asheth.png" width="100" height="100"
+							loading="lazy" decoding="async" />
+						<div class="insta-user-info">
+							<div class="insta-username">asheth.png</div>
+							<div class="insta-location">
+								<i class="fas fa-map-pin" style="color: var(--g); font-size: 10px"></i>
+								around the world
 							</div>
 						</div>
 					</div>
+
+					<div class="insta-photo-wrap" id="igWrap"> <!--style="cursor: pointer;"-->
+						<div class="insta-photo-inner">
+							<img class="insta-photo ion"
+								src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg"
+								alt="Bay Bridge" width="800" height="800" loading="lazy" decoding="async" />
+							<img class="insta-photo"
+								src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg"
+								alt="Alaska 1" width="800" height="800" loading="lazy" decoding="async" />
+							<img class="insta-photo"
+								src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg"
+								width="800" height="800" loading="lazy" decoding="async" />
+							<img class="insta-photo"
+								src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246021/alaska3_ccticg.jpg"
+								alt="Alaska 3" width="800" height="800" loading="lazy" decoding="async" />
+							<img class="insta-photo"
+								src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg"
+								alt="Alaska 4" width="800" height="800" loading="lazy" decoding="async" />
+							<img class="insta-photo"
+								src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg"
+								alt="Alaska 5" width="800" height="800" loading="lazy" decoding="async" />
+						</div>
+					</div>
+
+					<div class="insta-actions">
+						<i class="far fa-heart insta-act heart"></i>
+						<i class="far fa-comment insta-act"></i>
+						<i class="far fa-paper-plane insta-act"></i>
+						<i class="far fa-bookmark insta-act insta-bm"></i>
+					</div>
+					<div class="insta-dots" id="igDots">
+						<span class="insta-dot ion"></span>
+						<span class="insta-dot"></span>
+						<span class="insta-dot"></span>
+						<span class="insta-dot"></span>
+						<span class="insta-dot"></span>
+						<span class="insta-dot"></span>
+					</div>
+					<div class="insta-footer">
+						<div class="insta-caption">
+							<a href="photography.html" target="_blank">adarshs_photos: </a>just a few photos I
+							took...
+						</div>
+					</div>
 				</div>
-			</a>
+			</div></a>
 		</section>
 
 		<hr class="div" />
@@ -906,7 +899,7 @@
 					}
 				}, { passive: true });
 
-				// 3. Fallback Click Navigation
+				// 3. Fallback Click Navigation (Advances to next slide on click if not swiped)
 				wrap.addEventListener("click", (e) => {
 					if (wasSwiped) {
 						e.preventDefault();

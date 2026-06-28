@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow">
+    <title>Private Resume | AS</title>
+    <!-- <meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png"> -->
+	<link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
+	<!-- <link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png"> -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        /* ── LOCK SCREEN SPECIFIC STYLES ── */
+        #login-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lock-box {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .lock-box h2 {
+            font-weight: 900;
+            margin-top: 0;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+
+        .lock-box input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            outline: none;
+            margin-bottom: 20px;
+            width: calc(100% - 26px);
+            font-family: 'Rubik', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .lock-box input:focus {
+            border-color: var(--g);
+        }
+
+        .lock-box button {
+            background: var(--accent2);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Rubik', sans-serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .lock-box button:hover {
+            background: var(--g);
+            transform: translateY(-2px);
+        }
+
+        /* ── TABS & PDF VIEWER STYLES ── */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 48px 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            height: 32px;
+            padding: 0 16px;
+            border: 1.5px solid var(--dimtitle);
+            background: transparent;
+            color: var(--dimtitle);
+            font-family: "Rubik", sans-serif;
+            font-weight: 700;
+            font-size: 11.5px;
+            letter-spacing: 0.1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.4s ease-out;
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent2);
+            color: var(--accent2);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            border-color: var(--accent2);
+            color: var(--bg);
+            background: var(--accent2);
+        }
+
+        #pdf-section {
+            padding: 10px 48px 52px;
+            display: flex;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        #pdf-container {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        .pdf-page-wrapper {
+            position: relative;
+            width: 100%;
+            background-color: white;
+        }
+
+        .pdf-page-wrapper:not(:last-child) {
+            border-bottom: 2px solid var(--border);
+        }
+
+        .pdf-page-canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .textLayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            line-height: 1.0;
+        }
+
+        .pdf-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .floating-dl-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            z-index: 100;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-dl-btn:hover {
+            background: var(--accent2);
+            border-color: var(--accent2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 900px) {
+            .portfolio-filters {
+                margin: 10px 22px 20px;
+            }
+
+            #pdf-section {
+                padding: 10px 22px 40px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .floating-dl-btn {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login-wrapper">
+        <div class="lock-box">
+            <h2 style="margin-bottom: 15px;">SECURE ACCESS</h2>
+            <!-- <input type="password" id="pw" placeholder="Enter Password" -->
+            <input type="text" id="pw" placeholder="Enter Password"
+                onkeypress="if(event.key === 'Enter') unlock()" />
+            <button id="unlock-btn" onclick="unlock()">Unlock Document</button>
+            <div id="error" style="color: #ff6b6b; font-size: 12px; margin-top: 15px; display: none; font-weight: 500;">
+                Incorrect password or corrupt data.</div>
+        </div>
+    </div>
+
+    <div id="resume-ui" style="display: none;">
+        <div id="blur-page"></div>
+        <div id="nav-placeholder"></div>
+        <div id="sb-overlay"></div>
+
+        <aside id="sb">
+            <div id="sb-hdr">Resumes</div>
+            <nav id="sb-nav">
+                <a class="sbn active" href="#" onclick="switchResume('general'); return false;" data-k="general">
+                    <span class="sbdot"></span>
+                    <span class="sblbl">General Resume</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div id="mn">
+            <div id="top"></div>
+            <section id="hero">
+                <h1>PRIVATE RESUME</h1>
+            </section>
+
+            <div id="ibar" style="margin: 20px 0px;">
+                <p>Adarsh Sheth · <a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a> · <a
+                        href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a></p>
+            </div>
+
+            <div class="portfolio-filters">
+                <button class="filter-btn active" id="tab-general" onclick="switchResume('general')">GENERAL</button>
+            </div>
+
+            <div id="pdf-section">
+                <div class="pdf-wrapper">
+                    <a href="#" id="floating-dl-btn" download class="floating-dl-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                    <div id="pdf-container"></div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="ficons">
+                    <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
+                    <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
+                </div>
+                <nav class="fnav">
+                    <a href="/">HOME</a>
+                    <a href="portfolio">PORTFOLIO</a>
+                    <a href="resume">RESUME</a>
+                    <a href="blog">BLOG</a>
+                </nav>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // 1. Paste your Dropbox JSON Ciphertext here
+        const encryptedPayload = "U2FsdGVkX1/xeMp97EWK5MvEn4c9h93YhHtrt+Pbo/4ngwVSk5uPH/fEmvP7HKa9e9caCy1j9UG7xdXByJFzNuhSKEXfZFBpGBiVeYwjOlTzSkYvP+a4ndLPmVTY3vVmBsukNUznOnAOZL4qOdgD0NdWC3E4kdW5vNBLPbhCJCEAhhZMUMVmCvxtuwGVJscPGRR8iq3EYPQaCEMWhj0zZQ==";
+
+        let currentPdfUrl = '';
+        let privateMap = null;
+
+        async function unlock() {
+            const pw = document.getElementById('pw').value;
+            const button = document.getElementById('unlock-btn');
+            const errorEl = document.getElementById('error');
+
+            try {
+                button.textContent = "UNLOCKING...";
+                errorEl.style.display = 'none';
+
+                const bytes = CryptoJS.AES.decrypt(encryptedPayload, pw);
+                const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+                if (!decryptedString) throw new Error("Decryption failed");
+
+                try {
+                    privateMap = JSON.parse(decryptedString);
+                } catch (e) {
+                    privateMap = { general: decryptedString.trim() };
+                }
+
+                currentPdfUrl = privateMap.general || Object.values(privateMap)[0];
+
+                // Hide lock screen, show UI
+                document.getElementById('login-wrapper').style.display = 'none';
+                document.getElementById('resume-ui').style.display = 'block';
+
+                // Set initial download link
+                document.getElementById('floating-dl-btn').href = currentPdfUrl;
+
+                // Render PDF
+                renderPDF();
+
+            } catch (e) {
+                errorEl.style.display = 'block';
+                button.textContent = "Unlock Document";
+                document.getElementById('pw').value = '';
+            }
+        }
+
+        function switchResume(tabId) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            const tab = document.getElementById('tab-' + tabId);
+            if (tab) tab.classList.add('active');
+
+            if (privateMap && privateMap[tabId]) {
+                currentPdfUrl = privateMap[tabId];
+            } else if (privateMap && privateMap.general) {
+                currentPdfUrl = privateMap.general;
+            }
+
+            const dlBtn = document.getElementById('floating-dl-btn');
+            if (dlBtn) dlBtn.href = currentPdfUrl;
+            renderPDF();
+        }
+
+        const renderPDF = async () => {
+            const container = document.getElementById('pdf-container');
+            container.style.opacity = '0.3';
+
+            try {
+                const pdf = await pdfjsLib.getDocument(currentPdfUrl).promise;
+                container.innerHTML = '';
+
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const pageWrapper = document.createElement('div');
+                    pageWrapper.className = 'pdf-page-wrapper';
+
+                    const canvas = document.createElement('canvas');
+                    canvas.className = 'pdf-page-canvas';
+                    const ctx = canvas.getContext('2d');
+
+                    const textLayerDiv = document.createElement('div');
+                    textLayerDiv.className = 'textLayer';
+
+                    pageWrapper.appendChild(canvas);
+                    pageWrapper.appendChild(textLayerDiv);
+                    container.appendChild(pageWrapper);
+
+                    const containerWidth = container.clientWidth || Math.min(window.innerWidth - 96, 1000);
+                    const unscaledViewport = page.getViewport({ scale: 1.0 });
+                    const displayScale = containerWidth / unscaledViewport.width;
+                    const viewport = page.getViewport({ scale: displayScale });
+
+                    const outputScale = (window.devicePixelRatio || 1) * 2;
+                    canvas.width = Math.floor(viewport.width * outputScale);
+                    canvas.height = Math.floor(viewport.height * outputScale);
+                    canvas.style.height = Math.floor(viewport.height) + "px";
+
+                    const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+                    await page.render({ canvasContext: ctx, transform: transform, viewport: viewport }).promise;
+
+                    textLayerDiv.style.width = Math.floor(viewport.width) + 'px';
+                    textLayerDiv.style.height = Math.floor(viewport.height) + 'px';
+                    textLayerDiv.style.setProperty('--scale-factor', displayScale);
+
+                    const textContent = await page.getTextContent();
+                    await pdfjsLib.renderTextLayer({ textContentSource: textContent, container: textLayerDiv, viewport: viewport, textDivs: [] }).promise;
+                }
+                container.style.opacity = '1';
+
+            } catch (error) {
+                console.error('Error rendering the PDF:', error);
+                container.style.opacity = '1';
+                container.innerHTML = `
+					<div style="padding: 50px 20px; text-align: center; color: var(--text);">
+						<i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
+						<h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
+						<p style="font-size: 14px; line-height: 1.5;">${error.message || 'The file is missing or blocked by browser security (CORS).'}</p>
+					</div>
+				`;
+            }
+        };
+
+        let resizeTimer;
+        let lastWidth = window.innerWidth;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (window.innerWidth !== lastWidth) {
+                    lastWidth = window.innerWidth;
+                    if (currentPdfUrl) renderPDF();
+                }
+            }, 250);
+        });
+    </script>
+</body>
+
+</html>

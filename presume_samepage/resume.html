@@ -259,22 +259,22 @@
 	<div id="nav-placeholder"></div>
 	<script>
 		// At the top of resume.html, check if we came from the private page
-		// if (sessionStorage.getItem('unlocked') === 'true') {
-		// 	const privateUrls = JSON.parse(sessionStorage.getItem('resume_data'));
+			// if (sessionStorage.getItem('unlocked') === 'true') {
+			// 	const privateUrls = JSON.parse(sessionStorage.getItem('resume_data'));
 
-		// 	// Override the PDF link
-		// 	window.currentPdfUrl = privateUrls.general;
+			// 	// Override the PDF link
+			// 	window.currentPdfUrl = privateUrls.general;
 
-		// 	// Force the PDF viewer to use the private link
-		// 	document.addEventListener('DOMContentLoaded', () => {
-		// 		const dlBtn = document.getElementById('floating-dl-btn');
-		// 		if (dlBtn) dlBtn.href = window.currentPdfUrl;
-		// 		renderPDF();
-		// 	});
-		// }
-
-
-
+			// 	// Force the PDF viewer to use the private link
+			// 	document.addEventListener('DOMContentLoaded', () => {
+			// 		const dlBtn = document.getElementById('floating-dl-btn');
+			// 		if (dlBtn) dlBtn.href = window.currentPdfUrl;
+			// 		renderPDF();
+			// 	});
+			// }
+		
+		
+		
 		// Instantly inject the nav from cache to prevent UI flashing
 		const cachedNav = sessionStorage.getItem("rawNavHTML");
 		if (cachedNav) {
@@ -385,13 +385,37 @@
 	<script>
 		// ── DYNAMIC RESUME LOGIC ──
 		let currentPdfUrl = 'media/resume.pdf';
+		let privateMap = null;
+
+		// 1. Check if unlocked BEFORE setting the initial URL
+		if (sessionStorage.getItem('unlocked') === 'true') {
+			try {
+				const data = JSON.parse(sessionStorage.getItem('resume_data'));
+				// Forgiveness check: Did they just encrypt a raw string instead of JSON?
+				if (typeof data === 'string') {
+					currentPdfUrl = data;
+					privateMap = { general: data };
+				} else if (data) {
+					privateMap = data;
+					currentPdfUrl = data.general || Object.values(data)[0] || currentPdfUrl;
+				}
+			} catch (e) {
+				console.error("Storage parse error", e);
+			}
+		}
 
 		function switchResume(tabId, publicPdfUrl) {
 			document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
 			const tab = document.getElementById('tab-' + tabId);
 			if (tab) tab.classList.add('active');
 
-			currentPdfUrl = publicPdfUrl;
+			if (privateMap && privateMap[tabId]) {
+				currentPdfUrl = privateMap[tabId];
+			} else if (privateMap && privateMap.general) {
+				currentPdfUrl = privateMap.general;
+			} else {
+				currentPdfUrl = publicPdfUrl;
+			}
 
 			const dlBtn = document.getElementById('floating-dl-btn');
 			if (dlBtn) dlBtn.href = currentPdfUrl;
@@ -454,13 +478,16 @@
 			} catch (error) {
 				console.error('Error rendering the PDF:', error);
 				container.style.opacity = '1';
+
+				// Print the exact error into the empty UI box so you can debug it
 				container.innerHTML = `
-		                <div style="padding: 50px 20px; text-align: center; color: var(--text);">
-		                    <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
-		                    <h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
-		                    <p style="font-size: 14px; line-height: 1.5;">${error.message}</p>
-		                </div>
-		            `;
+	                <div style="padding: 50px 20px; text-align: center; color: var(--text);">
+	                    <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
+	                    <h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
+	                    <p style="font-size: 14px; line-height: 1.5;">${error.message || 'The file is missing or blocked by browser security (CORS).'}</p>
+	                    <p style="font-size: 11px; margin-top: 20px; color: var(--dimtitle); word-break: break-all;"><strong>Attempted URL:</strong><br>${currentPdfUrl}</p>
+	                </div>
+	            `;
 			}
 		};
 
