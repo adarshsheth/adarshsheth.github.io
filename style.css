@@ -82,6 +82,15 @@
 	-webkit-tap-highlight-color: transparent;
 	tap-highlight-color: transparent;
 }
+img, 
+a, 
+.ec-card,
+.ec-item {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Safari */
+    user-select: none;           /* Standard syntax */
+    -webkit-user-drag: none;     /* Prevents dragging images on desktop */
+}
 
 /* ── SELECTION HIGHLIGHT ── */
 ::selection {
