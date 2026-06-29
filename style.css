@@ -306,8 +306,8 @@ header::before {
 	background: hsla(109, 8%, 27%, 0.9);
 	backdrop-filter: blur(3px);
 	-webkit-backdrop-filter: blur(3px);
-	/* padding: 5px 5px; */
-	padding: 7px 5px;
+	padding: 5px;
+	/* padding: 7px 5px; */
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 	transition: transform 0.45s ease-in-out;
 	/* will-change: transform; */
@@ -2743,6 +2743,9 @@ footer {
 		--navh: 25px;
 		--sb: 70px;
 		--h2padding: 10px;
+	}
+	.navbox {
+		padding: 7px 5px;
 	}
 	/* #sb {
 		z-index: 400;

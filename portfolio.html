@@ -68,12 +68,12 @@
 
     body.bg-all::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
-      filter: blur(4px);
+      filter: blur(6px);
     }
 
     body.bg-evtol::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/drone_w6xodu.jpg');
-      filter: blur(2px);
+      filter: blur(4px);
     }
 
     body.bg-space::before {
@@ -83,10 +83,12 @@
 
     body.bg-robotics::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg');
+      filter: blur(6px);
     }
 
     body.bg-general::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/general_zakwqu.jpg');
+      filter: blur(6px);
     }
 
     body {
@@ -241,8 +243,24 @@
 
     .ec-card:hover {
       transform: translateY(-3px);
-      background: color-mix(in srgb, var(--dimtitle) 7%, transparent);
+      /* background: color-mix(in srgb, var(--dimtitle) 7%, transparent); */
+      /* background: color-mix(in srgb, var(--g) 20%, transparent); */
+      background: color-mix(in srgb, var(--g) 10%, transparent);
+      border-color: color-mix(in srgb, var(--g) 50%, transparent);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /* SUMMARY VIEW (Always Visible) */
     .ec-summary {
@@ -465,7 +483,8 @@
       opacity: 1;
       /* padding-top: 15px; */
       /* border-top: 3px solid var(--border); */
-      border-top: 3px solid color-mix(in srgb, var(--g) 10%, transparent 0%);;
+      border-top: 3px solid color-mix(in srgb, var(--g) 10%, transparent 0%);
+      ;
     }
 
     .ec-details-inner .cbody {
@@ -2788,9 +2807,9 @@
       const icon = element.querySelector('.expand-icon');
 
       if (card.classList.contains('open')) {
-        icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
       } else {
-        icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
         const rect = card.getBoundingClientRect();
         if (rect.top < 0) {
           const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
@@ -2821,7 +2840,7 @@
       if (card) {
         card.classList.add('open');
         const icon = card.querySelector('.expand-icon');
-        if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        // if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
       }
 
       document.getElementById('card-lb').classList.add('open');
@@ -2852,7 +2871,7 @@
           if (card) {
             card.classList.remove('open');
             const icon = card.querySelector('.expand-icon');
-            if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            // if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
           }
           node.classList.remove('in-lightbox');
           if (pfLbClone && pfLbClone.parentNode) {
@@ -3020,6 +3039,9 @@
       document.body.classList.remove('filtering-active');
 
       setTimeout(() => pfInitReveal(), 50);
+
+      // FIX: Close all expanded cards when switching filters
+      document.querySelectorAll('.ec-card.open').forEach(card => card.classList.remove('open'));
 
       // FIX: Fade out, swap background, then fade in
       document.body.classList.add('bg-fade-out');
