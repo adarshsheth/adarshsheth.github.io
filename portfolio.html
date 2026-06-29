@@ -26,6 +26,21 @@
   <link rel="preload" href="style.css" as="style">
   <link rel="preload" href="media/logo/AS_tr.png" as="image">
   <link rel="preload" href="nav.html" as="fetch" crossorigin="anonymous">
+  <link rel="preload"
+    href="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg"
+    as="image">
+  <link rel="preload"
+    href="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/drone_w6xodu.jpg"
+    as="image">
+  <link rel="preload"
+    href="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/space_wtbm5n.jpg"
+    as="image">
+  <link rel="preload"
+    href="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg"
+    as="image">
+  <link rel="preload"
+    href="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/general_zakwqu.jpg"
+    as="image">
 
   <title>Portfolio | AS</title>
   <meta name="description"
@@ -45,10 +60,35 @@
       --g: #647661;
       --gd: #232922;
     }
-		body::before {
-			background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1638555063519-d009e6f3b28b?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') !important;
-			/* filter: blur(4px) !important; */
-		}
+
+    /* body::before {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
+      filter: blur(4px) !important;
+    } */
+
+    body.bg-all::before {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
+      filter: blur(4px);
+    }
+
+    body.bg-evtol::before {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/drone_w6xodu.jpg');
+      filter: blur(2px);
+    }
+
+    body.bg-space::before {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/space_wtbm5n.jpg');
+      filter: blur(2px);
+    }
+
+    body.bg-robotics::before {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg');
+    }
+
+    body.bg-general::before {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/general_zakwqu.jpg');
+    }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -159,9 +199,11 @@
       .sh .sh-r {
         opacity: 0.2;
       }
+
       .portfolio-filters {
         padding-top: 20px;
       }
+
       /* #sec-teams .sh {
         padding-top: 0px !important;
       } */
@@ -632,7 +674,7 @@
       width: min(900px, 100%);
       max-height: 88dvh;
       /* overflow-y: auto; */
-      
+
       overflow-y: visible;
       background: color-mix(in srgb, var(--bg) 10%, transparent 0%);
       border: 2px solid var(--border);
@@ -691,14 +733,15 @@
       cursor: pointer;
       z-index: 10000;
       transition: all 0.3s ease-in-out;
-      opacity: 1; /* Make visible */
+      opacity: 1;
+      /* Make visible */
       margin: 0;
       transform: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
     }
 
-#card-lb-content {
+    #card-lb-content {
       max-height: 88dvh;
       overflow-y: auto;
       border-radius: 12px;
@@ -707,19 +750,19 @@
       /* 1. The first gradient fades the content. The second solid black line protects the scrollbar. */
       -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%), linear-gradient(to bottom, black, black);
       mask-image: linear-gradient(to bottom, black 88%, transparent 100%), linear-gradient(to bottom, black, black);
-      
+
       /* 2. Give the fading mask the left side, and the solid mask the exact 14px width of the scrollbar track */
       -webkit-mask-size: calc(100% - 14px) 100%, 14px 100%;
       mask-size: calc(100% - 14px) 100%, 14px 100%;
-      
+
       /* 3. Pin them to the left and right edges respectively */
       -webkit-mask-position: left top, right top;
       mask-position: left top, right top;
-      
+
       /* 4. Stop them from repeating and overlapping */
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
-      }
+    }
 
 
     .card-lb-close:hover {
@@ -732,15 +775,16 @@
       cursor: default;
     }
 
-#card-lb-content::-webkit-scrollbar {
+    #card-lb-content::-webkit-scrollbar {
       width: 4px;
     }
 
     #card-lb-content::-webkit-scrollbar-track {
-      margin: 14px 0; /* This margin keeps it away from the curved corners! */
+      margin: 14px 0;
+      /* This margin keeps it away from the curved corners! */
       border-radius: 100px;
       /* background-color: color-mix(in srgb, var(--bg) 10%, transparent 0%);      */
-	    background-color: transparent;
+      background-color: transparent;
 
     }
 
@@ -814,8 +858,9 @@
       border-radius: 0 0 12px 12px;
       /* transition: opacity 0.3s ease;  */
     }
-    #card-lb-box::after{
-      background: linear-gradient(to bottom, transparent, var(--bg)); 
+
+    #card-lb-box::after {
+      background: linear-gradient(to bottom, transparent, var(--bg));
     }
 
     /* Hides the gradient when user reaches the bottom */
@@ -1073,13 +1118,6 @@
         max-width: 800px;
       }
     }
-
-
-
-
-
-
-    
   </style>
 </head>
 
@@ -1127,12 +1165,12 @@
 
       <a class="sbn" href="#sec-teams" onclick="scrollToSec('sec-teams'); return false;" data-k="teams">
         <span class="sbdot"></span>
-        <span class="sblbl">Professional Experience & Design Teams</span>
+        <span class="sblbl">Professional Experience</span>
       </a>
 
       <a class="sbn" href="#sec-leadership" onclick="scrollToSec('sec-leadership'); return false;" data-k="leadership">
         <span class="sbdot"></span>
-        <span class="sblbl">Leadership & Events/Challenges</span>
+        <span class="sblbl">Leadership & Events</span>
       </a>
 
       <a class="sbn" href="#sec-misc" onclick="scrollToSec('sec-misc'); return false;" data-k="misc">
@@ -2643,7 +2681,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-teams'); scrollToSec('sec-teams')">
-          <h2>TECHNICAL DESIGN TEAMS</h2>
+          <h2>Professional Experience & Design Teams</h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -2656,7 +2694,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-leadership'); scrollToSec('sec-leadership')">
-          <h2>LEADERSHIP <span class="amp">&</span> EVENTS</h2>
+          <h2>Leadership & Events/Challenges</h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -2749,80 +2787,80 @@
     let pfLbClone = null;
 
     function pfOpenLightbox(element) {
-        const item = element.closest('.ec-item');
-        if (!item) return;
+      const item = element.closest('.ec-item');
+      if (!item) return;
 
-        pfLbClone = item.cloneNode(true);
-        item.parentNode.insertBefore(pfLbClone, item);
+      pfLbClone = item.cloneNode(true);
+      item.parentNode.insertBefore(pfLbClone, item);
 
-        pfLbHome = { node: item, parent: item.parentNode };
+      pfLbHome = { node: item, parent: item.parentNode };
 
-        const content = document.getElementById('card-lb-content');
-        content.innerHTML = '';
-        content.appendChild(item);
-        item.classList.add('in-lightbox');
+      const content = document.getElementById('card-lb-content');
+      content.innerHTML = '';
+      content.appendChild(item);
+      item.classList.add('in-lightbox');
 
-        const card = item.querySelector('.ec-card');
-        if (card) {
-          card.classList.add('open');
-          const icon = card.querySelector('.expand-icon');
-          if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-        }
-
-        document.getElementById('card-lb').classList.add('open');
-        document.body.style.overflow = 'hidden';
-
-        // Push state WITH a hash so mobile browsers explicitly register a page change
-        history.pushState({ lightboxOpen: true }, "", "#detail");
+      const card = item.querySelector('.ec-card');
+      if (card) {
+        card.classList.add('open');
+        const icon = card.querySelector('.expand-icon');
+        if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
       }
 
-      // Intercept the browser/system back button
-      window.addEventListener('popstate', (e) => {
-        if (document.getElementById('card-lb').classList.contains('open')) {
-          pfCloseLightbox(true); // Pass flag to signify it was closed via back button
-        }
-      });
+      document.getElementById('card-lb').classList.add('open');
+      document.body.style.overflow = 'hidden';
 
-      function pfCloseLightbox(fromPopState = false) {
-        const lb = document.getElementById('card-lb');
-        if (!lb.classList.contains('open')) return;
+      // Push state WITH a hash so mobile browsers explicitly register a page change
+      history.pushState({ lightboxOpen: true }, "", "#detail");
+    }
 
-        lb.classList.remove('open');
-        document.body.style.overflow = '';
+    // Intercept the browser/system back button
+    window.addEventListener('popstate', (e) => {
+      if (document.getElementById('card-lb').classList.contains('open')) {
+        pfCloseLightbox(true); // Pass flag to signify it was closed via back button
+      }
+    });
 
-        if (pfLbHome) {
-          const { node, parent } = pfLbHome;
-          setTimeout(() => {
-            const card = node.querySelector('.ec-card');
-            if (card) {
-              card.classList.remove('open');
-              const icon = card.querySelector('.expand-icon');
-              if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-            }
-            node.classList.remove('in-lightbox');
-            if (pfLbClone && pfLbClone.parentNode) {
-              pfLbClone.parentNode.replaceChild(node, pfLbClone);
-            } else {
-              parent.appendChild(node);
-            }
-            pfLbClone = null;
-            pfLbHome = null;
-          }, 250);
-        }
+    function pfCloseLightbox(fromPopState = false) {
+      const lb = document.getElementById('card-lb');
+      if (!lb.classList.contains('open')) return;
 
-        // If closed manually via the X button or backdrop, reverse the dummy state
-        if (fromPopState !== true && window.location.hash === '#detail') {
-          history.back();
-        }
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
 
-        // Fallback: forcefully strip the hash from the URL bar visually 
-        // (Runs a split second later to ensure history.back() doesn't conflict)
+      if (pfLbHome) {
+        const { node, parent } = pfLbHome;
         setTimeout(() => {
-          if (window.location.hash === '#detail') {
-            history.replaceState(null, "", window.location.pathname + window.location.search);
+          const card = node.querySelector('.ec-card');
+          if (card) {
+            card.classList.remove('open');
+            const icon = card.querySelector('.expand-icon');
+            if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
           }
-        }, 50);
+          node.classList.remove('in-lightbox');
+          if (pfLbClone && pfLbClone.parentNode) {
+            pfLbClone.parentNode.replaceChild(node, pfLbClone);
+          } else {
+            parent.appendChild(node);
+          }
+          pfLbClone = null;
+          pfLbHome = null;
+        }, 250);
       }
+
+      // If closed manually via the X button or backdrop, reverse the dummy state
+      if (fromPopState !== true && window.location.hash === '#detail') {
+        history.back();
+      }
+
+      // Fallback: forcefully strip the hash from the URL bar visually 
+      // (Runs a split second later to ensure history.back() doesn't conflict)
+      setTimeout(() => {
+        if (window.location.hash === '#detail') {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+      }, 50);
+    }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.getElementById('card-lb').classList.contains('open')) {
@@ -2958,7 +2996,40 @@
       document.body.classList.remove('filtering-active');
 
       setTimeout(() => pfInitReveal(), 50);
+
+
+      // Force reflow and restore transitions
+      void document.body.offsetWidth;
+      document.body.classList.remove('filtering-active');
+
+      setTimeout(() => pfInitReveal(), 50);
+
+      // FIX: Fade out, swap background, then fade in
+      document.body.classList.add('bg-fade-out');
+
+      // Wait for the opacity to hit 0 (200ms) before swapping the image class
+      setTimeout(() => {
+        // Strip existing bg- classes
+        document.body.className = document.body.className.replace(/bg-\S+/g, '').trim();
+        // Apply new background class
+        document.body.classList.add('bg-' + tag);
+
+        // Wait a tiny bit for the browser to register the new image, then fade back in
+        setTimeout(() => {
+          document.body.classList.remove('bg-fade-out');
+        }, 50);
+      }, 200);
     }
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const filterTag = params.get('filter') || 'all'; // Default to 'all' if no filter in URL
+
+      // Run the filter immediately
+      filterPortfolio(filterTag);
+
+      // Background class will be handled inside filterPortfolio()
+    });
+
 
   </script>
 </body>
