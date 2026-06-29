@@ -78,6 +78,11 @@
 	--sec-title: #545556;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
 /* ── SELECTION HIGHLIGHT ── */
 ::selection {
 	background: rgba(200, 168, 75, 0.32);
@@ -291,7 +296,8 @@ header::before {
 	background: hsla(109, 8%, 27%, 0.9);
 	backdrop-filter: blur(3px);
 	-webkit-backdrop-filter: blur(3px);
-	padding: 5px 5px;
+	/* padding: 5px 5px; */
+	padding: 7px 5px;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 	transition: transform 0.45s ease-in-out;
 	/* will-change: transform; */
@@ -2728,6 +2734,9 @@ footer {
 		--sb: 70px;
 		--h2padding: 10px;
 	}
+	/* #sb {
+		z-index: 400;
+	} */
 	.ec.visible {
 		border-color: color-mix(in srgb, var(--accent2) 100%, transparent);
 	}
@@ -2803,10 +2812,13 @@ footer {
 	/* Note: .sh-pulse-btn margin-left was deleted to prevent double-indentation */
 
 	#sb {
+		z-index: 999;
 		display: flex !important;
-		transform: translateX(-100%);
+		/* transform: translateX(-100%); */
+		transform: translateX(calc(-100% - 30px));
+		padding-top: 90px;
 		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+		/* box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5); */
 	}
 	#sb.sb-open {
 		transform: translateX(0);
