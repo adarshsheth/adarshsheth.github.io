@@ -538,7 +538,7 @@
 				onclick="navToSection('photography', () => { const el = document.getElementById('photography'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;"
 				data-k="photography">
 				<span class="sbdot"></span>
-				<span class="sblbl">Photography</span>
+				<span class="sblbl">Photography Overview</span>
 			</a>
 		</nav>
 	</aside>
@@ -704,7 +704,7 @@
 
 		<section id="photography">
 			<div class="fw-head" style="margin-bottom: 26px;">
-				<span class="fw-title">PHOTOGRAPHY</span>
+				<span class="fw-title">PHOTOGRAPHY OVERVIEW</span>
 				<a href="photography.html" class="fw-see-btn" title="View Photography Gallery">
 					<i class="fas fa-link"></i>
 				</a>
@@ -811,17 +811,23 @@
 	</script>
 
 	<script>
-		function navToSection(k, scrollFn) {
-			document.querySelectorAll(".sbn").forEach((a) =>
-				a.classList.toggle("active", a.dataset.k === k)
-			);
-			if (window._lockNav) window._lockNav();
-			if (window._hideNav) window._hideNav();
+	function navToSection(k, scrollFn) {
+		document.querySelectorAll(".sbn").forEach((a) =>
+			a.classList.toggle("active", a.dataset.k === k)
+		);
+		if (window._lockNav) window._lockNav();
 
-			const hash = (k === "about" || k === "bio") ? "" : "#" + k;
-			history.replaceState(null, "", window.location.pathname + window.location.search + hash);
-			scrollFn();
+		// Explicitly show navbar for top sections, hide for everything else
+		if (k === "about" || k === "top") {
+			if (window._showNav) window._showNav();
+		} else {
+			if (window._hideNav) window._hideNav();
 		}
+
+		const hash = (k === "about" || k === "bio") ? "" : "#" + k;
+		history.replaceState(null, "", window.location.pathname + window.location.search + hash);
+		scrollFn();
+	}
 
 		/* ── SMART INTERSECTION CAROUSEL & SWIPE LOGIC ── */
 		(function () {

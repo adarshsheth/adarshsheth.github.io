@@ -371,15 +371,28 @@ function handleURL() {
 }
 
 /* ── SMOOTH SCROLL NAVIGATOR ── */
+// function scrollToSec(id) {
+// 	if (window._lockNav) window._lockNav();
+// 	if (window._hideNav) window._hideNav();
+
+// 	if (id === "top") {
+// 		window.scrollTo({top: 75, behavior: "smooth"});
+// 		return;
+// 	}
+
+// 	const el = document.getElementById(id);
+// 	if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
+// }
 function scrollToSec(id) {
 	if (window._lockNav) window._lockNav();
-	if (window._hideNav) window._hideNav();
 
 	if (id === "top") {
-		window.scrollTo({top: 75, behavior: "smooth"});
+		if (window._showNav) window._showNav(); // SHOW nav if going to the top
+		window.scrollTo({top: 0, behavior: "smooth"}); // Changed from 75 to 0 to reach true top
 		return;
 	}
 
+	if (window._hideNav) window._hideNav(); // HIDE nav for all other sections
 	const el = document.getElementById(id);
 	if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
 }

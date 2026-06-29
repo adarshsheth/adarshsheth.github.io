@@ -28,19 +28,27 @@
 						<i class="fas fa-caret-down" style="font-size: 9px; margin-left: 2px"></i>
 					</a>
 					<div class="nav-dd" id="nav-dd">
-						<span class="dd-hdr" id="submenu1">ENGINEERING</span>
-						<a class="dd-lnk" href="portfolio?section=vfd" onclick="ddNav('vfd'); return false;">
-							DESIGN TEAMS
+						<!-- <span class="dd-hdr" id="submenu1">ENGINEERING</span> -->
+						<a class="dd-hdr" id="submenu1" href="portfolio">ENGINEERING</a>
+						<a class="dd-lnk" href="portfolio.html?filter=evtol"
+							onclick="if(typeof filterPortfolio === 'function') { filterPortfolio('evtol'); window.scrollTo({top: 0, behavior: 'smooth'}); return false; }">
+							eVTOL &amp; AERONAUTICS
 						</a>
-						<a class="dd-lnk" href="portfolio?section=ignite25" onclick="ddNav('ignite25'); return false;">
-							EVENTS &amp; CHALLENGES
+						<a class="dd-lnk" href="portfolio.html?filter=space"
+							onclick="if(typeof filterPortfolio === 'function') { filterPortfolio('space'); window.scrollTo({top: 0, behavior: 'smooth'}); return false; }">
+							ROCKETRY &amp; SPACE
 						</a>
-						<a class="dd-lnk" href="portfolio?section=everyday-engineering"
-							onclick="ddNav('everyday-engineering'); return false;">
-							PERSONAL PROJECTS
+						<a class="dd-lnk" href="portfolio.html?filter=robotics"
+							onclick="if(typeof filterPortfolio === 'function') { filterPortfolio('robotics'); window.scrollTo({top: 0, behavior: 'smooth'}); return false; }">
+							ROBOTICS
 						</a>
-						<span class="dd-hdr">ARTWORK</span>
-						<a class="dd-lnk" href="photography">PHOTOGRAPHY</a>
+						<a class="dd-lnk" href="portfolio.html?filter=general"
+							onclick="if(typeof filterPortfolio === 'function') { filterPortfolio('general'); window.scrollTo({top: 0, behavior: 'smooth'}); return false; }">
+							GENERAL ENGINEERING
+						</a>
+						<!-- <span class="dd-hdr">ARTWORK</span> -->
+						<a class="dd-hdr" id="submenu2" href="photography">PHOTOGRAPHY</a>
+						<!-- <a class="dd-lnk" href="photography">PHOTOGRAPHY</a> -->
 					</div>
 				</div>
 
