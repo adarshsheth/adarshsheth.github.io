@@ -2791,32 +2791,95 @@
       videos.forEach(vid => io.observe(vid));
     });
 
-    // --- ACCORDION TOGGLE LOGIC ---
-    function toggleCardDetails(element) {
-      const item = element.closest('.ec-item');
-      if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
+  // --- LONG PRESS STATE FOR MOBILE TILES ---
+  let lbLongPressTimer = null;
+  let lbIsLongPress = false;
+  let lbTouchStartX = 0;
+  let lbTouchStartY = 0;
 
-      const stack = element.closest('.card-stack');
-      if (stack && stack.classList.contains('tile-mode')) {
+  // 1. Listen for when the user touches a card
+  document.addEventListener('touchstart', (e) => {
+    const summary = e.target.closest('.ec-summary');
+    if (!summary) return;
+
+    const stack = summary.closest('.card-stack');
+    // Only apply this logic to tiles
+    if (stack && stack.classList.contains('tile-mode')) {
+      lbIsLongPress = false;
+      lbTouchStartX = e.touches[0].clientX;
+      lbTouchStartY = e.touches[0].clientY;
+
+      // Start a 500ms timer. If it finishes before they let go, open the lightbox!
+      lbLongPressTimer = setTimeout(() => {
+        lbIsLongPress = true;
+        pfOpenLightbox(summary);
+      }, 500);
+    }
+  }, { passive: true });
+
+  // 2. Cancel the long-press if the user scrolls or jiggles their finger too much
+  document.addEventListener('touchmove', (e) => {
+    if (!lbLongPressTimer) return;
+    const dx = Math.abs(e.touches[0].clientX - lbTouchStartX);
+    const dy = Math.abs(e.touches[0].clientY - lbTouchStartY);
+    if (dx > 10 || dy > 10) {
+      clearTimeout(lbLongPressTimer);
+      lbLongPressTimer = null;
+    }
+  }, { passive: true });
+
+  // 3. Cancel the timer if they let go early (it was just a quick tap)
+  document.addEventListener('touchend', () => {
+    clearTimeout(lbLongPressTimer);
+    lbLongPressTimer = null;
+  }, { passive: true });
+
+  document.addEventListener('touchcancel', () => {
+    clearTimeout(lbLongPressTimer);
+    lbLongPressTimer = null;
+  }, { passive: true });
+
+
+  // --- ACCORDION TOGGLE LOGIC --- 
+  function toggleCardDetails(element) {
+    const item = element.closest('.ec-item');
+    if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
+
+    const stack = element.closest('.card-stack');
+
+    if (stack && stack.classList.contains('tile-mode')) {
+      // Desktop Devices (Hover supported): Standard click opens the lightbox immediately
+      if (window.matchMedia('(hover: hover)').matches) {
         pfOpenLightbox(element);
         return;
-      }
-
-      const card = element.closest('.ec-card');
-      card.classList.toggle('open');
-      const icon = element.querySelector('.expand-icon');
-
-      if (card.classList.contains('open')) {
-        // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
       } else {
-        // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        const rect = card.getBoundingClientRect();
-        if (rect.top < 0) {
-          const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-          window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+        // Mobile Touch Devices: 
+        if (lbIsLongPress) {
+          // If it was a long-press, the lightbox already opened. Reset and do nothing here.
+          setTimeout(() => { lbIsLongPress = false; }, 100);
+          return;
         }
+        // If it wasn't a long press, it was a quick tap! We ignore the return 
+        // and let the code fall through so it expands the card inline instead.
       }
     }
+
+    // Standard accordion expansion logic
+    const card = element.closest('.ec-card');
+    card.classList.toggle('open');
+    const icon = element.querySelector('.expand-icon');
+
+    if (card.classList.contains('open')) {
+      // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+    } else {
+      // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+      const rect = card.getBoundingClientRect();
+      if (rect.top < 0) {
+        const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
+        window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+      }
+    }
+  }
 
     // --- CARD CONTENT LIGHTBOX (tile mode only) ---
     let pfLbHome = null;
