@@ -1495,21 +1495,53 @@ function loadNav() {
 				navbox.addEventListener("mouseleave", () => shroud.classList.remove("visible"));
 			}
 
-			const dropdownParents = hdr.querySelectorAll(".ndrop");
-			dropdownParents.forEach((drop) => {
-				const mainLink = drop.querySelector(":scope > .ni");
-				if (!mainLink) return;
-				mainLink.addEventListener("click", (e) => {
-					if (window.innerWidth > 1050) return;
-					if (!drop.classList.contains("open")) {
-						e.preventDefault();
-						dropdownParents.forEach((other) => {
-							if (other !== drop) other.classList.remove("open");
-						});
-						drop.classList.add("open");
-					}
+const dropdownParents = hdr.querySelectorAll(".ndrop");
+dropdownParents.forEach((drop) => {
+	const mainLink = drop.querySelector(":scope > .ni");
+	if (!mainLink) return;
+
+	let pressTimer;
+	let isLongPress = false;
+
+	// Touch start initiates the long press timer
+	mainLink.addEventListener(
+		"touchstart",
+		(e) => {
+			if (window.innerWidth > 1050) return;
+			isLongPress = false;
+			pressTimer = setTimeout(() => {
+				isLongPress = true;
+				dropdownParents.forEach((other) => {
+					if (other !== drop) other.classList.remove("open");
 				});
-			});
+				drop.classList.add("open");
+			}, 350); // 350ms for dropdown to trigger
+		},
+		{passive: true},
+	);
+
+	// Cancel timer if finger moves or leaves early
+	mainLink.addEventListener("touchend", () => clearTimeout(pressTimer), {passive: true});
+	mainLink.addEventListener("touchmove", () => clearTimeout(pressTimer), {passive: true});
+
+	// Prevent native mobile long-press context menu if it successfully opened the dropdown
+	mainLink.addEventListener("contextmenu", (e) => {
+		if (window.innerWidth <= 1050 && isLongPress) e.preventDefault();
+	});
+
+	// Handle standard clicks
+	mainLink.addEventListener("click", (e) => {
+		if (window.innerWidth > 1050) return;
+
+		if (isLongPress) {
+			// It was a long press to open menu, prevent navigation.
+			e.preventDefault();
+		} else {
+			// Short press! Clean up dropdowns and allow direct navigation.
+			dropdownParents.forEach((other) => other.classList.remove("open"));
+		}
+	});
+});
 
 			// document.addEventListener("click", (e) => {
 			// 	if (window.innerWidth > 1050) return;
