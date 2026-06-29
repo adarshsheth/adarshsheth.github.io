@@ -602,7 +602,7 @@
       -webkit-backdrop-filter: blur(8px);
     }
 
-    .card-lb-box {
+    /* .card-lb-box {
       position: relative;
       z-index: 1;
       width: min(900px, 100%);
@@ -614,10 +614,8 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       opacity: 0;
       transform: translateY(8px) scale(0.97);
-      /* Subtler drop and scale */
       transition: opacity 0.25s ease-in-out, transform 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
-      /* Sped up */
-    }
+    } */
 
     /* ENDING STATE for the box */
     #card-lb.open .card-lb-box {
@@ -630,13 +628,20 @@
       z-index: 1;
       width: min(900px, 100%);
       max-height: 88dvh;
-      overflow-y: auto;
+      /* overflow-y: auto; */
+      
+      overflow-y: visible;
       background: color-mix(in srgb, var(--bg) 10%, transparent 0%);
       border: 2px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+
+      /* copied from commented out above */
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.25s ease-in-out, transform 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
     }
 
     /* .card-lb-close {
@@ -665,10 +670,12 @@
     } */
     .card-lb-close {
       position: fixed;
-      top: 15px;
-      right: 15px;
-      background: var(--surface2);
-      border: 2px solid var(--border);
+      top: -40px;
+      right: 0px;
+      /* background: var(--surface2); */
+      background: transparent;
+      /* border: 2px solid var(--border); */
+      border: 0px;
       color: var(--text);
       width: 40px;
       height: 40px;
@@ -685,7 +692,17 @@
       margin: 0;
       transform: none;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      
     }
+
+#card-lb-content {
+      max-height: 88dvh;
+      overflow-y: auto;
+      border-radius: 12px;
+      padding-bottom: 20px;
+      /* z-index: 1000; */
+    }
+
 
     .card-lb-close:hover {
       /* background: var(--accent2); */
@@ -697,13 +714,14 @@
       cursor: default;
     }
 
-    .card-lb-box::-webkit-scrollbar {
+#card-lb-content::-webkit-scrollbar {
       width: 4px;
     }
 
-    .card-lb-box::-webkit-scrollbar-track {
-      margin: 14px 0;
-      border-radius: 14px;
+    #card-lb-content::-webkit-scrollbar-track {
+      margin: 14px 0; /* This margin keeps it away from the curved corners! */
+      border-radius: 100px;
+      background-color: color-mix(in srgb, var(--bg) 10%, transparent 0%);;
     }
 
     #card-lb-content .ec-card {
@@ -1032,6 +1050,13 @@
         max-width: 800px;
       }
     }
+
+
+
+
+
+
+    
   </style>
 </head>
 
@@ -2701,67 +2726,80 @@
     let pfLbClone = null;
 
     function pfOpenLightbox(element) {
-      const item = element.closest('.ec-item');
-      if (!item) return;
+        const item = element.closest('.ec-item');
+        if (!item) return;
 
-      pfLbClone = item.cloneNode(true);
-      item.parentNode.insertBefore(pfLbClone, item);
+        pfLbClone = item.cloneNode(true);
+        item.parentNode.insertBefore(pfLbClone, item);
 
-      pfLbHome = { node: item, parent: item.parentNode };
+        pfLbHome = { node: item, parent: item.parentNode };
 
-      const content = document.getElementById('card-lb-content');
-      content.innerHTML = '';
-      content.appendChild(item);
-      item.classList.add('in-lightbox');
+        const content = document.getElementById('card-lb-content');
+        content.innerHTML = '';
+        content.appendChild(item);
+        item.classList.add('in-lightbox');
 
-      const card = item.querySelector('.ec-card');
-      if (card) {
-        card.classList.add('open');
-        const icon = card.querySelector('.expand-icon');
-        if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        const card = item.querySelector('.ec-card');
+        if (card) {
+          card.classList.add('open');
+          const icon = card.querySelector('.expand-icon');
+          if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        }
+
+        document.getElementById('card-lb').classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        // Push state WITH a hash so mobile browsers explicitly register a page change
+        history.pushState({ lightboxOpen: true }, "", "#detail");
       }
 
-      document.getElementById('card-lb').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      // Intercept the browser/system back button
+      window.addEventListener('popstate', (e) => {
+        if (document.getElementById('card-lb').classList.contains('open')) {
+          pfCloseLightbox(true); // Pass flag to signify it was closed via back button
+        }
+      });
 
-      // history.pushState({ lightboxOpen: true }, "", window.location.href);
-    }
+      function pfCloseLightbox(fromPopState = false) {
+        const lb = document.getElementById('card-lb');
+        if (!lb.classList.contains('open')) return;
 
-    function pfCloseLightbox() {
-      const lb = document.getElementById('card-lb');
-      // if (!lb.classList.contains('open')) return;
-      lb.classList.remove('open');
-      document.body.style.overflow = '';
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
 
-      // if (fromPopState !== true) {
-      //   history.back();
-      // }
+        if (pfLbHome) {
+          const { node, parent } = pfLbHome;
+          setTimeout(() => {
+            const card = node.querySelector('.ec-card');
+            if (card) {
+              card.classList.remove('open');
+              const icon = card.querySelector('.expand-icon');
+              if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            }
+            node.classList.remove('in-lightbox');
+            if (pfLbClone && pfLbClone.parentNode) {
+              pfLbClone.parentNode.replaceChild(node, pfLbClone);
+            } else {
+              parent.appendChild(node);
+            }
+            pfLbClone = null;
+            pfLbHome = null;
+          }, 250);
+        }
 
-      if (pfLbHome) {
-        const { node, parent } = pfLbHome;
+        // If closed manually via the X button or backdrop, reverse the dummy state
+        if (fromPopState !== true && window.location.hash === '#detail') {
+          history.back();
+        }
 
+        // Fallback: forcefully strip the hash from the URL bar visually 
+        // (Runs a split second later to ensure history.back() doesn't conflict)
         setTimeout(() => {
-
-          const card = node.querySelector('.ec-card');
-          if (card) {
-            card.classList.remove('open');
-            const icon = card.querySelector('.expand-icon');
-            if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+          if (window.location.hash === '#detail') {
+            history.replaceState(null, "", window.location.pathname + window.location.search);
           }
-
-          node.classList.remove('in-lightbox');
-
-          if (pfLbClone && pfLbClone.parentNode) {
-            pfLbClone.parentNode.replaceChild(node, pfLbClone);
-          } else {
-            parent.appendChild(node);
-          }
-
-          pfLbClone = null;
-          pfLbHome = null;
-        }, 250);
+        }, 50);
       }
-    }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.getElementById('card-lb').classList.contains('open')) {

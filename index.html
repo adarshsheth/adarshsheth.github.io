@@ -83,7 +83,7 @@
 
 		body::before {
 			background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/v1779880400/PXL_20260313_233818274_zgksky.jpg') !important;
-			filter: blur(4px) !important;
+			/* filter: blur(4px) !important; */
 		}
 	</style>
 	<link rel="stylesheet" href="style.css" />
@@ -105,11 +105,13 @@
 			border-bottom: 1px solid var(--border);
 		}
 
-		#about::before {
+		/* body::before { background: transparent;} */
+		.hero-full-bg {
 			content: "";
 			position: absolute;
 			inset: 0;
-			background: linear-gradient(rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.95) 100%), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+			background: linear-gradient(rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.9) 80%), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+			/* background: linear-gradient(pink 0%, rgba(10, 10, 10, 0.95) 30%), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat; */
 			z-index: -1;
 			-webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 			mask-image: linear-gradient(to bottom, black 5%, transparent 100%);
@@ -426,8 +428,8 @@
 
 			.tl-wrapper {
 				/* Applies a seamless fade-out on the right side to indicate horizontal scroll capability */
-				-webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-				mask-image: linear-gradient(to right, black 85%, transparent 100%);
+				-webkit-mask-image: linear-gradient(to right, black 70%, transparent 95%);
+				mask-image: linear-gradient(to right, black 70%, transparent 95%);
 			}
 		}
 
@@ -450,11 +452,19 @@
 				max-width: 100%;
 			}
 		}
+		@media (max-height: 650px) {
+			.scroll-down {
+				display: none !important;
+			}
+			.about-box {
+				padding-bottom: 40px;
+			}
+		}
 	</style>
 </head>
 
 <body>
-
+<div class="hero-full-bg"></div>
 	<div id="site-preloader">
 		<div class="preloader-content">
 			<svg class="preloader-svg" viewBox="0 0 955 955" xmlns="http://www.w3.org/2000/svg">
@@ -510,7 +520,7 @@
 				onclick="navToSection('about', () => window.scrollTo({top: 0, behavior:'smooth'})); return false;"
 				data-k="about">
 				<span class="sbdot"></span>
-				<span class="sblbl">Hero</span>
+				<span class="sblbl">Top</span>
 			</a>
 			<a class="sbn" href="#bio"
 				onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;"

@@ -117,7 +117,8 @@ body::before {
 	background-position: center;
 
 	/* Apply the blur */
-	filter: blur(4px);
+	/* filter: blur(4px); */
+	filter: blur(8px);
 
 	/* Scale it up slightly to hide the unblurred edges caused by the filter */
 	transform: scale(1.05);
@@ -238,17 +239,20 @@ header::before {
 	z-index: -1; /* Puts the blur behind the nav buttons */
 	pointer-events: none;
 	transform: translateY(-20%);
+	/* transform: translateY(-10%); */
 
 	/* The dark gradient tint */
-	background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 100%, transparent) 0%, transparent 100%);
+	/* background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 100%, transparent) 0%, transparent 100%); */
 
 	/* The actual blur effect */
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
+	/* backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px); */
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 
 	/* A mask that fades the blur out smoothly at the bottom edge so there isn't a harsh line */
-	-webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
-	mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+	/* -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%); */
+	mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
 }
 .mobile-box {
 	display: none;
@@ -476,23 +480,24 @@ header::before {
 	width: var(--sw);
 	background: var(--surface-full);
 	border-right: 2px solid var(--border);
-	z-index: 400;
+	border-right: 2px solid color-mix(in srgb, var(--border) 40% transparent);
+	z-index: 1000;
 	display: flex;
 	flex-direction: column;
 	padding-top: calc(var(--sb) + 8px);
-	/* will-change: transform; */
 	backface-visibility: hidden;
-	box-shadow: 0 0 15px color-mix(in srgb, var(--border) 40%, transparent);
+	/* box-shadow: 0 0 15px color-mix(in srgb, var(--border) 40%, transparent); */
+	box-shadow: 0 0 15px color-mix(in srgb, var(--border) 100%, transparent);
 
-	/* backdrop-filter: blur(5px);
-	-webkit-backdrop-filter: blur(5px); */
+	/* backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px); */
 	transition: all 0.3s ease-out;
 }
 
-#sb:hover {
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
-}
+	/* #sb:hover {
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	} */
 
 .ss-wrapper,
 .cbody,
