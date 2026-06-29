@@ -2839,7 +2839,6 @@
     lbLongPressTimer = null;
   }, { passive: true });
 
-
   // --- ACCORDION TOGGLE LOGIC --- 
   function toggleCardDetails(element) {
     const item = element.closest('.ec-item');
@@ -2848,23 +2847,18 @@
     const stack = element.closest('.card-stack');
 
     if (stack && stack.classList.contains('tile-mode')) {
-      // Desktop Devices (Hover supported): Standard click opens the lightbox immediately
-      if (window.matchMedia('(hover: hover)').matches) {
-        pfOpenLightbox(element);
+      // If it was a long-press on mobile, the lightbox already opened. Reset and do nothing here.
+      if (lbIsLongPress) {
+        setTimeout(() => { lbIsLongPress = false; }, 100);
         return;
-      } else {
-        // Mobile Touch Devices: 
-        if (lbIsLongPress) {
-          // If it was a long-press, the lightbox already opened. Reset and do nothing here.
-          setTimeout(() => { lbIsLongPress = false; }, 100);
-          return;
-        }
-        // If it wasn't a long press, it was a quick tap! We ignore the return 
-        // and let the code fall through so it expands the card inline instead.
       }
+
+      // For EVERYTHING else (Desktop clicks OR Mobile quick taps), open the lightbox!
+      pfOpenLightbox(element);
+      return;
     }
 
-    // Standard accordion expansion logic
+    // Standard accordion expansion logic (Now only applies to list-mode)
     const card = element.closest('.ec-card');
     card.classList.toggle('open');
     const icon = element.querySelector('.expand-icon');
