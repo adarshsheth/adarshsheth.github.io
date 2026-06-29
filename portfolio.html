@@ -464,7 +464,8 @@
     .ec-card.open .ec-details-inner {
       opacity: 1;
       /* padding-top: 15px; */
-      border-top: 1px solid var(--border);
+      /* border-top: 3px solid var(--border); */
+      border-top: 3px solid color-mix(in srgb, var(--g) 10%, transparent 0%);;
     }
 
     .ec-details-inner .cbody {
@@ -1016,19 +1017,27 @@
     }
 
 
-.card-stack .ec-card.open {
-        /* background: color-mix(in srgb, var(--dimtitle) 10%, transparent); */
-        /* background: color-mix(in srgb, var(--accent2) 20%, transparent); */
-        background: color-mix(in srgb, var(--g) 20%, transparent);
+    .card-stack .ec-card.open {
+      /* background: color-mix(in srgb, var(--dimtitle) 10%, transparent); */
+      /* background: color-mix(in srgb, var(--accent2) 20%, transparent); */
+      background: color-mix(in srgb, var(--g) 20%, transparent);
 
-        .ec-thumb {
-          min-height: 10px;
-        }
-
-        /* border-color: color-mix(in srgb, var(--accent2) 50%, transparent); */
-        border-color: color-mix(in srgb, var(--g) 50%, transparent);
-        /* box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); */
+      .ec-thumb {
+        min-height: 10px;
       }
+
+      /* border-color: color-mix(in srgb, var(--accent2) 50%, transparent); */
+      border-color: color-mix(in srgb, var(--g) 50%, transparent);
+      /* box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); */
+
+      .ec-summary {
+        background: color-mix(in srgb, var(--bg) 40%, transparent);
+        /* backdrop-filter: blur(100px);
+        -webkit-backdrop-filter: blur(100px); */
+      }
+
+    }
+
 
 
 
