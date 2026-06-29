@@ -74,6 +74,8 @@
 	/* --nav-drop: #647661cb; */
 	/* --nav-drop:  #404b3fcb; */
 	--nav-drop: #4c594acb;
+
+	--sec-title: #545556;
 }
 
 /* ── SELECTION HIGHLIGHT ── */
@@ -1552,8 +1554,10 @@ section {
 	height: 28px;
 	padding: 0px 14px;
 	border-radius: 100px;
-	border: 1px solid var(--border);
-	color: var(--border);
+	/* border: 1px solid var(--border); */
+	border: 1px solid color-mix(in srgb, var(--dimtitle) 50%, transparent);
+	/* color: var(--border); */
+	color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
 	text-transform: uppercase;
 	font-size: clamp(11px, 0.6vw, 20px);
 	padding: clamp(10px, 0.6vw, 15px);

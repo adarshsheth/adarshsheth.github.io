@@ -70,7 +70,8 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin: 0;
-      color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
+      /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
+      color: var(--sec-title);
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
     }
@@ -144,8 +145,23 @@
 
     @media (max-width: 1050px) {
       .portfolio-filters {
-        margin: 20px 22px 40px;
+        margin: 20px 22px 0px;
       }
+
+      .sh h2 {
+        opacity: 1;
+        color: var(--dimtitle);
+      }
+
+      .sh .sh-r {
+        opacity: 0.2;
+      }
+      .portfolio-filters {
+        padding-top: 20px;
+      }
+      /* #sec-teams .sh {
+        padding-top: 0px !important;
+      } */
     }
 
     /* --- MODERN ACCORDION CARD UI --- */
@@ -193,7 +209,7 @@
       transition: grid-template-columns 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), gap 0.4s ease;
     }
 
-    
+
     /* .ec-summary {
       display: grid;
       grid-template-columns: 220px 1fr;
@@ -322,9 +338,11 @@
       /* <-- Change this to your preferred tile size */
     }
 
-    /* .card-stack.tile-mode .badge { */
-    /* font-size: clamp(8px, 0.5vw, 18px); */
-    /* } */
+    .card-stack.tile-mode .badge {
+      font-size: clamp(8px, 0.5vw, 18px);
+      text-align: center;
+      padding: 3px 3px;
+    }
 
     .card-stack.tile-mode .ec-thumb {
       opacity: 1;
@@ -621,7 +639,7 @@
       -webkit-backdrop-filter: blur(12px);
     }
 
-    .card-lb-close {
+    /* .card-lb-close {
       position: sticky;
       top: 10px;
       left: auto;
@@ -644,6 +662,29 @@
       z-index: 10;
       transition: all 0.4s ease-in-out;
       opacity: 0;
+    } */
+    .card-lb-close {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10000;
+      transition: all 0.3s ease-in-out;
+      opacity: 1; /* Make visible */
+      margin: 0;
+      transform: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
     .card-lb-close:hover {
@@ -887,7 +928,7 @@
         padding: 12px;
       }
     }
-    
+
 
 
 
@@ -936,32 +977,60 @@
       .card-stack.tile-mode .ec-info-header .eclogos img {
         height: 20px;
       }
-    }
 
-    .ec-title {
-      font-size: clamp(18px, 1.5vw, 26px); /* Un-commented the smaller clamp */
-      font-weight: 900;
-      color: var(--dimtitle);
-      text-transform: uppercase;
-      line-height: 1.1;
-      margin-bottom: 4px;
-      transition: color 0.2s ease;
-    }
+      .card-stack.tile-mode .ec-info-header .eclogos {
+        display: none;
+      }
 
-    .ec-subtitle {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--tdim);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
 
-    .ec-brief {
-      font-size: clamp(13px, 0.8vw, 16px);
-      line-height: 1.45;
-      color: var(--dimtitle);
-      margin: 8px 0;
-      max-width: 800px;
+      .ec-thumb {
+        /* height: 150px; */
+        min-height: auto;
+        /* Make sure min-height transitions smoothly too */
+        transition: height 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), min-height 0.4s cubic-bezier(0.22, 0.9, 0.25, 1), opacity 0.3s ease;
+      }
+
+      .card-stack:not(.tile-mode) .ec-card.open {
+        /* background: color-mix(in srgb, var(--dimtitle) 10%, transparent); */
+        /* background: color-mix(in srgb, var(--accent2) 20%, transparent); */
+        background: color-mix(in srgb, var(--g) 20%, transparent);
+
+        .ec-thumb {
+          min-height: 10px;
+        }
+
+        /* border-color: color-mix(in srgb, var(--accent2) 50%, transparent); */
+        border-color: color-mix(in srgb, var(--g) 50%, transparent);
+        /* box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); */
+      }
+
+
+      .ec-title {
+        font-size: clamp(18px, 1.5vw, 26px);
+        /* Un-commented the smaller clamp */
+        font-weight: 900;
+        color: var(--dimtitle);
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin-bottom: 4px;
+        transition: color 0.2s ease;
+      }
+
+      .ec-subtitle {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--tdim);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .ec-brief {
+        font-size: clamp(13px, 0.8vw, 16px);
+        line-height: 1.45;
+        color: var(--dimtitle);
+        margin: 8px 0;
+        max-width: 800px;
+      }
     }
   </style>
 </head>
@@ -2654,12 +2723,19 @@
 
       document.getElementById('card-lb').classList.add('open');
       document.body.style.overflow = 'hidden';
+
+      // history.pushState({ lightboxOpen: true }, "", window.location.href);
     }
 
     function pfCloseLightbox() {
       const lb = document.getElementById('card-lb');
+      // if (!lb.classList.contains('open')) return;
       lb.classList.remove('open');
       document.body.style.overflow = '';
+
+      // if (fromPopState !== true) {
+      //   history.back();
+      // }
 
       if (pfLbHome) {
         const { node, parent } = pfLbHome;
