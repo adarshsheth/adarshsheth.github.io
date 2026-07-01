@@ -110,7 +110,8 @@
   <style>
     /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH BLOG STYLE ── */
     .sh h2 {
-      font-size: 16px !important;
+      /* font-size: 16px !important; */
+      font-size: clamp(12px, 0.9vw, 18px) !important;
       font-weight: 900 !important;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -168,7 +169,8 @@
       color: var(--dimtitle);
       font-family: "Rubik", sans-serif;
       font-weight: 700;
-      font-size: 11.5px;
+      /* font-size: 11.5px; */
+      font-size: clamp(11px, 0.6vw, 14px);
       letter-spacing: 0.1em;
       border-radius: 6px;
       cursor: pointer;
@@ -389,7 +391,8 @@
 
     .ec-brief {
       font-size: clamp(13px, 0.8vw, 16px);
-      line-height: 1.6;
+      /* line-height: 1.6; */
+      line-height: 1.4;
       color: var(--dimtitle);
       margin: 12px 0;
       max-width: 800px;
@@ -402,9 +405,15 @@
     }
 
     .card-stack.tile-mode .badge {
-      font-size: clamp(8px, 0.5vw, 18px);
+      /* font-size: clamp(8px, 0.5vw, 18px); */
+      font-size: clamp(8px, 0.5vw, 13px);
+      padding: 4px 6px;
+      /* padding: 4px 6px 2px; */
+      line-height: 1 !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 3px 3px;
     }
 
     .card-stack.tile-mode .ec-thumb {
@@ -495,6 +504,8 @@
       border-top: none;
       background: transparent;
       padding: 0 24px 24px;
+      position: relative;
+      z-index: 50;
     }
 
     /* ══ TILE MODE (active when the "All / Default" filter is selected) ══ */
@@ -762,26 +773,21 @@
     }
 
     #card-lb-content {
-      max-height: 88dvh;
+      max-height: calc(88dvh - 4px);
       overflow-y: auto;
       border-radius: 12px;
-      padding-bottom: 20px;
+      /* padding-bottom: 20px; */
+      padding-bottom: 0px;
 
-      /* 1. The first gradient fades the content. The second solid black line protects the scrollbar. */
-      -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%), linear-gradient(to bottom, black, black);
+      /* -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%), linear-gradient(to bottom, black, black);
       mask-image: linear-gradient(to bottom, black 88%, transparent 100%), linear-gradient(to bottom, black, black);
-
-      /* 2. Give the fading mask the left side, and the solid mask the exact 14px width of the scrollbar track */
       -webkit-mask-size: calc(100% - 14px) 100%, 14px 100%;
       mask-size: calc(100% - 14px) 100%, 14px 100%;
 
-      /* 3. Pin them to the left and right edges respectively */
       -webkit-mask-position: left top, right top;
       mask-position: left top, right top;
-
-      /* 4. Stop them from repeating and overlapping */
       -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
+      mask-repeat: no-repeat; */
     }
 
 
@@ -857,12 +863,12 @@
 
 
     /* 1. Add bottom padding so text clears the blur when fully scrolled */
-    #card-lb-content {
+    /* #card-lb-content {
       padding-bottom: 20px;
-    }
+    } */
 
     /* 2. Sticky blur overlay inside the scrolling modal */
-    .card-lb-box::after {
+    /* .card-lb-box::after {
       content: '';
       position: sticky;
       bottom: -1px;
@@ -870,25 +876,60 @@
       width: 100%;
       height: 60px;
       margin-top: -60px;
-      /* Pull it up so it overlays the content */
-      /* background: linear-gradient(to bottom, transparent, var(--bg)); */
       pointer-events: none;
-      /* Prevents the invisible box from blocking links */
       z-index: 10;
       border-radius: 0 0 12px 12px;
-      /* transition: opacity 0.3s ease;  */
-    }
-
-    #card-lb-box::after {
+    } */
+/* Replace your old ::after rules with this */
+/* .card-lb-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; 
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none; 
+  z-index: 10;
+  border-radius: 0 0 12px 12px;
+} */
+ /* Add this new block */
+#card-lb-content::after {
+  content: '';
+  position: sticky;
+  bottom: -1px;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 10;
+  margin-top: -60px; /* Prevents the sticky block from adding empty scroll space */
+  border-radius: 0 0 12px 12px;
+}
+    /* #card-lb-box::after {
       background: linear-gradient(to bottom, transparent, var(--bg));
-    }
+    } */
 
     /* Hides the gradient when user reaches the bottom */
-    .card-lb-box.at-bottom::after {
+    /* .card-lb-box.at-bottom::after {
       opacity: 0;
-    }
+    } */
 
+#card-lb-content .ec-item {
+  transform: none !important;
+}
 
+#card-lb-content .ec-card {
+  border: none;
+  border-radius: 0;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
 
 
 
@@ -1154,6 +1195,7 @@
         max-width: 800px;
       }
     }
+
   </style>
 </head>
 
@@ -1229,8 +1271,7 @@
         AERONAUTICS</button>
       <button class="filter-btn" data-tag="space" onclick="filterPortfolio('space')">ROCKETRY & SPACE</button>
       <button class="filter-btn" data-tag="robotics" onclick="filterPortfolio('robotics')">ROBOTICS</button>
-      <button class="filter-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL
-        ENGINEERING</button>
+      <button class="filter-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL ENGINEERING</button>
     </div>
 
     <div id="master-card-pool" style="display: none;">
@@ -1999,7 +2040,7 @@
 
                   <div class="cslbl" style="margin-top:12px">Constraint Analysis + Iterative
                     Sizing Method</div>
-                  <p class="hbox" style="font-size:clamp(13.5px, 0.9vw, 50px);color:var(--tdim);margin-bottom:8px">
+                  <p class="hbox" style="color:var(--tdim);margin-bottom:8px">
                     Iterated
                     through <b>2,362,692</b> sizing configurations, varying:<br><b style="color: var(--tdim)">[1]
                       MTOW, [2] S</b> (wing planform area),

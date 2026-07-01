@@ -238,13 +238,16 @@
 
 		.bio-img-container {
 			flex-shrink: 0;
-			width: 200px;
-			height: 200px;
+			/* width: 200px;
+			height: 200px; */
+			width: 150px;
+			height: 160px;
 			margin: 0;
 			border-radius: 50%;
 			/* border: 3px solid color-mix(in srgb, var(--g) 40%, transparent); */
 			border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
-			overflow: hidden;
+			/* overflow: hidden; */
+			align-self: flex-start;
 		}
 
 		.bio-img-container img {
@@ -405,9 +408,14 @@
 			}
 
 			.bio-img-container {
-				width: 100px;
-				height: 100px;
+				width: 120px;
+				height: 120px;
+				/* width: 200px;
+				height: 200px; */
 
+			}
+			.fw-head {
+				margin-bottom: 20px !important;
 			}
 
 			#portfolio-overview,
@@ -575,8 +583,10 @@
 				<span class="fw-title">ABOUT ME</span>
 			</div>
 			<div class="bio-flex">
-				<div class="bio-img-container">
-					<img src="media/artwork/pfp2.jpg" alt="Adarsh Sheth" loading="lazy" decoding="async" />
+				<!-- <div class="bio-img-container"> -->
+				<div class="bio-img-container" style="border: 0px !important; border-radius: 0px !important;">
+					<!-- <img src="media/artwork/pfp2.jpg" alt="Adarsh Sheth" loading="lazy" decoding="async" /> -->
+					<img src="media/artwork/bio-img.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
 				</div>
 				<div class="bio-text-content">
 					<p class="about-bio" style="width: 100%; font-size: clamp(14px, 1vw, 18px); line-height: 1.7;">

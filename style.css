@@ -570,7 +570,7 @@ header::before {
 #sb-hdr {
 	padding: 10px 14px 7px;
 	/* font-size: clamp(13.5px, 0.8vw, 30px); */
-	font-size: clamp(13.5px, 0.8vw, 30px);
+	font-size: clamp(13.5px, 0.8vw, 24px);
 	font-weight: 800;
 	letter-spacing: 0.1em;
 	/* color: var(--g); */
@@ -621,7 +621,8 @@ header::before {
 /* main sidebar item text on reg */
 .sblbl {
 	/* font-size: clamp(11.5px, 0.6vw, 25px); */
-	font-size: clamp(10px, 0.6vw, 15px);
+	/* font-size: clamp(10px, 0.6vw, 15px); */
+	font-size: clamp(10px, 0.5vw, 14px);
 	font-weight: 500;
 	letter-spacing: 0.07em;
 	color: var(--sb-text);
@@ -688,7 +689,8 @@ header::before {
 /* sub sidebar item text on reg */
 .sbn-sub {
 	/* font-size: clamp(10.5px, 0.5vw, 25px); */
-	font-size: clamp(10.5px, 0.5vw, 15px);
+	/* font-size: clamp(10.5px, 0.5vw, 15px); */
+	font-size: clamp(10.5px, 0.4vw, 14px);
 	font-weight: 500;
 	color: var(--sb-text);
 	text-transform: uppercase;
@@ -886,7 +888,8 @@ section {
 	border-bottom: 1px solid rgba(200, 168, 75, 0.25);
 }
 #ibar p {
-	font-size: clamp(13.5px, 0.8vw, 50px);
+	/* font-size: clamp(13.5px, 0.8vw, 50px); */
+	font-size: clamp(13.5px, 0.8vw, 20px);
 	color: var(--dimtitle);
 	line-height: 1.65;
 }
@@ -936,7 +939,8 @@ section {
 	padding: 10px 14px;
 	margin: 10px 0;
 	/* font-size: clamp(13.5px, 0.8vw, 50px); */
-	font-size: clamp(13.5px, 0.8vw, 30px);
+	/* font-size: clamp(13.5px, 0.8vw, 30px); */
+	font-size: clamp(13.5px, 0.8vw, 20px);
 	color: #888888;
 	/* line-height: 1.5; */
 }
@@ -1416,7 +1420,7 @@ section {
 	border: 1px solid var(--badge);
 	color: var(--badge);
 	/* font-size: clamp(11px, 0.6vw, 40px); */
-	font-size: clamp(10px, 0.6vw, 15px);
+	font-size: clamp(10px, 0.6vw, 13px);
 	font-weight: 500;
 	letter-spacing: 0.1em;
 	white-space: nowrap;
@@ -1466,7 +1470,8 @@ section {
 	position: relative;
 	padding-left: 16px;
 	/* font-size: clamp(13.5px, 0.8vw, 50px); */
-	font-size: clamp(13.5px, 0.8vw, 30px);
+	/* font-size: clamp(13.5px, 0.8vw, 30px); */
+	font-size: clamp(13.5px, 0.8vw, 20px);
 	line-height: 1.15;
 	color: var(--tdim);
 	padding-bottom: 3px;
@@ -1488,7 +1493,9 @@ section {
 .cbul > li > ul > li {
 	position: relative;
 	/* font-size: clamp(13.5px, 0.8vw, 50px); */
-	font-size: clamp(13.5px, 0.8vw, 25px);
+	/* font-size: clamp(13.5px, 0.8vw, 25px); */
+	/* font-size: clamp(13.5px, 0.8vw, 20px); */
+	font-size: inherit;
 	color: var(--tdim);
 	line-height: 1.15;
 	padding-bottom: 3px;
@@ -1525,7 +1532,9 @@ section {
 }
 .cslbl {
 	/* font-size: clamp(13.5px, 0.9vw, 50px); */
-	font-size: clamp(13.5px, 0.9vw, 30px);
+	/* font-size: clamp(13.5px, 0.9vw, 30px); */
+	font-size: clamp(13.5px, 0.9vw, 20px);
+	      /* font-size: clamp(13px, 0.8vw, 16px); */
 	font-weight: 800;
 	letter-spacing: 0.1em;
 	color: var(--miniheader);
@@ -1598,7 +1607,8 @@ section {
 	/* color: var(--border); */
 	color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
 	text-transform: uppercase;
-	font-size: clamp(11px, 0.6vw, 20px);
+	/* font-size: clamp(11px, 0.6vw, 20px); */
+	font-size: clamp(11px, 0.6vw, 15px);
 	padding: clamp(10px, 0.6vw, 15px);
 	padding: clamp(5px, 0.3vw, 15px) 10px;
 	font-weight: 600;

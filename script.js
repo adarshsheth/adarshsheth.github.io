@@ -1,12 +1,12 @@
 /* ── CUSTOM CURSOR (disabled – set true to enable) ── */
 const ENABLE_CUSTOM_CURSOR = false;
 /* ── DISABLE GLOBAL CONTEXT MENU ON IMAGES & LINKS ── */
-document.addEventListener('contextmenu', (e) => {
-    // Check if the item being right-clicked / long-pressed is an image or a link
-    if (e.target.tagName === 'IMG' || e.target.closest('a') || e.target.closest('.ec-card')) {
-        e.preventDefault();
-    }
-});
+// document.addEventListener('contextmenu', (e) => {
+//     // Check if the item being right-clicked / long-pressed is an image or a link
+//     if (e.target.tagName === 'IMG' || e.target.closest('a') || e.target.closest('.ec-card')) {
+//         e.preventDefault();
+//     }
+// });
 
 /* ── SVG PERFECT TRACE CALCULATOR ── */
 // Mathematically calculates the length of your logo paths to prevent GPU over-draw lag
