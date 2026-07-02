@@ -233,21 +233,23 @@
     }
 
     .ec-card {
-      background: color-mix(in srgb, var(--surface) 80%, transparent);
+      /* background: color-mix(in srgb, var(--surface) 80%, transparent); */
+      background: color-mix(in srgb, var(--bg) 50%, transparent);
       border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
       border-radius: 10px;
       overflow: hidden;
       transition: all 0.3s ease-in-out;
       /* transition: transform 0.5s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease; */
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      /* backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px); */
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
     .ec-card:hover {
       transform: translateY(-3px);
-      /* background: color-mix(in srgb, var(--dimtitle) 7%, transparent); */
-      /* background: color-mix(in srgb, var(--g) 20%, transparent); */
-      background: color-mix(in srgb, var(--g) 10%, transparent);
+      /* background: color-mix(in srgb, var(--g) 10%, transparent); */
+      background: color-mix(in srgb, var(--g) 20%, transparent);
       border-color: color-mix(in srgb, var(--g) 50%, transparent);
     }
 
@@ -371,8 +373,8 @@
     }
 
     .ec-title {
-      font-size: clamp(18px, 1.5vw, 40px);
-      /* font-size: clamp(18px, 1.5vw, 26px); */
+      /* font-size: clamp(18px, 1.5vw, 40px); */
+      font-size: clamp(18px, 1.5vw, 26px);
       font-weight: 900;
       color: var(--dimtitle);
       text-transform: uppercase;
@@ -711,8 +713,10 @@
       border: 2px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      /* backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); */
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
 
       /* copied from commented out above */
       opacity: 0;
@@ -880,8 +884,8 @@
       z-index: 10;
       border-radius: 0 0 12px 12px;
     } */
-/* Replace your old ::after rules with this */
-/* .card-lb-box::after {
+    /* Replace your old ::after rules with this */
+    /* .card-lb-box::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -893,21 +897,23 @@
   z-index: 10;
   border-radius: 0 0 12px 12px;
 } */
- /* Add this new block */
-#card-lb-content::after {
-  content: '';
-  position: sticky;
-  bottom: -1px;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--bg));
-  pointer-events: none;
-  z-index: 10;
-  margin-top: -60px; /* Prevents the sticky block from adding empty scroll space */
-  border-radius: 0 0 12px 12px;
-}
+    /* Add this new block */
+    #card-lb-content::after {
+      content: '';
+      position: sticky;
+      bottom: -1px;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      pointer-events: none;
+      z-index: 10;
+      margin-top: -60px;
+      /* Prevents the sticky block from adding empty scroll space */
+      border-radius: 0 0 12px 12px;
+    }
+
     /* #card-lb-box::after {
       background: linear-gradient(to bottom, transparent, var(--bg));
     } */
@@ -917,19 +923,19 @@
       opacity: 0;
     } */
 
-#card-lb-content .ec-item {
-  transform: none !important;
-}
+    #card-lb-content .ec-item {
+      transform: none !important;
+    }
 
-#card-lb-content .ec-card {
-  border: none;
-  border-radius: 0;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  transform: none !important;
-  box-shadow: none !important;
-}
+    #card-lb-content .ec-card {
+      border: none;
+      border-radius: 0;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
 
 
 
@@ -1057,8 +1063,10 @@
       /* Shrinks the thumbnail height on mobile */
       .card-stack.tile-mode .ec-thumb,
       .ec-thumb {
-        height: 130px;
-        min-height: 130px;
+        /* height: 130px; */
+        height: 100px;
+        /* min-height: 130px; */
+        min-height: 100px;
       }
 
       /* Shrinks typography and padding to fit */
@@ -1195,7 +1203,6 @@
         max-width: 800px;
       }
     }
-
   </style>
 </head>
 
@@ -1276,6 +1283,183 @@
 
     <div id="master-card-pool" style="display: none;">
 
+      <div class="ec-item" id="ray" data-tags="space" data-sections="teams" data-order="1">
+        <div class="ec-card">
+          <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-thumb">
+              <img
+                src="https://cdn10.picryl.com/photo/1991/09/06/a-view-of-the-receiving-antennas-foreground-for-a-relocatable-over-the-horizon-249f3d-1024.jpg"
+                alt="OTHR">
+              <!-- <img
+                src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_1_yxkery.jpg"
+                alt="VFD Rev 3"> -->
+            </div>
+            <div class="ec-info">
+              <div>
+                <div class="ec-info-header">
+                  <div class="ec-info-header-text">
+                    <h3 class="ec-title">Systems Engineering Intern @ Raytheon</h3>
+                    <div class="ec-subtitle">SUMMER 2026 | 06/2026 – 08/2026</div>
+                  </div>
+                  <div class="eclogos darkimgs">
+                    <img src="media/logo/ray.png" alt="Raytheon RTX Logo" decoding="async" />
+                  </div>
+                </div>
+                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                  <span class="badge" data-cat="sw">MATLAB</span>
+                  <span class="badge" data-cat="sw">AERO Toolbox</span>
+                  <span class="badge" data-cat="sw">Bitbucket</span>
+                  <span class="badge" data-cat="sw">Orbit Propagation</span>
+                  <span class="badge" data-cat="sw">TLE Files</span>
+                </div>
+                <p class="ec-brief">Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files to filter those in FOV; then tracked chosen satellite across its in-FOV duration.</p>
+              </div>
+              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+            </div>
+          </div>
+
+          <div class="ec-details">
+            <div class="ec-details-inner">
+              <div class="cbody flex-img">
+                <p style="position: relative; z-index: 50;">Coming soon.</p>
+                <!-- <div>
+                  <div class="hbox"><b>Competitions:</b> Design-Build-Vertical Flight
+                    (DBVF) · Student Unmanned Aerial Systems Competition (SUAS)</div>
+                  <div class="cslbl" style="margin-top:10px">VTOL Design & Research</div>
+                  <ul class="cbul">
+                    <li>Analyzed multicopter and winged configuraions for maximum <b>[1]
+                        hover stability</b> (static; dynamic
+                      response via rise time) and <b>[2] translational speed</b> under
+                      minimum flight time and range</li>
+                    <li>Compiled academic research findings on vortex ring state (VRS) to
+                      quantative derive descent paths and assocaited maximum safe descent
+                      rate</li>
+                  </ul>
+
+                  <div class="cslbl" style="margin-top:10px">Simulation & Modeling</div>
+                  <ul class="cbul">
+                    <li>Programmed <b>Monte Carlo simulation</b> to generate 1,000 flight
+                      mission path combinations, optimized for points and risk under
+                      energy and time constraints
+                      <ul>
+                        <li>Utilized multicopter <b>energy model</b> as a function of
+                          total mass
+                          (variable motor, rotor, and battery specs under constant fly
+                          time
+                          and T/W ratio) for both translational and hover flight
+                          states</li>
+                      </ul>
+                    </li>
+                    <li>Ran <b>parametric incompressible fluid flow analysis</b> simulation
+                      using
+                      SimScale to calculate F<sub>D</sub> across -90°≤θ≤90° and 0°≤β≤90°;
+                      verified output with boundary layer <b>convergence study</b>
+                      <ul>
+                        <li>Wrote documentation on SimScale, CFD simulations, and
+                          analysis</li>
+                      </ul>
+                    </li>
+                    <li>Shadowed in hexacopter dynamics modeling using MatLab and Simulink
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                  <div>
+                    <div class="cw">
+                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                        <img class="cimg on"
+                          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD1_zgkpwb.png"
+                          alt="SimScale CFD Pressure Vector Field" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD2_cr9w1z.png"
+                          alt="SimScale CFD Velocity Vector Field" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269896/group1_bvcy2q.png"
+                          alt="VFD Group Photo @ Lab" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_1_yxkery.jpg"
+                          alt="Rev3 in the Sunset; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252212/group2_igqmhn.jpg"
+                          alt="VFD Group Photo @ Flight Testing" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_2_hcfswz.jpg"
+                          alt="Rev3 with Trees; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_3_wfvvwk.jpg"
+                          alt="Rev3 in the Sky; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_4_zdovan.jpg"
+                          alt="Rev3 Resting; P.C. Amogh" decoding="async" width="800" height="600" />
+                        <img class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/minirev1_jqpmyo.jpg"
+                          alt="Mini Rev; P.C. Amogh" decoding="async" width="800" height="600" />
+                      </div>
+                    </div>
+                    <div class="cdots">
+                      <span class="cdot on"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                    </div>
+                    <div class="car-caption"></div>
+                  </div>
+
+                  <div>
+                    <div class="cw">
+                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                        <video class="cimg on"
+                          src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.mp4"
+                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.jpg"
+                          data-cap="Rev3 1st Ground Test Timelapse" preload="metadata" autoplay playsinline muted
+                          loop></video>
+                        <video class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250772/flyby_gb0mba.mp4"
+                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250772/flyby_gb0mba.jpg"
+                          data-cap="Rev3 Flyby" preload="metadata" autoplay playsinline muted loop></video>
+                        <video class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250763/payload_drop_kldl3y.mp4"
+                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250763/payload_drop_kldl3y.jpg"
+                          data-cap="Rev3 25-26 Challenge Payload Drop" preload="metadata" autoplay playsinline muted
+                          loop></video>
+                        <video class="cimg"
+                          data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250782/april_tag_srdw0n.mp4"
+                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250782/april_tag_srdw0n.jpg"
+                          data-cap="Rev3 Autonomy" preload="metadata" autoplay playsinline muted loop></video>
+                      </div>
+                    </div>
+                    <div class="cdots">
+                      <span class="cdot on"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                      <span class="cdot"></span>
+                    </div>
+                    <div class="car-caption"></div>
+                  </div>
+                </div> -->
+              </div>
+              <!-- <div class="clinks">
+                <a href="https://www.tamuvfs.org/programs/vfd" class="clnk" target="_blank">TAMU
+                  VFD (Design Team)</a>
+                <a href="https://www.tamuvfs.org/" class="clnk" target="_blank">TAMU VFS
+                  (Society)</a>
+                <a href="https://vtol.org/vfs-works-for-you/education-and-student-activities/design-build-vertical-flight"
+                  class="clnk" target="_blank">DBVF Competition</a>
+                <a href="https://suas-competition.org/" class="clnk" target="_blank">SUAS
+                  Competition</a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <div class="ec-item" id="vfd" data-tags="evtol" data-sections="teams" data-order="1">
         <div class="ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -1297,10 +1481,10 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">TRADE-OFF ANALYSIS</span>
-                  <span class="badge">CFD</span>
-                  <span class="badge">SimScale</span>
-                  <span class="badge">PYTHON</span>
+                  <span class="badge" data-cat="hw">TRADE-OFF ANALYSIS</span>
+                  <span class="badge" data-cat="hw">CFD</span>
+                  <span class="badge" data-cat="hw">SimScale</span>
+                  <span class="badge" data-cat="sw">PYTHON</span>
                 </div>
                 <p class="ec-brief">Analyzed multicopter and winged configurations, programmed Monte
                   Carlo
@@ -1472,9 +1656,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">P&ID</span>
-                  <span class="badge">FMEA</span>
-                  <span class="badge">V&V</span>
+                  <span class="badge" data-cat="hw">P&ID</span>
+                  <span class="badge" data-cat="hw">FMEA</span>
+                  <span class="badge" data-cat="hw">V&V</span>
                 </div>
                 <p class="ec-brief">Designed and tested fluid systems, feedline assemblies, and P&ID
                   documentation.
@@ -1579,9 +1763,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">PYTHON</span>
-                  <span class="badge">SIMULATION</span>
-                  <span class="badge">GITHUB</span>
+                  <span class="badge" data-cat="sw">PYTHON</span>
+                  <span class="badge" data-cat="hw">SIMULATION</span>
+                  <span class="badge" data-cat="sw">GITHUB</span>
                 </div>
                 <p class="ec-brief">Led a 12-member team to design and program a lunar crash site
                   search algorithm in
@@ -1675,9 +1859,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">PROJECT MANAGEMENT</span>
-                  <span class="badge">CAD</span>
-                  <span class="badge">EDP</span>
+                  <span class="badge" data-cat="mgmt">PROJECT MANAGEMENT</span>
+                  <span class="badge" data-cat="hw">CAD</span>
+                  <span class="badge" data-cat="misc">EDP</span>
                 </div>
                 <p class="ec-brief">Captained a top 2% global VEX Robotics team across 2 seasons.
                   Overhauled
@@ -1757,13 +1941,13 @@
                   <div class="csub">
                     <div class="cslbl">Technical Contributions</div>
                     <div class="brow" style="padding: 0 0 8px">
-                      <span class="badge">CAD</span>
-                      <span class="badge">T&E</span>
-                      <span class="badge">EDP</span>
-                      <span class="badge">SYSTEMS INTEGRATION</span>
-                      <span class="badge">RC DRIVER</span>
-                      <span class="badge">ASSEMBLY</span>
-                      <span class="badge">DOCUMENTATION</span>
+                      <span class="badge" data-cat="hw">CAD</span>
+                      <span class="badge" data-cat="misc">T&E</span>
+                      <span class="badge" data-cat="misc">EDP</span>
+                      <span class="badge" data-cat="misc">SYSTEMS INTEGRATION</span>
+                      <span class="badge" data-cat="misc">RC DRIVER</span>
+                      <span class="badge" data-cat="hw">ASSEMBLY</span>
+                      <span class="badge" data-cat="misc">DOCUMENTATION</span>
                     </div>
                     <ul class="cbul">
                       <li>Designed, tested, and iterated individual subsystems and
@@ -1905,9 +2089,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">LOGISTICS</span>
-                  <span class="badge">EVENT PLANNING</span>
-                  <span class="badge">COORDINATION</span>
+                  <span class="badge" data-cat="mgmt">LOGISTICS</span>
+                  <span class="badge" data-cat="mgmt">EVENT PLANNING</span>
+                  <span class="badge" data-cat="mgmt">COORDINATION</span>
                 </div>
                 <p class="ec-brief">Coordinated massive regional robotics tournaments and summer
                   camps, raising
@@ -2010,9 +2194,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">AERODYNAMICS</span>
-                  <span class="badge">SIZING ITERATION</span>
-                  <span class="badge">CONSTRAINT ANALYSIS</span>
+                  <span class="badge" data-cat="hw">AERODYNAMICS</span>
+                  <span class="badge" data-cat="sw">SIZING ITERATION</span>
+                  <span class="badge" data-cat="hw">CONSTRAINT ANALYSIS</span>
                 </div>
                 <p class="ec-brief"><b>Won 1st Place.</b> Iterated 2.3 million sizing configurations
                   and coded search
@@ -2178,8 +2362,8 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">PROTOTYPING</span>
-                  <span class="badge">NEED STATEMENT</span>
+                  <span class="badge" data-cat="hw">PROTOTYPING</span>
+                  <span class="badge" data-cat="misc">NEED STATEMENT</span>
                 </div>
                 <p class="ec-brief">Designed, prototyped, and presented a plate-design small modular
                   nuclear reactor
@@ -2294,9 +2478,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">AERODYNAMICS</span>
-                  <span class="badge">TRADE STUDY</span>
-                  <span class="badge">RESEARCH</span>
+                  <span class="badge" data-cat="hw">AERODYNAMICS</span>
+                  <span class="badge" data-cat="misc">TRADE STUDY</span>
+                  <span class="badge" data-cat="misc">RESEARCH</span>
                 </div>
                 <p class="ec-brief">Conducted trade studies, CAD, FEA, and aerodynamic research for
                   a structurally
@@ -2385,8 +2569,8 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">THERMODYNAMICS</span>
-                  <span class="badge">TECHNICAL WRITING</span>
+                  <span class="badge" data-cat="hw">THERMODYNAMICS</span>
+                  <span class="badge" data-cat="mgmt">TECHNICAL WRITING</span>
                 </div>
                 <p class="ec-brief">A series of educational infographics exploring the mechanical,
                   thermodynamic,
@@ -2454,8 +2638,8 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">AERODYNAMICS</span>
-                  <span class="badge">PIKTOCHART</span>
+                  <span class="badge" data-cat="hw">AERODYNAMICS</span>
+                  <span class="badge" data-cat="misc">PIKTOCHART</span>
                 </div>
                 <p class="ec-brief">Educational infographics exploring the 4 forces of flight,
                   focusing heavily on
@@ -2474,9 +2658,7 @@
                     An emphasis on the 4 forces of flight (thrust, drag, lift, weight) and
                     the design components corresponding
                     to each — exploring engineering principles and processes that shape,
-                    limit, and optimize design
-                  </p>
-                  <p style="font-size: 13px; color: var(--tdim); margin-bottom: 12px">
+                    limit, and optimize design.<br><br>
                     See below: an introduction to the jet engine, beginning with the general
                     stages and process, then branching
                     into its variants.
@@ -2528,9 +2710,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">LEADERSHIP</span>
-                  <span class="badge">PROJECT MANAGEMENT</span>
-                  <span class="badge">CAD</span>
+                  <span class="badge" data-cat="mgmt">LEADERSHIP</span>
+                  <span class="badge" data-cat="mgmt">PROJECT MANAGEMENT</span>
+                  <span class="badge" data-cat="hw">CAD</span>
                 </div>
                 <p class="ec-brief">Achieved Eagle Scout rank with 3 palms. Designed, built, and
                   installed a 14'×4'×3'
@@ -2625,8 +2807,8 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">SURFACE MODELING</span>
-                  <span class="badge">AERONAUTICS</span>
+                  <span class="badge" data-cat="hw">SURFACE MODELING</span>
+                  <span class="badge" data-cat="hw">AERONAUTICS</span>
                 </div>
                 <p class="ec-brief">A high-fidelity surface model of a Boeing 737-800 aircraft
                   developed independently
@@ -2691,9 +2873,9 @@
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge">STRESS ANALYSIS</span>
-                  <span class="badge">CAD</span>
-                  <span class="badge">MATERIAL SCIENCE</span>
+                  <span class="badge" data-cat="hw">STRESS ANALYSIS</span>
+                  <span class="badge" data-cat="hw">CAD</span>
+                  <span class="badge" data-cat="hw">MATERIAL SCIENCE</span>
                 </div>
                 <p class="ec-brief">Conceptualized a carbon fiber F1 brake pedal engineered to
                   withstand 2000 N of
@@ -2791,6 +2973,29 @@
 
       <div class="card-stack tile-mode" id="stack-misc"></div>
     </section>
+
+
+
+
+
+
+    <section id="sec-skills" class="sb" data-k="skills">
+      <div class="sh">
+        <span class="sh-r"></span>
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-skills'); scrollToSec('sec-skills')">
+          <h2>SKILLS <span class="amp">&</span> TECHNOLOGIES</h2>
+        </button>
+        <span class="sh-r"></span>
+      </div>
+
+      <div id="skills-container" class="skills-wrap"></div>
+    </section>
+
+
+
+
+
+
     <section>
       <div style="margin-top: 40px"></div>
     </section>
@@ -2832,89 +3037,89 @@
       videos.forEach(vid => io.observe(vid));
     });
 
-  // --- LONG PRESS STATE FOR MOBILE TILES ---
-  let lbLongPressTimer = null;
-  let lbIsLongPress = false;
-  let lbTouchStartX = 0;
-  let lbTouchStartY = 0;
+    // --- LONG PRESS STATE FOR MOBILE TILES ---
+    let lbLongPressTimer = null;
+    let lbIsLongPress = false;
+    let lbTouchStartX = 0;
+    let lbTouchStartY = 0;
 
-  // 1. Listen for when the user touches a card
-  document.addEventListener('touchstart', (e) => {
-    const summary = e.target.closest('.ec-summary');
-    if (!summary) return;
+    // 1. Listen for when the user touches a card
+    document.addEventListener('touchstart', (e) => {
+      const summary = e.target.closest('.ec-summary');
+      if (!summary) return;
 
-    const stack = summary.closest('.card-stack');
-    // Only apply this logic to tiles
-    if (stack && stack.classList.contains('tile-mode')) {
-      lbIsLongPress = false;
-      lbTouchStartX = e.touches[0].clientX;
-      lbTouchStartY = e.touches[0].clientY;
+      const stack = summary.closest('.card-stack');
+      // Only apply this logic to tiles
+      if (stack && stack.classList.contains('tile-mode')) {
+        lbIsLongPress = false;
+        lbTouchStartX = e.touches[0].clientX;
+        lbTouchStartY = e.touches[0].clientY;
 
-      // Start a 500ms timer. If it finishes before they let go, open the lightbox!
-      lbLongPressTimer = setTimeout(() => {
-        lbIsLongPress = true;
-        pfOpenLightbox(summary);
-      }, 500);
-    }
-  }, { passive: true });
+        // Start a 500ms timer. If it finishes before they let go, open the lightbox!
+        lbLongPressTimer = setTimeout(() => {
+          lbIsLongPress = true;
+          pfOpenLightbox(summary);
+        }, 500);
+      }
+    }, { passive: true });
 
-  // 2. Cancel the long-press if the user scrolls or jiggles their finger too much
-  document.addEventListener('touchmove', (e) => {
-    if (!lbLongPressTimer) return;
-    const dx = Math.abs(e.touches[0].clientX - lbTouchStartX);
-    const dy = Math.abs(e.touches[0].clientY - lbTouchStartY);
-    if (dx > 10 || dy > 10) {
+    // 2. Cancel the long-press if the user scrolls or jiggles their finger too much
+    document.addEventListener('touchmove', (e) => {
+      if (!lbLongPressTimer) return;
+      const dx = Math.abs(e.touches[0].clientX - lbTouchStartX);
+      const dy = Math.abs(e.touches[0].clientY - lbTouchStartY);
+      if (dx > 10 || dy > 10) {
+        clearTimeout(lbLongPressTimer);
+        lbLongPressTimer = null;
+      }
+    }, { passive: true });
+
+    // 3. Cancel the timer if they let go early (it was just a quick tap)
+    document.addEventListener('touchend', () => {
       clearTimeout(lbLongPressTimer);
       lbLongPressTimer = null;
-    }
-  }, { passive: true });
+    }, { passive: true });
 
-  // 3. Cancel the timer if they let go early (it was just a quick tap)
-  document.addEventListener('touchend', () => {
-    clearTimeout(lbLongPressTimer);
-    lbLongPressTimer = null;
-  }, { passive: true });
+    document.addEventListener('touchcancel', () => {
+      clearTimeout(lbLongPressTimer);
+      lbLongPressTimer = null;
+    }, { passive: true });
 
-  document.addEventListener('touchcancel', () => {
-    clearTimeout(lbLongPressTimer);
-    lbLongPressTimer = null;
-  }, { passive: true });
+    // --- ACCORDION TOGGLE LOGIC --- 
+    function toggleCardDetails(element) {
+      const item = element.closest('.ec-item');
+      if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
 
-  // --- ACCORDION TOGGLE LOGIC --- 
-  function toggleCardDetails(element) {
-    const item = element.closest('.ec-item');
-    if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
+      const stack = element.closest('.card-stack');
 
-    const stack = element.closest('.card-stack');
+      if (stack && stack.classList.contains('tile-mode')) {
+        // If it was a long-press on mobile, the lightbox already opened. Reset and do nothing here.
+        if (lbIsLongPress) {
+          setTimeout(() => { lbIsLongPress = false; }, 100);
+          return;
+        }
 
-    if (stack && stack.classList.contains('tile-mode')) {
-      // If it was a long-press on mobile, the lightbox already opened. Reset and do nothing here.
-      if (lbIsLongPress) {
-        setTimeout(() => { lbIsLongPress = false; }, 100);
+        // For EVERYTHING else (Desktop clicks OR Mobile quick taps), open the lightbox!
+        pfOpenLightbox(element);
         return;
       }
 
-      // For EVERYTHING else (Desktop clicks OR Mobile quick taps), open the lightbox!
-      pfOpenLightbox(element);
-      return;
-    }
+      // Standard accordion expansion logic (Now only applies to list-mode)
+      const card = element.closest('.ec-card');
+      card.classList.toggle('open');
+      const icon = element.querySelector('.expand-icon');
 
-    // Standard accordion expansion logic (Now only applies to list-mode)
-    const card = element.closest('.ec-card');
-    card.classList.toggle('open');
-    const icon = element.querySelector('.expand-icon');
-
-    if (card.classList.contains('open')) {
-      // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-    } else {
-      // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-      const rect = card.getBoundingClientRect();
-      if (rect.top < 0) {
-        const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-        window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+      if (card.classList.contains('open')) {
+        // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+      } else {
+        // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        const rect = card.getBoundingClientRect();
+        if (rect.top < 0) {
+          const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
+          window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+        }
       }
     }
-  }
 
     // --- CARD CONTENT LIGHTBOX (tile mode only) ---
     let pfLbHome = null;

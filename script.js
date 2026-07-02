@@ -1372,6 +1372,66 @@ document.addEventListener("keydown", (e) => {
 	if (e.key === "Escape") closeLb();
 });
 
+
+
+
+/* ── SKILLS SECTION PARSER ── */
+function initSkills() {
+	const container = document.getElementById("skills-container");
+	if (!container) return;
+
+	// Dictionary to map your data-cat attributes to beautiful UI titles
+	// Feel free to add/change these buckets!
+	const catMap = {
+		sw: "Software & Code",
+		hw: "Hardware & Design",
+		mgmt: "Project Management",
+		misc: "Methodologies & General",
+	};
+
+	const skillsData = {};
+
+
+
+	// Parse all badges inside the card summaries globally
+	document.querySelectorAll(".ec-summary .badge").forEach((badge) => {
+		const cat = badge.dataset.cat || "misc"; // Fallback to 'misc' if no tag provided
+		const text = badge.textContent.trim();
+
+		if (!skillsData[cat]) {
+			skillsData[cat] = new Set();
+		}
+		skillsData[cat].add(text);
+	});
+
+	// Generate HTML
+	let html = "";
+	for (const [catCode, catName] of Object.entries(catMap)) {
+		if (skillsData[catCode] && skillsData[catCode].size > 0) {
+			const badgesHtml = Array.from(skillsData[catCode])
+				.sort() // Alphabetizes the badges within their bucket
+				.map((skill) => `<span class="skill-badge">${skill}</span>`)
+				.join("");
+
+			html += `
+                <div class="skill-cat">
+                    <h4 class="ec-title skill-cat-title">${catName}</h4>
+                    <div class="skill-badge-row">
+                        ${badgesHtml}
+                    </div>
+                </div>
+            `;
+		}
+	}
+
+	container.innerHTML = html;
+}
+
+
+
+
+
+
 /* ── CARD FADE-IN ── */
 function initFadeIn() {
 	Object.values(SS).forEach((s) => {
@@ -1934,6 +1994,7 @@ function unifiedInit() {
 	initSwipeNav();
 	initFadeIn();
 	initCountUp();
+	initSkills();
 
 	// Load the iframe safely without blocking the main thread
 	// const iframe = document.getElementById("timeline-iframe");
