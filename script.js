@@ -1,12 +1,15 @@
 /* ── CUSTOM CURSOR (disabled – set true to enable) ── */
 const ENABLE_CUSTOM_CURSOR = false;
-/* ── DISABLE GLOBAL CONTEXT MENU ON IMAGES & LINKS ── */
-// document.addEventListener('contextmenu', (e) => {
-//     // Check if the item being right-clicked / long-pressed is an image or a link
-//     if (e.target.tagName === 'IMG' || e.target.closest('a') || e.target.closest('.ec-card')) {
-//         e.preventDefault();
-//     }
-// });
+/* ── DISABLE GLOBAL CONTEXT MENU ON IMAGES & LINKS (MOBILE ONLY) ── */
+document.addEventListener('contextmenu', (e) => {
+    // Only execute if the screen width falls within your mobile breakpoint
+    if (window.innerWidth <= 1050) {
+        // Check if the item being long-pressed is an image, link, or card
+        if (e.target.tagName === 'IMG' || e.target.closest('a') || e.target.closest('.ec-card')) {
+            e.preventDefault();
+        }
+    }
+});
 
 /* ── SVG PERFECT TRACE CALCULATOR ── */
 // Mathematically calculates the length of your logo paths to prevent GPU over-draw lag
@@ -1384,9 +1387,9 @@ async function initSkills() {
 	const catMap = {
 		tools: "Tools",
 		des: "Design",
+		sys: "Systems / Methodologies",
 		hw: "Hardware",
 		swe: "Software Engineering",
-		sys: "Systems / Methodologies",
 		soft: "Soft Skills",
 		gen: "General"
 	};
@@ -1440,7 +1443,7 @@ async function initSkills() {
 				.join("");
 
 			html += `
-                <div class="skill-cat">
+                <div class="uni-card skill-cat">
                     <h4 class="ec-title skill-cat-title">${catName}</h4>
                     <div class="skill-badge-row">
                         ${badgesHtml}
@@ -1799,6 +1802,35 @@ dropdownParents.forEach((drop) => {
 	});
 }
 
+/* ── DYNAMIC FOOTER LOADER ── */
+function loadFooter() {
+    return new Promise((resolve) => {
+        const placeholder = document.getElementById("footer-placeholder");
+        if (!placeholder) return resolve();
+
+        fetch("footer.html")
+            .then((response) => response.text())
+            .then((data) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, "text/html");
+                const footer = doc.querySelector("footer");
+
+                if (footer) {
+                    placeholder.replaceWith(footer);
+                    
+                    // Automate highlighting the current page using your existing function
+                    const currentPath = window.location.pathname.toLowerCase();
+                    applyPageActiveState(currentPath, footer.querySelectorAll(".fnav a"));
+                }
+                resolve();
+            })
+            .catch((error) => {
+                console.error("Error loading footer:", error);
+                resolve();
+            });
+    });
+}
+
 /* ── COLLAPSIBLE EC CARDS ── */
 // function initCollapsibleCards() {
 // 	document.querySelectorAll('.ec.collapsible').forEach(card => {
@@ -2038,8 +2070,8 @@ function unifiedInit() {
 		}
 	}
 
-	// Wait for the Nav to load BEFORE handling URLs and scroll tracking
-	loadNav().then(() => {
+	// Wait for the Nav and Footer to load BEFORE handling URLs and scroll tracking
+	Promise.all([loadNav(), loadFooter()]).then(() => {
 		requestAnimationFrame(() => {
 			Object.keys(TABS).forEach((id) => {
 				calcW(id);

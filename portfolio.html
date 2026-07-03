@@ -122,6 +122,7 @@
       margin: 0;
       /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
       color: var(--sec-title);
+      /* color: color-mix(in srgb, var(--accent2) 50%, transparent); */
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
     }
@@ -236,27 +237,6 @@
       transform: translateY(0);
     }
 
-    .ec-card {
-      /* background: color-mix(in srgb, var(--surface) 80%, transparent); */
-      background: color-mix(in srgb, var(--bg) 50%, transparent);
-      border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: all 0.3s ease-in-out;
-      /* transition: transform 0.5s ease-in-out, box-shadow 0.2s ease, border-color 0.2s ease; */
-      /* backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px); */
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-
-    .ec-card:hover {
-      transform: translateY(-3px);
-      /* background: color-mix(in srgb, var(--g) 10%, transparent); */
-      /* background: color-mix(in srgb, var(--g) 20%, transparent); */
-      background: color-mix(in srgb, var(--gd) 50%, transparent);
-      border-color: color-mix(in srgb, var(--g) 50%, transparent);
-    }
 
 
 
@@ -903,7 +883,23 @@
   border-radius: 0 0 12px 12px;
 } */
     /* Add this new block */
-    #card-lb-content::after {
+    #card-lb-content::before {
+  content: '';
+  position: sticky;
+  top: -1px;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 20px;
+  /* Fades from solid background at the top to transparent */
+  background: linear-gradient(to bottom, var(--bg), transparent);
+  pointer-events: none;
+  z-index: 10;
+  /* Prevents the sticky block from pushing your content down */
+  margin-bottom: -20px; 
+  border-radius: 12px 12px 0 0;
+}
+#card-lb-content::after {
       content: '';
       position: sticky;
       bottom: -1px;
@@ -1290,7 +1286,7 @@
     <div id="master-card-pool" style="display: none;">
 
       <div class="ec-item" id="ray" data-tags="space" data-sections="teams" data-order="20">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -1315,6 +1311,7 @@
                   <span class="badge" data-cat="swe">MATLAB</span>
                   <span class="badge" data-cat="swe">AERO Toolbox</span>
                   <span class="badge" data-cat="swe">Bitbucket</span>
+                  <span class="badge" data-cat="swe">Git</span>
                   <span class="badge" data-cat="swe">Orbit Propagation</span>
                   <span class="badge" data-cat="swe">TLE Files</span>
                   <span class="badge" data-cat="tools">MS Suite</span>
@@ -1472,7 +1469,7 @@
 
 
       <div class="ec-item" id="vfd" data-tags="evtol" data-sections="teams" data-order="19">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -1500,6 +1497,8 @@
                   <span class="badge" data-cat="swe">Matlab</span>
                   <span class="badge" data-cat="hw">Assembly</span>
                   <span class="badge" data-cat="hw">3D Printing</span>
+                  <span class="badge" data-cat="swe">Git</span>
+                  <span class="badge" data-cat="swe">GitHub</span>
                 </div>
                 <p class="ec-brief">Analyzed multicopter and winged configurations, programmed Monte
                   Carlo
@@ -1652,7 +1651,7 @@
       </div>
 
       <div class="ec-item" id="red" data-tags="space" data-sections="teams" data-order="12">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -1769,7 +1768,7 @@
       </div>
 
       <div class="ec-item" id="lsar" data-tags="space robotics" data-sections="teams leadership" data-order="11">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -1865,7 +1864,7 @@
       </div>
 
       <div class="ec-item" id="team-5776k" data-tags="robotics" data-sections="teams" data-order="10">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2099,7 +2098,7 @@
       </div>
 
       <div class="ec-item" id="cabinet" data-tags="robotics general" data-sections="leadership" data-order="10">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2209,7 +2208,7 @@
       </div>
 
       <div class="ec-item" id="vfs" data-tags="evtol general" data-sections="leadership" data-order="20">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <!-- src="https://tamuvfs.org/assets/eric_boyle_meeting-855268c9569eb86e7e8b52efde64a2c52f19be2ffd05b88f7acd70d93f2def20.jpg" -->
@@ -2308,7 +2307,7 @@
       </div>
 
       <div class="ec-item" id="ignite25" data-tags="evtol" data-sections="leadership" data-order="19">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2479,7 +2478,7 @@
       </div>
 
       <div class="ec-item" id="invent" data-tags="general" data-sections="leadership" data-order="18">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2595,7 +2594,7 @@
       </div>
 
       <div class="ec-item" id="ignite" data-tags="space" data-sections="leadership" data-order="11">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2691,7 +2690,7 @@
       </div>
 
       <div class="ec-item" id="vfs-project" data-tags="evtol" data-sections="misc" data-order="21">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img src="/media/vfs/semp.jpg" alt="SEMP" style="object-position: top;">
@@ -2734,7 +2733,7 @@
 
 
       <div class="ec-item" id="everyday-engineering" data-tags="general" data-sections="misc" data-order="20">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2804,7 +2803,7 @@
       </div>
 
       <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol" data-sections="misc" data-order="19">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2879,7 +2878,7 @@
       </div>
 
       <div class="ec-item" id="boy-scouts" data-tags="general" data-sections="misc" data-order="18">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -2981,7 +2980,7 @@
       </div>
 
       <div class="ec-item" id="737-800-cad" data-tags="evtol" data-sections="misc" data-order="10">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -3053,7 +3052,7 @@
       </div>
 
       <div class="ec-item" id="formula-sae" data-tags="general" data-sections="misc" data-order="11">
-        <div class="ec-card">
+        <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
               <img
@@ -3200,21 +3199,7 @@
     <section>
       <div style="margin-top: 40px"></div>
     </section>
-
-    <footer>
-      <div class="ficons">
-        <a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-        <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
-            class="fab fa-linkedin-in"></i></a>
-        <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-      </div>
-      <nav class="fnav">
-        <a href="/">HOME</a>
-        <a href="portfolio" class="fp">PORTFOLIO</a>
-        <a href="resume">RESUME</a>
-        <a href="blog">BLOG</a>
-      </nav>
-    </footer>
+<div id="footer-placeholder"></div>
   </div>
 
   <script src="script.js"></script>

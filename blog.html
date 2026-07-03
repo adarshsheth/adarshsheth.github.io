@@ -137,7 +137,7 @@
             color: var(--accent2) !important;
         }
 
-        
+
 
         @keyframes fadeIn {
             from {
@@ -530,34 +530,34 @@
 
 <body>
     <div id="blur-page"></div>
-<div id="nav-placeholder"></div>
-<script>
-    // Instantly inject the nav from cache to prevent UI flashing
-    const cachedNav = sessionStorage.getItem("rawNavHTML");
-    if (cachedNav) {
-        // 1. Inject the cached HTML
-        document.getElementById("nav-placeholder").outerHTML = cachedNav;
+    <div id="nav-placeholder"></div>
+    <script>
+        // Instantly inject the nav from cache to prevent UI flashing
+        const cachedNav = sessionStorage.getItem("rawNavHTML");
+        if (cachedNav) {
+            // 1. Inject the cached HTML
+            document.getElementById("nav-placeholder").outerHTML = cachedNav;
 
-        // 2. Instantly fix the active states before the browser paints
-        const currentPath = window.location.pathname.toLowerCase();
-        const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
-        const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+            // 2. Instantly fix the active states before the browser paints
+            const currentPath = window.location.pathname.toLowerCase();
+            const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+            const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
 
-        const header = document.getElementById("hdr");
-        if (header) {
-            header.querySelectorAll(".ni").forEach(link => {
-                link.classList.remove("active"); // Strip the cached "ghost" state
+            const header = document.getElementById("hdr");
+            if (header) {
+                header.querySelectorAll(".ni").forEach(link => {
+                    link.classList.remove("active"); // Strip the cached "ghost" state
 
-                // Apply the correct state for the current page
-                const text = link.textContent.trim().toLowerCase();
-                if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
-                else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
-                else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
-                else if (isHomePath && text === "home") link.classList.add("active");
-            });
+                    // Apply the correct state for the current page
+                    const text = link.textContent.trim().toLowerCase();
+                    if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+                    else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+                    else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+                    else if (isHomePath && text === "home") link.classList.add("active");
+                });
+            }
         }
-    }
-</script>   
+    </script>
     <aside id="sb">
         <div id="sb-hdr">Sections</div>
         <div id="sb-prog">
@@ -630,20 +630,7 @@
 
         </div>
 
-        <footer>
-            <div class="ficons">
-                <a href="javascript:void(0)" onclick="window.scrollTo(0,0)" class="fi" title="Back to top">▲</a>
-                <a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
-                        class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-            </div>
-            <nav class="fnav">
-                <a href="/">HOME</a>
-                <a href="portfolio">PORTFOLIO</a>
-                <a href="resume">RESUME</a>
-                <a href="blog" class="fp">BLOG</a>
-            </nav>
-        </footer>
+        <div id="footer-placeholder"></div>
     </div>
 
     <script src="script.js"></script>
@@ -1006,11 +993,11 @@
 
             if (similarPosts.length > 0) {
                 similarGrid.innerHTML = similarPosts.map(({ node }) => `
-            <a href="?post=${node.slug}" onclick="event.preventDefault(); navigateToPost('${node.slug}')" class="wi vis" style="width: 100%;">
-                ${node.coverImage?.url ? `
-                <div class="wi-img-wrap similar-img-wrap">
-                    <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" loading="lazy" decoding="async">
-                </div>` : ''}
+<a href="?post=${node.slug}" onclick="event.preventDefault(); navigateToPost('${node.slug}')" class="uni-card wi vis" style="width: 100%;">
+    ${node.coverImage?.url ? `
+    <div class="wi-img-wrap similar-img-wrap">
+        <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" loading="lazy" decoding="async">
+    </div>` : ''}
                 <div class="wi-body" style="padding: 20px;">
                     <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 20px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${node.title}</h3>
                     <div class="ecm" style="margin-top:12px; flex-wrap: nowrap; overflow: hidden; white-space: nowrap;">
@@ -1121,7 +1108,7 @@
                         listEl.innerHTML = filtered.map(({ node }) => `
                         <a href="?post=${node.slug}"
                             onclick="event.preventDefault(); navigateToPost('${node.slug}')"
-                            class="wi vis" style="max-width: 9000px; width: 100%;">
+                            class="uni-card wi vis" style="max-width: 9000px; width: 100%;">
                                 ${node.coverImage?.url ? `
                                 <div class="wi-img-wrap">
                                     <img src="${node.coverImage.url}" class="wi-thumb" alt="Cover Image" loading="lazy" decoding="async">

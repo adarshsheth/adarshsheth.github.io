@@ -66,7 +66,11 @@
 			--surface: rgba(40, 41, 40, 0.08);
 			--border: #444444;
 		}
-
+		body::before {
+		/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg') !important; */
+		background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://cdn2.picryl.com/photo/2010/05/18/boeing-plant-in-renton-5-18-2010-4622746048-e1011e-1024.jpg') !important;
+		filter: blur(4px);
+		}
 		body {
 			background: var(--bg);
 			color: var(--text);
@@ -88,8 +92,19 @@
 			display: flex;
 			justify-content: center;
 			gap: 10px;
-			margin: 40px 48px 25px;
+			/* margin: 40px 48px 25px; */
+			margin: 10px 48px 25px;
 			flex-wrap: wrap;
+		}
+		.btn-hdr {
+			font-weight: 800;
+			font-size: 12px;
+			letter-spacing: 0.1em;
+			color: var(--accent2);
+			text-transform: uppercase;
+			margin-bottom: 6px;
+			margin-top: 40px;
+			text-align: center;
 		}
 
 		.filter-btn {
@@ -106,14 +121,15 @@
 			letter-spacing: 0.1em;
 			border-radius: 6px;
 			cursor: pointer;
-			transition: all 0.4s ease-out;
+			/* transition: all 0.4s ease-out; */
+			transition: all 0.3s ease-out;
 			text-transform: uppercase;
 		}
 
 		.filter-btn:hover {
 			border-color: var(--accent2);
 			color: var(--accent2);
-			transform: translateY(-1px);
+			transform: translateY(-2px);
 		}
 
 		.filter-btn.active {
@@ -175,6 +191,9 @@
 		@media (max-width: 900px) {
 			.portfolio-filters {
 				margin: 10px 22px 20px;
+			}
+			.btn-hdr {
+				margin-top: 15px;
 			}
 
 			#pdf-section {
@@ -329,17 +348,17 @@
 			<h1>RESUME</h1>
 		</section>
 		<div style="text-align: center; opacity:0;"><a href="/presume.html">presume</a></div>
-		<div id="ibar" style="margin: 20px 0px;">
+		<!-- <div id="ibar" style="margin: 20px 0px;">
 			<p>
 				Adarsh Sheth ·
 				<a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a>
 				·
 				<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
 			</p>
-			<!-- <a href="media/resume.pdf" id="download-btn" download class="pbtn">DOWNLOAD PDF</a> -->
-		</div>
-
+		</div> -->
+		
 		<!-- TABS UI FOR MULTIPLE RESUMES -->
+		<p class="btn-hdr">Select a resume:</p>
 		<div class="portfolio-filters">
 			<!-- For now, they all route to media/resume.pdf. Simply update the arguments later -->
 			<button class="filter-btn active" id="tab-general"
@@ -374,20 +393,7 @@
 
 			<div id="skills-container" class="skills-wrap"></div>
 		</section>
-		<footer>
-			<div class="ficons">
-				<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>
-				<a href="https://www.linkedin.com/in/adarsh-sheth" class="fi" target="_blank"><i
-						class="fab fa-linkedin-in"></i></a>
-				<a href="mailto:adarshsheth@tamu.edu" class="fi"><i class="fas fa-envelope"></i></a>
-			</div>
-			<nav class="fnav">
-				<a href="/">HOME</a>
-				<a href="portfolio">PORTFOLIO</a>
-				<a href="resume" class="fp">RESUME</a>
-				<a href="blog">BLOG</a>
-			</nav>
-		</footer>
+<div id="footer-placeholder"></div>
 	</div>
 
 	<script src="script.js"></script>
