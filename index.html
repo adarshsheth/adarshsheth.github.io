@@ -578,24 +578,27 @@
 				</div>
 
 				<!-- Lengthened Introduction Paragraph -->
+				<!-- text-align: justify; -->
 				<p class="about-bio"
-					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6">
+					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6;">
 					I'm a rising junior Aerospace Engineering student at Texas A&M University. Driven by a deep
 					fascination for
 					vertical flight and end-to-end systems integration, I love tackling rigorous engineering
-					challenges—from
+					challenges — from
 					designing and sizing flight vehicles to conducting complex aerodynamic trade studies. I thrive in
 					environments
 					where creativity meets analytical rigor, constantly looking to bridge the gap between heavy,
 					multidisciplinary
 					engineering principles and intuitive, real-world execution.
 				</p>
+				
+			
 
 				<!-- Low-Profile Quote Box for Most Recent Experience -->
 				<div class="hbox"
 					style="text-align: left; max-width: 850px; margin: 28px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
 					<a href="portfolio.html?filter=all" style="text-decoration: none; color: inherit; display: block;">
-						<b>Systems Engineering Intern @ Raytheon</b><br>
+						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
 						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
 						to filter
 						those in FOV; then tracked chosen satellite across its in-FOV duration.
@@ -698,7 +701,7 @@
 									<h3 class="ec-title">Rocketry & Space</h3>
 									<div class="ec-subtitle">Propulsion, Trade Studies, Fluid Systems</div>
 								</div>
-								<p class="ec-brief">Dive into liquid bi-propellant engine feedline assemblies,
+								<p class="ec-brief">Work with liquid bi-propellant engine feedline assemblies,
 									structural rocket design, and high-fidelity simulated lunar crash site search
 									algorithms.</p>
 							</div>
@@ -853,7 +856,8 @@
 				}
 			}
 			const preloaderSeen = sessionStorage.getItem("preloaderSeen");
-			const delay = preloaderSeen === "true" ? 300 : 2600;
+			// const delay = preloaderSeen === "true" ? 300 : 2600;
+			const delay = preloaderSeen === "true" ? 300 : 1400;
 			setTimeout(type, delay);
 		});
 	</script>

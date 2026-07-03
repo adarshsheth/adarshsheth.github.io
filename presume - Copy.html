@@ -1,0 +1,174 @@
+<!-- https://leimao.github.io/project/Online-Encryption-Decryption/ -->
+<!-- https://www.dropbox.com/home -->
+
+<!--
+{
+"general": "...",
+"vfd": "....",
+"se": "..."
+}
+
+with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0
+-->
+
+<!-- 
+{
+"general": "https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0",
+"vfd": "https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0",
+"se": "https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0"
+} 
+-->
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Resume | AS</title>
+    <link rel="icon" type="image/svg+xml" href="media/logo/AS.svg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #d0d3cd;
+            --surface: rgba(40, 41, 40, 0.08);
+            --border: #444444;
+            --accent2: #857032;
+            --g: #647661;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Rubik', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .lock-box {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .lock-box h2 {
+            font-weight: 900;
+            margin-top: 0;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            outline: none;
+            margin-bottom: 20px;
+            width: calc(100% - 26px);
+            font-family: 'Rubik', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--g);
+        }
+
+        button {
+            background: var(--accent2);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Rubik', sans-serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: var(--g);
+            transform: translateY(-2px);
+        }
+
+        #error {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 15px;
+            display: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="lock-box">
+        <h2>SECURE ACCESS</h2>
+        <input type="password" id="pw" placeholder="Enter Password" onkeypress="if(event.key === 'Enter') unlock()" />
+        <button onclick="unlock()">Unlock Document</button>
+        <div id="error">Incorrect password. Access denied.</div>
+    </div>
+
+    <script>
+        // PASSWORD
+        const encryptedPayload = "U2FsdGVkX19uXkbVCGl7G+wzZmqDzn8ZYD5eU+g4MjVQ5dIOmKDa/1jzwh9znR+3yF0bRyVfT0PZKOv/XdPFuHXIyfFtgJ25I/bzsIfoAJdwVGkXh+qzmfmEmWoRi2zWblKvck20jmZSEjxU7lVoh9sEdVBawliuDos+GXICqnaSaDKqY9FGlg2AcqsElWOZ3mK7JRy6v39ugOD+vc1SepFOLOlakQDpaavfpt1Q0ELmLz2eaOFuVD6H4/8/MV/OsI+49N2ooURmkiqIDFmwhf9MGp39sNDea/pzKfakAYCRtXgLOVc+viR7H3jDub9Wu4esJh3Cua0QQxETpr75XdNM80wxF6R0IfyVBpN6NDbx+IhWAwTuY8RP+FtTsOgWi5SF/Pvyd6gPeVyHYOYIc8iLWjH9F4kGhQC8xE/B2usuZyFwxI1nZkMWNojQVmdpcit8iUErCwykZDmXtlp+KOqA3kF4H0249cus12zE6e2wnfl938QGSVmNEYidu73BlX4wkxkVdIHObMFXlKU+Mg==";
+
+        async function unlock() {
+            const pw = document.getElementById('pw').value;
+            const button = document.querySelector('button');
+            const errorEl = document.getElementById('error');
+
+            try {
+                button.textContent = "UNLOCKING...";
+                errorEl.style.display = 'none';
+
+                const bytes = CryptoJS.AES.decrypt(encryptedPayload, pw);
+                const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+
+                if (!decryptedString) throw new Error("Decryption failed");
+
+                let privateUrls;
+                try {
+                    privateUrls = JSON.parse(decryptedString);
+                } catch (e) {
+                    privateUrls = { general: decryptedString.trim() };
+                }
+
+                sessionStorage.setItem('resume_data', JSON.stringify(privateUrls));
+                sessionStorage.setItem('unlocked', 'true');
+
+                // Redirect to the main resume page to display the unlocked files
+                window.location.href = 'resume.html';
+
+            } catch (e) {
+                errorEl.style.display = 'block';
+                button.textContent = "Unlock Document";
+                document.getElementById('pw').value = '';
+            }
+        }
+    </script>
+    
+</body>
+
+</html>

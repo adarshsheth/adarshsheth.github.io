@@ -1376,20 +1376,24 @@ document.addEventListener("keydown", (e) => {
 
 
 /* ── SKILLS SECTION PARSER ── */
-function initSkills() {
+/* ── SKILLS SECTION PARSER ── */
+async function initSkills() {
 	const container = document.getElementById("skills-container");
 	if (!container) return;
 
 	const catMap = {
-		sw: "Software & Code",
-		hw: "Hardware & Design",
-		mgmt: "Project Management",
-		misc: "Methodologies & General",
+		tools: "Tools",
+		des: "Design",
+		hw: "Hardware",
+		swe: "Software Engineering",
+		sys: "Systems / Methodologies",
+		soft: "Soft Skills",
+		gen: "General"
 	};
 
 	const skillsData = {};
 
-	// Parse all badges inside the card summaries globally
+	// 1. Try to parse badges from the current page
 	document.querySelectorAll(".ec-summary .badge").forEach((badge) => {
 		const cat = badge.dataset.cat || "misc"; // Fallback to 'misc' if no tag provided
 		const text = badge.textContent.trim();
@@ -1400,44 +1404,33 @@ function initSkills() {
 		skillsData[cat].add(text);
 	});
 
-	// --- ADD THIS FALLBACK FOR RESUME.HTML ---
-	// If no badges were found on the page, populate with default skills
+	// 2. DYNAMIC FALLBACK: If no badges were found (e.g., on resume.html), fetch from portfolio.html
 	if (Object.keys(skillsData).length === 0) {
-		skillsData.sw = new Set(["AERO Toolbox", "Bitbucket", "GITHUB", "MATLAB", "Orbit Propagation", "PYTHON", "SIZING ITERATION", "TLE Files"]);
-		skillsData.hw = new Set([
-			"AERODYNAMICS",
-			"AERONAUTICS",
-			"ASSEMBLY",
-			"CAD",
-			"CFD",
-			"CONSTRAINT ANALYSIS",
-			"FMEA",
-			"MATERIAL SCIENCE",
-			"P&ID",
-			"PROTOTYPING",
-			"SIMULATION",
-			"STRESS ANALYSIS",
-			"SURFACE MODELING",
-			"SimScale",
-			"TRADE-OFF ANALYSIS",
-			"V&V",
-		]);
-		skillsData.mgmt = new Set(["COORDINATION", "EVENT PLANNING", "LEADERSHIP", "LOGISTICS", "PROJECT MANAGEMENT", "TECHNICAL WRITING"]);
-		skillsData.misc = new Set([
-			"DOCUMENTATION",
-			"EDP",
-			"NEED STATEMENT",
-			"PIKTOCHART",
-			"RC DRIVER",
-			"RESEARCH",
-			"SYSTEMS INTEGRATION",
-			"T&E",
-			"TRADE STUDY",
-		]);
-	}
-	// -----------------------------------------
+		try {
+			const response = await fetch('portfolio.html');
+			const htmlText = await response.text();
+			
+			// Parse the fetched text into a readable DOM document
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(htmlText, 'text/html');
 
-	// Generate HTML
+			// Query the badges from the fetched portfolio document
+			doc.querySelectorAll(".ec-summary .badge").forEach((badge) => {
+				const cat = badge.dataset.cat || "misc";
+				const text = badge.textContent.trim();
+
+				if (!skillsData[cat]) {
+					skillsData[cat] = new Set();
+				}
+				skillsData[cat].add(text);
+			});
+		} catch (error) {
+			console.error("Failed to fetch skills from portfolio.html:", error);
+			return; // Exit if the fetch fails
+		}
+	}
+
+	// 3. Generate HTML
 	let html = "";
 	for (const [catCode, catName] of Object.entries(catMap)) {
 		if (skillsData[catCode] && skillsData[catCode].size > 0) {
@@ -1459,7 +1452,6 @@ function initSkills() {
 
 	container.innerHTML = html;
 }
-
 
 
 
@@ -2183,7 +2175,8 @@ if (preloader) {
 			setTimeout(() => {
 				preloader.classList.add("hidden");
 				setTimeout(() => preloader.remove(), 1000);
-			}, 2400);
+			// }, 2400);
+			}, 1200);
 		});
 
 		setTimeout(() => {
@@ -2191,7 +2184,8 @@ if (preloader) {
 				preloader.classList.add("hidden");
 				setTimeout(() => preloader.remove(), 1000);
 			}
-		}, 5000);
+		// }, 5000);
+		}, 2500);
 	} else {
 		preloader.remove();
 	}

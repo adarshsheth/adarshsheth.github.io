@@ -307,10 +307,10 @@
 				<span class="sbdot"></span>
 				<span class="sblbl">General Resume</span>
 			</a>
-			<a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume.pdf'); return false;" data-k="vfd">
+			<!-- <a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume.pdf'); return false;" data-k="vfd">
 				<span class="sbdot"></span>
 				<span class="sblbl">Vertical Flight</span>
-			</a>
+			</a> -->
 			<!-- <a class="sbn" href="#" onclick="switchResume('cs', 'media/resume.pdf'); return false;" data-k="cs">
 				<span class="sbdot"></span>
 				<span class="sblbl">Computer Science</span>
@@ -344,8 +344,8 @@
 			<!-- For now, they all route to media/resume.pdf. Simply update the arguments later -->
 			<button class="filter-btn active" id="tab-general"
 				onclick="switchResume('general', 'media/resume.pdf')">GENERAL</button>
-			<button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume_vf.pdf')">VERTICAL
-				FLIGHT</button>
+			<!-- <button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume_vf.pdf')">VERTICAL
+				FLIGHT</button> -->
 			<!-- <button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume_systems.pdf')">SYSTEMS
 				ENGINEERING</button>
 			<button class="filter-btn" id="tab-cs" onclick="switchResume('cs', 'media/resume_cs.pdf')">COMPUTER
@@ -367,7 +367,7 @@
 			<div class="sh">
 				<span class="sh-r"></span>
 				<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-skills'); scrollToSec('sec-skills')">
-					<h2>SKILLS <span class="amp">&</span> TECHNOLOGIES</h2>
+					<h2>SKILLS</h2>
 				</button>
 				<span class="sh-r"></span>
 			</div>
@@ -395,13 +395,62 @@
 	<script>
 		// ── DYNAMIC RESUME LOGIC ──
 		let currentPdfUrl = 'media/resume.pdf';
+		let privateMap = null;
+
+		// 1. Check if unlocked BEFORE setting the initial URL
+		if (sessionStorage.getItem('unlocked') === 'true') {
+			try {
+				const data = JSON.parse(sessionStorage.getItem('resume_data'));
+				if (typeof data === 'string') {
+					currentPdfUrl = data;
+					privateMap = { general: data };
+				} else if (data) {
+					privateMap = data;
+					currentPdfUrl = data.general || Object.values(data)[0] || currentPdfUrl;
+				}
+
+				// --- UPDATE TITLE & ADD BACK BUTTON ---
+				document.addEventListener("DOMContentLoaded", () => {
+					// Update the Hero Header and Document Title
+					const heroTitle = document.querySelector('#hero h1');
+					if (heroTitle) heroTitle.innerText = 'PRIVATE RESUME';
+					document.title = 'Private Resume | AS';
+
+					// Append an 'Exit Private View' button to the info bar
+					const ibar = document.getElementById('ibar');
+					if (ibar) {
+						const exitBtn = document.createElement('a');
+						exitBtn.href = "#";
+						exitBtn.className = "pbtn";
+						exitBtn.innerHTML = "EXIT PRIVATE VIEW";
+						exitBtn.style.marginLeft = "15px";
+						exitBtn.onclick = (e) => {
+							e.preventDefault();
+							sessionStorage.removeItem('unlocked');
+							sessionStorage.removeItem('resume_data');
+							window.location.reload(); // Reload to restore the public state
+						};
+						ibar.appendChild(exitBtn);
+					}
+				});
+
+			} catch (e) {
+				console.error("Storage parse error", e);
+			}
+		}
 
 		function switchResume(tabId, publicPdfUrl) {
 			document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
 			const tab = document.getElementById('tab-' + tabId);
 			if (tab) tab.classList.add('active');
 
-			currentPdfUrl = publicPdfUrl;
+			if (privateMap && privateMap[tabId]) {
+				currentPdfUrl = privateMap[tabId];
+			} else if (privateMap && privateMap.general) {
+				currentPdfUrl = privateMap.general;
+			} else {
+				currentPdfUrl = publicPdfUrl;
+			}
 
 			const dlBtn = document.getElementById('floating-dl-btn');
 			if (dlBtn) dlBtn.href = currentPdfUrl;
@@ -468,7 +517,8 @@
 		                <div style="padding: 50px 20px; text-align: center; color: var(--text);">
 		                    <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
 		                    <h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
-		                    <p style="font-size: 14px; line-height: 1.5;">${error.message}</p>
+		                    <p style="font-size: 14px; line-height: 1.5;">${error.message || 'The file is missing or blocked by browser security (CORS).'}</p>
+		                    <p style="font-size: 11px; margin-top: 20px; color: var(--dimtitle); word-break: break-all;"><strong>Attempted URL:</strong><br>${currentPdfUrl}</p>
 		                </div>
 		            `;
 			}
