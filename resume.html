@@ -307,11 +307,11 @@
 				<span class="sbdot"></span>
 				<span class="sblbl">General Resume</span>
 			</a>
-			<!-- <a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume.pdf'); return false;" data-k="vfd">
+			<a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume.pdf'); return false;" data-k="vfd">
 				<span class="sbdot"></span>
 				<span class="sblbl">Vertical Flight</span>
 			</a>
-			<a class="sbn" href="#" onclick="switchResume('cs', 'media/resume.pdf'); return false;" data-k="cs">
+			<!-- <a class="sbn" href="#" onclick="switchResume('cs', 'media/resume.pdf'); return false;" data-k="cs">
 				<span class="sbdot"></span>
 				<span class="sblbl">Computer Science</span>
 			</a>
@@ -328,7 +328,7 @@
 		<section id="hero">
 			<h1>RESUME</h1>
 		</section>
-
+		<div style="text-align: center; opacity:0;"><a href="/presume.html">presume</a></div>
 		<div id="ibar" style="margin: 20px 0px;">
 			<p>
 				Adarsh Sheth ·
@@ -344,9 +344,9 @@
 			<!-- For now, they all route to media/resume.pdf. Simply update the arguments later -->
 			<button class="filter-btn active" id="tab-general"
 				onclick="switchResume('general', 'media/resume.pdf')">GENERAL</button>
-			<!-- <button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume_vf.pdf')">VERTICAL
+			<button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume_vf.pdf')">VERTICAL
 				FLIGHT</button>
-			<button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume_systems.pdf')">SYSTEMS
+			<!-- <button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume_systems.pdf')">SYSTEMS
 				ENGINEERING</button>
 			<button class="filter-btn" id="tab-cs" onclick="switchResume('cs', 'media/resume_cs.pdf')">COMPUTER
 				SCIENCE</button> -->
@@ -363,7 +363,17 @@
 				</div>
 			</div>
 		</div>
+		<section id="sec-skills" class="sb" data-k="skills">
+			<div class="sh">
+				<span class="sh-r"></span>
+				<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-skills'); scrollToSec('sec-skills')">
+					<h2>SKILLS <span class="amp">&</span> TECHNOLOGIES</h2>
+				</button>
+				<span class="sh-r"></span>
+			</div>
 
+			<div id="skills-container" class="skills-wrap"></div>
+		</section>
 		<footer>
 			<div class="ficons">
 				<a href="javascript:void(0)" onclick="scrollToSec('top')" class="fi" title="Back to top">▲</a>

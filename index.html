@@ -80,8 +80,6 @@
 		a:hover {
 			color: var(--g);
 		}
-
-		
 	</style>
 	<link rel="stylesheet" href="style.css" />
 
@@ -414,6 +412,7 @@
 				height: 200px; */
 
 			}
+
 			.fw-head {
 				margin-bottom: 20px !important;
 			}
@@ -457,10 +456,12 @@
 				max-width: 100%;
 			}
 		}
+
 		@media (max-height: 650px) {
 			.scroll-down {
 				display: none !important;
 			}
+
 			.about-box {
 				padding-bottom: 40px;
 			}
@@ -469,7 +470,7 @@
 </head>
 
 <body>
-<div class="hero-full-bg"></div>
+	<div class="hero-full-bg"></div>
 	<div id="site-preloader">
 		<div class="preloader-content">
 			<svg class="preloader-svg" viewBox="0 0 955 955" xmlns="http://www.w3.org/2000/svg">
@@ -550,7 +551,7 @@
 
 	<div id="mn">
 		<section id="about">
-			<div class="about-box">
+			<!-- <div class="about-box">
 				<div class="about-name">
 					<span id="typewriter"></span><span class="typing-cursor"></span>
 				</div>
@@ -562,6 +563,46 @@
 					complex aerodynamic trade studies.
 				</p>
 				<div class="hero-buttons">
+					<a href="#bio" class="hero-btn btn-primary"
+						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
+						About Me
+					</a>
+					<a href="portfolio.html" class="hero-btn btn-secondary">
+						Experience
+					</a>
+				</div>
+			</div> -->
+			<div class="about-box">
+				<div class="about-name">
+					<span id="typewriter"></span><span class="typing-cursor"></span>
+				</div>
+
+				<!-- Lengthened Introduction Paragraph -->
+				<p class="about-bio"
+					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6">
+					I'm a rising junior Aerospace Engineering student at Texas A&M University. Driven by a deep
+					fascination for
+					vertical flight and end-to-end systems integration, I love tackling rigorous engineering
+					challenges—from
+					designing and sizing flight vehicles to conducting complex aerodynamic trade studies. I thrive in
+					environments
+					where creativity meets analytical rigor, constantly looking to bridge the gap between heavy,
+					multidisciplinary
+					engineering principles and intuitive, real-world execution.
+				</p>
+
+				<!-- Low-Profile Quote Box for Most Recent Experience -->
+				<div class="hbox"
+					style="text-align: left; max-width: 850px; margin: 28px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
+					<a href="portfolio.html?filter=all" style="text-decoration: none; color: inherit; display: block;">
+						<b>Systems Engineering Intern @ Raytheon</b><br>
+						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
+						to filter
+						those in FOV; then tracked chosen satellite across its in-FOV duration.
+					</a>
+				</div>
+
+				<div class="hero-buttons" style="margin-top: 36px;">
 					<a href="#bio" class="hero-btn btn-primary"
 						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
 						About Me
@@ -818,23 +859,23 @@
 	</script>
 
 	<script>
-	function navToSection(k, scrollFn) {
-		document.querySelectorAll(".sbn").forEach((a) =>
-			a.classList.toggle("active", a.dataset.k === k)
-		);
-		if (window._lockNav) window._lockNav();
+		function navToSection(k, scrollFn) {
+			document.querySelectorAll(".sbn").forEach((a) =>
+				a.classList.toggle("active", a.dataset.k === k)
+			);
+			if (window._lockNav) window._lockNav();
 
-		// Explicitly show navbar for top sections, hide for everything else
-		if (k === "about" || k === "top") {
-			if (window._showNav) window._showNav();
-		} else {
-			if (window._hideNav) window._hideNav();
+			// Explicitly show navbar for top sections, hide for everything else
+			if (k === "about" || k === "top") {
+				if (window._showNav) window._showNav();
+			} else {
+				if (window._hideNav) window._hideNav();
+			}
+
+			const hash = (k === "about" || k === "bio") ? "" : "#" + k;
+			history.replaceState(null, "", window.location.pathname + window.location.search + hash);
+			scrollFn();
 		}
-
-		const hash = (k === "about" || k === "bio") ? "" : "#" + k;
-		history.replaceState(null, "", window.location.pathname + window.location.search + hash);
-		scrollFn();
-	}
 
 		/* ── SMART INTERSECTION CAROUSEL & SWIPE LOGIC ── */
 		(function () {

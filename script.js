@@ -1380,8 +1380,6 @@ function initSkills() {
 	const container = document.getElementById("skills-container");
 	if (!container) return;
 
-	// Dictionary to map your data-cat attributes to beautiful UI titles
-	// Feel free to add/change these buckets!
 	const catMap = {
 		sw: "Software & Code",
 		hw: "Hardware & Design",
@@ -1390,8 +1388,6 @@ function initSkills() {
 	};
 
 	const skillsData = {};
-
-
 
 	// Parse all badges inside the card summaries globally
 	document.querySelectorAll(".ec-summary .badge").forEach((badge) => {
@@ -1403,6 +1399,43 @@ function initSkills() {
 		}
 		skillsData[cat].add(text);
 	});
+
+	// --- ADD THIS FALLBACK FOR RESUME.HTML ---
+	// If no badges were found on the page, populate with default skills
+	if (Object.keys(skillsData).length === 0) {
+		skillsData.sw = new Set(["AERO Toolbox", "Bitbucket", "GITHUB", "MATLAB", "Orbit Propagation", "PYTHON", "SIZING ITERATION", "TLE Files"]);
+		skillsData.hw = new Set([
+			"AERODYNAMICS",
+			"AERONAUTICS",
+			"ASSEMBLY",
+			"CAD",
+			"CFD",
+			"CONSTRAINT ANALYSIS",
+			"FMEA",
+			"MATERIAL SCIENCE",
+			"P&ID",
+			"PROTOTYPING",
+			"SIMULATION",
+			"STRESS ANALYSIS",
+			"SURFACE MODELING",
+			"SimScale",
+			"TRADE-OFF ANALYSIS",
+			"V&V",
+		]);
+		skillsData.mgmt = new Set(["COORDINATION", "EVENT PLANNING", "LEADERSHIP", "LOGISTICS", "PROJECT MANAGEMENT", "TECHNICAL WRITING"]);
+		skillsData.misc = new Set([
+			"DOCUMENTATION",
+			"EDP",
+			"NEED STATEMENT",
+			"PIKTOCHART",
+			"RC DRIVER",
+			"RESEARCH",
+			"SYSTEMS INTEGRATION",
+			"T&E",
+			"TRADE STUDY",
+		]);
+	}
+	// -----------------------------------------
 
 	// Generate HTML
 	let html = "";
@@ -1426,7 +1459,6 @@ function initSkills() {
 
 	container.innerHTML = html;
 }
-
 
 
 
