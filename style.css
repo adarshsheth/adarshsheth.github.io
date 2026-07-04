@@ -1559,16 +1559,21 @@ section {
 /* Stat Rows */
 .srow {
 	display: flex;
-	border: 1px solid var(--border);
-	border-radius: 8px;
+	border: 2px solid var(--border);
+	border-radius: 10px;
 	overflow: hidden;
 	margin: 10px 0;
+	padding: 3px;
 }
 .scell {
 	flex: 1;
 	min-width: 80px;
 	padding: 12px 14px;
-	border: 1px solid var(--border);
+	/* border: .5px solid color-mix(in srgb, var(--border) 50%, transparent); */
+	/* background: color-mix(in srgb, var(--border) 30%, transparent); */
+	background: color-mix(in srgb, var(--border) 20%, transparent);
+	border-radius: 8px;
+	margin: 3px;
 }
 .slbl {
 	font-size: 10px;
@@ -1804,7 +1809,8 @@ section {
 /* THE FIX: Only enable clicks on these elements when the lightbox is actually open! */
 #lb.open .lbi,
 #lb.open .lbclose,
-#lb.open .lb-bottom {
+#lb.open .lb-nav,
+#lb.open .lbcap {
 	pointer-events: auto;
 }
 
@@ -1818,10 +1824,14 @@ section {
 } */
 /* The Media / Image */
 .lbi {
-	/* width: auto;
-	height: auto; */
-	width: 100%;
-	height: 100%;
+	/* width: auto; */
+	/* height: auto; */
+	/* width: 100%; */
+	width: auto;
+	/* height: 100%; */
+	height: auto;
+	min-height: 50dvh;
+	max-height: 100%;
 	/* max-width: calc(100vw - 40px); */
 	max-width: calc(100vw - 100px);
 	/* max-width: 100%;
@@ -1838,6 +1848,7 @@ section {
 	border-radius: 0;
 	box-shadow: none; 
 } */
+/* Update this in style.css */
 
 /* Bottom Control Bar */
 .lb-bottom {
@@ -1908,7 +1919,6 @@ section {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* color: #fff; */
 	color: var(--dimtitle);
 	font-size: 20px;
 	transition:
@@ -1916,7 +1926,6 @@ section {
 		transform 0.15s;
 	cursor: pointer;
 	z-index: 2;
-	/* font-family: "Rubik", sans-serif; */
 }
 .fas, .fa-chevron-left, .fa-chevron-right {
 	font-size: 12px;
@@ -1924,7 +1933,8 @@ section {
 
 @media (max-width: 1050px) {
 	.lbi {
-		max-width: 95vw;
+		/* max-width: 95vw; */
+		max-width: calc(100vw - 40px);
 	}
 	.lb-bottom {
 		padding: 0 15px;

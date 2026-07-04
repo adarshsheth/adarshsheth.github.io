@@ -685,6 +685,9 @@
       opacity: 1;
       transform: translateY(0) scale(1);
     }
+    #card-lb.open .ec-brief {
+      display: none;
+    }
 
     .card-lb-box {
       position: relative;
@@ -757,7 +760,7 @@
       /* Make visible */
       margin: 0;
       transform: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); */
 
     }
 
@@ -835,14 +838,59 @@
       /* margin-left: 20px; */
     }
 
-    #card-lb-content .ec-card.open .ec-thumb {
+#card-lb-content .ec-card.open .ec-thumb {
       display: none;
+    }
 
+/* Make the title section sticky so it doesn't disappear when scrolling */
+    #card-lb-content .ec-summary {
+      position: sticky !important;
+      top: 0;
+      z-index: 100;
+      background: var(--bg) !important;
+      border-bottom: 2px solid color-mix(in srgb, var(--border) 50%, transparent) !important;
+      border-radius: 12px 12px 0 0; /* Matches the modal's top corners */
+      margin: 0;
+    }
+
+    /* Remove the top fade gradient since we now have a solid sticky header */
+    #card-lb-content::before {
+      display: none !important;
+    }
+
+    /* Remove the border from details since it is now on the sticky summary */
+    #card-lb-content .ec-card.open .ec-details-inner {
+      border-top: none !important;
     }
 
     /* Restore the left padding that the thumbnail previously occupied */
     #card-lb-content .ec-card.open .ec-info {
       padding-left: 24px;
+    }
+
+    /* Side navigation arrows for the EC Lightbox */
+    .card-lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--dimtitle);
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 10000;
+      padding: 20px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .card-lb-nav:hover {
+      color: var(--accent2);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .card-lb-prev { left: 2vw; }
+    .card-lb-next { right: 2vw; }
+
+    @media (max-width: 1050px) {
+      .card-lb-nav { display: none; }
     }
 
 
@@ -924,8 +972,9 @@
       opacity: 0;
     } */
 
-    #card-lb-content .ec-item {
+#card-lb-content .ec-item {
       transform: none !important;
+      overflow: visible !important; /* REQUIRED FOR STICKY TO WORK */
     }
 
     #card-lb-content .ec-card {
@@ -937,6 +986,7 @@
       transform: none !important;
       box-shadow: none !important;
       margin-bottom: 20px;
+      overflow: visible !important; /* REQUIRED FOR STICKY TO WORK */
     }
 
 
@@ -1241,13 +1291,15 @@
 
   <div id="sb-overlay"></div>
 
-  <div id="card-lb">
-    <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
-    <div class="card-lb-box">
-      <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
-      <div id="card-lb-content"></div>
-    </div>
+<div id="card-lb">
+  <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
+  <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <button class="card-lb-nav card-lb-next" onclick="pfLbNav(1)"><i class="fas fa-chevron-right"></i></button>
+  <div class="card-lb-box">
+    <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
+    <div id="card-lb-content"></div>
   </div>
+</div>
 
   <aside id="sb">
     <div id="sb-hdr">Sections</div>
@@ -3305,17 +3357,63 @@
       card.classList.toggle('open');
       const icon = element.querySelector('.expand-icon');
 
-      if (card.classList.contains('open')) {
-        // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-      } else {
-        // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        const rect = card.getBoundingClientRect();
-        if (rect.top < 0) {
-          const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-          window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
-        }
+    //   if (card.classList.contains('open')) {
+    //     // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+    //   } else {
+    //     // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+    //     const rect = card.getBoundingClientRect();
+    //     if (rect.top < 0) {
+    //       const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
+    //       window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+    //     }
+    //   }
+    // }
+
+
+    if (card.classList.contains('open')) {
+      // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+    } else {
+      // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+      const rect = card.getBoundingClientRect();
+      if (rect.top < 0) {
+        const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
+        window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
       }
     }
+  }
+
+  // --- CLICK ANYWHERE TO CLOSE EXPANDED CARD (LIST MODE) ---
+  document.addEventListener('click', (e) => {
+    // 1. Ensure the click happened inside the details section of an open card
+    const details = e.target.closest('.ec-details');
+    if (!details) return;
+
+    const card = details.closest('.ec-card');
+    if (!card || !card.classList.contains('open')) return;
+
+    // 2. Ignore if we are in tile mode (lightbox view)
+    const stack = card.closest('.card-stack');
+    if (stack && stack.classList.contains('tile-mode')) return;
+
+    // 3. Ignore clicks on interactive elements (links, buttons, carousels)
+    if (e.target.closest('a, button, .cw')) return;
+
+    // 4. Ignore if the user is currently selecting text
+    if (window.getSelection().toString().length > 0) return;
+
+    // 5. Safely close the card by triggering the toggle on the summary
+    const summary = card.querySelector('.ec-summary');
+    if (summary) toggleCardDetails(summary);
+  });
+
+
+
+
+
+
+
+
+
 
     // --- CARD CONTENT LIGHTBOX (tile mode only) ---
     let pfLbHome = null;
@@ -3397,11 +3495,57 @@
       }, 50);
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && document.getElementById('card-lb').classList.contains('open')) {
-        pfCloseLightbox();
-      }
-    });
+  function pfLbNav(dir) {
+    if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
+
+    const stack = pfLbHome.parent;
+    if (!stack) return;
+
+    // Get all visible items in the current stack
+    const items = Array.from(stack.querySelectorAll('.ec-item')).filter(item => item.style.display !== 'none');
+    if (items.length <= 1) return;
+
+    // FIX: Look for pfLbClone instead of the original node (which is currently inside the lightbox)
+    const currentIndex = items.indexOf(pfLbClone);
+    if (currentIndex === -1) return;
+
+    const nextIndex = (currentIndex + dir + items.length) % items.length;
+    const nextItem = items[nextIndex];
+
+    // Clean up current item cleanly
+    const currentItem = pfLbHome.node;
+    const currentCard = currentItem.querySelector('.ec-card');
+    if (currentCard) currentCard.classList.remove('open');
+    currentItem.classList.remove('in-lightbox');
+
+    // FIX: Replace the clone in the stack with the original item
+    stack.replaceChild(currentItem, pfLbClone);
+
+    // Setup the next item in the lightbox
+    pfLbClone = nextItem.cloneNode(true);
+    stack.insertBefore(pfLbClone, nextItem);
+
+    pfLbHome = { node: nextItem, parent: stack };
+
+    const content = document.getElementById('card-lb-content');
+    content.innerHTML = '';
+    content.appendChild(nextItem);
+    nextItem.classList.add('in-lightbox');
+
+    const nextCard = nextItem.querySelector('.ec-card');
+    if (nextCard) nextCard.classList.add('open');
+
+    // Reset scroll position
+    content.scrollTop = 0;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('card-lb').classList.contains('open')) {
+      if (e.key === 'Escape') pfCloseLightbox();
+      else if (e.key === 'ArrowRight') pfLbNav(1);
+      else if (e.key === 'ArrowLeft') pfLbNav(-1);
+    }
+  });
 
     // --- FLOAT-UP REVEAL ON SCROLL ---
     let pfRevealObserver = null;
