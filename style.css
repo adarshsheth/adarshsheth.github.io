@@ -4,6 +4,7 @@
 	/* --bg: #161618; */
 	/* --bg: #1e1e20; */
 	--bg: #0a0a0a;
+	--grad: #1a1a1a;
 	/* --surface-full: #0c0c0caf; */
 	/* --surface-full: #141414; */
 
@@ -83,6 +84,22 @@
 	-webkit-tap-highlight-color: transparent;
 	tap-highlight-color: transparent;
 }
+
+
+/* body {
+    cursor: url('/media/cursor_def.svg'), auto;
+} */
+
+/* a, button, .filter-btn, .sbn, .feed-tag-link, .ec-card, .post-arrow-btn, .cw, .lb-nav {
+    cursor: url('media/cursor_hover.svg'), pointer;
+} */
+
+/* input, textarea, [contenteditable="true"] {
+    cursor: url('media/cursors/typing-cursor-placeholder.svg'), text;
+} */
+
+
+
 /* .ec-card,
 .ec-item, */
 img,
@@ -1859,20 +1876,24 @@ section {
 	height: 80px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 0 48px;
+	justify-content: center; /* Centered to hug caption */
+	gap: 15px; /* 15px buffer between arrows and text */
+	padding: 0 20px;
+	pointer-events: none; /* Let clicks pass through empty space */
+	z-index: 10000;
 }
 
 .lbcap {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+	position: relative; /* Restored to flow state to hug arrows */
+	left: auto;
+	transform: none;
+	width: 100%; /* Force constant width so arrows don't shift */
+	max-width: 300px; /* Fixed max bounds for the caption text */
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
 	text-align: center;
-	width: 100%;
-	max-width: 60%;
 	line-height: 1.4;
+	pointer-events: auto; /* Allow links in caption to be clicked */
 }
 
 .lbcap a {

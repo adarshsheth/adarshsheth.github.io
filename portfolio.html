@@ -479,7 +479,8 @@
       opacity: 1;
       /* padding-top: 15px; */
       /* border-top: 3px solid var(--border); */
-      border-top: 3px solid color-mix(in srgb, var(--g) 10%, transparent 0%);
+      border-top: 3px solid color-mix(in srgb, var(--g) 50%, transparent 0%);
+      /* border-top: inherit; */
       ;
     }
 
@@ -689,28 +690,63 @@
       display: none;
     }
 
+/* Wrapper handles centering and 10px buffer gaps */
+    .card-lb-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px; /* Hugs the card with a 10px gap */
+      width: 100%;
+      max-width: 1020px; 
+      padding: 0 10px; /* Buffer from edge of screen */
+      pointer-events: none;
+    }
+    .card-lb-wrapper > * {
+      pointer-events: auto; 
+    }
+
     .card-lb-box {
       position: relative;
       z-index: 1;
-      width: min(900px, 100%);
+      flex: 1 1 auto;
+      max-width: 900px;
+      width: 100%;
+      min-width: 0;
       max-height: 88dvh;
-      /* overflow-y: auto; */
-
       overflow-y: visible;
-      background: color-mix(in srgb, var(--bg) 10%, transparent 0%);
+      /* background: color-mix(in srgb, var(--bg) 10%, transparent 0%); */
+      background: color-mix(in srgb, var(--bg) 30%, transparent);
       border: 2px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      /* backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); */
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-
-      /* copied from commented out above */
       opacity: 0;
       transform: translateY(8px) scale(0.97);
       transition: opacity 0.25s ease-in-out, transform 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
     }
+
+    /* .card-lb-box {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 auto;
+      max-width: 900px;
+      width: 100%;
+      min-width: 0; 
+      max-height: 88dvh;
+      overflow-y: visible;
+      background: color-mix(in srgb, var(--bg) 0%, transparent); 
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.25s ease-in-out, transform 0.4s cubic-bezier(0.22, 0.9, 0.25, 1);
+    } */
 
     /* .card-lb-close {
       position: sticky;
@@ -842,56 +878,72 @@
       display: none;
     }
 
-/* Make the title section sticky so it doesn't disappear when scrolling */
-    #card-lb-content .ec-summary {
+    /* BELOW MAKES THE TITLE SECTION STICKY; STICKY TITLE */
+    /* #card-lb-content .ec-summary {
       position: sticky !important;
       top: 0;
       z-index: 100;
       background: var(--bg) !important;
       border-bottom: 2px solid color-mix(in srgb, var(--border) 50%, transparent) !important;
-      border-radius: 12px 12px 0 0; /* Matches the modal's top corners */
+      border-radius: 12px 12px 0 0; 
       margin: 0;
     }
 
-    /* Remove the top fade gradient since we now have a solid sticky header */
     #card-lb-content::before {
       display: none !important;
     }
 
-    /* Remove the border from details since it is now on the sticky summary */
     #card-lb-content .ec-card.open .ec-details-inner {
       border-top: none !important;
-    }
+    } */
 
     /* Restore the left padding that the thumbnail previously occupied */
     #card-lb-content .ec-card.open .ec-info {
       padding-left: 24px;
     }
 
-    /* Side navigation arrows for the EC Lightbox */
+/* Side navigation arrows for the EC Lightbox */
     .card-lb-nav {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
       background: transparent;
       border: none;
       color: var(--dimtitle);
       font-size: 32px;
       cursor: pointer;
       z-index: 10000;
-      padding: 20px;
+      padding: 10px;
+      flex-shrink: 0; /* Ensures arrows don't squash */
       transition: color 0.2s, transform 0.2s;
     }
     .card-lb-nav:hover {
       color: var(--accent2);
-      transform: translateY(-50%) scale(1.1);
+      transform: scale(1.1);
     }
+
+    @media (max-width: 1050px) {
+      .card-lb-wrapper {
+        /* gap: 5px; */
+        gap: 10px;
+        /* padding: 0 5px;  */
+        padding: 0 0px; 
+      }
+      .card-lb-nav {
+        font-size: 24px;
+        /* padding: 5px; */
+        padding: 0px;
+      }
+      .card-lb-box {
+        /* Force the box narrower so the side arrows have guaranteed space */
+        width: calc(100% - 50px); 
+      }
+    }
+
+
     .card-lb-prev { left: 2vw; }
     .card-lb-next { right: 2vw; }
 
-    @media (max-width: 1050px) {
+    /* @media (max-width: 1050px) {
       .card-lb-nav { display: none; }
-    }
+    } */
 
 
 
@@ -938,13 +990,17 @@
   left: 0;
   display: block;
   width: 100%;
-  height: 20px;
+  height: 25px;
   /* Fades from solid background at the top to transparent */
-  background: linear-gradient(to bottom, var(--bg), transparent);
+  /* background: linear-gradient(to bottom, var(--bg), transparent); */
+  background: linear-gradient(to bottom, var(--grad), transparent);
+  /* background: linear-gradient(to bottom, var(--border), transparent); */
+  /* background: linear-gradient(to bottom, color-mix(in srgb, var(--border) 50%, transparent), transparent); */
+  
   pointer-events: none;
   z-index: 10;
   /* Prevents the sticky block from pushing your content down */
-  margin-bottom: -20px; 
+  margin-bottom: -25px; 
   border-radius: 12px 12px 0 0;
 }
 #card-lb-content::after {
@@ -1150,11 +1206,11 @@
       border-color: color-mix(in srgb, var(--g) 50%, transparent);
       /* box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); */
 
-      .ec-summary {
+      /* .ec-summary {
         background: color-mix(in srgb, var(--bg) 40%, transparent);
-        /* backdrop-filter: blur(100px);
-        -webkit-backdrop-filter: blur(100px); */
-      }
+        backdrop-filter: blur(100px);
+        -webkit-backdrop-filter: blur(100px);
+      } */
 
     }
 
@@ -1293,11 +1349,15 @@
 
 <div id="card-lb">
   <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
-  <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-  <button class="card-lb-nav card-lb-next" onclick="pfLbNav(1)"><i class="fas fa-chevron-right"></i></button>
-  <div class="card-lb-box">
-    <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
-    <div id="card-lb-content"></div>
+
+  <!-- Flex wrapper allows arrows to "hug" the card on all screens -->
+  <div class="card-lb-wrapper">
+    <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+    <div class="card-lb-box">
+      <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
+      <div id="card-lb-content"></div>
+    </div>
+    <button class="card-lb-nav card-lb-next" onclick="pfLbNav(1)"><i class="fas fa-chevron-right"></i></button>
   </div>
 </div>
 
