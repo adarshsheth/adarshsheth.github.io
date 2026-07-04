@@ -1879,6 +1879,7 @@ section {
 	justify-content: center; /* Centered to hug caption */
 	gap: 15px; /* 15px buffer between arrows and text */
 	padding: 0 20px;
+	margin-bottom: 30px;
 	pointer-events: none; /* Let clicks pass through empty space */
 	z-index: 10000;
 }

@@ -1319,11 +1319,18 @@ function initCarousels() {
 /* ── LIGHTBOX ── */
 let lbImgs = [],
 	lbCur = 0;
+// function openLb(imgs, startIdx) {
+// 	lbImgs = Array.from(imgs);
+// 	lbCur = startIdx;
+// 	renderLb();
+// 	document.getElementById("lb").classList.add("open");
+// }
 function openLb(imgs, startIdx) {
 	lbImgs = Array.from(imgs);
 	lbCur = startIdx;
 	renderLb();
 	document.getElementById("lb").classList.add("open");
+	document.body.style.overflow = "hidden"; // Adds scroll lock
 }
 // function renderLb() {
 // 	const media = lbImgs[lbCur];
@@ -1422,8 +1429,15 @@ function renderLb() {
 	else capEl.textContent = cap;
 }
 
+// function closeLb() {
+// 	document.getElementById("lb").classList.remove("open");
+// 	lbImgs = [];
+// 	const lbVid = document.getElementById("lbvid");
+// 	if (lbVid) lbVid.pause();
+// }
 function closeLb() {
 	document.getElementById("lb").classList.remove("open");
+	document.body.style.overflow = ""; // Removes scroll lock
 	lbImgs = [];
 	const lbVid = document.getElementById("lbvid");
 	if (lbVid) lbVid.pause();
