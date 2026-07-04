@@ -642,7 +642,8 @@
       visibility: hidden;
       transition: visibility 0.25s;
       /* Sped up */
-      padding: 40px 20px;
+      /* padding: 40px 20px; */
+      padding: 40px 0px;
     }
 
     #card-lb.open {
@@ -697,7 +698,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px; /* Hugs the card with a 10px gap */
+      /* gap: 10px; */
+      gap: 0px;
       width: 100%;
       max-width: 1020px; 
       padding: 0 10px; /* Buffer from edge of screen */
@@ -910,10 +912,12 @@
       font-size: 32px;
       cursor: pointer;
       z-index: 10000;
-      padding: 100px 10px;
+      /* padding: 100px 10px; */
+      padding: 100px 20px;
       /* padding: 10px; */
       flex-shrink: 0; /* Ensures arrows don't squash */
       transition: color 0.2s, transform 0.2s;
+      /* background: pink; */
     }
     .card-lb-nav:hover {
       color: var(--accent2);
@@ -923,14 +927,16 @@
     @media (max-width: 1050px) {
       .card-lb-wrapper {
         /* gap: 5px; */
-        gap: 10px;
+        /* gap: 10px; */
+        gap: 0px;
         /* padding: 0 5px;  */
         padding: 0 0px; 
       }
       .card-lb-nav {
         font-size: 24px;
         /* padding: 5px; */
-        padding: 100px 2px;
+        /* padding: 100px 2px; */
+        padding: 100px 10px;
       }
       .card-lb-box {
         /* Force the box narrower so the side arrows have guaranteed space */

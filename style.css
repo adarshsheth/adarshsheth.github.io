@@ -78,6 +78,7 @@
 
 	--sec-title: #545556;
 	--dark: #313131;
+	--uni-gap: 800px;
 }
 
 * {
@@ -3236,7 +3237,6 @@ footer {
 #card-lb-content .ec-card .brow .badge {
 	display: inline-flex !important;
 }
-
 /* ══════════════════════════════════════════════════════════ */
 /* ══ SKILLS SECTION UI                                    ── */
 /* ══════════════════════════════════════════════════════════ */
