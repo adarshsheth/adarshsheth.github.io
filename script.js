@@ -1325,6 +1325,36 @@ function openLb(imgs, startIdx) {
 	renderLb();
 	document.getElementById("lb").classList.add("open");
 }
+// function renderLb() {
+// 	const media = lbImgs[lbCur];
+// 	const cap = media.getAttribute("alt") || media.dataset.cap || "";
+// 	const link = media.dataset.link || "";
+
+// 	const lbImg = document.getElementById("lbimg");
+// 	const lbVid = document.getElementById("lbvid");
+// 	const lbFrame = document.getElementById("lbframe");
+
+// 	lbImg.style.display = "none";
+// 	lbVid.style.display = "none";
+// 	lbFrame.style.display = "none";
+// 	lbVid.pause();
+
+// 	if (media.tagName === "VIDEO") {
+// 		lbVid.style.display = "block";
+// 		lbVid.src = media.src;
+// 	} else if (media.tagName === "IFRAME") {
+// 		lbFrame.style.display = "block";
+// 		lbFrame.style.pointerEvents = "auto";
+// 		lbFrame.src = media.src;
+// 	} else {
+// 		lbImg.style.display = "block";
+// 		lbImg.src = media.src;
+// 	}
+
+// 	const capEl = document.getElementById("lbcap");
+// 	if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
+// 	else capEl.textContent = cap;
+// }
 function renderLb() {
 	const media = lbImgs[lbCur];
 	const cap = media.getAttribute("alt") || media.dataset.cap || "";
@@ -1339,16 +1369,52 @@ function renderLb() {
 	lbFrame.style.display = "none";
 	lbVid.pause();
 
+	// FIX 1: Grab the URL from data-src if the lazy-loaded src doesn't exist yet
+	let rawSrc = media.dataset.src || media.getAttribute("src");
+
+	// Helper function to upgrade Cloudinary URLs for both images and videos
+	function getHighResUrl(url) {
+		if (url && url.includes("res.cloudinary.com") && url.includes("w_")) {
+			let screenWidth = Math.min(Math.round(window.innerWidth * (window.devicePixelRatio || 1)), 2500);
+			return url.replace(/w_\d+/, `w_${screenWidth}`);
+		}
+		return url;
+	}
+
 	if (media.tagName === "VIDEO") {
 		lbVid.style.display = "block";
-		lbVid.src = media.src;
+
+		// FIX 2: Apply the high-res function to the video URL
+		lbVid.src = getHighResUrl(rawSrc);
+
+		// Check for a poster (thumbnail) and upgrade that too
+		let rawPoster = media.dataset.poster || media.getAttribute("poster");
+		if (rawPoster) {
+			lbVid.poster = getHighResUrl(rawPoster);
+		}
 	} else if (media.tagName === "IFRAME") {
 		lbFrame.style.display = "block";
 		lbFrame.style.pointerEvents = "auto";
-		lbFrame.src = media.src;
+		lbFrame.src = rawSrc;
 	} else {
 		lbImg.style.display = "block";
-		lbImg.src = media.src;
+
+		// Instantly show the low-res image (using the rawSrc fallback)
+		lbImg.src = rawSrc;
+
+		// Prepare the high-res Cloudinary URL
+		let hdSrc = getHighResUrl(rawSrc);
+
+		// Only run the background loader if the URL actually changed
+		if (hdSrc !== rawSrc) {
+			const hdLoader = new Image();
+			hdLoader.onload = () => {
+				if (lbImgs[lbCur] === media) {
+					lbImg.src = hdSrc;
+				}
+			};
+			hdLoader.src = hdSrc;
+		}
 	}
 
 	const capEl = document.getElementById("lbcap");

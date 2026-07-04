@@ -527,8 +527,6 @@ header::before {
 		0 0 15px color-mix(in srgb, var(--border) 100%, transparent),
 		inset -5px 0 15px -5px color-mix(in srgb, var(--border) 50%, transparent);
 
-	/* backdrop-filter: blur(15px);
-	-webkit-backdrop-filter: blur(15px); */
 	transition: all 0.3s ease-out;
 }
 
@@ -1669,8 +1667,7 @@ section {
 	cursor: pointer;
 	transition:
 		/* transform 0.922s ease,
-		box-shadow 0.22s ease; */
-		all 0.3s ease-out;
+		box-shadow 0.22s ease; */ all 0.3s ease-out;
 	margin-top: 0px;
 	margin-bottom: 2px;
 	/* will-change: transform; */
@@ -1776,7 +1773,6 @@ section {
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.25s;
-	/* will-change: opacity; */
 }
 #lb.open {
 	opacity: 1;
@@ -1791,86 +1787,154 @@ section {
 	-webkit-backdrop-filter: blur(8px);
 	cursor: pointer;
 }
+
+/* Make this cover the screen so we can use flex to push things to the edges */
 .lbbox {
-	position: relative;
+	position: absolute;
+	inset: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 10px;
+	justify-content: center;
+	padding: 70px 20px 80px 20px;
 	z-index: 1;
-	max-width: 90vw;
+	pointer-events: none; /* Lets clicks pass through to .lbb to close */
 }
-.lbi {
-	/* height: 45vh; */
-	height: 55vh;
-	width: auto;
-	max-width: 88vw;
-	border-radius: 8px;
+
+/* THE FIX: Only enable clicks on these elements when the lightbox is actually open! */
+#lb.open .lbi,
+#lb.open .lbclose,
+#lb.open .lb-bottom {
+	pointer-events: auto;
+}
+
+/* The Media / Image */
+/* .lbi {
+	width: 100%;
+	height: 100%;
+	max-width: 95vw;
+	border-radius: 1vw;
 	object-fit: contain;
+} */
+/* The Media / Image */
+.lbi {
+	/* width: auto;
+	height: auto; */
+	width: 100%;
+	height: 100%;
+	/* max-width: calc(100vw - 40px); */
+	max-width: calc(100vw - 100px);
+	/* max-width: 100%;
+	max-height: 100%; */
+	border-radius: 8px;
+	/* object-fit: contain; */
+	object-fit: cover;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
+/* .lbi {
+	width: 100%;
+	height: 100%;
+	object-fit: contain; 
+	border-radius: 0;
+	box-shadow: none; 
+} */
+
+/* Bottom Control Bar */
 .lb-bottom {
-	position: relative;
-	/* width: min(50vw, 400px); */
-	width: min(50vw, 300px);
-	min-height: 38px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 80px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	padding: 0 48px;
 }
+
 .lbcap {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
 	text-align: center;
-	flex: 1;
-	max-width: 100%;
+	width: 100%;
+	max-width: 60%;
+	line-height: 1.4;
 }
+
 .lbcap a {
 	color: var(--accent2);
 }
+
+/* Fixed Close Button - Top Right */
 .lbclose {
 	position: absolute;
-	top: -38px;
-	right: 0;
-	background: none;
-	border: none;
-	color: #fff;
-	font-size: 30px;
+	top: 20px;
+	right:40px;
+	/* background: rgba(255, 255, 255, 0.1); */
+	border: 0px solid rgba(255, 255, 255, 0.2);
+	background: transparent;
+	/* color: #fff; */
+	color: var(--dimtitle);
+	font-size: 26px;
 	line-height: 1;
+	width: 38px;
+	height: 38px;
+	/* border-radius: 50%; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.lbclose:hover,
+.lb-nav:hover {
+	/* background: rgba(255, 255, 255, 0.22); */
+	transform: scale(1.05);
+	color: var(--accent2);
+}
+
+/* Navigation Arrows */
+.lb-nav {
+	position: relative;
+	border: 0px solid rgba(255, 255, 255, 0.2);
+	background: transparent;
+	border-radius: 50%;
 	width: 36px;
 	height: 36px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer;
-}
-.lb-nav {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background: rgba(255, 255, 255, 0.1);
-	border: 1px solid rgba(255, 255, 255, 0.2);
-	border-radius: 50%;
-	width: 34px;
-	height: 34px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #fff;
+	/* color: #fff; */
+	color: var(--dimtitle);
 	font-size: 20px;
-	transition: background 0.15s;
+	transition:
+		background 0.15s,
+		transform 0.15s;
 	cursor: pointer;
+	z-index: 2;
+	/* font-family: "Rubik", sans-serif; */
 }
-.lb-nav:hover {
-	background: rgba(255, 255, 255, 0.22);
-}
-.lb-nav.lb-p {
-	left: 0;
-}
-.lb-nav.lb-n {
-	right: 0;
+.fas, .fa-chevron-left, .fa-chevron-right {
+	font-size: 12px;
 }
 
+@media (max-width: 1050px) {
+	.lbi {
+		max-width: 95vw;
+	}
+	.lb-bottom {
+		padding: 0 15px;
+		/* width: 95vw; */
+		/* center */
+	}
+	.lbclose {
+		right: 15px;
+	}
+}
 /* ══════════════════════════════════════════════════════════ */
 /* ══ HOME PAGE COMPONENTS                                 ── */
 /* ══════════════════════════════════════════════════════════ */
@@ -2566,12 +2630,8 @@ footer {
 	/* border-top: 2px solid var(--border); */
 
 	/* box-shadow: 15px 0px 15px color-mix(in srgb, var(--border) 100%, transparent), */
-	box-shadow:
-		10px 0px 20px color-mix(in srgb, var(--border) 100%, transparent);
-		/* inset -5px 5px 15px -5px color-mix(in srgb, var(--border) 100%, transparent); */
-
-
-
+	box-shadow: 10px 0px 20px color-mix(in srgb, var(--border) 100%, transparent);
+	/* inset -5px 5px 15px -5px color-mix(in srgb, var(--border) 100%, transparent); */
 }
 .fnav {
 	display: flex;
@@ -2794,9 +2854,11 @@ footer {
 	.navbox {
 		padding: 7px 5px;
 	}
-	/* #sb {
-		z-index: 400;
-	} */
+	#sb {
+		/* z-index: 400; */
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
+	}
 	.ec.visible {
 		border-color: color-mix(in srgb, var(--accent2) 100%, transparent);
 	}
@@ -2904,10 +2966,6 @@ footer {
 		margin-top: 15px !important;
 	}
 	/* .ecm span:not(:last-child)::after { opacity: 0; } */
-	.lbi {
-		height: 40vw;
-		width: auto;
-	}
 
 	.about-card:hover .about-badge {
 		transform: translateX(-10vw) translateZ(0);
@@ -3120,9 +3178,9 @@ footer {
 		height: 300px;
 	}
 	.insta-photo-inner {
-        padding-bottom: 0; /* Disables the 80% aspect ratio */
-        height: 100%;      /* Forces inner container to exactly 200px */
-    }
+		padding-bottom: 0; /* Disables the 80% aspect ratio */
+		height: 100%; /* Forces inner container to exactly 200px */
+	}
 }
 
 /* ══════════════════════════════════════════════════════════ */
