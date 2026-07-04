@@ -505,7 +505,7 @@
       justify-content: start;
       /* Keeps the grid left-aligned if there's leftover space */
       align-items: stretch;
-      gap: 15px;
+      gap: var(--uni-gap);
     }
 
     /* Cap the maximum width of the full-width list items so they don't stretch forever */
@@ -1129,7 +1129,7 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
       justify-content: start;
       align-items: stretch;
-      gap: 15px;
+      gap: var(--uni-gap);
     }
 
     .card-stack:not(.tile-mode) {

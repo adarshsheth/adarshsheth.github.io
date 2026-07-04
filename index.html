@@ -293,13 +293,12 @@
 		}
 
 		/* ── PORTFOLIO OVERVIEW CARDS (Imported from portfolio.html) ── */
-		.card-stack {
-			display: flex;
-			flex-direction: column;
-			gap: 16px;
-			max-width: 1200px;
-		}
-
+.card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uni-gap);
+    max-width: 1200px;
+}
 		.ec-card-link {
 			display: block;
 			text-decoration: none;
@@ -645,7 +644,7 @@
 			</div>
 
 
-			<div id="tls">
+			<!-- <div id="tls">
 				<div class="uni-card tlbox">
 					<div class="tl-wrapper">
 						<div class="tlframe">
@@ -653,9 +652,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="card-stack">
+			<div class="card-stack tile-mode">
 				<a href="portfolio.html?filter=evtol" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">

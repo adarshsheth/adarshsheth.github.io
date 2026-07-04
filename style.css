@@ -78,7 +78,7 @@
 
 	--sec-title: #545556;
 	--dark: #313131;
-	--uni-gap: 800px;
+	--uni-gap: 10px;
 }
 
 * {
@@ -3244,7 +3244,7 @@ footer {
 .skills-wrap {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-	gap: 20px;
+	gap: var(--uni-gap);
 	padding: 10px 0 20px;
 }
 
@@ -3388,10 +3388,100 @@ footer {
 		gap: 15px;
 	}
 
-	.fcopy {
+.fcopy {
 		order: 4;
 		font-size: 12px;
 		width: 100%;
 		margin-top: 5px;
 	}
+}
+
+/* ── TILE MODE (Adaptive Grid Layout) ── */
+.card-stack.tile-mode {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+    justify-content: start;
+    align-items: stretch;
+    gap: var(--uni-gap);
+}
+.card-stack.tile-mode .ec-summary {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1;
+    gap: 0;
+}
+.card-stack.tile-mode .ec-item {
+    display: block;
+    height: 100%;
+}
+.card-stack.tile-mode .ec-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.card-stack.tile-mode .ec-thumb {
+    height: 190px;
+    min-height: 190px;
+    flex-shrink: 0;
+    opacity: 1;
+}
+.card-stack.tile-mode .ec-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 14px 16px 16px;
+}
+.card-stack.tile-mode .ec-info-header .eclogos img {
+    height: 24px;
+}
+.card-stack.tile-mode .ec-title {
+    font-size: clamp(15px, 1.2vw, 25px);
+    margin-bottom: 4px;
+}
+.card-stack.tile-mode .ec-subtitle {
+    font-size: 10.5px;
+}
+.card-stack.tile-mode .ec-brief {
+    font-size: clamp(11px, 0.7vw, 14px);
+    width: 100%;
+}
+.card-stack.tile-mode .badge {
+    font-size: clamp(8px, 0.5vw, 13px);
+    padding: 4px 6px;
+    line-height: 1 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.card-stack.tile-mode .expand-prompt,
+.card-stack.tile-mode .ec-details {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .card-stack.tile-mode {
+        grid-template-columns: 1fr 1fr;
+    }
+    .card-stack.tile-mode .ec-thumb,
+    .ec-thumb {
+        height: 100px;
+        min-height: 100px;
+    }
+    .card-stack.tile-mode .ec-title {
+        font-size: 13px;
+    }
+    .card-stack.tile-mode .ec-subtitle {
+        font-size: 9px;
+        letter-spacing: 0;
+    }
+    .card-stack.tile-mode .ec-info {
+        padding: 12px;
+    }
+    .card-stack.tile-mode .ec-info-header .eclogos img {
+        height: 20px;
+    }
+    .card-stack.tile-mode .ec-info-header .eclogos {
+        display: none;
+    }
 }
