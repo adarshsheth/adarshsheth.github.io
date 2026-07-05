@@ -25,10 +25,13 @@
 	--highlight: #615739;
 	--text: #d0d3cd;
 	--contrast-text: #cacaca;
-	--tdim: #7a7e76;
+	/* --tdim: #7a7e76; */
+	--tdim: var(--cbul);
 	--tmut: var(--tdim);
 	/* --miniheader: var(--dimtitle); */
-	--miniheader: #616161;
+	/* --miniheader: #616161; */
+	/* --miniheader: var(--contrast-text); */
+	--miniheader: var(--cbul);
 	--dull: #4f5348;
 	--navh: 50px;
 	--sw: 250px;
@@ -36,7 +39,9 @@
 	--anchorh: 0px;
 	/* --sb: 70px; */
 	--sb: 20px;
-	--dimtitle: #888888;
+	/* --dimtitle: #888888; */
+	--dimtitle: var(--contrast-text);
+	--cbul: #b9b9b9;
 	--bullbold: #525e44;
 	--title: #ffffff;
 
@@ -965,7 +970,8 @@ section {
 	/* font-size: clamp(13.5px, 0.8vw, 50px); */
 	/* font-size: clamp(13.5px, 0.8vw, 30px); */
 	font-size: clamp(13.5px, 0.8vw, 20px);
-	color: #888888;
+	/* color: #888888; */
+	color: var(--cbul);
 	/* line-height: 1.5; */
 }
 .hbox b,
@@ -1444,7 +1450,8 @@ section {
 	border-radius: 5px;
 	/* background: transparent; */
 	border: 1px solid var(--badge);
-	color: var(--badge);
+	/* color: var(--badge); */
+	color: var(--g);
 	/* font-size: clamp(11px, 0.6vw, 40px); */
 	font-size: clamp(10px, 0.6vw, 13px);
 	font-weight: 500;
@@ -1452,6 +1459,8 @@ section {
 	white-space: nowrap;
 	/* background: var(--badge); */
 	background: color-mix(in srgb, var(--badge) 20%, transparent);
+	/* background: color-mix(in srgb, var(--badge) 10%, transparent); */
+	/* background: pink; */
 	/* color: var(--bg); */
 	/* color: var(--tdim); */
 	/* transition: all 0.3s ease-in-out; */
@@ -1500,14 +1509,16 @@ section {
 	/* font-size: clamp(13.5px, 0.8vw, 30px); */
 	font-size: clamp(13.5px, 0.8vw, 20px);
 	line-height: 1.15;
-	color: var(--tdim);
+	/* color: var(--tdim); */
+	color: var(--cbul);
 	padding-bottom: 3px;
 }
 .cbul > li::before {
 	content: "•";
 	position: absolute;
 	left: 2px;
-	color: var(--tdim);
+	/* color: var(--tdim); */
+	color: var(--cbul);
 }
 .cbul > li > ul {
 	margin-top: 4px;
@@ -1523,7 +1534,8 @@ section {
 	/* font-size: clamp(13.5px, 0.8vw, 25px); */
 	/* font-size: clamp(13.5px, 0.8vw, 20px); */
 	font-size: inherit;
-	color: var(--tdim);
+	/* color: var(--tdim); */
+	color: var(--cbul);
 	line-height: 1.15;
 	padding-bottom: 3px;
 }
@@ -1531,7 +1543,8 @@ section {
 	content: "•";
 	position: absolute;
 	left: -14px;
-	color: var(--tdim);
+	/* color: var(--tdim); */
+	color: var(--cbul);
 	/* font-size: clamp(13.5px, 0.8vw, 50px); */
 	font-size: clamp(13.5px, 0.8vw, 25px);
 }
@@ -1563,6 +1576,7 @@ section {
 	font-size: clamp(13.5px, 0.9vw, 20px);
 	/* font-size: clamp(13px, 0.8vw, 16px); */
 	font-weight: 800;
+	/* font-weight: 700; */
 	letter-spacing: 0.1em;
 	color: var(--miniheader);
 	text-transform: uppercase;
@@ -1978,7 +1992,7 @@ section {
 #about {
 	padding: 0 48px;
 	margin-top: 30px;
-	background: pink;
+	/* background: pink; */
 }
 .about-box {
 	text-align: center;

@@ -1258,7 +1258,7 @@
             </div>` : ''}
             <div class="blog-info" style="display: flex; flex-direction: column; flex: 1; padding: 16px 20px;">
                 <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 22px); margin-bottom: 8px; line-height: 1.2;">${node.title}</h3>
-                <p class="wi-text" style="font-size: clamp(12px, 0.8vw, 15px); line-height: 1.5; color: var(--tdim); margin-bottom: 12px;">${node.brief}</p>
+                <p class="wi-text" style="font-size: clamp(12px, 0.7vw, 15px); line-height: 1.5; color: var(--tdim); margin-bottom: 12px;">${node.brief}</p>
                 <div class="brow" style="padding: 0; margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px;">
                     ${(node.tags || []).slice(0, 4).map(tag => `<span class="badge feed-tag-link" style="font-size: clamp(9px, 0.5vw, 12px); padding: 3px 8px; text-transform: uppercase;" onclick="event.preventDefault(); event.stopPropagation(); document.querySelector('.filter-btn[data-tag=\\'${tag.name}\\']')?.click(); window.scrollTo({top: 0, behavior: 'smooth'});">${tag.name}</span>`).join('')}
                     <span class="badge" style="background: transparent; border: none; color: var(--dimtitle); font-size: clamp(9px, 0.5vw, 12px); padding: 3px 0; pointer-events: none;">${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
