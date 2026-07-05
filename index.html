@@ -230,6 +230,7 @@
 			margin: 0;
 		}
 
+		
 		.bio-flex {
 			display: flex;
 			gap: 50px;
@@ -239,15 +240,11 @@
 
 		.bio-img-container {
 			flex-shrink: 0;
-			/* width: 200px;
-			height: 200px; */
 			width: 150px;
 			height: 160px;
 			margin: 0;
 			border-radius: 50%;
-			/* border: 3px solid color-mix(in srgb, var(--g) 40%, transparent); */
 			border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
-			/* overflow: hidden; */
 			align-self: flex-start;
 		}
 
@@ -390,7 +387,20 @@
 		}
 
 		@media (max-width: 1050px) {
-			#about {
+					.bio-flex {
+			display: block;
+		}
+
+		.bio-img-container {
+			float: left;
+			shape-outside: circle(50%);
+			margin: 0 20px 10px 0;
+			width: 150px;
+			height: 160px;
+			border-radius: 50%;
+			border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
+		}
+		#about {
 				margin-top: calc(-1 * (var(--navh) + 50px));
 				/* padding-top: calc(var(--navh) + 50px); */
 				padding-top: calc(var(--navh) + 40px);
@@ -649,11 +659,16 @@
 				<div class="bio-text-content">
 					<p class="about-bio" style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
 						<!-- font-size: clamp(14px, 1.2vw, 18px); -->
-						Beyond my coursework, I've always been compelled by a natural curiosity about form, structure, and functional design.
-						My creative side started early through painting and intricate origami, which taught me patience and an appreciation for nuance. 
-						As I was drawn to aerospace, that tactile curiosity blended with my engineering mindset, sparking side projects that broke down everyday mechanics.
-						This drive to observe and learn, paired with a love for the outdoors and travel, found expression through photography as I immersed myself in remote trails and urban landscapes.
-						Picking up a camera is my favorite excuse to step outside, disconnect, and appreciate the finer details of the world around us.
+						Beyond my coursework, I've always been compelled by a natural curiosity about form, structure,
+						and functional design.
+						My creative side started early through painting and intricate origami, which taught me patience
+						and an appreciation for nuance.
+						As I was drawn to aerospace, that tactile curiosity blended with my engineering mindset,
+						sparking side projects that broke down everyday mechanics.
+						This drive to observe and learn, paired with a love for the outdoors and travel, found
+						expression through photography as I immersed myself in remote trails and urban landscapes.
+						Picking up a camera is my favorite excuse to step outside, disconnect, and appreciate the finer
+						details of the world around us.
 						<!-- <br><br> -->
 					</p>
 				</div>
