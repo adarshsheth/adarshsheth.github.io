@@ -3338,11 +3338,12 @@ footer {
 	/* background: color-mix(in srgb, var(--badge) 20%, transparent); */
 	background: color-mix(in srgb, var(--badge) 15%, transparent);
 	/* border: 1px solid color-mix(in srgb, var(--badge) 35%, transparent); */
-	/* border: 1px solid var(--badge); */
-	border: 1px solid var(--dull);
+	border: 1px solid var(--badge);
+	/* border: 1px solid var(--dull); */
 	/* color: var(--tdim); */
 	/* color: var(--badge); */
-	color: var(--dull);
+	/* color: var(--dull); */
+	color: var(--g);
 	/* font-size: 11.5px; */
 	font-size: clamp(10px, 0.6vw, 13px);
 	/* font-weight: 600; */
