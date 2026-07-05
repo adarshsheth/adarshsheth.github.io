@@ -154,7 +154,7 @@
 
 		.hero-btn {
 			padding: 12px 28px;
-			border-radius: 100px;
+			border-radius: 10px;
 			font-family: "Rubik", sans-serif;
 			font-weight: 700;
 			font-size: 13px;
@@ -293,12 +293,13 @@
 		}
 
 		/* ── PORTFOLIO OVERVIEW CARDS (Imported from portfolio.html) ── */
-.card-stack {
-    display: flex;
-    flex-direction: column;
-    gap: var(--uni-gap);
-    max-width: 1200px;
-}
+		.card-stack {
+			display: flex;
+			flex-direction: column;
+			gap: var(--uni-gap);
+			max-width: 1200px;
+		}
+
 		.ec-card-link {
 			display: block;
 			text-decoration: none;
@@ -379,10 +380,17 @@
 			max-width: 450px;
 		}
 
+		@media (max-height: 840px) {
+			#recent-card-container {
+				display: none;
+			}
+		}
+
 		@media (max-width: 1050px) {
 			#about {
 				margin-top: calc(-1 * (var(--navh) + 50px));
-				padding-top: calc(var(--navh) + 50px);
+				/* padding-top: calc(var(--navh) + 50px); */
+				padding-top: 10px;
 			}
 
 			/* Unified mobile padding constraints */
@@ -569,19 +577,20 @@
 					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6;">
 					I'm a rising junior Aerospace Engineering student at Texas A&M University. Driven by a deep
 					fascination for
-					vertical flight and end-to-end systems integration, I love tackling rigorous engineering
+					<span>vertical flight</span> and end-to-end <span>systems</span> integration, I love tackling
+					rigorous engineering
 					challenges — from
 					designing and sizing flight vehicles to conducting complex aerodynamic trade studies. I thrive in
 					environments
 					where creativity meets analytical rigor, constantly looking to bridge the gap between heavy,
-					multidisciplinary
+					<span>multidisciplinary</span>
 					engineering principles and intuitive, real-world execution.
 				</p>
 
 
 
 				<!-- Low-Profile Quote Box for Most Recent Experience -->
-				<div class="hbox"
+				<!-- <div class="hbox"
 					style="text-align: left; max-width: 850px; margin: 28px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
 					<a href="portfolio.html?filter=all" style="text-decoration: none; color: inherit; display: block;">
 						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
@@ -589,7 +598,7 @@
 						to filter
 						those in FOV; then tracked chosen satellite across its in-FOV duration.
 					</a>
-				</div>
+				</div> -->
 
 				<div class="hero-buttons" style="margin-top: 36px;">
 					<a href="#bio" class="hero-btn btn-primary"
@@ -599,6 +608,21 @@
 					<a href="portfolio.html" class="hero-btn btn-secondary">
 						Experience
 					</a>
+				</div>
+
+				<!-- Low-Profile Quote Box for Most Recent Experience -->
+				<!-- <div class="hbox"
+					style="text-align: left; max-width: 850px; margin: 0px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
+					<a href="portfolio.html?filter=all" style="text-decoration: none; color: inherit; display: block;">
+						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
+						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
+						to filter
+						those in FOV; then tracked chosen satellite across its in-FOV duration.
+					</a>
+				</div> -->
+				<div id="recent-card-container"
+					style="max-width: 850px; margin: 0 auto; text-align: left; width: 100%;">
+					<!-- The script below will fetch and inject the #ray card here -->
 				</div>
 			</div>
 
@@ -619,7 +643,8 @@
 					<img src="media/artwork/bio-img.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
 				</div>
 				<div class="bio-text-content">
-					<p class="about-bio" style="width: 100%; font-size: clamp(14px, 1vw, 18px); line-height: 1.7;">
+					<p class="about-bio" style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
+						<!-- font-size: clamp(14px, 1.2vw, 18px); -->
 						Beyond my work in aerospace engineering, I'm an avid photographer with a keen eye for capturing
 						the beauty of
 						nature and urban landscapes around the world.
@@ -815,7 +840,84 @@
 	</div>
 
 	<script src="script.js" defer></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", async () => {
+			const recentContainer = document.getElementById("recent-card-container");
+			if (!recentContainer) return;
 
+			try {
+				// Fetch the portfolio page
+				const response = await fetch("portfolio.html");
+				const htmlText = await response.text();
+
+				// Parse the fetched HTML
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(htmlText, "text/html");
+
+				// --- EXTRACT & SCOPE CSS ---
+				// Grab all style blocks from portfolio.html
+				const styleBlocks = doc.querySelectorAll("style");
+				let portfolioCSS = "";
+				styleBlocks.forEach(block => portfolioCSS += block.innerHTML + "\n");
+
+				// Find the specific card by its ID
+				const targetCard = doc.querySelector("#ray");
+
+				if (targetCard) {
+					const summaryNode = targetCard.querySelector(".ec-summary");
+
+					// --- STRIP UNWANTED ELEMENTS ---
+					// Find the elements inside the summary
+					const badges = summaryNode.querySelector(".brow");
+					const expandPrompt = summaryNode.querySelector(".expand-prompt");
+					const dateSubtitle = summaryNode.querySelector(".ec-subtitle");
+					const logo = summaryNode.querySelector(".eclogos");
+					const thumb = summaryNode.querySelector(".ec-thumb");
+
+					// Delete them if they exist
+					if (badges) badges.remove();
+					if (expandPrompt) expandPrompt.remove();
+					// if (dateSubtitle) dateSubtitle.remove();
+					// if (logo) logo.remove();
+					// if (thumb) thumb.remove();
+					// -------------------------------
+
+					// Extract the inner wrapper and the newly cleaned summary HTML
+					const cardClasses = targetCard.querySelector(".ec-card").className;
+					const summaryHtml = summaryNode.outerHTML;
+
+					// Inject the scoped styles AND the formatted card wrapped in a link to the portfolio
+					recentContainer.innerHTML = `
+	                    <style>
+	                        /* Modern CSS scoping restricts these styles ONLY to this container */
+	                        @scope (#recent-card-container) {
+	                            ${portfolioCSS}
+	                        }
+	                    </style>
+	                    <div style="width: 100%; margin: 35px auto 5px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6; font-weight: 700;">
+	                        FEATURED EXPERIENCE:
+	                    </div>
+	                    <div class="card-stack">
+	                        <a href="portfolio.html?filter=all" class="ec-card-link" style="display: block; text-decoration: none;">
+	                            <div class="${cardClasses}">
+	                                ${summaryHtml}
+	                            </div>
+	                        </a>
+	                    </div>
+	                `;
+
+					// Strip the "onclick" attribute to prevent errors
+					const injectedSummary = recentContainer.querySelector('.ec-summary');
+					if (injectedSummary) {
+						injectedSummary.removeAttribute('onclick');
+						injectedSummary.style.cursor = "pointer";
+					}
+				}
+			} catch (error) {
+				console.error("Failed to load recent card:", error);
+			}
+		});
+	</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
 			const text = "Hi, I'm Adarsh!";
