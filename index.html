@@ -146,18 +146,21 @@
 		/* Hero Buttons */
 		.hero-buttons {
 			display: flex;
-			gap: 16px;
+			/* gap: 16px; */
+			gap: 12px;
 			justify-content: center;
 			margin-top: 36px;
 			flex-wrap: wrap;
 		}
 
 		.hero-btn {
-			padding: 12px 28px;
+			/* padding: 12px 28px; */
+			padding: 8px 22px;
 			border-radius: 10px;
 			font-family: "Rubik", sans-serif;
 			font-weight: 700;
-			font-size: 13px;
+			/* font-size: 13px; */
+			font-size: inherit;
 			letter-spacing: 0.1em;
 			text-transform: uppercase;
 			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -390,7 +393,8 @@
 			#about {
 				margin-top: calc(-1 * (var(--navh) + 50px));
 				/* padding-top: calc(var(--navh) + 50px); */
-				padding-top: 20px;
+				padding-top: calc(var(--navh) + 40px);
+				/* padding-top: 50px; */
 			}
 
 			/* Unified mobile padding constraints */
