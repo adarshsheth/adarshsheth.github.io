@@ -113,6 +113,10 @@
 
   <style>
     /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH BLOG STYLE ── */
+    /* .sh {
+      max-width: 100%;
+    } */
+
     .sh h2 {
       /* font-size: 16px !important; */
       font-size: clamp(12px, 0.9vw, 18px) !important;
@@ -125,6 +129,12 @@
       /* color: color-mix(in srgb, var(--accent2) 50%, transparent); */
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
+      min-width: 0;
+      display: block;
+      overflow-wrap: break-word;
+      word-wrap: break-all;
+      white-space: normal;
+      text-align: left;
     }
 
     .sh h2:hover {
@@ -536,14 +546,6 @@
 
     }
 
-    /* Force a single column on tiny mobile screens */
-    @media (max-width: 450px) {
-      .card-stack.tile-mode {
-        grid-template-columns: 1fr;
-      }
-
-    }
-
     .card-stack.tile-mode .ec-summary {
       grid-template-columns: 1fr;
       gap: 0;
@@ -688,11 +690,12 @@
       opacity: 1;
       transform: translateY(0) scale(1);
     }
+
     #card-lb.open .ec-brief {
       display: none;
     }
 
-/* Wrapper handles centering and 10px buffer gaps */
+    /* Wrapper handles centering and 10px buffer gaps */
     .card-lb-wrapper {
       position: relative;
       z-index: 1;
@@ -702,12 +705,14 @@
       /* gap: 10px; */
       gap: 0px;
       width: 100%;
-      max-width: 1020px; 
-      padding: 0 10px; /* Buffer from edge of screen */
+      max-width: 1020px;
+      padding: 0 10px;
+      /* Buffer from edge of screen */
       pointer-events: none;
     }
-    .card-lb-wrapper > * {
-      pointer-events: auto; 
+
+    .card-lb-wrapper>* {
+      pointer-events: auto;
     }
 
     .card-lb-box {
@@ -836,6 +841,14 @@
       width: 4px;
     }
 
+    #card-lb-content::-webkit-scrollbar-thumb {
+      background: var(--badge);
+    }
+
+    #card-lb-content::-webkit-scrollbar-thumb:hover {
+      background: var(--g);
+    }
+
     #card-lb-content::-webkit-scrollbar-track {
       margin: 14px 0;
       /* This margin keeps it away from the curved corners! */
@@ -877,7 +890,7 @@
       /* margin-left: 20px; */
     }
 
-#card-lb-content .ec-card.open .ec-thumb {
+    #card-lb-content .ec-card.open .ec-thumb {
       display: none;
     }
 
@@ -905,7 +918,7 @@
       padding-left: 24px;
     }
 
-/* Side navigation arrows for the EC Lightbox */
+    /* Side navigation arrows for the EC Lightbox */
     .card-lb-nav {
       background: transparent;
       border: none;
@@ -916,10 +929,12 @@
       /* padding: 100px 10px; */
       padding: 100px 20px;
       /* padding: 10px; */
-      flex-shrink: 0; /* Ensures arrows don't squash */
+      flex-shrink: 0;
+      /* Ensures arrows don't squash */
       transition: color 0.2s, transform 0.2s;
       /* background: pink; */
     }
+
     .card-lb-nav:hover {
       color: var(--accent2);
       transform: scale(1.1);
@@ -931,23 +946,30 @@
         /* gap: 10px; */
         gap: 0px;
         /* padding: 0 5px;  */
-        padding: 0 0px; 
+        padding: 0 0px;
       }
+
       .card-lb-nav {
         font-size: 24px;
         /* padding: 5px; */
         /* padding: 100px 2px; */
         padding: 100px 10px;
       }
+
       .card-lb-box {
         /* Force the box narrower so the side arrows have guaranteed space */
-        width: calc(100% - 50px); 
+        width: calc(100% - 50px);
       }
     }
 
 
-    .card-lb-prev { left: 2vw; }
-    .card-lb-next { right: 2vw; }
+    .card-lb-prev {
+      left: 2vw;
+    }
+
+    .card-lb-next {
+      right: 2vw;
+    }
 
     /* @media (max-width: 1050px) {
       .card-lb-nav { display: none; }
@@ -992,26 +1014,27 @@
 } */
     /* Add this new block */
     #card-lb-content::before {
-  content: '';
-  position: sticky;
-  top: -1px;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 25px;
-  /* Fades from solid background at the top to transparent */
-  /* background: linear-gradient(to bottom, var(--bg), transparent); */
-  background: linear-gradient(to bottom, var(--grad), transparent);
-  /* background: linear-gradient(to bottom, var(--border), transparent); */
-  /* background: linear-gradient(to bottom, color-mix(in srgb, var(--border) 50%, transparent), transparent); */
-  
-  pointer-events: none;
-  z-index: 10;
-  /* Prevents the sticky block from pushing your content down */
-  margin-bottom: -25px; 
-  border-radius: 12px 12px 0 0;
-}
-#card-lb-content::after {
+      content: '';
+      position: sticky;
+      top: -1px;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 25px;
+      /* Fades from solid background at the top to transparent */
+      /* background: linear-gradient(to bottom, var(--bg), transparent); */
+      background: linear-gradient(to bottom, var(--grad), transparent);
+      /* background: linear-gradient(to bottom, var(--border), transparent); */
+      /* background: linear-gradient(to bottom, color-mix(in srgb, var(--border) 50%, transparent), transparent); */
+
+      pointer-events: none;
+      z-index: 10;
+      /* Prevents the sticky block from pushing your content down */
+      margin-bottom: -25px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    #card-lb-content::after {
       content: '';
       position: sticky;
       bottom: -1px;
@@ -1036,9 +1059,10 @@
       opacity: 0;
     } */
 
-#card-lb-content .ec-item {
+    #card-lb-content .ec-item {
       transform: none !important;
-      overflow: visible !important; /* REQUIRED FOR STICKY TO WORK */
+      overflow: visible !important;
+      /* REQUIRED FOR STICKY TO WORK */
     }
 
     #card-lb-content .ec-card {
@@ -1050,7 +1074,8 @@
       transform: none !important;
       box-shadow: none !important;
       margin-bottom: 20px;
-      overflow: visible !important; /* REQUIRED FOR STICKY TO WORK */
+      overflow: visible !important;
+      /* REQUIRED FOR STICKY TO WORK */
     }
 
 
@@ -1345,29 +1370,29 @@
         <div id="lbcap" class="lbcap"></div>
         <button class="lb-nav lb-n" id="lb-next"><i class="fas fa-chevron-right"></i></button>
       </div> -->
-            <div class="lb-bottom">
-              <button class="lb-nav lb-p" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-              <div id="lbcap" class="lbcap"></div>
-              <button class="lb-nav lb-n" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
-            </div>
+      <div class="lb-bottom">
+        <button class="lb-nav lb-p" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+        <div id="lbcap" class="lbcap"></div>
+        <button class="lb-nav lb-n" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+      </div>
     </div>
   </div>
 
   <div id="sb-overlay"></div>
 
-<div id="card-lb">
-  <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
+  <div id="card-lb">
+    <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
 
-  <!-- Flex wrapper allows arrows to "hug" the card on all screens -->
-  <div class="card-lb-wrapper">
-    <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-    <div class="card-lb-box">
-      <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
-      <div id="card-lb-content"></div>
+    <!-- Flex wrapper allows arrows to "hug" the card on all screens -->
+    <div class="card-lb-wrapper">
+      <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+      <div class="card-lb-box">
+        <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
+        <div id="card-lb-content"></div>
+      </div>
+      <button class="card-lb-nav card-lb-next" onclick="pfLbNav(1)"><i class="fas fa-chevron-right"></i></button>
     </div>
-    <button class="card-lb-nav card-lb-next" onclick="pfLbNav(1)"><i class="fas fa-chevron-right"></i></button>
   </div>
-</div>
 
   <aside id="sb">
     <div id="sb-hdr">Sections</div>
@@ -2019,6 +2044,16 @@
                   <span class="badge" data-cat="sys">EDP</span>
                   <span class="badge" data-cat="tools">Excel</span>
                   <span class="badge" data-cat="hw">3D Printing</span>
+
+                  <span class="badge" data-cat="des">CAD</span>
+                  <span class="badge" data-cat="sys">T&E</span>
+                  <span class="badge" data-cat="sys">EDP</span>
+                  <span class="badge" data-cat="sys">Systems Integration</span>
+                  <span class="badge" data-cat="gen">RC Driver</span>
+                  <span class="badge" data-cat="hw">Assembly</span>
+                  <span class="badge" data-cat="sys">Documentation</span>
+                  <span class="badge" data-cat="tools">Notion</span>
+                  <span class="badge" data-cat="tools">Trello</span>
                 </div>
                 <p class="ec-brief">Captained a top 2% global VEX Robotics team across 2 seasons.
                   Overhauled
@@ -2095,36 +2130,25 @@
                       guideance to foster long-term success</li>
                   </ul>
 
-                  <div class="csub">
-                    <div class="cslbl">Technical Contributions</div>
-                    <div class="brow" style="padding: 0 0 8px">
-                      <span class="badge" data-cat="des">CAD</span>
-                      <span class="badge" data-cat="sys">T&E</span>
-                      <span class="badge" data-cat="sys">EDP</span>
-                      <span class="badge" data-cat="sys">Systems Integration</span>
-                      <span class="badge" data-cat="gen">RC Driver</span>
-                      <span class="badge" data-cat="hw">Assembly</span>
-                      <span class="badge" data-cat="sys">Documentation</span>
-                      <span class="badge" data-cat="tools">Notion</span>
-                      <span class="badge" data-cat="tools">Trello</span>
-                    </div>
-                    <ul class="cbul">
-                      <li>Designed, tested, and iterated individual subsystems and
-                        full-robot designs in
-                        <b>Autodesk Fusion 360</b>
-                      </li>
+                  <!-- <div class="csub"> -->
+                  <div class="cslbl" style="margin-top:10px">Technical Contributions</div>
+                  <ul class="cbul">
+                    <li>Designed, tested, and iterated individual subsystems and
+                      full-robot designs in
+                      <b>Autodesk Fusion 360</b>
+                    </li>
 
-                      <li><b>Authored</b> a technical guide for tuning 14 individual
-                        factors of 2 <a
-                          href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
-                          target="_blank">launching mechanisms</a> and <a
-                          href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
-                          target="_blank">pneumatics</a>.
-                      </li>
-                      <li>Team driver for 2 seasons - handled dynamic 2x2 match strategy
-                        under tournament pressure</li>
-                    </ul>
-                  </div>
+                    <li><b>Authored</b> a technical guide for tuning 14 individual
+                      factors of 2 <a
+                        href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
+                        target="_blank">launching mechanisms</a> and <a
+                        href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
+                        target="_blank">pneumatics</a>.
+                    </li>
+                    <li>Team driver for 2 seasons - handled dynamic 2x2 match strategy
+                      under tournament pressure</li>
+                  </ul>
+                  <!-- </div> -->
                 </div>
 
                 <div>
@@ -3307,29 +3331,10 @@
 
 
 
-
-
-    <!-- <section id="sec-skills" class="sb" data-k="skills">
-      <div class="sh">
-        <span class="sh-r"></span>
-        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-skills'); scrollToSec('sec-skills')">
-          <h2>SKILLS <span class="amp">&</span> TECHNOLOGIES</h2>
-        </button>
-        <span class="sh-r"></span>
-      </div>
-
-      <div id="skills-container" class="skills-wrap"></div>
-    </section> -->
-
-
-
-
-
-
     <section>
       <div style="margin-top: 40px"></div>
     </section>
-<div id="footer-placeholder"></div>
+    <div id="footer-placeholder"></div>
   </div>
 
   <script src="script.js"></script>
@@ -3425,54 +3430,54 @@
       card.classList.toggle('open');
       const icon = element.querySelector('.expand-icon');
 
-    //   if (card.classList.contains('open')) {
-    //     // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-    //   } else {
-    //     // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-    //     const rect = card.getBoundingClientRect();
-    //     if (rect.top < 0) {
-    //       const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-    //       window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
-    //     }
-    //   }
-    // }
+      //   if (card.classList.contains('open')) {
+      //     // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+      //   } else {
+      //     // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+      //     const rect = card.getBoundingClientRect();
+      //     if (rect.top < 0) {
+      //       const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
+      //       window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+      //     }
+      //   }
+      // }
 
 
-    if (card.classList.contains('open')) {
-      // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-    } else {
-      // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-      const rect = card.getBoundingClientRect();
-      if (rect.top < 0) {
-        const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-        window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+      if (card.classList.contains('open')) {
+        // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+      } else {
+        // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        const rect = card.getBoundingClientRect();
+        if (rect.top < 0) {
+          const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
+          window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
+        }
       }
     }
-  }
 
-  // --- CLICK ANYWHERE TO CLOSE EXPANDED CARD (LIST MODE) ---
-  document.addEventListener('click', (e) => {
-    // 1. Ensure the click happened inside the details section of an open card
-    const details = e.target.closest('.ec-details');
-    if (!details) return;
+    // --- CLICK ANYWHERE TO CLOSE EXPANDED CARD (LIST MODE) ---
+    document.addEventListener('click', (e) => {
+      // 1. Ensure the click happened inside the details section of an open card
+      const details = e.target.closest('.ec-details');
+      if (!details) return;
 
-    const card = details.closest('.ec-card');
-    if (!card || !card.classList.contains('open')) return;
+      const card = details.closest('.ec-card');
+      if (!card || !card.classList.contains('open')) return;
 
-    // 2. Ignore if we are in tile mode (lightbox view)
-    const stack = card.closest('.card-stack');
-    if (stack && stack.classList.contains('tile-mode')) return;
+      // 2. Ignore if we are in tile mode (lightbox view)
+      const stack = card.closest('.card-stack');
+      if (stack && stack.classList.contains('tile-mode')) return;
 
-    // 3. Ignore clicks on interactive elements (links, buttons, carousels)
-    if (e.target.closest('a, button, .cw')) return;
+      // 3. Ignore clicks on interactive elements (links, buttons, carousels)
+      if (e.target.closest('a, button, .cw')) return;
 
-    // 4. Ignore if the user is currently selecting text
-    if (window.getSelection().toString().length > 0) return;
+      // 4. Ignore if the user is currently selecting text
+      if (window.getSelection().toString().length > 0) return;
 
-    // 5. Safely close the card by triggering the toggle on the summary
-    const summary = card.querySelector('.ec-summary');
-    if (summary) toggleCardDetails(summary);
-  });
+      // 5. Safely close the card by triggering the toggle on the summary
+      const summary = card.querySelector('.ec-summary');
+      if (summary) toggleCardDetails(summary);
+    });
 
 
 
@@ -3563,57 +3568,57 @@
       }, 50);
     }
 
-  function pfLbNav(dir) {
-    if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
+    function pfLbNav(dir) {
+      if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
 
-    const stack = pfLbHome.parent;
-    if (!stack) return;
+      const stack = pfLbHome.parent;
+      if (!stack) return;
 
-    // Get all visible items in the current stack
-    const items = Array.from(stack.querySelectorAll('.ec-item')).filter(item => item.style.display !== 'none');
-    if (items.length <= 1) return;
+      // Get all visible items in the current stack
+      const items = Array.from(stack.querySelectorAll('.ec-item')).filter(item => item.style.display !== 'none');
+      if (items.length <= 1) return;
 
-    // FIX: Look for pfLbClone instead of the original node (which is currently inside the lightbox)
-    const currentIndex = items.indexOf(pfLbClone);
-    if (currentIndex === -1) return;
+      // FIX: Look for pfLbClone instead of the original node (which is currently inside the lightbox)
+      const currentIndex = items.indexOf(pfLbClone);
+      if (currentIndex === -1) return;
 
-    const nextIndex = (currentIndex + dir + items.length) % items.length;
-    const nextItem = items[nextIndex];
+      const nextIndex = (currentIndex + dir + items.length) % items.length;
+      const nextItem = items[nextIndex];
 
-    // Clean up current item cleanly
-    const currentItem = pfLbHome.node;
-    const currentCard = currentItem.querySelector('.ec-card');
-    if (currentCard) currentCard.classList.remove('open');
-    currentItem.classList.remove('in-lightbox');
+      // Clean up current item cleanly
+      const currentItem = pfLbHome.node;
+      const currentCard = currentItem.querySelector('.ec-card');
+      if (currentCard) currentCard.classList.remove('open');
+      currentItem.classList.remove('in-lightbox');
 
-    // FIX: Replace the clone in the stack with the original item
-    stack.replaceChild(currentItem, pfLbClone);
+      // FIX: Replace the clone in the stack with the original item
+      stack.replaceChild(currentItem, pfLbClone);
 
-    // Setup the next item in the lightbox
-    pfLbClone = nextItem.cloneNode(true);
-    stack.insertBefore(pfLbClone, nextItem);
+      // Setup the next item in the lightbox
+      pfLbClone = nextItem.cloneNode(true);
+      stack.insertBefore(pfLbClone, nextItem);
 
-    pfLbHome = { node: nextItem, parent: stack };
+      pfLbHome = { node: nextItem, parent: stack };
 
-    const content = document.getElementById('card-lb-content');
-    content.innerHTML = '';
-    content.appendChild(nextItem);
-    nextItem.classList.add('in-lightbox');
+      const content = document.getElementById('card-lb-content');
+      content.innerHTML = '';
+      content.appendChild(nextItem);
+      nextItem.classList.add('in-lightbox');
 
-    const nextCard = nextItem.querySelector('.ec-card');
-    if (nextCard) nextCard.classList.add('open');
+      const nextCard = nextItem.querySelector('.ec-card');
+      if (nextCard) nextCard.classList.add('open');
 
-    // Reset scroll position
-    content.scrollTop = 0;
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (document.getElementById('card-lb').classList.contains('open')) {
-      if (e.key === 'Escape') pfCloseLightbox();
-      else if (e.key === 'ArrowRight') pfLbNav(1);
-      else if (e.key === 'ArrowLeft') pfLbNav(-1);
+      // Reset scroll position
+      content.scrollTop = 0;
     }
-  });
+
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('card-lb').classList.contains('open')) {
+        if (e.key === 'Escape') pfCloseLightbox();
+        else if (e.key === 'ArrowRight') pfLbNav(1);
+        else if (e.key === 'ArrowLeft') pfLbNav(-1);
+      }
+    });
 
     // --- FLOAT-UP REVEAL ON SCROLL ---
     let pfRevealObserver = null;
