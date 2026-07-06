@@ -3390,7 +3390,12 @@ footer {
 	transform: translateY(-3px);
 	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
-	box-shadow: var(--card-hover-shadow, none);
+	/* box-shadow: var(--card-hover-shadow, none); */
+	box-shadow:
+		/* 0 0 15px var(--g), */
+		0 0 10px color-mix(in srgb, var(--g) 20%, transparent),
+		inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent),
+		inset 0px 0 10px 0px color-mix(in srgb, var(--g) 40%, transparent);
 }
 
 /* Base styles for the copyright text */
