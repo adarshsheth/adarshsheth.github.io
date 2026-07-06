@@ -1,3 +1,24 @@
+<!-- https://leimao.github.io/project/Online-Encryption-Decryption/ -->
+<!-- https://www.dropbox.com/home -->
+
+<!--
+{
+"general": "...",
+"vfd": "....",
+"se": "..."
+}
+
+with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0
+-->
+
+<!-- 
+{
+"general": "https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0",
+"vfd": "https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0",
+"se": "https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm/test.pdf?rlkey=e7y7k0q9j8xp05wmq79625m9t&st=zmc4lxb0"
+} 
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -291,8 +312,8 @@
     <script src="script.js"></script>
 
     <script>
-        // Your Payload
-        const encryptedPayload = "U2FsdGVkX1+hNBhzZ7JYgGKEV8Tk/KHvedF6h2YlZ7Xzq0qKvITOnvL1rLK3oqQu+YC3lPArddk+DwNn5QXIb35nGydqFaeGiwJPOr8jA6c02bRbCxSyxqI0rFUFgSrKc0FhNHY/mDX3kgsk13ayhMnvxPirjGLnWmzX+WqH9ZLrgtfRabqN1rOxyiR1n4pFr+jlp1JPatlg9yaJRY2gYTlkn7XCbEE+RXAXEUoQGmQhLog0doKdlNnU703bH9pQO8odmW7x7dCO06xmHxPyFIoobmyqWnueJ4DKU/eRi0YuUD/dItyma6ztWUG6ef7Ddzk+1faLgTZwXHzbEvC57p26hv6uqDbolbjiupPQ2sY1nClBIwr0aRG2wTtkwrurFDb9QrqlqX4sMEjoR8EJc6nJGItaJCIXD+rDK3FBRnbl8XJkDMgwNgePsMUMkxPo0SGDxwI1mt3JEEWzfgHD3W+LsQ1vM/HOpuKG1JGVrOE3VMEtfmC+XQbcxpJXAAQeB0C88tu8iGuQwAAQrmHVZMfPU8etVxICOKwksIUvjUCZnApB+6dJQ2ywYzluNWH8Go4ipG3FtWACewpnkck0UC1SDKZTnUhQQbY6fN1B98G2Ik3B+H5fNhJU3uqaGfu0Kms6Vj92vGb7/zlNCl97SwhRPvo8X9Ve+UrRHIHRmcOL1130/yrEXAOCzOZQiIAoxoSsfBM1736973jnuaIRJA==";
+        // Your Payload PASSWORD
+        const encryptedPayload = "U2FsdGVkX1+wbK/Yz7JS061RGpV2U/91tulXlugok9FmQ43gGT0A+aQBmYUf182xoWwpBfWi1xYu3eidC6tIhiXY4gBElfiuzi+vuJ4FtPxKlheOAQC/74zISq8ZEssON+hiDixacIlZMTv15RQw8fmcFU6gXBrN1rv0zfGWmioBw/AROTSvisv5IOrI97GxqjQtP65GP2fR8KogJXPwJZqrrVp/uDsUPTYNlwRZ/PlD9r2ptTDZQjCdiRjzeVhWOn5k8nThVmq5KVY9146IQE82verNa3NSvjGsa2jDM0HxLj3OQTrcFb+EjkSiRMH5P5fJYVyMWaMGWmSXCqh7HraCqZuCmy7saCy7lDF5Dxj14BlzE2b1h9lnMxbWtSeR0x6cfFXifZ1SAKe3npInDC4qrApMS01X+/SSAHPImw+Da4HclO3ikYbZIEoO4ZUZ4CWJqeUBejNA5fu7KfEsKYPhLLPv4qHjv1O92MhiLrTSod701xmsdVNA+88IONzqJ34PcEJNaGIX0SPjgcYCy5/M8X48eeviVdJ4pvnjNqV9eDNesWbcdqTtpoHZJHCezK5Ja1TQBQ8+Fnmyk5/HdhfaQtrYN9HJ+meW/6onT5GSKZRrb0hJAzVMeAAIqSzUpXvmfFJI8kuam8Sr1DMe2gvxIYpepZ3OSicaoM+VYKbjS6CIRFBwNx7PIfNdIIqWvG0ttEoGzrTaR/92LiHbHBeJN2QsqXU2WIdKZ1VddHA=";
 
         let currentPdfUrl = '';
         let privateMap = null;
@@ -301,7 +322,7 @@
             const map = {
                 'general': 'General Resume',
                 'vfd': 'Vertical Flight',
-                'cs': 'Computer Science',
+                'sw': 'Software',
                 'se': 'Systems Engineering'
             };
             return map[key.toLowerCase()] || (key.charAt(0).toUpperCase() + key.slice(1));

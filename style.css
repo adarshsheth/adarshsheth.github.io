@@ -402,6 +402,9 @@ header::before {
 	white-space: nowrap;
 	z-index: 0;
 	transition: color 0.2s;
+	/* border: 2px solid var(--gd); */
+	/* border: 2px solid color-mix(in srgb, var(--gd) 20%, transparent); */
+	box-shadow: 0 0 5px -1px color-mix(in srgb, var(--gd) 80%, transparent);
 }
 .ni::after {
 	content: "";

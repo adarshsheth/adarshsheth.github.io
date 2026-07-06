@@ -66,11 +66,13 @@
 			--surface: rgba(40, 41, 40, 0.08);
 			--border: #444444;
 		}
+
 		body::before {
-		/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg') !important; */
-		background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://cdn2.picryl.com/photo/2010/05/18/boeing-plant-in-renton-5-18-2010-4622746048-e1011e-1024.jpg') !important;
-		filter: blur(4px);
+			/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg') !important; */
+			background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://cdn2.picryl.com/photo/2010/05/18/boeing-plant-in-renton-5-18-2010-4622746048-e1011e-1024.jpg') !important;
+			filter: blur(4px);
 		}
+
 		body {
 			background: var(--bg);
 			color: var(--text);
@@ -96,6 +98,7 @@
 			margin: 10px 48px 25px;
 			flex-wrap: wrap;
 		}
+
 		.btn-hdr {
 			font-weight: 800;
 			font-size: 12px;
@@ -193,6 +196,7 @@
 			.portfolio-filters {
 				margin: 10px 22px 20px;
 			}
+
 			.btn-hdr {
 				margin-top: 15px;
 			}
@@ -322,23 +326,32 @@
 	<aside id="sb">
 		<div id="sb-hdr">Resumes</div>
 		<nav id="sb-nav">
-			<a class="sbn active" href="#" onclick="switchResume('general', 'media/resume.pdf'); return false;"
+			<a class="sbn active" href="#" onclick="switchResume('general', 'media/resume/general.pdf'); return false;"
 				data-k="general">
 				<span class="sbdot"></span>
-				<span class="sblbl">General Resume</span>
+				<span class="sblbl">General</span>
 			</a>
-			<!-- <a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume.pdf'); return false;" data-k="vfd">
+			<a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume/general.pdf'); return false;"
+				data-k="vfd">
 				<span class="sbdot"></span>
 				<span class="sblbl">Vertical Flight</span>
-			</a> -->
-			<!-- <a class="sbn" href="#" onclick="switchResume('cs', 'media/resume.pdf'); return false;" data-k="cs">
-				<span class="sbdot"></span>
-				<span class="sblbl">Computer Science</span>
 			</a>
-			<a class="sbn" href="#" onclick="switchResume('se', 'media/resume.pdf'); return false;" data-k="se">
+			<!-- <a class="sbn" href="#" onclick="switchResume('sw', 'media/resume/general.pdf'); return false;" data-k="sw">
+				<span class="sbdot"></span>
+				<span class="sblbl">Software</span>
+			</a>
+			<a class="sbn" href="#" onclick="switchResume('se', 'media/resume/general.pdf'); return false;" data-k="se">
 				<span class="sbdot"></span>
 				<span class="sblbl">Systems Engineering</span>
 			</a> -->
+			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="sw" title="Coming Soon">
+				<span class="sbdot"></span>
+				<span class="sblbl">Software</span>
+			</a>
+			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="se" title="Coming Soon">
+				<span class="sbdot"></span>
+				<span class="sblbl">Systems Engineering</span>
+			</a>
 		</nav>
 	</aside>
 
@@ -357,25 +370,28 @@
 				<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
 			</p>
 		</div> -->
-		
+
 		<!-- TABS UI FOR MULTIPLE RESUMES -->
 		<p class="btn-hdr">Select a resume:</p>
 		<div class="portfolio-filters">
-			<!-- For now, they all route to media/resume.pdf. Simply update the arguments later -->
+			<!-- For now, they all route to media/resume/general.pdf. Simply update the arguments later -->
 			<button class="filter-btn active" id="tab-general"
-				onclick="switchResume('general', 'media/resume.pdf')">GENERAL</button>
-			<!-- <button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume_vf.pdf')">VERTICAL
-				FLIGHT</button> -->
-			<!-- <button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume_systems.pdf')">SYSTEMS
+				onclick="switchResume('general', 'media/resume/general.pdf')">GENERAL</button>
+			<button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume/vf.pdf')">VERTICAL
+				FLIGHT</button>
+			<!-- <button class="filter-btn" id="tab-sw" onclick="switchResume('sw', 'media/resume/sw.pdf')">SOFTWARE</button>
+			<button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume/se.pdf')">SYSTEMS
+				ENGINEERING</button> -->
+			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
+				title="Coming Soon">SOFTWARE</button>
+			<button class="filter-btn" id="tab-se" disabled style="opacity: 0.5; cursor: not-allowed;" title="Coming Soon">SYSTEMS
 				ENGINEERING</button>
-			<button class="filter-btn" id="tab-cs" onclick="switchResume('cs', 'media/resume_cs.pdf')">COMPUTER
-				SCIENCE</button> -->
 		</div>
 
 		<!-- CLEAN NATIVE PDF.JS VIEWER (With Floating Download) -->
 		<div id="pdf-section">
 			<div class="pdf-wrapper">
-				<a href="media/resume.pdf" id="floating-dl-btn" download class="floating-dl-btn">
+				<a href="media/resume/general.pdf" id="floating-dl-btn" download class="floating-dl-btn">
 					<i class="fas fa-download"></i> DOWNLOAD
 				</a>
 				<div id="pdf-container">
@@ -394,14 +410,14 @@
 
 			<div id="skills-container" class="skills-wrap"></div>
 		</section>
-<div id="footer-placeholder"></div>
+		<div id="footer-placeholder"></div>
 	</div>
 
 	<script src="script.js"></script>
 
 	<script>
 		// ── DYNAMIC RESUME LOGIC ──
-		let currentPdfUrl = 'media/resume.pdf';
+		let currentPdfUrl = 'media/resume/general.pdf';
 		let privateMap = null;
 
 		// 1. Check if unlocked BEFORE setting the initial URL
@@ -520,12 +536,18 @@
 			} catch (error) {
 				console.error('Error rendering the PDF:', error);
 				container.style.opacity = '1';
+				// container.innerHTML = `
+		        //         <div style="padding: 50px 20px; text-align: center; color: var(--text);">
+		        //             <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
+		        //             <h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
+		        //             <p style="font-size: 14px; line-height: 1.5;">${error.message || 'The file is missing or blocked by browser security (CORS).'}</p>
+		        //             <p style="font-size: 11px; margin-top: 20px; color: var(--dimtitle); word-break: break-all;"><strong>Attempted URL:</strong><br>${currentPdfUrl}</p>
+		        //         </div>
+		        //     `;
 				container.innerHTML = `
 		                <div style="padding: 50px 20px; text-align: center; color: var(--text);">
 		                    <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
-		                    <h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
-		                    <p style="font-size: 14px; line-height: 1.5;">${error.message || 'The file is missing or blocked by browser security (CORS).'}</p>
-		                    <p style="font-size: 11px; margin-top: 20px; color: var(--dimtitle); word-break: break-all;"><strong>Attempted URL:</strong><br>${currentPdfUrl}</p>
+		                    <h3 style="color: white; margin-bottom: 10px;">This PDF is not ready yet. Check back soon.</h3>
 		                </div>
 		            `;
 			}
