@@ -87,7 +87,10 @@
 		/* Full Screen Hero Section */
 		#about {
 			margin-top: calc(-1 * (var(--navh) + 50px));
-			padding-top: calc(var(--navh) + 50px);
+			/* padding-top: calc(var(--navh) + 50px); */
+			/* padding-top: calc(var(--navh) + 30px); */
+			padding: 100px 0;
+
 			min-height: 100vh;
 			min-height: 100dvh;
 			display: flex;
@@ -97,7 +100,7 @@
 			position: relative;
 			background: transparent !important;
 			border-bottom: none;
-			border-bottom: 1px solid var(--border);
+			/* border-bottom: 1px solid var(--border); */
 		}
 
 		/* body::before { background: transparent;} */
@@ -117,8 +120,54 @@
 			max-width: 900px;
 			width: 100%;
 			text-align: center;
-			padding: 0 20px;
+			/* padding: 0 20px; */
+
+			padding: 20px;
+			border-radius: var(--r);
+			/* background: pink; */
+			position: relative;
 		}
+
+		/* The Brackets */
+		.about-box::before,
+		.about-box::after {
+			content: "";
+			position: absolute;
+			width: 30px;
+			/* Length of the bracket */
+			height: 30px;
+			/* Length of the bracket */
+			border: 4px solid var(--accent);
+			/* Thickness and color */
+		}
+
+		/* Top-Left Bracket */
+		.about-box::before {
+			top: -5px;
+			left: -5px;
+			border-right: none;
+			border-bottom: none;
+			border-radius: var(--r) 0 0 0;
+		}
+
+		/* Bottom-Right Bracket */
+		.about-box::after {
+			bottom: -5px;
+			right: -5px;
+			border-left: none;
+			border-top: none;
+			border-radius: 0 0 var(--r) 0;
+		}
+
+
+
+
+
+
+
+
+
+
 
 		/* Typing Effect Cursor */
 		.typing-cursor {
@@ -205,6 +254,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			padding: 10px 50px;
 		}
 
 		.scroll-down:hover {
@@ -230,7 +280,7 @@
 			margin: 0;
 		}
 
-		
+
 		.bio-flex {
 			display: flex;
 			gap: 50px;
@@ -268,7 +318,8 @@
 		/* ── LAYOUT & MARGIN ALIGNMENTS ── */
 		#portfolio-overview,
 		#photography {
-			padding: 40px 48px 52px;
+			/* padding: 40px 48px 52px; */
+			padding: 40px 48px;
 			max-width: 1300px;
 			margin: 0;
 		}
@@ -387,24 +438,24 @@
 		}
 
 		@media (max-width: 1050px) {
-					.bio-flex {
-			display: block;
-		}
+			.bio-flex {
+				display: block;
+			}
 
-		.bio-img-container {
-			float: left;
-			shape-outside: circle(50%);
-			margin: 0 20px 10px 0;
-			width: 150px;
-			height: 160px;
-			border-radius: 50%;
-			border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
-		}
-		#about {
+			.bio-img-container {
+				float: left;
+				shape-outside: circle(50%);
+				margin: 0 20px 10px 0;
+				width: 150px;
+				height: 160px;
+				border-radius: 50%;
+				border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
+			}
+
+			#about {
 				margin-top: calc(-1 * (var(--navh) + 50px));
 				/* padding-top: calc(var(--navh) + 50px); */
 				padding-top: calc(var(--navh) + 40px);
-				/* padding-top: 50px; */
 			}
 
 			/* Unified mobile padding constraints */
@@ -426,7 +477,8 @@
 
 			#portfolio-overview,
 			#photography {
-				padding: 40px 22px 52px !important;
+				/* padding: 40px 22px 52px !important; */
+				padding: 40px 22px;
 			}
 
 			.bio-flex {
@@ -465,7 +517,9 @@
 			}
 		}
 
-		@media (max-width: 850px) {
+		/* @media (max-width: 850px) { */
+		@media (max-width: 850px),
+		(max-height: 850px) {
 			.scroll-down {
 				display: none !important;
 			}
@@ -473,6 +527,25 @@
 			.about-box {
 				padding-bottom: 40px;
 			}
+
+			.about-box::before,
+			.about-box::after {
+				display: none !important;
+			}
+
+			#bio {
+			/* #marquee { */
+				padding-top: 0px !important;
+				padding-bottom: 0px !important;
+			}
+			#portfolio-overview {
+				padding-bottom: 0px !important;
+			}
+		}
+
+		.indexSection {
+			padding-top: 60px !important;
+			padding-bottom: 20px !important;
 		}
 	</style>
 </head>
@@ -558,7 +631,7 @@
 	</aside>
 
 	<div id="mn">
-		<section id="about">
+		<section id="about" class="indexSection" class="indexSection">
 			<!-- <div class="about-box">
 				<div class="about-name">
 					<span id="typewriter"></span><span class="typing-cursor"></span>
@@ -590,15 +663,13 @@
 				<p class="about-bio"
 					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6;">
 					I'm a rising junior Aerospace Engineering student at Texas A&M University. Driven by a deep
-					fascination for
-					<span>vertical flight</span> and end-to-end <span>systems</span> integration, I love tackling
-					rigorous engineering
-					challenges — from
-					designing and sizing flight vehicles to conducting complex aerodynamic trade studies. I thrive in
-					environments
-					where creativity meets analytical rigor, constantly looking to bridge the gap between heavy,
-					<span>multidisciplinary</span>
-					engineering principles and intuitive, real-world execution.
+					fascination for <span>vertical flight</span> and end-to-end <span>systems</span> integration, I love
+					tackling
+					rigorous engineering challenges - from designing and sizing flight vehicles to conducting complex
+					aerodynamic trade studies. I thrive in
+					environments where creativity meets analytical rigor, constantly looking to bridge the gap between
+					heavy,
+					<span>multidisciplinary</span> engineering principles and intuitive, real-world execution.
 				</p>
 
 
@@ -615,11 +686,11 @@
 				</div> -->
 
 				<div class="hero-buttons" style="margin-top: 36px;">
-					<a href="#bio" class="hero-btn btn-primary"
+					<a href="#bio" class="hero-btn btn-primary uni-btn"
 						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
 						About Me
 					</a>
-					<a href="portfolio.html" class="hero-btn btn-secondary">
+					<a href="portfolio.html" class="hero-btn btn-secondary uni-btn">
 						Experience
 					</a>
 				</div>
@@ -646,7 +717,9 @@
 			</a>
 		</section>
 
-		<section id="bio">
+		
+
+		<section id="bio" class="indexSection">
 			<div class="fw-head" style="margin-bottom: 40px;">
 				<span class="fw-title">ABOUT ME</span>
 			</div>
@@ -675,9 +748,9 @@
 			</div>
 		</section>
 
-		<hr class="div" style="margin: 0px 0 0" />
+		<!-- <hr class="div" style="margin: 0px 0 0" /> -->
 
-		<section id="portfolio-overview">
+		<section id="portfolio-overview" class="indexSection">
 			<div class="fw-head" style="margin-bottom: 26px;">
 				<span class="fw-title">PORTFOLIO OVERVIEW</span>
 				<a href="portfolio.html" class="fw-see-btn" title="View Full Portfolio">
@@ -779,9 +852,26 @@
 			</div>
 		</section>
 
-		<hr class="div" style="margin: 0px 0 0" />
+		<!-- <section id="marquee" class="indexSection">
+			<h2 class="fw-title" style="margin: 10px var(--navh);">Organizations</h2>
+			<div class="marquee">
+				<div class="marquee-track">
+					<img src="/media/logo/ray.png" alt="Raytheon">
+					<img src="/media/logo/vfd.png" alt="VFD">
+					<img src="/media/logo/vfs.png" alt="VFS">
+					<img src="/media/logo/red.png" alt="RED">
+					<img src="/media/logo/seds.png" alt="SEDS">
+					<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+					<img src="/media/logo/DVR.png" alt="DVR">
+					<img src="/media/logo/invent.jpg" alt="Invent">
+					<img src="/media/logo/888.png" alt="Troop 888">
+				</div>
+			</div>
+		</section> -->
 
-		<section id="photography">
+		<!-- <hr class="div" style="margin: 0px 0 0" /> -->
+
+		<section id="photography" class="indexSection">
 			<div class="fw-head" style="margin-bottom: 26px;">
 				<span class="fw-title">PHOTOGRAPHY OVERVIEW</span>
 				<a href="photography.html" class="fw-see-btn" title="View Photography Gallery">
@@ -857,6 +947,39 @@
 	</div>
 
 	<script src="script.js" defer></script>
+	<script>
+		const marquee = document.querySelector('.marquee');
+		const originalTrack = document.querySelector('.marquee-track');
+
+		function setupMarquee() {
+			// 1. Remove any existing clones (useful if the window is resized)
+			const existingClones = marquee.querySelectorAll('.marquee-track.clone');
+			existingClones.forEach(clone => clone.remove());
+
+			// 2. Measure the track and the screen
+			// We add 50px to account for the CSS gap between tracks
+			const trackWidth = originalTrack.scrollWidth + 50;
+			const screenWidth = window.innerWidth;
+
+			// 3. Calculate how many total tracks we need to fill the screen
+			// We use Math.ceil to round up, and add 1 extra as a scrolling buffer
+			const copiesNeeded = Math.ceil(screenWidth / trackWidth) + 1;
+
+			// 4. Spawn the required number of clones
+			for (let i = 0; i < copiesNeeded - 1; i++) {
+				const clone = originalTrack.cloneNode(true);
+				clone.classList.add('clone'); // Tag it as a clone so we can track it
+				clone.setAttribute('aria-hidden', 'true'); // Hide duplicates from screen readers
+				marquee.appendChild(clone);
+			}
+		}
+
+		// Run the math when the page loads
+		setupMarquee();
+
+		// Re-calculate automatically if the user resizes their browser window
+		window.addEventListener('resize', setupMarquee);
+	</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", async () => {
 			const recentContainer = document.getElementById("recent-card-container");
@@ -937,18 +1060,22 @@
 	</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
-			const text = "Hi, I'm Adarsh!";
+			const text = "Hi, I'm Adarsh! 👋";
+			// This splits the text into true characters, keeping emojis intact as a single index
+			const characters = [...text];
+
 			const el = document.getElementById("typewriter");
 			let i = 0;
+
 			function type() {
-				if (i < text.length) {
-					el.textContent += text.charAt(i);
+				if (i < characters.length) {
+					el.textContent += characters[i];
 					i++;
 					setTimeout(type, Math.random() * 50 + 60);
 				}
 			}
+
 			const preloaderSeen = sessionStorage.getItem("preloaderSeen");
-			// const delay = preloaderSeen === "true" ? 300 : 2600;
 			const delay = preloaderSeen === "true" ? 300 : 1400;
 			setTimeout(type, delay);
 		});

@@ -132,20 +132,17 @@ a {
 html {
 	scroll-behavior: smooth;
 }
-body::before {
+/* body::before {
 	content: "";
 
-	/* Lock it to the viewport, replicating 'background-attachment: fixed' */
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 
-	/* Push it behind your website content */
 	z-index: -1;
 
-	/* Your background image settings */
 	background-image:
 		linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)),
 		url("https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/PXL_20260313_233818274_zgksky.jpg");
@@ -153,19 +150,69 @@ body::before {
 	background-size: cover;
 	background-position: center;
 
-	/* Apply the blur */
-	/* filter: blur(4px); */
-	/* filter: blur(8px); */
 	filter: blur(10px);
 
-	/* Scale it up slightly to hide the unblurred edges caused by the filter */
 	transform: scale(1.05);
 
 	transition:
 		opacity 0.2s ease-in-out,
 		filter 0.2s ease-in-out;
 	opacity: 1;
+} */
+/* 1. The Squiggly Animated Color Blobs */
+body::before {
+	content: "";
+	position: fixed;
+	inset: -200px; /* Bleed past edges to prevent hard cutoffs during animation */
+	z-index: -2;
+	background-color: var(--bg);
+	/* Layering radial gradients that we will animate */
+	background-image:
+		radial-gradient(circle at 20% 30%, rgba(100, 118, 97, 0.25) 0%, transparent 40%),
+		radial-gradient(circle at 80% 70%, rgba(200, 168, 75, 0.2) 0%, transparent 45%),
+		radial-gradient(ellipse at 60% 10%, rgba(133, 112, 50, 0.15) 0%, transparent 50%);
+	/* A heavy blur turns rigid circles into organic, squiggly blobs */
+	filter: blur(60px);
+	/* filter: blur(100px); */
+	/* animation: blobMove 20s infinite alternate ease-in-out; */
+	opacity: 1;
+	transition: opacity 0.2s ease-in-out;
+	background-size: cover;
 }
+
+/* 2. The Small Grid Background (Aceternity Style) */
+body::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none; /* Lets clicks pass through to your site */
+	background-size: 40px 40px;
+	/* background-size: 30px 30px; */
+	background-image:
+		/* linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px); */
+		linear-gradient(to right, rgba(255, 255, 255, 0.02) 4px, transparent 4px), linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 4px, transparent 4px);
+	/* Creates the smooth radial fade-out at the edges of the screen */
+	-webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+	mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+/* 3. The Animation Keyframes for the Blobs */
+/* @keyframes blobMove {
+	0% {
+		background-position: 0% 0%, 0% 0%, 0% 0%;
+		background-size: 100% 100%, 100% 100%, 100% 100%;
+	}
+	50% {
+		background-position: 5% 10%, -10% -5%, 15% 5%;
+		background-size: 110% 90%, 90% 110%, 105% 95%;
+	}
+	100% {
+		background-position: -5% -10%, 10% 5%, -10% 15%;
+		background-size: 95% 105%, 105% 95%, 90% 110%;
+	}
+} */
 
 /* This class will temporarily drop the background opacity to 0 */
 body.bg-fade-out::before {
@@ -540,9 +587,12 @@ header::before {
 	left: 0;
 	bottom: 0;
 	width: var(--sw);
-	background: var(--surface-full);
+	/* background: var(--surface-full); */
 	/* border-right: 2px solid var(--border); */
 	/* border-right: 2px solid color-mix(in srgb, var(--border) 40% transparent); */
+
+	/* backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px); */
 
 	z-index: 1000;
 	display: flex;
@@ -868,7 +918,7 @@ section {
 	/* left: 50%; */
 	left: calc(50% + (var(--sw) / 2));
 	transform: translateX(-50%) translateY(20px);
-	background: color-mix(in srgb, var(--surface2) 70%, transparent);
+	/* background: color-mix(in srgb, var(--contrast-text) 10%, transparent); */
 	backdrop-filter: blur(4px);
 	border: 1px solid var(--border);
 	border-radius: 100px;
@@ -1974,20 +2024,6 @@ section {
 	font-size: 12px;
 }
 
-@media (max-width: 1050px) {
-	.lbi {
-		/* max-width: 95vw; */
-		max-width: calc(100vw - 40px);
-	}
-	.lb-bottom {
-		padding: 0 15px;
-		/* width: 95vw; */
-		/* center */
-	}
-	.lbclose {
-		right: 15px;
-	}
-}
 /* ══════════════════════════════════════════════════════════ */
 /* ══ HOME PAGE COMPONENTS                                 ── */
 /* ══════════════════════════════════════════════════════════ */
@@ -2170,6 +2206,7 @@ section {
 	/* color: var(--text); */
 	color: var(--dimtitle);
 	letter-spacing: 0.02em;
+	text-transform: uppercase;
 }
 /* .fw-see-btn {
 	display: inline-flex;
@@ -3366,18 +3403,17 @@ footer {
 	text-transform: uppercase;
 }
 
-.skill-badge:hover {
+/* .skill-badge:hover {
 	background: var(--badge);
-	/* background: var(--dull); */
 	color: var(--bg);
-	/* transform: translateY(-3px); */
 	transform: translateY(-2px);
 	box-shadow: 0 6px 15px color-mix(in srgb, var(--badge) 35%, transparent);
-}
+} */
 
 /* ── UNIFIED BASE CARD ── */
 .uni-card {
-	background: color-mix(in srgb, var(--bg) 50%, transparent);
+	/* background: color-mix(in srgb, var(--bg) 50%, transparent); */
+	background: color-mix(in srgb, var(--bg) 10%, transparent);
 	/* background: pink; */
 	/* border: 3px solid color-mix(in srgb, var(--border) 30%, transparent); */
 	/* border: 3px solid color-mix(in srgb, var(--border) 50%, transparent); */
@@ -3385,8 +3421,10 @@ footer {
 	border-radius: 10px;
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
-	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
+	/* was 6px blur before */
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	box-shadow: 0 0 5px 2px color-mix(in srgb, var(--bg) 10%, transparent);
 }
 
 .uni-card:hover {
@@ -3394,11 +3432,21 @@ footer {
 	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
 	/* box-shadow: var(--card-hover-shadow, none); */
-	box-shadow:
-		/* 0 0 15px var(--g), */
+	/* box-shadow:
 		0 0 10px color-mix(in srgb, var(--g) 20%, transparent),
 		inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent),
-		inset 0px 0 10px 0px color-mix(in srgb, var(--g) 40%, transparent);
+		inset 0px 0 10px 0px color-mix(in srgb, var(--g) 40%, transparent); */
+	box-shadow:
+		0 0 10px color-mix(in srgb, var(--g) 20%, transparent),
+		/* inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent), */ inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
+}
+
+/* .uni-btn {
+
+}  */
+.uni-btn:hover {
+	/* box-shadow: 0 0 15px 0px color-mix(in srgb, var(--text) 20%, transparent); */
+	box-shadow: 0 0 10px 0px color-mix(in srgb, var(--text) 15%, transparent);
 }
 
 /* Base styles for the copyright text */
@@ -3539,49 +3587,98 @@ footer {
 	.card-stack.tile-mode {
 		grid-template-columns: 1fr !important;
 	}
-	    .navbox {
-        max-width: calc(100vw - 20px) !important; 
-        overflow-x: auto; /* Allows the pill to scroll horizontally if links are long */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    }
-	    .navbox::-webkit-scrollbar {
-        display: none;
-    }
-	    .sh h2 {
-        white-space: normal !important;
-        overflow-wrap: break-word;
-    }
-
+	.navbox {
+		max-width: calc(100vw - 20px) !important;
+		overflow-x: auto; /* Allows the pill to scroll horizontally if links are long */
+		-webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+	}
+	.navbox::-webkit-scrollbar {
+		display: none;
+	}
+	.sh h2 {
+		white-space: normal !important;
+		overflow-wrap: break-word;
+	}
 }
 
-
-html, body {
-    max-width: 100vw;
-    overflow-x: hidden;
+html,
+body {
+	max-width: 100vw;
+	overflow-x: hidden;
 }
 
+.marquee {
+	width: 100%;
+	overflow: hidden;
+	/* background: var(--dimtitle); */
+	background: linear-gradient(
+		to right,
+		transparent 0%,
+		var(--dimtitle) 5%,
+		/* Starts solid earlier */ var(--dimtitle) 95%,
+		/* Stays solid longer */ transparent 100%
+	);
+	padding: 15px 0;
+	display: flex; /* Aligns the original and the clone side-by-side */
+	gap: 80px; /* The space between Track 1 and Track 2 */
+	-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+	mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
 
+.marquee-track {
+	display: flex;
+	gap: 80px;
+	flex-shrink: 0; /* Prevents the logos from squishing together */
+	align-items: center;
+	/* Adjust speed here */
+	animation: scroll 20s linear infinite;
+}
 
+.marquee-track img {
+	height: 40px;
+	width: auto; /* Ensures images don't distort before loading */
+	filter: grayscale(1);
+}
 
+@keyframes scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		/* Moves left exactly the width of one track PLUS the gap */
+		transform: translateX(calc(-100% - 80px));
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media (max-width: 1050px) {
+	body::after {
+		background-size: 30px 30px;
+		background-image:
+			linear-gradient(to right, rgba(255, 255, 255, 0.03) 2px, transparent 2px),
+			linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 2px, transparent 2px);
+	}
+	.lbi {
+		/* max-width: 95vw; */
+		max-width: calc(100vw - 40px);
+	}
+	.lb-bottom {
+		padding: 0 15px;
+		/* width: 95vw; */
+		/* center */
+	}
+	.lbclose {
+		right: 15px;
+	}
+	.marquee,
+	.marquee-track {
+		gap: 40px;
+	}
+	@keyframes scroll {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(calc(-100% - 40px));
+		}
+	}
+}
