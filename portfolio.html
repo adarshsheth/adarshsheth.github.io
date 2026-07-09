@@ -153,9 +153,46 @@
 
     .sh .sh-r {
       height: 10px !important;
-      opacity: 0.1;
+      /* opacity: 0.1; */
+      opacity: 0 !important;
       background: var(--dimtitle);
     }
+    /* 1. Initialize the counter on the main container */
+#mn {
+  counter-reset: secCounter;
+}
+
+/* 2. Increment the counter for every portfolio section 
+   (Hidden display:none sections are automatically skipped!) */
+.portfolio-sec {
+  counter-increment: secCounter;
+}
+
+/* 3. Base styles for the entire prefix */
+.auto-num {
+  color: var(--accent);
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-weight: 900;
+  padding-right: 10px;
+}
+
+/* 4. Inject the em-dashes with the tight letter-spacing */
+.auto-num::before {
+  content: "——";
+        letter-spacing: -0.2em;
+      padding-right: 10px;
+      font-weight: 700;
+}
+
+/* 5. Inject the slashes and the dynamic number 
+   (decimal-leading-zero automatically turns 1 into 01) */
+.auto-num::after {
+  content: "// " counter(secCounter, decimal-leading-zero);
+  letter-spacing: normal;
+}
+
+
+
 
     .div {
       display: none !important;
@@ -215,9 +252,9 @@
         color: var(--dimtitle);
       }
 
-      .sh .sh-r {
+      /* .sh .sh-r {
         opacity: 0.2;
-      }
+      } */
 
       .portfolio-filters {
         padding-top: 20px;
@@ -875,6 +912,7 @@
     #card-lb-content .ec-card:hover .ec-title {
       color: var(--dimtitle);
     }
+
     .ec-card:hover .ec-title {
       color: var(--g);
     }
@@ -1419,9 +1457,13 @@
         <span class="sblbl">Leadership & Events</span>
       </a>
 
-      <a class="sbn" href="#sec-misc" onclick="scrollToSec('sec-misc'); return false;" data-k="misc">
+      <a class="sbn" href="#sec-projects" onclick="scrollToSec('sec-projects'); return false;" data-k="projects">
         <span class="sbdot"></span>
         <span class="sblbl">Personal Projects</span>
+      </a>
+      <a class="sbn" href="#sec-tours" onclick="scrollToSec('sec-tours'); return false;" data-k="tours">
+        <span class="sbdot"></span>
+        <span class="sblbl">Tours</span>
       </a>
     </nav>
   </aside>
@@ -1439,7 +1481,8 @@
         AERONAUTICS</button>
       <button class="filter-btn uni-btn" data-tag="space" onclick="filterPortfolio('space')">ROCKETRY & SPACE</button>
       <button class="filter-btn uni-btn" data-tag="robotics" onclick="filterPortfolio('robotics')">ROBOTICS</button>
-      <button class="filter-btn uni-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL ENGINEERING</button>
+      <button class="filter-btn uni-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL
+        ENGINEERING</button>
     </div>
 
     <div id="master-card-pool" style="display: none;">
@@ -2318,7 +2361,7 @@
                     <div class="cslbl">Documentation & Operations</div>
                     <ul class="cbul">
                       <li>More than <b>doubled</b> the tournament planning and operations
-                          documentation following COVID-induced knowledge
+                        documentation following COVID-induced knowledge
                         disruption</li>
                       <li>Created spreadsheet templates for inventory tracking, volunteer
                         signups, finances, concessions, and officer management roles
@@ -2846,7 +2889,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="semp" data-tags="evtol" data-sections="misc" data-order="21">
+      <div class="ec-item" id="semp" data-tags="evtol" data-sections="projects" data-order="21">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2888,7 +2931,7 @@
         </div>
       </div>
 
-      <!-- <div class="ec-item" id="vfs-project" data-tags="evtol" data-sections="misc" data-order="21">
+      <!-- <div class="ec-item" id="vfs-project" data-tags="evtol" data-sections="projects" data-order="21">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2945,20 +2988,18 @@
       </div> -->
 
 
-      <div class="ec-item" id="robotics-guides" data-tags="general robotics" data-sections="misc" data-order="20">
+      <div class="ec-item" id="robotics-guides" data-tags="general robotics" data-sections="projects" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
-              <img
-                src="/media/infographic/launching.jpg"
-                alt="Launch Factors" style="object-position: top;">
+              <img src="/media/infographic/launching.jpg" alt="Launch Factors" style="object-position: top;">
             </div>
             <div class="ec-info">
               <div>
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">Robotics Technical Guides</h3>
-                    <div class="ec-subtitle">@ DVHS Robotics 5776K | FALL  & SPRING 2024</div>
+                    <div class="ec-subtitle">@ DVHS Robotics 5776K | FALL & SPRING 2024</div>
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
@@ -2968,7 +3009,8 @@
                   <span class="badge" data-cat="sys">Technical Writing</span>
                   <span class="badge" data-cat="soft">Research</span>
                 </div>
-                <p class="ec-brief">Authored a technical guide for 1) tuning 14 individual factors of 2 launch mechanisms; 2) pneumatics.</p>
+                <p class="ec-brief">Authored a technical guide for 1) tuning 14 individual factors of 2 launch
+                  mechanisms; 2) pneumatics.</p>
               </div>
               <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
@@ -2979,9 +3021,11 @@
                 <div>
                   <div class="cslbl" style="margin-bottom: 8px">TUNING LAUNCH MECHANISMS</div>
                   <ul class="cbul">
-                    <li>Analyzed the tuning factors from the perspectives of: power, speed, arc characteristics, loading, landing, and build quality</li>
-                    <li>14 factors include: tension, transfer of energy, arm length, wind back, motor torque, gear ratio, slip gear, power/speed, ramp, mechanical
-                    stop, limit switch, ratchet, backspin, and quality</li>
+                    <li>Analyzed the tuning factors from the perspectives of: power, speed, arc characteristics,
+                      loading, landing, and build quality</li>
+                    <li>14 factors include: tension, transfer of energy, arm length, wind back, motor torque, gear
+                      ratio, slip gear, power/speed, ramp, mechanical
+                      stop, limit switch, ratchet, backspin, and quality</li>
                   </ul>
                   <div class="cslbl" style="margin-bottom: 8px">PNUEMATICS</div>
                   <ul class="cbul">
@@ -2995,16 +3039,11 @@
                       <div>
                         <div class="cw">
                           <div class="cw-inner port-h">
-                            <img class="cimg on"
-                              src="/media/infographic/launching.jpg"
-                              alt="Shooting Mechanism Diagram"
+                            <img class="cimg on" src="/media/infographic/launching.jpg" alt="Shooting Mechanism Diagram"
                               data-cap="Shooting Mechanism Parts Diagram"
                               style="border: none; pointer-events: none;"></img>
-                            <img class="cimg"
-                              src="/media/infographic/pneumatics.jpg"
-                              alt="Pneumatics"
-                              data-cap="Pneumatics Diagram"
-                              style="border: none; pointer-events: none;"></img>
+                            <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
+                              data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img>
                           </div>
                         </div>
                         <div class="cdots">
@@ -3032,8 +3071,8 @@
         </div>
       </div>
 
-      
-      <div class="ec-item" id="everyday-engineering" data-tags="general" data-sections="misc" data-order="20">
+
+      <div class="ec-item" id="everyday-engineering" data-tags="general" data-sections="projects" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3103,7 +3142,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol" data-sections="misc" data-order="19">
+      <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol" data-sections="projects" data-order="19">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3178,7 +3217,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="boy-scouts" data-tags="general" data-sections="misc" data-order="18">
+      <div class="ec-item" id="boy-scouts" data-tags="general" data-sections="projects" data-order="18">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3280,7 +3319,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="737-800-cad" data-tags="evtol" data-sections="misc" data-order="10">
+      <div class="ec-item" id="737-800-cad" data-tags="evtol" data-sections="projects" data-order="10">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3352,7 +3391,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="formula-sae" data-tags="general" data-sections="misc" data-order="11">
+      <div class="ec-item" id="formula-sae" data-tags="general" data-sections="projects" data-order="11">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3399,17 +3438,17 @@
                     </li>
                   </ul>
                   <!-- <div class="csub"> -->
-                    <ul class="cbul">
-                      <li>Completed research and design within a single evening - learned
-                        F1 brake system inner workings: average force and distribution;
-                        materials; safety factor</li>
-                      <li>Self-learned mechanical stress to calculate cylinder placement.
-                        <b>Carbon fiber</b> selected for exceptional strength-to-weight
-                        ratio; bending moment and stress used to determine d
-                      </li>
-                      <li>Developed a rudimentary <b>CAD model</b> in Fusion 360 with
-                        linkages to visualize angles at various positions</li>
-                    </ul>
+                  <ul class="cbul">
+                    <li>Completed research and design within a single evening - learned
+                      F1 brake system inner workings: average force and distribution;
+                      materials; safety factor</li>
+                    <li>Self-learned mechanical stress to calculate cylinder placement.
+                      <b>Carbon fiber</b> selected for exceptional strength-to-weight
+                      ratio; bending moment and stress used to determine d
+                    </li>
+                    <li>Developed a rudimentary <b>CAD model</b> in Fusion 360 with
+                      linkages to visualize angles at various positions</li>
+                  </ul>
                   <!-- </div> -->
                   <div class="cbody full" style="padding-left: 0; padding-right: 0;">
                     <div style="max-width: 325px; margin-top: 10px;">
@@ -3435,13 +3474,157 @@
         </div>
       </div>
 
+
+
+
+
+
+
+      <div class="ec-item" id="robotics-guides" data-tags="general evtol" data-sections="tours" data-order="20">
+        <div class="uni-card ec-card">
+          <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-thumb">
+              <img src="/media/vfs/boeing.jpg" alt="Boeing" style="object-position: bottom;">
+            </div>
+            <div class="ec-info">
+              <div>
+                <div class="ec-info-header">
+                  <div class="ec-info-header-text">
+                    <h3 class="ec-title">Boeing Renton Factory Tour</h3>
+                    <div class="ec-subtitle">SUMMER 2026</div>
+                  </div>
+                </div>
+                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                  <span class="badge" data-cat="gen">Professional Networking</span>
+                  <span class="badge" data-cat="hw">Manufacturing</span>
+                </div>
+                <p class="ec-brief">Guided tour at Boeing's Renton factory, home of the 737!</p>
+              </div>
+              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+            </div>
+          </div>
+          <div class="ec-details">
+            <div class="ec-details-inner">
+              <div class="cbody full">
+                <div>
+                  <ul class="cbul">
+                    <li>Learned about the history of the Boeing 737 line, starting way back in the 1960s and progressing through the classic, NG, and MAX generations.</li>
+                    <li>Stopped at each of the 10 flow day stops of the assembly line and learned about the additions made there.</li>
+                  </ul>
+
+                  <div
+                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                    <div
+                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                      <div>
+                        <div class="cw">
+                          <div class="cw-inner port-h">
+                            <img class="cimg on" src="/media/vfs/boeing.jpg" alt="Boeing Factory"
+                              data-cap="Boeing Factory"
+                              style="border: none; pointer-events: none;"></img>
+                            <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
+                              data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
+                          </div>
+                        </div>
+                        <!-- <div class="cdots">
+                          <span class="cdot on"></span>
+                          <span class="cdot"></span>
+                        </div> -->
+                        <div class="car-caption" style="margin-top:10px;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="clinks">
+                <a href="https://www.linkedin.com/posts/adarsh-sheth_last-week-i-had-the-honor-and-privilege-ugcPost-7460243328387678208-nRnE/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADSXI7gBBdyvlfG0AA4UmGZ0NTbRNsvHjn0"
+                  class="clnk" target="_blank">
+                  LinkedIn Post
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ec-item" id="robotics-guides" data-tags="general space" data-sections="tours" data-order="20">
+        <div class="uni-card ec-card">
+          <div class="ec-summary" onclick="toggleCardDetails(this)">
+            <div class="ec-thumb">
+              <img src="/media/vfs/blue.jpg" alt="Blue" style="object-position: center;">
+            </div>
+            <div class="ec-info">
+              <div>
+                <div class="ec-info-header">
+                  <div class="ec-info-header-text">
+                    <h3 class="ec-title">Blue Origin Kent Factory Tour</h3>
+                    <div class="ec-subtitle">SUMMER 2026</div>
+                  </div>
+                </div>
+                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                  <span class="badge" data-cat="gen">Professional Networking</span>
+                  <span class="badge" data-cat="hw">Manufacturing</span>
+                </div>
+                <p class="ec-brief">Guided tour at Blue Origin's Kent, WA factory!</p>
+              </div>
+              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+            </div>
+          </div>
+          <div class="ec-details">
+            <div class="ec-details-inner">
+              <div class="cbody full">
+                <div>
+                  <ul class="cbul">
+                    <li>Learned about the manufacturing processes used to optimize the preparation of hardware for spaceflight.</li>
+                    <li>Saw development on the New Shepard vehicle and BE-4 engine.</li>
+                  </ul>
+                  <div
+                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                    <div
+                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                      <div>
+                        <div class="cw">
+                          <div class="cw-inner port-h">
+                            <img class="cimg on" src="/media/vfs/blue.jpg" alt="Blue Origin Factory"
+                              data-cap="Boeing Factory"
+                              style="border: none; pointer-events: none;"></img>
+                            <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
+                              data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
+                          </div>
+                        </div>
+                        <!-- <div class="cdots">
+                          <span class="cdot on"></span>
+                          <span class="cdot"></span>
+                        </div> -->
+                        <div class="car-caption" style="margin-top:10px;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="clinks">
+                <a href="https://www.linkedin.com/posts/adarsh-sheth_last-week-i-had-the-honor-and-privilege-ugcPost-7460243328387678208-nRnE/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADSXI7gBBdyvlfG0AA4UmGZ0NTbRNsvHjn0"
+                  class="clnk" target="_blank">
+                  LinkedIn Post
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
     </div>
 
     <section id="sec-teams" class="sb portfolio-sec" data-k="teams">
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-teams'); scrollToSec('sec-teams')">
-          <h2>Professional Experience & Design Teams</h2>
+          <h2><span class="auto-num"></span>Professional Experience & Design Teams</h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -3454,7 +3637,7 @@
       <div class="sh">
         <span class="sh-r"></span>
         <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-leadership'); scrollToSec('sec-leadership')">
-          <h2>Leadership & Events/Challenges</h2>
+          <h2><span class="auto-num"></span>Leadership & Events/Challenges</h2>
         </button>
         <span class="sh-r"></span>
       </div>
@@ -3463,16 +3646,28 @@
       <hr class="div" style="margin-top: 50px;" />
     </section>
 
-    <section id="sec-misc" class="sb portfolio-sec" data-k="misc">
+    <section id="sec-projects" class="sb portfolio-sec" data-k="projects">
       <div class="sh">
         <span class="sh-r"></span>
-        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-misc'); scrollToSec('sec-misc')">
-          <h2>PERSONAL PROJECTS <span class="amp">&</span> MISC</h2>
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-projects'); scrollToSec('sec-projects')">
+          <h2><span class="auto-num"></span>PERSONAL PROJECTS</h2>
         </button>
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode" id="stack-misc"></div>
+      <div class="card-stack tile-mode" id="stack-projects"></div>
+    </section>
+
+    <section id="sec-tours" class="sb portfolio-sec" data-k="tours">
+      <div class="sh">
+        <span class="sh-r"></span>
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tours'); scrollToSec('sec-tours')">
+          <h2><span class="auto-num"></span>Tours</h2>
+        </button>
+        <span class="sh-r"></span>
+      </div>
+
+      <div class="card-stack tile-mode" id="stack-tours"></div>
     </section>
 
 
@@ -3798,37 +3993,43 @@
     });
 
     // --- FILTER & SIDEBAR SYNC LOGIC ---
-    function filterPortfolio(tag) {
-      const url = new URL(window.location);
-      if (tag === 'all') {
-        url.searchParams.delete('filter');
+  function filterPortfolio(tag) {
+    const url = new URL(window.location);
+    if (tag === 'all') {
+      url.searchParams.delete('filter');
+    } else {
+      url.searchParams.set('filter', tag);
+    }
+    window.history.replaceState({}, '', url);
+
+    pfCloseLightbox();
+
+    // Prevent layout shift transitions from firing
+    document.body.classList.add('filtering-active');
+
+    // 👇 NEW LOGIC HERE 👇
+    document.querySelectorAll('.card-stack').forEach((stack) => {
+      const isMobile = window.innerWidth <= 800; // Match your mobile CSS breakpoint
+      stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
+    });
+    // 👆 END NEW LOGIC 👆
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      if (btn.dataset.tag === tag) {
+        btn.classList.add('active');
       } else {
-        url.searchParams.set('filter', tag);
+        btn.classList.remove('active');
       }
-      window.history.replaceState({}, '', url);
+    });
 
-      pfCloseLightbox();
-
-      // Prevent layout shift transitions from firing
-      document.body.classList.add('filtering-active');
-
-      document.querySelectorAll('.card-stack').forEach((stack) => {
-        stack.classList.toggle('tile-mode', tag === 'all');
-      });
-
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.dataset.tag === tag) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
+    // ... (rest of the function remains the same)
 
       const pool = document.getElementById('master-card-pool');
       const stacks = {
         'teams': document.getElementById('stack-teams'),
         'leadership': document.getElementById('stack-leadership'),
-        'misc': document.getElementById('stack-misc')
+        'projects': document.getElementById('stack-projects'),
+        'tours': document.getElementById('stack-tours')
       };
 
       // Safely move existing cards back to the pool to re-evaluate placement
@@ -3931,6 +4132,21 @@
 
       // Background class will be handled inside filterPortfolio()
     });
+    // 👇 ADD THIS LISTENER 👇
+      window.addEventListener('resize', () => {
+        const params = new URLSearchParams(window.location.search);
+        const tag = params.get('filter') || 'all';
+        const isMobile = window.innerWidth <= 800;
+
+        document.querySelectorAll('.card-stack').forEach((stack) => {
+          stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
+
+          // Safety cleanup: If switching to tile mode on resize, close any open list accordions
+          if ((tag === 'all' || isMobile) && stack.classList.contains('tile-mode')) {
+            stack.querySelectorAll('.ec-card.open').forEach(c => c.classList.remove('open'));
+          }
+        });
+      });
 
 
   </script>

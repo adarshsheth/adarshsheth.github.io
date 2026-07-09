@@ -85,7 +85,7 @@
 	--sec-title: #545556;
 	--dark: #313131;
 	--uni-gap: 10px;
-	--margin: 5px;
+	--margin: 22px;
 }
 
 * {
@@ -181,19 +181,28 @@ body::before {
 }
 
 /* 2. The Small Grid Background (Aceternity Style) */
+/* body::after {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none; 
+	background-size: 38px 38px;
+	background-image:
+		linear-gradient(to right, rgba(255, 255, 255, 0.025) 4px, transparent 4px), 
+		linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 4px, transparent 4px);
+	-webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+	mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+} */
 body::after {
 	content: "";
 	position: fixed;
 	inset: 0;
 	z-index: -1;
-	pointer-events: none; /* Lets clicks pass through to your site */
-	background-size: 40px 40px;
-	/* background-size: 30px 30px; */
+	pointer-events: none;
+	background-size: 20px 20px;
 	background-image:
-		/* linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-		linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px); */
-		linear-gradient(to right, rgba(255, 255, 255, 0.02) 4px, transparent 4px), linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 4px, transparent 4px);
-	/* Creates the smooth radial fade-out at the edges of the screen */
+		linear-gradient(to right, rgba(255, 255, 255, 0.025) 3px, transparent 3px), linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 3px, transparent 3px);
 	-webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 	mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 }
@@ -887,8 +896,6 @@ section {
 .sh-r {
 	flex: 1;
 	height: 15px;
-	/* background: var(--port-header); */
-	/* background: var(--port-hover); */
 	background: color-mix(in srgb, var(--port-hover) 50%, transparent);
 	transition: background 0.21s ease-in-out;
 }
@@ -3422,9 +3429,9 @@ footer {
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
 	/* was 6px blur before */
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-	box-shadow: 0 0 5px 2px color-mix(in srgb, var(--bg) 10%, transparent);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	box-shadow: 0 0 15px 2px color-mix(in srgb, var(--bg) 50%, transparent);
 }
 
 .uni-card:hover {
@@ -3437,13 +3444,16 @@ footer {
 		inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent),
 		inset 0px 0 10px 0px color-mix(in srgb, var(--g) 40%, transparent); */
 	box-shadow:
-		0 0 10px color-mix(in srgb, var(--g) 20%, transparent),
-		/* inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent), */ inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
+		/* 0 0 15px 2px color-mix(in srgb, var(--g) 30%, transparent), */
+		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
+		/* inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent), */ 
+		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
 }
 
-/* .uni-btn {
-
-}  */
+.uni-btn {
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
 .uni-btn:hover {
 	/* box-shadow: 0 0 15px 0px color-mix(in srgb, var(--text) 20%, transparent); */
 	box-shadow: 0 0 10px 0px color-mix(in srgb, var(--text) 15%, transparent);
@@ -3607,55 +3617,76 @@ body {
 	overflow-x: hidden;
 }
 
+/* Move the background to the parent section so the mask doesn't fade it */
 .marquee {
-	width: 100%;
-	overflow: hidden;
-	/* background: var(--dimtitle); */
-	background: linear-gradient(
-		to right,
-		transparent 0%,
-		var(--dimtitle) 5%,
-		/* Starts solid earlier */ var(--dimtitle) 95%,
-		/* Stays solid longer */ transparent 100%
-	);
-	padding: 15px 0;
-	display: flex; /* Aligns the original and the clone side-by-side */
-	gap: 80px; /* The space between Track 1 and Track 2 */
-	-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-	mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--g) 5%,
+        var(--g) 95%,
+        transparent 100%
+    );
+}
+
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    padding: 15px 0;
+    /* Removed the gap here to prevent math conflicts */
+    display: flex; 
+    
+    transform: translateZ(0);
+    isolation: isolate;
+    
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .marquee-track {
-	display: flex;
-	gap: 80px;
-	flex-shrink: 0; /* Prevents the logos from squishing together */
-	align-items: center;
-	/* Adjust speed here */
-	animation: scroll 20s linear infinite;
+    display: flex;
+    /* Use gap for inner logo spacing */
+    gap: 80px; 
+    /* Use padding-right to act as the gap between this track and the next clone */
+    padding-right: 80px; 
+    flex-shrink: 0; 
+    align-items: center;
+    animation: scroll 20s linear infinite;
 }
 
 .marquee-track img {
-	height: 40px;
-	width: auto; /* Ensures images don't distort before loading */
-	filter: grayscale(1);
+    height: 40px;
+    width: auto; 
+    /* Preserves dual-tones while making them light and uniform */
+    filter: invert(1) grayscale(100%) brightness(1.5);
+    opacity: 0.9;
 }
 
 @keyframes scroll {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		/* Moves left exactly the width of one track PLUS the gap */
-		transform: translateX(calc(-100% - 80px));
-	}
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* Flawless loop: moves exactly its own width (which now natively includes the padding gap) */
+        transform: translateX(-100%);
+    }
 }
+
+/* Update the mobile media query at the bottom of your file */
+@media (max-width: 1050px) {
+    .marquee-track {
+        gap: 40px;
+        padding-right: 40px;
+    }
+    /* You no longer need to redefine the @keyframes scroll in the media query! */
+}
+
 
 @media (max-width: 1050px) {
 	body::after {
-		background-size: 30px 30px;
+		/* background-size: 25px 25px; */
 		background-image:
-			linear-gradient(to right, rgba(255, 255, 255, 0.03) 2px, transparent 2px),
-			linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 2px, transparent 2px);
+			linear-gradient(to right, rgba(255, 255, 255, 0.05) 3px, transparent 3px),
+			linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 3px, transparent 3px);
 	}
 	.lbi {
 		/* max-width: 95vw; */
@@ -3668,17 +3699,5 @@ body {
 	}
 	.lbclose {
 		right: 15px;
-	}
-	.marquee,
-	.marquee-track {
-		gap: 40px;
-	}
-	@keyframes scroll {
-		from {
-			transform: translateX(0);
-		}
-		to {
-			transform: translateX(calc(-100% - 40px));
-		}
 	}
 }
