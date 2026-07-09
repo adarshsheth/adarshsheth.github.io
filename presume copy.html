@@ -39,7 +39,6 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" />
 
     <style>
@@ -296,14 +295,7 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             <div class="portfolio-filters">
                 <!-- Dynamically generated tab buttons go here -->
             </div>
-<div class="private-toggles" style="text-align: center; margin-bottom: 20px;">
-    <label style="margin-right: 15px; cursor: pointer;">
-        <input type="checkbox" id="toggle-contact" checked onchange="generateCustomPDF()"> Include Contact Info
-    </label>
-    <label style="cursor: pointer;">
-        <input type="checkbox" id="toggle-gpa" checked onchange="generateCustomPDF()"> Include GPA
-    </label>
-</div>
+
             <div id="pdf-section">
                 <div class="pdf-wrapper">
                     <a href="#" id="floating-dl-btn" download class="floating-dl-btn">
