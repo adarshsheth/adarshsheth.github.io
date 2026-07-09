@@ -1679,9 +1679,20 @@ function loadNav() {
 
 			initNavHoverStates();
 
+			// const navbox = hdr.querySelector(".navbox");
+			// if (navbox && shroud) {
+			// 	navbox.addEventListener("mouseenter", () => shroud.classList.add("visible"));
+			// 	navbox.addEventListener("mouseleave", () => shroud.classList.remove("visible"));
+			// }
+
 			const navbox = hdr.querySelector(".navbox");
 			if (navbox && shroud) {
-				navbox.addEventListener("mouseenter", () => shroud.classList.add("visible"));
+				navbox.addEventListener("mouseenter", () => {
+					// Only apply the background blur hover effect on desktop
+					if (window.innerWidth > 1050) {
+						shroud.classList.add("visible");
+					}
+				});
 				navbox.addEventListener("mouseleave", () => shroud.classList.remove("visible"));
 			}
 
@@ -2111,16 +2122,71 @@ function initSwipeNav() {
 						ar(id, -1); // Scrolled Left (2-finger swipe right) -> Prev
 					}
 
-					// Lock the trackpad for 600ms (gives time for the CSS animation to finish)
 					setTimeout(() => {
 						isTrackpadSwiping = false;
 					}, 400);
-					// adjust to finetune scroll left right delay
 				}
 			},
 			{passive: true},
 		);
 	});
+
+	// --- ADDED: EC CARD LIGHTBOX SWIPE LOGIC ---
+	const lbBox = document.querySelector('.card-lb-box');
+	if (lbBox) {
+		// 1. Mobile Touch Swipe
+		let lbStartX = 0;
+		let lbStartY = 0;
+		let isCarouselInteract = false;
+
+		lbBox.addEventListener('touchstart', (e) => {
+			if (e.touches.length > 1) return;
+			// Flag if interacting with a carousel
+			if (e.target.closest('.cw')) {
+				isCarouselInteract = true;
+				return;
+			}
+			isCarouselInteract = false;
+			lbStartX = e.touches[0].clientX;
+			lbStartY = e.touches[0].clientY;
+		}, { passive: true });
+
+		lbBox.addEventListener('touchend', (e) => {
+			if (isCarouselInteract) return; // Let the carousel handle it
+
+			const diffX = lbStartX - e.changedTouches[0].clientX;
+			const diffY = lbStartY - e.changedTouches[0].clientY;
+
+			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+				if (typeof pfLbNav === 'function') {
+					if (diffX > 0) pfLbNav(1);
+					else pfLbNav(-1);
+				}
+			}
+		}, { passive: true });
+
+		// 2. Desktop Trackpad Swipe
+		let isLbTrackpadSwiping = false;
+
+		lbBox.addEventListener('wheel', (e) => {
+			// Abort if animating, OR if the cursor is hovering over a carousel
+			if (isLbTrackpadSwiping || e.target.closest('.cw')) return;
+
+			if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+				isLbTrackpadSwiping = true;
+
+				if (typeof pfLbNav === 'function') {
+					if (e.deltaX > 0) pfLbNav(1); 
+					else pfLbNav(-1); 
+				}
+
+				// Debounce to prevent rapid-fire skipping
+				setTimeout(() => {
+					isLbTrackpadSwiping = false;
+				}, 400); 
+			}
+		}, { passive: true });
+	}
 }
 
 /* ── UNIFIED INITIALIZATION ── */

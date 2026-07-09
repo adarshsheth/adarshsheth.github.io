@@ -157,39 +157,40 @@
       opacity: 0 !important;
       background: var(--dimtitle);
     }
+
     /* 1. Initialize the counter on the main container */
-#mn {
-  counter-reset: secCounter;
-}
+    #mn {
+      counter-reset: secCounter;
+    }
 
-/* 2. Increment the counter for every portfolio section 
+    /* 2. Increment the counter for every portfolio section 
    (Hidden display:none sections are automatically skipped!) */
-.portfolio-sec {
-  counter-increment: secCounter;
-}
+    .portfolio-sec {
+      counter-increment: secCounter;
+    }
 
-/* 3. Base styles for the entire prefix */
-.auto-num {
-  color: var(--accent);
-  /* font-family: 'Courier New', Courier, monospace; */
-  font-weight: 900;
-  padding-right: 10px;
-}
+    /* 3. Base styles for the entire prefix */
+    .auto-num {
+      color: var(--accent);
+      /* font-family: 'Courier New', Courier, monospace; */
+      font-weight: 900;
+      padding-right: 10px;
+    }
 
-/* 4. Inject the em-dashes with the tight letter-spacing */
-.auto-num::before {
-  content: "——";
-        letter-spacing: -0.2em;
+    /* 4. Inject the em-dashes with the tight letter-spacing */
+    .auto-num::before {
+      content: "——";
+      letter-spacing: -0.2em;
       padding-right: 10px;
       font-weight: 700;
-}
+    }
 
-/* 5. Inject the slashes and the dynamic number 
+    /* 5. Inject the slashes and the dynamic number 
    (decimal-leading-zero automatically turns 1 into 01) */
-.auto-num::after {
-  content: "// " counter(secCounter, decimal-leading-zero);
-  letter-spacing: normal;
-}
+    .auto-num::after {
+      content: "// " counter(secCounter, decimal-leading-zero);
+      letter-spacing: normal;
+    }
 
 
 
@@ -418,10 +419,11 @@
     .ec-subtitle {
       font-size: 13px;
       font-weight: 700;
-      color: var(--tdim);
+      color: var(--tdim-fr) !important;
       /* color: var(--dimtitle); */
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      line-height: .9;
     }
 
     .ec-brief {
@@ -628,7 +630,7 @@
 
     #card-lb.open {
       visibility: visible;
-      
+
     }
 
     /* 2. The backdrop explicitly animates from 0 blur to 8px blur */
@@ -865,6 +867,7 @@
       mask-position: left top, right top;
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat; */
+      overscroll-behavior-y: contain; /* Prevents scroll chaining to the body */
     }
 
 
@@ -1389,6 +1392,62 @@
         max-width: 800px;
       }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Base: Flex row for desktop */
+.ec-subtitle {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 4px;
+}
+
+/* Hide the mobile dot on desktop */
+.sub-mobile-dot {
+    display: inline;
+        color: var(--g); /* Gives the dot a nice pop of color */
+}
+
+.sub-desktop-pipe {
+    display: none;
+}
+
+/* Mobile: Stack them and swap the pipe for a dot */
+@media (max-width: 1050px) {
+    /* .ec-subtitle {
+        flex-direction: column;
+        gap: 2px;
+    } */
+    .sub-desktop-pipe {
+        /* display: inline; */
+        display: none;
+    }
+    /* .sub-mobile-dot {
+        display: none;
+    } */
+}
   </style>
 </head>
 
@@ -1426,12 +1485,17 @@
   <div id="sb-overlay"></div>
 
   <div id="card-lb">
-    <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
+    <!-- <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
 
-    <!-- Flex wrapper allows arrows to "hug" the card on all screens -->
     <div class="card-lb-wrapper">
       <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-      <div class="card-lb-box">
+      <div class="card-lb-box"> -->
+    <div class="card-lb-backdrop" onclick="pfCloseLightbox()"></div>
+
+    <div class="card-lb-wrapper">
+      <button class="card-lb-nav card-lb-prev" onclick="pfLbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+      <div class="card-lb-box" id="card-lb-box-swipe">
+
         <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
         <div id="card-lb-content"></div>
       </div>
@@ -1464,7 +1528,8 @@
         <span class="sbdot"></span>
         <span class="sblbl">Personal Projects</span>
       </a>
-      <a class="sbn" href="#sec-educational" onclick="scrollToSec('sec-educational'); return false;" data-k="educational">
+      <a class="sbn" href="#sec-educational" onclick="scrollToSec('sec-educational'); return false;"
+        data-k="educational">
         <span class="sbdot"></span>
         <span class="sblbl">educational</span>
       </a>
@@ -1685,7 +1750,7 @@
               <div>
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
-                    <h3 class="ec-title">Vertical Flight Design Team</h3>
+                    <h3 class="ec-title">Vertical Flight Design</h3>
                     <div class="ec-subtitle">Aerodynamics Engineer | 09/2025 – PRESENT</div>
                   </div>
                   <div class="eclogos darkimgs">
@@ -3511,8 +3576,10 @@
               <div class="cbody full">
                 <div>
                   <ul class="cbul">
-                    <li>Learned about the history of the Boeing 737 line, starting way back in the 1960s and progressing through the classic, NG, and MAX generations.</li>
-                    <li>Stopped at each of the 10 flow day stops of the assembly line and learned about the additions made there.</li>
+                    <li>Learned about the history of the Boeing 737 line, starting way back in the 1960s and progressing
+                      through the classic, NG, and MAX generations.</li>
+                    <li>Stopped at each of the 10 flow day stops of the assembly line and learned about the additions
+                      made there.</li>
                   </ul>
 
                   <div
@@ -3523,8 +3590,7 @@
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/vfs/boeing.jpg" alt="Boeing Factory"
-                              data-cap="Boeing Factory"
-                              style="border: none; pointer-events: none;"></img>
+                              data-cap="Boeing Factory" style="border: none; pointer-events: none;"></img>
                             <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
                               data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
                           </div>
@@ -3549,7 +3615,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="ec-item" id="robotics-guides" data-tags="general space" data-sections="educational" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
@@ -3578,7 +3644,8 @@
               <div class="cbody full">
                 <div>
                   <ul class="cbul">
-                    <li>Learned about the manufacturing processes used to optimize the preparation of hardware for spaceflight.</li>
+                    <li>Learned about the manufacturing processes used to optimize the preparation of hardware for
+                      spaceflight.</li>
                     <li>Saw development on the New Shepard vehicle and BE-4 engine.</li>
                   </ul>
                   <div
@@ -3589,8 +3656,7 @@
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/vfs/blue.jpg" alt="Blue Origin Factory"
-                              data-cap="Boeing Factory"
-                              style="border: none; pointer-events: none;"></img>
+                              data-cap="Boeing Factory" style="border: none; pointer-events: none;"></img>
                             <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
                               data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
                           </div>
@@ -3860,6 +3926,7 @@
 
       document.getElementById('card-lb').classList.add('open');
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden'; // Ensure iOS Safari respects the lock
 
       // Push state WITH a hash so mobile browsers explicitly register a page change
       history.pushState({ lightboxOpen: true }, "", "#detail");
@@ -3878,6 +3945,7 @@
 
       lb.classList.remove('open');
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = ''; // Release the lock
 
       if (pfLbHome) {
         const { node, parent } = pfLbHome;
@@ -3996,36 +4064,36 @@
     });
 
     // --- FILTER & SIDEBAR SYNC LOGIC ---
-  function filterPortfolio(tag) {
-    const url = new URL(window.location);
-    if (tag === 'all') {
-      url.searchParams.delete('filter');
-    } else {
-      url.searchParams.set('filter', tag);
-    }
-    window.history.replaceState({}, '', url);
-
-    pfCloseLightbox();
-
-    // Prevent layout shift transitions from firing
-    document.body.classList.add('filtering-active');
-
-    // 👇 NEW LOGIC HERE 👇
-    document.querySelectorAll('.card-stack').forEach((stack) => {
-      const isMobile = window.innerWidth <= 800; // Match your mobile CSS breakpoint
-      stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
-    });
-    // 👆 END NEW LOGIC 👆
-
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      if (btn.dataset.tag === tag) {
-        btn.classList.add('active');
+    function filterPortfolio(tag) {
+      const url = new URL(window.location);
+      if (tag === 'all') {
+        url.searchParams.delete('filter');
       } else {
-        btn.classList.remove('active');
+        url.searchParams.set('filter', tag);
       }
-    });
+      window.history.replaceState({}, '', url);
 
-    // ... (rest of the function remains the same)
+      pfCloseLightbox();
+
+      // Prevent layout shift transitions from firing
+      document.body.classList.add('filtering-active');
+
+      // 👇 NEW LOGIC HERE 👇
+      document.querySelectorAll('.card-stack').forEach((stack) => {
+        const isMobile = window.innerWidth <= 800; // Match your mobile CSS breakpoint
+        stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
+      });
+      // 👆 END NEW LOGIC 👆
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.tag === tag) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // ... (rest of the function remains the same)
 
       const pool = document.getElementById('master-card-pool');
       const stacks = {
@@ -4136,22 +4204,47 @@
       // Background class will be handled inside filterPortfolio()
     });
     // 👇 ADD THIS LISTENER 👇
-      window.addEventListener('resize', () => {
-        const params = new URLSearchParams(window.location.search);
-        const tag = params.get('filter') || 'all';
-        const isMobile = window.innerWidth <= 800;
+    window.addEventListener('resize', () => {
+      const params = new URLSearchParams(window.location.search);
+      const tag = params.get('filter') || 'all';
+      const isMobile = window.innerWidth <= 800;
 
-        document.querySelectorAll('.card-stack').forEach((stack) => {
-          stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
+      document.querySelectorAll('.card-stack').forEach((stack) => {
+        stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
 
-          // Safety cleanup: If switching to tile mode on resize, close any open list accordions
-          if ((tag === 'all' || isMobile) && stack.classList.contains('tile-mode')) {
-            stack.querySelectorAll('.ec-card.open').forEach(c => c.classList.remove('open'));
-          }
-        });
+        // Safety cleanup: If switching to tile mode on resize, close any open list accordions
+        if ((tag === 'all' || isMobile) && stack.classList.contains('tile-mode')) {
+          stack.querySelectorAll('.ec-card.open').forEach(c => c.classList.remove('open'));
+        }
       });
+    });
 
+  document.addEventListener('DOMContentLoaded', () => {
+    // Find all ec-subtitles and reformat them for the mobile dot/newline layout
+    document.querySelectorAll('.ec-subtitle').forEach(sub => {
+      const text = sub.innerText;
 
+      // Only process if it contains the pipe character
+      if (text.includes('|')) {
+        const parts = text.split('|');
+
+        if (parts.length === 2) {
+          const role = parts[0].trim();
+          const date = parts[1].trim();
+
+          // Rewrite the HTML structure
+          sub.innerHTML = `
+                    <span class="sub-role">${role}<span class="sub-mobile-dot"> •</span></span>
+                    <span class="sub-date">
+                        <span class="sub-desktop-pipe"> | </span>
+                        
+                        ${date}
+                    </span>
+                `;
+        }
+      }
+    });
+  });
   </script>
 </body>
 

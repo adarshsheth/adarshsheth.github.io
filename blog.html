@@ -539,33 +539,24 @@
         #similar-articles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
-            /*[cite: 1] */
             justify-content: start;
-            /*[cite: 1] */
             align-items: stretch;
-            /*[cite: 1] */
             gap: var(--uni-gap);
-            /*[cite: 1] */
         }
 
         @media (max-width: 800px) {
-
             #blog-list,
             #similar-articles-grid {
                 grid-template-columns: 1fr 1fr;
-                /*[cite: 1] */
             }
         }
 
         @media (max-width: 450px) {
-
             #blog-list,
             #similar-articles-grid {
-                grid-template-columns: 1fr;
-                /*[cite: 1] */
+                grid-template-columns: 1fr; /* Safely drops to 1 col on small phones */
             }
         }
-
 
 
 
@@ -1118,10 +1109,10 @@
     <a href="?post=${node.slug}" onclick="event.preventDefault(); navigateToPost('${node.slug}')" style="display: block; height: 100%; text-decoration: none;">
         <div class="uni-card blog-card-inner" style="display: flex; flex-direction: column; height: 100%;">
             ${node.coverImage?.url ? `
-            <div class="blog-thumb" style="height: 160px; min-height: 160px;">
+<div class="blog-thumb" style="height: 160px; min-height: 160px;">
                 <img src="${node.coverImage.url}" alt="Cover Image" loading="lazy" decoding="async">
             </div>` : ''}
-            <div class="blog-info" style="display: flex; flex-direction: column; flex: 1; padding: 16px 20px;">
+            <div class="blog-info" style="display: flex; flex-direction: column; flex: 1; padding: 16px 20px; min-width: 0;">
                 <h3 class="wi-title" style="font-size: clamp(14px, 1.2vw, 20px); margin-bottom: 6px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${node.title}</h3>
                 <div class="brow" style="padding: 0; margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px;">
                     ${(node.tags || []).slice(0, 3).map(tag => `<span class="badge feed-tag-link" style="font-size: clamp(9px, 0.5vw, 12px); padding: 3px 8px; text-transform: uppercase;">${tag.name}</span>`).join('')}

@@ -26,7 +26,6 @@
 	--text: #d0d3cd;
 	--contrast-text: #cacaca;
 	/* --tdim: #7a7e76; */
-	--tdim-fr:#7a7e76;
 	--tdim: var(--cbul);
 	--tmut: var(--tdim);
 	/* --miniheader: var(--dimtitle); */
@@ -3275,9 +3274,6 @@ footer {
 	margin-top: -25px;
 	flex-wrap: wrap;
 } */
- /* .blog-info {
-    min-width: 0 !important;
-} */
 @media (max-width: 1050px) {
 	#blog-filters {
 		margin-top: -25px;
@@ -3437,37 +3433,13 @@ footer {
 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
 		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
 } */
- /* .uni-card:hover {
+ .uni-card:hover {
 	transform: translateY(-3px);
 	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
 	box-shadow:
 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
 		inset -50px -50px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
-} */
-/* .uni-card:hover {
-	transform: translateY(-3px);
-	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
-	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
-	box-shadow:
-		0 10px 30px rgba(0, 0, 0, 0.3),
-		inset -15px -15px 30px -10px color-mix(in srgb, var(--g) 40%, transparent),
-		inset -80px -80px 120px -20px color-mix(in srgb, var(--g) 15%, transparent);
-} */
-.uni-card:hover {
-	transform: translateY(-3px);
-	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
-	/* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); */
-	box-shadow: 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
-		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
-	/* Stacks a corner-originating glow over your default hover background */
-	background: 
-		radial-gradient(
-			circle at 100% 100%, 
-			color-mix(in srgb, var(--g) 30%, transparent) 0%, 
-			transparent 70%
-		),
-		var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 }
 
 .uni-btn {
@@ -3507,7 +3479,6 @@ footer {
 		flex-wrap: wrap;
 		justify-content: center;
 		gap: 15px;
-		display: none;
 	}
 
 	.fcopy {
@@ -3515,15 +3486,13 @@ footer {
 		font-size: 12px;
 		width: 100%;
 		margin-top: 5px;
-		color: var(--tdim-fr);
 	}
 }
 
 /* ── TILE MODE (Adaptive Grid Layout) ── */
 .card-stack.tile-mode {
 	display: grid;
-	/* grid-template-columns: repeat(auto-fill, minmax(300px, 400px)); */
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
 	justify-content: start;
 	align-items: stretch;
 	gap: var(--uni-gap);
@@ -3640,6 +3609,69 @@ body {
 	overflow-x: hidden;
 }
 
+/* Move the background to the parent section so the mask doesn't fade it */
+.marquee {
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--g) 5%,
+        var(--g) 95%,
+        transparent 100%
+    );
+}
+
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    padding: 15px 0;
+    /* Removed the gap here to prevent math conflicts */
+    display: flex; 
+    
+    transform: translateZ(0);
+    isolation: isolate;
+    
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    /* Use gap for inner logo spacing */
+    gap: 80px; 
+    /* Use padding-right to act as the gap between this track and the next clone */
+    padding-right: 80px; 
+    flex-shrink: 0; 
+    align-items: center;
+    animation: scroll 20s linear infinite;
+}
+
+.marquee-track img {
+    height: 40px;
+    width: auto; 
+    /* Preserves dual-tones while making them light and uniform */
+    filter: invert(1) grayscale(100%) brightness(1.5);
+    opacity: 0.9;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* Flawless loop: moves exactly its own width (which now natively includes the padding gap) */
+        transform: translateX(-100%);
+    }
+}
+
+/* Update the mobile media query at the bottom of your file */
+@media (max-width: 1050px) {
+    .marquee-track {
+        gap: 40px;
+        padding-right: 40px;
+    }
+    /* You no longer need to redefine the @keyframes scroll in the media query! */
+}
+
 
 @media (max-width: 1050px) {
 	body::after {
@@ -3651,7 +3683,6 @@ body {
 	.lbi {
 		/* max-width: 95vw; */
 		max-width: calc(100vw - 40px);
-		height: auto;
 	}
 	.lb-bottom {
 		padding: 0 15px;
@@ -3770,113 +3801,4 @@ body {
 #lb.lb-prewarm .lbbox {
     opacity: 1;
     transition: none !important;
-}
-
-
-@media (max-width: 500px) {
-    #floating-dl-btn {
-        font-size: 0 !important; 
-        /* padding: 0 !important; */
-        /* width: 46px; */
-        /* height: 46px; */
-        /* border-radius: 50%; */
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0 !important;
-    }
-   
-    #floating-dl-btn i {
-        font-size: 16px !important;
-        margin: 0 !important; 
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-/* MARQUEE CONTAINER */
-.marquee {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    user-select: none;
-    width: 100%;
-    gap: 80px; /* Spacing between Track 1 and Track 2 */
-	
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);	
-	padding: 10px 0;
-	border: 3px solid var(--border);
-
-    /* background: linear-gradient(to right, transparent 0%, var(--g) 5%, var(--g) 95%, transparent 100%); */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-/* THE TRACKS */
-.marquee-track {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    min-width: 100%; /* Ensures tracks are wide enough to cover the screen */
-    gap: 80px; /* Spacing between images within the track */
-    
-    animation: scroll-marquee 20s linear infinite;
-
-}
-
-/* Pause the scrolling if the user hovers over it */
-/* .marquee:hover .marquee-track {
-    animation-play-state: paused;
-} */
-
-/* THE IMAGES */
-.marquee-track img {
-    height: 40px;
-    width: auto;
-    flex-shrink: 0; /* Forces images to keep aspect ratio and not squish */
-    margin: 0;
-    padding: 0;
-    
-    filter: invert(1) grayscale(100%) brightness(1.5);
-    opacity: 0.9;
-}
-
-/* FLAWLESS LOOP MATH */
-@keyframes scroll-marquee {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        /* Moves the track exactly its width, PLUS the gap width. 
-           This makes Track 2 snap instantly to where Track 1 started. */
-        transform: translateX(calc(-100% - 80px));
-    }
-}
-
-/* MOBILE RESPONSIVENESS */
-@media (max-width: 1050px) {
-    .marquee {
-        gap: 40px; /* Shrink main gap */
-    }
-    .marquee-track {
-        gap: 40px; /* Shrink inner gap */
-    }
-    @keyframes scroll-marquee {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            /* Update the math to match the new 40px gap */
-            transform: translateX(calc(-100% - 40px));
-        }
-    }
 }
