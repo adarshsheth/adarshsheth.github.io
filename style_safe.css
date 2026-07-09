@@ -3429,18 +3429,17 @@ footer {
 	transform: translateY(-3px);
 	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
+	/* box-shadow: var(--card-hover-shadow, none); */
+	/* box-shadow:
+		0 0 10px color-mix(in srgb, var(--g) 20%, transparent),
+		inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent),
+		inset 0px 0 10px 0px color-mix(in srgb, var(--g) 40%, transparent); */
 	box-shadow:
+		/* 0 0 15px 2px color-mix(in srgb, var(--g) 30%, transparent), */
 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
+		/* inset 0px 0 5px 0px color-mix(in srgb, var(--g) 10%, transparent), */ 
 		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
 }
- /* .uni-card:hover {
-	transform: translateY(-3px);
-	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
-	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
-	box-shadow:
-		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
-		inset -50px -50px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
-} */
 
 .uni-btn {
 	backdrop-filter: blur(4px);
@@ -3732,7 +3731,7 @@ body {
     cursor: pointer;
     
     /* Start State */
-    /* background: rgba(35, 41, 34, 0); */
+    background: rgba(35, 41, 34, 0);
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
     
@@ -3746,7 +3745,7 @@ body {
 
 #lb.open .lbb {
     /* End State */
-    /* background: rgba(35, 41, 34, 0.88); */
+    background: rgba(35, 41, 34, 0.88);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 
@@ -3778,27 +3777,4 @@ body {
     opacity: 1;
     /* Match the 20ms micro-delay so the image fades in sync with the background */
     transition: opacity 0.25s ease-out 0.02s;
-}
-
-/* ══ GPU PRE-WARM (fixes first-open flash) ──
-   will-change alone doesn't guarantee the compositor actually builds the
-   backdrop-filter/opacity layers ahead of time - browsers often defer that
-   work until the element is first shown, which is exactly why the very
-   first open jumps straight to the end state instead of fading.
-   This class forces the browser to render the lightbox once, at opacity:0
-   (fully invisible to the user), so those layers are built and cached
-   before the visitor ever clicks a photo. */
-#lb.lb-prewarm {
-    visibility: visible;
-    opacity: 0;
-}
-#lb.lb-prewarm .lbb {
-    background: rgba(35, 41, 34, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: none !important;
-}
-#lb.lb-prewarm .lbbox {
-    opacity: 1;
-    transition: none !important;
 }

@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Portfolio | AS">
+  <meta name="twitter:title" content="Portfolio • Adarsh Sheth">
   <meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
 
   <link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
@@ -42,7 +42,7 @@
     href="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/general_zakwqu.jpg"
     as="image">
 
-  <title>Portfolio | AS</title>
+  <title>Portfolio • Adarsh Sheth</title>
   <meta name="description"
     content="A collection of Adarsh's engineering work across design teams, competitions, and personal projects.">
   <meta property="og:url" content="https://adarshsheth.github.io/portfolio">
@@ -247,10 +247,10 @@
         margin: 20px 22px 0px;
       }
 
-      .sh h2 {
+      /* .sh h2 {
         opacity: 1;
         color: var(--dimtitle);
-      }
+      } */
 
       /* .sh .sh-r {
         opacity: 0.2;
@@ -628,6 +628,7 @@
 
     #card-lb.open {
       visibility: visible;
+      
     }
 
     /* 2. The backdrop explicitly animates from 0 blur to 8px blur */
@@ -648,6 +649,7 @@
     /* ENDING STATE: dark and blurred */
     #card-lb.open .card-lb-backdrop {
       background: rgba(10, 10, 10, 0.82);
+      background: rgba(35, 41, 34, 0.88) !important;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
@@ -660,7 +662,8 @@
       min-width: min(max(1200px, 50%), 100%);
       max-height: 88dvh;
       overflow-y: auto;
-      background: color-mix(in srgb, var(--bg) 80%, transparent 0%);
+      background: color-mix(in srgb, var(--bg) 50%, transparent 0%) !important;
+      /* background: blue !important; */
       border: 2px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -1461,9 +1464,9 @@
         <span class="sbdot"></span>
         <span class="sblbl">Personal Projects</span>
       </a>
-      <a class="sbn" href="#sec-tours" onclick="scrollToSec('sec-tours'); return false;" data-k="tours">
+      <a class="sbn" href="#sec-educational" onclick="scrollToSec('sec-educational'); return false;" data-k="educational">
         <span class="sbdot"></span>
-        <span class="sblbl">Tours</span>
+        <span class="sblbl">educational</span>
       </a>
     </nav>
   </aside>
@@ -3480,7 +3483,7 @@
 
 
 
-      <div class="ec-item" id="robotics-guides" data-tags="general evtol" data-sections="tours" data-order="20">
+      <div class="ec-item" id="robotics-guides" data-tags="general evtol" data-sections="educational" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3547,7 +3550,7 @@
         </div>
       </div>
       
-      <div class="ec-item" id="robotics-guides" data-tags="general space" data-sections="tours" data-order="20">
+      <div class="ec-item" id="robotics-guides" data-tags="general space" data-sections="educational" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3658,16 +3661,16 @@
       <div class="card-stack tile-mode" id="stack-projects"></div>
     </section>
 
-    <section id="sec-tours" class="sb portfolio-sec" data-k="tours">
+    <section id="sec-educational" class="sb portfolio-sec" data-k="educational">
       <div class="sh">
         <span class="sh-r"></span>
-        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-tours'); scrollToSec('sec-tours')">
-          <h2><span class="auto-num"></span>Tours</h2>
+        <button class="sh-pulse-btn" onclick="copyAnchorURL('sec-educational'); scrollToSec('sec-educational')">
+          <h2><span class="auto-num"></span>educational</h2>
         </button>
         <span class="sh-r"></span>
       </div>
 
-      <div class="card-stack tile-mode" id="stack-tours"></div>
+      <div class="card-stack tile-mode" id="stack-educational"></div>
     </section>
 
 
@@ -4029,7 +4032,7 @@
         'teams': document.getElementById('stack-teams'),
         'leadership': document.getElementById('stack-leadership'),
         'projects': document.getElementById('stack-projects'),
-        'tours': document.getElementById('stack-tours')
+        'educational': document.getElementById('stack-educational')
       };
 
       // Safely move existing cards back to the pool to re-evaluate placement

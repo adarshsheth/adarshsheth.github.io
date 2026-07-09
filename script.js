@@ -1406,6 +1406,9 @@ function renderLb() {
 	} else {
 		lbImg.style.display = "block";
 
+// const ratio = media.naturalWidth / media.naturalHeight || 1;
+// lbImg.style.setProperty("--ratio", ratio);
+
 		// Instantly show the low-res image (using the rawSrc fallback)
 		lbImg.src = rawSrc;
 

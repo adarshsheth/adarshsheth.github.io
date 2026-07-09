@@ -42,7 +42,7 @@
   	</script>
 
 
-  <title>Photography • Adarsh Sheth</title>
+  <title>Photography  • Adarsh Sheth</title>
   <meta property="og:title" content="Photography  • Adarsh Sheth">
   <meta name="description" content="A collection of my photos.">
   <meta property="og:description" content="A collection of my photos.">
@@ -254,34 +254,34 @@
 <body>
   <div id="blur-page"></div>
 
-  <div id="nav-placeholder"></div>
-  <script>
-    // Instantly inject the nav from cache to prevent UI flashing
-    const cachedNav = sessionStorage.getItem("rawNavHTML");
-    if (cachedNav) {
-      // 1. Inject the cached HTML
-      document.getElementById("nav-placeholder").outerHTML = cachedNav;
+<div id="nav-placeholder"></div>
+<script>
+  // Instantly inject the nav from cache to prevent UI flashing
+  const cachedNav = sessionStorage.getItem("rawNavHTML");
+  if (cachedNav) {
+    // 1. Inject the cached HTML
+    document.getElementById("nav-placeholder").outerHTML = cachedNav;
 
-      // 2. Instantly fix the active states before the browser paints
-      const currentPath = window.location.pathname.toLowerCase();
-      const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
-      const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+    // 2. Instantly fix the active states before the browser paints
+    const currentPath = window.location.pathname.toLowerCase();
+    const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+    const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
 
-      const header = document.getElementById("hdr");
-      if (header) {
-        header.querySelectorAll(".ni").forEach(link => {
-          link.classList.remove("active"); // Strip the cached "ghost" state
+    const header = document.getElementById("hdr");
+    if (header) {
+      header.querySelectorAll(".ni").forEach(link => {
+        link.classList.remove("active"); // Strip the cached "ghost" state
 
-          // Apply the correct state for the current page
-          const text = link.textContent.trim().toLowerCase();
-          if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
-          else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
-          else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
-          else if (isHomePath && text === "home") link.classList.add("active");
-        });
-      }
+        // Apply the correct state for the current page
+        const text = link.textContent.trim().toLowerCase();
+        if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+        else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+        else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+        else if (isHomePath && text === "home") link.classList.add("active");
+      });
     }
-  </script>
+  }
+</script>
   <script>
     try {
       const cachedNav = localStorage.getItem("siteNavHTML");
@@ -604,17 +604,17 @@
         </div>
 
         <div class="photo-tile" data-cap="Beach Silhouette"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
-          <img
-            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
-        <div class="photo-tile" data-cap="Piña Colada, Cabo, Mexico"
-          data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
-          <img
-            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
-          <span class="tile-icon"><i class="fas fa-expand"></i></span>
-        </div>
+        data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg">
+        <img
+        src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246844/mexico3_ebmf9w.jpg" />
+        <span class="tile-icon"><i class="fas fa-expand"></i></span>
+      </div>
+      <div class="photo-tile" data-cap="Piña Colada, Cabo, Mexico"
+        data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246851/mexico1_m6firp.jpg">
+        <img
+          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_500,q_auto,f_auto/v1777246851/mexico1_m6firp.jpg" />
+        <span class="tile-icon"><i class="fas fa-expand"></i></span>
+      </div>
         <div class="photo-tile" data-cap="Succulent"
           data-full="https://res.cloudinary.com/dvklf4dm6/image/upload/q_auto,f_auto/v1777246846/succulent_dfz1fq.jpg">
           <img
@@ -644,7 +644,7 @@
         
       </div>
     </section> -->
-    <div id="footer-placeholder"></div>
+<div id="footer-placeholder"></div>
   </div>
   <script src="script.js"></script>
 
@@ -739,25 +739,6 @@
 
       let currentIndex = 0;
       let highResPreloader = null;
-
-      // --- GPU Pre-warm the lightbox ---
-      // On the very first open, the browser has never had to build the
-      // compositing layers for the backdrop blur / background fade / opacity
-      // fade, so instead of animating smoothly it just snaps straight to the
-      // end state (the "flash"). Fix: render the lightbox once at opacity:0
-      // (invisible) right after load so those layers exist ahead of time.
-      // Every open after that is instant + smooth, which matches what we
-      // already see after the first click.
-      function prewarmLightbox() {
-        lb.classList.add('lb-prewarm');
-        void lb.offsetHeight; // force a synchronous layout/paint
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            lb.classList.remove('lb-prewarm');
-          });
-        });
-      }
-      prewarmLightbox();
 
       function updateLightbox() {
         if (!photos.length) return;
