@@ -306,9 +306,11 @@
       <button class="lbclose" id="lb-close">×</button>
       <img id="lbimg" class="lbi" src="" alt="" />
       <div class="lb-bottom">
+        <div class="cap-bubble">
         <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
         <div id="lbcap" class="lbcap"></div>
         <button class="lb-nav lb-n" id="lb-next">&#8250;</button>
+      </div>
       </div>
     </div>
   </div>
@@ -761,7 +763,7 @@
 
       function updateLightbox() {
         if (!photos.length) return;
-
+      
         const currentData = photos[currentIndex];
 
         lbImg.src = currentData.thumb;
@@ -783,6 +785,8 @@
 
       function closeLightbox() {
         lb.classList.remove('open');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
       }
 
       function navigateLightbox(dir) {
@@ -796,6 +800,8 @@
           currentIndex = idx;
           updateLightbox();
           lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+          document.documentElement.style.overflow = 'hidden';
         });
       });
 
@@ -810,6 +816,50 @@
         if (e.key === 'ArrowLeft') navigateLightbox(-1);
         if (e.key === 'Escape') closeLightbox();
       });
+
+      // --- ADD: Touch & Trackpad Swipe Navigation for Photography Lightbox ---
+      (function() {
+        const lbBox = document.querySelector('.lbbox');
+        if (!lbBox) return;
+
+        // Mobile touch
+        let lbStartX = 0;
+        let lbStartY = 0;
+        let isCarouselInteract = false;
+
+        lbBox.addEventListener('touchstart', (e) => {
+          if (e.touches.length > 1) return;
+          if (e.target.closest('.cw')) {
+            isCarouselInteract = true;
+            return;
+          }
+          isCarouselInteract = false;
+          lbStartX = e.touches[0].clientX;
+          lbStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        lbBox.addEventListener('touchend', (e) => {
+          if (isCarouselInteract) return;
+          const diffX = lbStartX  - e.changedTouches[0].clientX;
+          const diffY = lbStartY - e.changedTouches[0].clientY;
+          if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0) navigateLightbox(1);
+            else navigateLightbox(-1);
+          }
+        }, { passive: true });
+
+        // Desktop trackpad
+        let isLbTrackpadSwiping = false;
+        lbBox.addEventListener('wheel', (e) => {
+          if (isLbTrackpadSwiping || e.target.closest('.cw')) return;
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+            isLbTrackpadSwiping = true;
+            if (e.deltaX > 0) navigateLightbox(1);
+            else navigateLightbox(-1);
+            setTimeout(() => { isLbTrackpadSwiping = false; }, 400);
+          }
+        }, { passive: true });
+      })();
 
       // --- CUSTOM SCROLL SPY FOR SIDEBAR ---
       // window.addEventListener('scroll', () => {
