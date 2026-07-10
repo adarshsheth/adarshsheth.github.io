@@ -3443,10 +3443,14 @@ footer {
 .uni-card {
 	/* background: color-mix(in srgb, var(--bg) 50%, transparent); */
 	background: color-mix(in srgb, var(--bg) 10%, transparent);
+	/* background: color-mix(in srgb, var(--bg) 30%, transparent); */
+	/* background: color-mix(in srgb, black 30%, transparent); */
 	/* background: pink; */
 	/* border: 3px solid color-mix(in srgb, var(--border) 30%, transparent); */
 	/* border: 3px solid color-mix(in srgb, var(--border) 50%, transparent); */
-	border: 3px solid color-mix(in srgb, var(--dark) 50%, transparent);
+	/* border: 3px solid color-mix(in srgb, var(--dark) 50%, transparent); */
+	/* border: 3px solid color-mix(in srgb, white 30%, transparent); */
+	border: 2.5px solid color-mix(in srgb, white 30%, transparent);
 	border-radius: 10px;
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
@@ -3550,8 +3554,8 @@ footer {
 /* ── TILE MODE (Adaptive Grid Layout) ── */
 .card-stack.tile-mode {
 	display: grid;
-	/* grid-template-columns: repeat(auto-fill, minmax(300px, 400px)); */
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+	/* grid-template-columns: 1fr 1fr; */
 	justify-content: start;
 	align-items: stretch;
 	gap: var(--uni-gap);
