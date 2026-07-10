@@ -65,26 +65,20 @@
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
       filter: blur(4px) !important;
     } */
-
+/* 
     body.bg-all::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
       filter: blur(6px);
-      /* background-blend-mode: screen; */
     }
 
     body.bg-evtol::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/drone_w6xodu.jpg');
-      /* background-image: url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/drone_w6xodu.jpg'); */
       filter: blur(4px);
-      /* filter: blur(20px); */
-      /* background-blend-mode: screen; */
     }
 
     body.bg-space::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/space_wtbm5n.jpg');
       filter: blur(2px);
-      /* filter: blur(20px); */
-      /* background-blend-mode: screen; */
     }
 
     body.bg-robotics::before {
@@ -95,7 +89,7 @@
     body.bg-general::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/general_zakwqu.jpg');
       filter: blur(6px);
-    }
+    } */
 
     body {
       background: var(--bg);
@@ -125,13 +119,16 @@
 
     .sh h2 {
       /* font-size: 16px !important; */
-      font-size: clamp(12px, 0.9vw, 18px) !important;
-      font-weight: 900 !important;
+      /* font-size: clamp(12px, 0.9vw, 18px) !important; */
+      font-size: clamp(12px, 0.8vw, 16px) !important;
+      /* font-weight: 900 !important; */
+      font-weight: 800 !important;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin: 0;
       /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
-      color: var(--sec-title);
+      /* color: var(--sec-title); */
+      color: color-mix(in srgb, var(--dimtitle) 50%, transparent) !important;
       /* color: color-mix(in srgb, var(--accent2) 50%, transparent); */
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
@@ -144,7 +141,8 @@
     }
 
     .sh h2:hover {
-      color: color-mix(in srgb, var(--dimtitle) 50%, transparent);
+      /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
+      color: color-mix(in srgb, var(--sec-title) 100%, transparent) !important;
     }
 
     .sh-pulse-btn:hover h2 {
@@ -179,8 +177,11 @@
     .auto-num {
       color: var(--accent);
       /* font-family: 'Courier New', Courier, monospace; */
-      font-weight: 900;
-      padding-right: 10px;
+      /* font-weight: 900; */
+      font-weight: 500;
+      padding-right: 20px;
+      /* font-size: clamp(12px, 0.9vw, 18px) */
+      /* font-size: clamp(12px, 0.8vw, 14px) */
     }
 
     /* 4. Inject the em-dashes with the tight letter-spacing */
@@ -188,7 +189,8 @@
       content: "——";
       letter-spacing: -0.2em;
       padding-right: 10px;
-      font-weight: 700;
+      /* font-weight: 700; */
+      font-weight: 300;
     }
 
     /* 5. Inject the slashes and the dynamic number 
@@ -218,7 +220,7 @@
       flex-wrap: wrap;
     }
 
-    .filter-btn {
+    /* .filter-btn {
       display: inline-flex;
       align-items: center;
       height: 32px;
@@ -228,7 +230,6 @@
       color: var(--dimtitle);
       font-family: "Rubik", sans-serif;
       font-weight: 700;
-      /* font-size: 11.5px; */
       font-size: clamp(11px, 0.6vw, 14px);
       letter-spacing: 0.1em;
       border-radius: 6px;
@@ -247,29 +248,17 @@
       border-color: var(--accent2);
       color: var(--bg);
       background: var(--accent2);
-    }
+    } */
 
     @media (max-width: 1050px) {
       .portfolio-filters {
         margin: 20px 22px 0px;
       }
 
-      /* .sh h2 {
-        opacity: 1;
-        color: var(--dimtitle);
-      } */
-
-      /* .sh .sh-r {
-        opacity: 0.2;
-      } */
-
       .portfolio-filters {
         padding-top: 20px;
       }
 
-      /* #sec-teams .sh {
-        padding-top: 0px !important;
-      } */
     }
 
     /* --- MODERN ACCORDION CARD UI --- */
@@ -281,16 +270,31 @@
 
     .ec-item {
       break-inside: avoid;
-      opacity: 0;
+      /* opacity: 0;
       transform: translateY(10px);
-      transition: opacity .7s ease-out, transform .7s cubic-bezier(0.22, 0.9, 0.25, 1);
+      transition: opacity .7s ease-out, transform .7s cubic-bezier(0.22, 0.9, 0.25, 1); */
     }
 
-    .ec-item.visible {
+    /* .ec-item.visible {
       opacity: 1;
       transform: translateY(0);
-    }
+    } */
+.ec-item .uni-card {
+  opacity: 0;
+  transform: translateY(10px);
+  /* Combine base hovers (0.3s) with the entrance animations (0.7s) */
+  transition: all 0.3s ease-in-out, opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 0.9, 0.25, 1);
+}
 
+.ec-item.visible .uni-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Re-apply the hover lift so it doesn't get overridden by the .visible state */
+.ec-item.visible .uni-card:hover {
+  transform: translateY(-3px);
+}
 
 
 
@@ -873,7 +877,8 @@
       mask-position: left top, right top;
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat; */
-      overscroll-behavior-y: contain; /* Prevents scroll chaining to the body */
+      overscroll-behavior-y: contain;
+      /* Prevents scroll chaining to the body */
     }
 
 
@@ -912,8 +917,8 @@
       border: none;
       border-radius: 0;
       background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
+      /* backdrop-filter: none;
+      -webkit-backdrop-filter: none; */
     }
 
     #card-lb-content .ec-card:hover {
@@ -1123,8 +1128,8 @@
       border: none;
       border-radius: 0;
       background: transparent !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
+      /* backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important; */
       transform: none !important;
       box-shadow: none !important;
       margin-bottom: 20px;
@@ -1423,37 +1428,40 @@
 
 
     /* Base: Flex row for desktop */
-.ec-subtitle {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 4px;
-}
+    .ec-subtitle {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 4px;
+    }
 
-/* Hide the mobile dot on desktop */
-.sub-mobile-dot {
-    display: inline;
-        color: var(--g); /* Gives the dot a nice pop of color */
-}
+    /* Hide the mobile dot on desktop */
+    .sub-mobile-dot {
+      display: inline;
+      color: var(--g);
+      /* Gives the dot a nice pop of color */
+    }
 
-.sub-desktop-pipe {
-    display: none;
-}
+    .sub-desktop-pipe {
+      display: none;
+    }
 
-/* Mobile: Stack them and swap the pipe for a dot */
-@media (max-width: 1050px) {
-    /* .ec-subtitle {
+    /* Mobile: Stack them and swap the pipe for a dot */
+    @media (max-width: 1050px) {
+
+      /* .ec-subtitle {
         flex-direction: column;
         gap: 2px;
     } */
-    .sub-desktop-pipe {
+      .sub-desktop-pipe {
         /* display: inline; */
         display: none;
-    }
-    /* .sub-mobile-dot {
+      }
+
+      /* .sub-mobile-dot {
         display: none;
     } */
-}
+    }
   </style>
 </head>
 
@@ -1504,9 +1512,31 @@
 
         <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
         <div id="card-lb-content"></div>
+
+
       </div>
       <button class="card-lb-nav card-lb-next" onclick="pfLbNav(1)"><i class="fas fa-chevron-right"></i></button>
+
     </div>
+
+
+
+
+
+<!-- PORTFOLIO CAPTION -->
+    <!-- <div class="lb-bottom">
+      <div class="cap-bubble">
+        <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
+        <div id="lbcap" class="lbcap ec-title"></div>
+        <button class="lb-nav lb-n" id="lb-next">&#8250;</button>
+      </div>
+    </div> -->
+
+
+
+
+
+    
   </div>
 
   <aside id="sb">
@@ -4185,7 +4215,7 @@
       document.querySelectorAll('.ec-card.open').forEach(card => card.classList.remove('open'));
 
       // FIX: Fade out, swap background, then fade in
-      document.body.classList.add('bg-fade-out');
+      // document.body.classList.add('bg-fade-out');
 
       // Wait for the opacity to hit 0 (200ms) before swapping the image class
       setTimeout(() => {
@@ -4195,9 +4225,9 @@
         document.body.classList.add('bg-' + tag);
 
         // Wait a tiny bit for the browser to register the new image, then fade back in
-        setTimeout(() => {
-          document.body.classList.remove('bg-fade-out');
-        }, 50);
+        // setTimeout(() => {
+        //   document.body.classList.remove('bg-fade-out');
+        // }, 50);
       }, 200);
     }
     document.addEventListener('DOMContentLoaded', () => {
@@ -4225,21 +4255,21 @@
       });
     });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // Find all ec-subtitles and reformat them for the mobile dot/newline layout
-    document.querySelectorAll('.ec-subtitle').forEach(sub => {
-      const text = sub.innerText;
+    document.addEventListener('DOMContentLoaded', () => {
+      // Find all ec-subtitles and reformat them for the mobile dot/newline layout
+      document.querySelectorAll('.ec-subtitle').forEach(sub => {
+        const text = sub.innerText;
 
-      // Only process if it contains the pipe character
-      if (text.includes('|')) {
-        const parts = text.split('|');
+        // Only process if it contains the pipe character
+        if (text.includes('|')) {
+          const parts = text.split('|');
 
-        if (parts.length === 2) {
-          const role = parts[0].trim();
-          const date = parts[1].trim();
+          if (parts.length === 2) {
+            const role = parts[0].trim();
+            const date = parts[1].trim();
 
-          // Rewrite the HTML structure
-          sub.innerHTML = `
+            // Rewrite the HTML structure
+            sub.innerHTML = `
                     <span class="sub-role">${role}<span class="sub-mobile-dot"> •</span></span>
                     <span class="sub-date">
                         <span class="sub-desktop-pipe"> | </span>
@@ -4247,10 +4277,10 @@
                         ${date}
                     </span>
                 `;
+          }
         }
-      }
+      });
     });
-  });
   </script>
 </body>
 
