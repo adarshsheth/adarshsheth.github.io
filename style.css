@@ -326,7 +326,8 @@ img {
 header {
 	position: fixed;
 	top: 0;
-	left: var(--sw);
+	/* left: var(--sw); */
+	left: 0;
 	right: 0;
 	z-index: 1000;
 	padding: 20px;
@@ -701,6 +702,7 @@ header::before {
 #sb-nav {
 	flex: 1;
 	overflow-y: auto;
+	overflow-x: hidden;
 	padding: 10px 0;
 }
 
@@ -876,9 +878,11 @@ header::before {
 
 /* ═==============================═ MAIN LAYOUT & GLOBAL ── */
 #mn {
-	margin-left: var(--sw);
+	/* margin-left: var(--sw); */
+	margin-left: 0;
 	padding-top: calc(var(--navh) + 50px);
 }
+
 section {
 	scroll-margin-top: calc(var(--anchorh) + 0vh);
 }
@@ -1117,6 +1121,63 @@ section {
 	flex-shrink: 0;
 	font-family: monospace;
 	letter-spacing: 0;
+}
+
+
+@media (min-width: 1051px) {
+	/* The Floating Sidebar Box */
+	#sb {
+		top: 100px;
+		left: 24px;
+		bottom: auto;
+		height: auto;
+		max-height: calc(100vh - 130px);
+		border-radius: 14px;
+		padding-top: 12px;
+		background: color-mix(in srgb, var(--bg) 30%, transparent);
+		border: 2.5px solid color-mix(in srgb, var(--border) 60%, transparent);
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+		/* Keeps the scrollbar looking clean inside the rounded box */
+		overflow: hidden; 
+
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		/* display: none; */
+	}
+	
+	/* Softens the progress bar edges to match the box */
+	#sb-prog, #sb-fill {
+		border-radius: 100px;
+	}
+
+	/* Perfectly Center Content & Prevent Sidebar Overlap */
+	#mn {
+		/* Symmetrical padding forces the internal content to be perfectly centered relative 
+		   to the whole screen, while ensuring it NEVER overlaps the 250px sidebar */
+		padding-left: calc(var(--sw) + 10px); 
+		padding-right: calc(var(--sw) + 10px); 
+		/* padding-left: calc(var(--sw) + 50px); 
+		padding-right: calc(var(--sw) + 50px);  */
+
+		/* display: flex;
+		flex-direction: column;
+		align-items: center; */
+	}
+	
+	/* Enforce width bounds on all sections */
+	section {
+		width: 100%;
+		/* max-width: 1200px; */
+		max-width: 1600px;
+		margin: 0 auto;
+	}
+	
+	footer {
+		min-width: 100vw !important;
+		/* margin: 0 !important; */
+		margin-bottom: 20px;
+		/* padding: 0; */
+	}
 }
 
 /* ══════════════════════════════════════════════════════════ */

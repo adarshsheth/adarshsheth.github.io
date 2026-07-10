@@ -45,7 +45,7 @@
 		}
 	</script>
 
-	<title>Home  • Adarsh Sheth</title>
+	<title>Home • Adarsh Sheth</title>
 	<meta property="og:title" content="Home  • Adarsh Sheth">
 	<meta name="description"
 		content="Hi! I'm Adarsh Sheth, an undergraduate Aerospace Engineer at Texas A&M university with a passion for vertical flight, photography, and nature.">
@@ -79,6 +79,12 @@
 
 		a:hover {
 			color: var(--g);
+		}
+
+		@media (min-width: 1051px) {
+			#sb {
+				display: none !important;
+			}
 		}
 	</style>
 	<link rel="stylesheet" href="style.css" />
@@ -280,7 +286,7 @@
 
 		/* Bio Section */
 		#bio {
-			padding: 80px 48px;
+			padding: 80px 4 8px;
 			max-width: 1300px;
 			margin: 0;
 		}
@@ -324,7 +330,7 @@
 		#portfolio-overview,
 		#photography {
 			/* padding: 40px 48px 52px; */
-			padding: 40px 48px;
+			/* padding: 40px 48px; */
 			max-width: 1300px;
 			margin: 0;
 		}
@@ -539,10 +545,11 @@
 			}
 
 			#bio {
-			/* #marquee { */
+				/* #marquee { */
 				padding-top: 0px !important;
 				padding-bottom: 0px !important;
 			}
+
 			#portfolio-overview {
 				padding-bottom: 0px !important;
 			}
@@ -722,7 +729,7 @@
 			</a>
 		</section>
 
-		
+
 
 		<section id="bio" class="indexSection">
 			<div class="fw-head" style="margin-bottom: 40px;">
@@ -858,7 +865,7 @@
 		</section>
 
 		<section id="marquee" class="indexSection">
-			<h2 class="fw-title" style="margin: 10px var(--navh);">Organizations</h2>
+			<h2 class="fw-title" style="margin: 10px 0">Organizations</h2>
 			<div class="marquee">
 				<div class="marquee-track">
 					<img src="/media/logo/ray.png" alt="Raytheon">
@@ -959,8 +966,8 @@
 
 		<!-- <hr class="div" /> -->
 
-		<div id="footer-placeholder"></div>
 	</div>
+	<div id="footer-placeholder"></div>
 
 	<script src="script.js" defer></script>
 	<script>
@@ -1095,39 +1102,39 @@
 		// 	setTimeout(type, delay);
 		// });
 		document.addEventListener("DOMContentLoaded", () => {
-				// Break the text into parts to isolate the name
-				const prefix = "Hi, I'm ";
-				const name = "Adarsh!";
-				const suffix = " 👋";
-				const characters = [...(prefix + name + suffix)];
+			// Break the text into parts to isolate the name
+			const prefix = "Hi, I'm ";
+			const name = "Adarsh!";
+			const suffix = " 👋";
+			const characters = [...(prefix + name + suffix)];
 
-				const el = document.getElementById("typewriter");
-				let i = 0;
+			const el = document.getElementById("typewriter");
+			let i = 0;
 
-				function type() {
-					if (i < characters.length) {
-						const currentText = characters.slice(0, i + 1).join('');
+			function type() {
+				if (i < characters.length) {
+					const currentText = characters.slice(0, i + 1).join('');
 
-						// Wrap only the 'name' portion in the gradient span
-						if (currentText.length <= prefix.length) {
-							el.innerHTML = currentText;
-						} else if (currentText.length <= prefix.length + name.length) {
-							const currentName = currentText.substring(prefix.length);
-							el.innerHTML = `${prefix}<span class="text-gradient">${currentName}</span>`;
-						} else {
-							const currentSuffix = currentText.substring(prefix.length + name.length);
-							el.innerHTML = `${prefix}<span class="text-gradient">${name}</span>${currentSuffix}`;
-						}
-
-						i++;
-						setTimeout(type, Math.random() * 50 + 60);
+					// Wrap only the 'name' portion in the gradient span
+					if (currentText.length <= prefix.length) {
+						el.innerHTML = currentText;
+					} else if (currentText.length <= prefix.length + name.length) {
+						const currentName = currentText.substring(prefix.length);
+						el.innerHTML = `${prefix}<span class="text-gradient">${currentName}</span>`;
+					} else {
+						const currentSuffix = currentText.substring(prefix.length + name.length);
+						el.innerHTML = `${prefix}<span class="text-gradient">${name}</span>${currentSuffix}`;
 					}
-				}
 
-				const preloaderSeen = sessionStorage.getItem("preloaderSeen");
-				const delay = preloaderSeen === "true" ? 300 : 1400;
-				setTimeout(type, delay);
-			});
+					i++;
+					setTimeout(type, Math.random() * 50 + 60);
+				}
+			}
+
+			const preloaderSeen = sessionStorage.getItem("preloaderSeen");
+			const delay = preloaderSeen === "true" ? 300 : 1400;
+			setTimeout(type, delay);
+		});
 	</script>
 
 	<script>

@@ -65,7 +65,7 @@
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
       filter: blur(4px) !important;
     } */
-/* 
+    /* 
     body.bg-all::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/runway_w6hatu.jpg');
       filter: blur(6px);
@@ -108,6 +108,12 @@
     p {
       color: var(--dimtitle);
     }
+
+    /* @media (min-width: 1051px) {
+      #sb {
+        display: revert !important;
+      }
+    } */
   </style>
   <link rel="stylesheet" href="style.css" />
 
@@ -279,22 +285,22 @@
       opacity: 1;
       transform: translateY(0);
     } */
-.ec-item .uni-card {
-  opacity: 0;
-  transform: translateY(10px);
-  /* Combine base hovers (0.3s) with the entrance animations (0.7s) */
-  transition: all 0.3s ease-in-out, opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 0.9, 0.25, 1);
-}
+    .ec-item .uni-card {
+      opacity: 0;
+      transform: translateY(10px);
+      /* Combine base hovers (0.3s) with the entrance animations (0.7s) */
+      transition: all 0.3s ease-in-out, opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 0.9, 0.25, 1);
+    }
 
-.ec-item.visible .uni-card {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .ec-item.visible .uni-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* Re-apply the hover lift so it doesn't get overridden by the .visible state */
-.ec-item.visible .uni-card:hover {
-  transform: translateY(-3px);
-}
+    /* Re-apply the hover lift so it doesn't get overridden by the .visible state */
+    .ec-item.visible .uni-card:hover {
+      transform: translateY(-3px);
+    }
 
 
 
@@ -1523,7 +1529,7 @@
 
 
 
-<!-- PORTFOLIO CAPTION -->
+    <!-- PORTFOLIO CAPTION -->
     <!-- <div class="lb-bottom">
       <div class="cap-bubble">
         <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
@@ -1536,7 +1542,7 @@
 
 
 
-    
+
   </div>
 
   <aside id="sb">
@@ -3781,8 +3787,8 @@
     <section>
       <div style="margin-top: 40px"></div>
     </section>
-    <div id="footer-placeholder"></div>
   </div>
+  <div id="footer-placeholder"></div>
 
   <script src="script.js"></script>
 

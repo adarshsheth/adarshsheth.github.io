@@ -75,6 +75,12 @@
     a:hover {
       color: var(--g);
     }
+
+    @media (min-width: 1051px) {
+      #sb {
+        display: none !important;
+      }
+    }
   </style>
   <link rel="stylesheet" href="style.css" />
 
@@ -112,8 +118,8 @@
     }
 
     /* .photo-sh .sh-r { */
-      /* background: color-mix(in srgb, var(--accent) 50%, transparent) !important; */
-      /* height: 3px !important; */
+    /* background: color-mix(in srgb, var(--accent) 50%, transparent) !important; */
+    /* height: 3px !important; */
     /* } */
 
     /* .photo-sh .sh-pulse-btn:hover h2 { */
@@ -306,10 +312,10 @@
       <img id="lbimg" class="lbi" src="" alt="" />
       <div class="lb-bottom">
         <div class="cap-bubble">
-        <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
-        <div id="lbcap" class="lbcap"></div>
-        <button class="lb-nav lb-n" id="lb-next">&#8250;</button>
-      </div>
+          <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
+          <div id="lbcap" class="lbcap"></div>
+          <button class="lb-nav lb-n" id="lb-next">&#8250;</button>
+        </div>
       </div>
     </div>
   </div>
@@ -645,8 +651,8 @@
         
       </div>
     </section> -->
-    <div id="footer-placeholder"></div>
   </div>
+  <div id="footer-placeholder"></div>
   <script src="script.js"></script>
 
   <script>
@@ -762,7 +768,7 @@
 
       function updateLightbox() {
         if (!photos.length) return;
-      
+
         const currentData = photos[currentIndex];
 
         lbImg.src = currentData.thumb;
@@ -817,7 +823,7 @@
       });
 
       // --- ADD: Touch & Trackpad Swipe Navigation for Photography Lightbox ---
-      (function() {
+      (function () {
         const lbBox = document.querySelector('.lbbox');
         if (!lbBox) return;
 
@@ -839,7 +845,7 @@
 
         lbBox.addEventListener('touchend', (e) => {
           if (isCarouselInteract) return;
-          const diffX = lbStartX  - e.changedTouches[0].clientX;
+          const diffX = lbStartX - e.changedTouches[0].clientX;
           const diffY = lbStartY - e.changedTouches[0].clientY;
           if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
             if (diffX > 0) navigateLightbox(1);
