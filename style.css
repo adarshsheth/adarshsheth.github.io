@@ -393,14 +393,17 @@ header::before {
 	display: inline-flex;
 	width: auto;
 	border-radius: 100px;
-	border: 2px solid var(--gd);
-	background: hsla(109, 8%, 27%, 0.9);
-	/* background: var(--bg); */
+	/* border: 2px solid var(--gd); */
+	border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+	/* background: hsla(109, 8%, 27%, 0.9); */
+	background: color-mix(in srgb, var(--bg) 50%, transparent);
 	backdrop-filter: blur(3px);
 	-webkit-backdrop-filter: blur(3px);
 	padding: 5px;
 	/* padding: 7px 5px; */
-	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+	/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); */
+	box-shadow: 0 0px 8px -3px color-mix(in srgb, var(--text) 100%, transparent),
+	0 4px 10px 6px color-mix(in srgb, var(--bg) 100%, transparent);
 	transition: transform 0.45s ease-in-out;
 	/* will-change: transform; */
 	/* transform: translateZ(0); */
@@ -448,7 +451,8 @@ header::before {
 	position: relative;
 	overflow: hidden;
 	color: white;
-	background: #596453b5;
+	/* background: #596453b5; */
+	background: color-mix(in srgb, var(--text) 10%, transparent);
 	font-weight: 700;
 	font-size: 11.5px;
 	letter-spacing: 0.07em;
@@ -460,9 +464,9 @@ header::before {
 	white-space: nowrap;
 	z-index: 0;
 	transition: color 0.2s;
-	/* border: 2px solid var(--gd); */
-	/* border: 2px solid color-mix(in srgb, var(--gd) 20%, transparent); */
-	box-shadow: 0 0 5px -1px color-mix(in srgb, var(--gd) 80%, transparent);
+	border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+	/* box-shadow: 0 0 5px -1px color-mix(in srgb, var(--gd) 80%, transparent); */
+	box-shadow: 0 0 8px -4px color-mix(in srgb, var(--text) 80%, transparent);
 }
 .ni::after {
 	content: "";
@@ -471,7 +475,8 @@ header::before {
 	left: -100%;
 	width: 100%;
 	height: 100%;
-	background: var(--gd);
+	/* background: var(--gd); */
+	background: color-mix(in srgb, var(--text) 29%, transparent);
 	pointer-events: none;
 	z-index: -1;
 	transition: left 0s;
@@ -484,7 +489,8 @@ header::before {
 	transition: left 0.38s ease-out;
 }
 .ni.active {
-	background: var(--gd);
+	/* background: var(--gd); */
+	background: color-mix(in srgb, var(--text) 29%, transparent);
 	color: #fff;
 }
 .ni.active::after {
@@ -512,7 +518,6 @@ header::before {
 	position: absolute;
 	top: 100% !important;
 	left: 0%;
-	/* background: #ffffff9e; */
 	background: rgba(255, 255, 255, 0.9);
 	border-radius: 12px;
 	min-width: 190px;
@@ -537,7 +542,8 @@ header::before {
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	color: white;
-	background: var(--nav-drop);
+	/* background: var(--nav-drop); */
+	background: color-mix(in srgb, var(--bg) 80%, transparent);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	transition: all 0.2s ease;
 }
@@ -555,16 +561,16 @@ header::before {
 	padding: 2px 16px 2px 26px;
 	font-size: 12px;
 	font-weight: 500;
-	/* color: var(--surface); */
-	/* color: var(--gd); */
-	/* color: var(--tdim); */
-	color: var(--nav-drop);
+	/* color: var(--nav-drop); */
+	color: color-mix(in srgb, var(--bg) 60%, transparent);
+
 	transition:
 		background 0.15s,
 		color 0.15s;
 }
 .dd-lnk:hover {
-	color: var(--gd) !important;
+	/* color: var(--gd) !important; */
+	color: color-mix(in srgb, var(--bg) 90%, transparent) !important;
 }
 .single-subnav {
 	padding: 2px 15px 2px 7px !important;
@@ -2998,13 +3004,14 @@ footer {
 	.mobile-menu-btn {
 		display: block !important;
 		border-radius: 100px;
-		border: 2px solid var(--gd);
-		background: #424b40b7;
+		/* border: 2px solid var(--gd); */
+		background: color-mix(in srgb, var(--text) 29%, transparent);
 		backdrop-filter: blur(4px);
 		-webkit-backdrop-filter: blur(4px);
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+		/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); */
+		border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+		box-shadow: 0 0 8px -4px color-mix(in srgb, var(--text) 80%, transparent);
 		padding: 12px 14px;
-		/* color: #b4bdafb5; */
 		color: var(--text);
 	}
 	.nav-center {
