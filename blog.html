@@ -799,10 +799,17 @@
         let activePostSlug = postSlug;
         let isPostTransitioning = false;
 
+        // if (postSlug) {
+        //     document.getElementById('ibar').style.display = 'none';
+        //     window.isViewingDynamicPost = true;
+        // }
         if (postSlug) {
-            document.getElementById('ibar').style.display = 'none';
-            window.isViewingDynamicPost = true;
-        }
+                const ibar = document.getElementById('ibar');
+                if (ibar) {
+                    ibar.style.display = 'none';
+                }
+                window.isViewingDynamicPost = true;
+            }
 
         function generateBlogSidebar() {
             const sbNav = document.getElementById('sb-nav');
