@@ -101,7 +101,7 @@
             bottom: 0;
             height: 3px;
             width: calc(var(--article-width) / 15);
-            background: var(--accent);
+            background: var(--blogAlt);
         }
 
         /* .wi-img-wrap {
@@ -132,7 +132,7 @@
         }
 
         .feed-tag-link {
-            color: var(--accent) !important;
+            color: var(--blogAlt) !important;
             cursor: pointer;
             position: relative;
             z-index: 2;
@@ -140,7 +140,7 @@
         }
 
         .feed-tag-link:hover {
-            color: var(--accent2) !important;
+            color: var(--blogAlt) !important;
         }
 
 
@@ -184,6 +184,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            opacity: 0.5;
         }
 
         #blog-container {
@@ -206,7 +207,7 @@
         #post-body h1 {
             font-weight: 900 !important;
             margin: 50px 0 25px;
-            color: var(--accent) !important;
+            color: var(--blogAlt) !important;
             font-size: clamp(28px, 3vw, 50px);
             line-height: 1.1;
             text-transform: uppercase;
@@ -291,7 +292,7 @@
         }
 
         #post-body blockquote a:hover {
-            color: var(--accent);
+            color: var(--blogAlt);
             text-decoration: underline;
         }
 
@@ -324,14 +325,14 @@
         }
 
         #post-body a {
-            color: var(--accent2);
+            color: var(--blogAlt);
             text-decoration: underline;
             text-underline-offset: 3px;
             transition: color 0.2s;
         }
 
         #post-body a:hover {
-            color: var(--accent2);
+            color: var(--blogAlt);
         }
 
         #post-body figure {
@@ -402,8 +403,8 @@
             height: 30px;
             font-size: 12px;
             border-radius: 50%;
-            border: 2px solid var(--accent);
-            color: var(--accent);
+            border: 2px solid var(--blogAlt);
+            color: var(--blogAlt);
             background: transparent;
             cursor: pointer;
             transition: all 0.2s;
@@ -412,7 +413,7 @@
 
         .post-arrow-btn:hover:not(.disabled) {
             color: var(--bg) !important;
-            background: var(--accent);
+            background: var(--blogAlt);
         }
 
         .post-arrow-btn.disabled {
@@ -434,7 +435,7 @@
         .ecm a:not(:last-child)::after {
             content: " // ";
             margin: 0 5px;
-            opacity: 1.0;
+            opacity: .7;
             font-weight: normal;
             color: var(--dimtitle);
         }
@@ -446,7 +447,7 @@
             margin: 60px 0 20px;
             padding-bottom: 10px;
             padding-top: 30px;
-            border-bottom: 3px solid var(--accent);
+            border-bottom: 3px solid var(--blogAlt);
             text-transform: uppercase;
         }
 
@@ -721,13 +722,13 @@
 
                 <div class="ech" style="padding: 0 0 20px 0;">
                     <h2 id="post-title" class="ect"
-                        style="color: var(--accent) !important; font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
+                        style="color: var(--blogAlt) !important; font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
                     </h2>
                     <div
-                        style="color: var(--accent2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
-                        Written by <span id="post-author" style="color: var(--accent2);"></span>
+                        style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
+                        Written by <span id="post-author" style="color: var(--blogAlt);"></span>
                     </div>
-                    <div id="post-meta" class="ecm" style="margin-top: 10px; color: var(--accent2);"></div>
+                    <div id="post-meta" class="ecm" style="margin-top: 10px; color: var(--blogAlt2);"></div>
                 </div>
 
                 <div id="post-body" class="cbody full" style="margin-top:10px; padding: 0;">
@@ -896,12 +897,12 @@
 
             //     sbNav.innerHTML = `
             // <a class="sbn" href="?">
-            //     <span class="sbdot" style="background: var(--accent);"></span>
-            //     <span class="sblbl" style="color: var(--accent);">Back to Feed</span>
+            //     <span class="sbdot" style="background: var(--blogAlt);"></span>
+            //     <span class="sblbl" style="color: var(--blogAlt);">Back to Feed</span>
             // </a>
             sbNav.innerHTML = `
         <a class="sbn" href="?">
-            <span class="sblbl" style="color: var(--accent2); font-weight: 700; margin-bottom: -5px;">Back to Feed</span>
+            <span class="sblbl" style="color: var(--blogAlt); font-weight: 700; margin-bottom: -5px;">Back to Feed</span>
         </a>
         <div style="height:2px;background:color-mix(in srgb, var(--border) 50%, transparent);margin:10px 14px;"></div>
         ${sidebarHtml}
