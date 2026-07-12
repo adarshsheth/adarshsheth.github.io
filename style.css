@@ -26,7 +26,7 @@
 	--text: #d0d3cd;
 	--contrast-text: #cacaca;
 	/* --tdim: #7a7e76; */
-	--tdim-fr:#7a7e76;
+	--tdim-fr: #7a7e76;
 	--tdim: var(--cbul);
 	--tmut: var(--tdim);
 	/* --miniheader: var(--dimtitle); */
@@ -89,6 +89,9 @@
 	--dark: #313131;
 	--uni-gap: 10px;
 	--margin: 22px;
+
+	/* --pageMaxWidth: 900px; */
+	--pageMaxWidth: 1000px;
 }
 
 * {
@@ -281,7 +284,7 @@ img {
 	/* background: var(--bg); */
 	background: transparent;
 }
-	::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
 	/* background: var(--g); */
 	background: var(--badge);
 	/* background: var(--accent); */
@@ -406,8 +409,9 @@ header::before {
 	padding: 5px;
 	/* padding: 7px 5px; */
 	/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); */
-	box-shadow: 0 0px 8px -3px color-mix(in srgb, var(--text) 100%, transparent),
-	0 4px 10px 6px color-mix(in srgb, var(--bg) 100%, transparent);
+	box-shadow:
+		0 0px 8px -3px color-mix(in srgb, var(--text) 100%, transparent),
+		0 4px 10px 6px color-mix(in srgb, var(--bg) 100%, transparent);
 	transition: transform 0.45s ease-in-out;
 	/* will-change: transform; */
 	/* transform: translateZ(0); */
@@ -1123,7 +1127,6 @@ section {
 	letter-spacing: 0;
 }
 
-
 @media (min-width: 1051px) {
 	/* The Floating Sidebar Box */
 	#sb {
@@ -1138,15 +1141,16 @@ section {
 		border: 2.5px solid color-mix(in srgb, var(--border) 60%, transparent);
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 		/* Keeps the scrollbar looking clean inside the rounded box */
-		overflow: hidden; 
+		overflow: hidden;
 
 		backdrop-filter: blur(6px);
 		-webkit-backdrop-filter: blur(6px);
 		/* display: none; */
 	}
-	
+
 	/* Softens the progress bar edges to match the box */
-	#sb-prog, #sb-fill {
+	#sb-prog,
+	#sb-fill {
 		border-radius: 100px;
 	}
 
@@ -1154,8 +1158,8 @@ section {
 	#mn {
 		/* Symmetrical padding forces the internal content to be perfectly centered relative 
 		   to the whole screen, while ensuring it NEVER overlaps the 250px sidebar */
-		padding-left: calc(var(--sw) + 10px); 
-		padding-right: calc(var(--sw) + 10px); 
+		padding-left: calc(var(--sw) + 10px);
+		padding-right: calc(var(--sw) + 10px);
 		/* padding-left: calc(var(--sw) + 50px); 
 		padding-right: calc(var(--sw) + 50px);  */
 
@@ -1163,7 +1167,7 @@ section {
 		flex-direction: column;
 		align-items: center; */
 	}
-	
+
 	/* Enforce width bounds on all sections */
 	section {
 		width: 100%;
@@ -1171,7 +1175,7 @@ section {
 		max-width: 1600px;
 		margin: 0 auto;
 	}
-	
+
 	footer {
 		min-width: 100vw !important;
 		/* margin: 0 !important; */
@@ -1984,24 +1988,17 @@ section {
 }
 
 .lbi {
-    width: auto;
-    /* height: auto; */
+	width: auto;
+	/* height: auto; */
 	height: 100vw;
 	/* min-height: 70vw; */
-    max-height: 100%;
-    max-width: calc(100vw - 100px); 
-    border-radius: 8px;
-    /* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); */
+	max-height: 100%;
+	max-width: calc(100vw - 100px);
+	border-radius: 8px;
+	/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); */
 	filter: drop-shadow(0 4px 24px color-mix(in srgb, var(--bg) 70%, transparent));
 	/* object-fit: contain; */
-
-
 }
-
-
-
-
-
 
 /* Bottom Control Bar */
 .lb-bottom {
@@ -2021,9 +2018,8 @@ section {
 	margin-bottom: 20px;
 	pointer-events: none;
 	z-index: 10000;
-	padding-top: 20px;	
+	padding-top: 20px;
 	/* padding-top: 5px; */
-	
 }
 
 .cap-bubble {
@@ -2032,7 +2028,7 @@ section {
 	justify-content: center;
 	/* height: 35px; */
 	height: 40px;
-	
+
 	margin: 0;
 	border-radius: 100px;
 	background: color-mix(in srgb, var(--bg) 100%, transparent);
@@ -2041,7 +2037,6 @@ section {
 	-webkit-backdrop-filter: blur(8px); */
 	/* height: auto; */
 	/* padding: 30px 0 !important; */
-
 }
 
 .lbcap {
@@ -2165,7 +2160,6 @@ section {
 	transform: scale(1.3) translateZ(0);
 }
 
-
 .about-name {
 	font-weight: 900;
 	font-size: clamp(30px, 4.5vw, 70px);
@@ -2232,7 +2226,8 @@ section {
 	line-height: 1.2;
 	margin-bottom: 10px;
 	width: clamp(50%, 1000px, 100%);
-	text-align: left;
+	/* text-align: left; */
+	text-align: center;
 }
 .about-bio span {
 	/* color: var(--accent2); */
@@ -3082,7 +3077,8 @@ footer {
 		display: block !important;
 		border-radius: 100px;
 		/* border: 2px solid var(--gd); */
-		background: color-mix(in srgb, var(--text) 29%, transparent);
+		/* background: color-mix(in srgb, var(--text) 29%, transparent); */
+		/* background: color-mix(in srgb, var(--bg) 50%, transparent); */
 		backdrop-filter: blur(4px);
 		-webkit-backdrop-filter: blur(4px);
 		/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); */
@@ -3090,6 +3086,22 @@ footer {
 		box-shadow: 0 0 8px -4px color-mix(in srgb, var(--text) 80%, transparent);
 		padding: 12px 14px;
 		color: var(--text);
+
+		position: relative;
+		z-index: 1;
+		background: color-mix(in srgb, var(--text) 10%, transparent);
+	}
+	.mobile-menu-btn::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		border-radius: inherit;
+
+		background: color-mix(in srgb, var(--bg) 50%, transparent);
 	}
 	.nav-center {
 		padding: 0 0px;
@@ -3373,7 +3385,6 @@ footer {
 	color: var(--g);
 	transform: translateY(-1px);
 	background: color-mix(in srgb, var(--g) 10%, transparent);
-
 }
 
 .filter-btn.active {
@@ -3390,7 +3401,7 @@ footer {
 	margin-top: -25px;
 	flex-wrap: wrap;
 } */
- /* .blog-info {
+/* .blog-info {
     min-width: 0 !important;
 } */
 @media (max-width: 1050px) {
@@ -3555,7 +3566,7 @@ footer {
 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
 		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
 } */
- /* .uni-card:hover {
+/* .uni-card:hover {
 	transform: translateY(-3px);
 	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
@@ -3576,15 +3587,12 @@ footer {
 	transform: translateY(-3px);
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
 	/* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); */
-	box-shadow: 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
+	box-shadow:
+		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
 		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
 	/* Stacks a corner-originating glow over your default hover background */
-	background: 
-		radial-gradient(
-			circle at 100% 100%, 
-			color-mix(in srgb, var(--g) 30%, transparent) 0%, 
-			transparent 70%
-		),
+	background:
+		radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--g) 30%, transparent) 0%, transparent 70%),
 		var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 }
 
@@ -3758,7 +3766,6 @@ body {
 	overflow-x: hidden;
 }
 
-
 @media (max-width: 1050px) {
 	body::after {
 		/* background-size: 25px 25px; */
@@ -3781,90 +3788,84 @@ body {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
 /* Lightbox Wrapper */
 #lb {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    
-    /* THE FIX: Use visibility instead of opacity for the wrapper to bypass the browser bug */
-    visibility: hidden;
-    transition: visibility 0s linear 0.25s; /* Delays hiding until child animations finish closing */
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+
+	/* THE FIX: Use visibility instead of opacity for the wrapper to bypass the browser bug */
+	visibility: hidden;
+	transition: visibility 0s linear 0.25s; /* Delays hiding until child animations finish closing */
 }
 #lb.open {
-    pointer-events: all;
-    visibility: visible;
-    transition: visibility 0s linear 0s; /* Appears instantly so children can begin animating */
+	pointer-events: all;
+	visibility: visible;
+	transition: visibility 0s linear 0s; /* Appears instantly so children can begin animating */
 }
 
 /* The Blur Backdrop */
 .lbb {
-    position: absolute;
-    inset: 0;
-    cursor: pointer;
-    
-    /* Start State */
-    /* background: rgba(35, 41, 34, 0); */
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    
-    /* FIX: GPU Pre-warming to stop first-load flashes */
-    transform: translateZ(0);
-    will-change: background, backdrop-filter;
-    
-    /* Smooth out-transition (when closing has no delay) */
-    transition: background 0.25s ease-out, backdrop-filter 0.25s ease-out, -webkit-backdrop-filter 0.25s ease-out;
+	position: absolute;
+	inset: 0;
+	cursor: pointer;
+
+	/* Start State */
+	/* background: rgba(35, 41, 34, 0); */
+	backdrop-filter: blur(0px);
+	-webkit-backdrop-filter: blur(0px);
+
+	/* FIX: GPU Pre-warming to stop first-load flashes */
+	transform: translateZ(0);
+	will-change: background, backdrop-filter;
+
+	/* Smooth out-transition (when closing has no delay) */
+	transition:
+		background 0.25s ease-out,
+		backdrop-filter 0.25s ease-out,
+		-webkit-backdrop-filter 0.25s ease-out;
 }
 
 #lb.open .lbb {
-    /* End State */
-    /* background: rgba(35, 41, 34, 0.88); */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+	/* End State */
+	/* background: rgba(35, 41, 34, 0.88); */
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
 
-    /* FIX: A tiny 20ms delay when OPENING lets the browser construct the GPU layer before fading */
-    transition: background 0.25s ease-out 0.02s, backdrop-filter 0.25s ease-out 0.02s, -webkit-backdrop-filter 0.25s ease-out 0.02s;
+	/* FIX: A tiny 20ms delay when OPENING lets the browser construct the GPU layer before fading */
+	transition:
+		background 0.25s ease-out 0.02s,
+		backdrop-filter 0.25s ease-out 0.02s,
+		-webkit-backdrop-filter 0.25s ease-out 0.02s;
 }
 
 /* The Content Wrapper (Images and Buttons) */
 .lbbox {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 70px 20px 80px 20px;
-    z-index: 1;
-    pointer-events: none; 
-	
-    
-    /* Independently fade the contents */
-    opacity: 0;
-    transform: translateZ(0);
-    will-change: opacity;
-    transition: opacity 0.25s ease-out;
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 70px 20px 80px 20px;
+	z-index: 1;
+	pointer-events: none;
+
+	/* Independently fade the contents */
+	opacity: 0;
+	transform: translateZ(0);
+	will-change: opacity;
+	transition: opacity 0.25s ease-out;
 }
 
 #lb.open .lbbox {
-    opacity: 1;
-    /* Match the 20ms micro-delay so the image fades in sync with the background */
-    transition: opacity 0.25s ease-out 0.02s;
+	opacity: 1;
+	/* Match the 20ms micro-delay so the image fades in sync with the background */
+	transition: opacity 0.25s ease-out 0.02s;
 }
 
 /* ══ GPU PRE-WARM (fixes first-open flash) ──
@@ -3876,79 +3877,70 @@ body {
    (fully invisible to the user), so those layers are built and cached
    before the visitor ever clicks a photo. */
 #lb.lb-prewarm {
-    visibility: visible;
-    opacity: 0;
+	visibility: visible;
+	opacity: 0;
 }
 #lb.lb-prewarm .lbb {
-    background: rgba(35, 41, 34, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: none !important;
+	background: rgba(35, 41, 34, 0.88);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	transition: none !important;
 }
 #lb.lb-prewarm .lbbox {
-    opacity: 1;
-    transition: none !important;
+	opacity: 1;
+	transition: none !important;
 }
-
 
 @media (max-width: 500px) {
-    #floating-dl-btn {
-        font-size: 0 !important; 
-        /* padding: 0 !important; */
-        /* width: 46px; */
-        /* height: 46px; */
-        /* border-radius: 50%; */
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0 !important;
-    }
-   
-    #floating-dl-btn i {
-        font-size: 16px !important;
-        margin: 0 !important; 
-    }
+	#floating-dl-btn {
+		font-size: 0 !important;
+		/* padding: 0 !important; */
+		/* width: 46px; */
+		/* height: 46px; */
+		/* border-radius: 50%; */
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0 !important;
+	}
+
+	#floating-dl-btn i {
+		font-size: 16px !important;
+		margin: 0 !important;
+	}
 }
-
-
-
-
-
-
-
-
-
-
 
 /* MARQUEE CONTAINER */
 .marquee {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    user-select: none;
-    width: 100%;
-    gap: 80px; /* Spacing between Track 1 and Track 2 */
-	
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);	
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	user-select: none;
+	/* width: 100%; */
+	width: var(--pageMaxWidth);
+	/* max-width: var(--pageMaxWidth); */
+	gap: 80px; /* Spacing between Track 1 and Track 2 */
+
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 	padding: 10px 0;
 	border: 3px solid var(--border);
 
-    /* background: linear-gradient(to right, transparent 0%, var(--g) 5%, var(--g) 95%, transparent 100%); */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+	/* background: linear-gradient(to right, transparent 0%, var(--g) 5%, var(--g) 95%, transparent 100%); */
+	-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+	mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+
 }
 
 /* THE TRACKS */
 .marquee-track {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    min-width: 100%; /* Ensures tracks are wide enough to cover the screen */
-    gap: 80px; /* Spacing between images within the track */
-    
-    animation: scroll-marquee 20s linear infinite;
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	min-width: 100%; /* Ensures tracks are wide enough to cover the screen */
+	gap: 80px; /* Spacing between images within the track */
 
+	animation: scroll-marquee 20s linear infinite;
 }
 
 /* Pause the scrolling if the user hovers over it */
@@ -3958,43 +3950,54 @@ body {
 
 /* THE IMAGES */
 .marquee-track img {
-    height: 40px;
-    width: auto;
-    flex-shrink: 0; /* Forces images to keep aspect ratio and not squish */
-    margin: 0;
-    padding: 0;
-    
-    filter: invert(1) grayscale(100%) brightness(1.5);
-    opacity: 0.9;
+	height: 40px;
+	width: auto;
+	flex-shrink: 0; /* Forces images to keep aspect ratio and not squish */
+	margin: 0;
+	padding: 0;
+
+	filter: invert(1) grayscale(100%) brightness(1.5);
+	opacity: 0.9;
 }
 
 /* FLAWLESS LOOP MATH */
 @keyframes scroll-marquee {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        /* Moves the track exactly its width, PLUS the gap width. 
+	from {
+		transform: translateX(0);
+	}
+	to {
+		/* Moves the track exactly its width, PLUS the gap width. 
            This makes Track 2 snap instantly to where Track 1 started. */
-        transform: translateX(calc(-100% - 80px));
-    }
+		transform: translateX(calc(-100% - 80px));
+	}
 }
 
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 1050px) {
-    .marquee {
-        gap: 40px; /* Shrink main gap */
-    }
-    .marquee-track {
-        gap: 40px; /* Shrink inner gap */
-    }
-    @keyframes scroll-marquee {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            /* Update the math to match the new 40px gap */
-            transform: translateX(calc(-100% - 40px));
-        }
-    }
+/* @media (max-width: 1650px) { */
+	.marquee {
+	gap: 40px;
+	/* width: 90vw; */
+	width: calc(100vw - 22px);
+
+	-webkit-mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(90%), transparent 100%);
+	mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(90%), transparent 100%);
+	/* -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(100% - 40px), transparent 100%);
+	mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(100% - 40px), transparent 100%); */
+}
+	/* #marquee {
+		padding: 40px 22px;
+	} */
+	.marquee-track {
+		gap: 40px; /* Shrink inner gap */
+	}
+	@keyframes scroll-marquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			/* Update the math to match the new 40px gap */
+			transform: translateX(calc(-100% - 40px));
+		}
+	}
 }

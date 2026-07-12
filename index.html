@@ -123,7 +123,8 @@
 
 		.about-box {
 			margin-bottom: 0 !important;
-			max-width: 900px;
+			max-width: var(--pageMaxWidth);
+			;
 			width: 100%;
 			text-align: center;
 			/* padding: 0 20px; */
@@ -180,7 +181,8 @@
 			display: inline-block;
 			width: 0.1em;
 			height: 1em;
-			background-color: var(--accent);
+			/* background-color: var(--accent); */
+			background-color: var(--g);
 			vertical-align: text-top;
 			margin-left: 15px;
 			animation: blink 1s step-end infinite;
@@ -257,15 +259,26 @@
 			bottom: 40px;
 			left: 50%;
 			transform: translateX(-50%);
-			color: var(--tdim);
-			font-size: 24px;
+			/* color: var(--tdim); */
+			color: var(--tdim-fr);
+			/* font-size: 24px; */
 			animation: floatBounce 2.5s ease-in-out infinite;
 			cursor: pointer;
 			transition: color 0.3s ease;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			padding: 10px 50px;
+			/* padding: 10px 50px; */
+
+			font-size: clamp(14px, 1.2vw, 22px);
+			font-weight: 700;
+			gap: 10px;
+			text-transform: uppercase;
+		}
+
+		.scroll-down i {
+			/* font-size: 20px; */
+			font-size: clamp(16px, 1.2vw, 22px);
 		}
 
 		.scroll-down:hover {
@@ -287,8 +300,12 @@
 		/* Bio Section */
 		#bio {
 			padding: 80px 4 8px;
-			max-width: 1300px;
-			margin: 0;
+			/* max-width: 1300px; */
+			max-width: var(--pageMaxWidth);
+			;
+			/* background-color: pink; */
+			/* align-self: center; */
+			margin: 0 auto;
 		}
 
 
@@ -331,8 +348,16 @@
 		#photography {
 			/* padding: 40px 48px 52px; */
 			/* padding: 40px 48px; */
-			max-width: 1300px;
-			margin: 0;
+			/* max-width: 1300px;
+			margin: 0; */
+			max-width: var(--pageMaxWidth);
+			;
+			margin: 0 auto;
+		}
+
+		#marquee {
+			max-width: var(--pageMaxWidth);;
+			margin: 0 auto;
 		}
 
 		/* ── GANTT CHART (TIMELINE) IMPROVEMENTS ── */
@@ -487,6 +512,7 @@
 			}
 
 			#portfolio-overview,
+			#marquee,
 			#photography {
 				/* padding: 40px 22px 52px !important; */
 				padding: 40px 22px;
@@ -531,9 +557,9 @@
 		/* @media (max-width: 850px) { */
 		@media (max-width: 850px),
 		(max-height: 850px) {
-			.scroll-down {
+			/* .scroll-down {
 				display: none !important;
-			}
+			} */
 
 			.about-box {
 				padding-bottom: 40px;
@@ -545,8 +571,7 @@
 			}
 
 			#bio {
-				/* #marquee { */
-				padding-top: 0px !important;
+				padding-top: 20px !important;
 				padding-bottom: 0px !important;
 			}
 
@@ -697,15 +722,55 @@
 					</a>
 				</div> -->
 
-				<div class="hero-buttons" style="margin-top: 36px;">
+				<!-- <div class="hero-buttons" style="margin-top: 36px;">
 					<a href="#bio" class="hero-btn btn-primary uni-btn"
 						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
 						About Me
 					</a>
-					<a href="portfolio.html" class="hero-btn btn-secondary uni-btn">
-						Experience
+					<a href="portfolio.html" class="hero-btn btn-primary uni-btn">
+						Engineering
 					</a>
+					<a href="resume.html" class="hero-btn btn-secondary uni-btn">
+						Resume
+					</a>
+					<a href="photography.html" class="hero-btn btn-secondary uni-btn">
+						Photography
+					</a>
+				</div> -->
+
+
+
+
+				<div class="indexSection" style="margin-bottom: 50px !important">
+					<!-- <h2 class="fw-title" style="margin: 10px 0">Organizations</h2> -->
+					<div class="marquee">
+						<div class="marquee-track">
+							<img src="/media/logo/ray.png" alt="Raytheon">
+							<img src="/media/logo/vfd.png" alt="VFD">
+							<img src="/media/logo/vfs.png" alt="VFS">
+							<img src="/media/logo/red.png" alt="RED">
+							<img src="/media/logo/seds.png" alt="SEDS">
+							<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+							<img src="/media/logo/DVR.png" alt="DVR">
+							<img src="/media/logo/invent.jpg" alt="Invent">
+							<img src="/media/logo/888.png" alt="Troop 888">
+						</div>
+						<div class="marquee-track" aria-hidden="true">
+							<img src="/media/logo/ray.png" alt="Raytheon">
+							<img src="/media/logo/vfd.png" alt="VFD">
+							<img src="/media/logo/vfs.png" alt="VFS">
+							<img src="/media/logo/red.png" alt="RED">
+							<img src="/media/logo/seds.png" alt="SEDS">
+							<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+							<img src="/media/logo/DVR.png" alt="DVR">
+							<img src="/media/logo/invent.jpg" alt="Invent">
+							<img src="/media/logo/888.png" alt="Troop 888">
+						</div>
+					</div>
 				</div>
+
+
+
 
 				<!-- Low-Profile Quote Box for Most Recent Experience -->
 				<!-- <div class="hbox"
@@ -717,15 +782,14 @@
 						those in FOV; then tracked chosen satellite across its in-FOV duration.
 					</a>
 				</div> -->
-				<div id="recent-card-container"
+				<!-- <div id="recent-card-container"
 					style="max-width: 850px; margin: 0 auto; text-align: left; width: 100%;">
-					<!-- The script below will fetch and inject the #ray card here -->
-				</div>
+				</div> -->
 			</div>
 
 			<a class="scroll-down" href="#bio" aria-label="Scroll Down"
 				onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
-				<i class="fas fa-chevron-down"></i>
+				Scroll to About<i class="fas fa-chevron-down"></i>
 			</a>
 		</section>
 
@@ -742,7 +806,8 @@
 					<img src="media/artwork/bio-img.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
 				</div>
 				<div class="bio-text-content">
-					<p class="about-bio" style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
+					<!-- <p class="about-bio" style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;"> -->
+					<p style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
 						<!-- font-size: clamp(14px, 1.2vw, 18px); -->
 						Beyond my coursework, I've always been compelled by a natural curiosity about form, structure,
 						and functional design.
@@ -864,7 +929,7 @@
 			</div>
 		</section>
 
-		<section id="marquee" class="indexSection">
+		<!-- <section id="marquee" class="indexSection">
 			<h2 class="fw-title" style="margin: 10px 0">Organizations</h2>
 			<div class="marquee">
 				<div class="marquee-track">
@@ -890,7 +955,7 @@
 					<img src="/media/logo/888.png" alt="Troop 888">
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 		<!-- <hr class="div" style="margin: 0px 0 0" /> -->
 

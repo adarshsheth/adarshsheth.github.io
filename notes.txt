@@ -1,0 +1,35 @@
+	.marquee {
+		gap: 40px; /* Shrink main gap */
+		width: 100vw;
+		/* width: calc(100vw - 44px); */
+		/* width: 90vw; */
+		position: relative;
+		left: 50%;
+		right: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		/* align-self: center; */
+		/* padding: auto 200px; */
+
+
+
+
+
+		/* width: calc(100vw - 84px); */
+		/* width: calc(100vw - var(--pageMaxWidth));     */
+		max-width: var(--pageMaxWidth);
+    position: relative;
+    left: 50%;
+    right: 50%;
+    /* 2. Pull it back by exactly half the screen, but offset it by that 22px gap */
+    /* margin-left: calc(-50vw + 22px);
+    margin-right: calc(-50vw + 22px); */
+    margin-left: calc(-50vw + 100vw - var(--pageMaxWidth) / 2);
+    margin-right: calc(-50vw + 100vw - var(--pageMaxWidth) / 2);
+    
+    /* ... keep your existing flex, gap, and border rules here ... */
+
+    /* 3. Ensure the absolute-pixel mask is still applied so the fade works! */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(100% - 40px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(100% - 40px), transparent 100%);
+	}
