@@ -1168,19 +1168,21 @@ section {
 		   to the whole screen, while ensuring it NEVER overlaps the 250px sidebar */
 		padding-left: calc(var(--sw) + 10px);
 		padding-right: calc(var(--sw) + 10px);
-		/* padding-left: calc(var(--sw) + 50px); 
-		padding-right: calc(var(--sw) + 50px);  */
-
+		/* padding-right: 0; */
 		/* display: flex;
 		flex-direction: column;
 		align-items: center; */
 	}
-
+	/* body.blog-page #mn { */
+	#mn:has(.blog-container) {
+		padding-right: 0 !important;
+	}
 	/* Enforce width bounds on all sections */
 	section {
 		width: 100%;
 		/* max-width: 1200px; */
 		max-width: 1600px;
+		/* min-width: 400px; */
 		margin: 0 auto;
 	}
 
@@ -3560,8 +3562,8 @@ footer {
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
 	/* was 6px blur before */
-	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
 	/* box-shadow: 0 0 15px 2px color-mix(in srgb, var(--bg) 50%, transparent); */
 	box-shadow: 0 0 20px 0px color-mix(in srgb, var(--bg) 50%, transparent);
 }
