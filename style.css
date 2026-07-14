@@ -975,10 +975,19 @@ section {
 /* ══ HERO & INTRO BAR ── */
 #hero {
 	padding: 20px 48px 0 48px;
+	container-type: inline-size;
+	
 }
 #hero h1 {
 	font-weight: 900;
 	font-size: clamp(44px, 7vw, 88px);
+	/* font-size: min(clamp(44px, 7vw, 88px),90vw); */
+	/* font-size: 2em; */
+	font-size: min(5.5cqi, 88px);
+	font-size: min(7.5cqi, 88px);
+	/* font-size: 7.5cqi; */
+	white-space: nowrap;	
+	
 	line-height: 0.92;
 	letter-spacing: -0.01em;
 	color: white;
@@ -3391,7 +3400,8 @@ footer {
 	border-color: var(--g);
 	color: var(--g);
 	transform: translateY(-1px);
-	background: color-mix(in srgb, var(--g) 10%, transparent);
+	/* background: color-mix(in srgb, var(--g) 10%, transparent); */
+	background: color-mix(in srgb, var(--g) 5%, transparent);
 }
 
 .filter-btn.active {

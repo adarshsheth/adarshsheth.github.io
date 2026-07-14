@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=0.9" />
   <meta name="robots" content="index, follow">
   <meta name="keywords"
     content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
@@ -1222,7 +1223,16 @@
       display: grid;
       /* grid-template-columns: repeat(auto-fill, minmax(300px, 400px)); */
       /* grid-template-columns: repeat(auto-fit, minmax(min(calc(50% - 10px), 300px), 1fr)); */
-      grid-template-columns: repeat(auto-fill, minmax(min(calc(50% - 10px), 300px), 1fr));
+
+      /* grid-template-columns: repeat(auto-fill, minmax(min(calc(50% - 10px), 300px), 1fr)); */
+      /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; */
+
+      /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; */
+      grid-template-columns: repeat(auto-fill, minmax(max(250px, 5vw), 1fr)) !important;
+      /* grid-template-columns: repeat(auto-fit, minmax(max(250px, 5vw), 1fr)) !important; */
+      /* grid-template-columns: repeat(auto-fill, minmax(5vw, 1fr)) !important; */
+
+      /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; */
       /* justify-content: start; */
       align-items: stretch;
       gap: var(--uni-gap);
@@ -1475,33 +1485,70 @@
         display: none;
     } */
     }
-
+ /* @media (max-width: 65.6874em) { */
+ @media (max-width: 1100px) {
+  #mn {padding-right: 0 !important;}
+ }
     @media (min-width: 1051px) {
+    /* @media (min-width: 65.6875em) { */
       #mn {
         padding-right: 0;
+        padding-right: calc(var(--sw) + 10px);
+        /* padding-right: calc(var(--sw) + 50px); */
       }
       #master-card-pool {
         padding-left: 0;
         margin-left: 0;
-        align-self: left;
+        /* align-self: left; */
+        /* align-self: center !important; */
       }
 
       /* REVIEWWWWW CODE */
-    /* 3. Stop the portfolio sections from forcing themselves into the center */
-    .portfolio-sec {
+    /* .portfolio-sec {
         max-width: none !important;
         margin: 0 !important;
     }
 
-    /* 4. Allow list-mode cards to stretch wider so they don't look squeezed */
     .card-stack:not(.tile-mode) {
-        max-width: 1400px !important; /* Increase this to 100% if you want them massive */
+        max-width: 1400px !important;
     }
-    
-    /* 5. Align the filters perfectly with the newly un-centered cards */
-    .portfolio-filters {
+        .portfolio-filters {
         margin-left: 48px;
         margin-right: 48px;
+    } */
+
+    /* REVIEWWWWW CODE pt2 */
+    /* 3. Center the portfolio sections on ultra-wide screens */
+    .portfolio-sec {
+        /* max-width: 1400px !important; */
+        /* max-width: 1800px !important; */
+        /* max-width: 2800px !important; */
+        /* max-width: max(40vw, 1800px) !important; */
+        max-width: min(90vw, 1800px) !important;
+        /* max-width: min(95vw, 1800px) !important; */
+        max-width: min(95vw, 2200px) !important;
+        max-width: max(min(95vw, 1800px),40vw) !important;
+        max-width: max(min(95vw, 1400px),40vw) !important;
+        margin: 0 auto !important;
+        /* margin: 0 0 0 auto !important; */
+        /* align-self: flex-end !important; */
+        /* align-self: flex-start !important; */
+    }
+
+    /* 4. Inherit max-width so cards span the centered container perfectly */
+    .ec-card {
+        max-width: 100% !important;
+    }
+    
+    /* 5. Center the filters perfectly with the newly centered cards */
+    .portfolio-filters {
+        /* max-width: 1400px; */
+        /* max-width: inherit; */
+        /* max-width: max(min(95vw, 1800px),40vw) !important; */
+        max-width: max(min(95vw, 1400px),40vw) !important;
+        margin: 60px auto 0;
+        padding-left: 48px;
+        padding-right: 48px;
     }
       
     }

@@ -109,9 +109,9 @@
             height: auto;
         } */
         @media (max-width: 1350px) {
-            #blog-list {
+            /* #blog-list {
                 grid-template-columns: 1fr;
-            }
+            } */
         }
 
         @media (max-width: 1150px) {
@@ -557,6 +557,7 @@
             #blog-list,
             #similar-articles-grid {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+                /* grid-template-columns: repeat(auto-fill, minmax(max(250px, 5vw), 1fr)) !important; */
             }
         }
 
@@ -569,14 +570,13 @@
         }
 
 
-        @media (max-width: 450px) {
+        /* @media (max-width: 450px) {
 
             #blog-list,
             #similar-articles-grid {
                 grid-template-columns: 1fr;
-                /* Safely drops to 1 col on small phones */
             }
-        }
+        } */
 
 
 
