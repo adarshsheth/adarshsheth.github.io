@@ -226,10 +226,10 @@
       gap: 10px;
       margin: 60px 48px 0px;
       flex-wrap: wrap;
-      		/* padding-left: calc(var(--sw) + 10px); */
+      /* padding-left: calc(var(--sw) + 10px); */
 
     }
-    
+
 
     /* .filter-btn {
       display: inline-flex;
@@ -1237,7 +1237,7 @@
       align-items: stretch;
       gap: var(--uni-gap);
 
-      
+
     }
 
     .card-stack:not(.tile-mode) {
@@ -1280,7 +1280,7 @@
       /* Forces 1 item per row full-width */
       .card-stack.tile-mode {
         /* grid-template-columns: 1fr; */
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr !important;
       }
 
       /* Shrinks the thumbnail height on mobile */
@@ -1485,17 +1485,23 @@
         display: none;
     } */
     }
- /* @media (max-width: 65.6874em) { */
- @media (max-width: 1100px) {
-  #mn {padding-right: 0 !important;}
- }
+
+    /* @media (max-width: 65.6874em) { */
+    @media (max-width: 1100px) {
+      #mn {
+        padding-right: 0 !important;
+      }
+    }
+
     @media (min-width: 1051px) {
-    /* @media (min-width: 65.6875em) { */
+
+      /* @media (min-width: 65.6875em) { */
       #mn {
         padding-right: 0;
         padding-right: calc(var(--sw) + 10px);
         /* padding-right: calc(var(--sw) + 50px); */
       }
+
       #master-card-pool {
         padding-left: 0;
         margin-left: 0;
@@ -1504,7 +1510,7 @@
       }
 
       /* REVIEWWWWW CODE */
-    /* .portfolio-sec {
+      /* .portfolio-sec {
         max-width: none !important;
         margin: 0 !important;
     }
@@ -1517,9 +1523,9 @@
         margin-right: 48px;
     } */
 
-    /* REVIEWWWWW CODE pt2 */
-    /* 3. Center the portfolio sections on ultra-wide screens */
-    .portfolio-sec {
+      /* REVIEWWWWW CODE pt2 */
+      /* 3. Center the portfolio sections on ultra-wide screens */
+      .portfolio-sec {
         /* max-width: 1400px !important; */
         /* max-width: 1800px !important; */
         /* max-width: 2800px !important; */
@@ -1527,30 +1533,30 @@
         max-width: min(90vw, 1800px) !important;
         /* max-width: min(95vw, 1800px) !important; */
         max-width: min(95vw, 2200px) !important;
-        max-width: max(min(95vw, 1800px),40vw) !important;
-        max-width: max(min(95vw, 1400px),40vw) !important;
+        max-width: max(min(95vw, 1800px), 40vw) !important;
+        max-width: max(min(95vw, 1400px), 40vw) !important;
         margin: 0 auto !important;
         /* margin: 0 0 0 auto !important; */
         /* align-self: flex-end !important; */
         /* align-self: flex-start !important; */
-    }
+      }
 
-    /* 4. Inherit max-width so cards span the centered container perfectly */
-    .ec-card {
+      /* 4. Inherit max-width so cards span the centered container perfectly */
+      .ec-card {
         max-width: 100% !important;
-    }
-    
-    /* 5. Center the filters perfectly with the newly centered cards */
-    .portfolio-filters {
+      }
+
+      /* 5. Center the filters perfectly with the newly centered cards */
+      .portfolio-filters {
         /* max-width: 1400px; */
         /* max-width: inherit; */
         /* max-width: max(min(95vw, 1800px),40vw) !important; */
-        max-width: max(min(95vw, 1400px),40vw) !important;
+        max-width: max(min(95vw, 1400px), 40vw) !important;
         margin: 60px auto 0;
         padding-left: 48px;
         padding-right: 48px;
-    }
-      
+      }
+
     }
   </style>
 </head>
@@ -1601,6 +1607,20 @@
       <div class="card-lb-box" id="card-lb-box-swipe">
 
         <button class="card-lb-close" onclick="pfCloseLightbox()" aria-label="Close">×</button>
+
+
+        <!-- <div class="ec-cap">
+          <div class="cap-bubble">
+            <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
+            <div id="lbcap" class="lbcap ec-title">
+              <h3 class="ec-title">Placeholder</h2>
+            </div>
+            
+            <button class="lb-nav lb-n" id="lb-next">&#8250;</button>
+          </div>
+        </div> -->
+
+
         <div id="card-lb-content"></div>
 
 
@@ -1614,7 +1634,8 @@
 
 
     <!-- PORTFOLIO CAPTION -->
-    <!-- <div class="lb-bottom">
+    <!-- <div class="lb-bottom"> -->
+    <!-- <div class="ec-cap">
       <div class="cap-bubble">
         <button class="lb-nav lb-p" id="lb-prev">&#8249;</button>
         <div id="lbcap" class="lbcap ec-title"></div>
@@ -2628,7 +2649,8 @@
                   <span class="badge" data-cat="tools">MS Suite</span>
                   <span class="badge" data-cat="tools">Adobe</span>
                 </div>
-                <p class="ec-brief">Managed external communication in matters regarding sponsorships, partnerships, and
+                <p class="ec-brief">Managed external communication in matters regarding sponsorships, partnerships,
+                  and
                   professional development for the Texas A&M University chapter of the Vertical Flight Society.
                 </p>
               </div>
@@ -3702,7 +3724,8 @@
               <div class="cbody full">
                 <div>
                   <ul class="cbul">
-                    <li>Learned about the history of the Boeing 737 line, starting way back in the 1960s and progressing
+                    <li>Learned about the history of the Boeing 737 line, starting way back in the 1960s and
+                      progressing
                       through the classic, NG, and MAX generations.</li>
                     <li>Stopped at each of the 10 flow day stops of the assembly line and learned about the additions
                       made there.</li>
