@@ -65,6 +65,7 @@
 			--text: #d0d3cd;
 			--g: #647661;
 			--gd: #232922;
+			--pageMaxWidth: 1100px !important;
 		}
 
 		body {
@@ -140,11 +141,15 @@
 		.about-box::after {
 			content: "";
 			position: absolute;
-			width: 30px;
-			/* Length of the bracket */
+			/* width: 30px;
+			height: 30px; */
+			width: 50px;
 			height: 30px;
 			/* Length of the bracket */
-			border: 4px solid var(--accent);
+			/* Length of the bracket */
+			/* border: 4px solid var(--accent); */
+			border: 5px solid var(--accent);
+			/* border: 4px solid var(--g); */
 			/* Thickness and color */
 		}
 
@@ -282,7 +287,9 @@
 		}
 
 		.scroll-down:hover {
-			color: var(--accent);
+			/* color: var(--accent); */
+			/* color: var(--g); */
+			color: var(--tdim);
 		}
 
 		@keyframes floatBounce {
@@ -351,7 +358,6 @@
 			/* max-width: 1300px;
 			margin: 0; */
 			max-width: var(--pageMaxWidth);
-			;
 			margin: 0 auto;
 		}
 
@@ -385,6 +391,7 @@
 			flex-direction: column;
 			gap: var(--uni-gap);
 			max-width: 1200px;
+			grid-template-columns: 1fr 1fr 1fr 1fr !important;
 		}
 
 		.ec-card-link {
@@ -859,7 +866,7 @@
 									<h3 class="ec-title">eVTOL & Aeronautics</h3>
 									<div class="ec-subtitle">Flight Design, Sizing Iteration, CFD</div>
 								</div>
-								<p class="ec-brief">Explore projects involving multi-copter design, lift+cruise eVTOL
+								<p class="ec-brief">Projects involving multicopter design, lift+cruise eVTOL
 									sizing configurations, and rigorous aerodynamic optimization for vertical flight
 									systems.</p>
 							</div>
@@ -899,7 +906,7 @@
 									<h3 class="ec-title">Robotics</h3>
 									<div class="ec-subtitle">Mechanisms, CAD, Competition Leadership</div>
 								</div>
-								<p class="ec-brief">Review competitive robotics engineering, spanning intricate
+								<p class="ec-brief">Competitive robotics engineering, spanning intricate
 									subsystem CAD, project management strategies, and large-scale regional tournament
 									coordination.</p>
 							</div>

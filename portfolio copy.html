@@ -485,33 +485,18 @@
       font-size: 11.5px;
       font-weight: 800;
       color: var(--accent);
-      /* color: var(--border); */
-      /* background-color: transparent; */
-      /* box-shadow: inset 50px 0px 10px -10px rgba(255, 255, 255, 0.1 ); */
-
-      /* color: color-mix(in srgb, var(--accent) 40%, transparent); */
+      color: color-mix(in srgb, var(--accent) 40%, transparent);
       /* color: color-mix(in srgb, var(--text) 50%, transparent); */
-      color: color-mix(in srgb, var(--g) 70%, transparent);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-top: 10px;
       /* display: none; */
-      transition: all .3s ease;
     }
 
     .expand-icon {
       transition: transform 0.3s ease;
     }
 
-    .ec-card:hover .expand-icon {
-      transform: translateX(5px);
-            transform: rotate(-90deg);
-
-    }
-    .ec-card:hover .expand-prompt {
-        transform: translateX(10px);
-        color: color-mix(in srgb, var(--text) 70%, transparent);
-    }
     .ec-card.open .expand-icon {
       transform: rotate(180deg);
     }
@@ -1326,8 +1311,7 @@
     .card-stack .ec-card.open {
       /* background: color-mix(in srgb, var(--dimtitle) 10%, transparent); */
       /* background: color-mix(in srgb, var(--accent2) 20%, transparent); */
-      /* background: color-mix(in srgb, var(--g) 20%, transparent); */
-      background: color-mix(in srgb, var(--bg) 20%, transparent);
+      background: color-mix(in srgb, var(--g) 20%, transparent);
 
       .ec-thumb {
         min-height: 10px;
@@ -1514,7 +1498,7 @@
       /* @media (min-width: 65.6875em) { */
       #mn {
         padding-right: 0;
-        /* padding-right: calc(var(--sw) + 10px); */
+        padding-right: calc(var(--sw) + 10px);
         /* padding-right: calc(var(--sw) + 50px); */
       }
 

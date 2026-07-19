@@ -2183,10 +2183,117 @@ function initSwipeNav() {
 				// Debounce to prevent rapid-fire skipping
 				setTimeout(() => {
 					isLbTrackpadSwiping = false;
-				}, 400); 
+				// }, 400); 
+				}, 900); 
 			}
 		}, { passive: true });
 	}
+}
+/* ── FILTER SWIPE NAVIGATION (LAYER 1) ── */
+function initFilterSwipe() {
+	const filterContainer = document.querySelector('.portfolio-filters, #blog-filters');
+	if (!filterContainer) return;
+
+	let startX = 0;
+	let startY = 0;
+	let isSwiping = false;
+
+	// This function acts as a strict bouncer. If it returns true, the Filter Swipe plays dead.
+	function isFilterSwipeLocked(target) {
+		// 1. Is the user reading a blog post?
+		const blogPost = document.getElementById("blog-post");
+		if (blogPost && blogPost.style.display !== "none") return true;
+
+		// 2. Is the user physically touching inside a carousel, tile, or lightbox?
+		// (Covers Layer 2 and Layer 3 elements)
+		if (target.closest(".cw, .ss-clip, .card-lb-box, .lbbox, .ec-card")) return true;
+
+		// 3. Is ANY tile or lightbox currently "open" on the page?
+		// (If your active state uses a class other than '.active', like '.expanded' or '.open', add it here)
+		const activeLightbox = document.querySelector('.ec-card.active, .card-lb-box.active, .lbbox.active, .lbbox[style*="display: block"]');
+		if (activeLightbox) return true;
+
+		return false;
+	}
+	// This function acts as a strict bouncer for Layer 1.
+	// function isFilterSwipeLocked(target) {
+	// 	// 1. Is the user reading a blog post?
+	// 	const blogPost = document.getElementById("blog-post");
+	// 	if (blogPost && blogPost.style.display !== "none") return true;
+
+	// 	// 2. Are they touching inside a carousel or an ALREADY OPEN lightbox?
+	// 	// (Notice we removed .ec-card here, so hovering/touching an unclicked tile is allowed)
+	// 	if (target.closest(".cw, .ss-clip, .card-lb-box.active, .lbbox.active")) return true;
+
+	// 	// 3. Is ANY lightbox currently "open" anywhere on the page?
+	// 	// If an ec-card or lightbox has your active class, it locks the filter swipe.
+	// 	const activeLightbox = document.querySelector('.ec-card.active, .card-lb-box.active, .lbbox.active, .lbbox[style*="display: block"]');
+
+	// 	if (activeLightbox) return true;
+
+	// 	return false; // Nothing is open. Allow the filter swipe!
+	// }
+
+	function navigateFilter(direction) {
+		const buttons = Array.from(filterContainer.querySelectorAll('.filter-btn'));
+		if (!buttons.length) return;
+
+		const activeIndex = buttons.findIndex(btn => btn.classList.contains('active'));
+		if (activeIndex === -1) return;
+
+		let nextIndex = activeIndex + direction;
+
+		if (nextIndex >= buttons.length) nextIndex = 0;
+		if (nextIndex < 0) nextIndex = buttons.length - 1;
+
+		buttons[nextIndex].click();
+	}
+
+	// Mobile Touch Swipe
+	document.addEventListener('touchstart', (e) => {
+		if (e.touches.length > 1) return;
+
+		// If a lightbox/carousel is active, completely abort the filter swipe
+		if (isFilterSwipeLocked(e.target)) {
+			isSwiping = false;
+			return;
+		}
+
+		isSwiping = true;
+		startX = e.touches[0].clientX;
+		startY = e.touches[0].clientY;
+	}, { passive: true });
+
+	document.addEventListener('touchend', (e) => {
+		if (!isSwiping) return;
+
+		const diffX = startX - e.changedTouches[0].clientX;
+		const diffY = startY - e.changedTouches[0].clientY;
+
+		if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+			navigateFilter(diffX > 0 ? 1 : -1);
+		}
+
+		isSwiping = false;
+	}, { passive: true });
+
+	// Desktop Trackpad Swipe
+	let isTrackpadSwiping = false;
+	document.addEventListener('wheel', (e) => {
+		if (isTrackpadSwiping) return;
+
+		// If a lightbox/carousel is active, completely abort the filter swipe
+		if (isFilterSwipeLocked(e.target)) return;
+
+		if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 30) {
+			isTrackpadSwiping = true;
+			
+			navigateFilter(e.deltaX > 0 ? 1 : -1);
+
+			// setTimeout(() => { isTrackpadSwiping = false; }, 500);
+			setTimeout(() => { isTrackpadSwiping = false; }, 900);
+		}
+	}, { passive: true });
 }
 
 /* ── UNIFIED INITIALIZATION ── */
@@ -2197,6 +2304,8 @@ function unifiedInit() {
 	initCollapsibleCards();
 	initSS();
 	initSwipeNav();
+	initFilterSwipe();
+	// initCarouselSwipe();
 	initFadeIn();
 	initCountUp();
 	initSkills();

@@ -26,6 +26,7 @@
 	--text: #d0d3cd;
 	--contrast-text: #cacaca;
 	/* --tdim: #7a7e76; */
+	--tdim-fr: #7a7e76;
 	--tdim: var(--cbul);
 	--tmut: var(--tdim);
 	/* --miniheader: var(--dimtitle); */
@@ -53,17 +54,19 @@
 
 	--article-width: 1300px;
 
-	/* --port-header: var(--g); */
+	--port-header: var(--g);
 	/* --port-header: pink; */
-	--port-header: var(--accent2);
+	/* --port-header: var(--accent2); */
 	/* --port-hover: var(--gl); */
-	--port-hover: var(--accent);
-	/* --port-hover: pink; */
+	/* --port-hover: var(--accent); */
+	--port-hover: var(--gl);
 
 	/* --sb-active: var(--gl); */
-	--sb-active: var(--accent2);
+	/* --sb-active: var(--accent2); */
+	--sb-active: var(--g);
 	/* --sb-hover: var(--accent); */
-	--sb-hover: var(--g);
+	/* --sb-hover: var(--g); */
+	--sb-hover: var(--tdim-fr);
 	--sb-active-hover: var(--sb-hover);
 	--sb-text: var(--tdim);
 	--sb-font-weight: 500;
@@ -86,6 +89,12 @@
 	--dark: #313131;
 	--uni-gap: 10px;
 	--margin: 22px;
+
+	/* --pageMaxWidth: 900px; */
+	--pageMaxWidth: 1000px;
+	--blogAlt: var(--g);
+	--blogAlt2: color-mix(in srgb, var(--blogAlt) 70%, transparent);
+	/* --blogAlt: #5e5741cb; */
 }
 
 * {
@@ -270,7 +279,8 @@ img {
 	max-width: 100%;
 }
 ::-webkit-scrollbar {
-	width: 4px;
+	/* width: 4px; */
+	width: 6px;
 }
 ::-webkit-scrollbar-track {
 	/* background: var(--surface); */
@@ -281,7 +291,7 @@ img {
 	/* background: var(--g); */
 	background: var(--badge);
 	/* background: var(--accent); */
-	border-radius: 2px;
+	border-radius: 20px;
 }
 ::-webkit-scrollbar-thumb:hover {
 	/* background: var(--gl); */
@@ -322,7 +332,8 @@ img {
 header {
 	position: fixed;
 	top: 0;
-	left: var(--sw);
+	/* left: var(--sw); */
+	left: 0;
 	right: 0;
 	z-index: 1000;
 	padding: 20px;
@@ -392,13 +403,18 @@ header::before {
 	display: inline-flex;
 	width: auto;
 	border-radius: 100px;
-	border: 2px solid var(--gd);
-	background: hsla(109, 8%, 27%, 0.9);
+	/* border: 2px solid var(--gd); */
+	border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+	/* background: hsla(109, 8%, 27%, 0.9); */
+	background: color-mix(in srgb, var(--bg) 50%, transparent);
 	backdrop-filter: blur(3px);
 	-webkit-backdrop-filter: blur(3px);
 	padding: 5px;
 	/* padding: 7px 5px; */
-	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+	/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); */
+	box-shadow:
+		0 0px 8px -3px color-mix(in srgb, var(--text) 100%, transparent),
+		0 4px 10px 6px color-mix(in srgb, var(--bg) 100%, transparent);
 	transition: transform 0.45s ease-in-out;
 	/* will-change: transform; */
 	/* transform: translateZ(0); */
@@ -446,7 +462,8 @@ header::before {
 	position: relative;
 	overflow: hidden;
 	color: white;
-	background: #596453b5;
+	/* background: #596453b5; */
+	background: color-mix(in srgb, var(--text) 10%, transparent);
 	font-weight: 700;
 	font-size: 11.5px;
 	letter-spacing: 0.07em;
@@ -458,9 +475,9 @@ header::before {
 	white-space: nowrap;
 	z-index: 0;
 	transition: color 0.2s;
-	/* border: 2px solid var(--gd); */
-	/* border: 2px solid color-mix(in srgb, var(--gd) 20%, transparent); */
-	box-shadow: 0 0 5px -1px color-mix(in srgb, var(--gd) 80%, transparent);
+	border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+	/* box-shadow: 0 0 5px -1px color-mix(in srgb, var(--gd) 80%, transparent); */
+	box-shadow: 0 0 8px -4px color-mix(in srgb, var(--text) 80%, transparent);
 }
 .ni::after {
 	content: "";
@@ -469,7 +486,8 @@ header::before {
 	left: -100%;
 	width: 100%;
 	height: 100%;
-	background: var(--gd);
+	/* background: var(--gd); */
+	background: color-mix(in srgb, var(--text) 29%, transparent);
 	pointer-events: none;
 	z-index: -1;
 	transition: left 0s;
@@ -482,7 +500,8 @@ header::before {
 	transition: left 0.38s ease-out;
 }
 .ni.active {
-	background: var(--gd);
+	/* background: var(--gd); */
+	background: color-mix(in srgb, var(--text) 29%, transparent);
 	color: #fff;
 }
 .ni.active::after {
@@ -510,7 +529,6 @@ header::before {
 	position: absolute;
 	top: 100% !important;
 	left: 0%;
-	/* background: #ffffff9e; */
 	background: rgba(255, 255, 255, 0.9);
 	border-radius: 12px;
 	min-width: 190px;
@@ -535,7 +553,8 @@ header::before {
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	color: white;
-	background: var(--nav-drop);
+	/* background: var(--nav-drop); */
+	background: color-mix(in srgb, var(--bg) 80%, transparent);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 	transition: all 0.2s ease;
 }
@@ -553,16 +572,16 @@ header::before {
 	padding: 2px 16px 2px 26px;
 	font-size: 12px;
 	font-weight: 500;
-	/* color: var(--surface); */
-	/* color: var(--gd); */
-	/* color: var(--tdim); */
-	color: var(--nav-drop);
+	/* color: var(--nav-drop); */
+	color: color-mix(in srgb, var(--bg) 60%, transparent);
+
 	transition:
 		background 0.15s,
 		color 0.15s;
 }
 .dd-lnk:hover {
-	color: var(--gd) !important;
+	/* color: var(--gd) !important; */
+	color: color-mix(in srgb, var(--bg) 90%, transparent) !important;
 }
 .single-subnav {
 	padding: 2px 15px 2px 7px !important;
@@ -614,6 +633,7 @@ header::before {
 		inset -5px 0 15px -5px color-mix(in srgb, var(--border) 50%, transparent);
 
 	transition: all 0.3s ease-out;
+	/* display: none; */
 }
 
 /* #sb:hover {
@@ -689,6 +709,7 @@ header::before {
 #sb-nav {
 	flex: 1;
 	overflow-y: auto;
+	overflow-x: hidden;
 	padding: 10px 0;
 }
 
@@ -864,9 +885,11 @@ header::before {
 
 /* ═==============================═ MAIN LAYOUT & GLOBAL ── */
 #mn {
-	margin-left: var(--sw);
+	/* margin-left: var(--sw); */
+	margin-left: 0;
 	padding-top: calc(var(--navh) + 50px);
 }
+
 section {
 	scroll-margin-top: calc(var(--anchorh) + 0vh);
 }
@@ -895,7 +918,9 @@ section {
 }
 .sh-r {
 	flex: 1;
-	height: 15px;
+	/* height: 15px; */
+	/* height: 5px; */
+	height: 4px;
 	background: color-mix(in srgb, var(--port-hover) 50%, transparent);
 	transition: background 0.21s ease-in-out;
 }
@@ -950,10 +975,19 @@ section {
 /* ══ HERO & INTRO BAR ── */
 #hero {
 	padding: 20px 48px 0 48px;
+	container-type: inline-size;
+	
 }
 #hero h1 {
 	font-weight: 900;
 	font-size: clamp(44px, 7vw, 88px);
+	/* font-size: min(clamp(44px, 7vw, 88px),90vw); */
+	/* font-size: 2em; */
+	font-size: min(5.5cqi, 88px);
+	font-size: min(7.5cqi, 88px);
+	/* font-size: 7.5cqi; */
+	white-space: nowrap;	
+	
 	line-height: 0.92;
 	letter-spacing: -0.01em;
 	color: white;
@@ -996,8 +1030,10 @@ section {
 	gap: 7px;
 	padding: 5px 15px;
 	border-radius: 100px;
-	border: 2px solid var(--accent);
-	color: var(--accent);
+	border: 2px solid var(--blogAlt);
+	color: var(--blogAlt);
+	/* border: 2px solid var(--accent);
+	color: var(--accent); */
 	font-weight: 800;
 	font-size: 11px;
 	letter-spacing: 0.1em;
@@ -1014,9 +1050,12 @@ section {
 	font-size: 14px;
 }
 .pbtn:hover {
-	background: var(--accent);
+	/* background: var(--accent); */
+	background: var(--blogAlt);
 	/* color: var(--bg); */
-	color: var(--border);
+	/* color: var(--border); */
+	/* color: var(--dimtitle); */
+	color: var(--bg);
 }
 
 /* ── READABILITY / LAYOUT HELPERS ── */
@@ -1103,6 +1142,62 @@ section {
 	flex-shrink: 0;
 	font-family: monospace;
 	letter-spacing: 0;
+}
+
+@media (min-width: 1051px) {
+	/* The Floating Sidebar Box */
+	#sb {
+		top: 100px;
+		left: 24px;
+		bottom: auto;
+		height: auto;
+		max-height: calc(100vh - 130px);
+		border-radius: 14px;
+		padding-top: 12px;
+		background: color-mix(in srgb, var(--bg) 30%, transparent);
+		border: 2.5px solid color-mix(in srgb, var(--border) 60%, transparent);
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+		/* Keeps the scrollbar looking clean inside the rounded box */
+		overflow: hidden;
+
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		/* display: none; */
+	}
+
+	/* Softens the progress bar edges to match the box */
+	#sb-prog,
+	#sb-fill {
+		border-radius: 100px;
+	}
+
+	/* Perfectly Center Content & Prevent Sidebar Overlap */
+	#mn {
+		/* Symmetrical padding forces the internal content to be perfectly centered relative 
+		   to the whole screen, while ensuring it NEVER overlaps the 250px sidebar */
+		padding-left: calc(var(--sw) + 10px);
+		padding-right: calc(var(--sw) + 10px);
+		/* padding-right: 0; */
+		/* display: flex;
+		flex-direction: column;
+		align-items: center; */
+	}
+
+	/* Enforce width bounds on all sections */
+	section {
+		width: 100%;
+		/* max-width: 1200px; */
+		max-width: 1600px;
+		/* min-width: 400px; */
+		margin: 0 auto;
+	}
+
+	footer {
+		min-width: 100vw !important;
+		/* margin: 0 !important; */
+		margin-bottom: 20px;
+		/* padding: 0; */
+	}
 }
 
 /* ══════════════════════════════════════════════════════════ */
@@ -1457,7 +1552,7 @@ section {
 .ecm span:not(:last-child)::after {
 	content: " // ";
 	margin: 0 5px;
-	opacity: 1;
+	opacity: .7;
 	font-weight: normal;
 	color: var(--dimtitle);
 }
@@ -1909,23 +2004,17 @@ section {
 }
 
 .lbi {
-    width: auto;
-    /* height: auto; */
+	width: auto;
+	/* height: auto; */
 	height: 100vw;
-    max-height: 100%;
-    max-width: calc(100vw - 100px); 
-    border-radius: 8px;
-    /* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); */
+	/* min-height: 70vw; */
+	max-height: 100%;
+	max-width: calc(100vw - 100px);
+	border-radius: 8px;
+	/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); */
 	filter: drop-shadow(0 4px 24px color-mix(in srgb, var(--bg) 70%, transparent));
 	/* object-fit: contain; */
-
-
 }
-
-
-
-
-
 
 /* Bottom Control Bar */
 .lb-bottom {
@@ -1933,28 +2022,81 @@ section {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 80px;
+	/* height: 80px; */
+	height: auto;
+
 	display: flex;
 	align-items: center;
 	justify-content: center; /* Centered to hug caption */
 	gap: 15px; /* 15px buffer between arrows and text */
 	padding: 0 20px;
+	/* margin-bottom: min(10px,1vh); */
 	margin-bottom: 20px;
-	pointer-events: none; /* Let clicks pass through empty space */
+	pointer-events: none;
 	z-index: 10000;
+	padding-top: 20px;
+	/* padding-top: 5px; */
+}
+.ec-cap {
+	position: absolute;
+	/* bottom: 0; */
+	top: 20px;
+	/* top: 0px; */
+	right: 40px;
+	left: 0px;
+	width: 100%;
+	/* height: 80px; */
+	height: auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: center; 
+	/* gap: 15px; */
+	padding: 0 20px;
+	margin-bottom: 20px;
+	z-index: 10000;
+	/* padding-top: 20px; */
+	
+
+
+	  position: fixed;
+      top: -40px;
+      /* top: -50px; */
+      background: transparent;
+
+}
+
+.cap-bubble {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* height: 35px; */
+	/* height: 40px; */
+
+	margin: 0;
+	border-radius: 100px;
+	background: color-mix(in srgb, var(--bg) 100%, transparent);
+	/* border: 2px solid color-mix(in srgb, var(--bg) 100%, transparent); */
+	/* backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px); */
+	/* height: auto; */
+	/* padding: 30px 0 !important; */
 }
 
 .lbcap {
-	position: relative; /* Restored to flow state to hug arrows */
+	position: relative;
 	left: auto;
 	transform: none;
-	width: 100%; /* Force constant width so arrows don't shift */
-	max-width: 300px; /* Fixed max bounds for the caption text */
+	width: 100%;
+	/* min-width: min(90vw, 200px); */
+	min-width: min(90vw, 300px);
+	max-width: 300px;
+	/* max-width: 300px; */
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
 	text-align: center;
 	line-height: 1.4;
-	pointer-events: auto; /* Allow links in caption to be clicked */
+	pointer-events: auto;
 }
 
 .lbcap a {
@@ -2008,6 +2150,7 @@ section {
 		transform 0.15s;
 	cursor: pointer;
 	z-index: 2;
+	/* padding-bottom: 2px; */
 }
 .fas,
 .fa-chevron-left,
@@ -2060,7 +2203,6 @@ section {
 .about-photo-wrap:hover .about-photo {
 	transform: scale(1.3) translateZ(0);
 }
-
 
 .about-name {
 	font-weight: 900;
@@ -2128,13 +2270,15 @@ section {
 	line-height: 1.2;
 	margin-bottom: 10px;
 	width: clamp(50%, 1000px, 100%);
-	text-align: left;
+	/* text-align: left; */
+	text-align: center;
 }
 .about-bio span {
 	/* color: var(--accent2); */
 	/* color: white; */
 	/* background: var(--accent2); */
-	background: color-mix(in srgb, var(--accent2) 40%, transparent);
+	/* background: color-mix(in srgb, var(--accent2) 40%, transparent); */
+	background: color-mix(in srgb, var(--g) 40%, transparent);
 	border-radius: 100px;
 	padding: 0px 10px;
 	font-weight: 500;
@@ -2976,14 +3120,32 @@ footer {
 	.mobile-menu-btn {
 		display: block !important;
 		border-radius: 100px;
-		border: 2px solid var(--gd);
-		background: #424b40b7;
+		/* border: 2px solid var(--gd); */
+		/* background: color-mix(in srgb, var(--text) 29%, transparent); */
+		/* background: color-mix(in srgb, var(--bg) 50%, transparent); */
 		backdrop-filter: blur(4px);
 		-webkit-backdrop-filter: blur(4px);
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+		/* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); */
+		border: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+		box-shadow: 0 0 8px -4px color-mix(in srgb, var(--text) 80%, transparent);
 		padding: 12px 14px;
-		/* color: #b4bdafb5; */
 		color: var(--text);
+
+		position: relative;
+		z-index: 1;
+		background: color-mix(in srgb, var(--text) 10%, transparent);
+	}
+	.mobile-menu-btn::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		border-radius: inherit;
+
+		background: color-mix(in srgb, var(--bg) 50%, transparent);
 	}
 	.nav-center {
 		padding: 0 0px;
@@ -3242,9 +3404,13 @@ footer {
 	height: 32px;
 	height: max-content;
 	padding: 8px 16px;
-	border: 1.5px solid var(--dimtitle);
+	/* border: 1.5px solid var(--dimtitle); */
+	/* border: 2px solid var(--dimtitle);
+	color: var(--dimtitle); */
+	border: 2px solid var(--tdim-fr);
+	color: var(--tdim-fr);
 	background: transparent;
-	color: var(--dimtitle);
+	/* background: color-mix(in srgb, var(--g) 10%, transparent); */
 	font-family: "Rubik", sans-serif;
 	font-weight: 700;
 	font-size: 11.5px;
@@ -3257,15 +3423,21 @@ footer {
 }
 
 .filter-btn:hover {
-	border-color: var(--accent2);
-	color: var(--accent2);
+	/* border-color: var(--accent2);
+	color: var(--accent2); */
+	border-color: var(--g);
+	color: var(--g);
 	transform: translateY(-1px);
+	/* background: color-mix(in srgb, var(--g) 10%, transparent); */
+	background: color-mix(in srgb, var(--g) 5%, transparent);
 }
 
 .filter-btn.active {
-	border-color: var(--accent2);
+	/* border-color: var(--accent2); */
+	border-color: var(--g);
 	color: var(--bg);
-	background: var(--accent2);
+	/* background: var(--accent2); */
+	background: var(--g);
 }
 /* #blog-filters {
 	display: flex;
@@ -3273,6 +3445,9 @@ footer {
 	gap: 10px;
 	margin-top: -25px;
 	flex-wrap: wrap;
+} */
+/* .blog-info {
+    min-width: 0 !important;
 } */
 @media (max-width: 1050px) {
 	#blog-filters {
@@ -3350,7 +3525,9 @@ footer {
 	/* font-size: clamp(18px, 1.2vw, 22px); */
 	/* font-weight: 800; */
 	/* letter-spacing: 0.12em; */
-	color: var(--dimtitle);
+	/* color: var(--dimtitle); */
+	/* color: var(--tdim-fr); */
+	color: color-mix(in srgb, var(--dimtitle) 85%, transparent);
 	text-transform: uppercase;
 	margin-bottom: 18px !important;
 	border-bottom: 2px solid color-mix(in srgb, var(--border) 50%, transparent);
@@ -3369,18 +3546,15 @@ footer {
 	align-items: center;
 	/* padding: 7px 16px; */
 	padding: 2px 9px;
-	/* border-radius: 100px; */
+	/* border-radius: 100px !important; */
 	border-radius: 5px;
-	/* background: color-mix(in srgb, var(--badge) 12%, transparent); */
-	/* background: color-mix(in srgb, var(--badge) 20%, transparent); */
-	background: color-mix(in srgb, var(--badge) 15%, transparent);
-	/* border: 1px solid color-mix(in srgb, var(--badge) 35%, transparent); */
+	background: color-mix(in srgb, var(--border) 15%, transparent);
+	border: 1px solid var(--border);
+	color: var(--tdim-fr);
+	/* background: color-mix(in srgb, var(--badge) 15%, transparent);
 	border: 1px solid var(--badge);
-	/* border: 1px solid var(--dull); */
-	/* color: var(--tdim); */
-	/* color: var(--badge); */
-	/* color: var(--dull); */
-	color: var(--g);
+	color: var(--g); */
+
 	/* font-size: 11.5px; */
 	font-size: clamp(10px, 0.6vw, 13px);
 	/* font-weight: 600; */
@@ -3411,16 +3585,20 @@ footer {
 .uni-card {
 	/* background: color-mix(in srgb, var(--bg) 50%, transparent); */
 	background: color-mix(in srgb, var(--bg) 10%, transparent);
+	/* background: color-mix(in srgb, var(--bg) 30%, transparent); */
+	/* background: color-mix(in srgb, black 30%, transparent); */
 	/* background: pink; */
 	/* border: 3px solid color-mix(in srgb, var(--border) 30%, transparent); */
 	/* border: 3px solid color-mix(in srgb, var(--border) 50%, transparent); */
-	border: 3px solid color-mix(in srgb, var(--dark) 50%, transparent);
+	/* border: 3px solid color-mix(in srgb, var(--dark) 50%, transparent); */
+	/* border: 3px solid color-mix(in srgb, white 30%, transparent); */
+	border: 2.5px solid color-mix(in srgb, white 30%, transparent);
 	border-radius: 10px;
 	overflow: hidden;
 	transition: all 0.3s ease-in-out;
 	/* was 6px blur before */
-	backdrop-filter: blur(6px);
-	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
 	/* box-shadow: 0 0 15px 2px color-mix(in srgb, var(--bg) 50%, transparent); */
 	box-shadow: 0 0 20px 0px color-mix(in srgb, var(--bg) 50%, transparent);
 }
@@ -3433,13 +3611,34 @@ footer {
 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
 		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
 } */
- .uni-card:hover {
+/* .uni-card:hover {
 	transform: translateY(-3px);
 	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
 	box-shadow:
 		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
 		inset -50px -50px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
+} */
+/* .uni-card:hover {
+	transform: translateY(-3px);
+	background: var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
+	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
+	box-shadow:
+		0 10px 30px rgba(0, 0, 0, 0.3),
+		inset -15px -15px 30px -10px color-mix(in srgb, var(--g) 40%, transparent),
+		inset -80px -80px 120px -20px color-mix(in srgb, var(--g) 15%, transparent);
+} */
+.uni-card:hover {
+	transform: translateY(-3px);
+	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
+	/* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); */
+	box-shadow:
+		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
+		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
+	/* Stacks a corner-originating glow over your default hover background */
+	background:
+		radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--g) 30%, transparent) 0%, transparent 70%),
+		var(--card-hover-bg, color-mix(in srgb, var(--gd) 50%, transparent));
 }
 
 .uni-btn {
@@ -3479,6 +3678,7 @@ footer {
 		flex-wrap: wrap;
 		justify-content: center;
 		gap: 15px;
+		display: none;
 	}
 
 	.fcopy {
@@ -3486,6 +3686,7 @@ footer {
 		font-size: 12px;
 		width: 100%;
 		margin-top: 5px;
+		color: var(--tdim-fr);
 	}
 }
 
@@ -3493,6 +3694,7 @@ footer {
 .card-stack.tile-mode {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+	/* grid-template-columns: 1fr 1fr; */
 	justify-content: start;
 	align-items: stretch;
 	gap: var(--uni-gap);
@@ -3609,70 +3811,6 @@ body {
 	overflow-x: hidden;
 }
 
-/* Move the background to the parent section so the mask doesn't fade it */
-.marquee {
-    background: linear-gradient(
-        to right,
-        transparent 0%,
-        var(--g) 5%,
-        var(--g) 95%,
-        transparent 100%
-    );
-}
-
-.marquee {
-    width: 100%;
-    overflow: hidden;
-    padding: 15px 0;
-    /* Removed the gap here to prevent math conflicts */
-    display: flex; 
-    
-    transform: translateZ(0);
-    isolation: isolate;
-    
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.marquee-track {
-    display: flex;
-    /* Use gap for inner logo spacing */
-    gap: 80px; 
-    /* Use padding-right to act as the gap between this track and the next clone */
-    padding-right: 80px; 
-    flex-shrink: 0; 
-    align-items: center;
-    animation: scroll 20s linear infinite;
-}
-
-.marquee-track img {
-    height: 40px;
-    width: auto; 
-    /* Preserves dual-tones while making them light and uniform */
-    filter: invert(1) grayscale(100%) brightness(1.5);
-    opacity: 0.9;
-}
-
-@keyframes scroll {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        /* Flawless loop: moves exactly its own width (which now natively includes the padding gap) */
-        transform: translateX(-100%);
-    }
-}
-
-/* Update the mobile media query at the bottom of your file */
-@media (max-width: 1050px) {
-    .marquee-track {
-        gap: 40px;
-        padding-right: 40px;
-    }
-    /* You no longer need to redefine the @keyframes scroll in the media query! */
-}
-
-
 @media (max-width: 1050px) {
 	body::after {
 		/* background-size: 25px 25px; */
@@ -3683,6 +3821,7 @@ body {
 	.lbi {
 		/* max-width: 95vw; */
 		max-width: calc(100vw - 40px);
+		height: auto;
 	}
 	.lb-bottom {
 		padding: 0 15px;
@@ -3694,90 +3833,84 @@ body {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
 /* Lightbox Wrapper */
 #lb {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    
-    /* THE FIX: Use visibility instead of opacity for the wrapper to bypass the browser bug */
-    visibility: hidden;
-    transition: visibility 0s linear 0.25s; /* Delays hiding until child animations finish closing */
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+
+	/* THE FIX: Use visibility instead of opacity for the wrapper to bypass the browser bug */
+	visibility: hidden;
+	transition: visibility 0s linear 0.25s; /* Delays hiding until child animations finish closing */
 }
 #lb.open {
-    pointer-events: all;
-    visibility: visible;
-    transition: visibility 0s linear 0s; /* Appears instantly so children can begin animating */
+	pointer-events: all;
+	visibility: visible;
+	transition: visibility 0s linear 0s; /* Appears instantly so children can begin animating */
 }
 
 /* The Blur Backdrop */
 .lbb {
-    position: absolute;
-    inset: 0;
-    cursor: pointer;
-    
-    /* Start State */
-    /* background: rgba(35, 41, 34, 0); */
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    
-    /* FIX: GPU Pre-warming to stop first-load flashes */
-    transform: translateZ(0);
-    will-change: background, backdrop-filter;
-    
-    /* Smooth out-transition (when closing has no delay) */
-    transition: background 0.25s ease-out, backdrop-filter 0.25s ease-out, -webkit-backdrop-filter 0.25s ease-out;
+	position: absolute;
+	inset: 0;
+	cursor: pointer;
+
+	/* Start State */
+	/* background: rgba(35, 41, 34, 0); */
+	backdrop-filter: blur(0px);
+	-webkit-backdrop-filter: blur(0px);
+
+	/* FIX: GPU Pre-warming to stop first-load flashes */
+	transform: translateZ(0);
+	will-change: background, backdrop-filter;
+
+	/* Smooth out-transition (when closing has no delay) */
+	transition:
+		background 0.25s ease-out,
+		backdrop-filter 0.25s ease-out,
+		-webkit-backdrop-filter 0.25s ease-out;
 }
 
 #lb.open .lbb {
-    /* End State */
-    /* background: rgba(35, 41, 34, 0.88); */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+	/* End State */
+	/* background: rgba(35, 41, 34, 0.88); */
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
 
-    /* FIX: A tiny 20ms delay when OPENING lets the browser construct the GPU layer before fading */
-    transition: background 0.25s ease-out 0.02s, backdrop-filter 0.25s ease-out 0.02s, -webkit-backdrop-filter 0.25s ease-out 0.02s;
+	/* FIX: A tiny 20ms delay when OPENING lets the browser construct the GPU layer before fading */
+	transition:
+		background 0.25s ease-out 0.02s,
+		backdrop-filter 0.25s ease-out 0.02s,
+		-webkit-backdrop-filter 0.25s ease-out 0.02s;
 }
 
 /* The Content Wrapper (Images and Buttons) */
 .lbbox {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 70px 20px 80px 20px;
-    z-index: 1;
-    pointer-events: none; 
-	
-    
-    /* Independently fade the contents */
-    opacity: 0;
-    transform: translateZ(0);
-    will-change: opacity;
-    transition: opacity 0.25s ease-out;
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 70px 20px 80px 20px;
+	z-index: 1;
+	pointer-events: none;
+
+	/* Independently fade the contents */
+	opacity: 0;
+	transform: translateZ(0);
+	will-change: opacity;
+	transition: opacity 0.25s ease-out;
 }
 
 #lb.open .lbbox {
-    opacity: 1;
-    /* Match the 20ms micro-delay so the image fades in sync with the background */
-    transition: opacity 0.25s ease-out 0.02s;
+	opacity: 1;
+	/* Match the 20ms micro-delay so the image fades in sync with the background */
+	transition: opacity 0.25s ease-out 0.02s;
 }
 
 /* ══ GPU PRE-WARM (fixes first-open flash) ──
@@ -3789,16 +3922,127 @@ body {
    (fully invisible to the user), so those layers are built and cached
    before the visitor ever clicks a photo. */
 #lb.lb-prewarm {
-    visibility: visible;
-    opacity: 0;
+	visibility: visible;
+	opacity: 0;
 }
 #lb.lb-prewarm .lbb {
-    background: rgba(35, 41, 34, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: none !important;
+	background: rgba(35, 41, 34, 0.88);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	transition: none !important;
 }
 #lb.lb-prewarm .lbbox {
-    opacity: 1;
-    transition: none !important;
+	opacity: 1;
+	transition: none !important;
+}
+
+@media (max-width: 500px) {
+	#floating-dl-btn {
+		font-size: 0 !important;
+		/* padding: 0 !important; */
+		/* width: 46px; */
+		/* height: 46px; */
+		/* border-radius: 50%; */
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0 !important;
+	}
+
+	#floating-dl-btn i {
+		font-size: 16px !important;
+		margin: 0 !important;
+	}
+}
+
+/* MARQUEE CONTAINER */
+.marquee {
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	user-select: none;
+	/* width: 100%; */
+	width: var(--pageMaxWidth);
+	/* max-width: var(--pageMaxWidth); */
+	gap: 80px; /* Spacing between Track 1 and Track 2 */
+
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	padding: 10px 0;
+	border: 3px solid var(--border);
+
+	/* background: linear-gradient(to right, transparent 0%, var(--g) 5%, var(--g) 95%, transparent 100%); */
+	-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+	mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+
+}
+
+/* THE TRACKS */
+.marquee-track {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	min-width: 100%; /* Ensures tracks are wide enough to cover the screen */
+	gap: 80px; /* Spacing between images within the track */
+
+	animation: scroll-marquee 20s linear infinite;
+}
+
+/* Pause the scrolling if the user hovers over it */
+/* .marquee:hover .marquee-track {
+    animation-play-state: paused;
+} */
+
+/* THE IMAGES */
+.marquee-track img {
+	height: 40px;
+	width: auto;
+	flex-shrink: 0; /* Forces images to keep aspect ratio and not squish */
+	margin: 0;
+	padding: 0;
+
+	filter: invert(1) grayscale(100%) brightness(1.5);
+	opacity: 0.9;
+}
+
+/* FLAWLESS LOOP MATH */
+@keyframes scroll-marquee {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		/* Moves the track exactly its width, PLUS the gap width. 
+           This makes Track 2 snap instantly to where Track 1 started. */
+		transform: translateX(calc(-100% - 80px));
+	}
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 1050px) {
+/* @media (max-width: 1650px) { */
+	.marquee {
+	gap: 40px;
+	/* width: 90vw; */
+	width: calc(100vw - 22px);
+
+	-webkit-mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(90%), transparent 100%);
+	mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(90%), transparent 100%);
+	/* -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(100% - 40px), transparent 100%);
+	mask-image: linear-gradient(to right, transparent 0%, black 40px, black calc(100% - 40px), transparent 100%); */
+}
+	/* #marquee {
+		padding: 40px 22px;
+	} */
+	.marquee-track {
+		gap: 40px; /* Shrink inner gap */
+	}
+	@keyframes scroll-marquee {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			/* Update the math to match the new 40px gap */
+			transform: translateX(calc(-100% - 40px));
+		}
+	}
 }
