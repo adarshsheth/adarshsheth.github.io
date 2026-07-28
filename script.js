@@ -145,75 +145,6 @@ function setH(id, animate) {
 	}
 }
 
-// function sw(id, idx, section, doScroll = true) {
-// 	const s = SS[id];
-// 	if (!s) return;
-// 	const prev = s.cur;
-
-// 	if (prev === idx) {
-// 		(TABS[id] || []).forEach((bid, i) => {
-// 			const b = document.getElementById(bid);
-// 			if (b) b.disabled = i === idx;
-// 		});
-// 		updateURLd(section);
-// 		if (doScroll) {
-// 			if (window._lockNav) window._lockNav();
-// 			if (window._hideNav) window._hideNav();
-// 			const el = document.getElementById(ANC[id]);
-// 			if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
-// 		}
-// 		return;
-// 	}
-// 	s.cur = idx;
-
-// 	const prevSlide = s.slides[prev];
-// 	if (prevSlide) {
-// 		const prevCard = prevSlide.querySelector(".ec");
-// 		if (prevCard) prevCard.classList.remove("visible");
-// 		prevSlide.style.visibility = "hidden";
-// 	}
-// 	// const prevSlide = s.slides[prev];
-// 	// if (prevSlide) {
-// 	// 	const prevCard = prevSlide.querySelector(".ec");
-// 	// 	if (prevCard) prevCard.classList.remove("visible");
-
-// 	// 	// THE FIX: Delay the visibility toggle so the card can slide and fade out smoothly
-// 	// 	setTimeout(() => {
-// 	// 		// Ensure the user hasn't quickly navigated back to this slide
-// 	// 		if (s.cur !== prev) {
-// 	// 			prevSlide.style.visibility = "hidden";
-// 	// 		}
-// 	// 	}, 500); // 500ms covers both the 0.4s slide and 0.5s fade transitions
-// 	// }
-
-// 	const newSlide = s.slides[idx];
-// 	if (newSlide) {
-// 		newSlide.style.visibility = "visible";
-// 		const newCard = newSlide.querySelector(".ec");
-// 		if (newCard) {
-// 			newCard.classList.remove("visible");
-// 			void newCard.offsetWidth;
-// 			newCard.classList.add("visible");
-// 		}
-// 	}
-
-// 	s.fr.style.transform = `translateX(-${idx * s.w}px)`;
-// 	requestAnimationFrame(() => setH(id, true));
-
-// 	(TABS[id] || []).forEach((bid, i) => {
-// 		const b = document.getElementById(bid);
-// 		if (b) b.disabled = i === idx;
-// 	});
-
-// 	updateURLd(section);
-// 	if (doScroll) {
-// 		if (window._lockNav) window._lockNav();
-// 		if (window._hideNav) window._hideNav();
-// 		const el = document.getElementById(ANC[id]);
-// 		if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
-// 	}
-// }
-
 function sw(id, idx, section, doScroll = true) {
 	const s = SS[id];
 	if (!s) return;
@@ -380,19 +311,6 @@ function handleURL() {
 	}
 }
 
-/* ── SMOOTH SCROLL NAVIGATOR ── */
-// function scrollToSec(id) {
-// 	if (window._lockNav) window._lockNav();
-// 	if (window._hideNav) window._hideNav();
-
-// 	if (id === "top") {
-// 		window.scrollTo({top: 75, behavior: "smooth"});
-// 		return;
-// 	}
-
-// 	const el = document.getElementById(id);
-// 	if (el) el.scrollIntoView({behavior: "smooth", block: "start"});
-// }
 function scrollToSec(id) {
 	if (window._lockNav) window._lockNav();
 
@@ -482,27 +400,6 @@ function closeSidebar() {
 	document.body.style.overflow = "";
 }
 
-/* ── DESKTOP SIDEBAR HOVER EFFECT ── */
-// document.addEventListener("DOMContentLoaded", () => {
-// 	const sb = document.getElementById("sb");
-// 	const overlay = document.getElementById("sb-overlay");
-
-// 	if (sb && overlay) {
-// 		sb.addEventListener("mouseenter", () => {
-// 			// Only trigger on desktop screens (> 1050px)
-// 			if (window.innerWidth > 1050) {
-// 				overlay.classList.add("show");
-// 			}
-// 		});
-
-// 		sb.addEventListener("mouseleave", () => {
-// 			// Remove the overlay when mouse leaves, making sure we don't accidentally close a toggled mobile menu
-// 			if (window.innerWidth > 1050 && !sb.classList.contains("sb-open")) {
-// 				overlay.classList.remove("show");
-// 			}
-// 		});
-// 	}
-// });
 
 /* ── UNIFIED SCROLL ENGINE (NAV & SIDEBAR) ─────────────────────────── */
 let isScrollTicking = false;
@@ -576,50 +473,6 @@ function initNavHoverStates() {
 			navDelta = 0;
 		}
 	};
-
-	// window._hideNav = function () {
-	// 	if (!navHid) {
-	// 		hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
-	// 		hdr.style.transform = "translateY(-150%)";
-	// 		// hdr.style.transition = "transform 0.48s cubic-bezier(0.4, 0, 0.8, 1)";
-	// 		// hdr.style.transform = "translateY(-250%)";
-	// 		navHid = true;
-	// 		navDelta = 0;
-	// 		hdr.querySelectorAll(".ndrop.open").forEach((drop) => drop.classList.remove("open"));
-	// 	}
-	// };
-
-	// window._hideNav = function () {
-	// 	if (!navHid) {
-	// 		hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
-	// 		hdr.style.transform = "translateY(-150%)";
-	// 		navHid = true;
-	// 		navDelta = 0;
-
-	// 		// Force close mobile dropdowns and OVERRIDE lingering :hover CSS
-	// 		hdr.querySelectorAll(".ndrop").forEach((drop) => {
-	// 			drop.classList.remove("open");
-	// 			const navDd = drop.querySelector(".nav-dd");
-	// 			if (navDd) {
-	// 				navDd.style.setProperty("display", "none", "important");
-	// 				setTimeout(() => navDd.style.removeProperty("display"), 300);
-	// 			}
-	// 		});
-	// 	}
-	// };
-
-	// window._hideNav = function () {
-	// 	if (!navHid) {
-	// 		hdr.style.transition = "transform 0.28s cubic-bezier(0.4, 0, 0.8, 1)";
-	// 		hdr.style.transform = "translateY(-150%)";
-	// 		// hdr.style.transform = "translateY(-15%)";
-	// 		navHid = true;
-	// 		navDelta = 0;
-
-	// 		// Instantly close mobile dropdowns
-	// 		hdr.querySelectorAll(".ndrop").forEach((drop) => drop.classList.remove("open"));
-	// 	}
-	// };
 
 	window._hideNav = function () {
 		if (!navHid) {
@@ -749,347 +602,6 @@ function runCoreScrollTasks(sy) {
 		}
 	}
 }
-
-/* ── CAROUSELS ── */
-// function initCarousels() {
-// 	// REVERTED: IntersectionObserver removed completely. We loop over all carousels immediately on load.
-// 	document.querySelectorAll(".cw").forEach((wrap) => {
-// 		const inner = wrap.querySelector(".cw-inner");
-// 		if (!inner) return;
-// 		const imgs = inner.querySelectorAll(".cimg");
-// 		if (!imgs.length) return;
-
-// 		// INSTANT REVERT: Swap data-src to src immediately on load.
-// 		// Doing this BEFORE initSS() ensures the images load and heights are computed properly.
-// 		imgs.forEach((img) => {
-// 			if (img.dataset.src) {
-// 				img.src = img.dataset.src;
-// 				img.removeAttribute("data-src");
-// 			}
-// 		});
-
-// 		let node = wrap,
-// 			dotsEl = null,
-// 			capEl = null;
-// 		for (let i = 0; i < 4; i++) {
-// 			node = node.nextElementSibling;
-// 			if (!node) break;
-// 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
-// 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
-// 		}
-
-// 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
-// 		let cur = 0,
-// 			timer = null;
-
-// 		function show(i) {
-// 			const prevEl = imgs[cur];
-// 			if (prevEl) prevEl.classList.remove("on");
-// 			if (dots[cur]) dots[cur].classList.remove("on");
-
-// 			cur = (i + imgs.length) % imgs.length;
-
-// 			const newEl = imgs[cur];
-
-// 			if (newEl) newEl.classList.add("on");
-// 			if (dots[cur]) dots[cur].classList.add("on");
-
-// 			if (capEl) {
-// 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
-// 				const link = imgs[cur].dataset.link || "";
-// 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-// 				else capEl.textContent = cap;
-// 			}
-
-// 			const clip = wrap.closest(".ss-clip");
-// 			if (clip) {
-// 				const id = clip.id.replace("-clip", "");
-// 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
-// 			}
-// 		}
-
-// 		function startAutoPlay() {
-// 			clearTimeout(timer);
-// 			if (imgs.length <= 1) return;
-
-// 			let currentMedia = imgs[cur];
-// 			let duration = 5000;
-
-// 			if (currentMedia.dataset.interval) {
-// 				duration = parseInt(currentMedia.dataset.interval);
-// 			} else if (wrap.dataset.interval) {
-// 				duration = parseInt(wrap.dataset.interval);
-// 			} else if (currentMedia.tagName === "VIDEO") {
-// 				duration = 6000;
-// 			} else {
-// 				duration = 3500;
-// 			}
-
-// 			timer = setTimeout(() => {
-// 				show(cur + 1);
-// 				startAutoPlay();
-// 			}, duration);
-// 		}
-
-// 		dots.forEach((d, i) =>
-// 			d.addEventListener("click", (e) => {
-// 				e.stopPropagation();
-// 				show(i);
-// 				startAutoPlay();
-// 			}),
-// 		);
-
-// 		wrap.addEventListener("click", () => {
-// 			const tag = imgs[cur]?.tagName;
-// 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
-// 		});
-
-// 		show(0);
-// 		startAutoPlay();
-// 	});
-// }
-
-/* ── CAROUSELS ── */
-// function initCarousels() {
-// 	document.querySelectorAll(".cw").forEach((wrap) => {
-// 		const inner = wrap.querySelector(".cw-inner");
-// 		if (!inner) return;
-// 		const imgs = inner.querySelectorAll(".cimg");
-// 		if (!imgs.length) return;
-
-// 		// ❌ THE EAGER LOAD LOOP HAS BEEN DELETED FROM HERE ❌
-
-// 		let node = wrap,
-// 			dotsEl = null,
-// 			capEl = null;
-// 		for (let i = 0; i < 4; i++) {
-// 			node = node.nextElementSibling;
-// 			if (!node) break;
-// 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
-// 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
-// 		}
-
-// 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
-// 		let cur = 0,
-// 			timer = null;
-
-// 		function show(i) {
-// 			const prevEl = imgs[cur];
-// 			if (prevEl) prevEl.classList.remove("on");
-// 			if (dots[cur]) dots[cur].classList.remove("on");
-
-// 			cur = (i + imgs.length) % imgs.length;
-
-// 			const newEl = imgs[cur];
-
-// 			// ✅ THE FIX: JUST-IN-TIME LAZY LOADING ✅
-// 			if (newEl && newEl.dataset.src) {
-// 				newEl.src = newEl.dataset.src;
-
-// 				// Fixes the 0-height bug: recalculate height only when this specific media loads
-// 				const updateHeight = () => {
-// 					const clip = wrap.closest(".ss-clip");
-// 					if (clip) {
-// 						const id = clip.id.replace("-clip", "");
-// 						if (SS[id]) requestAnimationFrame(() => setH(id, true));
-// 					}
-// 				};
-
-// 				if (newEl.tagName === "VIDEO") {
-// 					newEl.addEventListener("loadeddata", updateHeight, {once: true});
-// 					newEl.load(); // Force the browser to start fetching the video
-// 				} else {
-// 					newEl.addEventListener("load", updateHeight, {once: true});
-// 				}
-
-// 				newEl.removeAttribute("data-src");
-// 			}
-
-// 			if (newEl) newEl.classList.add("on");
-// 			if (dots[cur]) dots[cur].classList.add("on");
-
-// 			if (capEl) {
-// 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
-// 				const link = imgs[cur].dataset.link || "";
-// 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-// 				else capEl.textContent = cap;
-// 			}
-
-// 			const clip = wrap.closest(".ss-clip");
-// 			if (clip) {
-// 				const id = clip.id.replace("-clip", "");
-// 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
-// 			}
-// 		}
-
-// 		function startAutoPlay() {
-// 			clearTimeout(timer);
-// 			if (imgs.length <= 1) return;
-
-// 			let currentMedia = imgs[cur];
-// 			let duration = 5000;
-
-// 			if (currentMedia.dataset.interval) {
-// 				duration = parseInt(currentMedia.dataset.interval);
-// 			} else if (wrap.dataset.interval) {
-// 				duration = parseInt(wrap.dataset.interval);
-// 			} else if (currentMedia.tagName === "VIDEO") {
-// 				duration = 6000;
-// 			} else {
-// 				duration = 3500;
-// 			}
-
-// 			timer = setTimeout(() => {
-// 				show(cur + 1);
-// 				startAutoPlay();
-// 			}, duration);
-// 		}
-
-// 		dots.forEach((d, i) =>
-// 			d.addEventListener("click", (e) => {
-// 				e.stopPropagation();
-// 				show(i);
-// 				startAutoPlay();
-// 			}),
-// 		);
-
-// 		wrap.addEventListener("click", () => {
-// 			const tag = imgs[cur]?.tagName;
-// 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
-// 		});
-
-// 		show(0);
-// 		startAutoPlay();
-// 	});
-// }
-
-/* ── CAROUSELS ── */
-// function initCarousels() {
-// 	document.querySelectorAll(".cw").forEach((wrap) => {
-// 		const inner = wrap.querySelector(".cw-inner");
-// 		if (!inner) return;
-// 		const imgs = inner.querySelectorAll(".cimg");
-// 		if (!imgs.length) return;
-
-// 		let node = wrap,
-// 			dotsEl = null,
-// 			capEl = null;
-// 		for (let i = 0; i < 4; i++) {
-// 			node = node.nextElementSibling;
-// 			if (!node) break;
-// 			if (!dotsEl && node.classList.contains("cdots")) dotsEl = node;
-// 			if (!capEl && node.classList.contains("car-caption")) capEl = node;
-// 		}
-
-// 		const dots = dotsEl ? dotsEl.querySelectorAll(".cdot") : [];
-// 		let cur = 0,
-// 			timer = null;
-
-// 		// THE FIX: Silently load the next and previous slides in the background
-// 		function preloadAdjacent(index) {
-// 			const nextIdx = (index + 1) % imgs.length;
-// 			const prevIdx = (index - 1 + imgs.length) % imgs.length;
-
-// 			[nextIdx, prevIdx].forEach((idx) => {
-// 				const el = imgs[idx];
-// 				if (el && el.dataset.src) {
-// 					el.src = el.dataset.src;
-
-// 					const updateHeight = () => {
-// 						const clip = wrap.closest(".ss-clip");
-// 						if (clip) {
-// 							const id = clip.id.replace("-clip", "");
-// 							if (SS[id]) requestAnimationFrame(() => setH(id, true));
-// 						}
-// 					};
-
-// 					if (el.tagName === "VIDEO") {
-// 						el.addEventListener("loadeddata", updateHeight, {once: true});
-// 						el.load();
-// 					} else {
-// 						el.addEventListener("load", updateHeight, {once: true});
-// 					}
-
-// 					el.removeAttribute("data-src");
-// 				}
-// 			});
-// 		}
-
-// 		function show(i) {
-// 			const prevEl = imgs[cur];
-// 			if (prevEl) prevEl.classList.remove("on");
-// 			if (dots[cur]) dots[cur].classList.remove("on");
-
-// 			cur = (i + imgs.length) % imgs.length;
-// 			const newEl = imgs[cur];
-
-// 			// Failsafe: In case the user clicks multiple dots ahead very quickly
-// 			if (newEl && newEl.dataset.src) {
-// 				newEl.src = newEl.dataset.src;
-// 				newEl.removeAttribute("data-src");
-// 				if (newEl.tagName === "VIDEO") newEl.load();
-// 			}
-
-// 			if (newEl) newEl.classList.add("on");
-// 			if (dots[cur]) dots[cur].classList.add("on");
-
-// 			if (capEl) {
-// 				const cap = imgs[cur].dataset.cap || imgs[cur].alt || "";
-// 				const link = imgs[cur].dataset.link || "";
-// 				if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-// 				else capEl.textContent = cap;
-// 			}
-
-// 			const clip = wrap.closest(".ss-clip");
-// 			if (clip) {
-// 				const id = clip.id.replace("-clip", "");
-// 				if (SS[id]) requestAnimationFrame(() => setH(id, true));
-// 			}
-
-// 			// Trigger the background loader for the neighbors of the new slide
-// 			preloadAdjacent(cur);
-// 		}
-
-// 		function startAutoPlay() {
-// 			clearTimeout(timer);
-// 			if (imgs.length <= 1) return;
-
-// 			let currentMedia = imgs[cur];
-// 			let duration = 5000;
-
-// 			if (currentMedia.dataset.interval) {
-// 				duration = parseInt(currentMedia.dataset.interval);
-// 			} else if (wrap.dataset.interval) {
-// 				duration = parseInt(wrap.dataset.interval);
-// 			} else if (currentMedia.tagName === "VIDEO") {
-// 				duration = 6000;
-// 			} else {
-// 				duration = 3500;
-// 			}
-
-// 			timer = setTimeout(() => {
-// 				show(cur + 1);
-// 				startAutoPlay();
-// 			}, duration);
-// 		}
-
-// 		dots.forEach((d, i) =>
-// 			d.addEventListener("click", (e) => {
-// 				e.stopPropagation();
-// 				show(i);
-// 				startAutoPlay();
-// 			}),
-// 		);
-
-// 		wrap.addEventListener("click", () => {
-// 			const tag = imgs[cur]?.tagName;
-// 			if (tag === "IMG" || tag === "VIDEO" || tag === "IFRAME") openLb(imgs, cur);
-// 		});
-
-// 		show(0);
-// 		startAutoPlay();
-// 	});
-// }
 
 /* ── CAROUSELS ── */
 function initCarousels() {
@@ -1332,36 +844,7 @@ function openLb(imgs, startIdx) {
 	document.getElementById("lb").classList.add("open");
 	document.body.style.overflow = "hidden"; // Adds scroll lock
 }
-// function renderLb() {
-// 	const media = lbImgs[lbCur];
-// 	const cap = media.getAttribute("alt") || media.dataset.cap || "";
-// 	const link = media.dataset.link || "";
 
-// 	const lbImg = document.getElementById("lbimg");
-// 	const lbVid = document.getElementById("lbvid");
-// 	const lbFrame = document.getElementById("lbframe");
-
-// 	lbImg.style.display = "none";
-// 	lbVid.style.display = "none";
-// 	lbFrame.style.display = "none";
-// 	lbVid.pause();
-
-// 	if (media.tagName === "VIDEO") {
-// 		lbVid.style.display = "block";
-// 		lbVid.src = media.src;
-// 	} else if (media.tagName === "IFRAME") {
-// 		lbFrame.style.display = "block";
-// 		lbFrame.style.pointerEvents = "auto";
-// 		lbFrame.src = media.src;
-// 	} else {
-// 		lbImg.style.display = "block";
-// 		lbImg.src = media.src;
-// 	}
-
-// 	const capEl = document.getElementById("lbcap");
-// 	if (link) capEl.innerHTML = `<a href="${link}" target="_blank">${cap}</a>`;
-// 	else capEl.textContent = cap;
-// }
 function renderLb() {
 	const media = lbImgs[lbCur];
 	const cap = media.getAttribute("alt") || media.dataset.cap || "";
@@ -1406,8 +889,8 @@ function renderLb() {
 	} else {
 		lbImg.style.display = "block";
 
-// const ratio = media.naturalWidth / media.naturalHeight || 1;
-// lbImg.style.setProperty("--ratio", ratio);
+		// const ratio = media.naturalWidth / media.naturalHeight || 1;
+		// lbImg.style.setProperty("--ratio", ratio);
 
 		// Instantly show the low-res image (using the rawSrc fallback)
 		lbImg.src = rawSrc;
@@ -1432,12 +915,6 @@ function renderLb() {
 	else capEl.textContent = cap;
 }
 
-// function closeLb() {
-// 	document.getElementById("lb").classList.remove("open");
-// 	lbImgs = [];
-// 	const lbVid = document.getElementById("lbvid");
-// 	if (lbVid) lbVid.pause();
-// }
 function closeLb() {
 	document.getElementById("lb").classList.remove("open");
 	document.body.style.overflow = ""; // Removes scroll lock
@@ -1458,9 +935,6 @@ document.addEventListener("keydown", (e) => {
 	if (e.key === "Escape") closeLb();
 });
 
-
-
-
 /* ── SKILLS SECTION PARSER ── */
 /* ── SKILLS SECTION PARSER ── */
 async function initSkills() {
@@ -1474,7 +948,7 @@ async function initSkills() {
 		hw: "Hardware",
 		swe: "Software Engineering",
 		soft: "Soft Skills",
-		gen: "General"
+		gen: "General",
 	};
 
 	const skillsData = {};
@@ -1493,12 +967,12 @@ async function initSkills() {
 	// 2. DYNAMIC FALLBACK: If no badges were found (e.g., on resume.html), fetch from portfolio.html
 	if (Object.keys(skillsData).length === 0) {
 		try {
-			const response = await fetch('portfolio.html');
+			const response = await fetch("portfolio.html");
 			const htmlText = await response.text();
-			
+
 			// Parse the fetched text into a readable DOM document
 			const parser = new DOMParser();
-			const doc = parser.parseFromString(htmlText, 'text/html');
+			const doc = parser.parseFromString(htmlText, "text/html");
 
 			// Query the badges from the fetched portfolio document
 			doc.querySelectorAll(".ec-summary .badge").forEach((badge) => {
@@ -1538,9 +1012,6 @@ async function initSkills() {
 
 	container.innerHTML = html;
 }
-
-
-
 
 /* ── CARD FADE-IN ── */
 function initFadeIn() {
@@ -1597,74 +1068,6 @@ function applyPageActiveState(currentPath, links) {
 }
 
 /* ── DYNAMIC NAVBAR LOADER ── */
-// function loadNav() {
-// 	return new Promise((resolve) => {
-// 		const placeholder = document.getElementById("nav-placeholder");
-// 		const shroud = document.getElementById("blur-page");
-
-// 		if (!placeholder) {
-// 			initNavHoverStates();
-// 			resolve();
-// 			return;
-// 		}
-
-// 		fetch("nav.html")
-// 			.then((response) => response.text())
-// 			.then((data) => {
-// 				const parser = new DOMParser();
-// 				const doc = parser.parseFromString(data, "text/html");
-// 				const header = doc.querySelector("header");
-
-// 				if (header) {
-// 					const currentPath = window.location.pathname.toLowerCase();
-
-// 					applyPageActiveState(currentPath, header.querySelectorAll(".ni"));
-// 					applyPageActiveState(currentPath, document.querySelectorAll("footer .fnav a"));
-
-// 					placeholder.replaceWith(header);
-// 					initNavHoverStates();
-
-// 					const navbox = header.querySelector(".navbox");
-// 					if (navbox && shroud) {
-// 						navbox.addEventListener("mouseenter", () => {
-// 							shroud.classList.add("visible");
-// 						});
-// 						navbox.addEventListener("mouseleave", () => {
-// 							shroud.classList.remove("visible");
-// 						});
-// 					}
-
-// 					const dropdownParents = header.querySelectorAll(".ndrop");
-// 					dropdownParents.forEach((drop) => {
-// 						const mainLink = drop.querySelector(":scope > .ni");
-// 						if (!mainLink) return;
-// 						mainLink.addEventListener("click", (e) => {
-// 							if (window.innerWidth > 1050) return;
-// 							if (!drop.classList.contains("open")) {
-// 								e.preventDefault();
-// 								dropdownParents.forEach((other) => {
-// 									if (other !== drop) other.classList.remove("open");
-// 								});
-// 								drop.classList.add("open");
-// 							}
-// 						});
-// 					});
-
-// 					document.addEventListener("click", (e) => {
-// 						if (window.innerWidth > 1050) return;
-// 						if (e.target.closest(".ndrop")) return;
-// 						dropdownParents.forEach((other) => other.classList.remove("open"));
-// 					});
-// 				}
-// 				resolve();
-// 			})
-// 			.catch((error) => {
-// 				console.error("Error loading navigation:", error);
-// 				resolve();
-// 			});
-// 	});
-// }
-/* ── DYNAMIC NAVBAR LOADER ── */
 function loadNav() {
 	return new Promise((resolve) => {
 		const placeholder = document.getElementById("nav-placeholder");
@@ -1679,12 +1082,6 @@ function loadNav() {
 
 			initNavHoverStates();
 
-			// const navbox = hdr.querySelector(".navbox");
-			// if (navbox && shroud) {
-			// 	navbox.addEventListener("mouseenter", () => shroud.classList.add("visible"));
-			// 	navbox.addEventListener("mouseleave", () => shroud.classList.remove("visible"));
-			// }
-
 			const navbox = hdr.querySelector(".navbox");
 			if (navbox && shroud) {
 				navbox.addEventListener("mouseenter", () => {
@@ -1696,130 +1093,53 @@ function loadNav() {
 				navbox.addEventListener("mouseleave", () => shroud.classList.remove("visible"));
 			}
 
-const dropdownParents = hdr.querySelectorAll(".ndrop");
-dropdownParents.forEach((drop) => {
-	const mainLink = drop.querySelector(":scope > .ni");
-	if (!mainLink) return;
+			const dropdownParents = hdr.querySelectorAll(".ndrop");
+			dropdownParents.forEach((drop) => {
+				const mainLink = drop.querySelector(":scope > .ni");
+				if (!mainLink) return;
 
-	let pressTimer;
-	let isLongPress = false;
+				let pressTimer;
+				let isLongPress = false;
 
-	// Touch start initiates the long press timer
-	mainLink.addEventListener(
-		"touchstart",
-		(e) => {
-			if (window.innerWidth > 1050) return;
-			isLongPress = false;
-			pressTimer = setTimeout(() => {
-				isLongPress = true;
-				dropdownParents.forEach((other) => {
-					if (other !== drop) other.classList.remove("open");
+				// Touch start initiates the long press timer
+				mainLink.addEventListener(
+					"touchstart",
+					(e) => {
+						if (window.innerWidth > 1050) return;
+						isLongPress = false;
+						pressTimer = setTimeout(() => {
+							isLongPress = true;
+							dropdownParents.forEach((other) => {
+								if (other !== drop) other.classList.remove("open");
+							});
+							drop.classList.add("open");
+						}, 350); // 350ms for dropdown to trigger
+					},
+					{passive: true},
+				);
+
+				// Cancel timer if finger moves or leaves early
+				mainLink.addEventListener("touchend", () => clearTimeout(pressTimer), {passive: true});
+				mainLink.addEventListener("touchmove", () => clearTimeout(pressTimer), {passive: true});
+
+				// Prevent native mobile long-press context menu if it successfully opened the dropdown
+				mainLink.addEventListener("contextmenu", (e) => {
+					if (window.innerWidth <= 1050 && isLongPress) e.preventDefault();
 				});
-				drop.classList.add("open");
-			}, 350); // 350ms for dropdown to trigger
-		},
-		{passive: true},
-	);
 
-	// Cancel timer if finger moves or leaves early
-	mainLink.addEventListener("touchend", () => clearTimeout(pressTimer), {passive: true});
-	mainLink.addEventListener("touchmove", () => clearTimeout(pressTimer), {passive: true});
+				// Handle standard clicks
+				mainLink.addEventListener("click", (e) => {
+					if (window.innerWidth > 1050) return;
 
-	// Prevent native mobile long-press context menu if it successfully opened the dropdown
-	mainLink.addEventListener("contextmenu", (e) => {
-		if (window.innerWidth <= 1050 && isLongPress) e.preventDefault();
-	});
-
-	// Handle standard clicks
-	mainLink.addEventListener("click", (e) => {
-		if (window.innerWidth > 1050) return;
-
-		if (isLongPress) {
-			// It was a long press to open menu, prevent navigation.
-			e.preventDefault();
-		} else {
-			// Short press! Clean up dropdowns and allow direct navigation.
-			dropdownParents.forEach((other) => other.classList.remove("open"));
-		}
-	});
-});
-
-			// document.addEventListener("click", (e) => {
-			// 	if (window.innerWidth > 1050) return;
-			// 	if (e.target.closest(".ndrop")) return;
-			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
-			// });
-
-			// document.addEventListener("click", (e) => {
-			// 	if (window.innerWidth > 1050) return;
-
-			// 	// Force close the dropdown if a sub-link is clicked
-			// 	if (e.target.closest(".dd-lnk")) {
-			// 		dropdownParents.forEach((other) => other.classList.remove("open"));
-			// 		return;
-			// 	}
-
-			// 	if (e.target.closest(".ndrop")) return;
-			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
-			// });
-
-			// // 1. Standard global click to close menus when clicking outside
-			// document.addEventListener("click", (e) => {
-			// 	if (window.innerWidth > 1050) return;
-			// 	if (e.target.closest(".ndrop")) return;
-			// 	dropdownParents.forEach((other) => other.classList.remove("open"));
-			// });
-
-			// // 2. Direct click listeners on sub-links to bypass the "return false;" block
-			// hdr.querySelectorAll(".dd-lnk").forEach((link) => {
-			// 	link.addEventListener("click", () => {
-			// 		if (window.innerWidth <= 1050) {
-			// 			dropdownParents.forEach((drop) => {
-			// 				drop.classList.remove("open"); // Strip the open class
-
-			// 				// Instantly vanish the dropdown to bypass CSS transition lag
-			// 				const navDd = drop.querySelector(".nav-dd");
-			// 				if (navDd) {
-			// 					navDd.style.display = "none";
-			// 					// Restore default display state after the navbar has hidden
-			// 					setTimeout(() => (navDd.style.display = ""), 300);
-			// 				}
-			// 			});
-			// 		}
-			// 	});
-			// });
-
-			// // 1. Standard global click to close menus when clicking outside
-			// document.addEventListener("click", (e) => {
-			// 	if (window.innerWidth > 1050) return;
-			// 	if (e.target.closest(".ndrop")) return;
-			// 	dropdownParents.forEach((drop) => {
-			// 		drop.classList.remove("open");
-			// 		const navDd = drop.querySelector(".nav-dd");
-			// 		if (navDd) {
-			// 			navDd.style.setProperty("display", "none", "important");
-			// 			setTimeout(() => navDd.style.removeProperty("display"), 300);
-			// 		}
-			// 	});
-			// });
-
-			// // 2. Direct click listeners on sub-links to bypass the "return false;" block
-			// hdr.querySelectorAll(".dd-lnk").forEach((link) => {
-			// 	link.addEventListener("click", () => {
-			// 		if (window.innerWidth <= 1050) {
-			// 			dropdownParents.forEach((drop) => {
-			// 				drop.classList.remove("open");
-
-			// 				// Override the !important CSS rule to instantly vanish the dropdown
-			// 				const navDd = drop.querySelector(".nav-dd");
-			// 				if (navDd) {
-			// 					navDd.style.setProperty("display", "none", "important");
-			// 					setTimeout(() => navDd.style.removeProperty("display"), 300);
-			// 				}
-			// 			});
-			// 		}
-			// 	});
-			// });
+					if (isLongPress) {
+						// It was a long press to open menu, prevent navigation.
+						e.preventDefault();
+					} else {
+						// Short press! Clean up dropdowns and allow direct navigation.
+						dropdownParents.forEach((other) => other.classList.remove("open"));
+					}
+				});
+			});
 
 			// 1. Standard global click to close menus when clicking outside
 			document.addEventListener("click", (e) => {
@@ -1827,15 +1147,6 @@ dropdownParents.forEach((drop) => {
 				if (e.target.closest(".ndrop")) return;
 				dropdownParents.forEach((drop) => drop.classList.remove("open"));
 			});
-
-			// 2. Direct click listeners on sub-links
-			// hdr.querySelectorAll(".dd-lnk").forEach((link) => {
-			// 	link.addEventListener("click", () => {
-			// 		if (window.innerWidth <= 1050) {
-			// 			dropdownParents.forEach((drop) => drop.classList.remove("open"));
-			// 		}
-			// 	});
-			// });
 
 			// 2. Direct click listeners on sub-links
 			hdr.querySelectorAll(".dd-lnk").forEach((link) => {
@@ -1898,82 +1209,32 @@ dropdownParents.forEach((drop) => {
 
 /* ── DYNAMIC FOOTER LOADER ── */
 function loadFooter() {
-    return new Promise((resolve) => {
-        const placeholder = document.getElementById("footer-placeholder");
-        if (!placeholder) return resolve();
+	return new Promise((resolve) => {
+		const placeholder = document.getElementById("footer-placeholder");
+		if (!placeholder) return resolve();
 
-        fetch("footer.html")
-            .then((response) => response.text())
-            .then((data) => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data, "text/html");
-                const footer = doc.querySelector("footer");
+		fetch("footer.html")
+			.then((response) => response.text())
+			.then((data) => {
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(data, "text/html");
+				const footer = doc.querySelector("footer");
 
-                if (footer) {
-                    placeholder.replaceWith(footer);
-                    
-                    // Automate highlighting the current page using your existing function
-                    const currentPath = window.location.pathname.toLowerCase();
-                    applyPageActiveState(currentPath, footer.querySelectorAll(".fnav a"));
-                }
-                resolve();
-            })
-            .catch((error) => {
-                console.error("Error loading footer:", error);
-                resolve();
-            });
-    });
+				if (footer) {
+					placeholder.replaceWith(footer);
+
+					// Automate highlighting the current page using your existing function
+					const currentPath = window.location.pathname.toLowerCase();
+					applyPageActiveState(currentPath, footer.querySelectorAll(".fnav a"));
+				}
+				resolve();
+			})
+			.catch((error) => {
+				console.error("Error loading footer:", error);
+				resolve();
+			});
+	});
 }
-
-/* ── COLLAPSIBLE EC CARDS ── */
-// function initCollapsibleCards() {
-// 	document.querySelectorAll('.ec.collapsible').forEach(card => {
-// 		// Define default height or grab the override from the HTML tag
-// 		const defaultHeight = 450;
-// 		const h = card.dataset.collapseHeight || defaultHeight;
-
-// 		card.style.setProperty('--collapse-h', h + 'px');
-// 		card.classList.add('is-collapsed');
-
-// 		// Create the overlay and button
-// 		const overlay = document.createElement('div');
-// 		overlay.className = 'ec-collapse-overlay';
-// 		overlay.innerHTML = `<button class="ec-show-more-btn">Show More <i class="fas fa-chevron-down" style="margin-left: 5px;"></i></button>`;
-
-// 		const btn = overlay.querySelector('.ec-show-more-btn');
-// 		btn.addEventListener('click', function(e) {
-// 			e.stopPropagation();
-// 			const isCol = card.classList.contains('is-collapsed');
-
-// 			if (isCol) {
-// 				card.classList.remove('is-collapsed');
-// 				card.classList.add('is-expanded');
-// 				btn.innerHTML = `Show Less <i class="fas fa-chevron-up" style="margin-left: 5px;"></i>`;
-// 			} else {
-// 				card.classList.add('is-collapsed');
-// 				card.classList.remove('is-expanded');
-// 				btn.innerHTML = `Show More <i class="fas fa-chevron-down" style="margin-left: 5px;"></i>`;
-
-// 				// Smoothly scroll back into view if the user scrolled far down the expanded card
-// 				const rect = card.getBoundingClientRect();
-// 				const navH = window.innerWidth > 1050 ? 75 : 50;
-// 				if (rect.top < navH) {
-// 					window.scrollBy({ top: rect.top - navH - 20, behavior: 'smooth' });
-// 				}
-// 			}
-
-// 			// Force the layout to update, then tell the slideshow wrapper to transition to the new height
-// 			const clip = card.closest('.ss-clip');
-// 			if (clip) {
-// 				const ssId = clip.id.replace('-clip', '');
-// 				void card.offsetHeight; // Flushes CSS changes
-// 				requestAnimationFrame(() => setH(ssId, true));
-// 			}
-// 		});
-
-// 		card.appendChild(overlay);
-// 	});
-// }
 
 /* ── COLLAPSIBLE EC CARDS ── */
 function initCollapsibleCards() {
@@ -2030,39 +1291,6 @@ function initCollapsibleCards() {
 		card.appendChild(overlay);
 	});
 }
-/* ── TOUCH SWIPE NAVIGATION FOR MAIN CARDS ONLY ── */
-// function initSwipeNav() {
-// 	Object.keys(SS).forEach(id => {
-// 		const s = SS[id];
-// 		if (!s || !s.clip) return;
-
-// 		let touchStartX = 0;
-// 		let touchStartY = 0;
-
-// 		s.clip.addEventListener('touchstart', e => {
-// 			if (e.touches.length > 1) return; // Ignore multi-touch/pinches
-// 			touchStartX = e.changedTouches[0].screenX;
-// 			touchStartY = e.changedTouches[0].screenY;
-// 		}, { passive: true });
-
-// 		s.clip.addEventListener('touchend', e => {
-// 			const touchEndX = e.changedTouches[0].screenX;
-// 			const touchEndY = e.changedTouches[0].screenY;
-
-// 			const diffX = touchStartX - touchEndX;
-// 			const diffY = touchStartY - touchEndY;
-
-// 			// Thresholds: minimum 50px swipe, and must be mostly horizontal
-// 			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-// 				if (diffX > 0) {
-// 					ar(id, 1); // Swiped Left -> Next Slide
-// 				} else {
-// 					ar(id, -1); // Swiped Right -> Prev Slide
-// 				}
-// 			}
-// 		}, { passive: true });
-// 	});
-// }
 
 /* ── TOUCH & TRACKPAD SWIPE NAVIGATION FOR MAIN CARDS ── */
 function initSwipeNav() {
@@ -2132,66 +1360,78 @@ function initSwipeNav() {
 	});
 
 	// --- ADDED: EC CARD LIGHTBOX SWIPE LOGIC ---
-	const lbBox = document.querySelector('.card-lb-box');
+	const lbBox = document.querySelector(".card-lb-box");
 	if (lbBox) {
 		// 1. Mobile Touch Swipe
 		let lbStartX = 0;
 		let lbStartY = 0;
 		let isCarouselInteract = false;
 
-		lbBox.addEventListener('touchstart', (e) => {
-			if (e.touches.length > 1) return;
-			// Flag if interacting with a carousel
-			if (e.target.closest('.cw')) {
-				isCarouselInteract = true;
-				return;
-			}
-			isCarouselInteract = false;
-			lbStartX = e.touches[0].clientX;
-			lbStartY = e.touches[0].clientY;
-		}, { passive: true });
-
-		lbBox.addEventListener('touchend', (e) => {
-			if (isCarouselInteract) return; // Let the carousel handle it
-
-			const diffX = lbStartX - e.changedTouches[0].clientX;
-			const diffY = lbStartY - e.changedTouches[0].clientY;
-
-			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-				if (typeof pfLbNav === 'function') {
-					if (diffX > 0) pfLbNav(1);
-					else pfLbNav(-1);
+		lbBox.addEventListener(
+			"touchstart",
+			(e) => {
+				if (e.touches.length > 1) return;
+				// Flag if interacting with a carousel
+				if (e.target.closest(".cw")) {
+					isCarouselInteract = true;
+					return;
 				}
-			}
-		}, { passive: true });
+				isCarouselInteract = false;
+				lbStartX = e.touches[0].clientX;
+				lbStartY = e.touches[0].clientY;
+			},
+			{passive: true},
+		);
+
+		lbBox.addEventListener(
+			"touchend",
+			(e) => {
+				if (isCarouselInteract) return; // Let the carousel handle it
+
+				const diffX = lbStartX - e.changedTouches[0].clientX;
+				const diffY = lbStartY - e.changedTouches[0].clientY;
+
+				if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+					if (typeof pfLbNav === "function") {
+						if (diffX > 0) pfLbNav(1);
+						else pfLbNav(-1);
+					}
+				}
+			},
+			{passive: true},
+		);
 
 		// 2. Desktop Trackpad Swipe
 		let isLbTrackpadSwiping = false;
 
-		lbBox.addEventListener('wheel', (e) => {
-			// Abort if animating, OR if the cursor is hovering over a carousel
-			if (isLbTrackpadSwiping || e.target.closest('.cw')) return;
+		lbBox.addEventListener(
+			"wheel",
+			(e) => {
+				// Abort if animating, OR if the cursor is hovering over a carousel
+				if (isLbTrackpadSwiping || e.target.closest(".cw")) return;
 
-			if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
-				isLbTrackpadSwiping = true;
+				if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+					isLbTrackpadSwiping = true;
 
-				if (typeof pfLbNav === 'function') {
-					if (e.deltaX > 0) pfLbNav(1); 
-					else pfLbNav(-1); 
+					if (typeof pfLbNav === "function") {
+						if (e.deltaX > 0) pfLbNav(1);
+						else pfLbNav(-1);
+					}
+
+					// Debounce to prevent rapid-fire skipping
+					setTimeout(() => {
+						isLbTrackpadSwiping = false;
+						// }, 400);
+					}, 900);
 				}
-
-				// Debounce to prevent rapid-fire skipping
-				setTimeout(() => {
-					isLbTrackpadSwiping = false;
-				// }, 400); 
-				}, 900); 
-			}
-		}, { passive: true });
+			},
+			{passive: true},
+		);
 	}
 }
 /* ── FILTER SWIPE NAVIGATION (LAYER 1) ── */
 function initFilterSwipe() {
-	const filterContainer = document.querySelector('.portfolio-filters, #blog-filters');
+	const filterContainer = document.querySelector(".portfolio-filters, #blog-filters");
 	if (!filterContainer) return;
 
 	let startX = 0;
@@ -2215,30 +1455,12 @@ function initFilterSwipe() {
 
 		return false;
 	}
-	// This function acts as a strict bouncer for Layer 1.
-	// function isFilterSwipeLocked(target) {
-	// 	// 1. Is the user reading a blog post?
-	// 	const blogPost = document.getElementById("blog-post");
-	// 	if (blogPost && blogPost.style.display !== "none") return true;
-
-	// 	// 2. Are they touching inside a carousel or an ALREADY OPEN lightbox?
-	// 	// (Notice we removed .ec-card here, so hovering/touching an unclicked tile is allowed)
-	// 	if (target.closest(".cw, .ss-clip, .card-lb-box.active, .lbbox.active")) return true;
-
-	// 	// 3. Is ANY lightbox currently "open" anywhere on the page?
-	// 	// If an ec-card or lightbox has your active class, it locks the filter swipe.
-	// 	const activeLightbox = document.querySelector('.ec-card.active, .card-lb-box.active, .lbbox.active, .lbbox[style*="display: block"]');
-
-	// 	if (activeLightbox) return true;
-
-	// 	return false; // Nothing is open. Allow the filter swipe!
-	// }
 
 	function navigateFilter(direction) {
-		const buttons = Array.from(filterContainer.querySelectorAll('.filter-btn'));
+		const buttons = Array.from(filterContainer.querySelectorAll(".filter-btn"));
 		if (!buttons.length) return;
 
-		const activeIndex = buttons.findIndex(btn => btn.classList.contains('active'));
+		const activeIndex = buttons.findIndex((btn) => btn.classList.contains("active"));
 		if (activeIndex === -1) return;
 
 		let nextIndex = activeIndex + direction;
@@ -2250,50 +1472,64 @@ function initFilterSwipe() {
 	}
 
 	// Mobile Touch Swipe
-	document.addEventListener('touchstart', (e) => {
-		if (e.touches.length > 1) return;
+	document.addEventListener(
+		"touchstart",
+		(e) => {
+			if (e.touches.length > 1) return;
 
-		// If a lightbox/carousel is active, completely abort the filter swipe
-		if (isFilterSwipeLocked(e.target)) {
+			// If a lightbox/carousel is active, completely abort the filter swipe
+			if (isFilterSwipeLocked(e.target)) {
+				isSwiping = false;
+				return;
+			}
+
+			isSwiping = true;
+			startX = e.touches[0].clientX;
+			startY = e.touches[0].clientY;
+		},
+		{passive: true},
+	);
+
+	document.addEventListener(
+		"touchend",
+		(e) => {
+			if (!isSwiping) return;
+
+			const diffX = startX - e.changedTouches[0].clientX;
+			const diffY = startY - e.changedTouches[0].clientY;
+
+			if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+				navigateFilter(diffX > 0 ? 1 : -1);
+			}
+
 			isSwiping = false;
-			return;
-		}
-
-		isSwiping = true;
-		startX = e.touches[0].clientX;
-		startY = e.touches[0].clientY;
-	}, { passive: true });
-
-	document.addEventListener('touchend', (e) => {
-		if (!isSwiping) return;
-
-		const diffX = startX - e.changedTouches[0].clientX;
-		const diffY = startY - e.changedTouches[0].clientY;
-
-		if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-			navigateFilter(diffX > 0 ? 1 : -1);
-		}
-
-		isSwiping = false;
-	}, { passive: true });
+		},
+		{passive: true},
+	);
 
 	// Desktop Trackpad Swipe
 	let isTrackpadSwiping = false;
-	document.addEventListener('wheel', (e) => {
-		if (isTrackpadSwiping) return;
+	document.addEventListener(
+		"wheel",
+		(e) => {
+			if (isTrackpadSwiping) return;
 
-		// If a lightbox/carousel is active, completely abort the filter swipe
-		if (isFilterSwipeLocked(e.target)) return;
+			// If a lightbox/carousel is active, completely abort the filter swipe
+			if (isFilterSwipeLocked(e.target)) return;
 
-		if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 30) {
-			isTrackpadSwiping = true;
-			
-			navigateFilter(e.deltaX > 0 ? 1 : -1);
+			if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 30) {
+				isTrackpadSwiping = true;
 
-			// setTimeout(() => { isTrackpadSwiping = false; }, 500);
-			setTimeout(() => { isTrackpadSwiping = false; }, 900);
-		}
-	}, { passive: true });
+				navigateFilter(e.deltaX > 0 ? 1 : -1);
+
+				// setTimeout(() => { isTrackpadSwiping = false; }, 500);
+				setTimeout(() => {
+					isTrackpadSwiping = false;
+				}, 900);
+			}
+		},
+		{passive: true},
+	);
 }
 
 /* ── UNIFIED INITIALIZATION ── */
@@ -2309,15 +1545,6 @@ function unifiedInit() {
 	initFadeIn();
 	initCountUp();
 	initSkills();
-
-	// Load the iframe safely without blocking the main thread
-	// const iframe = document.getElementById("timeline-iframe");
-	// if (iframe && iframe.dataset.src) {
-	// 	setTimeout(() => {
-	// 		iframe.onload = () => iframe.classList.add("loaded");
-	// 		iframe.src = iframe.dataset.src;
-	// 	}, 500);
-	// }
 
 	const iframe = document.getElementById("timeline-iframe");
 	if (iframe) {
@@ -2336,20 +1563,6 @@ function unifiedInit() {
 				setH(id, false);
 			});
 			handleURL();
-
-			// window.addEventListener(
-			// 	"scroll",
-			// 	() => {
-			// 		if (!isScrollTicking) {
-			// 			window.requestAnimationFrame(() => {
-			// 				runCoreScrollTasks(window.scrollY);
-			// 				isScrollTicking = false;
-			// 			});
-			// 			isScrollTicking = true;
-			// 		}
-			// 	},
-			// 	{passive: true},
-			// );
 
 			window.addEventListener(
 				"scroll",
