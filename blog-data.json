@@ -5,26 +5,6 @@
         "edges": [
           {
             "node": {
-              "id": "3ae89dc7-2ec4-80d0-a397-dafd05b6af6d",
-              "slug": "test",
-              "title": "Test",
-              "brief": "test",
-              "publishedAt": "2026-07-30",
-              "tags": [
-                {
-                  "id": "38eab3cd-f384-4d23-9414-b30fe58e4c08",
-                  "name": "ChatGPT",
-                  "color": "default"
-                }
-              ],
-              "coverImage": null,
-              "content": {
-                "html": "<h1>Toggle H1</h1>\n<pre><code>Subtext\n\n- a bullet point\n\n## toggle H2 within H1 toggle\n</code></pre>\n<h3>toggle 3</h3>\n"
-              }
-            }
-          },
-          {
-            "node": {
               "id": "36389dc7-2ec4-80db-b945-f397257aed2b",
               "slug": "human-face",
               "title": "Industrialization of the Human Face",
