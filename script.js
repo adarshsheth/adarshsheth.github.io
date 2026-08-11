@@ -928,12 +928,27 @@ function lbNav(dir) {
 	renderLb();
 }
 
+// document.addEventListener("keydown", (e) => {
+// 	if (!document.getElementById("lb").classList.contains("open")) return;
+// 	if (e.key === "ArrowRight") lbNav(1);
+// 	if (e.key === "ArrowLeft") lbNav(-1);
+// 	if (e.key === "Escape") closeLb();
+// });
 document.addEventListener("keydown", (e) => {
 	if (!document.getElementById("lb").classList.contains("open")) return;
+
+	// If the inner lightbox is open, consume the event so outer lightboxes ignore it
+	// const currentPath = window.location.pathname.toLowerCase();
+	const isPhotography = window.location.pathname.toLowerCase().includes("photography");
+	if ((e.key === "Escape" || e.key === "ArrowRight" || e.key === "ArrowLeft") && !isPhotography) {
+		e.stopImmediatePropagation();
+	}
+
 	if (e.key === "ArrowRight") lbNav(1);
 	if (e.key === "ArrowLeft") lbNav(-1);
 	if (e.key === "Escape") closeLb();
 });
+
 
 /* ── SKILLS SECTION PARSER ── */
 /* ── SKILLS SECTION PARSER ── */

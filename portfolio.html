@@ -149,7 +149,8 @@
 
     .sh h2:hover {
       /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
-      color: color-mix(in srgb, var(--sec-title) 100%, transparent) !important;
+      /* color: color-mix(in srgb, var(--sec-title) 100%, transparent) !important; */
+      color: color-mix(in srgb, var(--light-navy) 70%, transparent) !important;
     }
 
     .sh-pulse-btn:hover h2 {
@@ -223,7 +224,8 @@
       display: flex;
       justify-content: left;
       /* justify-content: inherit; */
-      gap: 10px;
+      /* gap: 10px; */
+      gap: 7px;
       margin: 60px 48px 0px;
       flex-wrap: wrap;
       /* padding-left: calc(var(--sw) + 10px); */
@@ -264,10 +266,7 @@
     @media (max-width: 1050px) {
       .portfolio-filters {
         margin: 20px 22px 0px;
-      }
-
-      .portfolio-filters {
-        padding-top: 20px;
+        /* padding-top: 20px; */
       }
 
     }
@@ -360,7 +359,9 @@
 
     .ec-card.open .ec-thumb {
       opacity: 0.3;
+      border-right: 2px solid var(--title);
     }
+
 
     .ec-thumb img {
       position: absolute;
@@ -403,6 +404,7 @@
       align-items: center;
       flex-shrink: 0;
       /* margin-right: 30px; */
+      display:none !important; /*hides the ec card logos from all tiles*/
     }
 
     .ec-info-header .eclogos img {
@@ -505,13 +507,15 @@
 
     .ec-card:hover .expand-icon {
       transform: translateX(5px);
-            transform: rotate(-90deg);
+      transform: rotate(-90deg);
 
     }
+
     .ec-card:hover .expand-prompt {
-        transform: translateX(10px);
-        color: color-mix(in srgb, var(--text) 70%, transparent);
+      transform: translateX(10px);
+      color: color-mix(in srgb, var(--text) 70%, transparent);
     }
+
     .ec-card.open .expand-icon {
       transform: rotate(180deg);
     }
@@ -569,6 +573,9 @@
       /* border-top: 3px solid var(--border); */
       /* border-top: 3px solid color-mix(in srgb, var(--g) 50%, transparent 0%); */
       border-top: 2px solid color-mix(in srgb, var(--border) 100%, transparent 0%);
+      border-top: 2px solid color-mix(in srgb, var(--border) 70%, transparent 0%);
+      /* border-top: 10px solid color-mix(in srgb, var(--border-fr) 100%, transparent 0%); */
+      /* border-top: 10px solid color-mix(in srgb, var(--g) 70%, transparent);; */
       /* border-top: inherit; */
       ;
     }
@@ -675,7 +682,8 @@
       cursor: pointer;
 
       /* STARTING STATE: completely clear and unblurred */
-      background: rgba(10, 10, 10, 0);
+      /* background: rgba(10, 10, 10, 0); */
+      background: var(--bg);
       backdrop-filter: blur(0px);
       -webkit-backdrop-filter: blur(0px);
 
@@ -685,8 +693,10 @@
 
     /* ENDING STATE: dark and blurred */
     #card-lb.open .card-lb-backdrop {
-      background: rgba(10, 10, 10, 0.82);
-      background: rgba(35, 41, 34, 0.88) !important;
+      /* background: rgba(10, 10, 10, 0.82);
+      background: rgba(35, 41, 34, 0.88) !important; */
+      background: color-mix(in srgb, var(--bg) 50%, transparent 0%) !important;
+      background: color-mix(in srgb, #ccefff 50%, transparent 0%) !important;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
@@ -1574,6 +1584,40 @@
       }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .cap-bubble {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      margin: 0;
+      border-radius: 100px;
+
+      /* Frosted glass styling */
+      background: color-mix(in srgb, var(--bg) 50%, transparent);
+      background: var(--title);
+      /* backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); */
+      border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    }
   </style>
 </head>
 
@@ -1600,10 +1644,23 @@
         <div id="lbcap" class="lbcap"></div>
         <button class="lb-nav lb-n" id="lb-next"><i class="fas fa-chevron-right"></i></button>
       </div> -->
-      <div class="lb-bottom">
+      <!-- <div class="lb-bottom">
         <button class="lb-nav lb-p" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
         <div id="lbcap" class="lbcap"></div>
         <button class="lb-nav lb-n" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+      </div> -->
+
+
+
+
+
+
+      <div class="lb-bottom">
+        <div class="cap-bubble"> <!-- Add this wrapper -->
+          <button class="lb-nav lb-p" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+          <div id="lbcap" class="lbcap"></div>
+          <button class="lb-nav lb-n" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+        </div> <!-- Close the wrapper -->
       </div>
     </div>
   </div>
@@ -1708,12 +1765,12 @@
 
     <div class="portfolio-filters">
       <button class="filter-btn active uni-btn" data-tag="all" onclick="filterPortfolio('all')">ALL</button>
-      <button class="filter-btn uni-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">eVTOL &
-        AERONAUTICS</button>
-      <button class="filter-btn uni-btn" data-tag="space" onclick="filterPortfolio('space')">ROCKETRY & SPACE</button>
+      <button class="filter-btn uni-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">AERO</button>
+      <button class="filter-btn uni-btn" data-tag="space" onclick="filterPortfolio('space')">ASTRO</button>
+      <!-- <button class="filter-btn uni-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">AERONAUTICS</button>
+      <button class="filter-btn uni-btn" data-tag="space" onclick="filterPortfolio('space')">ASTRONAUTICS</button> -->
       <button class="filter-btn uni-btn" data-tag="robotics" onclick="filterPortfolio('robotics')">ROBOTICS</button>
-      <button class="filter-btn uni-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL
-        ENGINEERING</button>
+      <button class="filter-btn uni-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL</button>
     </div>
 
     <div id="master-card-pool" style="display: none;">
@@ -1752,7 +1809,9 @@
                   <span class="badge" data-cat="tools">PowerPoint</span>
                   <span class="badge" data-cat="swe">VBA</span>
                 </div>
-                <p class="ec-brief">Coming soon.</p>
+                <!-- <p class="ec-brief">Coming soon.</p> -->
+                <!-- <p class="ec-brief">Coming soon.</p> -->
+                <p class="ec-brief">Wrote and optimized MATLAB scripts supporting Raytheon's Over-The-Horizon Radar (OTHR) modernaization project with satellites.</p>
                 <!-- <p class="ec-brief">Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse
                   LEO TLE files to filter those in FOV; then tracked chosen satellite across its in-FOV duration.</p> -->
               </div>
@@ -1760,131 +1819,55 @@
             </div>
           </div>
 
+          
+          
+          
+          
+          
+          
+          
+          
+         
           <div class="ec-details">
             <div class="ec-details-inner">
-              <div class="cbody flex-img">
-                <p style="position: relative; z-index: 50;">Coming soon.</p>
-                <!-- <div>
-                  <div class="hbox"><b>Competitions:</b> Design-Build-Vertical Flight
-                    (DBVF) · Student Unmanned Aerial Systems Competition (SUAS)</div>
-                  <div class="cslbl" style="margin-top:10px">VTOL Design & Research</div>
+              <!-- <div class="cbody flex-img"> -->
+              <!-- <div class="cbody full"> -->
+              <div class="cbody">
+                <!-- <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;"> -->
+                <div style="display:grid; gap: 20px; align-items: start;">
+                <!-- <p style="position: relative; z-index: 50;">Coming soon.</p> -->
+                <div>
+                  
                   <ul class="cbul">
-                    <li>Analyzed multicopter and winged configurations for maximum <b>[1]
-                        hover stability</b> (static; dynamic
-                      response via rise time) and <b>[2] translational speed</b> under
-                      minimum flight time and range</li>
-                    <li>Compiled academic research findings on vortex ring state (VRS) to
-                      quantative derive descent paths and assocaited maximum safe descent
-                      rate</li>
-                  </ul>
-
-                  <div class="cslbl" style="margin-top:10px">Simulation & Modeling</div>
-                  <ul class="cbul">
-                    <li>Programmed <b>Monte Carlo simulation</b> to generate 1,000 flight
-                      mission path combinations, optimized for points and risk under
-                      energy and time constraints
-                      <ul>
-                        <li>Utilized multicopter <b>energy model</b> as a function of
-                          total mass
-                          (variable motor, rotor, and battery specs under constant fly
-                          time
-                          and T/W ratio) for both translational and hover flight
-                          states</li>
-                      </ul>
-                    </li>
-                    <li>Ran <b>parametric incompressible fluid flow analysis</b> simulation
-                      using
-                      SimScale to calculate F<sub>D</sub> across -90°≤θ≤90° and 0°≤β≤90°;
-                      verified output with boundary layer <b>convergence study</b>
-                      <ul>
-                        <li>Wrote documentation on SimScale, CFD simulations, and
-                          analysis</li>
-                      </ul>
-                    </li>
-                    <li>Shadowed in hexacopter dynamics modeling using MatLab and Simulink
-                    </li>
+                    <li>Supported the modernization of Other-The-Horizon Radar (OTHR).</li>
+                    <li>Primarily worked with TLEs, orbit propagation, space coordinate transforms, and BitBucket.</li>
+                    <li>Wrote and optimized MATLAB scripts by up to 88% with automated 15,000+ LEO parse, FOV check, and
+                      VBA output formatting.</li>
                   </ul>
                 </div>
                 <div
                   style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                  
                   <div>
                     <div class="cw">
                       <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
                         <img class="cimg on"
-                          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD1_zgkpwb.png"
-                          alt="SimScale CFD Pressure Vector Field" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD2_cr9w1z.png"
-                          alt="SimScale CFD Velocity Vector Field" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269896/group1_bvcy2q.png"
-                          alt="VFD Group Photo @ Lab" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_1_yxkery.jpg"
-                          alt="Rev3 in the Sunset; P.C. Amogh" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252212/group2_igqmhn.jpg"
-                          alt="VFD Group Photo @ Flight Testing" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_2_hcfswz.jpg"
-                          alt="Rev3 with Trees; P.C. Amogh" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_3_wfvvwk.jpg"
-                          alt="Rev3 in the Sky; P.C. Amogh" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_4_zdovan.jpg"
-                          alt="Rev3 Resting; P.C. Amogh" decoding="async" width="800" height="600" />
-                        <img class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/minirev1_jqpmyo.jpg"
-                          alt="Mini Rev; P.C. Amogh" decoding="async" width="800" height="600" />
+                          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/0_w8qp9p.jpg"
+                          alt="Site Tour Group Photo" decoding="async" width="800" height="600" />
                       </div>
                     </div>
                     <div class="cdots">
                       <span class="cdot on"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
+                      <!-- <span class="cdot"></span> -->
                     </div>
                     <div class="car-caption"></div>
                   </div>
 
-                  <div>
-                    <div class="cw">
-                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
-                        <video class="cimg on"
-                          src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.mp4"
-                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.jpg"
-                          data-cap="Rev3 1st Ground Test Timelapse" preload="metadata" autoplay playsinline muted
-                          loop></video>
-                        <video class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250772/flyby_gb0mba.mp4"
-                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250772/flyby_gb0mba.jpg"
-                          data-cap="Rev3 Flyby" preload="metadata" autoplay playsinline muted loop></video>
-                        <video class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250763/payload_drop_kldl3y.mp4"
-                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250763/payload_drop_kldl3y.jpg"
-                          data-cap="Rev3 25-26 Challenge Payload Drop" preload="metadata" autoplay playsinline muted
-                          loop></video>
-                        <video class="cimg"
-                          data-src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250782/april_tag_srdw0n.mp4"
-                          poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250782/april_tag_srdw0n.jpg"
-                          data-cap="Rev3 Autonomy" preload="metadata" autoplay playsinline muted loop></video>
-                      </div>
-                    </div>
-                    <div class="cdots">
-                      <span class="cdot on"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                      <span class="cdot"></span>
-                    </div>
-                    <div class="car-caption"></div>
-                  </div>
-                </div> -->
+                </div>
+
+
+</div>
+
               </div>
               <!-- <div class="clinks">
                 <a href="https://www.tamuvfs.org/programs/vfd" class="clnk" target="_blank">TAMU
@@ -1900,6 +1883,17 @@
           </div>
         </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
       <div class="ec-item" id="vfd" data-tags="evtol" data-sections="teams" data-order="19">
@@ -4191,13 +4185,40 @@
       content.scrollTop = 0;
     }
 
+    // document.addEventListener('keydown', (e) => {
+    //   if (document.getElementById('card-lb').classList.contains('open')) {
+    //     if (e.key === 'Escape') pfCloseLightbox();
+    //     else if (e.key === 'ArrowRight') pfLbNav(1);
+    //     else if (e.key === 'ArrowLeft') pfLbNav(-1);
+    //   }
+    // });
+    // document.addEventListener('keydown', (e) => {
+    //     if (document.getElementById('card-lb').classList.contains('open')) {
+    //       // Stop execution if the inner image lightbox is currently open
+    //       const imgLightbox = document.getElementById('lb');
+    //       if (imgLightbox && imgLightbox.classList.contains('open')) return;
+
+    //       if (e.key === 'Escape') pfCloseLightbox();
+    //       else if (e.key === 'ArrowRight') pfLbNav(1);
+    //       else if (e.key === 'ArrowLeft') pfLbNav(-1);
+    //     }
+    //   });
     document.addEventListener('keydown', (e) => {
-      if (document.getElementById('card-lb').classList.contains('open')) {
-        if (e.key === 'Escape') pfCloseLightbox();
-        else if (e.key === 'ArrowRight') pfLbNav(1);
-        else if (e.key === 'ArrowLeft') pfLbNav(-1);
-      }
-    });
+        const cardLb = document.getElementById('card-lb');
+        const imgLb = document.getElementById('lb');
+
+        if (cardLb && cardLb.classList.contains('open')) {
+          // Stop execution if the inner image lightbox is currently open
+          if (imgLb && imgLb.classList.contains('open')) {
+            return;
+          }
+
+          // If the image lightbox is closed, handle the EC card normally
+          if (e.key === 'Escape') pfCloseLightbox();
+          else if (e.key === 'ArrowRight') pfLbNav(1);
+          else if (e.key === 'ArrowLeft') pfLbNav(-1);
+        }
+      });
 
     // --- FLOAT-UP REVEAL ON SCROLL ---
     let pfRevealObserver = null;

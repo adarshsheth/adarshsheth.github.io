@@ -115,7 +115,8 @@
 			content: "";
 			position: absolute;
 			inset: 0;
-			background: linear-gradient(rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.9) 80%), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/landing_gku5dx.jpg') center/cover no-repeat;
+			background: linear-gradient(rgba(255, 254, 254, 0.9) 0%, rgba(255, 254, 254, 0.9) 80%), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/landing_gku5dx.jpg') center/cover no-repeat;
+			/* background: linear-gradient(rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.9) 80%), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/landing_gku5dx.jpg') center/cover no-repeat; */
 			/* background: linear-gradient(pink 0%, rgba(10, 10, 10, 0.95) 30%), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat; */
 			z-index: -1;
 			-webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
@@ -448,11 +449,11 @@
 			transition: color 0.2s ease;
 		}
 
-		.ec-card:hover .ec-title {
+		/* .ec-card:hover .ec-title { */
 			/* color: var(--accent2); */
 			/* color: var(--g); */
-			color: var(--g);
-		}
+			/* color: var(--g); */
+		/* } */
 
 		.ec-subtitle {
 			font-size: 13px;
@@ -567,14 +568,19 @@
 		/* @media (max-width: 850px) { */
 		@media (max-width: 850px),
 		(max-height: 850px) {
-			/* .scroll-down {
+			.scroll-down {
 				display: none !important;
-			} */
+			}
+			/* PUT SECTION HERE */
+			#about {
+				min-height: 100%;
+				min-height: 100%;
+				padding-top: 0px;
+			}
 
 			.about-box {
 				padding-bottom: 40px;
 			}
-
 			.about-box::before,
 			.about-box::after {
 				display: none !important;
@@ -751,7 +757,8 @@
 
 
 
-				<div class="indexSection" style="margin-bottom: 50px !important">
+				<!-- <div class="indexSection" style="margin-bottom: 50px !important"> -->
+				<div class="indexSection" style="margin-bottom: 0px !important">
 					<!-- <h2 class="fw-title" style="margin: 10px 0">Organizations</h2> -->
 					<div class="marquee">
 						<div class="marquee-track">
@@ -838,14 +845,21 @@
 		<!-- <hr class="div" style="margin: 0px 0 0" /> -->
 
 		<section id="portfolio-overview" class="indexSection">
-			<div class="fw-head" style="margin-bottom: 26px;">
+			<!-- <div class="fw-head" style="margin-bottom: 26px;"> -->
+			<div class="fw-head">
 				<span class="fw-title">PORTFOLIO OVERVIEW</span>
 				<a href="portfolio.html" class="fw-see-btn" title="View Full Portfolio">
 					<i class="fas fa-link"></i>
 				</a>
 			</div>
 
-
+			<!-- <div class="bio-text-content" style="margin-bottom: 26px;">
+				<p class="about-bio" style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
+				<p style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
+					 test test
+				</p>
+			</div> -->
+			
 			<!-- <div id="tls">
 				<div class="uni-card tlbox">
 					<div class="tl-wrapper">
@@ -866,8 +880,8 @@
 							</div>
 							<div class="ec-info">
 								<div class="ec-info-header">
-									<h3 class="ec-title">eVTOL & Aeronautics</h3>
-									<div class="ec-subtitle">Flight Design, Sizing Iteration, CFD</div>
+									<h3 class="ec-title">Aeronautics</h3>
+									<div class="ec-subtitle">eVTOL, Flight Design, Sizing, CFD</div>
 								</div>
 								<p class="ec-brief">Projects involving multicopter design, lift+cruise eVTOL
 									sizing configurations, and rigorous aerodynamic optimization for vertical flight
@@ -886,8 +900,8 @@
 							</div>
 							<div class="ec-info">
 								<div class="ec-info-header">
-									<h3 class="ec-title">Rocketry & Space</h3>
-									<div class="ec-subtitle">Propulsion, Trade Studies, Fluid Systems</div>
+									<h3 class="ec-title">Astronautics</h3>
+									<div class="ec-subtitle">Propulsion, Trade Studies, Fluid Systems, Spacecraft</div>
 								</div>
 								<p class="ec-brief">Work with liquid bi-propellant engine feedline assemblies,
 									structural rocket design, and high-fidelity simulated lunar crash site search
@@ -907,7 +921,7 @@
 							<div class="ec-info">
 								<div class="ec-info-header">
 									<h3 class="ec-title">Robotics</h3>
-									<div class="ec-subtitle">Mechanisms, CAD, Competition Leadership</div>
+									<div class="ec-subtitle">CAD, Assembly, Leadership, Competition</div>
 								</div>
 								<p class="ec-brief">Competitive robotics engineering, spanning intricate
 									subsystem CAD, project management strategies, and large-scale regional tournament
@@ -926,7 +940,7 @@
 							</div>
 							<div class="ec-info">
 								<div class="ec-info-header">
-									<h3 class="ec-title">General Engineering</h3>
+									<h3 class="ec-title">General</h3>
 									<div class="ec-subtitle">Prototyping, Stress Analysis, Documentation</div>
 								</div>
 								<p class="ec-brief">A collection of cross-disciplinary projects including Small Modular

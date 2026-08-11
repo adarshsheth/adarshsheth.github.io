@@ -32,10 +32,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         :root {
-            --bg: #0a0a0a;
-            --text: #d0d3cd;
-            --g: #647661;
-            --gd: #232922;
+            /* --bg: #0a0a0a; */
+            /* --text: #d0d3cd; */
+            /* --g: #647661; */
+            /* --gd: #232922; */
+            --border: var(--title) !important;
         }
 
         body {
@@ -64,10 +65,9 @@
     <link rel="preload" href="media/logo/AS_tr.png" as="image">
 
     <style>
-        :root {
+        /* :root {
             --text: #b3b3b3;
-
-        }
+        } */
 
         /* 2-Column Desktop Blog Feed */
         #blog-list {
@@ -175,7 +175,8 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+            /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%); */
+            background: linear-gradient(to bottom, rgba(255, 254, 254, 0.4) 0%, rgba(255, 254, 254, 0.8) 100%);
             pointer-events: none;
         }
 
@@ -184,7 +185,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            opacity: 0.5;
+            /* opacity: 0.5; */
+            opacity: 0.7;
         }
 
         #blog-container {
@@ -200,7 +202,9 @@
 
         #post-body strong,
         #post-body b {
+            color: var(--border);
             font-weight: 500;
+            font-weight: 700;
         }
 
         #similar-articles-container h1,
@@ -216,7 +220,8 @@
         #post-body h2 {
             font-weight: 900 !important;
             font-size: clamp(22px, 2.5vw, 36px);
-            color: var(--text);
+            /* color: var(--text); */
+            color: var(--border);
             margin: 40px 0 16px;
             padding-bottom: 8px;
             border-bottom: 3px solid var(--border);
@@ -236,7 +241,7 @@
             position: relative;
             padding-bottom: 8px;
             scroll-margin-top: 20px;
-            font-style: italic;
+            /* font-style: italic; */
         }
 
         #post-body h3::after {
@@ -269,7 +274,8 @@
         #post-body blockquote {
             background: transparent;
             border: none;
-            border-left: 3px solid var(--g);
+            /* border-left: 3px solid var(--g); */
+            border-left: 3px solid var(--border);
             padding: 2px 0 2px 18px;
         }
 
@@ -277,6 +283,7 @@
             margin-bottom: 16px;
             font-size: clamp(14px, 0.9vw, 20px);
             color: var(--gl);
+            color: var(--border);
             line-height: 1.6;
             font-style: normal;
         }
@@ -287,7 +294,7 @@
 
         #post-body blockquote strong,
         #post-body blockquote b {
-            color: var(--g);
+            /* color: var(--g); */
             font-weight: 700;
         }
 
@@ -297,7 +304,7 @@
         }
 
         #post-body blockquote a:hover {
-            color: var(--blogAlt);
+            /* color: var(--blogAlt); */
             text-decoration: underline;
         }
 
@@ -361,7 +368,8 @@
         #post-body figcaption {
             margin-top: 8px;
             font-size: 13px;
-            color: var(--tdim);
+            /* color: var(--tdim); */
+            color: var(--border);
             font-style: italic;
             line-height: 1.4;
             max-width: clamp(400px, 75%, 850px);
@@ -1241,31 +1249,55 @@
 
 
 
-                similarGrid.innerHTML = similarPosts.map(({ node }) => `
-    <a href="?post=${node.slug}" onclick="event.preventDefault(); navigateToPost('${node.slug}')" class="uni-card vis" style="display: flex; flex-direction: column; overflow: hidden; text-decoration: none; height: 100%;">
+//                 similarGrid.innerHTML = similarPosts.map(({ node }) => `
+//     <a href="?post=${node.slug}" onclick="event.preventDefault(); navigateToPost('${node.slug}')" class="uni-card vis" style="display: flex; flex-direction: column; overflow: hidden; text-decoration: none; height: 100%;">
         
-        ${node.coverImage?.url ? `
-        <div style="width: 100%; height: 180px; flex-shrink: 0; border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);">
-            <img src="${node.coverImage.url}" alt="Cover Image" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>` : ''}
+//         ${node.coverImage?.url ? `
+//         <div style="width: 100%; height: 180px; flex-shrink: 0; border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);">
+//             <img src="${node.coverImage.url}" alt="Cover Image" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+//         </div>` : ''}
         
-        <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: clamp(16px, 1.5vw, 20px); color: var(--text); margin: 0 0 12px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
-                ${node.title}
-            </h3>
+//         <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
+//             <h3 style="font-size: clamp(16px, 1.5vw, 20px); color: var(--text); margin: 0 0 12px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+//                 ${node.title}
+//             </h3>
             
-            <div style="margin-top: auto; display: flex; align-items: center; gap: 8px; overflow: hidden; white-space: nowrap;">
-                ${(node.tags || []).slice(0, 3).map(tag => `
-                    <span class="badge" style="flex-shrink: 0; font-size: 11px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px;">
-                        ${tag.name}
-                    </span>
-                `).join('')}
-                <span style="flex-shrink: 0; margin-left: auto; color: var(--dimtitle); font-size: 12px;">
-                    ${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </span>
+//             <div style="margin-top: auto; display: flex; align-items: center; gap: 8px; overflow: hidden; white-space: nowrap;">
+//                 ${(node.tags || []).slice(0, 3).map(tag => `
+//                     <span class="badge" style="flex-shrink: 0; font-size: 11px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px;">
+//                         ${tag.name}
+//                     </span>
+//                 `).join('')}
+//                 <span style="flex-shrink: 0; margin-left: auto; color: var(--dimtitle); font-size: 12px;">
+//                     ${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+//                 </span>
+//             </div>
+//         </div>
+        
+//     </a>
+// `).join('');
+
+
+
+
+                similarGrid.innerHTML = similarPosts.map(({ node }) => `
+    <a href="?post=${node.slug}"
+        onclick="event.preventDefault(); navigateToPost('${node.slug}')"
+        style="display: block; height: 100%; text-decoration: none;">
+        <div class="uni-card blog-card-inner" style="display: flex; flex-direction: column; height: 100%;">
+            ${node.coverImage?.url ? `
+            <div class="blog-thumb">
+                <img src="${node.coverImage.url}" alt="Cover Image" loading="lazy" decoding="async">
+            </div>` : ''}
+            <div class="blog-info" style="display: flex; flex-direction: column; flex: 1; padding: 16px 20px;">
+                <h3 class="wi-title" style="font-size: clamp(16px, 1.5vw, 22px); margin-bottom: 8px; line-height: 1.2;">${node.title}</h3>
+                <p class="wi-text" style="font-size: clamp(12px, 0.7vw, 15px); line-height: 1.5; color: var(--tdim); margin-bottom: 12px;">${node.brief}</p>
+                <div class="brow" style="padding: 0; margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px;">
+                    ${(node.tags || []).slice(0, 4).map(tag => `<span class="badge feed-tag-link" style="font-size: clamp(9px, 0.5vw, 12px); padding: 3px 8px; text-transform: uppercase;" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='?category=${encodeURIComponent(tag.name.toLowerCase())}'">${tag.name}</span>`).join('')}
+                    <span class="badge" style="background: transparent; border: none; color: var(--dimtitle); font-size: clamp(9px, 0.5vw, 12px); padding: 3px 0; pointer-events: none;">${new Date(node.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                </div>
             </div>
         </div>
-        
     </a>
 `).join('');
 
