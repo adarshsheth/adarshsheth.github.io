@@ -4170,49 +4170,105 @@
       }, 50);
     }
 
-    function pfLbNav(dir) {
-      if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
+    // function pfLbNav(dir) {
+    //   if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
 
-      const stack = pfLbHome.parent;
-      if (!stack) return;
+    //   const stack = pfLbHome.parent;
+    //   if (!stack) return;
 
-      // Get all visible items in the current stack
-      const items = Array.from(stack.querySelectorAll('.ec-item')).filter(item => item.style.display !== 'none');
-      if (items.length <= 1) return;
+    //   // Get all visible items in the current stack
+    //   const items = Array.from(stack.querySelectorAll('.ec-item')).filter(item => item.style.display !== 'none');
+    //   if (items.length <= 1) return;
 
-      // FIX: Look for pfLbClone instead of the original node (which is currently inside the lightbox)
-      const currentIndex = items.indexOf(pfLbClone);
-      if (currentIndex === -1) return;
+    //   // FIX: Look for pfLbClone instead of the original node (which is currently inside the lightbox)
+    //   const currentIndex = items.indexOf(pfLbClone);
+    //   if (currentIndex === -1) return;
 
-      const nextIndex = (currentIndex + dir + items.length) % items.length;
-      const nextItem = items[nextIndex];
+    //   const nextIndex = (currentIndex + dir + items.length) % items.length;
+    //   const nextItem = items[nextIndex];
 
-      // Clean up current item cleanly
-      const currentItem = pfLbHome.node;
-      const currentCard = currentItem.querySelector('.ec-card');
-      if (currentCard) currentCard.classList.remove('open');
-      currentItem.classList.remove('in-lightbox');
+    //   // Clean up current item cleanly
+    //   const currentItem = pfLbHome.node;
+    //   const currentCard = currentItem.querySelector('.ec-card');
+    //   if (currentCard) currentCard.classList.remove('open');
+    //   currentItem.classList.remove('in-lightbox');
 
-      // FIX: Replace the clone in the stack with the original item
-      stack.replaceChild(currentItem, pfLbClone);
+    //   // FIX: Replace the clone in the stack with the original item
+    //   stack.replaceChild(currentItem, pfLbClone);
 
-      // Setup the next item in the lightbox
-      pfLbClone = nextItem.cloneNode(true);
-      stack.insertBefore(pfLbClone, nextItem);
+    //   // Setup the next item in the lightbox
+    //   pfLbClone = nextItem.cloneNode(true);
+    //   stack.insertBefore(pfLbClone, nextItem);
 
-      pfLbHome = { node: nextItem, parent: stack };
+    //   pfLbHome = { node: nextItem, parent: stack };
 
-      const content = document.getElementById('card-lb-content');
-      content.innerHTML = '';
-      content.appendChild(nextItem);
-      nextItem.classList.add('in-lightbox');
+    //   const content = document.getElementById('card-lb-content');
+    //   content.innerHTML = '';
+    //   content.appendChild(nextItem);
+    //   nextItem.classList.add('in-lightbox');
 
-      const nextCard = nextItem.querySelector('.ec-card');
-      if (nextCard) nextCard.classList.add('open');
+    //   const nextCard = nextItem.querySelector('.ec-card');
+    //   if (nextCard) nextCard.classList.add('open');
 
-      // Reset scroll position
-      content.scrollTop = 0;
-    }
+    //   // Reset scroll position
+    //   content.scrollTop = 0;
+    // }
+  function pfLbNav(dir) {
+    if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
+
+    // 1. Select ALL visible items across ALL sections. 
+    // Querying '.card-stack .ec-item' automatically skips the hidden master pool 
+    // and captures the exact top-to-bottom visual order of the page.
+    const visibleItems = Array.from(document.querySelectorAll('.card-stack .ec-item'))
+      .filter(item => item.style.display !== 'none');
+
+    if (visibleItems.length <= 1) return;
+
+    // 2. The clone acts as our placeholder in the grid. Find its index globally.
+    const currentIndex = visibleItems.indexOf(pfLbClone);
+    if (currentIndex === -1) return;
+
+    // 3. Calculate the next index, looping around if we hit the start or end.
+    const nextIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+    const nextItem = visibleItems[nextIndex];
+
+    // 4. Clean up the currently open item and return it to its original grid spot.
+    const currentItem = pfLbHome.node;
+    const currentCard = currentItem.querySelector('.ec-card');
+    if (currentCard) currentCard.classList.remove('open');
+    currentItem.classList.remove('in-lightbox');
+
+    pfLbHome.parent.replaceChild(currentItem, pfLbClone);
+
+    // 5. Prepare the next item by cloning it and recording its new home stack.
+    const nextParent = nextItem.parentNode;
+    pfLbClone = nextItem.cloneNode(true);
+    nextParent.insertBefore(pfLbClone, nextItem);
+
+    pfLbHome = { node: nextItem, parent: nextParent };
+
+    // 6. Move the next item into the lightbox overlay.
+    const content = document.getElementById('card-lb-content');
+    content.innerHTML = '';
+    content.appendChild(nextItem);
+    nextItem.classList.add('in-lightbox');
+
+    const nextCard = nextItem.querySelector('.ec-card');
+    if (nextCard) nextCard.classList.add('open');
+
+    // 7. Reset the lightbox scroll position to the top.
+    content.scrollTop = 0;
+  }
+
+
+
+
+
+
+
+
+
+
 
     // document.addEventListener('keydown', (e) => {
     //   if (document.getElementById('card-lb').classList.contains('open')) {
@@ -4462,6 +4518,10 @@
       });
     });
   </script>
+  
+  
+  
+
 </body>
 
 </html>
