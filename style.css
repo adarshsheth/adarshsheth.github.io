@@ -3666,8 +3666,8 @@ footer {
 	background: transparent !important;
 	border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
 	border-radius: 10px;
-	backdrop-filter: blur(10px) !important;
-	-webkit-backdrop-filter: blur(10px) !important;
+	/* backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important; */
 	overflow: hidden;
 
 	/* 2. Customizations for the skills layout */
@@ -3678,7 +3678,7 @@ footer {
 .skill-cat:hover {
 	/* 1. Hover styles copied directly from .ec-card */
 	transform: translateY(-3px);
-	background: color-mix(in srgb, var(--g) 10%, transparent) !important;
+	/* background: color-mix(in srgb, var(--g) 10%, transparent) !important; */
 	border-color: color-mix(in srgb, var(--g) 50%, transparent);
 
 	/* 2. Customizations (e.g., adding a slight shadow) */
@@ -3693,10 +3693,12 @@ footer {
 	/* letter-spacing: 0.12em; */
 	/* color: var(--dimtitle); */
 	/* color: var(--tdim-fr); */
-	color: color-mix(in srgb, var(--dimtitle) 85%, transparent);
+	/* color: color-mix(in srgb, var(--dimtitle) 85%, transparent); */
+	color: color-mix(in srgb, var(--dimtitle) 100%, transparent);
 	text-transform: uppercase;
 	margin-bottom: 18px !important;
 	border-bottom: 2px solid color-mix(in srgb, var(--border) 50%, transparent);
+	/* border-bottom: 2px solid color-mix(in srgb, var(--border) 100%, transparent); */
 	padding-bottom: 10px;
 }
 
@@ -3714,9 +3716,13 @@ footer {
 	padding: 2px 9px;
 	/* border-radius: 100px !important; */
 	border-radius: 5px;
-	background: color-mix(in srgb, var(--border) 15%, transparent);
-	border: 1px solid var(--border);
+	/* background: color-mix(in srgb, var(--border) 15%, transparent); */
+	background: color-mix(in srgb, var(--border) 0%, transparent);
+	/* background: color-mix(in srgb, var(--border) 100%, transparent); */
+	/* background: color-mix(in srgb, var(--bg) 100%, transparent); */
+	border: 1.5px solid var(--border);
 	color: var(--tdim-fr);
+	/* color: var(--bg); */
 	/* background: color-mix(in srgb, var(--badge) 15%, transparent);
 	border: 1px solid var(--badge);
 	color: var(--g); */
