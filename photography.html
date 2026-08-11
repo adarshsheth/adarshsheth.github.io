@@ -81,6 +81,7 @@
         display: none !important;
       }
     }
+
   </style>
   <link rel="stylesheet" href="style.css" />
 
@@ -150,6 +151,9 @@
       /* was 4px before */
       margin-bottom: var(--img-gap);
       background: var(--surface);
+      border: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
+      /* box-shadow: 0 0 3px 1px color-mix(in srgb, var(--border) 70%, transparent);  */
+      box-shadow: 0 0 3px 1px color-mix(in srgb, var(--border) 60%, transparent); 
 
       opacity: 0;
       transform: translateY(40px);
@@ -159,6 +163,10 @@
         box-shadow 0.25s;
     }
 
+    .photo-tile:hover {
+      border: 2px solid var(--title);
+
+    }
     .photo-tile.visible {
       opacity: 1;
       transform: translateY(0);
@@ -170,10 +178,11 @@
       height: auto;
       transition: transform .4s ease-in-out;
       cursor: pointer;
+      /* border: 2px solid color-mix(in srgb, var(--border) 70%, transparent); */
     }
 
     .photo-tile:hover img {
-      transform: scale(1.045)
+      transform: scale(1.045);
     }
 
     /* image text caption */
@@ -221,7 +230,7 @@
       pointer-events: none;
       border-radius: inherit;
       z-index: 0;
-      border: 2px solid var(--title);
+      /* border: 2px solid var(--title); */
       
     }
 

@@ -135,7 +135,7 @@
       margin: 0;
       /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
       /* color: var(--sec-title); */
-      color: color-mix(in srgb, var(--dimtitle) 50%, transparent) !important;
+      color: color-mix(in srgb, var(--title) 60%, transparent) !important;
       /* color: color-mix(in srgb, var(--accent2) 50%, transparent); */
       transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
       margin-left: -2px;
@@ -150,7 +150,7 @@
     .sh h2:hover {
       /* color: color-mix(in srgb, var(--dimtitle) 50%, transparent); */
       /* color: color-mix(in srgb, var(--sec-title) 100%, transparent) !important; */
-      color: color-mix(in srgb, var(--light-navy) 70%, transparent) !important;
+      color: color-mix(in srgb, var(--title) 50%, transparent) !important;
     }
 
     .sh-pulse-btn:hover h2 {
@@ -183,13 +183,13 @@
 
     /* 3. Base styles for the entire prefix */
     .auto-num {
-      color: var(--accent);
+      color: var(--title);
       /* font-family: 'Courier New', Courier, monospace; */
       /* font-weight: 900; */
       font-weight: 500;
       padding-right: 20px;
       /* font-size: clamp(12px, 0.9vw, 18px) */
-      /* font-size: clamp(12px, 0.8vw, 14px) */
+      font-size: clamp(12px, 0.85vw, 14px)
     }
 
     /* 4. Inject the em-dashes with the tight letter-spacing */
@@ -443,6 +443,7 @@
       font-size: 13px;
       font-weight: 700;
       color: var(--tdim-fr) !important;
+      color: color-mix(in srgb, var(--title) 60%, transparent) !important;
       /* color: var(--dimtitle); */
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -513,7 +514,8 @@
 
     .ec-card:hover .expand-prompt {
       transform: translateX(10px);
-      color: color-mix(in srgb, var(--text) 70%, transparent);
+      /* color: color-mix(in srgb, var(--text) 70%, transparent); */
+      color: color-mix(in srgb, var(--text) 80%, transparent);
     }
 
     .ec-card.open .expand-icon {
@@ -567,6 +569,67 @@
       grid-template-rows: 1fr;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 1. Make the entire opened card a pointer (for background clicking) */
+.ec-card.open {
+    cursor: pointer;
+}
+
+/* 2. Revert text, standalone images, and text-heavy blocks to their default cursors */
+.ec-card.open .ec-details p,
+.ec-card.open .ec-details h1,
+.ec-card.open .ec-details h2,
+.ec-card.open .ec-details h3,
+.ec-card.open .ec-details h4,
+.ec-card.open .ec-details span,
+.ec-card.open .ec-details li,
+.ec-card.open .ec-details b,
+.ec-card.open .ec-details strong,
+.ec-card.open .ec-details i,
+.ec-card.open .ec-details img,
+.ec-card.open .ec-details .cslbl,
+.ec-card.open .ec-details .hbox,
+.ec-card.open .ec-details .dbox,
+.ec-card.open .ec-details .srow,
+.ec-card.open .ec-details .srow * {
+    cursor: auto;
+}
+
+/* 3. Ensure actual interactive elements (links, buttons, carousels) keep the pointer */
+.ec-card.open .ec-details a,
+.ec-card.open .ec-details a *,
+.ec-card.open .ec-details button,
+.ec-card.open .ec-details button *,
+.ec-card.open .ec-details .cw,
+.ec-card.open .ec-details .cw * {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .ec-card.open .ec-details-inner {
       opacity: 1;
       /* padding-top: 15px; */
@@ -574,6 +637,7 @@
       /* border-top: 3px solid color-mix(in srgb, var(--g) 50%, transparent 0%); */
       border-top: 2px solid color-mix(in srgb, var(--border) 100%, transparent 0%);
       border-top: 2px solid color-mix(in srgb, var(--border) 70%, transparent 0%);
+      border-top: 2px solid color-mix(in srgb, var(--border) 30%, transparent 0%);
       /* border-top: 10px solid color-mix(in srgb, var(--border-fr) 100%, transparent 0%); */
       /* border-top: 10px solid color-mix(in srgb, var(--g) 70%, transparent);; */
       /* border-top: inherit; */
@@ -1815,7 +1879,7 @@
                 <!-- <p class="ec-brief">Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse
                   LEO TLE files to filter those in FOV; then tracked chosen satellite across its in-FOV duration.</p> -->
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -1934,7 +1998,7 @@
                   TAMU's DBVF competition
                   team.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2112,7 +2176,7 @@
                   Developed a robust inventory BOM for a student-led liquid rocket engine team.
                 </p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2224,7 +2288,7 @@
                   a high-fidelity simulation (SpaceTeamsPro) under extreme operational
                   constraints.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2333,7 +2397,7 @@
                   documentation, established engineering design processes (EDP), and led
                   design/build iterations.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2557,7 +2621,7 @@
                   $75,000+ while overhauling the club's logistics and operational documentation.
                 </p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2665,7 +2729,7 @@
                   professional development for the Texas A&M University chapter of the Vertical Flight Society.
                 </p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2766,7 +2830,7 @@
                   under extreme weather
                   constraints.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -2931,7 +2995,7 @@
                   nuclear reactor
                   (SMR) proof of concept optimized for stable burnup and fuel efficiency.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3051,7 +3115,7 @@
                   optimized rocket. Coded a landing simulation to determine thrust activation
                   altitudes.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3139,7 +3203,7 @@
                 <p class="ec-brief">A comprehensive document outlining the end-to-end systems engineering approach for
                   managing complex projects, with detailed methodologies and templates for each step .</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3195,7 +3259,7 @@
                 <p class="ec-brief">A comprehensive document outlining the end-to-end systems engineering approach for
                   managing complex projects, with detailed methodologies and templates for each step .</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3239,7 +3303,7 @@
                 <p class="ec-brief">Authored a technical guide for 1) tuning 14 individual factors of 2 launch
                   mechanisms; 2) pneumatics.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
           <div class="ec-details">
@@ -3324,7 +3388,7 @@
                   thermodynamic,
                   electric, and software engineering processes behind common everyday objects.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3395,7 +3459,7 @@
                   engineering principles and processes that shape, limit, and optimize aircraft
                   design.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3473,7 +3537,7 @@
                   installed a 14'×4'×3'
                   greenhouse bench for a local non-profit as my capstone project.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3572,7 +3636,7 @@
                   developed independently
                   to master complex curvature and lofting in Autodesk Fusion 360.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3644,7 +3708,7 @@
                   driver input force, calculating mechanical stress distributions and cylinder
                   placements.</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
 
@@ -3727,7 +3791,7 @@
                 </div>
                 <p class="ec-brief">Guided tour at Boeing's Renton factory, home of the 737!</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
           <div class="ec-details">
@@ -3796,7 +3860,7 @@
                 </div>
                 <p class="ec-brief">Guided tour at Blue Origin's Kent, WA factory!</p>
               </div>
-              <div class="expand-prompt">View Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
+              <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
           </div>
           <div class="ec-details">

@@ -642,14 +642,19 @@
 
         /* Ensure badges stay correct inside the blog feed */
         .blog-card-inner .badge {
-            background: color-mix(in srgb, var(--badge) 15%, transparent);
+            /* background: color-mix(in srgb, var(--badge) 15%, transparent); */
+            background: color-mix(in srgb, var(--badge) 100%, transparent);
             /* border: 1px solid var(--dull); */
             /* color: var(--dull) !important; */
             border: 1px solid var(--g);
             color: var(--g) !important;
             transition: all 0.2s ease;
+            font-weight: 700;
         }
 
+        .blog-card-inner .feed-tag-link {
+            color: var(--bg) !important;
+        }
         .blog-card-inner .feed-tag-link:hover {
             background: var(--badge);
             color: var(--bg) !important;
@@ -976,13 +981,23 @@
             //     <span class="sbdot" style="background: var(--blogAlt);"></span>
             //     <span class="sblbl" style="color: var(--blogAlt);">Back to Feed</span>
             // </a>
-            sbNav.innerHTML = `
-        <a class="sbn" href="?">
-            <span class="sblbl" style="color: var(--blogAlt); font-weight: 700; margin-bottom: -5px;">Back to Feed</span>
-        </a>
-        <div style="height:2px;background:color-mix(in srgb, var(--border) 50%, transparent);margin:10px 14px;"></div>
-        ${sidebarHtml}
-    `;
+            
+            
+    //         sbNav.innerHTML = `
+    //     <a class="sbn" href="?">
+    //         <span class="sblbl" style="color: var(--blogAlt); font-weight: 700; margin-bottom: -5px;">Back to Feed</span>
+    //     </a>
+    //     <div style="height:2px;background:color-mix(in srgb, var(--border) 50%, transparent);margin:10px 14px;"></div>
+    //     ${sidebarHtml}
+    // `;
+                    sbNav.innerHTML = `
+                <a class="sbn" href="?">
+                    <span class="sblbl" style="background: var(--blogAlt); padding: 4px 13px 3px; border-radius: 100px; color: var(--bg); font-weight: 700; margin-bottom: 5px;">Back to Feed</span>
+                </a>
+                
+                ${sidebarHtml}
+            `;
+    
 
             initBlogScrollSpy();
         }
