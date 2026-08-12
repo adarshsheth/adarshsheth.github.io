@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow">
+    <meta name="keywords"
+        content="Contact, Digital Business Card, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
+    <meta name="theme-color" content="#647661">
+    <link rel="author" href="https://www.linkedin.com/in/adarsh-sheth/">
+    <meta property="og:site_name" content="Adarsh Sheth" />
+    <meta property="og:type" content="profile">
+    <meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact • Adarsh Sheth">
+    <meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+
+    <link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
+    <link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Adarsh Sheth",
+      "jobTitle": "Aerospace Engineer",
+      "url": "https://adarshsheth.github.io",
+      "email": "mailto:adarshsheth@tamu.edu",
+      "sameAs": [
+        "https://www.linkedin.com/in/adarsh-sheth/"
+      ],
+      "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Texas A&M University"
+      }
+    }
+</script>
+
+    <title>Contact • Adarsh Sheth</title>
+    <meta property="og:title" content="Contact • Adarsh Sheth">
+    <meta name="description"
+        content="Get in touch with Adarsh Sheth — Aerospace Engineer & Texas A&M student. Save contact, connect on LinkedIn, or explore his portfolio.">
+    <meta property="og:description"
+        content="Get in touch with Adarsh Sheth — Aerospace Engineer & Texas A&M student. Save contact, connect on LinkedIn, or explore his portfolio.">
+    <meta property="og:url" content="https://adarshsheth.github.io/contact">
+    <link rel="canonical" href="https://adarshsheth.github.io/contact">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        body {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: "Rubik", sans-serif;
+            -webkit-appearance: none;
+            appearance: none;
+            background: none;
+            border: none;
+            color: inherit;
+            outline: none;
+        }
+
+        .card-full-bg {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(255, 254, 254, 0.92) 0%, rgba(255, 254, 254, 0.92) 80%), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/landing_gku5dx.jpg') center/cover no-repeat;
+            z-index: -1;
+        }
+
+        /* Centered in the visible area below the fixed nav — both axes */
+        #card-main {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            justify-content: safe center;
+            padding: calc(var(--navh) + 50px) 14px 20px;
+            box-sizing: border-box;
+        }
+
+        /* ── BUTTONS (defined locally — not present in the shared stylesheet) ── */
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-family: "Rubik", sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1;
+        }
+
+        .hero-btn i {
+            font-size: 12px;
+        }
+
+        .btn-primary {
+            color: var(--bg);
+            background: var(--g);
+            border-color: var(--g);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--g);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border-color: color-mix(in srgb, var(--border) 55%, transparent);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--g);
+            color: var(--g);
+            transform: translateY(-2px);
+        }
+
+        /* ── THE CARD ── */
+        .biz-card {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            background: color-mix(in srgb, var(--bg) 55%, transparent);
+            border: 2.5px solid color-mix(in srgb, var(--border) 45%, transparent);
+            border-radius: 18px;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            padding: 30px 20px 24px;
+            animation: cardIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Corner brackets, same motif as homepage about-box */
+        .biz-card::before,
+        .biz-card::after {
+            content: "";
+            position: absolute;
+            width: 34px;
+            height: 24px;
+            border: 4px solid var(--accent);
+        }
+
+        .biz-card::before {
+            top: -4px;
+            left: -4px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 16px 0 0 0;
+        }
+
+        .biz-card::after {
+            bottom: -4px;
+            right: -4px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 16px 0;
+        }
+
+        /* Layout: single column on mobile, two-column "landscape card" on wider screens */
+        .card-body {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-areas:
+                "identity"
+                "engage"
+                "extra";
+            gap: 24px;
+        }
+
+        .card-identity {
+            grid-area: identity;
+            text-align: center;
+        }
+
+        .card-engage {
+            grid-area: engage;
+        }
+
+        .card-extra {
+            grid-area: extra;
+            text-align: center;
+        }
+
+        .card-overlord {
+            border: 3px solid var(--bg);
+            overflow:hidden;
+            border-radius: 50%;
+        }
+
+        .card-avatar-wrap {
+            width: 92px;
+            height: 92px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            /* padding: 4px; */
+            background: linear-gradient(135deg, var(--g), var(--accent2));
+            border: 3px solid var(--title);
+
+        }
+
+        .card-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            transform: scale(1.25);
+            overflow: hidden;
+
+        }
+
+        .card-name {
+            font-weight: 900;
+            font-size: clamp(22px, 6vw, 26px);
+            letter-spacing: 0.02em;
+            color: var(--dimtitle);
+            line-height: 1.1;
+        }
+
+        .card-title {
+            margin-top: 5px;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: color-mix(in srgb, var(--title) 50%, transparent);
+        }
+
+        /* Positions + location: one consistent, left-aligned info list (no more chaotic sizing) */
+        .card-info {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            text-align: left;
+        }
+
+        .card-info .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .card-info .info-row i {
+            width: 15px;
+            flex-shrink: 0;
+            text-align: center;
+            color: var(--g);
+            font-size: 11.5px;
+            margin-top: 2px;
+        }
+
+        .card-div {
+            height: 1.5px;
+            background: color-mix(in srgb, var(--border) 35%, transparent);
+            margin: 20px 0;
+            border: none;
+        }
+
+        /* Direct contact rows */
+        .contact-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            border: 1.5px solid color-mix(in srgb, var(--border) 35%, transparent);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .contact-row:hover {
+            border-color: var(--g);
+            color: var(--g);
+            transform: translateY(-2px);
+        }
+
+        .contact-row i:first-child {
+            font-size: 14px;
+            width: 16px;
+            color: var(--g);
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .contact-row span.crlbl {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .contact-row .cr-copy {
+            font-size: 10px;
+            opacity: 0.5;
+        }
+
+        /* Primary actions: Save Contact + Share, side by side */
+        .primary-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .primary-actions .hero-btn {
+            flex: 1;
+            padding: 11px 8px;
+            font-size: 11.5px;
+        }
+
+        /* Secondary nav strip: compact single row of icon chips */
+        .nav-strip {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .nav-chip {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 9px 4px;
+            border-radius: 10px;
+            border: 1.5px solid color-mix(in srgb, var(--border) 35%, transparent);
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            transition: all 0.25s ease;
+        }
+
+        .nav-chip i {
+            font-size: 14px;
+            color: var(--g);
+        }
+
+        .nav-chip:hover {
+            opacity: 1;
+            border-color: var(--g);
+            color: var(--g);
+            transform: translateY(-2px);
+        }
+
+        /* Affiliations strip */
+        .card-affil-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--tdim-fr);
+            margin-bottom: 10px;
+        }
+
+        .card-affil-imgs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            opacity: 0.75;
+        }
+
+        .card-affil-imgs img {
+            height: 20px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.8;
+            transition: all 0.25s ease;
+        }
+
+        .card-affil-imgs img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* QR */
+        .card-qr-toggle {
+            margin-top: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--tdim-fr);
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        .card-qr-toggle:hover {
+            color: var(--g);
+        }
+
+        .card-qr-box {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-qr-box.open {
+            max-height: 220px;
+            margin-top: 12px;
+        }
+
+        .card-qr-box img,
+        .card-qr-box canvas {
+            border-radius: 10px;
+            border: 2px solid color-mix(in srgb, var(--border) 40%, transparent);
+            padding: 8px;
+            background: white;
+        }
+
+        /* Toast for copy feedback */
+        #toast {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translate(-50%, 20px);
+            background: var(--dimtitle);
+            color: var(--bg);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 999;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* ── DESKTOP / WIDE: landscape two-column card instead of a tall vertical stack ── */
+        @media (min-width: 700px) {
+            .biz-card {
+                max-width: 840px;
+                padding: 42px 46px;
+            }
+
+            .card-body {
+                grid-template-columns: 270px 1fr;
+                grid-template-areas:
+                    "identity engage"
+                    "extra extra";
+                gap: 8px 46px;
+                align-items: start;
+            }
+
+            .card-identity {
+                text-align: left;
+                border-right: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
+                padding-right: 40px;
+            }
+
+            .card-avatar-wrap {
+                margin: 0 0 16px;
+            }
+
+            .card-div {
+                display: none;
+            }
+
+            .card-extra {
+                margin-top: 26px;
+                padding-top: 22px;
+                border-top: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
+            }
+        }
+
+        /* ── SMALL MOBILE: tighten internal spacing so the card fits without excess scroll ── */
+        @media (max-width: 380px) {
+            .biz-card {
+                padding: 24px 16px 20px;
+            }
+
+            .card-avatar-wrap {
+                width: 76px;
+                height: 76px;
+                margin-bottom: 12px;
+            }
+
+            .card-body {
+                gap: 18px;
+            }
+
+            .card-div {
+                margin: 16px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-full-bg"></div>
+    <div id="blur-page"></div>
+    <div id="nav-placeholder"></div>
+    <script>
+        const cachedNav = sessionStorage.getItem("rawNavHTML");
+        if (cachedNav) {
+            document.getElementById("nav-placeholder").outerHTML = cachedNav;
+            const header = document.getElementById("hdr");
+            if (header) {
+                header.querySelectorAll(".ni").forEach((link) => link.classList.remove("active"));
+            }
+        }
+    </script>
+
+    <main id="card-main">
+        <div class="biz-card">
+            <div class="card-body">
+
+                <div class="card-identity">
+                    <div class="card-avatar-wrap">
+                        <div class="card-overlord">
+                            <img src="media/logo/pfp.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
+                        </div>
+                    </div>
+                    <div class="card-name">Adarsh Sheth</div>
+                    <div class="card-title">Aerospace Engineer</div>
+
+                    <div class="card-info">
+                        <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace Engineering,<br>
+                                Texas A&amp;M University</span></div>
+                        <div class="info-row"><i class="fas fa-briefcase"></i><span>Focus: Vertical Flight,
+                                Structures</span></div>
+                        <!-- <div class="info-row"><i class="fas fa-helicopter"></i><span>Focus: Vertical Flight &amp;
+                                Systems Integration</span></div> -->
+                        <div class="info-row"><i class="fas fa-location-dot"></i><span>Bay Area, CA &amp;<br>College
+                                Station, TX</span></div>
+                    </div>
+                </div>
+
+                <div class="card-engage">
+                    <hr class="card-div" />
+
+                    <div class="contact-rows">
+                        <a class="contact-row" href="mailto:adarshsheth@tamu.edu">
+                            <i class="fas fa-envelope"></i>
+                            <span class="crlbl">adarshsheth@tamu.edu</span>
+                            <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
+                        </a>
+                        <a class="contact-row" href="tel:+15551234567">
+                            <i class="fas fa-phone"></i>
+                            <span class="crlbl">(555) 123-4567</span>
+                            <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
+                        </a>
+                        <a class="contact-row" href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank"
+                            rel="noopener">
+                            <i class="fab fa-linkedin-in"></i>
+                            <span class="crlbl">linkedin.com/in/adarsh-sheth</span>
+                            <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
+                        </a>
+                        <a class="contact-row" href="https://tx.ag/adarsh" target="_blank" rel="noopener">
+                            <i class="fas fa-link"></i>
+                            <span class="crlbl">tx.ag/adarsh</span>
+                            <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
+                        </a>
+                    </div>
+
+                    <div class="primary-actions">
+                        <button class="hero-btn btn-primary" id="save-contact-btn">
+                            <i class="fas fa-address-card"></i> Save
+                        </button>
+                        <button class="hero-btn btn-secondary" id="share-btn">
+                            <i class="fas fa-share-nodes"></i> Share
+                        </button>
+                    </div>
+
+                    <div class="nav-strip">
+                        <a href="portfolio.html" class="nav-chip"><i
+                                class="fas fa-diagram-project"></i><span>Portfolio</span></a>
+                        <a href="resume.html" class="nav-chip"><i class="fas fa-file-lines"></i><span>Resume</span></a>
+                        <a href="photography.html" class="nav-chip"><i class="fas fa-camera"></i><span>Photos</span></a>
+                        <a href="blog.html" class="nav-chip"><i class="fas fa-pen-nib"></i><span>Blog</span></a>
+                    </div>
+                </div>
+
+                <div class="card-extra">
+                    <div class="card-affil-label">Affiliated With</div>
+                    <div class="card-affil-imgs">
+                        <img src="media/logo/ray.png" alt="Raytheon" />
+                        <img src="media/logo/vfd.png" alt="Vertical Flight Foundation" />
+                        <img src="media/logo/vfs.png" alt="Vertical Flight Society" />
+                        <img src="media/logo/seds.png" alt="SEDS" />
+                        <img src="media/logo/red.png" alt="RED" />
+                    </div>
+
+                    <button class="card-qr-toggle" id="qr-toggle"><i class="fas fa-qrcode"></i> Show QR Code</button>
+                    <div class="card-qr-box" id="qr-box">
+                        <div id="qr-render-target"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <div id="toast"></div>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        function showToast(msg) {
+            const t = document.getElementById("toast");
+            t.textContent = msg;
+            t.classList.add("show");
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+        }
+
+        // Copy-to-clipboard on any contact row (email / linkedin / short link)
+        document.querySelectorAll(".contact-row").forEach((row) => {
+            row.addEventListener("click", (e) => {
+                const label = row.querySelector(".crlbl")?.textContent?.trim();
+                if (label && navigator.clipboard) {
+                    navigator.clipboard.writeText(
+                        label.includes("@") ? label : (label.startsWith("http") ? label : "https://" + label)
+                    ).catch(() => { });
+                    showToast("Copied " + label);
+                }
+            });
+        });
+
+        // vCard generation + download ("Save Contact")
+        document.getElementById("save-contact-btn").addEventListener("click", () => {
+            const vcard = [
+                "BEGIN:VCARD",
+                "VERSION:3.0",
+                "N:Sheth;Adarsh;;;",
+                "FN:Adarsh Sheth",
+                "TITLE:Aerospace Engineer",
+                "ORG:Texas A&M University",
+                "EMAIL;TYPE=INTERNET:adarshsheth@tamu.edu",
+                "TEL;TYPE=CELL:+15551234567",
+                "URL:https://adarshsheth.github.io",
+                "URL:https://www.linkedin.com/in/adarsh-sheth/",
+                "ADR;TYPE=WORK:;;College Station;TX;;;USA",
+                "NOTE:Aerospace Engineering student focused on vertical flight and systems integration.",
+                "END:VCARD",
+            ].join("\n");
+
+            const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "adarsh-sheth.vcf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Contact saved!");
+        });
+
+        // Share card (native share sheet, falls back to clipboard copy)
+        document.getElementById("share-btn").addEventListener("click", async () => {
+            const shareData = {
+                title: "Adarsh Sheth — Aerospace Engineer",
+                text: "Here's my digital business card:",
+                url: window.location.href,
+            };
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (e) { }
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href).catch(() => { });
+                showToast("Link copied to clipboard!");
+            }
+        });
+
+        // QR code — generated locally via the qrcode.js library (no external hotlink needed);
+        // falls back to a QR image API only if the library fails to load.
+        let qrGenerated = false;
+        document.getElementById("qr-toggle").addEventListener("click", () => {
+            const box = document.getElementById("qr-box");
+            const toggle = document.getElementById("qr-toggle");
+            const isOpen = box.classList.toggle("open");
+
+            if (isOpen && !qrGenerated) {
+                const target = document.getElementById("qr-render-target");
+                const url = window.location.href;
+                try {
+                    if (typeof QRCode === "undefined") throw new Error("qrcode.js not available");
+                    new QRCode(target, {
+                        text: url,
+                        width: 150,
+                        height: 150,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.M,
+                    });
+                } catch (e) {
+                    const img = document.createElement("img");
+                    img.width = 150;
+                    img.height = 150;
+                    img.alt = "QR code linking to this contact card";
+                    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
+                    target.appendChild(img);
+                }
+                qrGenerated = true;
+            }
+
+            toggle.innerHTML = isOpen
+                ? '<i class="fas fa-qrcode"></i> Hide QR Code'
+                : '<i class="fas fa-qrcode"></i> Show QR Code';
+        });
+    </script>
+</body>
+
+</html>
