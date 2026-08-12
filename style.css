@@ -29,7 +29,7 @@
 	/* --accent2: #857032; */
 	--accent2: var(--accent);
 
-	--title: hsl(205, 74%, 13%);
+	--title: hsl(206, 73%, 13%);
 	--light-navy: hsl(205, 74%, 20%);
 	--text: var(--title);
 	/* --text: pink; */
