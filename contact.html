@@ -222,7 +222,34 @@
 
         .card-identity {
             grid-area: identity;
-            text-align: center;
+            text-align: left;
+        }
+
+        /* Mobile: photo on the left, name/title/description on the right;
+           education/focus/location sit below as a full-width row. */
+        .identity-top {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .identity-photo {
+            flex: 0 0 auto;
+            text-align: left;
+        }
+
+        .identity-details {
+            flex: 1 1 auto;
+            min-width: 0;
+            text-align: left;
+        }
+
+        .card-role-blurb {
+            margin-top: 6px;
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: color-mix(in srgb, var(--text) 82%, transparent);
         }
 
         .card-engage {
@@ -243,7 +270,7 @@
         .card-avatar-wrap {
             width: 92px;
             height: 92px;
-            margin: 0 auto 16px;
+            margin: 0;
             border-radius: 50%;
             /* padding: 4px; */
             background: linear-gradient(135deg, var(--g), var(--accent2));
@@ -356,6 +383,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-weight: 400;
         }
 
         .contact-row .cr-copy {
@@ -555,6 +583,14 @@
                 padding-right: 40px;
             }
 
+            .identity-top {
+                display: block;
+            }
+
+            .identity-details {
+                padding-top: 0;
+            }
+
             .card-avatar-wrap {
                 margin: 0 0 16px;
             }
@@ -579,7 +615,6 @@
             .card-avatar-wrap {
                 width: 76px;
                 height: 76px;
-                margin-bottom: 12px;
             }
 
             .card-body {
@@ -589,6 +624,27 @@
             .card-div {
                 margin: 16px 0;
             }
+
+            .identity-top {
+                gap: 12px;
+            }
+        }
+
+        #recent-experience {
+            padding-top: 12px;
+            position: relative;
+        }
+
+        /* Custom shortened top border */
+        #recent-experience::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* width: 60%; */
+            width: 50px;
+            height: 1px;
+            background: color-mix(in srgb, var(--border) 35%, transparent);
         }
     </style>
 </head>
@@ -613,23 +669,61 @@
             <div class="card-body">
 
                 <div class="card-identity">
-                    <div class="card-avatar-wrap">
-                        <div class="card-overlord">
-                            <img src="media/logo/pfp.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
+                    <div class="identity-top">
+                        <div class="identity-photo">
+                            <div class="card-avatar-wrap">
+                                <div class="card-overlord">
+                                    <img src="media/logo/pfp.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="identity-details">
+                            <div class="card-name">Adarsh Sheth</div>
+                            <div class="card-title">Aerospace Engineer</div>
+                            <div class="card-role-blurb">Aerospace Engineering student focused on vertical flight,
+                                structural design, & systems integration.</div>
                         </div>
                     </div>
-                    <div class="card-name">Adarsh Sheth</div>
-                    <div class="card-title">Aerospace Engineer</div>
 
                     <div class="card-info">
                         <!-- <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace Engineering,<br>Texas A&amp;M University</span></div> -->
-                        <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace Engineering,<br
-                                    class="desktop-break">Texas A&amp;M University</span></div>
-                        <div class="info-row"><i class="fas fa-briefcase"></i><span>Focus: ME, Structures</span></div>
+                        <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace
+                                Engineering,<br class="desktop-break">Texas A&amp;M University</span></div>
+                        <div class="info-row"><i class="fas fa-briefcase"></i><span>Focus: ME, Structures</span>
+                        </div>
                         <!-- <div class="info-row"><i class="fas fa-helicopter"></i><span>Focus: Vertical Flight &amp;
                                     Systems Integration</span></div> -->
-                        <div class="info-row"><i class="fas fa-location-dot"></i><span>Bay Area, CA &amp; <br class="desktop-break">College
-                                Station, TX</span></div>
+                        <div class="info-row"><i class="fas fa-location-dot"></i><span>Bay Area, CA &amp;
+                                College Station, TX</span></div>
+                        <!-- <div class="info-row"><i class="fas fa-location-dot"></i><span>Bay Area, CA &amp;
+                                <br class="desktop-break">College Station, TX</span></div> -->
+
+
+                        <!-- Added Recent Experience -->
+                        
+                        <div id="recent-experience" class="info-row">
+                            <!-- <i class="fa-solid fa-calendar-check"></i> -->
+                            <span style="font-weight: 500;">RECENT EXPERIENCE:</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Systems Eng. Intern @ Raytheon</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Aero Engineer @ TAMU VFD</span>
+                        </div>
+                        <!-- <div id="recent-experience" class="info-row">
+                            <i class="fas fa-building"></i>
+                            <span>Systems Eng. Intern @ Raytheon</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fas fa-helicopter"></i>
+                            <span>Aero Engineer @ TAMU VFD</span>
+                        </div> -->
+
+
                     </div>
                 </div>
 
@@ -747,9 +841,40 @@
             });
         });
 
+        // vCard line folding per RFC 2426: lines >75 chars get wrapped with
+        // CRLF + a single leading space on each continuation line.
+        function foldVCardLine(line) {
+            const limit = 75;
+            if (line.length <= limit) return line;
+            let result = line.slice(0, limit);
+            let rest = line.slice(limit);
+            while (rest.length > 0) {
+                result += "\r\n " + rest.slice(0, limit - 1);
+                rest = rest.slice(limit - 1);
+            }
+            return result;
+        }
+
+        // Fetches the profile photo and returns a folded PHOTO vCard line (or null if it can't be loaded).
+        async function buildPhotoLine(url) {
+            const res = await fetch(url);
+            if (!res.ok) return null;
+            const blob = await res.blob();
+            const mime = blob.type || "image/png";
+            const type = (mime.split("/")[1] || "png").toUpperCase();
+            const base64 = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+            if (!base64) return null;
+            return foldVCardLine(`PHOTO;ENCODING=b;TYPE=${type}:${base64}`);
+        }
+
         // vCard generation + download ("Save Contact")
-        document.getElementById("save-contact-btn").addEventListener("click", () => {
-            const vcard = [
+        document.getElementById("save-contact-btn").addEventListener("click", async () => {
+            const lines = [
                 "BEGIN:VCARD",
                 "VERSION:3.0",
                 "N:Sheth;Adarsh;;;",
@@ -761,9 +886,18 @@
                 "URL:https://adarshsheth.github.io",
                 "URL:https://www.linkedin.com/in/adarsh-sheth/",
                 "ADR;TYPE=WORK:;;College Station;TX;;;USA",
-                "NOTE:Aerospace Engineering student focused on vertical flight and systems integration.",
-                "END:VCARD",
-            ].join("\n");
+                "NOTE:Aerospace Engineering student focused on vertical flight, structural design, & systems integration.",
+            ];
+
+            try {
+                const photoLine = await buildPhotoLine("media/logo/pfp.png");
+                if (photoLine) lines.push(photoLine);
+            } catch (e) {
+                // Photo couldn't be fetched/embedded — fall back to a photo-less vCard.
+            }
+
+            lines.push("END:VCARD");
+            const vcard = lines.join("\r\n");
 
             const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
             const url = URL.createObjectURL(blob);
