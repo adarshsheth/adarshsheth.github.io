@@ -141,7 +141,8 @@
         .btn-secondary {
             background: transparent;
             color: var(--text);
-            border-color: color-mix(in srgb, var(--border) 55%, transparent);
+            /* border-color: color-mix(in srgb, var(--border) 55%, transparent); */
+            border-color: color-mix(in srgb, var(--border) 100%, transparent);
         }
 
         .btn-secondary:hover {
@@ -296,6 +297,7 @@
             letter-spacing: 0.02em;
             color: var(--dimtitle);
             line-height: 1.1;
+            text-transform: uppercase;
         }
 
         .card-title {
@@ -561,6 +563,11 @@
                 display: none;
             }
         }
+        @media (max-width: 1051px) {
+            #hero {
+                display: none;
+            }
+        }
 
         @media (min-width: 700px) {
             .biz-card {
@@ -606,6 +613,55 @@
                 border-top: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
             }
         }
+
+        @media (min-width: 700px) {
+            .biz-card {
+                max-width: 840px;
+                padding: 42px 46px;
+            }
+
+            .card-body {
+                grid-template-columns: 270px 1fr;
+                /* Change the bottom right area from 'extra extra' to 'identity extra' */
+                grid-template-areas:
+                    "identity engage"
+                    "identity extra";
+                gap: 8px 46px;
+                align-items: start;
+            }
+
+            .card-identity {
+                text-align: left;
+                border-right: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
+                padding-right: 40px;
+                /* Add height: 100% so the vertical divider line stretches properly if the right column gets taller */
+                height: 100%;
+            }
+
+            /* ... Keep your existing styles for .identity-top, .identity-details, .card-avatar-wrap, and .card-div exactly the same here ... */
+
+            .card-extra {
+                /* I slightly reduced the top margin/padding here so it groups visually better with the nav strip */
+                margin-top: 12px;
+                padding-top: 16px;
+                border-top: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /* ── SMALL MOBILE: tighten internal spacing so the card fits without excess scroll ── */
         @media (max-width: 380px) {
@@ -664,8 +720,11 @@
             }
         }
     </script>
-
+    
     <main id="card-main">
+            <section id="hero">
+                <h1 style="font-size: clamp(24px, 2.5vw, 48px) !important; padding: 20px !important;">CONTACT CARD</h1>
+            </section>
         <div class="biz-card">
             <div class="card-body">
 
@@ -690,7 +749,7 @@
                     <div class="card-info">
                         <!-- <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace Engineering,<br>Texas A&amp;M University</span></div> -->
                         <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace
-                                Engineering,<br class="desktop-break">Texas A&amp;M University</span></div>
+                                Engineering, <br class="desktop-break">Texas A&amp;M University</span></div>
                         <div class="info-row"><i class="fas fa-briefcase"></i><span>Focus: ME, Structures</span>
                         </div>
                         <!-- <div class="info-row"><i class="fas fa-helicopter"></i><span>Focus: Vertical Flight &amp;
@@ -702,7 +761,7 @@
 
 
                         <!-- Added Recent Experience -->
-                        
+
                         <div id="recent-experience" class="info-row">
                             <!-- <i class="fa-solid fa-calendar-check"></i> -->
                             <span style="font-weight: 500;">RECENT EXPERIENCE:</span>
@@ -713,7 +772,7 @@
                         </div>
                         <div class="info-row">
                             <i class="fa-solid fa-calendar-check"></i>
-                            <span>Aero Engineer @ TAMU VFD</span>
+                            <span>Aerodynamics Eng. @ TAMU VFD</span>
                         </div>
                         <!-- <div id="recent-experience" class="info-row">
                             <i class="fas fa-building"></i>
@@ -757,7 +816,7 @@
 
                     <div class="primary-actions">
                         <button class="hero-btn btn-primary" id="save-contact-btn">
-                            <i class="fas fa-address-card"></i> Save
+                            <i class="fas fa-address-card"></i> Save Contact
                         </button>
                         <button class="hero-btn btn-secondary" id="share-btn">
                             <i class="fas fa-share-nodes"></i> Share

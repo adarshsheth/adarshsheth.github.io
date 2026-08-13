@@ -336,8 +336,8 @@
 	<aside id="sb">
 		<div id="sb-hdr">Resumes</div>
 		<nav id="sb-nav">
-			<a class="sbn active" href="#" onclick="switchResume('general', 'media/resume/base_general.pdf'); return false;"
-				data-k="general">
+			<a class="sbn active" href="#"
+				onclick="switchResume('general', 'media/resume/base_general.pdf'); return false;" data-k="general">
 				<span class="sbdot"></span>
 				<span class="sblbl">General</span>
 			</a>
@@ -371,7 +371,12 @@
 		<section id="hero">
 			<h1>RESUME</h1>
 		</section>
-		<div style="text-align: center; opacity:0;"><a href="/presume.html">presume</a></div>
+		<!-- <div style="text-align: center; opacity:0;"><a href="/presume.html" rel="nofollow noopener noreferrer">presume</a></div> -->
+		<div style="text-align: center;">
+			<span onclick="window.location.href='/presume.html'" style="opacity:0;">
+				presume
+			</span>
+		</div>
 		<!-- <div id="ibar" style="margin: 20px 0px;">
 			<p>
 				Adarsh Sheth ·
@@ -428,157 +433,157 @@
 
 	<script>
 		// Setup the Public Contact URL you want displayed
-			// const PUBLIC_CONTACT_TEXT = "adarshsheth.github.io";
-			const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
-			let currentBasePdfUrl = 'media/resume/base_general.pdf';
-			let currentGeneratedBlobUrl = '';
+		// const PUBLIC_CONTACT_TEXT = "adarshsheth.github.io";
+		const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
+		let currentBasePdfUrl = 'media/resume/base_general.pdf';
+		let currentGeneratedBlobUrl = '';
 
-			async function switchResume(tabId, basePdfUrl) {
-				document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-				document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
+		async function switchResume(tabId, basePdfUrl) {
+			document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+			document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
 
-				const tab = document.getElementById('tab-' + tabId);
-				if (tab) tab.classList.add('active');
+			const tab = document.getElementById('tab-' + tabId);
+			if (tab) tab.classList.add('active');
 
-				const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
-				if (sbLink) sbLink.classList.add('active');
+			const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+			if (sbLink) sbLink.classList.add('active');
 
-				currentBasePdfUrl = basePdfUrl;
-				await generateAndRenderPublicPDF();
-			}
+			currentBasePdfUrl = basePdfUrl;
+			await generateAndRenderPublicPDF();
+		}
 
-			async function generateAndRenderPublicPDF() {
-				const container = document.getElementById('pdf-container');
-				container.style.opacity = '0.3';
+		async function generateAndRenderPublicPDF() {
+			const container = document.getElementById('pdf-container');
+			container.style.opacity = '0.3';
+
+			try {
+				const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
+				const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+				const form = pdfDoc.getForm();
 
 				try {
-					const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
-					const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-					const form = pdfDoc.getForm();
-
-					try {
-						const contactField = form.getTextField('ContactField');
-						contactField.setText(PUBLIC_CONTACT_TEXT);
-					} catch (e) {
-						console.warn("ContactField missing from base PDF.");
-					}
-
-					form.flatten();
-
-					const pdfBytes = await pdfDoc.save();
-					const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-
-					if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
-					currentGeneratedBlobUrl = URL.createObjectURL(blob);
-
-					const dlBtn = document.getElementById('floating-dl-btn');
-					if (dlBtn) dlBtn.href = currentGeneratedBlobUrl;
-
-					await renderPDF(currentGeneratedBlobUrl);
-				} catch (err) {
-					console.error("Error generating public PDF:", err);
-					container.style.opacity = '1';
+					const contactField = form.getTextField('ContactField');
+					contactField.setText(PUBLIC_CONTACT_TEXT);
+				} catch (e) {
+					console.warn("ContactField missing from base PDF.");
 				}
+
+				form.flatten();
+
+				const pdfBytes = await pdfDoc.save();
+				const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+				if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
+				currentGeneratedBlobUrl = URL.createObjectURL(blob);
+
+				const dlBtn = document.getElementById('floating-dl-btn');
+				if (dlBtn) dlBtn.href = currentGeneratedBlobUrl;
+
+				await renderPDF(currentGeneratedBlobUrl);
+			} catch (err) {
+				console.error("Error generating public PDF:", err);
+				container.style.opacity = '1';
 			}
+		}
 
-			const renderPDF = async (pdfUrlToRender) => {
-				const container = document.getElementById('pdf-container');
-				try {
-					const pdf = await pdfjsLib.getDocument(pdfUrlToRender).promise;
-					container.innerHTML = '';
+		const renderPDF = async (pdfUrlToRender) => {
+			const container = document.getElementById('pdf-container');
+			try {
+				const pdf = await pdfjsLib.getDocument(pdfUrlToRender).promise;
+				container.innerHTML = '';
 
-					for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-						const page = await pdf.getPage(pageNum);
-						const pageWrapper = document.createElement('div');
-						pageWrapper.className = 'pdf-page-wrapper';
+				for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+					const page = await pdf.getPage(pageNum);
+					const pageWrapper = document.createElement('div');
+					pageWrapper.className = 'pdf-page-wrapper';
 
-						const canvas = document.createElement('canvas');
-						canvas.className = 'pdf-page-canvas';
-						const ctx = canvas.getContext('2d');
+					const canvas = document.createElement('canvas');
+					canvas.className = 'pdf-page-canvas';
+					const ctx = canvas.getContext('2d');
 
-						const textLayerDiv = document.createElement('div');
-						textLayerDiv.className = 'textLayer';
+					const textLayerDiv = document.createElement('div');
+					textLayerDiv.className = 'textLayer';
 
-						pageWrapper.appendChild(canvas);
-						pageWrapper.appendChild(textLayerDiv);
-						container.appendChild(pageWrapper);
+					pageWrapper.appendChild(canvas);
+					pageWrapper.appendChild(textLayerDiv);
+					container.appendChild(pageWrapper);
 
-						const containerWidth = container.clientWidth || Math.min(window.innerWidth - 96, 1000);
-						const unscaledViewport = page.getViewport({ scale: 1.0 });
-						const displayScale = containerWidth / unscaledViewport.width;
-						const viewport = page.getViewport({ scale: displayScale });
+					const containerWidth = container.clientWidth || Math.min(window.innerWidth - 96, 1000);
+					const unscaledViewport = page.getViewport({ scale: 1.0 });
+					const displayScale = containerWidth / unscaledViewport.width;
+					const viewport = page.getViewport({ scale: displayScale });
 
-						const outputScale = (window.devicePixelRatio || 1) * 2;
-						canvas.width = Math.floor(viewport.width * outputScale);
-						canvas.height = Math.floor(viewport.height * outputScale);
-						canvas.style.height = Math.floor(viewport.height) + "px";
+					const outputScale = (window.devicePixelRatio || 1) * 2;
+					canvas.width = Math.floor(viewport.width * outputScale);
+					canvas.height = Math.floor(viewport.height * outputScale);
+					canvas.style.height = Math.floor(viewport.height) + "px";
 
-						const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+					const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
 
-						await page.render({ canvasContext: ctx, transform: transform, viewport: viewport }).promise;
+					await page.render({ canvasContext: ctx, transform: transform, viewport: viewport }).promise;
 
-						textLayerDiv.style.width = Math.floor(viewport.width) + 'px';
-						textLayerDiv.style.height = Math.floor(viewport.height) + 'px';
-						textLayerDiv.style.setProperty('--scale-factor', displayScale);
+					textLayerDiv.style.width = Math.floor(viewport.width) + 'px';
+					textLayerDiv.style.height = Math.floor(viewport.height) + 'px';
+					textLayerDiv.style.setProperty('--scale-factor', displayScale);
 
-						const textContent = await page.getTextContent();
-						await pdfjsLib.renderTextLayer({
-							textContentSource: textContent,
-							container: textLayerDiv,
-							viewport: viewport,
-							textDivs: []
-						}).promise;
-					}
-					container.style.opacity = '1';
-				} catch (error) {
-					console.error('Error rendering the PDF:', error);
-					container.style.opacity = '1';
-					container.innerHTML = `
+					const textContent = await page.getTextContent();
+					await pdfjsLib.renderTextLayer({
+						textContentSource: textContent,
+						container: textLayerDiv,
+						viewport: viewport,
+						textDivs: []
+					}).promise;
+				}
+				container.style.opacity = '1';
+			} catch (error) {
+				console.error('Error rendering the PDF:', error);
+				container.style.opacity = '1';
+				container.innerHTML = `
                 <div style="padding: 50px 20px; text-align: center; color: var(--text);">
                     <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
                     <h3 style="color: white; margin-bottom: 10px;">This PDF is not ready yet. Check back soon.</h3>
                 </div>
             `;
+			}
+		};
+
+		let resizeTimer;
+		let lastWidth = window.innerWidth;
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(() => {
+				if (window.innerWidth !== lastWidth) {
+					lastWidth = window.innerWidth;
+					if (currentGeneratedBlobUrl) renderPDF(currentGeneratedBlobUrl);
 				}
-			};
+			}, 250);
+		});
 
-			let resizeTimer;
-			let lastWidth = window.innerWidth;
-			window.addEventListener('resize', () => {
-				clearTimeout(resizeTimer);
-				resizeTimer = setTimeout(() => {
-					if (window.innerWidth !== lastWidth) {
-						lastWidth = window.innerWidth;
-						if (currentGeneratedBlobUrl) renderPDF(currentGeneratedBlobUrl);
-					}
-				}, 250);
-			});
+		document.addEventListener("DOMContentLoaded", () => {
+			// Check for private overlay flag
+			if (sessionStorage.getItem('unlocked') === 'true') {
+				const heroTitle = document.querySelector('#hero h1');
+				if (heroTitle) heroTitle.innerText = 'PRIVATE RESUME';
+				document.title = 'Private Resume  • Adarsh Sheth';
 
-			document.addEventListener("DOMContentLoaded", () => {
-				// Check for private overlay flag
-				if (sessionStorage.getItem('unlocked') === 'true') {
-					const heroTitle = document.querySelector('#hero h1');
-					if (heroTitle) heroTitle.innerText = 'PRIVATE RESUME';
-					document.title = 'Private Resume  • Adarsh Sheth';
-
-					const ibar = document.getElementById('ibar');
-					if (ibar) {
-						const exitBtn = document.createElement('a');
-						exitBtn.href = "#";
-						exitBtn.className = "pbtn";
-						exitBtn.innerHTML = "EXIT PRIVATE VIEW";
-						exitBtn.style.marginLeft = "15px";
-						exitBtn.onclick = (e) => {
-							e.preventDefault();
-							sessionStorage.removeItem('unlocked');
-							window.location.reload();
-						};
-						ibar.appendChild(exitBtn);
-					}
+				const ibar = document.getElementById('ibar');
+				if (ibar) {
+					const exitBtn = document.createElement('a');
+					exitBtn.href = "#";
+					exitBtn.className = "pbtn";
+					exitBtn.innerHTML = "EXIT PRIVATE VIEW";
+					exitBtn.style.marginLeft = "15px";
+					exitBtn.onclick = (e) => {
+						e.preventDefault();
+						sessionStorage.removeItem('unlocked');
+						window.location.reload();
+					};
+					ibar.appendChild(exitBtn);
 				}
+			}
 
-				generateAndRenderPublicPDF();
-			});
+			generateAndRenderPublicPDF();
+		});
 	</script>
 </body>
 
