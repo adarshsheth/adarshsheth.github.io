@@ -212,7 +212,7 @@
         }
 
         /* Layout: single column on mobile, two-column "landscape card" on wider screens */
-        .card-body {
+        /* .card-body {
             display: grid;
             grid-template-columns: 1fr;
             grid-template-areas:
@@ -220,6 +220,23 @@
                 "engage"
                 "extra";
             gap: 24px;
+        } */
+        .card-body {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-areas:
+                "identity"
+                "engage"
+                "extra"
+                "qr";
+            /* Added new area */
+            gap: 24px;
+        }
+
+        /* Add this right below .card-extra */
+        .card-qr-container {
+            grid-area: qr;
+            text-align: center;
         }
 
         .card-identity {
@@ -563,6 +580,7 @@
                 display: none;
             }
         }
+
         @media (max-width: 1051px) {
             #hero {
                 display: none;
@@ -575,12 +593,13 @@
                 padding: 42px 46px;
             }
 
-
             .card-body {
                 grid-template-columns: 270px 1fr;
                 grid-template-areas:
                     "identity engage"
-                    "extra extra";
+                    "identity extra"
+                    "qr qr";
+                /* Spans the full width at the bottom */
                 gap: 8px 46px;
                 align-items: start;
             }
@@ -608,57 +627,23 @@
             }
 
             .card-extra {
-                margin-top: 26px;
-                padding-top: 22px;
-                border-top: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
-            }
-        }
-
-        @media (min-width: 700px) {
-            .biz-card {
-                max-width: 840px;
-                padding: 42px 46px;
-            }
-
-            .card-body {
-                grid-template-columns: 270px 1fr;
-                /* Change the bottom right area from 'extra extra' to 'identity extra' */
-                grid-template-areas:
-                    "identity engage"
-                    "identity extra";
-                gap: 8px 46px;
-                align-items: start;
-            }
-
-            .card-identity {
-                text-align: left;
-                border-right: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
-                padding-right: 40px;
-                /* Add height: 100% so the vertical divider line stretches properly if the right column gets taller */
-                height: 100%;
-            }
-
-            /* ... Keep your existing styles for .identity-top, .identity-details, .card-avatar-wrap, and .card-div exactly the same here ... */
-
-            .card-extra {
-                /* I slightly reduced the top margin/padding here so it groups visually better with the nav strip */
                 margin-top: 12px;
                 padding-top: 16px;
                 border-top: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
             }
+
+            .card-affil-imgs {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            /* Give the QR container the top border that used to be on card-extra */
+            .card-qr-container {
+                margin-top: 16px;
+                padding-top: 22px;
+                border-top: 1.5px solid color-mix(in srgb, var(--border) 30%, transparent);
+            }
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -720,11 +705,11 @@
             }
         }
     </script>
-    
+
     <main id="card-main">
-            <section id="hero">
-                <h1 style="font-size: clamp(24px, 2.5vw, 48px) !important; padding: 20px !important;">CONTACT CARD</h1>
-            </section>
+        <section id="hero">
+            <h1 style="font-size: clamp(24px, 2.5vw, 48px) !important; padding: 20px !important;">CONTACT CARD</h1>
+        </section>
         <div class="biz-card">
             <div class="card-body">
 
@@ -832,7 +817,7 @@
                     </div>
                 </div>
 
-                <div class="card-extra">
+                <!-- <div class="card-extra">
                     <div class="card-affil-label">Affiliated With</div>
                     <div class="card-affil-imgs">
                         <img src="media/logo/ray.png" alt="Raytheon" />
@@ -842,6 +827,25 @@
                         <img src="media/logo/red.png" alt="RED" />
                     </div>
 
+                    <button class="card-qr-toggle" id="qr-toggle"><i class="fas fa-qrcode"></i> Show QR Code</button>
+                    <div class="card-qr-box" id="qr-box">
+                        <div id="qr-render-target"></div>
+                    </div>
+                </div> -->
+
+                <div class="card-extra">
+                    <div class="card-affil-label">Affiliated With</div>
+                    <div class="card-affil-imgs">
+                        <img src="media/logo/ray.png" alt="Raytheon" />
+                        <img src="media/logo/vfd.png" alt="Vertical Flight Foundation" />
+                        <img src="media/logo/vfs.png" alt="Vertical Flight Society" />
+                        <img src="media/logo/seds.png" alt="SEDS" />
+                        <img src="media/logo/red.png" alt="RED" />
+                    </div>
+                </div> <!-- Close extra here -->
+
+                <!-- Wrap the QR code in a new div -->
+                <div class="card-qr-container">
                     <button class="card-qr-toggle" id="qr-toggle"><i class="fas fa-qrcode"></i> Show QR Code</button>
                     <div class="card-qr-box" id="qr-box">
                         <div id="qr-render-target"></div>
