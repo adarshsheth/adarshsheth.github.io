@@ -72,12 +72,12 @@
       filter: blur(6px);
     }
 
-    body.bg-evtol::before {
+    body.bg-aero::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/drone_w6xodu.jpg');
       filter: blur(4px);
     }
 
-    body.bg-space::before {
+    body.bg-astro::before {
       background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/space_wtbm5n.jpg');
       filter: blur(2px);
     }
@@ -115,6 +115,85 @@
         display: revert !important;
       }
     } */
+
+
+
+    /* 1. Hide the short title globally by default */
+.ec-title-short {
+  display: none;
+}
+
+/* 2. In tile mode, hide the regular title ONLY if it is immediately followed by a short title */
+.card-stack.tile-mode .ec-title:has(+ .ec-title-short) {
+  display: none;
+}
+
+/* 3. In tile mode, reveal the short title and match the existing tile-mode typography */
+.card-stack.tile-mode .ec-title-short {
+  display: block;
+  font-size: clamp(15px, 1.2vw, 25px);
+  font-weight: 900;
+  color: var(--dimtitle);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 4px;
+  transition: color 0.2s ease;
+}
+
+/* 4. Ensure the short title scales down on mobile just like the regular title */
+@media (max-width: 800px) {
+  .card-stack.tile-mode .ec-title-short {
+    font-size: 13px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hide category badges by default (list views) so they only appear in tile-mode */
+.badge.cat-badge {
+  display: none !important;
+}
+/* 1. Hide original skill badges in tile mode */
+.card-stack.tile-mode .brow .badge:not(.cat-badge) {
+  display: none !important;
+}
+
+/* 2. Show the new category badges in tile mode and add hover states */
+.card-stack.tile-mode .brow .badge.cat-badge {
+  display: inline-flex !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  background: var(--badge);
+  color: var(--bg);
+}
+
+.card-stack.tile-mode .brow .badge.cat-badge:hover {
+  /* background: var(--badge);
+  color: var(--bg); */
+  transform: translateY(-2px);
+}
+
+/* 3. Hide the category badges inside the lightbox/expanded view so the normal skills show */
+.ec-card.open .brow .badge.cat-badge,
+#card-lb-content .ec-card .brow .badge.cat-badge {
+  display: none !important;
+}
   </style>
   <link rel="stylesheet" href="style.css" />
 
@@ -1317,6 +1396,7 @@
       /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; */
 
       /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; */
+      /* determines sizing for the ec cards */
       grid-template-columns: repeat(auto-fill, minmax(max(250px, 5vw), 1fr)) !important;
       /* grid-template-columns: repeat(auto-fit, minmax(max(250px, 5vw), 1fr)) !important; */
       /* grid-template-columns: repeat(auto-fill, minmax(5vw, 1fr)) !important; */
@@ -1794,17 +1874,17 @@
 
     <div class="portfolio-filters">
       <button class="filter-btn active uni-btn" data-tag="all" onclick="filterPortfolio('all')">ALL</button>
-      <button class="filter-btn uni-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">AERO</button>
-      <button class="filter-btn uni-btn" data-tag="space" onclick="filterPortfolio('space')">ASTRO</button>
-      <!-- <button class="filter-btn uni-btn" data-tag="evtol" onclick="filterPortfolio('evtol')">AERONAUTICS</button>
-      <button class="filter-btn uni-btn" data-tag="space" onclick="filterPortfolio('space')">ASTRONAUTICS</button> -->
+      <button class="filter-btn uni-btn" data-tag="aero" onclick="filterPortfolio('aero')">AERO</button>
+      <button class="filter-btn uni-btn" data-tag="astro" onclick="filterPortfolio('astro')">ASTRO</button>
+      <!-- <button class="filter-btn uni-btn" data-tag="aero" onclick="filterPortfolio('aero')">AERONAUTICS</button>
+      <button class="filter-btn uni-btn" data-tag="astro" onclick="filterPortfolio('astro')">ASTRONAUTICS</button> -->
       <button class="filter-btn uni-btn" data-tag="robotics" onclick="filterPortfolio('robotics')">ROBOTICS</button>
       <button class="filter-btn uni-btn" data-tag="general" onclick="filterPortfolio('general')">GENERAL</button>
     </div>
 
     <div id="master-card-pool" style="display: none;">
 
-      <div class="ec-item" id="ray" data-tags="space" data-sections="teams" data-order="20">
+      <div class="ec-item" id="ray" data-tags="astro" data-sections="teams" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1828,9 +1908,10 @@
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
                   <span class="badge" data-cat="swe">MATLAB</span>
-                  <span class="badge" data-cat="swe">AERO Toolbox</span>
-                  <span class="badge" data-cat="swe">Bitbucket</span>
+                  <span class="badge" data-cat="swe">Satellites</span>
                   <span class="badge" data-cat="swe">Git</span>
+                  <span class="badge" data-cat="swe">Bitbucket</span>
+                  <span class="badge" data-cat="swe">AERO Toolbox</span>
                   <span class="badge" data-cat="swe">Orbit Propagation</span>
                   <span class="badge" data-cat="swe">TLE Files</span>
                   <span class="badge" data-cat="tools">MS Suite</span>
@@ -1868,7 +1949,7 @@
                 <div>
                   
                   <ul class="cbul">
-                    <li>Supported the modernization of Other-The-Horizon Radar (OTHR).</li>
+                    <li>Supported the modernization of Over-The-Horizon Radar (OTHR).</li>
                     <li>Primarily worked with TLEs, orbit propagation, space coordinate transforms, and BitBucket.</li>
                     <li>Wrote and optimized MATLAB scripts by up to 88% with automated 15,000+ LEO parse, FOV check, and
                       VBA output formatting.</li>
@@ -1925,7 +2006,7 @@
 
 
 
-      <div class="ec-item" id="vfd" data-tags="evtol" data-sections="teams" data-order="19">
+      <div class="ec-item" id="vfd" data-tags="aero" data-sections="teams" data-order="19">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -1938,6 +2019,7 @@
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">Vertical Flight Design</h3>
+                    <h3 class="ec-title-short">V.F.D.</h3>
                     <div class="ec-subtitle">Aerodynamics Engineer | 09/2025 – PRESENT</div>
                   </div>
                   <div class="eclogos darkimgs">
@@ -2107,7 +2189,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="red" data-tags="space" data-sections="teams" data-order="12">
+      <div class="ec-item" id="red" data-tags="astro" data-sections="teams" data-order="12">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2120,6 +2202,7 @@
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">ROCKET ENGINE DESIGN</h3>
+                    <h3 class="ec-title-short">R.E.D.</h3>
                     <div class="ec-subtitle">Fluid Systems Engineer | 02/2025 – 01/2026</div>
                   </div>
                   <div class="eclogos darkimgs" style="background: black !important; border: white 1.5px solid">
@@ -2224,7 +2307,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="lsar" data-tags="space robotics" data-sections="teams leadership" data-order="11">
+      <div class="ec-item" id="lsar" data-tags="astro robotics" data-sections="teams leadership" data-order="11">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2237,6 +2320,7 @@
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">LUNAR SEARCH & RESCUE</h3>
+                    <h3 class="ec-title-short">L.S.A.R.</h3>
                     <div class="ec-subtitle">Team Lead | FALL 2024</div>
                   </div>
                   <div class="eclogos darkimgs">
@@ -2662,7 +2746,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="vfs" data-tags="evtol general" data-sections="leadership" data-order="20">
+      <div class="ec-item" id="vfs" data-tags="aero general" data-sections="leadership" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2762,7 +2846,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="ignite25" data-tags="evtol" data-sections="leadership" data-order="19">
+      <div class="ec-item" id="ignite25" data-tags="aero" data-sections="leadership" data-order="19">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -2783,11 +2867,13 @@
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
                   <span class="badge" data-cat="gen">Aerodynamics</span>
+                  <span class="badge" data-cat="gen">Python</span>
                   <span class="badge" data-cat="des">Sizing Iteration</span>
                   <span class="badge" data-cat="des">Constraint Analysis</span>
                   <span class="badge" data-cat="tools">SolidWorks</span>
                   <span class="badge" data-cat="tools">Fusion 360</span>
                   <span class="badge" data-cat="tools">Bambu Studio</span>
+                  <!-- <span class="badge" data-cat="tools">3D Print</span> -->
                 </div>
                 <p class="ec-brief"><b>Won 1st Place.</b> Iterated 2.3 million sizing configurations
                   and coded search
@@ -3049,7 +3135,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="ignite" data-tags="space" data-sections="leadership" data-order="11">
+      <div class="ec-item" id="ignite" data-tags="astro" data-sections="leadership" data-order="11">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3145,7 +3231,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="semp" data-tags="evtol" data-sections="projects" data-order="21">
+      <div class="ec-item" id="semp" data-tags="aero" data-sections="projects" data-order="21">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3155,17 +3241,22 @@
               <div>
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
-                    <h3 class="ec-title">Systems Engineering Management Plan (SEMP)</h3>
-                    <div class="ec-subtitle">Comprehensive Document of Documents | FALL 2026</div>
+                    <h3 class="ec-title">Systems Engineering Management Plan</h3>
+                    <!-- <h3 class="ec-title">Systems Eng. Management Plan (SEMP)</h3> -->
+                    <h3 class="ec-title-short">S.E.M.P.</h3>
+                    <!-- <div class="ec-subtitle">Comprehensive Document of Documents | FALL 2026</div> -->
+                    <div class="ec-subtitle">Systems Eng. Management Plan | FALL 2026</div>
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge" data-cat="sys">Systems Engineering</span>
-                  <span class="badge" data-cat="sys">Project Management</span>
+                  <!-- <span class="badge" data-cat="sys">Systems Engineering</span> -->
+                  <span class="badge" data-cat="sys">Systems Eng.</span>
+                  <span class="badge" data-cat="sys">Lifecycle</span>
                   <span class="badge" data-cat="sys">Technical Writing</span>
+                  <span class="badge" data-cat="sys">Project Management</span>
                   <span class="badge" data-cat="sys">Documentation</span>
                 </div>
-                <p class="ec-brief">A comprehensive document outlining the end-to-end systems engineering approach for
+                <p class="ec-brief">A comprehensive document of documents, outlining the end-to-end systems engineering approach for
                   managing complex projects, with detailed methodologies and templates for each step .</p>
               </div>
               <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
@@ -3187,7 +3278,7 @@
         </div>
       </div>
 
-      <!-- <div class="ec-item" id="vfs-project" data-tags="evtol" data-sections="projects" data-order="21">
+      <!-- <div class="ec-item" id="vfs-project" data-tags="aero" data-sections="projects" data-order="21">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3255,13 +3346,15 @@
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">Robotics Technical Guides</h3>
+                    <h3 class="ec-title-short">Robotics Tech. Guides</h3>
                     <div class="ec-subtitle">@ DVHS Robotics 5776K | FALL & SPRING 2024</div>
                   </div>
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
-                  <span class="badge" data-cat="hw">Assembly</span>
-                  <span class="badge" data-cat="gen">Mechanical Engineering</span>
+                  <!-- <span class="badge" data-cat="gen">Mechanical Engineering</span> -->
+                  <span class="badge" data-cat="gen">Mechanical Eng.</span>
                   <span class="badge" data-cat="hw">T&E</span>
+                  <span class="badge" data-cat="hw">Assembly</span>
                   <span class="badge" data-cat="sys">Technical Writing</span>
                   <span class="badge" data-cat="soft">Research</span>
                 </div>
@@ -3346,8 +3439,8 @@
                 </div>
                 <div class="brow" style="padding: 0; margin-bottom: 10px;">
                   <span class="badge" data-cat="gen">Thermodynamics</span>
-                  <span class="badge" data-cat="sys">Technical Writing</span>
                   <span class="badge" data-cat="soft">Research</span>
+                  <span class="badge" data-cat="sys">Technical Writing</span>
                 </div>
                 <p class="ec-brief">A series of educational infographics exploring the mechanical,
                   thermodynamic,
@@ -3398,7 +3491,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="aerodynamics-infographics" data-tags="evtol" data-sections="projects" data-order="19">
+      <div class="ec-item" id="aerodynamics-infographics" data-tags="aero" data-sections="projects" data-order="19">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3575,7 +3668,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="737-800-cad" data-tags="evtol" data-sections="projects" data-order="10">
+      <div class="ec-item" id="737-800-cad" data-tags="aero" data-sections="projects" data-order="10">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3736,7 +3829,7 @@
 
 
 
-      <div class="ec-item" id="robotics-guides" data-tags="general evtol" data-sections="educational" data-order="20">
+      <div class="ec-item" id="robotics-guides" data-tags="general aero" data-sections="educational" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3754,7 +3847,7 @@
                   <span class="badge" data-cat="gen">Professional Networking</span>
                   <span class="badge" data-cat="hw">Manufacturing</span>
                 </div>
-                <p class="ec-brief">Guided tour at Boeing's Renton factory, home of the 737!</p>
+                <p class="ec-brief">Guided tour at Boeing's Renton, WA factory, home of the 737!</p>
               </div>
               <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
             </div>
@@ -3779,7 +3872,7 @@
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/vfs/boeing.jpg" alt="Boeing Factory"
-                              data-cap="Boeing Factory" style="border: none; pointer-events: none;"></img>
+                              data-cap="Boeing Renton, WA Factory" style="border: none; pointer-events: none;"></img>
                             <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
                               data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
                           </div>
@@ -3805,7 +3898,7 @@
         </div>
       </div>
 
-      <div class="ec-item" id="robotics-guides" data-tags="general space" data-sections="educational" data-order="20">
+      <div class="ec-item" id="robotics-guides" data-tags="general astro" data-sections="educational" data-order="20">
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
@@ -3815,7 +3908,8 @@
               <div>
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
-                    <h3 class="ec-title">Blue Origin Kent Factory Tour</h3>
+                    <!-- <h3 class="ec-title">Blue Origin Kent Factory Tour</h3> -->
+                    <h3 class="ec-title">Blue Origin Factory Tour</h3>
                     <div class="ec-subtitle">SUMMER 2026</div>
                   </div>
                 </div>
@@ -3845,7 +3939,7 @@
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/vfs/blue.jpg" alt="Blue Origin Factory"
-                              data-cap="Blue Origin Kent Site" style="border: none; pointer-events: none;"></img>
+                              data-cap="Blue Origin Kent, WA Factory" style="border: none; pointer-events: none;"></img>
                             <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
                               data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
                           </div>
@@ -3961,53 +4055,53 @@
       videos.forEach(vid => io.observe(vid));
     });
 
-    // --- LONG PRESS STATE FOR MOBILE TILES ---
-    let lbLongPressTimer = null;
-    let lbIsLongPress = false;
-    let lbTouchStartX = 0;
-    let lbTouchStartY = 0;
+    // // --- LONG PRESS STATE FOR MOBILE TILES ---
+    // let lbLongPressTimer = null;
+    // let lbIsLongPress = false;
+    // let lbTouchStartX = 0;
+    // let lbTouchStartY = 0;
 
-    // 1. Listen for when the user touches a card
-    document.addEventListener('touchstart', (e) => {
-      const summary = e.target.closest('.ec-summary');
-      if (!summary) return;
+    // // 1. Listen for when the user touches a card
+    // document.addEventListener('touchstart', (e) => {
+    //   const summary = e.target.closest('.ec-summary');
+    //   if (!summary) return;
 
-      const stack = summary.closest('.card-stack');
-      // Only apply this logic to tiles
-      if (stack && stack.classList.contains('tile-mode')) {
-        lbIsLongPress = false;
-        lbTouchStartX = e.touches[0].clientX;
-        lbTouchStartY = e.touches[0].clientY;
+    //   const stack = summary.closest('.card-stack');
+    //   // Only apply this logic to tiles
+    //   if (stack && stack.classList.contains('tile-mode')) {
+    //     lbIsLongPress = false;
+    //     lbTouchStartX = e.touches[0].clientX;
+    //     lbTouchStartY = e.touches[0].clientY;
 
-        // Start a 500ms timer. If it finishes before they let go, open the lightbox!
-        lbLongPressTimer = setTimeout(() => {
-          lbIsLongPress = true;
-          pfOpenLightbox(summary);
-        }, 500);
-      }
-    }, { passive: true });
+    //     // Start a 500ms timer. If it finishes before they let go, open the lightbox!
+    //     lbLongPressTimer = setTimeout(() => {
+    //       lbIsLongPress = true;
+    //       pfOpenLightbox(summary);
+    //     }, 500);
+    //   }
+    // }, { passive: true });
 
-    // 2. Cancel the long-press if the user scrolls or jiggles their finger too much
-    document.addEventListener('touchmove', (e) => {
-      if (!lbLongPressTimer) return;
-      const dx = Math.abs(e.touches[0].clientX - lbTouchStartX);
-      const dy = Math.abs(e.touches[0].clientY - lbTouchStartY);
-      if (dx > 10 || dy > 10) {
-        clearTimeout(lbLongPressTimer);
-        lbLongPressTimer = null;
-      }
-    }, { passive: true });
+    // // 2. Cancel the long-press if the user scrolls or jiggles their finger too much
+    // document.addEventListener('touchmove', (e) => {
+    //   if (!lbLongPressTimer) return;
+    //   const dx = Math.abs(e.touches[0].clientX - lbTouchStartX);
+    //   const dy = Math.abs(e.touches[0].clientY - lbTouchStartY);
+    //   if (dx > 10 || dy > 10) {
+    //     clearTimeout(lbLongPressTimer);
+    //     lbLongPressTimer = null;
+    //   }
+    // }, { passive: true });
 
-    // 3. Cancel the timer if they let go early (it was just a quick tap)
-    document.addEventListener('touchend', () => {
-      clearTimeout(lbLongPressTimer);
-      lbLongPressTimer = null;
-    }, { passive: true });
+    // // 3. Cancel the timer if they let go early (it was just a quick tap)
+    // document.addEventListener('touchend', () => {
+    //   clearTimeout(lbLongPressTimer);
+    //   lbLongPressTimer = null;
+    // }, { passive: true });
 
-    document.addEventListener('touchcancel', () => {
-      clearTimeout(lbLongPressTimer);
-      lbLongPressTimer = null;
-    }, { passive: true });
+    // document.addEventListener('touchcancel', () => {
+    //   clearTimeout(lbLongPressTimer);
+    //   lbLongPressTimer = null;
+    // }, { passive: true });
 
     // --- ACCORDION TOGGLE LOGIC --- 
     function toggleCardDetails(element) {
@@ -4016,14 +4110,18 @@
 
       const stack = element.closest('.card-stack');
 
-      if (stack && stack.classList.contains('tile-mode')) {
-        // If it was a long-press on mobile, the lightbox already opened. Reset and do nothing here.
-        if (lbIsLongPress) {
-          setTimeout(() => { lbIsLongPress = false; }, 100);
-          return;
-        }
+      // if (stack && stack.classList.contains('tile-mode')) {
+      //   // If it was a long-press on mobile, the lightbox already opened. Reset and do nothing here.
+      //   if (lbIsLongPress) {
+      //     setTimeout(() => { lbIsLongPress = false; }, 100);
+      //     return;
+      //   }
 
-        // For EVERYTHING else (Desktop clicks OR Mobile quick taps), open the lightbox!
+      //   // For EVERYTHING else (Desktop clicks OR Mobile quick taps), open the lightbox!
+      //   pfOpenLightbox(element);
+      //   return;
+      // }
+      if (stack && stack.classList.contains('tile-mode')) {
         pfOpenLightbox(element);
         return;
       }
@@ -4520,6 +4618,59 @@
         }
       });
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Map the raw data-tags to your preferred display text
+        const tagMap = {
+          'aero': 'AERO',
+          'astro': 'ASTRO',
+          'robotics': 'ROBOTICS',
+          'general': 'GENERAL'
+        };
+
+        document.querySelectorAll('.ec-item').forEach(item => {
+          const tags = item.dataset.tags ? item.dataset.tags.split(' ') : [];
+          const brow = item.querySelector('.brow');
+
+          if (brow) {
+            // Create a clickable badge for each valid category tag
+            tags.forEach(tag => {
+              if (tagMap[tag]) {
+                const badge = document.createElement('span');
+                badge.className = 'badge cat-badge';
+                badge.textContent = tagMap[tag];
+
+                // Trigger the filter and prevent the lightbox from opening
+                badge.onclick = (e) => {
+                  e.stopPropagation();
+                  filterPortfolio(tag);
+
+                  // Optional: smoothly scroll back to the top of the portfolio section
+                  document.getElementById('mn').scrollIntoView({ behavior: 'smooth' });
+                };
+
+                // Insert at the beginning of the badge row
+                brow.prepend(badge);
+              }
+            });
+          }
+        });
+      });
   </script>
   
   
