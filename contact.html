@@ -578,6 +578,9 @@
         }
 
         /* ── DESKTOP / WIDE: landscape two-column card instead of a tall vertical stack ── */
+        #port1 {
+                display: none;
+            }  
         @media (max-width: 700px) {
             /* .desktop-break {
                 display: none;
@@ -598,6 +601,13 @@
 
             #card-main {
                 padding-top: 20px;
+            }
+            #port2, 
+            .nav-strip {
+                display: none;
+            }
+            #port1 {
+                display: flex;
             }
         }
 
@@ -755,7 +765,7 @@
                         <!-- <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace Engineering,<br>Texas A&amp;M University</span></div> -->
                         <div class="info-row"><i class="fas fa-graduation-cap"></i><span>B.S. Aerospace
                                 Engineering, <br class="desktop-break">Texas A&amp;M University</span></div>
-                        <div class="info-row"><i class="fas fa-briefcase"></i><span>Focus: ME, Structures</span>
+                        <div class="info-row"><i class="fas fa-briefcase"></i><span>Interests: ME, Structures</span>
                         </div>
                         <!-- <div class="info-row"><i class="fas fa-helicopter"></i><span>Focus: Vertical Flight &amp;
                                     Systems Integration</span></div> -->
@@ -769,7 +779,7 @@
 
                         <div id="recent-experience" class="info-row">
                             <!-- <i class="fa-solid fa-calendar-check"></i> -->
-                            <span style="font-weight: 500;">RECENT EXPERIENCE:</span>
+                            <span style="font-weight: 500;">RECENT EXPERIENCES:</span>
                         </div>
                         <div class="info-row">
                             <i class="fa-solid fa-calendar-check"></i>
@@ -812,9 +822,9 @@
                             <span class="crlbl">linkedin.com/in/adarsh-sheth</span>
                             <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
                         </a>
-                        <a class="contact-row" href="https://tx.ag/adarsh" target="_blank" rel="noopener">
+                        <a id="port1" class="contact-row" href="https://tx.ag/adarsh" target="_blank" rel="noopener">
                             <i class="fas fa-link"></i>
-                            <span class="crlbl">tx.ag/adarsh</span>
+                            <span class="crlbl">adarshsheth.com</span>
                             <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
                         </a>
                     </div>
@@ -827,6 +837,26 @@
                             <i class="fas fa-share-nodes"></i> Share
                         </button>
                     </div>
+
+
+
+
+
+
+
+                    <!-- <div class="card-engage">
+                        <hr class="card-div" />
+                    
+                        <div class="contact-rows"> -->
+                    <a id="port2" style="margin-top: 20px;" class="contact-row" href="https://tx.ag/adarsh" target="_blank" rel="noopener">
+                        <i class="fas fa-link"></i>
+                        <!-- <span class="crlbl">tx.ag/adarsh</span> -->
+                        <span class="crlbl">adarshsheth.com</span>
+                        <i class="fas fa-arrow-up-right-from-square cr-copy"></i>
+                    </a>
+<!-- </div></div> -->
+
+
 
                     <div class="nav-strip">
                         <a href="portfolio.html" class="nav-chip"><i
