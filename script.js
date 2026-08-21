@@ -1571,34 +1571,67 @@ function unifiedInit() {
 	}
 
 	// Wait for the Nav and Footer to load BEFORE handling URLs and scroll tracking
+	// Promise.all([loadNav(), loadFooter()]).then(() => {
+	// 	requestAnimationFrame(() => {
+	// 		Object.keys(TABS).forEach((id) => {
+	// 			calcW(id);
+	// 			setH(id, false);
+	// 		});
+	// 		handleURL();
+
+	// 		window.addEventListener(
+	// 			"scroll",
+	// 			() => {
+	// 				if (!isScrollTicking) {
+	// 					window.requestAnimationFrame(() => {
+	// 						try {
+	// 							runCoreScrollTasks(window.scrollY);
+	// 						} finally {
+	// 							isScrollTicking = false;
+	// 						}
+	// 					});
+	// 					isScrollTicking = true;
+	// 				}
+	// 			},
+	// 			{passive: true},
+	// 		);
+
+	// 		// Force an initial update
+	// 		runCoreScrollTasks(window.scrollY);
+	// 	});
+	// });
+	// Wait for the Nav and Footer to load BEFORE handling URLs and scroll tracking
 	Promise.all([loadNav(), loadFooter()]).then(() => {
-		requestAnimationFrame(() => {
-			Object.keys(TABS).forEach((id) => {
-				calcW(id);
-				setH(id, false);
+		// Give the browser 50ms to render the injected HTML before calculating layouts
+		setTimeout(() => {
+			requestAnimationFrame(() => {
+				Object.keys(TABS).forEach((id) => {
+					calcW(id);
+					setH(id, false);
+				});
+				handleURL();
+
+				window.addEventListener(
+					"scroll",
+					() => {
+						if (!isScrollTicking) {
+							window.requestAnimationFrame(() => {
+								try {
+									runCoreScrollTasks(window.scrollY);
+								} finally {
+									isScrollTicking = false;
+								}
+							});
+							isScrollTicking = true;
+						}
+					},
+					{passive: true},
+				);
+
+				// Force an initial update
+				runCoreScrollTasks(window.scrollY);
 			});
-			handleURL();
-
-			window.addEventListener(
-				"scroll",
-				() => {
-					if (!isScrollTicking) {
-						window.requestAnimationFrame(() => {
-							try {
-								runCoreScrollTasks(window.scrollY);
-							} finally {
-								isScrollTicking = false;
-							}
-						});
-						isScrollTicking = true;
-					}
-				},
-				{passive: true},
-			);
-
-			// Force an initial update
-			runCoreScrollTasks(window.scrollY);
-		});
+		}, 50);
 	});
 }
 

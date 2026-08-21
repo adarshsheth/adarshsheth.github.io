@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-  <meta name="viewport" content="width=device-width, initial-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=0.9" /> -->
   <meta name="robots" content="index, follow">
   <meta name="keywords"
     content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
@@ -119,35 +119,33 @@
 
 
     /* 1. Hide the short title globally by default */
-.ec-title-short {
-  display: none;
-}
+    .ec-title-short {
+      display: none;
+    }
 
-/* 2. In tile mode, hide the regular title ONLY if it is immediately followed by a short title */
-.card-stack.tile-mode .ec-title:has(+ .ec-title-short) {
-  display: none;
-}
+    /* 2. In tile mode, hide the regular title ONLY if it is immediately followed by a short title */
+    .card-stack.tile-mode .ec-title:has(+ .ec-title-short) {
+      display: none;
+    }
 
-/* 3. In tile mode, reveal the short title and match the existing tile-mode typography */
-.card-stack.tile-mode .ec-title-short {
-  display: block;
-  font-size: clamp(15px, 1.2vw, 25px);
-  font-weight: 900;
-  color: var(--dimtitle);
-  text-transform: uppercase;
-  line-height: 1.1;
-  margin-bottom: 4px;
-  transition: color 0.2s ease;
-}
+    /* 3. In tile mode, reveal the short title and match the existing tile-mode typography */
+    .card-stack.tile-mode .ec-title-short {
+      display: block;
+      font-size: clamp(15px, 1.2vw, 25px);
+      font-weight: 900;
+      color: var(--dimtitle);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 4px;
+      transition: color 0.2s ease;
+    }
 
-/* 4. Ensure the short title scales down on mobile just like the regular title */
-@media (max-width: 800px) {
-  .card-stack.tile-mode .ec-title-short {
-    font-size: 13px;
-  }
-}
-
-
+    /* 4. Ensure the short title scales down on mobile just like the regular title */
+    @media (max-width: 800px) {
+      .card-stack.tile-mode .ec-title-short {
+        font-size: 13px;
+      }
+    }
 
 
 
@@ -164,36 +162,39 @@
 
 
 
-/* Hide category badges by default (list views) so they only appear in tile-mode */
-.badge.cat-badge {
-  display: none !important;
-}
-/* 1. Hide original skill badges in tile mode */
-.card-stack.tile-mode .brow .badge:not(.cat-badge) {
-  display: none !important;
-}
 
-/* 2. Show the new category badges in tile mode and add hover states */
-.card-stack.tile-mode .brow .badge.cat-badge {
-  display: inline-flex !important;
-  cursor: pointer;
-  transition: all 0.2s ease;
 
-  background: var(--badge);
-  color: var(--bg);
-}
+    /* Hide category badges by default (list views) so they only appear in tile-mode */
+    .badge.cat-badge {
+      display: none !important;
+    }
 
-.card-stack.tile-mode .brow .badge.cat-badge:hover {
-  /* background: var(--badge);
+    /* 1. Hide original skill badges in tile mode */
+    .card-stack.tile-mode .brow .badge:not(.cat-badge) {
+      display: none !important;
+    }
+
+    /* 2. Show the new category badges in tile mode and add hover states */
+    .card-stack.tile-mode .brow .badge.cat-badge {
+      display: inline-flex !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      background: var(--badge);
+      color: var(--bg);
+    }
+
+    .card-stack.tile-mode .brow .badge.cat-badge:hover {
+      /* background: var(--badge);
   color: var(--bg); */
-  transform: translateY(-2px);
-}
+      transform: translateY(-2px);
+    }
 
-/* 3. Hide the category badges inside the lightbox/expanded view so the normal skills show */
-.ec-card.open .brow .badge.cat-badge,
-#card-lb-content .ec-card .brow .badge.cat-badge {
-  display: none !important;
-}
+    /* 3. Hide the category badges inside the lightbox/expanded view so the normal skills show */
+    .ec-card.open .brow .badge.cat-badge,
+    #card-lb-content .ec-card .brow .badge.cat-badge {
+      display: none !important;
+    }
   </style>
   <link rel="stylesheet" href="style.css" />
 
@@ -368,12 +369,11 @@
       opacity: 1;
       transform: translateY(0);
     } */
-    .ec-item .uni-card {
+    /* .ec-item .uni-card {
       opacity: 0;
       transform: translateY(10px);
-      /* Combine base hovers (0.3s) with the entrance animations (0.7s) */
       transition: all 0.3s ease-in-out, opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 0.9, 0.25, 1);
-    }
+    } */
 
     .ec-item.visible .uni-card {
       opacity: 1;
@@ -483,7 +483,8 @@
       align-items: center;
       flex-shrink: 0;
       /* margin-right: 30px; */
-      display:none !important; /*hides the ec card logos from all tiles*/
+      display: none !important;
+      /*hides the ec card logos from all tiles*/
     }
 
     .ec-info-header .eclogos img {
@@ -661,40 +662,40 @@
 
 
 
-/* 1. Make the entire opened card a pointer (for background clicking) */
-.ec-card.open {
-    cursor: pointer;
-}
+    /* 1. Make the entire opened card a pointer (for background clicking) */
+    .ec-card.open {
+      cursor: pointer;
+    }
 
-/* 2. Revert text, standalone images, and text-heavy blocks to their default cursors */
-.ec-card.open .ec-details p,
-.ec-card.open .ec-details h1,
-.ec-card.open .ec-details h2,
-.ec-card.open .ec-details h3,
-.ec-card.open .ec-details h4,
-.ec-card.open .ec-details span,
-.ec-card.open .ec-details li,
-.ec-card.open .ec-details b,
-.ec-card.open .ec-details strong,
-.ec-card.open .ec-details i,
-.ec-card.open .ec-details img,
-.ec-card.open .ec-details .cslbl,
-.ec-card.open .ec-details .hbox,
-.ec-card.open .ec-details .dbox,
-.ec-card.open .ec-details .srow,
-.ec-card.open .ec-details .srow * {
-    cursor: auto;
-}
+    /* 2. Revert text, standalone images, and text-heavy blocks to their default cursors */
+    .ec-card.open .ec-details p,
+    .ec-card.open .ec-details h1,
+    .ec-card.open .ec-details h2,
+    .ec-card.open .ec-details h3,
+    .ec-card.open .ec-details h4,
+    .ec-card.open .ec-details span,
+    .ec-card.open .ec-details li,
+    .ec-card.open .ec-details b,
+    .ec-card.open .ec-details strong,
+    .ec-card.open .ec-details i,
+    .ec-card.open .ec-details img,
+    .ec-card.open .ec-details .cslbl,
+    .ec-card.open .ec-details .hbox,
+    .ec-card.open .ec-details .dbox,
+    .ec-card.open .ec-details .srow,
+    .ec-card.open .ec-details .srow * {
+      cursor: auto;
+    }
 
-/* 3. Ensure actual interactive elements (links, buttons, carousels) keep the pointer */
-.ec-card.open .ec-details a,
-.ec-card.open .ec-details a *,
-.ec-card.open .ec-details button,
-.ec-card.open .ec-details button *,
-.ec-card.open .ec-details .cw,
-.ec-card.open .ec-details .cw * {
-    cursor: pointer;
-}
+    /* 3. Ensure actual interactive elements (links, buttons, carousels) keep the pointer */
+    .ec-card.open .ec-details a,
+    .ec-card.open .ec-details a *,
+    .ec-card.open .ec-details button,
+    .ec-card.open .ec-details button *,
+    .ec-card.open .ec-details .cw,
+    .ec-card.open .ec-details .cw * {
+      cursor: pointer;
+    }
 
 
 
@@ -1674,7 +1675,7 @@
         margin-left: 0;
       }
 
-   
+
       .portfolio-sec {
         max-width: max(min(95vw, 1400px), 40vw) !important;
         margin: 0 auto !important;
@@ -1692,7 +1693,7 @@
       }
 
     }
-    
+
 
 
 
@@ -1921,7 +1922,8 @@
                 </div>
                 <!-- <p class="ec-brief">Coming soon.</p> -->
                 <!-- <p class="ec-brief">Coming soon.</p> -->
-                <p class="ec-brief">Wrote and optimized MATLAB scripts supporting Raytheon's Over-The-Horizon Radar (OTHR) modernaization project with satellites.</p>
+                <p class="ec-brief">Wrote and optimized MATLAB scripts supporting Raytheon's Over-The-Horizon Radar
+                  (OTHR) modernaization project with satellites.</p>
                 <!-- <p class="ec-brief">Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse
                   LEO TLE files to filter those in FOV; then tracked chosen satellite across its in-FOV duration.</p> -->
               </div>
@@ -1929,15 +1931,15 @@
             </div>
           </div>
 
-          
-          
-          
-          
-          
-          
-          
-          
-         
+
+
+
+
+
+
+
+
+
           <div class="ec-details">
             <div class="ec-details-inner">
               <!-- <div class="cbody flex-img"> -->
@@ -1945,38 +1947,40 @@
               <div class="cbody">
                 <!-- <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;"> -->
                 <div style="display:grid; gap: 20px; align-items: start;">
-                <!-- <p style="position: relative; z-index: 50;">Coming soon.</p> -->
-                <div>
-                  
-                  <ul class="cbul">
-                    <li>Supported the modernization of Over-The-Horizon Radar (OTHR).</li>
-                    <li>Primarily worked with TLEs, orbit propagation, space coordinate transforms, and BitBucket.</li>
-                    <li>Wrote and optimized MATLAB scripts by up to 88% with automated 15,000+ LEO parse, FOV check, and
-                      VBA output formatting.</li>
-                  </ul>
-                </div>
-                <div
-                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 420px)); gap: 16px; margin-top: 10px">
-                  
+                  <!-- <p style="position: relative; z-index: 50;">Coming soon.</p> -->
                   <div>
-                    <div class="cw">
-                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
-                        <img class="cimg on"
-                          src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/0_w8qp9p.jpg"
-                          alt="Site Tour Group Photo" decoding="async" width="800" height="600" />
+
+                    <ul class="cbul">
+                      <li>Supported the modernization of Over-The-Horizon Radar (OTHR).</li>
+                      <li>Primarily worked with TLEs, orbit propagation, space coordinate transforms, and BitBucket.
+                      </li>
+                      <li>Wrote and optimized MATLAB scripts by up to 88% with automated 15,000+ LEO parse, FOV check,
+                        and
+                        VBA output formatting.</li>
+                    </ul>
+                  </div>
+                  <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 420px)); gap: 16px; margin-top: 10px">
+
+                    <div>
+                      <div class="cw">
+                        <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                          <img class="cimg on"
+                            src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/0_w8qp9p.jpg"
+                            alt="Site Tour Group Photo" decoding="async" width="800" height="600" />
+                        </div>
                       </div>
+                      <div class="cdots">
+                        <span class="cdot on"></span>
+                        <!-- <span class="cdot"></span> -->
+                      </div>
+                      <div class="car-caption"></div>
                     </div>
-                    <div class="cdots">
-                      <span class="cdot on"></span>
-                      <!-- <span class="cdot"></span> -->
-                    </div>
-                    <div class="car-caption"></div>
+
                   </div>
 
+
                 </div>
-
-
-</div>
 
               </div>
               <!-- <div class="clinks">
@@ -2232,6 +2236,9 @@
             <div class="ec-details-inner">
               <div class="cbody wimg">
                 <div>
+                  <div class="hbox">Contributed to the development and visualization of fluid system lines of <b>Elysium
+                      2.0</b>, a liquid bi-propellant rocket
+                    engine, with a focus on the Upper N2O Line.</div>
                   <div class="cslbl">Design & Documentation</div>
                   <ul class="cbul">
                     <li>Presented at <b>PDR</b> (assembly visualization) and <b>CDR</b>
@@ -2523,18 +2530,25 @@
                       full-robot designs in
                       <b>Autodesk Fusion 360</b>
                     </li>
-                    <!-- <li><b>Authored</b> a technical guide for tuning 14 individual
-                      factors of 2 <a
-                        href="https://drive.google.com/file/d/1BdFWedi8NrqlLBuXE8cWaYicB-zaA_Kh/view?usp=drive_link"
-                        target="_blank">launching mechanisms</a> and <a
-                        href="https://drive.google.com/file/d/1WMftiT07hCi_7g5QHQeebnayvRnBgs30/view?usp=drive_link"
-                        target="_blank">pneumatics</a>.
-                    </li> -->
                     <li>Team driver for 2 seasons - handled dynamic 2x2 match strategy
                       under tournament pressure</li>
                   </ul>
                   <!-- </div> -->
+
+
+                  <div class="cslbl" style="margin-top:10px">Awards</div>
+                  <div class="hbox">Spin Up (2022-2023) Awards</div>
+                  &emsp;Design Award @ Battle of the Bay (states qualifying)<br>
+                  &emsp;Innovate Award @ Tracy States (worlds qualifying)<br>
+                  <div class="hbox">Over Under (2023-2024) Awards (3x States Qualifications, award at Worlds)</div>
+                  &emsp;Excellence Award @ Bay Area 1 (states qualifying)<br>
+                  &emsp;Tournament Champion @ Winters (states qualifying)<br>
+                  &emsp;Design @ Battle of the Bay (states qualifying)<br>
+                  &emsp;Amaze @ DRC<br>
+                  &emsp;Design @ Tracy States (worlds qualifying)<br>
+                  &emsp;Inspire @ Worlds 2024
                 </div>
+
 
                 <div>
                   <div class="cw">
@@ -2649,7 +2663,8 @@
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">DVHS ROBOTICS CABINET</h3>
-                    <div class="ec-subtitle">Secretary & Activities Coordinator | 2021–2024
+                    <div class="ec-subtitle">2021–2024
+                    <!-- <div class="ec-subtitle">Secretary & Activities Coordinator | 2021–2024 -->
                     </div>
                   </div>
                   <div class="eclogos darkimgs">
@@ -2676,14 +2691,16 @@
 
           <div class="ec-details">
             <div class="ec-details-inner">
-              <div class="cbody flex-img">
-                <div
-                  style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;">
+              <div class="cbody full">
+              <!-- <div class="cbody flex-img"> -->
+                <div>
+
+
                   <div>
                     <div class="hbox"><b>$75,000 combined fundraising</b> ($55,000 in
                       profits) across 2 summer camps and annual tournaments as Activities
                       Coordinator (2021–2023)</div>
-                    <div class="cslbl" style="margin-top:12px">Tournament Logistics</div>
+                    <div class="cslbl" style="margin-top:12px">Tournament Director</div>
                     <ul class="cbul">
                       <li>Mapped venues for power sources, competition zones, team pits,
                         and wiring for displays and fields (hub → 3× match controllers →
@@ -2696,20 +2713,35 @@
                         templates for each</li>
                     </ul>
                   </div>
-                  <div>
-                    <div class="cslbl">Documentation & Operations</div>
+                  <!-- <div> -->
+                    <div class="cslbl">Summer Camp Supervisor</div>
                     <ul class="cbul">
-                      <li>More than <b>doubled</b> the tournament planning and operations
-                        documentation following COVID-induced knowledge
-                        disruption</li>
-                      <li>Created spreadsheet templates for inventory tracking, volunteer
-                        signups, finances, concessions, and officer management roles
-                      </li>
-                    </ul>
-                  </div>
+                      <li>Structured with educational lessons on practical engineering, physics, and programming
+                        skills</li>
+                        <li>Taught middle school students within our community about STEM through various hands-on
+                          experiences and competitions</li>
+                        </ul>
+                        <div class="cslbl">Secretary</div>
+                        <ul class="cbul">
+                          <li>Maintained oversight over lower cabinet members and operated a level above team captains in
+                            conflict
+                            resolution, disciplinary matters, and cuts</li>
+                            <li>Executed 8 parts orders and coordinated fund transfers</li>
+                            <li>Wrote monthly newsletters on DVHS robotics webpage</li>
+                          </ul>
+                          <div class="cslbl">Documentation & Operations</div>
+                          <ul class="cbul">
+                            <li>More than <b>doubled</b> the tournament planning and operations
+                              documentation following COVID-induced knowledge
+                              disruption</li>
+                            <li>Created spreadsheet templates for inventory tracking, volunteer
+                              signups, finances, concessions, and officer management roles
+                            </li>
+                          </ul>
+                  <!-- </div> -->
                 </div>
                 <div
-                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 500px)); gap: 16px; margin-top: 10px">
                   <div>
                     <div class="cw">
                       <div class="cw-inner">
@@ -2859,6 +2891,7 @@
                 <div class="ec-info-header">
                   <div class="ec-info-header-text">
                     <h3 class="ec-title">IGNITE: VERTICAL FLIGHT RESCUE</h3>
+                    <h3 class="ec-title-short">IGNITE CHALLENGE</h3>
                     <div class="ec-subtitle">SEC @ TAMU | NOVEMBER 2025</div>
                   </div>
                   <div class="eclogos darkimgs">
@@ -3054,40 +3087,41 @@
             <div class="ec-details-inner">
               <div class="cbody full">
                 <div
-                  style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;">
+                  >
                   <div>
                     <div class="cslbl">SMR Concept</div>
-                    <p style="font-size:13px;color:var(--tdim);line-height:1.65;margin-bottom:8px">
-                      Designed, prototyped, and presented a <b>plate-design small modular
-                        nuclear reactor (SMR)</b> proof of concept from a need statement
-                    </p>
                     <ul class="cbul">
+                      <li>
+                        Designed, prototyped, and presented a <b>plate-design small modular
+                          nuclear reactor (SMR)</b> proof of concept from a need statement
+                        </li>
                       <li>Optimized for stable burnup, steady operation, and extended fuel
                         life with fuels (67.5% U233, 22.8% U238) and catalysts (U235 and
                         Thorium 232)</li>
+                        <li>Prioritized safety and minimized security concerns with bi-directional
+                          <b>control rods</b> nested between plates, maintaining complete
+                          coolant flow contact
+                        </li>
                     </ul>
-                    <div class="cslbl" style="margin-top:12px">Plate Geometry Research</div>
+                    <div class="cslbl">Plate Geometry Research</div>
                     <ul class="cbul">
-                      <li>Researched 3 plate geometries — diagonal wave, funnel flow, and
-                        honeycomb — evaluating their limitations and evolution</li>
+                      <li>Researched 3 plate geometries - diagonal wave, funnel flow, and
+                        honeycomb - evaluating their limitations and evolution</li>
                       <li>Considered coolant flow regime, pressure distribution, heat
                         pocket formation, and <b>control rod</b> placement for each</li>
                     </ul>
-                  </div>
-                  <div>
-                    <div class="cslbl">Safety & Prototype</div>
-                    <ul class="cbul">
-                      <li>Minimized safety and security concerns with bi-directional
-                        <b>control rods</b> nested between plates, maintaining complete
-                        coolant flow contact
-                      </li>
-                    </ul>
-                    <div class="dbox" style="margin-top:10px">
-                      <b>Physical Prototype:</b><br />
-                      Extruded honeycomb 3D-print → plate fuels<br />
-                      Straws glued to hexagon cut-out → control rods<br />
-                      Cardboard casing
-                    </div>
+                    <!-- <div> -->
+                      <div class="cslbl">Safety & Prototype</div>
+                      <ul class="cbul">
+                        <li>Extruded honeycomb 3D-print → plate fuels</li>
+                        <li>Straws glued to hexagon cut-out → control rods</li>
+                        <li>Cardboard casing</li>
+                      </ul>
+                      <!-- <div class="dbox" style="margin-top:10px">
+                        <b>Physical Prototype:</b><br />
+                        
+                      </div> -->
+                    <!-- </div> -->
                   </div>
                 </div>
                 <div
@@ -3174,9 +3208,9 @@
             <div class="ec-details-inner">
               <div class="cbody full">
                 <div
-                  style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;">
+                  >
                   <div>
-                    <p style="font-size:13px;color:var(--tdim);line-height:1.65;margin-bottom:10px">
+                    <p>
                       Worked in a 4-person team to design a rocket, produce CAD/FEA,
                       conduct aerodynamic research and calculations (propulsion and drag),
                       and code a landing simulation to determine thrust activation
@@ -3256,7 +3290,8 @@
                   <span class="badge" data-cat="sys">Project Management</span>
                   <span class="badge" data-cat="sys">Documentation</span>
                 </div>
-                <p class="ec-brief">A comprehensive document of documents, outlining the end-to-end systems engineering approach for
+                <p class="ec-brief">A comprehensive document of documents, outlining the end-to-end systems engineering
+                  approach for
                   managing complex projects, with detailed methodologies and templates for each step .</p>
               </div>
               <div class="expand-prompt">Click for Project Details <i class="fas fa-chevron-down expand-icon"></i></div>
@@ -4219,7 +4254,10 @@
       document.documentElement.style.overflow = 'hidden'; // Ensure iOS Safari respects the lock
 
       // Push state WITH a hash so mobile browsers explicitly register a page change
-      history.pushState({ lightboxOpen: true }, "", "#detail");
+      // history.pushState({ lightboxOpen: true }, "", "#detail");
+      if (item.id) {
+        history.pushState({ lightboxOpen: true }, "", "#" + item.id);
+      }
     }
 
     // Intercept the browser/system back button
@@ -4258,14 +4296,26 @@
       }
 
       // If closed manually via the X button or backdrop, reverse the dummy state
-      if (fromPopState !== true && window.location.hash === '#detail') {
+      // if (fromPopState !== true && window.location.hash === '#detail') {
+      //   history.back();
+      // }
+
+      // // Fallback: forcefully strip the hash from the URL bar visually 
+      // // (Runs a split second later to ensure history.back() doesn't conflict)
+      // setTimeout(() => {
+      //   if (window.location.hash === '#detail') {
+      //     history.replaceState(null, "", window.location.pathname + window.location.search);
+      //   }
+      // }, 50);
+      // Check if the current hash matches the open card before going back
+      const currentCardId = pfLbHome && pfLbHome.node ? pfLbHome.node.id : '';
+      if (fromPopState !== true && window.location.hash === '#' + currentCardId) {
         history.back();
       }
 
-      // Fallback: forcefully strip the hash from the URL bar visually 
-      // (Runs a split second later to ensure history.back() doesn't conflict)
+      // Fallback to strip ANY hash on close to prevent reload loops
       setTimeout(() => {
-        if (window.location.hash === '#detail') {
+        if (window.location.hash) {
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
       }, 50);
@@ -4314,52 +4364,57 @@
     //   // Reset scroll position
     //   content.scrollTop = 0;
     // }
-  function pfLbNav(dir) {
-    if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
+    function pfLbNav(dir) {
+      if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
 
-    // 1. Select ALL visible items across ALL sections. 
-    // Querying '.card-stack .ec-item' automatically skips the hidden master pool 
-    // and captures the exact top-to-bottom visual order of the page.
-    const visibleItems = Array.from(document.querySelectorAll('.card-stack .ec-item'))
-      .filter(item => item.style.display !== 'none');
+      // 1. Select ALL visible items across ALL sections. 
+      // Querying '.card-stack .ec-item' automatically skips the hidden master pool 
+      // and captures the exact top-to-bottom visual order of the page.
+      const visibleItems = Array.from(document.querySelectorAll('.card-stack .ec-item'))
+        .filter(item => item.style.display !== 'none');
 
-    if (visibleItems.length <= 1) return;
+      if (visibleItems.length <= 1) return;
 
-    // 2. The clone acts as our placeholder in the grid. Find its index globally.
-    const currentIndex = visibleItems.indexOf(pfLbClone);
-    if (currentIndex === -1) return;
+      // 2. The clone acts as our placeholder in the grid. Find its index globally.
+      const currentIndex = visibleItems.indexOf(pfLbClone);
+      if (currentIndex === -1) return;
 
-    // 3. Calculate the next index, looping around if we hit the start or end.
-    const nextIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
-    const nextItem = visibleItems[nextIndex];
+      // 3. Calculate the next index, looping around if we hit the start or end.
+      const nextIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+      const nextItem = visibleItems[nextIndex];
 
-    // 4. Clean up the currently open item and return it to its original grid spot.
-    const currentItem = pfLbHome.node;
-    const currentCard = currentItem.querySelector('.ec-card');
-    if (currentCard) currentCard.classList.remove('open');
-    currentItem.classList.remove('in-lightbox');
+      // 4. Clean up the currently open item and return it to its original grid spot.
+      const currentItem = pfLbHome.node;
+      const currentCard = currentItem.querySelector('.ec-card');
+      if (currentCard) currentCard.classList.remove('open');
+      currentItem.classList.remove('in-lightbox');
 
-    pfLbHome.parent.replaceChild(currentItem, pfLbClone);
+      pfLbHome.parent.replaceChild(currentItem, pfLbClone);
 
-    // 5. Prepare the next item by cloning it and recording its new home stack.
-    const nextParent = nextItem.parentNode;
-    pfLbClone = nextItem.cloneNode(true);
-    nextParent.insertBefore(pfLbClone, nextItem);
+      // 5. Prepare the next item by cloning it and recording its new home stack.
+      const nextParent = nextItem.parentNode;
+      pfLbClone = nextItem.cloneNode(true);
+      nextParent.insertBefore(pfLbClone, nextItem);
 
-    pfLbHome = { node: nextItem, parent: nextParent };
+      pfLbHome = { node: nextItem, parent: nextParent };
 
-    // 6. Move the next item into the lightbox overlay.
-    const content = document.getElementById('card-lb-content');
-    content.innerHTML = '';
-    content.appendChild(nextItem);
-    nextItem.classList.add('in-lightbox');
+      // 6. Move the next item into the lightbox overlay.
+      const content = document.getElementById('card-lb-content');
+      content.innerHTML = '';
+      content.appendChild(nextItem);
+      nextItem.classList.add('in-lightbox');
 
-    const nextCard = nextItem.querySelector('.ec-card');
-    if (nextCard) nextCard.classList.add('open');
+      const nextCard = nextItem.querySelector('.ec-card');
+      if (nextCard) nextCard.classList.add('open');
 
-    // 7. Reset the lightbox scroll position to the top.
-    content.scrollTop = 0;
-  }
+      // 7. Reset the lightbox scroll position to the top.
+      content.scrollTop = 0;
+
+      // Replace current state so we don't clutter the back button history
+      if (nextItem.id) {
+        history.replaceState({ lightboxOpen: true }, "", "#" + nextItem.id);
+      }
+    }
 
 
 
@@ -4390,21 +4445,21 @@
     //     }
     //   });
     document.addEventListener('keydown', (e) => {
-        const cardLb = document.getElementById('card-lb');
-        const imgLb = document.getElementById('lb');
+      const cardLb = document.getElementById('card-lb');
+      const imgLb = document.getElementById('lb');
 
-        if (cardLb && cardLb.classList.contains('open')) {
-          // Stop execution if the inner image lightbox is currently open
-          if (imgLb && imgLb.classList.contains('open')) {
-            return;
-          }
-
-          // If the image lightbox is closed, handle the EC card normally
-          if (e.key === 'Escape') pfCloseLightbox();
-          else if (e.key === 'ArrowRight') pfLbNav(1);
-          else if (e.key === 'ArrowLeft') pfLbNav(-1);
+      if (cardLb && cardLb.classList.contains('open')) {
+        // Stop execution if the inner image lightbox is currently open
+        if (imgLb && imgLb.classList.contains('open')) {
+          return;
         }
-      });
+
+        // If the image lightbox is closed, handle the EC card normally
+        if (e.key === 'Escape') pfCloseLightbox();
+        else if (e.key === 'ArrowRight') pfLbNav(1);
+        else if (e.key === 'ArrowLeft') pfLbNav(-1);
+      }
+    });
 
     // --- FLOAT-UP REVEAL ON SCROLL ---
     let pfRevealObserver = null;
@@ -4419,7 +4474,7 @@
             pfRevealObserver.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.12, rootMargin: '0px 0px 50px 0px' });
 
       document.querySelectorAll('.ec-item').forEach((item) => {
         if (!item.classList.contains('visible') && item.style.display !== 'none') {
@@ -4427,14 +4482,43 @@
         }
       });
     }
+    // let pfRevealObserver = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof filterPortfolio === 'function') {
-        const urlParams = new URLSearchParams(window.location.search);
-        const filterTag = urlParams.get('filter') || 'all';
-        filterPortfolio(filterTag);
-      }
-    });
+    //   function pfInitReveal() {
+    //     if (pfRevealObserver) pfRevealObserver.disconnect();
+
+    //     // Lowered threshold and added a positive rootMargin to trigger slightly before scrolling into view
+    //     pfRevealObserver = new IntersectionObserver((entries) => {
+    //       entries.forEach((entry) => {
+    //         if (entry.isIntersecting) {
+    //           entry.target.classList.add('visible');
+    //           pfRevealObserver.unobserve(entry.target);
+    //         }
+    //       });
+    //     }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+
+    //     document.querySelectorAll('.ec-item').forEach((item) => {
+    //       if (!item.classList.contains('visible') && item.style.display !== 'none') {
+
+    //         // NEW: Immediately show items that are already in the viewport on page load
+    //         if (item.getBoundingClientRect().top < window.innerHeight) {
+    //           // Slight delay ensures the CSS has processed before adding the class
+    //           setTimeout(() => item.classList.add('visible'), 50);
+    //         } else {
+    //           pfRevealObserver.observe(item);
+    //         }
+
+    //       }
+    //     });
+    //   }
+
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   if (typeof filterPortfolio === 'function') {
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const filterTag = urlParams.get('filter') || 'all';
+    //     filterPortfolio(filterTag);
+    //   }
+    // });
 
     // --- FILTER & SIDEBAR SYNC LOGIC ---
     function filterPortfolio(tag) {
@@ -4592,6 +4676,36 @@
       });
     });
 
+
+
+
+
+
+
+
+  window.addEventListener('load', () => {
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+      // Find the element matching the hash (e.g., #ray)
+      const targetCard = document.querySelector(hash);
+
+      // Ensure it's a valid portfolio card before opening
+      if (targetCard && targetCard.classList.contains('ec-item')) {
+        const summary = targetCard.querySelector('.ec-summary');
+        if (summary) {
+          // Slight delay ensures CSS/filters have settled before animating
+          setTimeout(() => pfOpenLightbox(summary), 250);
+        }
+      }
+    }
+  });
+
+
+
+
+
+
+
     document.addEventListener('DOMContentLoaded', () => {
       // Find all ec-subtitles and reformat them for the mobile dot/newline layout
       document.querySelectorAll('.ec-subtitle').forEach(sub => {
@@ -4635,46 +4749,46 @@
 
 
     document.addEventListener("DOMContentLoaded", () => {
-        // Map the raw data-tags to your preferred display text
-        const tagMap = {
-          'aero': 'AERO',
-          'astro': 'ASTRO',
-          'robotics': 'ROBOTICS',
-          'general': 'GENERAL'
-        };
+      // Map the raw data-tags to your preferred display text
+      const tagMap = {
+        'aero': 'AERO',
+        'astro': 'ASTRO',
+        'robotics': 'ROBOTICS',
+        'general': 'GENERAL'
+      };
 
-        document.querySelectorAll('.ec-item').forEach(item => {
-          const tags = item.dataset.tags ? item.dataset.tags.split(' ') : [];
-          const brow = item.querySelector('.brow');
+      document.querySelectorAll('.ec-item').forEach(item => {
+        const tags = item.dataset.tags ? item.dataset.tags.split(' ') : [];
+        const brow = item.querySelector('.brow');
 
-          if (brow) {
-            // Create a clickable badge for each valid category tag
-            tags.forEach(tag => {
-              if (tagMap[tag]) {
-                const badge = document.createElement('span');
-                badge.className = 'badge cat-badge';
-                badge.textContent = tagMap[tag];
+        if (brow) {
+          // Create a clickable badge for each valid category tag
+          tags.forEach(tag => {
+            if (tagMap[tag]) {
+              const badge = document.createElement('span');
+              badge.className = 'badge cat-badge';
+              badge.textContent = tagMap[tag];
 
-                // Trigger the filter and prevent the lightbox from opening
-                badge.onclick = (e) => {
-                  e.stopPropagation();
-                  filterPortfolio(tag);
+              // Trigger the filter and prevent the lightbox from opening
+              badge.onclick = (e) => {
+                e.stopPropagation();
+                filterPortfolio(tag);
 
-                  // Optional: smoothly scroll back to the top of the portfolio section
-                  document.getElementById('mn').scrollIntoView({ behavior: 'smooth' });
-                };
+                // Optional: smoothly scroll back to the top of the portfolio section
+                document.getElementById('mn').scrollIntoView({ behavior: 'smooth' });
+              };
 
-                // Insert at the beginning of the badge row
-                brow.prepend(badge);
-              }
-            });
-          }
-        });
+              // Insert at the beginning of the badge row
+              brow.prepend(badge);
+            }
+          });
+        }
       });
+    });
   </script>
-  
-  
-  
+
+
+
 
 </body>
 

@@ -1721,6 +1721,7 @@ section {
 	gap: 16px;
 	padding: 8px 20px 16px;
 	align-items: start;
+	font-size: clamp(13.5px, 0.8vw, 20px);
 }
 .cbody.full {
 	grid-template-columns: 1fr;
@@ -2035,6 +2036,7 @@ section {
 }
 .cdot.on {
 	background: var(--accent);
+	background: color-mix(in srgb, var(--accent) 70%, transparent);
 	transform: scale(1.5);
 }
 .car-caption {
@@ -3909,8 +3911,10 @@ footer {
 	height: 100%;
 }
 .card-stack.tile-mode .ec-thumb {
-	height: 190px;
-	min-height: 190px;
+	height: 100px;
+	min-height: 100px;
+	/* height: 190px;
+	min-height: 190px; */
 	flex-shrink: 0;
 	opacity: 1;
 }
@@ -4247,3 +4251,30 @@ body {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+.ec-item .uni-card {
+      opacity: 0;
+      transform: translateY(50px); /* Increased from 10px for a more pronounced float */
+      
+      /* Opacity finishes in 0.3s (less fade), Transform takes 0.8s (more float) */
+      /* transition: all 0.3s ease-in-out, opacity 0.3s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); */
+      transition: all 0.3s ease-in-out, opacity 0.3s ease-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ec-item.visible .uni-card {
+      opacity: 1;
+      transform: translateY(0);
+      /* transform: translateY(500px); */
+    }
+
+    /* Re-apply the hover lift so it doesn't get overridden */
+    .ec-item.visible .uni-card:hover {
+      transform: translateY(-3px);
+    }
