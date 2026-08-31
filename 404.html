@@ -8,16 +8,34 @@
         const redirectMap = {
             "/engineering": "/portfolio",
             "/eng": "/portfolio",
+            "/en": "/portfolio",
+            "/port": "/portfolio",
+            "/p": "/portfolio",
             "/engineering-portfolio": "/portfolio",
             "/projects": "/portfolio",
             "/design-teams": "/portfolio",
             "/experience": "/portfolio",
+
             "/artwork": "/photography",
             "/art": "/photography",
+            "/photos": "/photography",
+            "/photo": "/photography",
+            "/pic": "/photography",
+            "/pics": "/photography",
+            "/a": "/photography",
+            
+            "/resumes": "/resume",
+            "/r": "/resume",
+
             "/about": "/",
             "/contact": "/",
             "/about-me": "/",
-            "/home": "/"
+            "/me": "/",
+            "/home": "/",
+            "/index": "/"
+
+            // "/": "/portfolio",
+            // "/index": "/portfolio"
         };
 
         // Get the current path (e.g., "/foresite")
@@ -28,7 +46,7 @@
             window.location.replace(redirectMap[path]);
         } else {
             // Optional: If no match is found, send them to the home page
-            window.location.replace("/");
+            window.location.replace("/portfolio");
         }
     </script>
 </head>
