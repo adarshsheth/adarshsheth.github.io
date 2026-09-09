@@ -25,7 +25,7 @@
 
 	<link rel="preload" href="style.css" as="style">
 	<link rel="preload" href="media/logo/AS_tr.png" as="image">
-	<link rel="preload" href="nav.html" as="fetch" crossorigin="anonymous">
+	<link rel="preload" href="nav" as="fetch" crossorigin="anonymous">
 
 	<script type="application/ld+json">
 		{
@@ -386,7 +386,7 @@
 			width: 100%;
 		}
 
-		/* ── PORTFOLIO OVERVIEW CARDS (Imported from portfolio.html) ── */
+		/* ── PORTFOLIO OVERVIEW CARDS (Imported from portfolio) ── */
 		.card-stack {
 			display: flex;
 			flex-direction: column;
@@ -702,7 +702,7 @@
 						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
 						About Me
 					</a>
-					<a href="portfolio.html" class="hero-btn btn-secondary">
+					<a href="portfolio" class="hero-btn btn-secondary">
 						Experience
 					</a>
 				</div>
@@ -726,12 +726,14 @@
 					<span>multidisciplinary</span> engineering principles and intuitive, real-world execution.
 				</p>
 
-
+<a style="margin-top: 20px; background-color: var(--border); color: white;" href="portfolio" class="fw-see-btn" title="View Portfolio">VIEW PORTFOLIO PAGE
+	<i class="fas fa-link"></i>
+</a>
 
 				<!-- Low-Profile Quote Box for Most Recent Experience -->
 				<!-- <div class="hbox"
 					style="text-align: left; max-width: 850px; margin: 28px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
-					<a href="portfolio.html?filter=all" style="text-decoration: none; color: inherit; display: block;">
+					<a href="portfolio?filter=all" style="text-decoration: none; color: inherit; display: block;">
 						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
 						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
 						to filter
@@ -744,13 +746,13 @@
 						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
 						About Me
 					</a>
-					<a href="portfolio.html" class="hero-btn btn-primary uni-btn">
+					<a href="portfolio" class="hero-btn btn-primary uni-btn">
 						Engineering
 					</a>
-					<a href="resume.html" class="hero-btn btn-secondary uni-btn">
+					<a href="resume" class="hero-btn btn-secondary uni-btn">
 						Resume
 					</a>
-					<a href="photography.html" class="hero-btn btn-secondary uni-btn">
+					<a href="photography" class="hero-btn btn-secondary uni-btn">
 						Photography
 					</a>
 				</div> -->
@@ -793,7 +795,7 @@
 				<!-- Low-Profile Quote Box for Most Recent Experience -->
 				<!-- <div class="hbox"
 					style="text-align: left; max-width: 850px; margin: 0px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
-					<a href="portfolio.html?filter=all" style="text-decoration: none; color: inherit; display: block;">
+					<a href="portfolio?filter=all" style="text-decoration: none; color: inherit; display: block;">
 						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
 						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
 						to filter
@@ -816,6 +818,9 @@
 		<section id="bio" class="indexSection">
 			<div class="fw-head" style="margin-bottom: 40px;">
 				<span class="fw-title">ABOUT ME</span>
+				<a href="/contact" class="fw-see-btn" title="Contact Page">
+					<i class="fas fa-link"></i>
+				</a>
 			</div>
 			<div class="bio-flex">
 				<!-- <div class="bio-img-container"> -->
@@ -828,7 +833,7 @@
 					<p style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
 						<!-- font-size: clamp(14px, 1.2vw, 18px); -->
 						
-						Beyond my coursework, I've always been compelled by a <span onclick="window.location.href='/contact.html'">
+						Beyond my coursework, I've always been compelled by a <span onclick="window.location.href='/contact'">
 							natural
 						</span> curiosity about form, structure,
 						and functional design.
@@ -852,7 +857,7 @@
 			<!-- <div class="fw-head" style="margin-bottom: 26px;"> -->
 			<div class="fw-head" style="margin-bottom: 10px !important;">
 				<span class="fw-title">PORTFOLIO OVERVIEW</span>
-				<a href="portfolio.html" class="fw-see-btn" title="View Full Portfolio">
+				<a href="portfolio" class="fw-see-btn" title="View Full Portfolio">
 					<i class="fas fa-link"></i>
 				</a>
 			</div>
@@ -887,14 +892,14 @@
 				<div class="uni-card tlbox">
 					<div class="tl-wrapper">
 						<div class="tlframe">
-							<iframe src="/gantt.html" title="Experience Timeline" scrolling="no"></iframe>
+							<iframe src="/gantt" title="Experience Timeline" scrolling="no"></iframe>
 						</div>
 					</div>
 				</div>
 			</div> -->
 
 			<div class="card-stack tile-mode">
-				<a href="portfolio.html?filter=aero" class="ec-card-link">
+				<a href="portfolio?filter=aero" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -914,7 +919,7 @@
 					</div>
 				</a>
 
-				<a href="portfolio.html?filter=astro" class="ec-card-link">
+				<a href="portfolio?filter=astro" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -934,7 +939,7 @@
 					</div>
 				</a>
 
-				<a href="portfolio.html?filter=robotics" class="ec-card-link">
+				<a href="portfolio?filter=robotics" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -954,7 +959,7 @@
 					</div>
 				</a>
 
-				<a href="portfolio.html?filter=general" class="ec-card-link">
+				<a href="portfolio?filter=general" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -1009,11 +1014,11 @@
 		<section id="photography" class="indexSection">
 			<div class="fw-head" style="margin-bottom: 26px;">
 				<span class="fw-title">PHOTOGRAPHY GALLERY</span>
-				<a href="photography.html" class="fw-see-btn" title="View Photography Gallery">
+				<a href="photography" class="fw-see-btn" title="View Photography Gallery">
 					<i class="fas fa-link"></i>
 				</a>
 			</div>
-			<a href="photography.html">
+			<a href="photography">
 				<div class="insta-wrapper">
 					<div class="uni-card insta-card">
 						<div class="insta-profile">
@@ -1067,7 +1072,7 @@
 						</div>
 						<div class="insta-footer">
 							<div class="insta-caption">
-								<a href="photography.html" target="_blank">adarshs_photos: </a>just a few photos I
+								<a href="photography" target="_blank">adarshs_photos: </a>just a few photos I
 								took...
 							</div>
 						</div>
@@ -1122,7 +1127,7 @@
 
 			try {
 				// Fetch the portfolio page
-				const response = await fetch("portfolio.html");
+				const response = await fetch("portfolio");
 				const htmlText = await response.text();
 
 				// Parse the fetched HTML
@@ -1130,7 +1135,7 @@
 				const doc = parser.parseFromString(htmlText, "text/html");
 
 				// --- EXTRACT & SCOPE CSS ---
-				// Grab all style blocks from portfolio.html
+				// Grab all style blocks from portfolio
 				const styleBlocks = doc.querySelectorAll("style");
 				let portfolioCSS = "";
 				styleBlocks.forEach(block => portfolioCSS += block.innerHTML + "\n");
@@ -1173,7 +1178,7 @@
 	                        FEATURED EXPERIENCE:
 	                    </div>
 	                    <div class="card-stack">
-	                        <a href="portfolio.html?filter=all" class="ec-card-link" style="display: block; text-decoration: none;">
+	                        <a href="portfolio?filter=all" class="ec-card-link" style="display: block; text-decoration: none;">
 	                            <div class="${cardClasses}">
 	                                ${summaryHtml}
 	                            </div>
