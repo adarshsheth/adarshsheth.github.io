@@ -1068,17 +1068,36 @@ function initCountUp() {
 }
 
 /* ── PAGE ACTIVE LINK HELPERS ── */
+// function applyPageActiveState(currentPath, links) {
+// 	links.forEach((link) => {
+// 		link.classList.remove("active");
+// 		const linkText = link.textContent.trim().toLowerCase();
+// 		// const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+// 		const isPortfolioPath =
+// 			currentPath.endsWith("/") || currentPath.includes("portfolio") || currentPath.endsWith("site") || currentPath.includes("photography");
+// 		const isAboutPath = currentPath.includes("about");
+			
+
+// 					if (currentPath.includes("blog") && text.includes("blog")) link.classList.add("active");
+// 					else if (currentPath.includes("resume") && text.includes("resume")) link.classList.add("active");
+// 					else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+// 					else if (isAboutPath && text.includes("about")) link.classList.add("active");
+// 	});
+// }
+/* ── PAGE ACTIVE LINK HELPERS ── */
 function applyPageActiveState(currentPath, links) {
 	links.forEach((link) => {
 		link.classList.remove("active");
-		const linkText = link.textContent.trim().toLowerCase();
-		const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
-
-		if (currentPath.includes("blog") && linkText === "blog") link.classList.add("active");
-		else if (currentPath.includes("resume") && linkText === "resume") link.classList.add("active");
-		else if (isPortfolioPath && linkText.includes("portfolio")) link.classList.add("active");
-		else if ((currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site")) && linkText === "home")
-			link.classList.add("active");
+		const text = link.textContent.trim().toLowerCase(); // Changed 'linkText' to 'text'
+		
+		const isPortfolioPath =
+			currentPath.endsWith("/") || currentPath.includes("portfolio") || currentPath.endsWith("site") || currentPath.includes("photography");
+		const isAboutPath = currentPath.includes("about");
+			
+		if (currentPath.includes("blog") && text.includes("blog")) link.classList.add("active");
+		else if (currentPath.includes("resume") && text.includes("resume")) link.classList.add("active");
+		else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+		else if (isAboutPath && text.includes("about")) link.classList.add("active");
 	});
 }
 

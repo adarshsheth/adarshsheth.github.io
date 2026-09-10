@@ -1,0 +1,1393 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="robots" content="index, follow">
+	<meta name="keywords"
+		content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
+	<meta name="theme-color" content="#647661">
+	<link rel="author" href="https://www.linkedin.com/in/adarsh-sheth/">
+	<meta property="og:site_name" content="Adarsh Sheth" />
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Home  • Adarsh Sheth">
+	<meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+
+	<link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
+	<link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+	<link rel="preload" href="style.css" as="style">
+	<link rel="preload" href="media/logo/AS_tr.png" as="image">
+	<link rel="preload" href="nav" as="fetch" crossorigin="anonymous">
+
+	<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "Person",
+		  "name": "Adarsh Sheth",
+		  "jobTitle": "Aerospace Engineer",
+		  "url": "https://adarshsheth.github.io",
+		  "sameAs": [
+		    "https://www.linkedin.com/in/adarsh-sheth/"
+		  ],
+		  "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
+		  "affiliation": {
+		    "@type": "Organization",
+		    "name": "Texas A&M University"
+		  }
+		}
+	</script>
+
+	<title>Home • Adarsh Sheth</title>
+	<meta property="og:title" content="Home  • Adarsh Sheth">
+	<meta name="description"
+		content="Hi! I'm Adarsh Sheth, an undergraduate Aerospace Engineer at Texas A&M university with a passion for vertical flight, photography, and nature.">
+	<meta property="og:description"
+		content="Hi! I'm Adarsh Sheth, an undergraduate Aerospace Engineer at Texas A&M university with a passion for vertical flight, photography, and nature.">
+	<meta property="og:url" content="https://adarshsheth.github.io">
+	<link rel="canonical" href="https://adarshsheth.github.io">
+
+	<link
+		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+	<style>
+		:root {
+			--bg: #0a0a0a;
+			--text: #d0d3cd;
+			--g: #647661;
+			--gd: #232922;
+			--pageMaxWidth: 1100px !important;
+		}
+
+		body {
+			background: var(--bg);
+			color: var(--text);
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: var(--g);
+		}
+
+		@media (min-width: 1051px) {
+			#sb {
+				display: none !important;
+			}
+		}
+	</style>
+	<link rel="stylesheet" href="style.css" />
+
+	<style>
+		/* Full Screen Hero Section */
+		#about {
+			margin-top: calc(-1 * (var(--navh) + 50px));
+			/* padding-top: calc(var(--navh) + 50px); */
+			/* padding-top: calc(var(--navh) + 30px); */
+			padding: 100px 0;
+
+			min-height: 100vh;
+			min-height: 100dvh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			background: transparent !important;
+			border-bottom: none;
+			/* border-bottom: 1px solid var(--border); */
+		}
+
+		/* body::before { background: transparent;} */
+		.hero-full-bg {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(rgba(255, 254, 254, 0.9) 0%, rgba(255, 254, 254, 0.9) 80%), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/landing_gku5dx.jpg') center/cover no-repeat;
+			/* background: linear-gradient(rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.9) 80%), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/landing_gku5dx.jpg') center/cover no-repeat; */
+			/* background: linear-gradient(pink 0%, rgba(10, 10, 10, 0.95) 30%), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat; */
+			z-index: -1;
+			-webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+			mask-image: linear-gradient(to bottom, black 5%, transparent 100%);
+		}
+
+		.about-box {
+			margin-bottom: 0 !important;
+			max-width: var(--pageMaxWidth);
+			;
+			width: 100%;
+			text-align: center;
+			/* padding: 0 20px; */
+
+			padding: 20px;
+			border-radius: var(--r);
+			/* background: pink; */
+			position: relative;
+		}
+
+		/* The Brackets */
+		.about-box::before,
+		.about-box::after {
+			content: "";
+			position: absolute;
+			/* width: 30px;
+			height: 30px; */
+			width: 50px;
+			height: 30px;
+			/* Length of the bracket */
+			/* Length of the bracket */
+			/* border: 4px solid var(--accent); */
+			border: 5px solid var(--accent);
+			/* border: 4px solid var(--g); */
+			/* Thickness and color */
+		}
+
+		/* Top-Left Bracket */
+		.about-box::before {
+			top: -5px;
+			left: -5px;
+			border-right: none;
+			border-bottom: none;
+			border-radius: var(--r) 0 0 0;
+		}
+
+		/* Bottom-Right Bracket */
+		.about-box::after {
+			bottom: -5px;
+			right: -5px;
+			border-left: none;
+			border-top: none;
+			border-radius: 0 0 var(--r) 0;
+		}
+
+
+
+
+
+
+
+
+
+
+
+		/* Typing Effect Cursor */
+		.typing-cursor {
+			display: inline-block;
+			width: 0.1em;
+			height: 1em;
+			/* background-color: var(--accent); */
+			background-color: var(--g);
+			vertical-align: text-top;
+			margin-left: 15px;
+			animation: blink 1s step-end infinite;
+		}
+
+		@keyframes blink {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0;
+			}
+		}
+
+		/* Hero Buttons */
+		.hero-buttons {
+			display: flex;
+			/* gap: 16px; */
+			gap: 12px;
+			justify-content: center;
+			margin-top: 36px;
+			flex-wrap: wrap;
+		}
+
+		.hero-btn {
+			/* padding: 12px 28px; */
+			padding: 8px 22px;
+			border-radius: 10px;
+			font-family: "Rubik", sans-serif;
+			font-weight: 700;
+			/* font-size: 13px; */
+			font-size: inherit;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			cursor: pointer;
+		}
+
+		.btn-primary {
+			color: var(--bg);
+			background: var(--g);
+			border: 2px solid var(--g);
+			/* background: var(--accent);
+			border: 2px solid var(--accent); */
+		}
+
+		.btn-primary:hover {
+			background: transparent;
+			/* color: var(--accent); */
+			color: var(--g);
+			transform: translateY(-2px);
+		}
+
+		.btn-secondary {
+			background: transparent;
+			color: var(--text);
+			border: 2px solid var(--border);
+		}
+
+		.btn-secondary:hover {
+			/* border-color: var(--accent);
+			color: var(--accent); */
+			border-color: var(--g);
+			color: var(--g);
+			transform: translateY(-2px);
+		}
+
+		/* Scroll Down Indicator */
+		.scroll-down {
+			position: absolute;
+			bottom: 40px;
+			left: 50%;
+			transform: translateX(-50%);
+			/* color: var(--tdim); */
+			color: var(--tdim-fr);
+			/* font-size: 24px; */
+			animation: floatBounce 2.5s ease-in-out infinite;
+			cursor: pointer;
+			transition: color 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			/* padding: 10px 50px; */
+
+			font-size: clamp(14px, 1.2vw, 22px);
+			font-weight: 700;
+			gap: 10px;
+			text-transform: uppercase;
+		}
+
+		.scroll-down i {
+			/* font-size: 20px; */
+			font-size: clamp(16px, 1.2vw, 22px);
+		}
+
+		.scroll-down:hover {
+			/* color: var(--accent); */
+			/* color: var(--g); */
+			color: var(--tdim);
+		}
+
+		@keyframes floatBounce {
+
+			0%,
+			100% {
+				transform: translate(-50%, 0);
+			}
+
+			50% {
+				transform: translate(-50%, 12px);
+			}
+		}
+
+		/* Bio Section */
+		#bio {
+			padding: 80px 4 8px;
+			/* max-width: 1300px; */
+			max-width: var(--pageMaxWidth);
+			;
+			/* background-color: pink; */
+			/* align-self: center; */
+			margin: 0 auto;
+		}
+
+
+		.bio-flex {
+			display: flex;
+			gap: 50px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		.bio-img-container {
+			flex-shrink: 0;
+			width: 150px;
+			height: 160px;
+			margin: 0;
+			border-radius: 50%;
+			border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
+			align-self: flex-start;
+		}
+
+		.bio-img-container img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transform: scale(1.1);
+			transition: transform 0.3s ease-out;
+		}
+
+		.bio-img-container:hover img {
+			transform: scale(1.15);
+		}
+
+		.bio-text-content {
+			flex: 1;
+			min-width: 300px;
+		}
+
+		/* ── LAYOUT & MARGIN ALIGNMENTS ── */
+		#portfolio-overview,
+		#photography {
+			/* padding: 40px 48px 52px; */
+			/* padding: 40px 48px; */
+			/* max-width: 1300px;
+			margin: 0; */
+			max-width: var(--pageMaxWidth);
+			margin: 0 auto;
+		}
+
+		#marquee {
+			max-width: var(--pageMaxWidth);;
+			margin: 0 auto;
+		}
+
+		/* ── GANTT CHART (TIMELINE) IMPROVEMENTS ── */
+		.tl-wrapper {
+			position: relative;
+			width: 100%;
+			padding: 0 16px;
+			/* Extra breathing room for scrollbar */
+		}
+
+		.tlframe {
+			padding-bottom: 6px;
+			/* Lift scrollbar off the bottom absolute edge */
+		}
+
+		.tlframe iframe {
+			/* min-width: 800px !important; */
+			/* Optimizes the white space gap on the right */
+			width: 100%;
+		}
+
+		/* ── PORTFOLIO OVERVIEW CARDS (Imported from portfolio) ── */
+		.card-stack {
+			display: flex;
+			flex-direction: column;
+			gap: var(--uni-gap);
+			max-width: 1200px;
+			grid-template-columns: 1fr 1fr 1fr 1fr !important;
+		}
+
+		.ec-card-link {
+			display: block;
+			text-decoration: none;
+			color: inherit;
+		}
+
+
+		.ec-summary {
+			display: grid;
+			grid-template-columns: 280px 1fr;
+			gap: 24px;
+			position: relative;
+		}
+
+		.ec-thumb {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			background: #111;
+			overflow: hidden;
+			min-height: 0;
+		}
+
+		.ec-thumb img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+
+		.ec-card:hover .ec-thumb img {
+			transform: scale(1.05);
+		}
+
+		.ec-info {
+			padding: 24px 24px 24px 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.ec-title {
+			font-size: clamp(18px, 1.5vw, 40px);
+			font-weight: 900;
+			color: var(--dimtitle);
+			text-transform: uppercase;
+			line-height: 1.1;
+			margin-bottom: 6px;
+			transition: color 0.2s ease;
+		}
+
+		/* .ec-card:hover .ec-title { */
+			/* color: var(--accent2); */
+			/* color: var(--g); */
+			/* color: var(--g); */
+		/* } */
+
+		.ec-subtitle {
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--tdim);
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+
+		.ec-brief {
+			font-size: clamp(13px, 0.8vw, 16px);
+			line-height: 1.6;
+			color: var(--dimtitle);
+			margin: 12px 0 0;
+			max-width: 800px;
+			font-weight: 100 !important;
+		}
+
+		.insta-wrapper {
+			max-width: 450px;
+		}
+
+		@media (max-height: 840px) {
+			#recent-card-container {
+				display: none;
+			}
+		}
+
+		@media (max-width: 1050px) {
+			.bio-flex {
+				display: block;
+			}
+
+			.bio-img-container {
+				float: left;
+				shape-outside: circle(50%);
+				margin: 0 20px 10px 0;
+				width: 150px;
+				height: 160px;
+				border-radius: 50%;
+				border: 4px solid color-mix(in srgb, var(--text) 40%, transparent);
+			}
+
+			#about {
+				margin-top: calc(-1 * (var(--navh) + 50px));
+				/* padding-top: calc(var(--navh) + 50px); */
+				padding-top: calc(var(--navh) + 40px);
+			}
+
+			/* Unified mobile padding constraints */
+			#bio {
+				padding: 60px 22px !important;
+			}
+
+			.bio-img-container {
+				width: 120px;
+				height: 120px;
+				/* width: 200px;
+				height: 200px; */
+
+			}
+
+			.fw-head {
+				margin-bottom: 20px !important;
+			}
+
+			#portfolio-overview,
+			#marquee,
+			#photography {
+				/* padding: 40px 22px 52px !important; */
+				padding: 40px 22px;
+			}
+
+			.bio-flex {
+				justify-content: flex-start;
+				text-align: left;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 25px;
+			}
+
+			.tl-wrapper {
+				/* Applies a seamless fade-out on the right side to indicate horizontal scroll capability */
+				-webkit-mask-image: linear-gradient(to right, black 70%, transparent 95%);
+				mask-image: linear-gradient(to right, black 70%, transparent 95%);
+			}
+		}
+
+		@media (max-width: 800px) {
+			.ec-summary {
+				grid-template-columns: 1fr;
+				gap: 0;
+			}
+
+			.ec-thumb {
+				/* height: 120px; */
+				height: 90px;
+				min-height: auto;
+			}
+
+			.ec-info {
+				padding: 20px;
+			}
+
+			.insta-wrapper {
+				max-width: 100%;
+			}
+			.card-stack {
+				grid-template-columns: 1fr 1fr !important;
+			}
+		}
+
+		/* @media (max-width: 850px) { */
+		@media (max-width: 850px),
+		(max-height: 850px) {
+			.scroll-down {
+				display: none !important;
+			}
+			/* PUT SECTION HERE */
+			#about {
+				min-height: 100%;
+				min-height: 100%;
+				padding-top: 0px;
+			}
+
+			.about-box {
+				padding-bottom: 40px;
+			}
+			.about-box::before,
+			.about-box::after {
+				display: none !important;
+			}
+
+			#bio {
+				padding-top: 20px !important;
+				padding-bottom: 0px !important;
+			}
+
+			#portfolio-overview {
+				padding-bottom: 0px !important;
+			}
+		}
+
+		.indexSection {
+			padding-top: 60px !important;
+			padding-bottom: 20px !important;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="hero-full-bg"></div>
+	<div id="site-preloader">
+		<div class="preloader-content">
+			<svg class="preloader-svg" viewBox="0 0 955 955" xmlns="http://www.w3.org/2000/svg">
+				<path class="blob b-green" data-star-cx="477.5" data-star-cy="477.5" data-star-points="9"
+					data-star-outer="440" data-star-length="0.24" data-star-round="0.18" data-star-rotation="12" />
+				<path class="blob b-gold" data-star-cx="477.5" data-star-cy="477.5" data-star-points="7"
+					data-star-outer="360" data-star-length="0.32" data-star-round="0.12" data-star-rotation="-16" />
+				<path class="blob b-accent2" data-star-cx="477.5" data-star-cy="477.5" data-star-points="5"
+					data-star-outer="260" data-star-length="0.40" data-star-round="0.22" data-star-rotation="58" />
+				<path class="logo-path" pathLength="1"
+					d="M830 200q24 0 41 17l33 26 24 19 18 15q6 5 4 11t-9 5H581q-19 0-34 12-18 12-24 33-8 27 8 52 17 26 48 27l183 1q35 0 68 12 21 9 40 23a170 170 0 0 1 63 107l3 33a168 168 0 0 1-101 152 241 241 0 0 1-49 14H659q-5 0-8-5l-26-50-20-35 8-1h150q32-1 54-24 17-17 21-40 3-19-3-38-10-27-35-42-15-9-34-10H582a145 145 0 0 1-60-15q-9-2-13-11l-31-58-28-53q-6-13-13-24-6-12-3-24a146 146 0 0 1 30-67 144 144 0 0 1 74-53q21-8 42-8l249-1z" />
+				<path class="logo-path" pathLength="1"
+					d="M238 507l-10 19-4 2h-97l-3-1 8-15 13-24 21-40 33-62 30-55 52-97q11-16 29-23l15-6q12-4 20 5l8 11 25 47 39 72 26 49 30 54 30 58 29 53 34 61 3 9-5 1h-94l-162-1q-24 0-43-17l-34-28-22-17-15 28-45 84-14 24q-10 16-28 23l-35 15-51 22-14 1c-4-10 2-18 6-26l13-23 21-41 33-61 29-55 8-13h287l9-1q5-1 3-7l-11-22-13-24-31-57-17-33-23-43-14 27-42 78z" />
+				<path class="logo-path" pathLength="1"
+					d="M613 706l28 53h-97q-5 0-8-4l-16-31-30-56-15-28-1-4h96q6 1 8 4l25 49z" />
+			</svg>
+			<div class="preloader-text" fetchpriority="high">ADARSH SHETH</div>
+			<div class="preloader-subtext">AEROSPACE ENGINEER</div>
+		</div>
+	</div>
+
+	<div id="blur-page"></div>
+	<div id="nav-placeholder"></div>
+	<script>
+		const cachedNav = sessionStorage.getItem("rawNavHTML");
+		if (cachedNav) {
+			document.getElementById("nav-placeholder").outerHTML = cachedNav;
+			const currentPath = window.location.pathname.toLowerCase();
+			// const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+			// const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+			const isPortfolioPath = currentPath.endsWith("/") || currentPath.includes("portfolio") || currentPath.endsWith("site") || currentPath.includes("photography");
+			const isAboutPath = currentPath.includes("about");
+			const header = document.getElementById("hdr");
+			if (header) {
+				header.querySelectorAll(".ni").forEach(link => {
+					link.classList.remove("active");
+					const text = link.textContent.trim().toLowerCase();
+					// if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+					// else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+					// else if (isPortfolioPath) link.classList.add("active");
+					// else if (isAboutPath && text === "about") link.classList.add("active");
+					if (currentPath.includes("blog") && text.includes("blog")) link.classList.add("active");
+					else if (currentPath.includes("resume") && text.includes("resume")) link.classList.add("active");
+					else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+					else if (isAboutPath && text.includes("about")) link.classList.add("active");
+				});
+			}
+		}
+	</script>
+	<div id="sb-overlay"></div>
+
+	<aside id="sb">
+		<div id="sb-hdr">Sections</div>
+		<div id="sb-prog">
+			<div id="sb-fill"></div>
+		</div>
+		<nav id="sb-nav">
+			<a class="sbn active" href="#about"
+				onclick="navToSection('about', () => window.scrollTo({top: 0, behavior:'smooth'})); return false;"
+				data-k="about">
+				<span class="sbdot"></span>
+				<span class="sblbl">Top</span>
+			</a>
+			<a class="sbn" href="#bio"
+				onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;"
+				data-k="bio">
+				<span class="sbdot"></span>
+				<span class="sblbl">About Me</span>
+			</a>
+			<a class="sbn" href="#portfolio-overview"
+				onclick="navToSection('portfolio-overview', () => { const el = document.getElementById('portfolio-overview'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;"
+				data-k="portfolio-overview">
+				<span class="sbdot"></span>
+				<span class="sblbl">Portfolio Overview</span>
+			</a>
+			<a class="sbn" href="#photography"
+				onclick="navToSection('photography', () => { const el = document.getElementById('photography'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;"
+				data-k="photography">
+				<span class="sbdot"></span>
+				<span class="sblbl">Photography Overview</span>
+			</a>
+		</nav>
+	</aside>
+
+	<div id="mn">
+		<section id="about" class="indexSection" class="indexSection">
+			<!-- <div class="about-box">
+				<div class="about-name">
+					<span id="typewriter"></span><span class="typing-cursor"></span>
+				</div>
+				<p class="about-bio"
+					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6">
+					I'm a rising junior Aerospace Engineering student at Texas A&M University.
+					Driven by a deep fascination for vertical flight and end-to-end systems integration, I love
+					tackling rigorous engineering challenges, from design and sizing flight vehicles to conducting
+					complex aerodynamic trade studies.
+				</p>
+				<div class="hero-buttons">
+					<a href="#bio" class="hero-btn btn-primary"
+						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
+						About Me
+					</a>
+					<a href="portfolio" class="hero-btn btn-secondary">
+						Experience
+					</a>
+				</div>
+			</div> -->
+			<div class="about-box">
+				<div class="about-name">
+					<span id="typewriter"></span><span class="typing-cursor"></span>
+				</div>
+
+				<!-- Lengthened Introduction Paragraph -->
+				<!-- text-align: justify; -->
+				<p class="about-bio"
+					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6;">
+					I'm a rising junior Aerospace Engineering student at Texas A&M University. Driven by a deep
+					fascination for <span>vertical flight</span> and end-to-end <span>systems</span> integration, I love
+					tackling
+					rigorous engineering challenges - from designing and sizing flight vehicles to conducting complex
+					aerodynamic trade studies. I thrive in
+					environments where creativity meets analytical rigor, constantly looking to bridge the gap between
+					heavy,
+					<span>multidisciplinary</span> engineering principles and intuitive, real-world execution.
+				</p>
+
+<a style="margin-top: 20px; background-color: var(--border); color: white;" href="portfolio" class="fw-see-btn" title="View Portfolio">VIEW PORTFOLIO PAGE
+	<i class="fas fa-link"></i>
+</a>
+
+				<!-- Low-Profile Quote Box for Most Recent Experience -->
+				<!-- <div class="hbox"
+					style="text-align: left; max-width: 850px; margin: 28px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
+					<a href="portfolio?filter=all" style="text-decoration: none; color: inherit; display: block;">
+						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
+						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
+						to filter
+						those in FOV; then tracked chosen satellite across its in-FOV duration.
+					</a>
+				</div> -->
+
+				<!-- <div class="hero-buttons" style="margin-top: 36px;">
+					<a href="#bio" class="hero-btn btn-primary uni-btn"
+						onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
+						About Me
+					</a>
+					<a href="portfolio" class="hero-btn btn-primary uni-btn">
+						Engineering
+					</a>
+					<a href="resume" class="hero-btn btn-secondary uni-btn">
+						Resume
+					</a>
+					<a href="photography" class="hero-btn btn-secondary uni-btn">
+						Photography
+					</a>
+				</div> -->
+
+
+
+
+				<!-- <div class="indexSection" style="margin-bottom: 50px !important"> -->
+				<div class="indexSection" style="margin-bottom: 0px !important">
+					<!-- <h2 class="fw-title" style="margin: 10px 0">Organizations</h2> -->
+					<div class="marquee">
+						<div class="marquee-track">
+							<img src="/media/logo/ray.png" alt="Raytheon">
+							<img src="/media/logo/vfd.png" alt="VFD">
+							<img src="/media/logo/vfs.png" alt="VFS">
+							<img src="/media/logo/red.png" alt="RED">
+							<img src="/media/logo/seds.png" alt="SEDS">
+							<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+							<img src="/media/logo/DVR.png" alt="DVR">
+							<img src="/media/logo/invent.jpg" alt="Invent">
+							<img src="/media/logo/888.png" alt="Troop 888">
+						</div>
+						<div class="marquee-track" aria-hidden="true">
+							<img src="/media/logo/ray.png" alt="Raytheon">
+							<img src="/media/logo/vfd.png" alt="VFD">
+							<img src="/media/logo/vfs.png" alt="VFS">
+							<img src="/media/logo/red.png" alt="RED">
+							<img src="/media/logo/seds.png" alt="SEDS">
+							<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+							<img src="/media/logo/DVR.png" alt="DVR">
+							<img src="/media/logo/invent.jpg" alt="Invent">
+							<img src="/media/logo/888.png" alt="Troop 888">
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<!-- Low-Profile Quote Box for Most Recent Experience -->
+				<!-- <div class="hbox"
+					style="text-align: left; max-width: 850px; margin: 0px auto 0; font-size: clamp(14px, 1vw, 18px); line-height: 1.6; transition: transform 0.2s ease;">
+					<a href="portfolio?filter=all" style="text-decoration: none; color: inherit; display: block;">
+						<b><u>MOST RECENTLY:</u> Systems Engineering Intern @ Raytheon</b><br>
+						Worked with MATLAB's aerospace toolbox to automatically fetch, read in, and parse LEO TLE files
+						to filter
+						those in FOV; then tracked chosen satellite across its in-FOV duration.
+					</a>
+				</div> -->
+				<!-- <div id="recent-card-container"
+					style="max-width: 850px; margin: 0 auto; text-align: left; width: 100%;">
+				</div> -->
+			</div>
+
+			<a class="scroll-down" href="#bio" aria-label="Scroll Down"
+				onclick="navToSection('bio', () => { const el = document.getElementById('bio'); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }); return false;">
+				Scroll to About<i class="fas fa-chevron-down"></i>
+			</a>
+		</section>
+
+
+
+		<section id="bio" class="indexSection">
+			<div class="fw-head" style="margin-bottom: 40px;">
+				<span class="fw-title">ABOUT ME</span>
+				<a href="/contact" class="fw-see-btn" title="Contact Page">
+					<i class="fas fa-link"></i>
+				</a>
+			</div>
+			<div class="bio-flex">
+				<!-- <div class="bio-img-container"> -->
+				<div class="bio-img-container" style="border: 0px !important; border-radius: 0px !important;">
+					<!-- <img src="media/artwork/pfp2.jpg" alt="Adarsh Sheth" loading="lazy" decoding="async" /> -->
+					<img src="media/artwork/bio-img.png" alt="Adarsh Sheth" loading="lazy" decoding="async" />
+				</div>
+				<div class="bio-text-content">
+					<!-- <p class="about-bio" style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;"> -->
+					<p style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
+						<!-- font-size: clamp(14px, 1.2vw, 18px); -->
+						
+						Beyond my coursework, I've always been compelled by a <span onclick="window.location.href='/contact'">
+							natural
+						</span> curiosity about form, structure,
+						and functional design.
+						My creative side started early through painting and intricate origami, which taught me patience
+						and an appreciation for nuance.
+						As I was drawn to aerospace, that tactile curiosity blended with my engineering mindset,
+						sparking side projects that broke down everyday mechanics.
+						This drive to observe and learn, paired with a love for the outdoors and travel, found
+						expression through photography as I immersed myself in remote trails and urban landscapes.
+						Picking up a camera is my favorite excuse to step outside, disconnect, and appreciate the finer
+						details of the world around us.
+						<!-- <br><br> -->
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- <hr class="div" style="margin: 0px 0 0" /> -->
+
+		<section id="portfolio-overview" class="indexSection">
+			<!-- <div class="fw-head" style="margin-bottom: 26px;"> -->
+			<div class="fw-head" style="margin-bottom: 10px !important;">
+				<span class="fw-title">PORTFOLIO OVERVIEW</span>
+				<a href="portfolio" class="fw-see-btn" title="View Full Portfolio">
+					<i class="fas fa-link"></i>
+				</a>
+			</div>
+
+			<!-- <div class="bio-text-content" style="margin-bottom: 26px;"> -->
+			<div class="bio-text-content" style="margin-bottom: 36px;">
+				<p style="width: 100%; font-size: clamp(16px, 1vw, 22px); line-height: 1.7;">
+					<!-- My engineering background began with VEX IQ Robotics from 6th to 8th grade, where I learned the fundamentals of mechanical design and programming, and served as a stepping stone into
+					the high school level VEX Robotics Competition. At this stage, I was team captain from 2 years, both of which  we placed in the top 2% worldwide and qualified for World Championships.
+					This exposure to robotics ignited a passion for problem-solving and innovation that has guided my academic and professional journey. 
+					Over the years, I've expanded my expertise into aerospace engineering, focusing on areas such as eVTOL design, propulsion systems, and fluid dynamics. 
+					My portfolio showcases a diverse range of projects that reflect my commitment to pushing the boundaries of engineering and technology.  -->
+					My foundation in engineering was built through competitive robotics, progressing from early VEX IQ fundamentals to
+					leading VRC Team 5776K as captain for 2 years. Across 16 tournaments, I led our team to back-to-back World Championship
+					appearances and a top 2% global ranking while managing mechanical sub-system design, data-driven engineering
+					documentation, and dynamic match strategy. Authoring technical guides on pneumatic linkages and launch mechanisms showed
+					me how analytical design dictates real-world hardware performance. 
+					
+					Today, that hardware-first experience drives my current engineering endeavors in vehicle sizing, computational fluid
+					dynamics, and rocket propulsion systems.
+
+					Explore my portfolio below to see how these core principles translate across my primary focus areas and technical
+					projects.
+					
+					<!-- This early exposure to rapid prototyping and systems
+					integration naturally directed my focus toward aerospace engineering, where I now apply those same principles to eVTOL
+					design, CFD modeling, and fluid dynamics. -->
+				</p>
+			</div>
+			
+			<!-- <div id="tls">
+				<div class="uni-card tlbox">
+					<div class="tl-wrapper">
+						<div class="tlframe">
+							<iframe src="/gantt" title="Experience Timeline" scrolling="no"></iframe>
+						</div>
+					</div>
+				</div>
+			</div> -->
+
+			<div class="card-stack tile-mode">
+				<a href="//?filter=aero" class="ec-card-link">
+					<div class="uni-card ec-card">
+						<div class="ec-summary">
+							<div class="ec-thumb">
+								<img src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/rev3_2_hcfswz.jpg"
+									alt="eVTOL & Aeronautics">
+							</div>
+							<div class="ec-info">
+								<div class="ec-info-header">
+									<h3 class="ec-title">Aeronautics</h3>
+									<div class="ec-subtitle">eVTOL, Flight Design, Sizing, CFD</div>
+								</div>
+								<p class="ec-brief">Projects involving multicopter design, lift+cruise eVTOL
+									sizing configurations, and rigorous aerodynamic optimization for vertical flight
+									systems.</p>
+							</div>
+						</div>
+					</div>
+				</a>
+
+				<a href="/?filter=astro" class="ec-card-link">
+					<div class="uni-card ec-card">
+						<div class="ec-summary">
+							<div class="ec-thumb">
+								<img src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252406/hotfire_c6ezkb.jpg"
+									alt="Rocketry & Space">
+							</div>
+							<div class="ec-info">
+								<div class="ec-info-header">
+									<h3 class="ec-title">Astronautics</h3>
+									<div class="ec-subtitle">Propulsion, Trade Studies, Fluid Systems, Spacecraft</div>
+								</div>
+								<p class="ec-brief">Work with liquid bi-propellant engine feedline assemblies,
+									structural rocket design, and high-fidelity simulated lunar crash site search
+									algorithms.</p>
+							</div>
+						</div>
+					</div>
+				</a>
+
+				<a href="/?filter=robotics" class="ec-card-link">
+					<div class="uni-card ec-card">
+						<div class="ec-summary">
+							<div class="ec-thumb">
+								<img src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779258496/su_front_x2m8ea.png"
+									alt="Robotics">
+							</div>
+							<div class="ec-info">
+								<div class="ec-info-header">
+									<h3 class="ec-title">Robotics</h3>
+									<div class="ec-subtitle">CAD, Assembly, Leadership, Competition</div>
+								</div>
+								<p class="ec-brief">Competitive robotics engineering, spanning intricate
+									subsystem CAD, project management strategies, and large-scale regional tournament
+									coordination.</p>
+							</div>
+						</div>
+					</div>
+				</a>
+
+				<a href="/?filter=general" class="ec-card-link">
+					<div class="uni-card ec-card">
+						<div class="ec-summary">
+							<div class="ec-thumb">
+								<img src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269609/cad1_wydkd3.png"
+									alt="General Engineering">
+							</div>
+							<div class="ec-info">
+								<div class="ec-info-header">
+									<h3 class="ec-title">General</h3>
+									<div class="ec-subtitle">Prototyping, Stress Analysis, Documentation</div>
+								</div>
+								<p class="ec-brief">A collection of cross-disciplinary projects including Small Modular
+									Reactor (SMR) prototyping, F1 brake pedal stress calculations, and educational
+									infographics.</p>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</section>
+
+		<!-- <section id="marquee" class="indexSection">
+			<h2 class="fw-title" style="margin: 10px 0">Organizations</h2>
+			<div class="marquee">
+				<div class="marquee-track">
+					<img src="/media/logo/ray.png" alt="Raytheon">
+					<img src="/media/logo/vfd.png" alt="VFD">
+					<img src="/media/logo/vfs.png" alt="VFS">
+					<img src="/media/logo/red.png" alt="RED">
+					<img src="/media/logo/seds.png" alt="SEDS">
+					<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+					<img src="/media/logo/DVR.png" alt="DVR">
+					<img src="/media/logo/invent.jpg" alt="Invent">
+					<img src="/media/logo/888.png" alt="Troop 888">
+				</div>
+				<div class="marquee-track" aria-hidden="true">
+					<img src="/media/logo/ray.png" alt="Raytheon">
+					<img src="/media/logo/vfd.png" alt="VFD">
+					<img src="/media/logo/vfs.png" alt="VFS">
+					<img src="/media/logo/red.png" alt="RED">
+					<img src="/media/logo/seds.png" alt="SEDS">
+					<img src="/media/logo/kiwi.png" alt="Kiwi Krew">
+					<img src="/media/logo/DVR.png" alt="DVR">
+					<img src="/media/logo/invent.jpg" alt="Invent">
+					<img src="/media/logo/888.png" alt="Troop 888">
+				</div>
+			</div>
+		</section> -->
+
+		<!-- <hr class="div" style="margin: 0px 0 0" /> -->
+
+		<section id="photography" class="indexSection">
+			<div class="fw-head" style="margin-bottom: 26px;">
+				<span class="fw-title">PHOTOGRAPHY GALLERY</span>
+				<a href="photography" class="fw-see-btn" title="View Photography Gallery">
+					<i class="fas fa-link"></i>
+				</a>
+			</div>
+			<a href="photography">
+				<div class="insta-wrapper">
+					<div class="uni-card insta-card">
+						<div class="insta-profile">
+							<img class="insta-avatar" src="media/artwork/pfp.avif" alt="asheth.png" width="100"
+								height="100" loading="lazy" decoding="async" />
+							<div class="insta-user-info">
+								<div class="insta-username">asheth.png</div>
+								<div class="insta-location">
+									<i class="fas fa-map-pin" style="color: var(--g); font-size: 10px"></i>
+									around the world
+								</div>
+							</div>
+						</div>
+
+						<div class="insta-photo-wrap" id="igWrap">
+							<div class="insta-photo-inner">
+								<img class="insta-photo ion"
+									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245952/bay_bridge2_jmnz1l.jpg"
+									alt="Bay Bridge" width="800" height="800" loading="lazy" decoding="async" />
+								<img class="insta-photo"
+									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245617/alaska1_qzsjf5.jpg"
+									alt="Alaska 1" width="800" height="800" loading="lazy" decoding="async" />
+								<img class="insta-photo"
+									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777245951/alaska2_qfkrip.jpg"
+									width="800" height="800" loading="lazy" decoding="async" />
+								<img class="insta-photo"
+									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246021/alaska3_ccticg.jpg"
+									alt="Alaska 3" width="800" height="800" loading="lazy" decoding="async" />
+								<img class="insta-photo"
+									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246853/alaska4_ietpty.jpg"
+									alt="Alaska 4" width="800" height="800" loading="lazy" decoding="async" />
+								<img class="insta-photo"
+									src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1777246851/alaska6_ojjydl.jpg"
+									alt="Alaska 5" width="800" height="800" loading="lazy" decoding="async" />
+							</div>
+						</div>
+
+						<div class="insta-actions">
+							<i class="far fa-heart insta-act heart"></i>
+							<i class="far fa-comment insta-act"></i>
+							<i class="far fa-paper-plane insta-act"></i>
+							<i class="far fa-bookmark insta-act insta-bm"></i>
+						</div>
+						<div class="insta-dots" id="igDots">
+							<span class="insta-dot ion"></span>
+							<span class="insta-dot"></span>
+							<span class="insta-dot"></span>
+							<span class="insta-dot"></span>
+							<span class="insta-dot"></span>
+							<span class="insta-dot"></span>
+						</div>
+						<div class="insta-footer">
+							<div class="insta-caption">
+								<a href="photography" target="_blank">adarshs_photos: </a>just a few photos I
+								took...
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</section>
+
+		<!-- <hr class="div" /> -->
+
+	</div>
+	<div id="footer-placeholder"></div>
+
+	<script src="script.js" defer></script>
+	<script>
+		const marquee = document.querySelector('.marquee');
+		const originalTrack = document.querySelector('.marquee-track');
+
+		function setupMarquee() {
+			// 1. Remove any existing clones (useful if the window is resized)
+			const existingClones = marquee.querySelectorAll('.marquee-track.clone');
+			existingClones.forEach(clone => clone.remove());
+
+			// 2. Measure the track and the screen
+			// We add 50px to account for the CSS gap between tracks
+			const trackWidth = originalTrack.scrollWidth;
+			const screenWidth = window.innerWidth;
+
+			// 3. Calculate how many total tracks we need to fill the screen
+			// We use Math.ceil to round up, and add 1 extra as a scrolling buffer
+			const copiesNeeded = Math.ceil(screenWidth / trackWidth) + 1;
+
+			// 4. Spawn the required number of clones
+			for (let i = 0; i < copiesNeeded - 1; i++) {
+				const clone = originalTrack.cloneNode(true);
+				clone.classList.add('clone'); // Tag it as a clone so we can track it
+				clone.setAttribute('aria-hidden', 'true'); // Hide duplicates from screen readers
+				marquee.appendChild(clone);
+			}
+		}
+
+		// Run the math when the page loads
+		setupMarquee();
+
+		// Re-calculate automatically if the user resizes their browser window
+		window.addEventListener('resize', setupMarquee);
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", async () => {
+			const recentContainer = document.getElementById("recent-card-container");
+			if (!recentContainer) return;
+
+			try {
+				// Fetch the portfolio page
+				const response = await fetch("portfolio");
+				const htmlText = await response.text();
+
+				// Parse the fetched HTML
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(htmlText, "text/html");
+
+				// --- EXTRACT & SCOPE CSS ---
+				// Grab all style blocks from portfolio
+				const styleBlocks = doc.querySelectorAll("style");
+				let portfolioCSS = "";
+				styleBlocks.forEach(block => portfolioCSS += block.innerHTML + "\n");
+
+				// Find the specific card by its ID
+				const targetCard = doc.querySelector("#ray");
+
+				if (targetCard) {
+					const summaryNode = targetCard.querySelector(".ec-summary");
+
+					// --- STRIP UNWANTED ELEMENTS ---
+					// Find the elements inside the summary
+					const badges = summaryNode.querySelector(".brow");
+					const expandPrompt = summaryNode.querySelector(".expand-prompt");
+					const dateSubtitle = summaryNode.querySelector(".ec-subtitle");
+					const logo = summaryNode.querySelector(".eclogos");
+					const thumb = summaryNode.querySelector(".ec-thumb");
+
+					// Delete them if they exist
+					if (badges) badges.remove();
+					if (expandPrompt) expandPrompt.remove();
+					// if (dateSubtitle) dateSubtitle.remove();
+					if (logo) logo.remove();
+					// if (thumb) thumb.remove();
+					// -------------------------------
+
+					// Extract the inner wrapper and the newly cleaned summary HTML
+					const cardClasses = targetCard.querySelector(".ec-card").className;
+					const summaryHtml = summaryNode.outerHTML;
+
+					// Inject the scoped styles AND the formatted card wrapped in a link to the portfolio
+					recentContainer.innerHTML = `
+	                    <style>
+	                        /* Modern CSS scoping restricts these styles ONLY to this container */
+	                        @scope (#recent-card-container) {
+	                            ${portfolioCSS}
+	                        }
+	                    </style>
+	                    <div style="width: 100%; margin: 35px auto 5px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6; font-weight: 700;">
+	                        FEATURED EXPERIENCE:
+	                    </div>
+	                    <div class="card-stack">
+	                        <a href="/?filter=all" class="ec-card-link" style="display: block; text-decoration: none;">
+	                            <div class="${cardClasses}">
+	                                ${summaryHtml}
+	                            </div>
+	                        </a>
+	                    </div>
+	                `;
+
+					// Strip the "onclick" attribute to prevent errors
+					const injectedSummary = recentContainer.querySelector('.ec-summary');
+					if (injectedSummary) {
+						injectedSummary.removeAttribute('onclick');
+						injectedSummary.style.cursor = "pointer";
+					}
+				}
+			} catch (error) {
+				console.error("Failed to load recent card:", error);
+			}
+		});
+	</script>
+	<script>
+		// document.addEventListener("DOMContentLoaded", () => {
+		// 	const text = "Hi, I'm Adarsh! 👋";
+		// 	const characters = [...text];
+
+		// 	const el = document.getElementById("typewriter");
+		// 	let i = 0;
+
+		// 	function type() {
+		// 		if (i < characters.length) {
+		// 			el.textContent += characters[i];
+		// 			i++;
+		// 			setTimeout(type, Math.random() * 50 + 60);
+		// 		}
+		// 	}
+
+		// 	const preloaderSeen = sessionStorage.getItem("preloaderSeen");
+		// 	const delay = preloaderSeen === "true" ? 300 : 1400;
+		// 	setTimeout(type, delay);
+		// });
+		document.addEventListener("DOMContentLoaded", () => {
+			// Break the text into parts to isolate the name
+			const prefix = "Hi, I'm ";
+			const name = "Adarsh!";
+			const suffix = " 👋";
+			const characters = [...(prefix + name + suffix)];
+
+			const el = document.getElementById("typewriter");
+			let i = 0;
+
+			function type() {
+				if (i < characters.length) {
+					const currentText = characters.slice(0, i + 1).join('');
+
+					// Wrap only the 'name' portion in the gradient span
+					if (currentText.length <= prefix.length) {
+						el.innerHTML = currentText;
+					} else if (currentText.length <= prefix.length + name.length) {
+						const currentName = currentText.substring(prefix.length);
+						el.innerHTML = `${prefix}<span class="text-gradient">${currentName}</span>`;
+					} else {
+						const currentSuffix = currentText.substring(prefix.length + name.length);
+						el.innerHTML = `${prefix}<span class="text-gradient">${name}</span>${currentSuffix}`;
+					}
+
+					i++;
+					setTimeout(type, Math.random() * 50 + 60);
+				}
+			}
+
+			const preloaderSeen = sessionStorage.getItem("preloaderSeen");
+			const delay = preloaderSeen === "true" ? 300 : 1400;
+			setTimeout(type, delay);
+		});
+	</script>
+
+	<script>
+		function navToSection(k, scrollFn) {
+			document.querySelectorAll(".sbn").forEach((a) =>
+				a.classList.toggle("active", a.dataset.k === k)
+			);
+			if (window._lockNav) window._lockNav();
+
+			// Explicitly show navbar for top sections, hide for everything else
+			if (k === "about" || k === "top") {
+				if (window._showNav) window._showNav();
+			} else {
+				if (window._hideNav) window._hideNav();
+			}
+
+			const hash = (k === "about" || k === "bio") ? "" : "#" + k;
+			history.replaceState(null, "", window.location.pathname + window.location.search + hash);
+			scrollFn();
+		}
+
+		/* ── SMART INTERSECTION CAROUSEL & SWIPE LOGIC ── */
+		(function () {
+			const photos = document.querySelectorAll(".insta-photo");
+			const dots = document.querySelectorAll("#igDots .insta-dot");
+			let cur = 0, timer = null, isPlaying = false;
+
+			function show(i) {
+				photos[cur].classList.remove("ion");
+				dots[cur] && dots[cur].classList.remove("ion");
+				cur = (i + photos.length) % photos.length;
+				photos[cur].classList.add("ion");
+				dots[cur] && dots[cur].classList.add("ion");
+			}
+
+			function startCarousel() {
+				if (!isPlaying) {
+					isPlaying = true;
+					timer = setInterval(() => show(cur + 1), 4200);
+				}
+			}
+
+			function stopCarousel() {
+				if (isPlaying) {
+					isPlaying = false;
+					clearInterval(timer);
+				}
+			}
+
+			const wrap = document.getElementById("igWrap");
+			if (wrap && window.IntersectionObserver) {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							startCarousel();
+						} else {
+							stopCarousel();
+						}
+					});
+				}, { threshold: 0.15 });
+				observer.observe(wrap);
+			} else {
+				startCarousel();
+			}
+
+			dots.forEach((d, i) =>
+				d.addEventListener("click", (e) => {
+					e.stopPropagation(); stopCarousel(); show(i); startCarousel();
+				}),
+			);
+
+			// --- TOUCH & TRACKPAD SWIPE NAVIGATION FOR INSTAGRAM CAROUSEL ---
+			if (wrap) {
+				let touchStartX = 0, touchStartY = 0;
+				let isTrackpadSwiping = false, wasSwiped = false;
+
+				// 1. Mobile Touch Swipe
+				wrap.addEventListener("touchstart", (e) => {
+					if (e.touches.length > 1) return;
+					touchStartX = e.changedTouches[0].screenX;
+					touchStartY = e.changedTouches[0].screenY;
+				}, { passive: true });
+
+				wrap.addEventListener("touchend", (e) => {
+					const touchEndX = e.changedTouches[0].screenX;
+					const touchEndY = e.changedTouches[0].screenY;
+					const diffX = touchStartX - touchEndX;
+					const diffY = touchStartY - touchEndY;
+
+					if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+						wasSwiped = true;
+						stopCarousel();
+						if (diffX > 0) show(cur + 1); // Swiped Left -> Next
+						else show(cur - 1);           // Swiped Right -> Prev
+						startCarousel();
+
+						setTimeout(() => wasSwiped = false, 100);
+					}
+				}, { passive: true });
+
+				// 2. Desktop Trackpad Swipe
+				wrap.addEventListener("wheel", (e) => {
+					if (isTrackpadSwiping) return;
+
+					if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+						isTrackpadSwiping = true;
+						stopCarousel();
+						if (e.deltaX > 0) show(cur + 1); // Scrolled Right -> Next
+						else show(cur - 1);              // Scrolled Left -> Prev
+						startCarousel();
+
+						setTimeout(() => isTrackpadSwiping = false, 500);
+					}
+				}, { passive: true });
+
+				// 3. Fallback Click Navigation
+				wrap.addEventListener("click", (e) => {
+					if (wasSwiped) {
+						e.preventDefault();
+						return;
+					}
+					stopCarousel();
+					show(cur + 1);
+					startCarousel();
+				});
+			}
+
+			show(0);
+		})();
+	</script>
+</body>
+
+</html>
