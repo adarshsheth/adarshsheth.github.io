@@ -87,6 +87,9 @@
 				display: none !important;
 			}
 		}
+		.insta-location {
+			font-weight: 100 !important;
+		}
 	</style>
 	<link rel="stylesheet" href="style.css" />
 
@@ -565,7 +568,7 @@
 				grid-template-columns: 1fr 1fr !important;
 			}
 		}
-
+	
 		/* @media (max-width: 850px) { */
 		@media (max-width: 850px),
 		(max-height: 850px) {
@@ -601,6 +604,43 @@
 			padding-top: 60px !important;
 			padding-bottom: 20px !important;
 		}
+
+
+
+
+
+
+
+
+
+
+/* hide scroll down button always */
+		.scroll-down {
+				display: none !important;
+			}
+			/* PUT SECTION HERE */
+			#about {
+				min-height: 100%;
+				min-height: 100%;
+				padding-top: 100px !important;
+			}
+
+			.about-box {
+				padding-bottom: 40px;
+			}
+			.about-box::before,
+			.about-box::after {
+				display: none !important;
+			}
+
+			#bio {
+				padding-top: 20px !important;
+				padding-bottom: 0px !important;
+			}
+
+			#portfolio-overview {
+				padding-bottom: 0px !important;
+			}
 	</style>
 </head>
 
@@ -722,17 +762,15 @@
 				<!-- text-align: justify; -->
 				<p class="about-bio"
 					style="width: 100%; margin-top: 15px; font-size: clamp(16px, 1.2vw, 22px); line-height: 1.6;">
-					I'm a rising junior Aerospace Engineering student at Texas A&M University. Driven by a deep
-					fascination for <span>vertical flight</span> and end-to-end <span>systems</span> integration, I love
-					tackling
-					rigorous engineering challenges - from designing and sizing flight vehicles to conducting complex
-					aerodynamic trade studies. I thrive in
+					I'm a rising Senior Aerospace Engineering major at Texas A&M University, driven by a deep
+					fascination for end-to-end systems integration. I love tackling rigorous engineering challenges - from 
+					designing and sizing flight vehicles to conducting complex aerodynamic trade studies - I thrive in 
 					environments where creativity meets analytical rigor, constantly looking to bridge the gap between
-					heavy,
-					<span>multidisciplinary</span> engineering principles and intuitive, real-world execution.
+					heavy, multidisciplinary engineering principles and intuitive, real-world execution. I am seeking opportunities  
+					to apply my skills in mechanical design, structural analysis, vertical flight, or product engineering for a Summer 2027 internship.
 				</p>
 
-<a style="margin-top: 20px; background-color: var(--border); color: white;" href="portfolio" class="fw-see-btn" title="View Portfolio">VIEW PORTFOLIO PAGE
+<a style="margin-top: 20px; background-color: var(--border); color: white; padding: 10px 20px;" href="portfolio" class="fw-see-btn" title="View Portfolio">VIEW PORTFOLIO PAGE
 	<i class="fas fa-link"></i>
 </a>
 
@@ -905,7 +943,7 @@
 			</div> -->
 
 			<div class="card-stack tile-mode">
-				<a href="//?filter=aero" class="ec-card-link">
+				<a href="/portfolio?filter=aero" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -925,7 +963,7 @@
 					</div>
 				</a>
 
-				<a href="/?filter=astro" class="ec-card-link">
+				<a href="/portfolio?filter=astro" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -945,7 +983,7 @@
 					</div>
 				</a>
 
-				<a href="/?filter=robotics" class="ec-card-link">
+				<a href="/portfolio?filter=robotics" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -965,7 +1003,7 @@
 					</div>
 				</a>
 
-				<a href="/?filter=general" class="ec-card-link">
+				<a href="/portfolio?filter=general" class="ec-card-link">
 					<div class="uni-card ec-card">
 						<div class="ec-summary">
 							<div class="ec-thumb">
@@ -1033,7 +1071,7 @@
 							<div class="insta-user-info">
 								<div class="insta-username">asheth.png</div>
 								<div class="insta-location">
-									<i class="fas fa-map-pin" style="color: var(--g); font-size: 10px"></i>
+									<i class="fas fa-map-pin" style="color: var(--g); font-size: 10px; font-weight: 600 !important;"></i>
 									around the world
 								</div>
 							</div>
@@ -1184,7 +1222,7 @@
 	                        FEATURED EXPERIENCE:
 	                    </div>
 	                    <div class="card-stack">
-	                        <a href="/?filter=all" class="ec-card-link" style="display: block; text-decoration: none;">
+	                        <a href="/portfolio?filter=all" class="ec-card-link" style="display: block; text-decoration: none;">
 	                            <div class="${cardClasses}">
 	                                ${summaryHtml}
 	                            </div>
