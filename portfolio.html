@@ -1399,6 +1399,10 @@
       /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; */
       /* determines sizing for the ec cards */
       grid-template-columns: repeat(auto-fill, minmax(max(250px, 5vw), 1fr)) !important;
+      grid-template-columns: repeat(auto-fill, minmax(max(220px, 5vw), 1fr)) !important;
+      grid-template-columns: repeat(auto-fill, minmax(clamp(220px, 220px, 1vw), 1fr)) !important;
+
+      /* grid-template-columns: repeat(auto-fill, minmax(max(180px, 1vw), 1fr)) !important; */
       /* grid-template-columns: repeat(auto-fit, minmax(max(250px, 5vw), 1fr)) !important; */
       /* grid-template-columns: repeat(auto-fill, minmax(5vw, 1fr)) !important; */
 
@@ -1408,6 +1412,14 @@
       gap: var(--uni-gap);
 
 
+    }
+    @media (max-width: 1200px) {
+      .card-stack.tile-mode {
+          /* grid-template-columns: repeat(auto-fill, minmax(max(180px, 1vw), 1fr)) !important; */
+          grid-template-columns: repeat(auto-fill, minmax(clamp(180px, 220px, 1vw), 1fr)) !important;
+          /* grid-template-columns: repeat(auto-fill, minmax(clamp(18px, 22px, 1vw), 1fr)) !important; */
+
+      }
     }
 
     .card-stack:not(.tile-mode) {
@@ -1450,7 +1462,7 @@
       /* Forces 1 item per row full-width */
       .card-stack.tile-mode {
         /* grid-template-columns: 1fr; */
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
       }
 
       /* Shrinks the thumbnail height on mobile */
@@ -1474,6 +1486,18 @@
 
       .card-stack.tile-mode .ec-info {
         padding: 12px;
+      }
+    }
+    @media (max-width: 550px) {
+
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
+    @media (max-width: 300px) {
+
+      .card-stack.tile-mode {
+        grid-template-columns: 1fr !important;
       }
     }
 
@@ -1679,6 +1703,7 @@
       .portfolio-sec {
         max-width: max(min(95vw, 1400px), 40vw) !important;
         margin: 0 auto !important;
+        padding-left: 80px !important; /*for sidebar*/
       }
 
       .ec-card {
@@ -1690,6 +1715,7 @@
         margin: 60px auto 0;
         padding-left: 48px;
         padding-right: 48px;
+        padding-left: 80px !important; /*for sidebar*/
       }
 
     }
@@ -2065,8 +2091,8 @@
             <div class="ec-details-inner">
               <div class="cbody flex-img">
                 <div>
-                  <div class="hbox"><b>Competitions:</b> Design-Build-Vertical Flight
-                    (DBVF) · Student Unmanned Aerial Systems Competition (SUAS)</div>
+                  <div class="hbox"><b>Competitions:</b><br>· Design-Build-Vertical Flight
+                    (DBVF)<br>· Student Unmanned Aerial Systems Competition (SUAS)</div>
                   <div class="cslbl" style="margin-top:10px">VTOL Design & Research</div>
                   <ul class="cbul">
                     <li>Analyzed multicopter and winged configurations for maximum <b>[1]
