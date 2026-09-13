@@ -57,7 +57,8 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 
         .lock-box {
             background: var(--surface);
-            border: 1.5px solid var(--border);
+            border: 2px solid var(--border);
+            /* border: 1.5px solid var(--border); */
             border-radius: 10px;
             padding: 40px;
             text-align: center;
@@ -79,7 +80,8 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
         .lock-box input {
             padding: 12px;
             border-radius: 6px;
-            border: 1px solid var(--border);
+            /* border: 1px solid var(--border); */
+            border: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
             background: rgba(0, 0, 0, 0.5);
             background: var(--bg);
             color: #fff;
@@ -129,7 +131,8 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             align-items: center;
             height: 32px;
             padding: 0 16px;
-            border: 1.5px solid var(--dimtitle);
+            /* border: 1.5px solid var(--dimtitle); */
+            border: 2px solid var(--dimtitle);
             background: transparent;
             color: var(--dimtitle);
             font-family: "Rubik", sans-serif;
@@ -244,6 +247,10 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             #pdf-section {
                 padding: 10px 22px 40px;
             }
+            #ibar {
+	background: transparent;
+	border: 0px;
+}
         }
 
         @media (max-width: 500px) {
@@ -254,10 +261,10 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
                 font-size: 10px;
             }
         }
-        #ibar {
+        /* #ibar {
             background: transparent;
             border: 0px;
-        }
+        } */
         /* Custom Checkbox Container */
 .private-toggles {
     display: flex;
@@ -287,11 +294,14 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 .toggle-label input {
     appearance: none;
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--border);
+    width: 15px;
+    height: 15px;
+    /* width: 18px;
+    height: 18px; */
+    border: 2px solid var(--border);
     border-radius: 4px;
-    background: var(--surface2);
+    /* background: var(--surface2); */
+    background: transparent;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
@@ -308,7 +318,8 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
     content: "✓";
     position: absolute;
     color: var(--bg);
-    font-size: 12px;
+    font-size: 10px;
+    /* font-size: 12px; */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -330,7 +341,7 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
     <div id="login-wrapper">
         <div class="lock-box">
             <h2 style="margin-bottom: 10px;">SECURE ACCESS</h2>
-            <input type="text" id="pw" placeholder="Enter Password" onkeypress="if(event.key === 'Enter') unlock()" />
+            <input type="text" id="pw" placeholder="Enter Password" autofocus onkeypress="if(event.key === 'Enter') unlock()" />
             <button id="unlock-btn" onclick="unlock()">Unlock Document</button>
             <div id="error" style="color: #ff6b6b; font-size: 12px; margin-top: 15px; display: none; font-weight: 500;">
                 Incorrect password or corrupt data.</div>
@@ -360,7 +371,7 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             <div id="ibar" style="margin: 20px 0px;">
                 <p>Adarsh Sheth · <a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a> · <a
                         href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a></p>
-                <a href="resume.html" class="pbtn" style="margin-left: 15px;">EXIT PRIVATE VIEW</a>
+                <a href="resume" class="pbtn" style="margin-left: 15px;">EXIT PRIVATE VIEW</a>
             </div>
 
             <div class="portfolio-filters">
@@ -398,11 +409,19 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 
             // Hardcode the public base PDFs here
             const BASE_RESUMES = {
-                'general': 'media/resume/base_general.pdf',
-                'vfd': 'media/resume/base_vf.pdf'
+                'General': 'media/resume/general_private.pdf',
+                'Mechanical': 'media/resume/mechanical_public.pdf',
+                'Software': 'media/resume/software_public.pdf',
+                'Systems': 'media/resume/systems_public.pdf',
+
+                'General (P)': 'media/resume/general_public.pdf'
+                // 'general': 'media/resume/base_general.pdf',
+                // 'vfd': 'media/resume/base_vf.pdf'
                 // 'sw': 'media/resume/base_sw.pdf', // Add future resumes here
                 // 'se': 'media/resume/base_se.pdf'
             };
+            const DISABLED_RESUMES = new Set(['Mechanical', 'Software', 'Systems']);
+            // const DISABLED_RESUMES = new Set(['Mechanical', 'Software']);
 
             let privateData = null;
             let currentBasePdfUrl = '';
@@ -410,10 +429,12 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 
             function formatLabel(key) {
                 const map = {
-                    'general': 'General Resume',
-                    'vfd': 'Vertical Flight',
-                    'sw': 'Software',
-                    'se': 'Systems Engineering'
+                    // 'General (private)': '00',
+                    // 'general': 'General Resume',
+                    // 'vfd': 'Vertical Flight',
+                    // 'sw': 'Software',
+                    // 'se': 'Systems Engineering'
+                    '00': '00'
                 };
                 return map[key.toLowerCase()] || (key.charAt(0).toUpperCase() + key.slice(1));
             }
@@ -445,27 +466,42 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
                     // Iterate over the hardcoded BASE_RESUMES instead of the JSON
                     for (const key in BASE_RESUMES) {
                         const label = formatLabel(key);
-                        const activeClass = isFirst ? ' active' : '';
+                        const isDisabled = DISABLED_RESUMES.has(key);
+                        const activeClass = isFirst && !isDisabled ? ' active' : '';
 
                         const sbLink = document.createElement('a');
                         sbLink.className = 'sbn' + activeClass;
                         sbLink.href = '#';
                         sbLink.setAttribute('data-k', key);
-                        sbLink.onclick = function (e) { e.preventDefault(); switchResume(key); };
+                        if (isDisabled) {
+                            sbLink.style.opacity = '0.5';
+                            sbLink.style.pointerEvents = 'none';
+                            sbLink.title = 'Coming Soon';
+                        } else {
+                            sbLink.onclick = function (e) { e.preventDefault(); switchResume(key); };
+                        }
                         sbLink.innerHTML = `<span class="sbdot"></span><span class="sblbl">${label}</span>`;
                         sbNav.appendChild(sbLink);
 
                         const filterBtn = document.createElement('button');
                         filterBtn.className = 'filter-btn' + activeClass;
                         filterBtn.id = 'tab-' + key;
-                        filterBtn.onclick = function () { switchResume(key); };
+                        filterBtn.disabled = isDisabled;
+                        if (isDisabled) {
+                            filterBtn.style.opacity = '0.5';
+                            filterBtn.style.cursor = 'not-allowed';
+                            filterBtn.title = 'Coming Soon';
+                        } else {
+                            filterBtn.onclick = function () { switchResume(key); };
+                        }
                         filterBtn.textContent = label.toUpperCase();
                         filters.appendChild(filterBtn);
 
-                        isFirst = false;
+                        if (!isDisabled) isFirst = false;
                     }
 
-                    currentBasePdfUrl = BASE_RESUMES['general'];
+                    currentBasePdfUrl = BASE_RESUMES['General'];
+                        // general pdf
 
                     document.getElementById('login-wrapper').style.display = 'none';
                     document.getElementById('resume-ui').style.display = 'block';
@@ -480,6 +516,8 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             }
 
             async function switchResume(tabId) {
+                if (DISABLED_RESUMES.has(tabId)) return;
+
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
 
@@ -498,7 +536,9 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
                 container.style.opacity = '0.3';
 
                 try {
-                    const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
+                    const response = await fetch(currentBasePdfUrl);
+                    if (!response.ok) throw new Error(`Resume file unavailable (${response.status})`);
+                    const existingPdfBytes = await response.arrayBuffer();
                     const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
                     // const timesFont = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
                     const form = pdfDoc.getForm();
@@ -538,8 +578,14 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 
                 } catch (err) {
                     console.error("Error generating custom PDF:", err);
+                    renderBlankPage();
                     container.style.opacity = '1';
                 }
+            }
+
+            function renderBlankPage() {
+                const container = document.getElementById('pdf-container');
+                container.innerHTML = '<div class="pdf-page-wrapper" style="aspect-ratio: 8.5 / 11; background: white;"></div>';
             }
 
             const renderPDF = async (pdfUrlToRender) => {
@@ -590,13 +636,7 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
                 } catch (error) {
                     console.error('Error rendering the PDF:', error);
                     container.style.opacity = '1';
-                    container.innerHTML = `
-            <div style="padding: 50px 20px; text-align: center; color: var(--text);">
-                <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
-                <h3 style="color: white; margin-bottom: 10px;">Failed to load PDF</h3>
-                <p style="font-size: 14px; line-height: 1.5;">${error.message}</p>
-            </div>
-        `;
+                    renderBlankPage();
                 }
             };
 

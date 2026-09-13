@@ -716,6 +716,20 @@
                 margin: 0 auto !important;
             }
         } */
+         
+@media (min-width: 1800px) {
+	#sb {
+		/* left: 24px; */
+		/* left: 14px; */
+		/* left: 18px; */
+		/* left: 16px; */
+		left: clamp(14px, 18px, 24px);
+        /* width: 220px; */
+        /* width: clamp(220px,13vw,300px); */
+        width: clamp(220px,12vw,350px);
+        /* width: 220px; */
+	}
+}
     </style>
 </head>
 
@@ -805,9 +819,13 @@
                         style="color: var(--blogAlt) !important; font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
                     </h2>
                     <div
-                        style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
+                        style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase;">
                         Written by <span id="post-author" style="color: var(--blogAlt);"></span>
                     </div>
+                    <!-- <div
+                        style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
+                        Written by <span id="post-author" style="color: var(--blogAlt);"></span>
+                    </div> -->
                     <div id="post-meta" class="ecm" style="margin-top: 10px; color: var(--blogAlt2);"></div>
                 </div>
 

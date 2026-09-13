@@ -344,7 +344,7 @@
 			<a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume/base_vf.pdf'); return false;"
 				data-k="vfd">
 				<span class="sbdot"></span>
-				<span class="sblbl">Vertical Flight</span>
+				<span class="sblbl">Mechanical</span>
 			</a>
 			<!-- <a class="sbn" href="#" onclick="switchResume('sw', 'media/resume/base_sw.pdf'); return false;" data-k="sw">
 				<span class="sbdot"></span>
@@ -360,7 +360,7 @@
 			</a>
 			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="se" title="Coming Soon">
 				<span class="sbdot"></span>
-				<span class="sblbl">Systems Engineering</span>
+				<span class="sblbl">Systems</span>
 			</a>
 		</nav>
 	</aside>
@@ -373,7 +373,7 @@
 		</section>
 		<!-- <div style="text-align: center; opacity:0;"><a href="/presume.html" rel="nofollow noopener noreferrer">presume</a></div> -->
 		<div style="text-align: center;">
-			<span onclick="window.location.href='/presume.html'" style="opacity:0;">
+			<span onclick="window.location.href='/presume'" style="opacity:0;">
 				presume
 			</span>
 		</div>
@@ -387,16 +387,19 @@
 		</div> -->
 
 		<!-- TABS UI FOR MULTIPLE RESUMES -->
-		<p class="btn-hdr">Select a resume:</p>
+		<p class="btn-hdr"><span onclick="window.location.href='/presume'" style="cursor: auto;">
+			Select
+		</span> a resume:</p>
 		<div class="portfolio-filters">
 			<!-- For now, they all route to media/resume/general.pdf. Simply update the arguments later -->
 			<button class="filter-btn active" id="tab-general"
 				onclick="switchResume('general', 'media/resume/base_general.pdf')">GENERAL</button>
-			<button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume/base_vf.pdf')">VERTICAL
-				FLIGHT</button>
+			<!-- <button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume/base_vf.pdf')">MECHANICAL</button> -->
 			<!-- <button class="filter-btn" id="tab-sw" onclick="switchResume('sw', 'media/resume/base_sw.pdf')">SOFTWARE</button>
 			<button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume/base_se.pdf')">SYSTEMS
 				ENGINEERING</button> -->
+			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
+				title="Coming Soon">MECHANICAL</button>
 			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
 				title="Coming Soon">SOFTWARE</button>
 			<button class="filter-btn" id="tab-se" disabled style="opacity: 0.5; cursor: not-allowed;"
@@ -436,7 +439,8 @@
 		// const PUBLIC_CONTACT_TEXT = "adarshsheth.github.io";
 		const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
 		// let currentBasePdfUrl = 'media/resume/general.pdf';
-		let currentBasePdfUrl = 'media/resume/base_general.pdf';
+		// let currentBasePdfUrl = 'media/resume/base_general.pdf';
+		let currentBasePdfUrl = 'media/resume/general_public.pdf';
 			// master line that sets the resume that is used
 		let currentGeneratedBlobUrl = '';
 
