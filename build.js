@@ -122,6 +122,16 @@ async function run() {
 					}
 				}
 
+				// --- Handle Embeds (Google Docs / PDFs) ---
+				if (b.type === "embed" || b.type === "pdf") {
+					// notion-to-md outputs embeds as [embed](url), so we extract the URL
+					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
+					if (match && match[1]) {
+						b.type = "html";
+						b.parent = `<iframe src="${match[1]}" class="post-iframe" allowfullscreen></iframe>`;
+					}
+				}
+
 				// --- Quote Soft-Breaks & Spacing ---
 				if (b.type === "quote") {
 					// 1. Remove the markdown quote symbol (">") from all lines to get the raw text

@@ -3278,6 +3278,16 @@ footer {
 	margin-top: 0px;
 }
 
+#post-body .post-iframe {
+    width: 100%;
+    height: 75vh;
+    min-height: 600px;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    margin: 24px 0;
+    background: var(--surface2);
+}
+
 /* ══════════════════════════════════════════════════════════ */
 /* ══ UNIFIED RESPONSIVE MEDIA QUERIES                     ── */
 /* ══════════════════════════════════════════════════════════ */
