@@ -58,6 +58,7 @@
                 display: revert !important;
             }
         } */
+
     </style>
     <link rel="stylesheet" href="style.css" />
 
@@ -730,6 +731,27 @@
         /* width: 220px; */
 	}
 }
+
+/* 
+.iframe-container {
+    position: relative;
+    width: 100%;
+}
+
+.iframe-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; 
+}
+#post-body .post-iframe {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+} */
     </style>
 </head>
 
@@ -1193,7 +1215,7 @@
 
             document.getElementById('post-body').innerHTML = post.content?.html || '';
 
-            document.title = `${post.title} | Blog  • Adarsh Sheth`;
+            document.title = `${post.title} // Blog • Adarsh Sheth`;
 
             // --- NEW: SIMILAR ARTICLES LOGIC ---
             const currentTags = post.tags ? post.tags.map(t => t.name) : [];

@@ -6,8 +6,52 @@ const path = require("path");
 const https = require("https");
 const sharp = require("sharp");
 
+// const notion = new Client({auth: process.env.NOTION_API_KEY});
+// const n2m = new NotionToMarkdown({ notionClient: notion });
+
 const notion = new Client({auth: process.env.NOTION_API_KEY});
 const n2m = new NotionToMarkdown({notionClient: notion});
+
+// // 1. Intercept Google Docs / URL Embeds
+// n2m.setCustomTransformer("embed", async (block) => {
+// 	const url = block.embed?.url;
+// 	if (!url) return "";
+// 	return `<iframe src="${url}" class="post-iframe" allowfullscreen></iframe>`;
+// });
+
+// // 2. Intercept Native PDF uploads
+// n2m.setCustomTransformer("pdf", async (block) => {
+// 	const url = block.pdf?.external?.url || block.pdf?.file?.url;
+// 	if (!url) return "";
+// 	return `<iframe src="${url}" class="post-iframe" allowfullscreen></iframe>`;
+// });
+
+
+
+
+// // Helper function to generate the iframe
+// const generateIframe = (url) => {
+//     if (!url) return "";
+//     return `<iframe src="${url}" class="post-iframe" allowfullscreen></iframe>`;
+// };
+
+// // Intercept all potential document/link block types
+// n2m.setCustomTransformer("embed", async (block) => generateIframe(block.embed?.url));
+// n2m.setCustomTransformer("pdf", async (block) => generateIframe(block.pdf?.external?.url || block.pdf?.file?.url));
+// n2m.setCustomTransformer("bookmark", async (block) => generateIframe(block.bookmark?.url));
+// n2m.setCustomTransformer("file", async (block) => generateIframe(block.file?.external?.url || block.file?.file?.url));
+// n2m.setCustomTransformer("link_preview", async (block) => generateIframe(block.link_preview?.url));
+
+
+
+
+
+
+
+
+
+
+
 
 // Upgraded download function with compression and caching
 const downloadAndCompress = (url, dest) =>
@@ -122,15 +166,15 @@ async function run() {
 					}
 				}
 
-				// --- Handle Embeds (Google Docs / PDFs) ---
-				if (b.type === "embed" || b.type === "pdf") {
-					// notion-to-md outputs embeds as [embed](url), so we extract the URL
-					const match = b.parent.match(/\((https?:\/\/.*?)\)/);
-					if (match && match[1]) {
-						b.type = "html";
-						b.parent = `<iframe src="${match[1]}" class="post-iframe" allowfullscreen></iframe>`;
-					}
-				}
+				// // --- Handle Embeds (Google Docs / PDFs) ---
+				// if (b.type === "embed" || b.type === "pdf") {
+				// 	// notion-to-md outputs embeds as [embed](url), so we extract the URL
+				// 	const match = b.parent.match(/\((https?:\/\/.*?)\)/);
+				// 	if (match && match[1]) {
+				// 		b.type = "html";
+				// 		b.parent = `<iframe src="${match[1]}" class="post-iframe" allowfullscreen></iframe>`;
+				// 	}
+				// }
 
 				// --- Quote Soft-Breaks & Spacing ---
 				if (b.type === "quote") {
@@ -172,8 +216,42 @@ async function run() {
 				rawMd = rawMd.replace(/\[([^\]]+)\]\(([^)]+)\)([ \t]*)\[([^\]]+)\]\(\2\)/g, "[$1$3$4]($2)");
 			} while (rawMd !== prevMd);
 
+			// // Parse the fully cleaned Markdown into standard HTML first
+			// let htmlContent = marked.parse(rawMd, {breaks: true});
+
 			// Parse the fully cleaned Markdown into standard HTML first
 			let htmlContent = marked.parse(rawMd, {breaks: true});
+
+
+
+
+
+			// // --- Foolproof Document Embedder ---
+			// // Catches standalone links (Google Docs or PDFs) that Notion downgraded to text,
+			// // and forces them to render as styled iframes.
+			// htmlContent = htmlContent.replace(/<p>\s*<a href="([^"]+)">(.*?)<\/a>\s*<\/p>/gi, (match, url) => {
+			// 	// Check if the URL is a Google Doc embed link or a PDF
+			// 	if ((url.includes("docs.google.com") && url.includes("embedded=true")) || url.toLowerCase().endsWith(".pdf")) {
+			// 		return `<iframe src="${url}" class="post-iframe" allowfullscreen></iframe>`;
+			// 	}
+			// 	return match; // Return the original paragraph if it's a normal link
+			// });
+			// Force-render your specific Google Doc link into an iframe
+			const targetDocId = "1WxiGPiFFMi9gB8nJlgpoPWSbzwZZlsXwzXsbuOdNddw";
+
+			// htmlContent = htmlContent.replace(
+			// 	new RegExp(`<p>\\s*<a href="[^"]*${targetDocId}[^"]*">.*?</a>\\s*</p>`, "gi"),
+			// 	`<iframe src="https://docs.google.com/document/d/${targetDocId}/preview" class="post-iframe" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen></iframe>`,
+			// );
+			htmlContent = htmlContent.replace(
+				new RegExp(`<p>\\s*<a href="[^"]*${targetDocId}[^"]*">.*?</a>\\s*</p>`, "gi"),
+				`<iframe src="https://docs.google.com/document/d/${targetDocId}/preview" class="post-iframe" allowfullscreen></iframe>`,
+			);
+			
+
+
+
+
 
 			// --- Image Captions ---
 			// 1. Strip the <p> tags that 'marked' automatically puts around standalone images

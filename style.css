@@ -3278,15 +3278,30 @@ footer {
 	margin-top: 0px;
 }
 
+
+
+
+
+/* Ensure the iframe behaves like any other standard content block inside that uniform width */
 #post-body .post-iframe {
-    width: 100%;
-    height: 75vh;
-    min-height: 600px;
+    /* width: clamp(40vw, min(90vw,1000px), var(--article-width)); */
+    width: clamp(40vw, min(90vw,800px), var(--article-width));
+	max-width: var(--article-width) !important;
+    height: 80vh;
+    min-height: 700px;
     border: 1px solid var(--border);
     border-radius: var(--r);
     margin: 24px 0;
     background: var(--surface2);
 }
+#post-body {
+	width: var(--article-width);
+	max-width: 90vw;
+}
+
+
+
+
 
 /* ══════════════════════════════════════════════════════════ */
 /* ══ UNIFIED RESPONSIVE MEDIA QUERIES                     ── */
