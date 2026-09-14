@@ -5,6 +5,28 @@
         "edges": [
           {
             "node": {
+              "id": "3db89dc7-2ec4-8096-b4e9-fb3e470075d1",
+              "slug": "recipes",
+              "title": "Recipes",
+              "brief": "A collection of recipes.",
+              "publishedAt": "2026-09-13",
+              "tags": [
+                {
+                  "id": "f444a533-fb62-42c7-9214-cb443d94d8bd",
+                  "name": "Misc",
+                  "color": "purple"
+                }
+              ],
+              "coverImage": {
+                "url": "media/blog/compressed/recipes-cover-1789355700000.webp"
+              },
+              "content": {
+                "html": ""
+              }
+            }
+          },
+          {
+            "node": {
               "id": "36389dc7-2ec4-80db-b945-f397257aed2b",
               "slug": "human-face",
               "title": "Industrialization of the Human Face",
