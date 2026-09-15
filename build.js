@@ -243,9 +243,13 @@ async function run() {
 			// 	new RegExp(`<p>\\s*<a href="[^"]*${targetDocId}[^"]*">.*?</a>\\s*</p>`, "gi"),
 			// 	`<iframe src="https://docs.google.com/document/d/${targetDocId}/preview" class="post-iframe" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen></iframe>`,
 			// );
+			// htmlContent = htmlContent.replace(
+			// 	new RegExp(`<p>\\s*<a href="[^"]*${targetDocId}[^"]*">.*?</a>\\s*</p>`, "gi"),
+			// 	`<iframe src="https://docs.google.com/document/d/${targetDocId}/preview" class="post-iframe" allowfullscreen></iframe>`,
+			// );
 			htmlContent = htmlContent.replace(
 				new RegExp(`<p>\\s*<a href="[^"]*${targetDocId}[^"]*">.*?</a>\\s*</p>`, "gi"),
-				`<iframe src="https://docs.google.com/document/d/${targetDocId}/preview" class="post-iframe" allowfullscreen></iframe>`,
+				`<iframe src="https://docs.google.com/viewer?url=https://docs.google.com/document/d/${targetDocId}/export%3Fformat%3Dpdf&embedded=true" class="post-iframe" allowfullscreen></iframe>`,
 			);
 			
 

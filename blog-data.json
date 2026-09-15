@@ -18,10 +18,10 @@
                 }
               ],
               "coverImage": {
-                "url": "media/blog/compressed/recipes-cover-1789358100000.webp"
+                "url": "media/blog/compressed/recipes-cover-1789434240000.webp"
               },
               "content": {
-                "html": "<p>A mix of meal prep friendly and home-y dishes.</p>\n<iframe src=\"https://docs.google.com/document/d/1WxiGPiFFMi9gB8nJlgpoPWSbzwZZlsXwzXsbuOdNddw/preview\" class=\"post-iframe\" allowfullscreen></iframe>\n"
+                "html": "<p>A mix of meal prep friendly and home-y dishes. <a href=\"https://docs.google.com/document/d/1WxiGPiFFMi9gB8nJlgpoPWSbzwZZlsXwzXsbuOdNddw/preview\">Docs preview link.</a></p>\n<iframe src=\"https://docs.google.com/viewer?url=https://docs.google.com/document/d/1WxiGPiFFMi9gB8nJlgpoPWSbzwZZlsXwzXsbuOdNddw/export%3Fformat%3Dpdf&embedded=true\" class=\"post-iframe\" allowfullscreen></iframe>\n"
               }
             }
           },
