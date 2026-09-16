@@ -11,15 +11,17 @@ const masterResumeConfig = [
 		publicPath: "media/resume/general_public.pdf",
 		privatePath: "media/resume/general_private.pdf",
 		status: "ready",
+		isPrivateOnly: false,
 	},
 	{
-		id: "vfd",
+		id: "me",
 		name: "Mechanical",
 		label: "MECHANICAL",
 		fileSuffix: "_Mechanical",
-		publicPath: "media/resume/base_vf.pdf",
+		publicPath: "",
 		privatePath: "",
 		status: "coming_soon",
+		isPrivateOnly: false,
 	},
 	{
 		id: "sw",
@@ -27,8 +29,9 @@ const masterResumeConfig = [
 		label: "SOFTWARE",
 		fileSuffix: "_Software",
 		publicPath: "",
-		privatePath: "media/resume/software_public.pdf",
+		privatePath: "",
 		status: "coming_soon",
+		isPrivateOnly: false,
 	},
 	{
 		id: "se",
@@ -36,8 +39,9 @@ const masterResumeConfig = [
 		label: "SYSTEMS",
 		fileSuffix: "_Systems",
 		publicPath: "",
-		privatePath: "media/resume/systems_public.pdf",
+		privatePath: "",
 		status: "coming_soon",
+		isPrivateOnly: false,
 	},
 ];
 
@@ -47,14 +51,20 @@ let currentDownloadName = "";
 let currentGeneratedBlobUrl = "";
 
 // Shared UI Builder
-function buildResumeUI() {
+// function buildResumeUI() {
+function buildResumeUI(isPrivateSite = false) { // Add flag
 	const sbNav = document.getElementById("sb-nav");
 	const filters = document.querySelector(".portfolio-filters");
 
 	if (sbNav) sbNav.innerHTML = "";
 	if (filters) filters.innerHTML = "";
 
+	
 	masterResumeConfig.forEach((resume) => {
+        // Skip private-only resumes if building the public UI
+        if (resume.isPrivateOnly && !isPrivateSite) return;
+    
+        // masterResumeConfig.forEach((resume) => {
 		// Build Sidebar Link
 		if (sbNav) {
 			const sbLink = document.createElement("a");

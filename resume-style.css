@@ -1,136 +1,273 @@
+/* this hides the sidebar */
+@media (min-width: 1051px) {
+	#sb {
+		display: none !important;
+	}
+}
+
 /* ── TABS UI STYLES ── */
 .portfolio-filters {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 48px 25px;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	/* margin: 10px 48px 25px; */
+	margin: 10px 48px 10px;
+	flex-wrap: wrap;
 }
 .btn-hdr {
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--g);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    margin-top: 40px;
-    text-align: center;
+	font-weight: 800;
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	color: var(--g);
+	text-transform: uppercase;
+	margin-bottom: 6px;
+	margin-top: 40px;
+	text-align: center;
 }
 .filter-btn {
-    display: inline-flex;
-    align-items: center;
-    height: 32px;
-    padding: 0 16px;
-    border: 2px solid var(--dimtitle);
-    background: transparent;
-    color: var(--dimtitle);
-    font-family: "Rubik", sans-serif;
-    font-weight: 700;
-    font-size: 11.5px;
-    letter-spacing: 0.1em;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-    text-transform: uppercase;
+	display: inline-flex;
+	align-items: center;
+	height: 32px;
+	padding: 0 16px;
+	border: 2px solid var(--dimtitle);
+	background: transparent;
+	color: var(--dimtitle);
+	font-family: "Rubik", sans-serif;
+	font-weight: 700;
+	font-size: 11.5px;
+	letter-spacing: 0.1em;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
+	text-transform: uppercase;
 }
 .filter-btn:hover {
-    border-color: var(--accent2); /* or --blogAlt for presume */
-    color: var(--accent2);
-    transform: translateY(-2px);
+	border-color: var(--accent2); /* or --blogAlt for presume */
+	color: var(--accent2);
+	transform: translateY(-2px);
 }
 .filter-btn.active {
-    border-color: var(--accent2);
-    color: var(--bg);
-    background: var(--accent2);
+	border-color: var(--accent2);
+	color: var(--bg);
+	background: var(--accent2);
 }
 
 /* ── NATIVE PDF VIEWER STYLES ── */
 #pdf-section {
-    padding: 10px 48px 52px;
-    display: flex;
-    justify-content: center;
-    min-height: 80vh;
+	padding: 10px 48px 52px;
+	display: flex;
+	justify-content: center;
+	min-height: 80vh;
 }
 #pdf-container {
-    width: 100%;
-    max-width: 1000px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 2px solid var(--border);
-    background: var(--surface);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    opacity: 1;
-    transition: opacity 0.15s ease-in-out;
+	width: 100%;
+	max-width: 1000px;
+	border-radius: 12px;
+	overflow: hidden;
+	border: 2px solid var(--border);
+	background: var(--surface);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+	opacity: 1;
+	transition: opacity 0.15s ease-in-out;
 }
 .pdf-page-wrapper {
-    position: relative;
-    width: 100%;
-    background-color: white;
+	position: relative;
+	width: 100%;
+	background-color: white;
 }
 .pdf-page-wrapper:not(:last-child) {
-    border-bottom: 2px solid var(--border);
+	border-bottom: 2px solid var(--border);
 }
 .pdf-page-canvas {
-    display: block;
-    width: 100%;
-    height: auto;
+	display: block;
+	width: 100%;
+	height: auto;
 }
 .textLayer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    line-height: 1.0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	line-height: 1;
 }
 
 /* ── FLOATING DOWNLOAD BUTTON ── */
 .pdf-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
+	position: relative;
+	width: 100%;
+	max-width: 1000px;
+	margin: 0 auto;
 }
 .floating-dl-btn {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    z-index: 100;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 100px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 2px solid var(--border);
-    color: var(--text);
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	top: 20px;
+	right: 25px;
+	z-index: 100;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 16px;
+	border-radius: 100px;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 2px solid var(--border);
+	color: var(--text);
+	font-weight: 700;
+	font-size: 11px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	transition: all 0.2s ease;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 .floating-dl-btn:hover {
-    background: var(--accent2);
-    border-color: var(--accent2);
-    color: white;
-    transform: translateY(-2px);
+	background: var(--accent2);
+	border-color: var(--accent2);
+	color: white;
+	transform: translateY(-2px);
 }
 
 /* Mobile Adjustments */
 @media (max-width: 900px) {
-    .portfolio-filters { margin: 10px 22px 20px; }
-    .btn-hdr { margin-top: 15px; }
-    #pdf-section { padding: 10px 22px 40px; }
+	.portfolio-filters {
+		margin: 10px 22px 20px;
+	}
+	.btn-hdr {
+		margin-top: 15px;
+	}
+	#pdf-section {
+		padding: 10px 22px 40px;
+	}
 }
-@media (max-width: 500px) {
-    .floating-dl-btn {
-        top: 10px;
-        right: 10px;
-        padding: 6px 12px;
-        font-size: 10px;
-    }
+@media (max-width: 800px) {
+	.floating-dl-btn {
+		top: 10px;
+		right: 10px;
+		padding: 6px 12px;
+		font-size: 10px;
+
+        font-size: 0 !important;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0 !important;
+	}
+	#floating-dl-btn i {
+		font-size: 16px !important;
+		margin: 0 !important;
+	}
+}
+
+/* ── PUBLIC/PRIVATE TOGGLE ── */
+.visibility-toggle-container {
+	display: flex;
+	justify-content: center;
+	/* margin: 10px 48px 30px; */
+	margin: 10px 48px 50px;
+}
+.visibility-toggle {
+	display: inline-flex;
+	background: var(--surface);
+	border: 2px solid var(--border);
+	border-radius: 100px;
+	padding: 4px;
+	position: relative;
+}
+.toggle-option {
+	padding: 8px 24px;
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--dimtitle);
+	cursor: pointer;
+	border-radius: 100px;
+	transition: all 0.3s ease;
+	z-index: 1;
+}
+.toggle-option.active {
+	color: var(--bg);
+	background: var(--accent2); /* Use your preferred accent color */
+}
+.visibility-toggle input[type="radio"] {
+	display: none;
+}
+
+/* ── LOCK SCREEN MODAL ── */
+#login-wrapper {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	background: color-mix(in srgb, var(--bg) 50%, transparent); /* Semi-transparent background */
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.lock-box {
+	position: relative;
+	background: var(--surface);
+	border: 2px solid var(--border);
+	border-radius: 10px;
+	padding: 40px;
+	text-align: center;
+	width: 100%;
+	max-width: 350px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.lock-box h2 {
+	font-weight: 900;
+	margin-top: 0;
+	letter-spacing: 0.05em;
+	color: var(--text);
+}
+.lock-box input {
+	padding: 12px;
+	border-radius: 6px;
+	border: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
+	background: var(--bg);
+	color: var(--text);
+	outline: none;
+	margin-bottom: 20px;
+	width: calc(100% - 26px);
+	font-family: "Rubik", sans-serif;
+	transition: border-color 0.2s;
+}
+.lock-box input:focus {
+	border-color: var(--g);
+}
+.lock-box button.unlock-btn {
+	background: var(--accent2);
+	color: #fff;
+	border: none;
+	padding: 12px 24px;
+	border-radius: 100px;
+	cursor: pointer;
+	font-weight: 700;
+	font-family: "Rubik", sans-serif;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	transition: all 0.2s;
+	width: 100%;
+}
+.lock-box button.unlock-btn:hover {
+	background: var(--g);
+	transform: translateY(-2px);
+}
+.close-modal {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	background: transparent;
+	border: none;
+	color: var(--dimtitle);
+	font-size: 24px;
+	cursor: pointer;
+	transition: color 0.2s;
+}
+.close-modal:hover {
+	color: #ff6b6b;
 }

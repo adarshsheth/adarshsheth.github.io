@@ -2,223 +2,95 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="robots" content="index, follow">
-	<meta name="keywords"
-		content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
-	<meta name="theme-color" content="#647661">
-	<link rel="author" href="https://www.linkedin.com/in/adarsh-sheth/">
-	<meta property="og:site_name" content="Adarsh Sheth" />
-	<meta property="og:type" content="website">
-	<meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png">
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="Resume  • Adarsh Sheth">
-	<meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow">
+    <meta name="keywords"
+        content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
+    <meta name="theme-color" content="#647661">
+    <link rel="author" href="https://www.linkedin.com/in/adarsh-sheth/">
 
-	<link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
-	<link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
+    <title>Resume • Adarsh Sheth</title>
 
-	<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Adarsh Sheth",
-      "jobTitle": "Aerospace Engineer",
-      "url": "https://adarshsheth.github.io",
-      "sameAs": [
-        "https://www.linkedin.com/in/adarsh-sheth/"
-      ],
-      "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
-      "affiliation": {
-        "@type": "Organization",
-        "name": "Texas A&M University"
-      }
-    }
-</script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-	<title>Resume • Adarsh Sheth</title>
-	<meta property="og:title" content="Resume  • Adarsh Sheth">
-	<meta name="description" content="See Adarsh Sheth's aerospace engineering resume.">
-	<meta property="og:description" content="See Adarsh Sheth's aerospace engineering resume.">
-	<meta property="og:url" content="https://adarshsheth.github.io/resume">
-	<link rel="canonical" href="https://adarshsheth.github.io/resume">
+    <!-- PDF & Crypto Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
-	<link
-		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
-		rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-	<!-- PDF.js Library For Native Smooth Rendering -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-	<script>
-		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-	</script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" />
-	<!-- PDF-Lib for Client-Side Document Generation -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-
-	<style>
-		/* :root {
-			--bg: #0a0a0a;
-			--text: #d0d3cd;
-			--g: #647661;
-			--gd: #232922;
-			--dimtitle: #888888;
-			--accent2: #857032;
-			--surface: rgba(40, 41, 40, 0.08);
-			--border: #444444;
-		} */
-
-		body::before {
-			/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg') !important; */
-			/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://cdn2.picryl.com/photo/2010/05/18/boeing-plant-in-renton-5-18-2010-4622746048-e1011e-1024.jpg') !important; */
-			filter: blur(4px);
-		}
-
-		body {
-			background: var(--bg);
-			color: var(--text);
-		}
-
-		a {
-			color: inherit;
-			text-decoration: none;
-		}
-
-		a:hover {
-			color: var(--g);
-		}
-
-		/* this hides the sidebar */
-		@media (min-width: 1051px) {
-			#sb {
-				display: none !important;
-			}
-		}
-	</style>
-	<link rel="stylesheet" href="style.css" />
-	<link rel="stylesheet" href="resume-style.css" />
-	
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resume-style.css" />
 </head>
 
 <body>
-	<div id="blur-page"></div>
-	<div id="nav-placeholder"></div>
-	<script>
-		// At the top of resume.html, check if we came from the private page
-		// if (sessionStorage.getItem('unlocked') === 'true') {
-		// 	const privateUrls = JSON.parse(sessionStorage.getItem('resume_data'));
+    <div id="blur-page"></div>
+    <div id="nav-placeholder"></div>
 
-		// 	// Override the PDF link
-		// 	window.currentPdfUrl = privateUrls.general;
+    <!-- LOCK SCREEN MODAL (Hidden by default) -->
+    <div id="login-wrapper" style="display: none;">
+        <div class="lock-box">
+            <button class="close-modal" onclick="cancelUnlock()">×</button>
+            <h2 style="margin-bottom: 10px;">SECURE ACCESS</h2>
+            <input type="password" id="pw" placeholder="Enter Password"
+                onkeypress="if(event.key === 'Enter') unlock()" />
+            <button id="unlock-btn" class="unlock-btn" onclick="unlock()">Unlock Document</button>
+            <div id="error" style="color: #ff6b6b; font-size: 12px; margin-top: 15px; display: none; font-weight: 500;">
+                Incorrect password.</div>
+        </div>
+    </div>
 
-		// 	// Force the PDF viewer to use the private link
-		// 	document.addEventListener('DOMContentLoaded', () => {
-		// 		const dlBtn = document.getElementById('floating-dl-btn');
-		// 		if (dlBtn) dlBtn.href = window.currentPdfUrl;
-		// 		renderPDF();
-		// 	});
-		// }
+    <div id="sb-overlay"></div>
+    
+    <aside id="sb">
+        <div id="sb-hdr">Resumes</div>
+        <div id="sb-prog">
+            <div id="sb-fill"></div>
+        </div>
+        <nav id="sb-nav">
+        </nav>
+    </aside>
 
+    <div id="mn">
+        <div id="top"></div>
 
+        <section id="hero">
+            <h1 style="text-transform: uppercase;">Résumé</h1>
+        </section>
 
-		// Instantly inject the nav from cache to prevent UI flashing
-		const cachedNav = sessionStorage.getItem("rawNavHTML");
-		if (cachedNav) {
-			document.getElementById("nav-placeholder").outerHTML = cachedNav;
-			const currentPath = window.location.pathname.toLowerCase();
-			const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
-			const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+        <!-- PUBLIC / PRIVATE TOGGLE -->
+        <div class="visibility-toggle-container">
+            <div class="visibility-toggle">
+                <label class="toggle-option active" id="label-public">
+                    <input type="radio" name="visibility" value="public" checked
+                        onchange="handleVisibilityToggle(this)">
+                    PUBLIC
+                </label>
+                <label class="toggle-option" id="label-private">
+                    <input type="radio" name="visibility" value="private" onchange="handleVisibilityToggle(this)">
+                    PRIVATE
+                </label>
+            </div>
+        </div>
 
-			const header = document.getElementById("hdr");
-			if (header) {
-				header.querySelectorAll(".ni").forEach(link => {
-					link.classList.remove("active");
-					const text = link.textContent.trim().toLowerCase();
-					if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
-					else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
-					else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
-					else if (isHomePath && text === "home") link.classList.add("active");
-				});
-			}
-		}
-	</script>
+        <!-- TABS UI FOR MULTIPLE RESUMES -->
+        <div class="portfolio-filters"></div>
 
-	<div id="sb-overlay"></div>
-
-	<aside id="sb">
-		<div id="sb-hdr">Resumes</div>
-		<nav id="sb-nav">
-			<!-- <a class="sbn active" href="#"
-				onclick="switchResume('general', 'media/resume/base_general.pdf'); return false;" data-k="general">
-				<span class="sbdot"></span>
-				<span class="sblbl">General</span>
-			</a>
-			<a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume/base_vf.pdf'); return false;"
-				data-k="vfd">
-				<span class="sbdot"></span>
-				<span class="sblbl">Mechanical</span>
-			</a>
-			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="sw" title="Coming Soon">
-				<span class="sbdot"></span>
-				<span class="sblbl">Software</span>
-			</a>
-			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="se" title="Coming Soon">
-				<span class="sbdot"></span>
-				<span class="sblbl">Systems</span>
-			</a> -->
-		</nav>
-	</aside>
-
-	<div id="mn">
-		<div id="top"></div>
-
-		<section id="hero">
-			<h1 style="text-transform: uppercase;">Résumé</h1>
-			<!-- <h1>RESUME</h1> -->
-		</section>
-		<!-- <div style="text-align: center; opacity:0;"><a href="/presume.html" rel="nofollow noopener noreferrer">presume</a></div> -->
-		<div style="text-align: center;">
-			<span onclick="window.location.href='/presume'" style="opacity:0;">
-				presume
-			</span>
-		</div>
-		<!-- <div id="ibar" style="margin: 20px 0px;">
-			<p>
-				Adarsh Sheth ·
-				<a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a>
-				·
-				<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
-			</p>
-		</div> -->
-
-		<!-- TABS UI FOR MULTIPLE RESUMES -->
-		<p class="btn-hdr"><span onclick="window.location.href='/presume'" style="cursor: auto;">
-				Select
-			</span> a resume:</p>
-		<div class="portfolio-filters">
-			<!-- <button class="filter-btn active" id="tab-general"
-				onclick="switchResume('general', 'media/resume/base_general.pdf')">GENERAL</button>
-			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
-				title="Coming Soon">MECHANICAL</button>
-			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
-				title="Coming Soon">SOFTWARE</button>
-			<button class="filter-btn" id="tab-se" disabled style="opacity: 0.5; cursor: not-allowed;"
-				title="Coming Soon">SYSTEMS</button> -->
-		</div>
-
-		<!-- CLEAN NATIVE PDF.JS VIEWER (With Floating Download) -->
-		<div id="pdf-section">
-			<div class="pdf-wrapper">
-				<a href="media/resume/general.pdf" id="floating-dl-btn" download="Adarsh_Sheth_Resume.pdf"
-					class="floating-dl-btn">
-					<i class="fas fa-download"></i> DOWNLOAD
-				</a>
-				<div id="pdf-container">
-					<!-- Canvas and text layers are injected dynamically here -->
-				</div>
-			</div>
-		</div>
+        <!-- PDF VIEWER -->
+        <div id="pdf-section">
+            <div class="pdf-wrapper">
+                <a href="#" id="floating-dl-btn" class="floating-dl-btn">
+                    <i class="fas fa-download"></i> DOWNLOAD
+                </a>
+                <div id="pdf-container"></div>
+            </div>
+        </div>
+        
+        <!-- SKILLS SECTION -->
 		<section id="sec-skills" class="sb" data-k="skills">
 			<div class="sh">
 				<span class="sh-r"></span>
@@ -230,72 +102,181 @@
 
 			<div id="skills-container" class="skills-wrap"></div>
 		</section>
-	</div>
-	<div id="footer-placeholder"></div>
+    </div>
 
-	<script src="script.js"></script>
+    <script src="script.js"></script>
+    <script src="resume-script.js"></script>
 
-	<script src="resume-script.js"></script>
-	<script>
-		const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
+    <script>
+        // --- CONFIGURATION ---
+        const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
+        const encryptedPayload = "U2FsdGVkX1/rgfZYEXp+DjhoPf1YrQGb1exHPcc7KgnN+uj2UiB6RkgJAtdew03WKC5fOYYiLl5Nx2eegSzI7vyLjhVmv/SUxaprEqjWstNhAs7LGD0AguvyHXBoDSMbuj/hGoLszZJVcqpM7miLFYD5gY1+yiGmdhylT/zqE8//B7ZGVjATSGI/wR/8QPjm3v7TwwtviRuFb8/qIkmMgGabmsL7KlWZv5GU1XOF4prsGvO4ntKHVpg5OrCqqzWzbbOJks8EfTA6JuwmCUpsGKSEaTTFQh4ECs8zN16/8qd5rcnKqGmhFHAj0f6JADLGeJb41y6yVqwjakFfs94zOyOYcbGFXsiL3v2Zd3yh/MQg5NIAMO7XZdt0xm7i+fr8";
 
-		async function switchResume(tabId) {
-			const resume = masterResumeConfig.find(r => r.id === tabId);
-			if (!resume || resume.status !== 'ready') return;
+        // --- SESSION STATE ---
+        let isUnlocked = false;
+        let privateData = null;
+        let currentVisibility = 'public';
+        let currentTabId = 'general';
 
-			document.querySelectorAll('.filter-btn, .sbn').forEach(el => el.classList.remove('active'));
+        // --- TOGGLE LOGIC ---
+        function handleVisibilityToggle(radio) {
+            if (radio.value === 'private') {
+                if (!isUnlocked) {
+                    // Show login prompt, don't change state yet
+                    document.getElementById('login-wrapper').style.display = 'flex';
+                    document.getElementById('pw').focus();
+                } else {
+                    // Already unlocked, switch directly
+                    currentVisibility = 'private';
+                    updateToggleUI('private');
+                    switchResume(currentTabId);
+                }
+            } else {
+                currentVisibility = 'public';
+                updateToggleUI('public');
+                switchResume(currentTabId);
+            }
+        }
 
-			const tab = document.getElementById('tab-' + tabId);
-			if (tab) tab.classList.add('active');
-			const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
-			if (sbLink) sbLink.classList.add('active');
+        function cancelUnlock() {
+            document.getElementById('login-wrapper').style.display = 'none';
+            // Revert radio button visually
+            document.querySelector('input[value="public"]').checked = true;
+            updateToggleUI('public');
+        }
 
-			currentDownloadName = `AdarshSheth_Resume${resume.fileSuffix}.pdf`;
-			currentBasePdfUrl = resume.publicPath;
+        function updateToggleUI(vis) {
+            document.getElementById('label-public').classList.remove('active');
+            document.getElementById('label-private').classList.remove('active');
+            document.getElementById(`label-${vis}`).classList.add('active');
+        }
 
-			await generateAndRenderPublicPDF();
-		}
+        // --- DECRYPTION ---
+        async function unlock() {
+            const pw = document.getElementById('pw').value;
+            const btn = document.getElementById('unlock-btn');
+            const err = document.getElementById('error');
 
-		async function generateAndRenderPublicPDF() {
-			const container = document.getElementById('pdf-container');
-			container.style.opacity = '0.3';
+            try {
+                btn.textContent = "UNLOCKING...";
+                err.style.display = 'none';
 
-			try {
-				const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
-				const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-				const form = pdfDoc.getForm();
+                const bytes = CryptoJS.AES.decrypt(encryptedPayload, pw);
+                const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+                if (!decryptedString) throw new Error("Decryption failed");
 
-				try {
-					const contactField = form.getTextField('ContactField');
-					contactField.setText(PUBLIC_CONTACT_TEXT);
-				} catch (e) { }
+                privateData = JSON.parse(decryptedString);
 
-				form.flatten();
-				const pdfBytes = await pdfDoc.save();
-				const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                // Set Session Flags
+                isUnlocked = true;
+                currentVisibility = 'private';
 
-				if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
-				currentGeneratedBlobUrl = URL.createObjectURL(blob);
+                // Hide Modal & Update UI
+                document.getElementById('login-wrapper').style.display = 'none';
+                updateToggleUI('private');
+                document.querySelector('input[value="private"]').checked = true;
 
-				const dlBtn = document.getElementById('floating-dl-btn');
-				if (dlBtn) {
-					dlBtn.href = currentGeneratedBlobUrl;
-					dlBtn.download = currentDownloadName;
-				}
+                // Re-render the current tab privately
+                await switchResume(currentTabId);
 
-				await renderPDF(currentGeneratedBlobUrl);
-			} catch (err) {
-				console.error("Error generating public PDF:", err);
-				container.style.opacity = '1';
-			}
-		}
+                // Cleanup prompt for next session
+                btn.textContent = "Unlock Document";
+                document.getElementById('pw').value = '';
 
-		document.addEventListener("DOMContentLoaded", () => {
-			buildResumeUI();
-			switchResume('general'); // Load default on start
-		});
-	</script>
-	
+            } catch (e) {
+                err.style.display = 'block';
+                btn.textContent = "Unlock Document";
+            }
+        }
+
+        // --- RESUME SWITCHING ---
+        async function switchResume(tabId) {
+            const resume = masterResumeConfig.find(r => r.id === tabId);
+            if (!resume || resume.status !== 'ready') return;
+
+            currentTabId = tabId;
+
+            // UI Updates
+            document.querySelectorAll('.filter-btn, .sbn').forEach(el => el.classList.remove('active'));
+            const tab = document.getElementById('tab-' + tabId);
+            if (tab) tab.classList.add('active');
+            const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+            if (sbLink) sbLink.classList.add('active');
+
+            // Determine which file to pull based on toggle state
+            if (currentVisibility === 'private') {
+                currentDownloadName = `AdarshSheth_Resume${resume.fileSuffix}.pdf`;
+                currentBasePdfUrl = resume.privatePath || resume.publicPath;
+            } else {
+                currentDownloadName = `Adarsh_Sheth_Resume${resume.fileSuffix}.pdf`;
+                currentBasePdfUrl = resume.publicPath;
+            }
+
+            // Edge case: User is on Public toggle, but clicks a "Private Only" resume
+            if (resume.isPrivateOnly && currentVisibility === 'public') {
+                const container = document.getElementById('pdf-container');
+                container.innerHTML = '<div style="padding: 50px 20px; text-align: center; color: var(--text);"><h3>This resume is only available in Private Mode.</h3></div>';
+                return;
+            }
+
+            await generateAndRenderPDF();
+        }
+
+        // --- CLIENT-SIDE PDF GENERATION ---
+        async function generateAndRenderPDF() {
+            const container = document.getElementById('pdf-container');
+            container.style.opacity = '0.3';
+
+            try {
+                const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
+                const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+                const form = pdfDoc.getForm();
+
+                try {
+                    const contactField = form.getTextField('ContactField');
+                    // Inject decrypted data if private, otherwise default public text
+                    if (currentVisibility === 'private' && privateData) {
+                        contactField.setText(privateData.contact);
+                    } else {
+                        contactField.setText(PUBLIC_CONTACT_TEXT);
+                    }
+                } catch (e) { }
+
+                try {
+                    const gpaField = form.getTextField('GPAField');
+                    if (currentVisibility === 'private' && privateData && privateData.gpa) {
+                        gpaField.setText(`, GPA: ${privateData.gpa}`);
+                    } else {
+                        gpaField.setText(''); // Ensure it's clear on public
+                    }
+                } catch (e) { }
+
+                form.flatten();
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+                if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
+                currentGeneratedBlobUrl = URL.createObjectURL(blob);
+
+                const dlBtn = document.getElementById('floating-dl-btn');
+                if (dlBtn) {
+                    dlBtn.href = currentGeneratedBlobUrl;
+                    dlBtn.download = currentDownloadName;
+                }
+
+                await renderPDF(currentGeneratedBlobUrl);
+            } catch (err) {
+                console.error("Error generating PDF:", err);
+                container.style.opacity = '1';
+            }
+        }
+
+        // --- INIT ---
+        document.addEventListener("DOMContentLoaded", () => {
+            buildResumeUI();
+            switchResume('general');
+        });
+    </script>
 </body>
 
 </html>
