@@ -89,6 +89,7 @@
 			color: var(--g);
 		}
 
+		/* this hides the sidebar */
 		@media (min-width: 1051px) {
 			#sb {
 				display: none !important;
@@ -96,196 +97,8 @@
 		}
 	</style>
 	<link rel="stylesheet" href="style.css" />
-	<style>
-		/* ── TABS UI STYLES (Pulled from Portfolio) ── */
-		.portfolio-filters {
-			display: flex;
-			justify-content: center;
-			gap: 10px;
-			/* margin: 40px 48px 25px; */
-			margin: 10px 48px 25px;
-			flex-wrap: wrap;
-		}
-
-		.btn-hdr {
-			font-weight: 800;
-			font-size: 12px;
-			letter-spacing: 0.1em;
-			/* color: var(--accent2); */
-			color: var(--g);
-			text-transform: uppercase;
-			margin-bottom: 6px;
-			margin-top: 40px;
-			text-align: center;
-		}
-
-		/* .filter-btn {
-			display: inline-flex;
-			align-items: center;
-			height: 32px;
-			padding: 0 16px;
-			border: 1.5px solid var(--dimtitle);
-			background: transparent;
-			color: var(--dimtitle);
-			font-family: "Rubik", sans-serif;
-			font-weight: 700;
-			font-size: 11.5px;
-			letter-spacing: 0.1em;
-			border-radius: 6px;
-			cursor: pointer;
-			transition: all 0.3s ease-out;
-			text-transform: uppercase;
-		}
-
-		.filter-btn:hover {
-			border-color: var(--accent2);
-			color: var(--accent2);
-			transform: translateY(-2px);
-		}
-
-		.filter-btn.active {
-			border-color: var(--accent2);
-			color: var(--bg);
-			background: var(--accent2);
-		} */
-
-		/* ── NATIVE PDF VIEWER STYLES ── */
-		#pdf-section {
-			padding: 10px 48px 52px;
-			display: flex;
-			justify-content: center;
-			/* min-height: 80vh; */
-			/* min-height: 100%; */
-		}
-
-		#pdf-container {
-			width: 100%;
-			max-width: 1000px;
-			/* Adjust max-width to your preference */
-			border-radius: 12px;
-			overflow: hidden;
-			/* border: 1.5px solid var(--border); */
-			border: 2px solid var(--border);
-			background: var(--surface);
-			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-			opacity: 1;
-			transition: opacity 0.15s ease-in-out;
-		}
-
-		.pdf-page-wrapper {
-			position: relative;
-			width: 100%;
-			background-color: white;
-			/* Needed for transparent PDF backgrounds */
-		}
-
-		.pdf-page-wrapper:not(:last-child) {
-			border-bottom: 2px solid var(--border);
-		}
-
-		.pdf-page-canvas {
-			display: block;
-			width: 100%;
-			height: auto;
-		}
-
-		/* Keep the PDF.js text layer perfectly aligned */
-		.textLayer {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			overflow: hidden;
-			line-height: 1.0;
-		}
-
-		/* Mobile adjustments */
-		@media (max-width: 900px) {
-			.portfolio-filters {
-				margin: 10px 22px 20px;
-			}
-
-			.btn-hdr {
-				margin-top: 15px;
-			}
-
-			#pdf-section {
-				padding: 10px 22px 40px;
-			}
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-		/* ── FLOATING DOWNLOAD BUTTON ── */
-		.pdf-wrapper {
-			position: relative;
-			width: 100%;
-			max-width: 1000px;
-			margin: 0 auto;
-		}
-
-		.floating-dl-btn {
-			position: absolute;
-			top: 20px;
-			right: 25px;
-			z-index: 100;
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 8px 16px;
-			border-radius: 100px;
-			/* background: rgba(10, 10, 10, 0.7); */
-			backdrop-filter: blur(8px);
-			-webkit-backdrop-filter: blur(8px);
-			/* border: 1.5px solid var(--border); */
-			border: 2px solid var(--border);
-			color: var(--text);
-			font-weight: 700;
-			font-size: 11px;
-			letter-spacing: 0.1em;
-			text-transform: uppercase;
-			transition: all 0.2s ease;
-			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-		}
-
-		.floating-dl-btn:hover {
-			background: var(--accent2);
-			border-color: var(--accent2);
-			/* color: var(--bg); */
-			color: white;
-			transform: translateY(-2px);
-		}
-
-		/* Hide it on super small mobile screens if it covers too much text, or adjust positioning */
-		@media (max-width: 500px) {
-			.floating-dl-btn {
-				top: 10px;
-				right: 10px;
-				padding: 6px 12px;
-				font-size: 10px;
-			}
-		}
-
-		/* @media (max-width: 500px) {
-			.floating-dl-btn span {
-				display: none;
-			}
-			
-			.floating-dl-btn {
-				padding: 8px 12px;
-			}
-		} */
-	</style>
+	<link rel="stylesheet" href="resume-style.css" />
+	
 </head>
 
 <body>
@@ -336,7 +149,7 @@
 	<aside id="sb">
 		<div id="sb-hdr">Resumes</div>
 		<nav id="sb-nav">
-			<a class="sbn active" href="#"
+			<!-- <a class="sbn active" href="#"
 				onclick="switchResume('general', 'media/resume/base_general.pdf'); return false;" data-k="general">
 				<span class="sbdot"></span>
 				<span class="sblbl">General</span>
@@ -346,14 +159,6 @@
 				<span class="sbdot"></span>
 				<span class="sblbl">Mechanical</span>
 			</a>
-			<!-- <a class="sbn" href="#" onclick="switchResume('sw', 'media/resume/base_sw.pdf'); return false;" data-k="sw">
-				<span class="sbdot"></span>
-				<span class="sblbl">Software</span>
-			</a>
-			<a class="sbn" href="#" onclick="switchResume('se', 'media/resume/base_se.pdf'); return false;" data-k="se">
-				<span class="sbdot"></span>
-				<span class="sblbl">Systems Engineering</span>
-			</a> -->
 			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="sw" title="Coming Soon">
 				<span class="sbdot"></span>
 				<span class="sblbl">Software</span>
@@ -361,7 +166,7 @@
 			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="se" title="Coming Soon">
 				<span class="sbdot"></span>
 				<span class="sblbl">Systems</span>
-			</a>
+			</a> -->
 		</nav>
 	</aside>
 
@@ -392,19 +197,14 @@
 				Select
 			</span> a resume:</p>
 		<div class="portfolio-filters">
-			<!-- For now, they all route to media/resume/general.pdf. Simply update the arguments later -->
-			<button class="filter-btn active" id="tab-general"
+			<!-- <button class="filter-btn active" id="tab-general"
 				onclick="switchResume('general', 'media/resume/base_general.pdf')">GENERAL</button>
-			<!-- <button class="filter-btn" id="tab-vfd" onclick="switchResume('vfd', 'media/resume/base_vf.pdf')">MECHANICAL</button> -->
-			<!-- <button class="filter-btn" id="tab-sw" onclick="switchResume('sw', 'media/resume/base_sw.pdf')">SOFTWARE</button>
-			<button class="filter-btn" id="tab-se" onclick="switchResume('se', 'media/resume/base_se.pdf')">SYSTEMS
-				ENGINEERING</button> -->
 			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
 				title="Coming Soon">MECHANICAL</button>
 			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
 				title="Coming Soon">SOFTWARE</button>
 			<button class="filter-btn" id="tab-se" disabled style="opacity: 0.5; cursor: not-allowed;"
-				title="Coming Soon">SYSTEMS</button>
+				title="Coming Soon">SYSTEMS</button> -->
 		</div>
 
 		<!-- CLEAN NATIVE PDF.JS VIEWER (With Floating Download) -->
@@ -435,46 +235,26 @@
 
 	<script src="script.js"></script>
 
+	<script src="resume-script.js"></script>
 	<script>
-		// Setup the Public Contact URL you want displayed
-		// const PUBLIC_CONTACT_TEXT = "adarshsheth.github.io";
 		const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
-		// let currentBasePdfUrl = 'media/resume/general.pdf';
-		// let currentBasePdfUrl = 'media/resume/base_general.pdf';
-		let currentBasePdfUrl = 'media/resume/general_public.pdf';
-		// master line that sets the resume that is used
-		let currentGeneratedBlobUrl = '';
-		let currentDownloadName = 'Adarsh_Sheth_Resume.pdf';
 
-		// async function switchResume(tabId, basePdfUrl) {
-		// 	document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-		// 	document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
+		async function switchResume(tabId) {
+			const resume = masterResumeConfig.find(r => r.id === tabId);
+			if (!resume || resume.status !== 'ready') return;
 
-		// 	const tab = document.getElementById('tab-' + tabId);
-		// 	if (tab) tab.classList.add('active');
+			document.querySelectorAll('.filter-btn, .sbn').forEach(el => el.classList.remove('active'));
 
-		// 	const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
-		// 	if (sbLink) sbLink.classList.add('active');
+			const tab = document.getElementById('tab-' + tabId);
+			if (tab) tab.classList.add('active');
+			const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+			if (sbLink) sbLink.classList.add('active');
 
-		// 	currentBasePdfUrl = basePdfUrl;
-		// 	await generateAndRenderPublicPDF();
-		// }
-	async function switchResume(tabId, basePdfUrl) {
-		document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-		document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
+			currentDownloadName = `AdarshSheth_Resume${resume.fileSuffix}.pdf`;
+			currentBasePdfUrl = resume.publicPath;
 
-		const tab = document.getElementById('tab-' + tabId);
-		if (tab) tab.classList.add('active');
-
-		const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
-		if (sbLink) sbLink.classList.add('active');
-
-		// Automatically format the name: e.g., AdarshSheth_Resume_GENERAL.pdf
-		currentDownloadName = `AdarshSheth_Resume_${tabId.toUpperCase()}.pdf`;
-
-		currentBasePdfUrl = basePdfUrl;
-		await generateAndRenderPublicPDF();
-	}
+			await generateAndRenderPublicPDF();
+		}
 
 		async function generateAndRenderPublicPDF() {
 			const container = document.getElementById('pdf-container');
@@ -488,24 +268,18 @@
 				try {
 					const contactField = form.getTextField('ContactField');
 					contactField.setText(PUBLIC_CONTACT_TEXT);
-				} catch (e) {
-					console.warn("ContactField missing from base PDF.");
-				}
+				} catch (e) { }
 
 				form.flatten();
-
 				const pdfBytes = await pdfDoc.save();
 				const blob = new Blob([pdfBytes], { type: 'application/pdf' });
 
 				if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
 				currentGeneratedBlobUrl = URL.createObjectURL(blob);
 
-				// const dlBtn = document.getElementById('floating-dl-btn');
-				// if (dlBtn) dlBtn.href = currentGeneratedBlobUrl;
 				const dlBtn = document.getElementById('floating-dl-btn');
 				if (dlBtn) {
 					dlBtn.href = currentGeneratedBlobUrl;
-					// dlBtn.download = "Adarsh_Sheth_Resume.pdf";
 					dlBtn.download = currentDownloadName;
 				}
 
@@ -516,105 +290,12 @@
 			}
 		}
 
-		const renderPDF = async (pdfUrlToRender) => {
-			const container = document.getElementById('pdf-container');
-			try {
-				const pdf = await pdfjsLib.getDocument(pdfUrlToRender).promise;
-				container.innerHTML = '';
-
-				for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-					const page = await pdf.getPage(pageNum);
-					const pageWrapper = document.createElement('div');
-					pageWrapper.className = 'pdf-page-wrapper';
-
-					const canvas = document.createElement('canvas');
-					canvas.className = 'pdf-page-canvas';
-					const ctx = canvas.getContext('2d');
-
-					const textLayerDiv = document.createElement('div');
-					textLayerDiv.className = 'textLayer';
-
-					pageWrapper.appendChild(canvas);
-					pageWrapper.appendChild(textLayerDiv);
-					container.appendChild(pageWrapper);
-
-					const containerWidth = container.clientWidth || Math.min(window.innerWidth - 96, 1000);
-					const unscaledViewport = page.getViewport({ scale: 1.0 });
-					const displayScale = containerWidth / unscaledViewport.width;
-					const viewport = page.getViewport({ scale: displayScale });
-
-					const outputScale = (window.devicePixelRatio || 1) * 2;
-					canvas.width = Math.floor(viewport.width * outputScale);
-					canvas.height = Math.floor(viewport.height * outputScale);
-					canvas.style.height = Math.floor(viewport.height) + "px";
-
-					const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-
-					await page.render({ canvasContext: ctx, transform: transform, viewport: viewport }).promise;
-
-					textLayerDiv.style.width = Math.floor(viewport.width) + 'px';
-					textLayerDiv.style.height = Math.floor(viewport.height) + 'px';
-					textLayerDiv.style.setProperty('--scale-factor', displayScale);
-
-					const textContent = await page.getTextContent();
-					await pdfjsLib.renderTextLayer({
-						textContentSource: textContent,
-						container: textLayerDiv,
-						viewport: viewport,
-						textDivs: []
-					}).promise;
-				}
-				container.style.opacity = '1';
-			} catch (error) {
-				console.error('Error rendering the PDF:', error);
-				container.style.opacity = '1';
-				container.innerHTML = `
-                <div style="padding: 50px 20px; text-align: center; color: var(--text);">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px; color: #ff6b6b;"></i>
-                    <h3 style="color: white; margin-bottom: 10px;">This PDF is not ready yet. Check back soon.</h3>
-                </div>
-            `;
-			}
-		};
-
-		let resizeTimer;
-		let lastWidth = window.innerWidth;
-		window.addEventListener('resize', () => {
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(() => {
-				if (window.innerWidth !== lastWidth) {
-					lastWidth = window.innerWidth;
-					if (currentGeneratedBlobUrl) renderPDF(currentGeneratedBlobUrl);
-				}
-			}, 250);
-		});
-
 		document.addEventListener("DOMContentLoaded", () => {
-			// Check for private overlay flag
-			if (sessionStorage.getItem('unlocked') === 'true') {
-				const heroTitle = document.querySelector('#hero h1');
-				if (heroTitle) heroTitle.innerText = 'PRIVATE RESUME';
-				document.title = 'Private Resume  • Adarsh Sheth';
-
-				const ibar = document.getElementById('ibar');
-				if (ibar) {
-					const exitBtn = document.createElement('a');
-					exitBtn.href = "#";
-					exitBtn.className = "pbtn";
-					exitBtn.innerHTML = "EXIT PRIVATE VIEW";
-					exitBtn.style.marginLeft = "15px";
-					exitBtn.onclick = (e) => {
-						e.preventDefault();
-						sessionStorage.removeItem('unlocked');
-						window.location.reload();
-					};
-					ibar.appendChild(exitBtn);
-				}
-			}
-
-			generateAndRenderPublicPDF();
+			buildResumeUI();
+			switchResume('general'); // Load default on start
 		});
 	</script>
+	
 </body>
 
 </html>

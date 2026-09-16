@@ -1,0 +1,136 @@
+/* ── TABS UI STYLES ── */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 48px 25px;
+    flex-wrap: wrap;
+}
+.btn-hdr {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--g);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    margin-top: 40px;
+    text-align: center;
+}
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 16px;
+    border: 2px solid var(--dimtitle);
+    background: transparent;
+    color: var(--dimtitle);
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    text-transform: uppercase;
+}
+.filter-btn:hover {
+    border-color: var(--accent2); /* or --blogAlt for presume */
+    color: var(--accent2);
+    transform: translateY(-2px);
+}
+.filter-btn.active {
+    border-color: var(--accent2);
+    color: var(--bg);
+    background: var(--accent2);
+}
+
+/* ── NATIVE PDF VIEWER STYLES ── */
+#pdf-section {
+    padding: 10px 48px 52px;
+    display: flex;
+    justify-content: center;
+    min-height: 80vh;
+}
+#pdf-container {
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+    transition: opacity 0.15s ease-in-out;
+}
+.pdf-page-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: white;
+}
+.pdf-page-wrapper:not(:last-child) {
+    border-bottom: 2px solid var(--border);
+}
+.pdf-page-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.textLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    line-height: 1.0;
+}
+
+/* ── FLOATING DOWNLOAD BUTTON ── */
+.pdf-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.floating-dl-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 2px solid var(--border);
+    color: var(--text);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.floating-dl-btn:hover {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+    .portfolio-filters { margin: 10px 22px 20px; }
+    .btn-hdr { margin-top: 15px; }
+    #pdf-section { padding: 10px 22px 40px; }
+}
+@media (max-width: 500px) {
+    .floating-dl-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}

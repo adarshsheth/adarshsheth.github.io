@@ -26,7 +26,7 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Private Resume  • Adarsh Sheth</title>
+    <title>Private Resume • Adarsh Sheth</title>
 
     <link rel="icon" type="image/svg+xml" href="media/logo/AS.svg">
     <link
@@ -36,6 +36,7 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 
     <!-- External CSS & PDF/Crypto Libraries -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resume-style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';</script>
@@ -117,215 +118,69 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             transform: translateY(-2px);
         }
 
-        /* TABS UI STYLES */
-        .portfolio-filters {
+
+        /* Custom Checkbox Container */
+        .private-toggles {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 40px 48px 25px;
-            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 48px 30px;
         }
 
-        .filter-btn {
-            display: inline-flex;
-            align-items: center;
-            height: 32px;
-            padding: 0 16px;
-            /* border: 1.5px solid var(--dimtitle); */
-            border: 2px solid var(--dimtitle);
-            background: transparent;
-            color: var(--dimtitle);
-            font-family: "Rubik", sans-serif;
-            font-weight: 700;
-            font-size: 11.5px;
-            letter-spacing: 0.1em;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.4s ease-out;
-            text-transform: uppercase;
-        }
-
-        .filter-btn:hover {
-            border-color: var(--blogAlt);
-            color: var(--blogAlt);
-            transform: translateY(-1px);
-        }
-
-        .filter-btn.active {
-            border-color: var(--blogAlt);
-            color: var(--bg);
-            background: var(--blogAlt);
-        }
-
-        /* PDF VIEWER STYLES */
-        #pdf-section {
-            padding: 10px 48px 52px;
+        .toggle-label {
             display: flex;
-            justify-content: center;
-            min-height: 80vh;
-        }
-
-        #pdf-container {
-            width: 100%;
-            max-width: 1000px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid var(--border);
-            background: var(--surface);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-            opacity: 1;
-            transition: opacity 0.15s ease-in-out;
-        }
-
-        .pdf-page-wrapper {
-            position: relative;
-            width: 100%;
-            background-color: white;
-        }
-
-        .pdf-page-wrapper:not(:last-child) {
-            border-bottom: 2px solid var(--border);
-        }
-
-        .pdf-page-canvas {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        .textLayer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            line-height: 1.0;
-        }
-
-        .pdf-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .floating-dl-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            z-index: 100;
-            display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
-            border-radius: 100px;
-            /* background: rgba(10, 10, 10, 0.7); */
-            backdrop-filter: blur(8px);
-            border: 2px solid var(--border);
-            color: var(--text);
-            font-weight: 700;
-            font-size: 11px;
-            letter-spacing: 0.1em;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--tdim);
             text-transform: uppercase;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: color 0.2s;
         }
 
-        .floating-dl-btn:hover {
+        .toggle-label:hover {
+            color: var(--blogAlt);
+        }
+
+        /* Hide default checkbox */
+        .toggle-label input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            /* width: 18px;
+    height: 18px; */
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            /* background: var(--surface2); */
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        /* Checked State */
+        .toggle-label input:checked {
             background: var(--blogAlt);
             border-color: var(--blogAlt);
-            color: white;
-            transform: translateY(-2px);
         }
 
-        @media (max-width: 900px) {
-            .portfolio-filters {
-                margin: 10px 22px 20px;
-            }
-
-            #pdf-section {
-                padding: 10px 22px 40px;
-            }
-            #ibar {
-	background: transparent;
-	border: 0px;
-}
+        /* Checkmark Icon */
+        .toggle-label input:checked::after {
+            content: "✓";
+            position: absolute;
+            color: var(--bg);
+            font-size: 10px;
+            /* font-size: 12px; */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 900;
         }
 
-        @media (max-width: 500px) {
-            .floating-dl-btn {
-                top: 10px;
-                right: 10px;
-                padding: 6px 12px;
-                font-size: 10px;
-            }
-        }
-        /* #ibar {
-            background: transparent;
-            border: 0px;
-        } */
-        /* Custom Checkbox Container */
-.private-toggles {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 48px 30px;
-}
-
-.toggle-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--tdim);
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.toggle-label:hover {
-    color: var(--blogAlt);
-}
-
-/* Hide default checkbox */
-.toggle-label input {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    /* width: 18px;
-    height: 18px; */
-    border: 2px solid var(--border);
-    border-radius: 4px;
-    /* background: var(--surface2); */
-    background: transparent;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.2s ease;
-}
-
-/* Checked State */
-.toggle-label input:checked {
-    background: var(--blogAlt);
-    border-color: var(--blogAlt);
-}
-
-/* Checkmark Icon */
-.toggle-label input:checked::after {
-    content: "✓";
-    position: absolute;
-    color: var(--bg);
-    font-size: 10px;
-    /* font-size: 12px; */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 900;
-}
-/* .pbtn {
+        /* .pbtn {
     border-color: var(--blogAlt);
     color: var(--blogAlt)
 }
@@ -341,7 +196,8 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
     <div id="login-wrapper">
         <div class="lock-box">
             <h2 style="margin-bottom: 10px;">SECURE ACCESS</h2>
-            <input type="text" id="pw" placeholder="Enter Password" autofocus onkeypress="if(event.key === 'Enter') unlock()" />
+            <input type="text" id="pw" placeholder="Enter Password" autofocus
+                onkeypress="if(event.key === 'Enter') unlock()" />
             <button id="unlock-btn" onclick="unlock()">Unlock Document</button>
             <div id="error" style="color: #ff6b6b; font-size: 12px; margin-top: 15px; display: none; font-weight: 500;">
                 Incorrect password or corrupt data.</div>
@@ -377,16 +233,16 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
             <div class="portfolio-filters">
                 <!-- Dynamically generated tab buttons go here -->
             </div>
-<div class="private-toggles">
-    <label class="toggle-label">
-        <input type="checkbox" id="toggle-contact" checked onchange="generateCustomPDF()">
-        Include Contact Info
-    </label>
-    <label class="toggle-label">
-        <input type="checkbox" id="toggle-gpa" checked onchange="generateCustomPDF()">
-        Include GPA
-    </label>
-</div>
+            <div class="private-toggles">
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle-contact" checked onchange="generateCustomPDF()">
+                    Include Contact Info
+                </label>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle-gpa" checked onchange="generateCustomPDF()">
+                    Include GPA
+                </label>
+            </div>
             <div id="pdf-section">
                 <div class="pdf-wrapper">
                     <a href="#" id="floating-dl-btn" download="Adarsh_Sheth_Resume.pdf" class="floating-dl-btn">
@@ -402,260 +258,99 @@ with link format: https://dl.dropboxusercontent.com/scl/fi/8cdce00w2rllkux4a6fvm
 
     <script src="script.js"></script>
 
+    <script src="resume-script.js"></script>
     <script>
-        // PASTE YOUR NEW AES ENCRYPTED JSON PAYLOAD HERE
-        // PASSWORD
-            const encryptedPayload = "U2FsdGVkX1/rgfZYEXp+DjhoPf1YrQGb1exHPcc7KgnN+uj2UiB6RkgJAtdew03WKC5fOYYiLl5Nx2eegSzI7vyLjhVmv/SUxaprEqjWstNhAs7LGD0AguvyHXBoDSMbuj/hGoLszZJVcqpM7miLFYD5gY1+yiGmdhylT/zqE8//B7ZGVjATSGI/wR/8QPjm3v7TwwtviRuFb8/qIkmMgGabmsL7KlWZv5GU1XOF4prsGvO4ntKHVpg5OrCqqzWzbbOJks8EfTA6JuwmCUpsGKSEaTTFQh4ECs8zN16/8qd5rcnKqGmhFHAj0f6JADLGeJb41y6yVqwjakFfs94zOyOYcbGFXsiL3v2Zd3yh/MQg5NIAMO7XZdt0xm7i+fr8";
+        const encryptedPayload = "U2FsdGVkX1/rgfZYEXp+DjhoPf1YrQGb1exHPcc7KgnN+uj2UiB6RkgJAtdew03WKC5fOYYiLl5Nx2eegSzI7vyLjhVmv/SUxaprEqjWstNhAs7LGD0AguvyHXBoDSMbuj/hGoLszZJVcqpM7miLFYD5gY1+yiGmdhylT/zqE8//B7ZGVjATSGI/wR/8QPjm3v7TwwtviRuFb8/qIkmMgGabmsL7KlWZv5GU1XOF4prsGvO4ntKHVpg5OrCqqzWzbbOJks8EfTA6JuwmCUpsGKSEaTTFQh4ECs8zN16/8qd5rcnKqGmhFHAj0f6JADLGeJb41y6yVqwjakFfs94zOyOYcbGFXsiL3v2Zd3yh/MQg5NIAMO7XZdt0xm7i+fr8";
+        let privateData = null;
 
-            // Hardcode the public base PDFs here
-            const BASE_RESUMES = {
-                'General': 'media/resume/general_private.pdf',
-                'Mechanical': 'media/resume/mechanical_public.pdf',
-                'Software': 'media/resume/software_public.pdf',
-                'Systems': 'media/resume/systems_public.pdf',
+        async function unlock() {
+            const pw = document.getElementById('pw').value;
+            const button = document.getElementById('unlock-btn');
+            const errorEl = document.getElementById('error');
 
-                'General (P)': 'media/resume/general_public.pdf'
-                // 'general': 'media/resume/base_general.pdf',
-                // 'vfd': 'media/resume/base_vf.pdf'
-                // 'sw': 'media/resume/base_sw.pdf', // Add future resumes here
-                // 'se': 'media/resume/base_se.pdf'
-            };
-            const DISABLED_RESUMES = new Set(['Mechanical', 'Software', 'Systems']);
-            // const DISABLED_RESUMES = new Set(['Mechanical', 'Software']);
+            try {
+                button.textContent = "UNLOCKING...";
+                errorEl.style.display = 'none';
 
-            let privateData = null;
-            let currentBasePdfUrl = '';
-            let currentGeneratedBlobUrl = '';
+                const bytes = CryptoJS.AES.decrypt(encryptedPayload, pw);
+                const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+                if (!decryptedString) throw new Error("Decryption failed");
 
-            function formatLabel(key) {
-                const map = {
-                    // 'General (private)': '00',
-                    // 'general': 'General Resume',
-                    // 'vfd': 'Vertical Flight',
-                    // 'sw': 'Software',
-                    // 'se': 'Systems Engineering'
-                    '00': '00'
-                };
-                return map[key.toLowerCase()] || (key.charAt(0).toUpperCase() + key.slice(1));
+                privateData = JSON.parse(decryptedString);
+
+                // Generate UI and transition screen
+                buildResumeUI();
+                document.getElementById('login-wrapper').style.display = 'none';
+                document.getElementById('resume-ui').style.display = 'block';
+
+                // Load default private resume
+                await switchResume('general');
+
+            } catch (e) {
+                errorEl.style.display = 'block';
+                button.textContent = "Unlock Document";
             }
+        }
 
-            async function unlock() {
-                const pw = document.getElementById('pw').value;
-                const button = document.getElementById('unlock-btn');
-                const errorEl = document.getElementById('error');
+        async function switchResume(tabId) {
+            const resume = masterResumeConfig.find(r => r.id === tabId);
+            if (!resume || resume.status !== 'ready') return;
+
+            document.querySelectorAll('.filter-btn, .sbn').forEach(el => el.classList.remove('active'));
+
+            const tab = document.getElementById('tab-' + tabId);
+            if (tab) tab.classList.add('active');
+            const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+            if (sbLink) sbLink.classList.add('active');
+
+            currentDownloadName = `AdarshSheth_Resume${resume.fileSuffix}.pdf`;
+            currentBasePdfUrl = resume.privatePath;
+
+            await generateCustomPDF();
+        }
+
+        async function generateCustomPDF() {
+            const container = document.getElementById('pdf-container');
+            container.style.opacity = '0.3';
+
+            try {
+                const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
+                const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+                const form = pdfDoc.getForm();
+
+                const includeContact = document.getElementById('toggle-contact').checked;
+                const includeGpa = document.getElementById('toggle-gpa').checked;
 
                 try {
-                    button.textContent = "UNLOCKING...";
-                    errorEl.style.display = 'none';
-
-                    const bytes = CryptoJS.AES.decrypt(encryptedPayload, pw);
-                    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
-                    if (!decryptedString) throw new Error("Decryption failed");
-
-                    // Parse the 3 private fields
-                    privateData = JSON.parse(decryptedString);
-
-                    // --- DYNAMIC UI GENERATION ---
-                    const sbNav = document.getElementById('sb-nav');
-                    const filters = document.querySelector('.portfolio-filters');
-
-                    sbNav.innerHTML = '';
-                    filters.innerHTML = '';
-
-                    let isFirst = true;
-                    // Iterate over the hardcoded BASE_RESUMES instead of the JSON
-                    for (const key in BASE_RESUMES) {
-                        const label = formatLabel(key);
-                        const isDisabled = DISABLED_RESUMES.has(key);
-                        const activeClass = isFirst && !isDisabled ? ' active' : '';
-
-                        const sbLink = document.createElement('a');
-                        sbLink.className = 'sbn' + activeClass;
-                        sbLink.href = '#';
-                        sbLink.setAttribute('data-k', key);
-                        if (isDisabled) {
-                            sbLink.style.opacity = '0.5';
-                            sbLink.style.pointerEvents = 'none';
-                            sbLink.title = 'Coming Soon';
-                        } else {
-                            sbLink.onclick = function (e) { e.preventDefault(); switchResume(key); };
-                        }
-                        sbLink.innerHTML = `<span class="sbdot"></span><span class="sblbl">${label}</span>`;
-                        sbNav.appendChild(sbLink);
-
-                        const filterBtn = document.createElement('button');
-                        filterBtn.className = 'filter-btn' + activeClass;
-                        filterBtn.id = 'tab-' + key;
-                        filterBtn.disabled = isDisabled;
-                        if (isDisabled) {
-                            filterBtn.style.opacity = '0.5';
-                            filterBtn.style.cursor = 'not-allowed';
-                            filterBtn.title = 'Coming Soon';
-                        } else {
-                            filterBtn.onclick = function () { switchResume(key); };
-                        }
-                        filterBtn.textContent = label.toUpperCase();
-                        filters.appendChild(filterBtn);
-
-                        if (!isDisabled) isFirst = false;
-                    }
-
-                    currentBasePdfUrl = BASE_RESUMES['General'];
-                        // general pdf
-
-                    document.getElementById('login-wrapper').style.display = 'none';
-                    document.getElementById('resume-ui').style.display = 'block';
-
-                    await generateCustomPDF();
-
-                } catch (e) {
-                    console.error(e);
-                    errorEl.style.display = 'block';
-                    button.textContent = "Unlock Document";
-                }
-            }
-
-            async function switchResume(tabId) {
-                if (DISABLED_RESUMES.has(tabId)) return;
-
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
-
-                const tab = document.getElementById('tab-' + tabId);
-                if (tab) tab.classList.add('active');
-
-                const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
-                if (sbLink) sbLink.classList.add('active');
-
-                currentBasePdfUrl = BASE_RESUMES[tabId];
-                await generateCustomPDF();
-            }
-
-            async function generateCustomPDF() {
-                const container = document.getElementById('pdf-container');
-                container.style.opacity = '0.3';
+                    const contactField = form.getTextField('ContactField');
+                    contactField.setText(includeContact ? privateData.contact : privateData.publicContact);
+                } catch (e) { }
 
                 try {
-                    const response = await fetch(currentBasePdfUrl);
-                    if (!response.ok) throw new Error(`Resume file unavailable (${response.status})`);
-                    const existingPdfBytes = await response.arrayBuffer();
-                    const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-                    // const timesFont = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
-                    const form = pdfDoc.getForm();
+                    const gpaField = form.getTextField('GPAField');
+                    gpaField.setText((includeGpa && privateData.gpa) ? `, GPA: ${privateData.gpa}` : '');
+                } catch (e) { }
 
-                    const includeContact = document.getElementById('toggle-contact').checked;
-                    const includeGpa = document.getElementById('toggle-gpa').checked;
+                form.flatten();
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
 
-                    try {
-                        const contactField = form.getTextField('ContactField');
-                        if (includeContact) {
-                            contactField.setText(privateData.contact);
-                        } else {
-                            contactField.setText(privateData.publicContact);
-                        }
-                    } catch (e) { console.warn("ContactField missing from base PDF."); }
+                if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
+                currentGeneratedBlobUrl = URL.createObjectURL(blob);
 
-                    try {
-                        const gpaField = form.getTextField('GPAField');
-                        if (includeGpa && privateData.gpa) {
-                            gpaField.setText(`, GPA: ${privateData.gpa}`);
-                        } else {
-                            gpaField.setText('');
-                        }
-                    } catch (e) { console.warn("GPAField missing from base PDF."); }
-
-                    form.flatten();
-
-                    const pdfBytes = await pdfDoc.save();
-                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-
-                    if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
-                    currentGeneratedBlobUrl = URL.createObjectURL(blob);
-
-                    document.getElementById('floating-dl-btn').href = currentGeneratedBlobUrl;
-
-                    await renderPDF(currentGeneratedBlobUrl);
-
-                } catch (err) {
-                    console.error("Error generating custom PDF:", err);
-                    renderBlankPage();
-                    container.style.opacity = '1';
+                const dlBtn = document.getElementById('floating-dl-btn');
+                if (dlBtn) {
+                    dlBtn.href = currentGeneratedBlobUrl;
+                    dlBtn.download = currentDownloadName;
                 }
-            }
 
-            function renderBlankPage() {
-                const container = document.getElementById('pdf-container');
+                await renderPDF(currentGeneratedBlobUrl);
+            } catch (err) {
+                console.error("Error generating custom PDF:", err);
+                container.style.opacity = '1';
                 container.innerHTML = '<div class="pdf-page-wrapper" style="aspect-ratio: 8.5 / 11; background: white;"></div>';
             }
-
-            const renderPDF = async (pdfUrlToRender) => {
-                const container = document.getElementById('pdf-container');
-                try {
-                    const pdf = await pdfjsLib.getDocument(pdfUrlToRender).promise;
-                    container.innerHTML = '';
-
-                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                        const page = await pdf.getPage(pageNum);
-                        const pageWrapper = document.createElement('div');
-                        pageWrapper.className = 'pdf-page-wrapper';
-
-                        const canvas = document.createElement('canvas');
-                        canvas.className = 'pdf-page-canvas';
-                        const ctx = canvas.getContext('2d');
-
-                        const textLayerDiv = document.createElement('div');
-                        textLayerDiv.className = 'textLayer';
-
-                        pageWrapper.appendChild(canvas);
-                        pageWrapper.appendChild(textLayerDiv);
-                        container.appendChild(pageWrapper);
-
-                        const containerWidth = container.clientWidth || Math.min(window.innerWidth - 96, 1000);
-                        const unscaledViewport = page.getViewport({ scale: 1.0 });
-                        const displayScale = containerWidth / unscaledViewport.width;
-                        const viewport = page.getViewport({ scale: displayScale });
-
-                        const outputScale = (window.devicePixelRatio || 1) * 2;
-                        canvas.width = Math.floor(viewport.width * outputScale);
-                        canvas.height = Math.floor(viewport.height * outputScale);
-                        canvas.style.height = Math.floor(viewport.height) + "px";
-
-                        const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-
-                        await page.render({ canvasContext: ctx, transform: transform, viewport: viewport }).promise;
-
-                        textLayerDiv.style.width = Math.floor(viewport.width) + 'px';
-                        textLayerDiv.style.height = Math.floor(viewport.height) + 'px';
-                        textLayerDiv.style.setProperty('--scale-factor', displayScale);
-
-                        const textContent = await page.getTextContent();
-                        await pdfjsLib.renderTextLayer({ textContentSource: textContent, container: textLayerDiv, viewport: viewport, textDivs: [] }).promise;
-                    }
-                    container.style.opacity = '1';
-
-                } catch (error) {
-                    console.error('Error rendering the PDF:', error);
-                    container.style.opacity = '1';
-                    renderBlankPage();
-                }
-            };
-
-            let resizeTimer;
-            let lastWidth = window.innerWidth;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    if (window.innerWidth !== lastWidth) {
-                        lastWidth = window.innerWidth;
-                        if (currentGeneratedBlobUrl) renderPDF(currentGeneratedBlobUrl);
-                    }
-                }, 250);
-            });
-
-            const cachedNav = sessionStorage.getItem("rawNavHTML");
-            if (cachedNav) {
-                document.getElementById("nav-placeholder").outerHTML = cachedNav;
-            }
+        }
     </script>
 </body>
 
