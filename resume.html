@@ -369,7 +369,8 @@
 		<div id="top"></div>
 
 		<section id="hero">
-			<h1>RESUME</h1>
+			<h1 style="text-transform: uppercase;">Résumé</h1>
+			<!-- <h1>RESUME</h1> -->
 		</section>
 		<!-- <div style="text-align: center; opacity:0;"><a href="/presume.html" rel="nofollow noopener noreferrer">presume</a></div> -->
 		<div style="text-align: center;">
@@ -388,8 +389,8 @@
 
 		<!-- TABS UI FOR MULTIPLE RESUMES -->
 		<p class="btn-hdr"><span onclick="window.location.href='/presume'" style="cursor: auto;">
-			Select
-		</span> a resume:</p>
+				Select
+			</span> a resume:</p>
 		<div class="portfolio-filters">
 			<!-- For now, they all route to media/resume/general.pdf. Simply update the arguments later -->
 			<button class="filter-btn active" id="tab-general"
@@ -410,7 +411,8 @@
 		<!-- CLEAN NATIVE PDF.JS VIEWER (With Floating Download) -->
 		<div id="pdf-section">
 			<div class="pdf-wrapper">
-				<a href="media/resume/general.pdf" id="floating-dl-btn" download class="floating-dl-btn">
+				<a href="media/resume/general.pdf" id="floating-dl-btn" download="Adarsh_Sheth_Resume.pdf"
+					class="floating-dl-btn">
 					<i class="fas fa-download"></i> DOWNLOAD
 				</a>
 				<div id="pdf-container">
@@ -441,22 +443,39 @@
 		// let currentBasePdfUrl = 'media/resume/general.pdf';
 		// let currentBasePdfUrl = 'media/resume/base_general.pdf';
 		let currentBasePdfUrl = 'media/resume/general_public.pdf';
-			// master line that sets the resume that is used
+		// master line that sets the resume that is used
 		let currentGeneratedBlobUrl = '';
+		let currentDownloadName = 'Adarsh_Sheth_Resume.pdf';
 
-		async function switchResume(tabId, basePdfUrl) {
-			document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-			document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
+		// async function switchResume(tabId, basePdfUrl) {
+		// 	document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+		// 	document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
 
-			const tab = document.getElementById('tab-' + tabId);
-			if (tab) tab.classList.add('active');
+		// 	const tab = document.getElementById('tab-' + tabId);
+		// 	if (tab) tab.classList.add('active');
 
-			const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
-			if (sbLink) sbLink.classList.add('active');
+		// 	const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+		// 	if (sbLink) sbLink.classList.add('active');
 
-			currentBasePdfUrl = basePdfUrl;
-			await generateAndRenderPublicPDF();
-		}
+		// 	currentBasePdfUrl = basePdfUrl;
+		// 	await generateAndRenderPublicPDF();
+		// }
+	async function switchResume(tabId, basePdfUrl) {
+		document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+		document.querySelectorAll('.sbn').forEach(link => link.classList.remove('active'));
+
+		const tab = document.getElementById('tab-' + tabId);
+		if (tab) tab.classList.add('active');
+
+		const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+		if (sbLink) sbLink.classList.add('active');
+
+		// Automatically format the name: e.g., AdarshSheth_Resume_GENERAL.pdf
+		currentDownloadName = `AdarshSheth_Resume_${tabId.toUpperCase()}.pdf`;
+
+		currentBasePdfUrl = basePdfUrl;
+		await generateAndRenderPublicPDF();
+	}
 
 		async function generateAndRenderPublicPDF() {
 			const container = document.getElementById('pdf-container');
@@ -482,8 +501,14 @@
 				if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
 				currentGeneratedBlobUrl = URL.createObjectURL(blob);
 
+				// const dlBtn = document.getElementById('floating-dl-btn');
+				// if (dlBtn) dlBtn.href = currentGeneratedBlobUrl;
 				const dlBtn = document.getElementById('floating-dl-btn');
-				if (dlBtn) dlBtn.href = currentGeneratedBlobUrl;
+				if (dlBtn) {
+					dlBtn.href = currentGeneratedBlobUrl;
+					// dlBtn.download = "Adarsh_Sheth_Resume.pdf";
+					dlBtn.download = currentDownloadName;
+				}
 
 				await renderPDF(currentGeneratedBlobUrl);
 			} catch (err) {
