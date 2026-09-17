@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="robots" content="index, follow">
+	<meta name="keywords"
+		content="Engineering Portfolio, Adarsh Sheth, Aerospace Engineering, Vertical Flight, Texas A&M, TAMU">
+	<meta name="theme-color" content="#647661">
+	<link rel="author" href="https://www.linkedin.com/in/adarsh-sheth/">
+	<meta property="og:site_name" content="Adarsh Sheth" />
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Resume  • Adarsh Sheth">
+	<meta name="twitter:image" content="https://adarshsheth.github.io/media/logo/AS.png">
+
+	<link rel="icon" type="image/svg+xml" href="https://adarshsheth.github.io/media/logo/AS.svg">
+	<link rel="icon" type="image/png" href="https://adarshsheth.github.io/media/logo/AS.png">
+
+	<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Adarsh Sheth",
+      "jobTitle": "Aerospace Engineer",
+      "url": "https://adarshsheth.github.io",
+      "sameAs": [
+        "https://www.linkedin.com/in/adarsh-sheth/"
+      ],
+      "knowsAbout": ["Aerospace Engineering", "Vertical Flight", "CAD Design", "Texas A&M"],
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Texas A&M University"
+      }
+    }
+</script>
+
+	<title>Resume • Adarsh Sheth</title>
+	<meta property="og:title" content="Resume  • Adarsh Sheth">
+	<meta name="description" content="See Adarsh Sheth's aerospace engineering resume.">
+	<meta property="og:description" content="See Adarsh Sheth's aerospace engineering resume.">
+	<meta property="og:url" content="https://adarshsheth.github.io/resume">
+	<link rel="canonical" href="https://adarshsheth.github.io/resume">
+
+	<link
+		href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<!-- PDF.js Library For Native Smooth Rendering -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+	<script>
+		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" />
+	<!-- PDF-Lib for Client-Side Document Generation -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+	<style>
+		/* :root {
+			--bg: #0a0a0a;
+			--text: #d0d3cd;
+			--g: #647661;
+			--gd: #232922;
+			--dimtitle: #888888;
+			--accent2: #857032;
+			--surface: rgba(40, 41, 40, 0.08);
+			--border: #444444;
+		} */
+
+		body::before {
+			/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252214/robotics_pxkhlb.jpg') !important; */
+			/* background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.8)), url('https://cdn2.picryl.com/photo/2010/05/18/boeing-plant-in-renton-5-18-2010-4622746048-e1011e-1024.jpg') !important; */
+			filter: blur(4px);
+		}
+
+		body {
+			background: var(--bg);
+			color: var(--text);
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: var(--g);
+		}
+
+
+	</style>
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="resume-style.css" />
+	
+</head>
+
+<body>
+	<div id="blur-page"></div>
+	<div id="nav-placeholder"></div>
+	<script>
+		// At the top of resume.html, check if we came from the private page
+		// if (sessionStorage.getItem('unlocked') === 'true') {
+		// 	const privateUrls = JSON.parse(sessionStorage.getItem('resume_data'));
+
+		// 	// Override the PDF link
+		// 	window.currentPdfUrl = privateUrls.general;
+
+		// 	// Force the PDF viewer to use the private link
+		// 	document.addEventListener('DOMContentLoaded', () => {
+		// 		const dlBtn = document.getElementById('floating-dl-btn');
+		// 		if (dlBtn) dlBtn.href = window.currentPdfUrl;
+		// 		renderPDF();
+		// 	});
+		// }
+
+
+
+		// Instantly inject the nav from cache to prevent UI flashing
+		const cachedNav = sessionStorage.getItem("rawNavHTML");
+		if (cachedNav) {
+			document.getElementById("nav-placeholder").outerHTML = cachedNav;
+			const currentPath = window.location.pathname.toLowerCase();
+			const isPortfolioPath = currentPath.includes("portfolio") || currentPath.includes("photography");
+			const isHomePath = currentPath.endsWith("/") || currentPath.includes("index") || currentPath.endsWith("site");
+
+			const header = document.getElementById("hdr");
+			if (header) {
+				header.querySelectorAll(".ni").forEach(link => {
+					link.classList.remove("active");
+					const text = link.textContent.trim().toLowerCase();
+					if (currentPath.includes("blog") && text === "blog") link.classList.add("active");
+					else if (currentPath.includes("resume") && text === "resume") link.classList.add("active");
+					else if (isPortfolioPath && text.includes("portfolio")) link.classList.add("active");
+					else if (isHomePath && text === "home") link.classList.add("active");
+				});
+			}
+		}
+	</script>
+
+	<div id="sb-overlay"></div>
+
+	<aside id="sb">
+		<div id="sb-hdr">Resumes</div>
+		<nav id="sb-nav">
+			<!-- <a class="sbn active" href="#"
+				onclick="switchResume('general', 'media/resume/base_general.pdf'); return false;" data-k="general">
+				<span class="sbdot"></span>
+				<span class="sblbl">General</span>
+			</a>
+			<a class="sbn" href="#" onclick="switchResume('vfd', 'media/resume/base_vf.pdf'); return false;"
+				data-k="vfd">
+				<span class="sbdot"></span>
+				<span class="sblbl">Mechanical</span>
+			</a>
+			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="sw" title="Coming Soon">
+				<span class="sbdot"></span>
+				<span class="sblbl">Software</span>
+			</a>
+			<a class="sbn" style="pointer-events: none; opacity: 0.5;" data-k="se" title="Coming Soon">
+				<span class="sbdot"></span>
+				<span class="sblbl">Systems</span>
+			</a> -->
+		</nav>
+	</aside>
+
+	<div id="mn">
+		<div id="top"></div>
+
+		<section id="hero">
+			<h1 style="text-transform: uppercase;">Résumé</h1>
+			<!-- <h1>RESUME</h1> -->
+		</section>
+		<!-- <div style="text-align: center; opacity:0;"><a href="/presume.html" rel="nofollow noopener noreferrer">presume</a></div> -->
+		<div style="text-align: center;">
+			<span onclick="window.location.href='/presume'" style="opacity:0;">
+				presume
+			</span>
+		</div>
+		<!-- <div id="ibar" style="margin: 20px 0px;">
+			<p>
+				Adarsh Sheth ·
+				<a href="https://www.linkedin.com/in/adarsh-sheth/" target="_blank">LinkedIn</a>
+				·
+				<a href="mailto:adarshsheth@tamu.edu">adarshsheth@tamu.edu</a>
+			</p>
+		</div> -->
+
+		<!-- TABS UI FOR MULTIPLE RESUMES -->
+		<p class="btn-hdr"><span onclick="window.location.href='/presume'" style="cursor: auto;">
+				Select
+			</span> a resume:</p>
+		<div class="portfolio-filters">
+			<!-- <button class="filter-btn active" id="tab-general"
+				onclick="switchResume('general', 'media/resume/base_general.pdf')">GENERAL</button>
+			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
+				title="Coming Soon">MECHANICAL</button>
+			<button class="filter-btn" id="tab-sw" disabled style="opacity: 0.5; cursor: not-allowed;"
+				title="Coming Soon">SOFTWARE</button>
+			<button class="filter-btn" id="tab-se" disabled style="opacity: 0.5; cursor: not-allowed;"
+				title="Coming Soon">SYSTEMS</button> -->
+		</div>
+
+		<!-- CLEAN NATIVE PDF.JS VIEWER (With Floating Download) -->
+		<div id="pdf-section">
+			<div class="pdf-wrapper">
+				<a href="media/resume/general.pdf" id="floating-dl-btn" download="Adarsh_Sheth_Resume.pdf"
+					class="floating-dl-btn">
+					<i class="fas fa-download"></i> DOWNLOAD
+				</a>
+				<div id="pdf-container">
+					<!-- Canvas and text layers are injected dynamically here -->
+				</div>
+			</div>
+		</div>
+		<section id="sec-skills" class="sb" data-k="skills">
+			<div class="sh">
+				<span class="sh-r"></span>
+				<button class="sh-pulse-btn" onclick="copyAnchorURL('sec-skills'); scrollToSec('sec-skills')">
+					<h2>SKILLS</h2>
+				</button>
+				<span class="sh-r"></span>
+			</div>
+
+			<div id="skills-container" class="skills-wrap"></div>
+		</section>
+	</div>
+	<div id="footer-placeholder"></div>
+
+	<script src="script.js"></script>
+
+	<script src="resume-script.js"></script>
+	<script>
+		const PUBLIC_CONTACT_TEXT = "tx.ag/adarsh | linkedin.com/in/adarsh-sheth | Bay Area, CA & College Station, TX";
+
+		async function switchResume(tabId) {
+			const resume = masterResumeConfig.find(r => r.id === tabId);
+			if (!resume || resume.status !== 'ready') return;
+
+			document.querySelectorAll('.filter-btn, .sbn').forEach(el => el.classList.remove('active'));
+
+			const tab = document.getElementById('tab-' + tabId);
+			if (tab) tab.classList.add('active');
+			const sbLink = document.querySelector(`.sbn[data-k="${tabId}"]`);
+			if (sbLink) sbLink.classList.add('active');
+
+			currentDownloadName = `AdarshSheth_Resume${resume.fileSuffix}.pdf`;
+			currentBasePdfUrl = resume.publicPath;
+
+			await generateAndRenderPublicPDF();
+		}
+
+		async function generateAndRenderPublicPDF() {
+			const container = document.getElementById('pdf-container');
+			container.style.opacity = '0.3';
+
+			try {
+				const existingPdfBytes = await fetch(currentBasePdfUrl).then(res => res.arrayBuffer());
+				const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+				const form = pdfDoc.getForm();
+
+				try {
+					const contactField = form.getTextField('ContactField');
+					contactField.setText(PUBLIC_CONTACT_TEXT);
+				} catch (e) { }
+
+				form.flatten();
+				const pdfBytes = await pdfDoc.save();
+				const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+				if (currentGeneratedBlobUrl) URL.revokeObjectURL(currentGeneratedBlobUrl);
+				currentGeneratedBlobUrl = URL.createObjectURL(blob);
+
+				const dlBtn = document.getElementById('floating-dl-btn');
+				if (dlBtn) {
+					dlBtn.href = currentGeneratedBlobUrl;
+					dlBtn.download = currentDownloadName;
+				}
+
+				await renderPDF(currentGeneratedBlobUrl);
+			} catch (err) {
+				console.error("Error generating public PDF:", err);
+				container.style.opacity = '1';
+			}
+		}
+
+		document.addEventListener("DOMContentLoaded", () => {
+			buildResumeUI(false);
+			switchResume('general'); // Load default on start
+		});
+	</script>
+	
+</body>
+
+</html>

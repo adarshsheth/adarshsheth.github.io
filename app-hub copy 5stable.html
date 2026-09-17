@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#647661">
+
+    <title>App Hub • Adarsh Sheth</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- AES Encryption Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        :root {
+            /* Softer color for UI hierarchy */
+            --g-soft: color-mix(in srgb, var(--title) 50%, transparent);
+        }
+
+        /* ── PAGE LAYOUT FIX FOR SHORT PAGES ── */
+        html,
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mn {
+            flex: 1;
+            margin-left: 0;
+            padding-top: calc(var(--navh) + 50px);
+        }
+
+        footer {
+            box-shadow: 0px -8px 25px color-mix(in srgb, var(--border) 60%, transparent),
+                0px 8px 25px color-mix(in srgb, var(--border) 60%, transparent) !important;
+            margin-top: auto;
+        }
+
+        #hero {
+            padding-bottom: 10px;
+        }
+
+        /* ── PUBLIC/PRIVATE TOGGLE ── */
+        .visibility-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 48px 40px;
+        }
+
+        .visibility-toggle {
+            display: inline-flex;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 100px;
+            padding: 4px;
+            position: relative;
+        }
+
+        .toggle-option {
+            padding: 8px 24px;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--dimtitle);
+            cursor: pointer;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .toggle-option.active {
+            color: var(--bg);
+            background: var(--title);
+        }
+
+        .visibility-toggle input[type="radio"] {
+            display: none;
+        }
+
+        /* ── LOCK SCREEN MODAL ── */
+        #login-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: color-mix(in srgb, var(--bg) 50%, transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lock-box {
+            position: relative;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .lock-box h2 {
+            font-weight: 900;
+            margin-top: 0;
+            letter-spacing: 0.05em;
+            color: var(--text);
+        }
+
+        .lock-box input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            margin-bottom: 20px;
+            width: calc(100% - 26px);
+            font-family: "Rubik", sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .lock-box input:focus {
+            border-color: var(--g-soft);
+        }
+
+        .lock-box button.unlock-btn {
+            background: var(--title);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 100px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: "Rubik", sans-serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .lock-box button.unlock-btn:hover {
+            background: var(--g-soft);
+            transform: translateY(-2px);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--dimtitle);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #ff6b6b;
+        }
+
+        /* ── HUB CONTAINER & SECTIONS ── */
+        .hub-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .hub-section-title {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            color: var(--dimtitle);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            border-bottom: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
+            padding-bottom: 2px;
+        }
+
+        .hub-section-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Strict 2-column layout to prevent random single/triple columns */
+        .hub-section-grid.is-short-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        /* ── HUB ROW LAYOUT ── */
+        .hub-row {
+            display: grid;
+            grid-template-columns: 30px 140px 1fr;
+            gap: 15px;
+            align-items: center;
+
+            background: color-mix(in srgb, var(--surface) 50%, transparent);
+            border: 2px solid color-mix(in srgb, var(--border) 10%, transparent);
+            border-radius: 12px;
+            padding: 6px 12px;
+
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .hub-row.is-two-line {
+            align-items: start;
+            padding: 10px 12px;
+        }
+
+        /* Desktop Hover State */
+        @media (hover: hover) {
+
+            body:not(.suppress-mouse-hover) .hub-row:hover,
+            .hub-row:focus-visible {
+                border-color: var(--g-soft);
+                transform: scale(0.98);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            body:not(.suppress-mouse-hover) .hub-row:hover .hub-num,
+            .hub-row:focus-visible .hub-num {
+                background: var(--g-soft);
+            }
+
+            body:not(.suppress-mouse-hover) .hub-variant:hover {
+                background: color-mix(in srgb, var(--border) 10%, transparent);
+                border-color: color-mix(in srgb, var(--border) 10%, transparent);
+            }
+
+            body:not(.suppress-mouse-hover) .hub-row:hover .hub-variant.is-active-variant,
+            .hub-row:focus-visible .hub-variant.is-active-variant {
+                background: var(--g-soft);
+                color: white;
+                border-color: var(--g-soft);
+            }
+        }
+
+        /* Mobile / Active Press State */
+        .hub-row:active {
+            border-color: var(--g-soft) !important;
+            transform: scale(0.96) !important;
+        }
+
+        .hub-row:active .hub-num {
+            background: var(--g-soft);
+        }
+
+        .hub-row:active .hub-variant.is-active-variant {
+            background: var(--g-soft);
+            color: white;
+            border-color: var(--g-soft);
+        }
+
+        /* Keyboard Shortcut Active State (Applied instantly on keydown) */
+        .hub-row.is-shortcut-active {
+            border-color: var(--g-soft) !important;
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hub-row.is-shortcut-active .hub-num {
+            background: var(--g-soft);
+        }
+
+        .hub-row.is-shortcut-active .hub-variant.is-active-variant {
+            background: var(--g-soft);
+            color: white;
+            border-color: var(--g-soft);
+        }
+
+        /* Universal Copied Flash State */
+        .hub-row.copied-state {
+            background: color-mix(in srgb, var(--g-soft) 25%, transparent) !important;
+            border-color: var(--g-soft) !important;
+            transform: scale(0.98);
+            transition: background 0s, border-color 0s !important;
+        }
+
+        /* ── COLUMN 1: KEYBIND BADGE ── */
+        .hub-num {
+            background: var(--g-soft);
+            color: white;
+            font-weight: 800;
+            font-size: 11.5px;
+            width: 30px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+        }
+
+        .hub-num.is-letter {
+            background: color-mix(in srgb, var(--g-soft) 60%, transparent);
+            font-size: 11px;
+        }
+
+        .hub-num.is-icon {
+            font-size: 10px;
+            background: color-mix(in srgb, var(--g-soft) 40%, transparent);
+        }
+
+        .hub-row.is-two-line .hub-num {
+            margin-top: 3px;
+        }
+
+        /* ── COLUMN 2: TITLE ── */
+        .hub-title-col {
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--g-soft);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+        }
+
+        .hub-row.is-two-line .hub-title-col {
+            margin-top: 4px;
+        }
+
+        /* ── COLUMN 3: VARIATIONS CONTAINER ── */
+        .hub-content-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hub-variant {
+            background: color-mix(in srgb, var(--border) 0%, transparent);
+            border: 2px solid color-mix(in srgb, var(--g-soft) 50%, transparent);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            color: var(--text);
+            transition: all 0.15s ease;
+
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+
+            /* Forces variations to dynamically fill and cap at exactly 2 lines total */
+            /* flex: 1 1 40%;
+            min-width: 0;
+            max-width: 100%; */
+            /* flex: 0 1 auto; 
+            min-width: 0;
+            max-width: 100%; */
+            flex: 1 1 40%;
+            min-width: 0;
+            max-width: fit-content;
+
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .copied-variant-state {
+            background: var(--g-soft) !important;
+            color: white !important;
+            border-color: var(--g-soft) !important;
+            transition: none !important;
+        }
+
+        .hub-row.is-two-line .hub-content-col {
+            margin-top: 2px;
+        }
+
+        /* Locked State Visuals & Hard Pointer Events Disable */
+        .hub-row.is-fully-locked {
+            opacity: 0.5;
+            pointer-events: none !important;
+        }
+
+        .hub-variant.is-locked-variant {
+            opacity: 0.4;
+            pointer-events: none !important;
+            background: transparent !important;
+            border-color: color-mix(in srgb, var(--border) 20%, transparent) !important;
+        }
+
+        @media (max-width: 900px) {
+            .hub-section-grid.is-short-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Maintains 1-row layout on mobile */
+        @media (max-width: 600px) {
+            .hub-wrapper {
+                padding: 0 16px 40px;
+            }
+
+            .hub-row {
+                grid-template-columns: 28px 100px 1fr;
+                gap: 10px;
+                padding: 8px 10px;
+            }
+
+            .hub-num {
+                width: 28px;
+                height: 24px;
+                font-size: 11px;
+            }
+
+            .hub-title-col {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-full-bg"></div>
+    <div id="blur-page"></div>
+
+    <div id="nav-placeholder"></div>
+    <div id="sb-overlay"></div>
+
+    <div class="copy-toast" id="copy-toast">COPIED TO CLIPBOARD!</div>
+
+    <!-- LOCK SCREEN MODAL -->
+    <div id="login-wrapper" style="display: none;">
+        <div class="lock-box">
+            <button class="close-modal" onclick="cancelUnlock()">×</button>
+            <h2 style="margin-bottom: 10px;">SECURE ACCESS</h2>
+            <input type="password" id="pw" placeholder="Enter Password"
+                onkeypress="if(event.key === 'Enter') unlock()" />
+            <button id="unlock-btn" class="unlock-btn" onclick="unlock()">Unlock Items</button>
+            <div id="error" style="color: #ff6b6b; font-size: 12px; margin-top: 15px; display: none; font-weight: 500;">
+                Incorrect password or corrupt payload.
+            </div>
+        </div>
+    </div>
+
+    <div id="mn">
+        <section id="hero">
+            <h1 style="padding-bottom:20px;">APP HUB</h1>
+        </section>
+
+        <!-- PUBLIC / PRIVATE TOGGLE -->
+        <div class="visibility-toggle-container">
+            <div class="visibility-toggle">
+                <label class="toggle-option active" id="label-public">
+                    <input type="radio" name="visibility" value="public" checked
+                        onchange="handleVisibilityToggle(this)">
+                    PUBLIC
+                </label>
+                <label class="toggle-option" id="label-private">
+                    <input type="radio" name="visibility" value="private" onchange="handleVisibilityToggle(this)">
+                    PRIVATE
+                </label>
+            </div>
+        </div>
+
+        <div class="hub-wrapper" id="hub-container"></div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="script.js" defer></script>
+
+    <script>
+        // ── STATE VARIABLES ──
+        let isUnlocked = false;
+        let currentPassword = '';
+        let currentVisibility = 'public';
+        let globalRawData = [];
+
+        // Evaluates if a string is standard AES encrypted Base64 ("Salted__")
+        const isEncrypted = (str) => str.startsWith('U2FsdGVkX1');
+
+        // ── TOGGLE & SECURITY LOGIC ──
+        function handleVisibilityToggle(radio) {
+            if (radio.value === 'private') {
+                if (!isUnlocked) {
+                    document.getElementById('login-wrapper').style.display = 'flex';
+                    document.getElementById('pw').focus();
+                } else {
+                    currentVisibility = 'private';
+                    updateToggleUI('private');
+                    renderHub();
+                }
+            } else {
+                currentVisibility = 'public';
+                updateToggleUI('public');
+                renderHub();
+            }
+        }
+
+        function cancelUnlock() {
+            document.getElementById('login-wrapper').style.display = 'none';
+            document.querySelector('input[value="public"]').checked = true;
+            updateToggleUI('public');
+            document.getElementById('error').style.display = 'none';
+        }
+
+        function updateToggleUI(vis) {
+            document.getElementById('label-public').classList.remove('active');
+            document.getElementById('label-private').classList.remove('active');
+            document.getElementById(`label-${vis}`).classList.add('active');
+        }
+
+        function unlock() {
+            const pwInput = document.getElementById('pw').value;
+            const btn = document.getElementById('unlock-btn');
+            const err = document.getElementById('error');
+
+            btn.textContent = "UNLOCKING...";
+            err.style.display = 'none';
+
+            // Locate the first encrypted string anywhere to test the password
+            const testString = globalRawData.flatMap(e => e.variations).find(v => isEncrypted(v));
+
+            if (testString) {
+                try {
+                    const bytes = CryptoJS.AES.decrypt(testString, pwInput);
+                    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+                    if (!decrypted) throw new Error("Decryption failed");
+                } catch (e) {
+                    err.style.display = 'block';
+                    btn.textContent = "Unlock Items";
+                    return;
+                }
+            }
+
+            isUnlocked = true;
+            currentPassword = pwInput;
+            currentVisibility = 'private';
+
+            document.getElementById('login-wrapper').style.display = 'none';
+            updateToggleUI('private');
+            document.querySelector('input[value="private"]').checked = true;
+
+            btn.textContent = "Unlock Items";
+            document.getElementById('pw').value = '';
+
+            renderHub();
+        }
+
+        // ── HOVER SUPPRESSION ──
+        document.addEventListener('keydown', () => {
+            document.body.classList.add('suppress-mouse-hover');
+        });
+
+        document.addEventListener('mousemove', () => {
+            if (document.body.classList.contains('suppress-mouse-hover')) {
+                document.body.classList.remove('suppress-mouse-hover');
+            }
+        });
+
+        // ── HYBRID COPY UTILITY ──
+        function hybridCopy(textToCopy) {
+            return new Promise((resolve, reject) => {
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(textToCopy).then(resolve).catch((err) => {
+                        fallbackCopy(textToCopy) ? resolve() : reject(new Error('Fallback copy failed'));
+                    });
+                } else {
+                    fallbackCopy(textToCopy) ? resolve() : reject(new Error('Fallback copy failed'));
+                }
+            });
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                return successful;
+            } catch (err) {
+                document.body.removeChild(textArea);
+                return false;
+            }
+        }
+
+        // ── MAIN INITIALIZATION ──
+        document.addEventListener("DOMContentLoaded", async () => {
+            const container = document.getElementById('hub-container');
+
+            try {
+                const response = await fetch('app-data.csv');
+                const csvText = await response.text();
+
+                const parseCSV = (text) => {
+                    const entries = [];
+                    let parts = [];
+                    let currentPart = '';
+                    let inQuotes = false;
+
+                    text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+
+                        if (char === '"') {
+                            if (inQuotes && text[i + 1] === '"') {
+                                currentPart += '"';
+                                i++;
+                            } else {
+                                inQuotes = !inQuotes;
+                            }
+                        } else if (char === ',' && !inQuotes) {
+                            parts.push(currentPart.trim());
+                            currentPart = '';
+                        } else if (char === '\n' && !inQuotes) {
+                            parts.push(currentPart.trim());
+
+                            if (parts.length >= 2 && parts[0] !== 'Section' && parts[0] !== '') {
+                                const section = parts[0] || 'General';
+                                const title = parts[1] || '';
+
+                                const variations = parts.slice(2, 5).filter(v =>
+                                    v.length > 0 && v.toUpperCase() !== 'TRUE' && v.toUpperCase() !== 'FALSE'
+                                );
+
+                                if (title && variations.length > 0) {
+                                    entries.push({ section, title, variations });
+                                }
+                            }
+
+                            parts = [];
+                            currentPart = '';
+                        } else {
+                            currentPart += char;
+                        }
+                    }
+
+                    if (parts.length > 0 || currentPart.length > 0) {
+                        parts.push(currentPart.trim());
+                        if (parts.length >= 2 && parts[0] !== 'Section' && parts[0] !== '') {
+                            const section = parts[0] || 'General';
+                            const title = parts[1] || '';
+                            const variations = parts.slice(2, 5).filter(v =>
+                                v.length > 0 && v.toUpperCase() !== 'TRUE' && v.toUpperCase() !== 'FALSE'
+                            );
+                            if (title && variations.length > 0) {
+                                entries.push({ section, title, variations });
+                            }
+                        }
+                    }
+
+                    return entries;
+                };
+
+                globalRawData = parseCSV(csvText);
+                renderHub();
+
+            } catch (error) {
+                console.error('Error loading hub CSV data:', error);
+                container.innerHTML = '<div style="padding: 20px; color: #ff6b6b;">Failed to load application hub data. Make sure app-data.csv is present and correctly formatted.</div>';
+            }
+        });
+
+        // ── DYNAMIC RENDERING ──
+        function renderHub() {
+            const container = document.getElementById('hub-container');
+            container.innerHTML = '';
+
+            const sectionsMap = {};
+            globalRawData.forEach((entry, index) => {
+                if (!sectionsMap[entry.section]) {
+                    sectionsMap[entry.section] = [];
+                }
+                sectionsMap[entry.section].push({ ...entry, globalIndex: index });
+            });
+
+            Object.keys(sectionsMap).forEach(sectionName => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'hub-section';
+
+                const titleEl = document.createElement('div');
+                titleEl.className = 'hub-section-title';
+                titleEl.textContent = sectionName;
+                sectionDiv.appendChild(titleEl);
+
+                const gridEl = document.createElement('div');
+                gridEl.className = 'hub-section-grid';
+
+                const allShort = sectionsMap[sectionName].every(item => {
+                    const totalLen = item.variations.reduce((acc, v) => acc + (isEncrypted(v) ? 8 : v.length), 0);
+                    return totalLen < 45;
+                });
+
+                if (allShort && sectionsMap[sectionName].length > 1) {
+                    gridEl.classList.add('is-short-grid');
+                }
+
+                sectionsMap[sectionName].forEach((entry) => {
+                    const index = entry.globalIndex;
+                    let displayLabel;
+                    let badgeClass = '';
+
+                    // Exclusively support A-Z across the board
+                    if (index >= 0 && index <= 25) {
+                        displayLabel = String.fromCharCode(97 + index); // a-z
+                        badgeClass = ' is-letter';
+                    } else {
+                        displayLabel = '<i class="fas fa-copy"></i>';
+                        badgeClass = ' is-icon';
+                    }
+
+                    const row = document.createElement('div');
+                    row.className = 'hub-row';
+
+                    let defaultCopyVal = '';
+                    let firstUnlockedIdx = -1;
+
+                    const variantsData = entry.variations.map((v, vIdx) => {
+                        let displayVal = v;
+                        let copyVal = v;
+                        let isLocked = false;
+
+                        if (isEncrypted(v)) {
+                            if (currentVisibility === 'public') {
+                                displayVal = '••••••••';
+                                copyVal = '';
+                                isLocked = true;
+                            } else {
+                                try {
+                                    const bytes = CryptoJS.AES.decrypt(v, currentPassword);
+                                    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+                                    if (!decrypted) throw new Error("Bad Decryption");
+                                    copyVal = decrypted;
+                                    displayVal = decrypted;
+                                } catch (e) {
+                                    displayVal = 'ERROR';
+                                    copyVal = '';
+                                    isLocked = true;
+                                }
+                            }
+                        }
+
+                        // Remove actual literal newlines from the visually displayed UI pill
+                        displayVal = displayVal.replace(/\n/g, '  ');
+
+                        if (!isLocked && firstUnlockedIdx === -1) {
+                            firstUnlockedIdx = vIdx;
+                            defaultCopyVal = copyVal;
+                        }
+
+                        return { displayVal, copyVal, isLocked, vIdx };
+                    });
+
+                    if (firstUnlockedIdx === -1) {
+                        row.classList.add('is-fully-locked');
+                    } else {
+                        row.setAttribute('tabindex', '0');
+                        row.setAttribute('data-clipboard', defaultCopyVal);
+                    }
+
+                    const variantsHtml = variantsData.map((data) => {
+                        const activeClass = data.vIdx === firstUnlockedIdx ? ' is-active-variant' : '';
+                        const lockedClass = data.isLocked ? ' is-locked-variant' : '';
+
+                        // HTML-safe string for the title tooltip attribute
+                        const safeTitle = data.displayVal.replace(/"/g, '&quot;');
+
+                        return `<span class="hub-variant${activeClass}${lockedClass}" data-val="${encodeURIComponent(data.copyVal)}" title="${safeTitle}">${data.displayVal}</span>`;
+                    }).join('');
+
+                    row.innerHTML = `
+                        <div class="hub-num${badgeClass}">${displayLabel}</div>
+                        <div class="hub-title-col">${entry.title}</div>
+                        <div class="hub-content-col">${variantsHtml}</div>
+                    `;
+
+                    gridEl.appendChild(row);
+                });
+
+                sectionDiv.appendChild(gridEl);
+                container.appendChild(sectionDiv);
+            });
+
+            document.querySelectorAll('.hub-row').forEach(row => {
+                const contentCol = row.querySelector('.hub-content-col');
+                if (contentCol && contentCol.offsetHeight > 30) {
+                    row.classList.add('is-two-line');
+                }
+            });
+
+            initCopyFunctionality();
+        }
+
+        // ── COPY BINDINGS & KEYBOARD LOGIC ──
+        function initCopyFunctionality() {
+            const toast = document.getElementById('copy-toast');
+            let toastTimeout;
+
+            window.onblur = () => resetActiveShortcut();
+            document.onkeydown = handleGlobalKeydown;
+            document.onkeyup = handleGlobalKeyup;
+
+            let activeShortcutRow = null;
+            let activeShortcutKey = null;
+
+            function resetActiveShortcut() {
+                if (activeShortcutRow) {
+                    activeShortcutRow.classList.remove('is-shortcut-active');
+                }
+                activeShortcutKey = null;
+                activeShortcutRow = null;
+            }
+
+            function handleGlobalKeydown(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                const char = e.key.toLowerCase();
+
+                // 1) If user is already holding a letter and presses 1, 2, or 3
+                if (activeShortcutRow && ['1', '2', '3'].includes(char)) {
+                    e.preventDefault();
+                    const variantIdx = parseInt(char) - 1;
+                    const variants = Array.from(activeShortcutRow.querySelectorAll('.hub-variant'));
+
+                    if (variants[variantIdx] && !variants[variantIdx].classList.contains('is-locked-variant')) {
+                        variants.forEach(v => v.classList.remove('is-active-variant'));
+                        variants[variantIdx].classList.add('is-active-variant');
+                        activeShortcutRow.setAttribute('data-clipboard', decodeURIComponent(variants[variantIdx].getAttribute('data-val')));
+                    }
+                    return;
+                }
+
+                // 2) If the user presses a new A-Z letter, lock it in
+                if (!activeShortcutKey && char.length === 1 && char >= 'a' && char <= 'z') {
+                    const rowIndex = char.charCodeAt(0) - 97; // a maps to 0
+                    const activeRows = document.querySelectorAll('.hub-row');
+
+                    if (activeRows[rowIndex] && !activeRows[rowIndex].classList.contains('is-fully-locked')) {
+                        e.preventDefault();
+                        activeShortcutKey = char;
+                        activeShortcutRow = activeRows[rowIndex];
+
+                        activeShortcutRow.classList.add('is-shortcut-active');
+
+                        const variants = Array.from(activeShortcutRow.querySelectorAll('.hub-variant'));
+                        const firstUnlocked = variants.find(v => !v.classList.contains('is-locked-variant'));
+                        if (firstUnlocked) {
+                            variants.forEach(v => v.classList.remove('is-active-variant'));
+                            firstUnlocked.classList.add('is-active-variant');
+                            activeShortcutRow.setAttribute('data-clipboard', decodeURIComponent(firstUnlocked.getAttribute('data-val')));
+                        }
+                    }
+                }
+            }
+
+            function handleGlobalKeyup(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                const char = e.key.toLowerCase();
+
+                // 3) Trigger copy instantly upon releasing the held letter
+                if (char === activeShortcutKey && activeShortcutRow) {
+                    triggerCopy(activeShortcutRow.getAttribute('data-clipboard'), activeShortcutRow);
+                    resetActiveShortcut();
+                }
+            }
+
+            const triggerCopy = (textToCopy, rowElement) => {
+                if (!textToCopy) return;
+
+                hybridCopy(textToCopy).then(() => {
+                    let toastMessage = "COPIED TO CLIPBOARD!";
+
+                    if (rowElement) {
+                        rowElement.classList.add('copied-state');
+
+                        const allVariants = Array.from(rowElement.querySelectorAll('.hub-variant'));
+                        const variantEl = allVariants.find(v => decodeURIComponent(v.getAttribute('data-val')) === textToCopy);
+
+                        if (variantEl) {
+                            variantEl.classList.add('copied-variant-state');
+
+                            // Grab the row letter and calculate the 1-based variant index
+                            const numEl = rowElement.querySelector('.hub-num');
+                            const rowLabel = numEl ? numEl.textContent.trim().toUpperCase() : '';
+
+                            if (rowLabel) {
+                                const variantNum = allVariants.indexOf(variantEl) + 1;
+                                toastMessage = `COPIED ${rowLabel}${variantNum}!`;
+                            }
+                        }
+
+                        if (rowElement.flashTimeout) clearTimeout(rowElement.flashTimeout);
+                        rowElement.flashTimeout = setTimeout(() => {
+                            rowElement.classList.remove('copied-state');
+                            if (variantEl) variantEl.classList.remove('copied-variant-state');
+                        }, 150);
+                    }
+
+                    // Inject the dynamic message into the toast element
+                    toast.textContent = toastMessage;
+                    toast.classList.add('show');
+
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 2000);
+                }).catch(err => console.error('All copy methods failed: ', err));
+            };
+
+            const copyRows = document.querySelectorAll('.hub-row:not(.is-fully-locked)');
+            copyRows.forEach(row => {
+                const allVariants = Array.from(row.querySelectorAll('.hub-variant'));
+                const focusableVariants = allVariants.filter(v => !v.classList.contains('is-locked-variant'));
+
+                if (focusableVariants.length === 0) return;
+
+                row.addEventListener('mousemove', (e) => {
+                    if (!e.target.classList.contains('hub-variant')) {
+                        if (!focusableVariants[0].classList.contains('is-active-variant')) {
+                            focusableVariants.forEach(v => v.classList.remove('is-active-variant'));
+                            focusableVariants[0].classList.add('is-active-variant');
+                            row.setAttribute('data-clipboard', decodeURIComponent(focusableVariants[0].getAttribute('data-val')));
+                        }
+                    }
+                });
+
+                focusableVariants.forEach(variant => {
+                    variant.addEventListener('mouseenter', () => {
+                        focusableVariants.forEach(v => v.classList.remove('is-active-variant'));
+                        variant.classList.add('is-active-variant');
+                        row.setAttribute('data-clipboard', decodeURIComponent(variant.getAttribute('data-val')));
+                    });
+
+                    variant.addEventListener('touchstart', () => {
+                        focusableVariants.forEach(v => v.classList.remove('is-active-variant'));
+                        variant.classList.add('is-active-variant');
+                        row.setAttribute('data-clipboard', decodeURIComponent(variant.getAttribute('data-val')));
+                    }, { passive: true });
+
+                    variant.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const val = decodeURIComponent(variant.getAttribute('data-val'));
+                        triggerCopy(val, row);
+                    });
+                });
+
+                row.addEventListener('click', () => {
+                    triggerCopy(row.getAttribute('data-clipboard'), row);
+                });
+
+                row.addEventListener('keydown', (e) => {
+                    let activeIdx = focusableVariants.findIndex(v => v.classList.contains('is-active-variant'));
+
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        if (activeIdx < focusableVariants.length - 1) {
+                            focusableVariants[activeIdx].classList.remove('is-active-variant');
+                            focusableVariants[activeIdx + 1].classList.add('is-active-variant');
+                            row.setAttribute('data-clipboard', decodeURIComponent(focusableVariants[activeIdx + 1].getAttribute('data-val')));
+                        }
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        if (activeIdx > 0) {
+                            focusableVariants[activeIdx].classList.remove('is-active-variant');
+                            focusableVariants[activeIdx - 1].classList.add('is-active-variant');
+                            row.setAttribute('data-clipboard', decodeURIComponent(focusableVariants[activeIdx - 1].getAttribute('data-val')));
+                        }
+                    } else if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        triggerCopy(row.getAttribute('data-clipboard'), row);
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
