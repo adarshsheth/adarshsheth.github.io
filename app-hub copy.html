@@ -262,39 +262,7 @@
                 border-color: color-mix(in srgb, var(--border) 10%, transparent);
                 background: var(--variantSpecial);
                 border-color: var(--variantSpecial);
-                color: white !important; /* FIX: Forces text to white on hover */
             }
-
-        } /* This closes the @media (hover: hover) block */
-
-        /* ── STACKED HUB ROW (For Skills) ── */
-        .hub-row.is-stacked {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 12px 14px;
-            gap: 10px;
-        }
-
-        .hub-row.is-stacked .hub-title-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            border-bottom: 2px solid color-mix(in srgb, var(--g-soft) 20%, transparent);
-            padding-bottom: 8px;
-        }
-
-        .hub-row.is-stacked .hub-title-col {
-            font-size: 13px;
-            margin-top: 0;
-            white-space: normal;
-        }
-
-        .hub-row.is-stacked .hub-content-col {
-            width: 100%;
-            margin-top: 0;
-        }
 
             body:not(.suppress-mouse-hover) .hub-row:hover .hub-variant.is-active-variant,
             .hub-row:focus-visible .hub-variant.is-active-variant {
@@ -304,6 +272,7 @@
                 background: var(--variantSpecial);
                 border-color: var(--variantSpecial);
             }
+        }
 
         /* Mobile / Active Press State */
         .hub-row:active {
@@ -446,7 +415,7 @@
             border-color: var(--g-soft) !important;
             transition: none !important;
             background: var(--variantSpecial) !important;
-            border-color: var(--variantSpecial) !important;
+            border-color:  var(--variantSpecial) !important;
         }
 
         .hub-row.is-two-line .hub-content-col {
@@ -496,15 +465,6 @@
                 font-size: 11px;
             }
         }
-
-
-
-
-
-
-
-
-
     </style>
 </head>
 
@@ -552,19 +512,6 @@
         </div>
 
         <div class="hub-wrapper" id="hub-container"></div>
-
-        <h1 class="hub-wrapper" style="font-weight: 900; padding-top: 50px; padding-bottom: 20px;">SKILLS</h1>
-        <div class="hub-wrapper" style="padding-top: 0;">
-            <div>
-                <div class="hub-section-title">DATABASE-BUILT</div>
-                <div id="csv-skills-container"></div>
-            </div>
-            <div>
-                <div class="hub-section-title">PORTFOLIO-DERIVED</div>
-                <div id="portfolio-skills-container"></div>
-            </div>
-        </div>
-
     </div>
 
     <div id="footer-placeholder"></div>
@@ -1095,146 +1042,6 @@
                 });
             });
         }
-
-
-
-
-
-
-
-
-        async function loadHubSkills() {
-            const catMap = {
-                tools: "Tools", des: "Design", sys: "Systems / Methodologies",
-                hw: "Hardware", swe: "Software Engineering", soft: "Soft Skills", gen: "General", misc: "Miscellaneous"
-            };
-
-            // 1. Fetch and Parse Portfolio HTML Skills
-            try {
-                const portRes = await fetch("portfolio.html");
-                const portHtml = await portRes.text();
-                const doc = new DOMParser().parseFromString(portHtml, "text/html");
-                const portSkills = {};
-
-                doc.querySelectorAll(".ec-summary .badge").forEach((badge) => {
-                    const cat = badge.dataset.cat || "misc";
-                    if (!portSkills[cat]) portSkills[cat] = new Set();
-                    portSkills[cat].add(badge.textContent.trim());
-                });
-
-                renderSkillBoxes(portSkills, "portfolio-skills-container", catMap);
-            } catch (e) { console.error("Portfolio skills fetch failed", e); }
-
-            // 2. Fetch and Parse CSV Skills
-            try {
-                const csvRes = await fetch("skills-data.csv");
-                const csvText = await csvRes.text();
-                const csvSkills = {};
-
-                csvText.split('\n').forEach(line => {
-                    const parts = line.split(',');
-                    if (parts.length >= 2) {
-                        const catName = parts[0].trim();
-                        // Join the rest back together in case a skill has a comma, and strip basic quotes
-                        const skill = parts.slice(1).join(',').trim().replace(/(^"|"$)/g, '');
-                        if (catName && skill && catName !== 'Category') {
-                            if (!csvSkills[catName]) csvSkills[catName] = new Set();
-                            csvSkills[catName].add(skill);
-                        }
-                    }
-                });
-
-                renderSkillBoxes(csvSkills, "csv-skills-container", null);
-            } catch (e) { console.error("CSV skills fetch failed", e); }
-
-            // 3a. Bind Click-to-Copy to individual skill variants
-            document.querySelectorAll('#csv-skills-container .hub-variant, #portfolio-skills-container .hub-variant').forEach(variant => {
-                variant.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevents the row click listener from firing
-                    const textToCopy = decodeURIComponent(variant.getAttribute('data-val'));
-
-                    hybridCopy(textToCopy).then(() => {
-                        const toast = document.getElementById('copy-toast');
-                        toast.textContent = `COPIED "${textToCopy.toUpperCase()}"!`;
-                        toast.classList.add('show');
-
-                        variant.classList.add('copied-variant-state');
-                        const row = variant.closest('.hub-row');
-                        if (row) row.classList.add('copied-state');
-
-                        setTimeout(() => {
-                            variant.classList.remove('copied-variant-state');
-                            if (row) row.classList.remove('copied-state');
-                        }, 150);
-
-                        setTimeout(() => toast.classList.remove('show'), 2000);
-                    });
-                });
-            });
-
-            // 3b. Bind Click-to-Copy to the entire category row
-            document.querySelectorAll('#csv-skills-container .hub-row.is-stacked, #portfolio-skills-container .hub-row.is-stacked').forEach(row => {
-                row.addEventListener('click', () => {
-                    const textToCopy = decodeURIComponent(row.getAttribute('data-clipboard'));
-                    const titleEl = row.querySelector('.hub-title-col');
-                    const categoryName = titleEl ? titleEl.textContent.trim().toUpperCase() : 'CATEGORY';
-
-                    hybridCopy(textToCopy).then(() => {
-                        const toast = document.getElementById('copy-toast');
-                        toast.textContent = `COPIED ALL ${categoryName} SKILLS!`;
-                        toast.classList.add('show');
-
-                        // Visual flash for the row and all variants inside it simultaneously
-                        row.classList.add('copied-state');
-                        row.querySelectorAll('.hub-variant').forEach(v => v.classList.add('copied-variant-state'));
-
-                        setTimeout(() => {
-                            row.classList.remove('copied-state');
-                            row.querySelectorAll('.hub-variant').forEach(v => v.classList.remove('copied-variant-state'));
-                        }, 150);
-
-                        setTimeout(() => toast.classList.remove('show'), 2000);
-                    });
-                });
-            });
-        }
-
-        function renderSkillBoxes(dataObj, containerId, categoryMap) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            // Uses the central app hub grid (2-columns on desktop, 1 on mobile)
-            let html = '<div class="hub-section-grid is-short-grid">';
-            for (const [catKey, skillSet] of Object.entries(dataObj)) {
-                const displayTitle = categoryMap && categoryMap[catKey] ? categoryMap[catKey] : catKey;
-                const sortedSkills = Array.from(skillSet).sort();
-                
-                // Create the comma-separated string for the row copy
-                const fullListStr = sortedSkills.join(', ');
-
-                const badgesHtml = sortedSkills
-                    .map(s => {
-                        const safeTitle = s.replace(/"/g, '&quot;');
-                        return `<span class="hub-variant" data-val="${encodeURIComponent(s)}" title="${safeTitle}">${s}</span>`;
-                    })
-                    .join('');
-
-                html += `
-                <div class="hub-row is-stacked" tabindex="0" data-clipboard="${encodeURIComponent(fullListStr)}">
-                    <div class="hub-title-wrap">
-                        <div class="hub-num is-icon"><i class="fas fa-layer-group"></i></div>
-                        <div class="hub-title-col">${displayTitle}</div>
-                    </div>
-                    <div class="hub-content-col">${badgesHtml}</div>
-                </div>
-                `;
-            }
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        // Ensure this runs after the main DOM is ready
-        document.addEventListener("DOMContentLoaded", loadHubSkills);
     </script>
 </body>
 

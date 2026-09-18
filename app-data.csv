@@ -1,8 +1,9 @@
-Section,Title,Variation1,Variation2,Variation3
+Section,Title,Variation1,Variation2,Variation3,Variation4,Variation5
 
 
 Links,LinkedIn,https://linkedin.com/in/adarsh-sheth,,
 Links,Portfolio,https://adarshsheth.com,,
+Links,GitHub,https://github.com/adarshsheth/,,
 
 
 
@@ -14,31 +15,33 @@ Personal,University,"Texas A&M University, College Station","Texas A&M Universit
 Personal,Grad,"05/2028","May 2028","Spring 2028"
 
 
+Common,Start,"05/15/2027"
+Common,Salary,"$30/hr"
+Common,N/A,"N/A"
 
-Resume Experiences,LOC_CSTAT,"College Station, TX",,
-Resume Experiences,LOC_SR,"San Ramon, CA",,
 
-Resume Experiences,VFD,"Texas A&M Vertical Flight Design Team","Aerodynamics Engineer","• Executed 100+ parametric CFD analyses (SimScale) for 25-lb hexacopter, feeding forces data into 6DoF dynamics model, ensuring 100% flight stability under 15-kt gusts and autonomous payload pick-up and delivery precision within 3-by-3 ft zone
+
+Resume Experiences,LOCATION,"College Station, TX","San Ramon, CA"
+
+Resume Experiences,VFD,"Aerodynamics Engineer","Texas A&M Vertical Flight Design Team","• Executed 100+ parametric CFD analyses (SimScale) for 25-lb hexacopter, feeding forces data into 6DoF dynamics model, ensuring 100% flight stability under 15-kt gusts and autonomous payload pick-up and delivery precision within 3-by-3 ft zone
 • Integrated translational and hover state mass-power functions into 1000 flight paths (Monte Carlo) to optimize firefighting response, achieving -27% time and +17% points increase, winning 1st presentation and 2nd technical report at DBVF competition
 • Iterated arm-folding mechanism and authored field installation guide for compact transport and 50% faster pre-flight deployment"
 
-Resume Experiences,Ray,"Raytheon","Systems Engineer Intern","• Architected satellite acquisition pipeline across 15K+ LEO parse (ECI/ECEF/AER) under FOV/kinematic/RSO signature constraints for Over-the-Horizon Radar (OTHR) modernization initiative, slashing runtime by 50 minutes across benchmarks
+Resume Experiences,Ray,"Systems Engineer Intern","Raytheon","• Architected satellite acquisition pipeline across 15K+ LEO parse (ECI/ECEF/AER) under FOV/kinematic/RSO signature constraints for Over-the-Horizon Radar (OTHR) modernization initiative, slashing runtime by 50 minutes across benchmarks
 • Developed standalone target-tracking script (MATLAB, Bitbucket) with dynamic geospatial trajectory overlay and partner-supplied propagator integration for live customer demonstration, easing radar operations and eliminating external dependencies
 • Automated TLE fetch (Space-Track API) and refactored data schemas to Alpha-5 to ensure downstream propagation continuity"
 
-Resume Experiences,RED,"Texas A&M Rocket Engine Design","Fluid Systems Engineer","• Developed fluid system feedline schematics mapping NPT/JIC/CGA interfaces with control elements for streamlined assembly and formulated 11’ tank precision machining approach complemented by O-ring micro-irregularity absorption for fuel separation 
+Resume Experiences,RED,"Fluid Systems Engineer","Texas A&M Rocket Engine Design","02/2025","01/2026","• Developed fluid system feedline schematics mapping NPT/JIC/CGA interfaces with control elements for streamlined assembly and formulated 11’ tank precision machining approach complemented by O-ring micro-irregularity absorption for fuel separation 
 • Executed Upper Nitrous FMEA (RPN weighting) and formulated N2O leak/pressure test procedures (P&ID) for Elysium 2.0 bi-propellant engine, presenting fill process and integration visualizations within V&V framework to clear PDR/CDR milestones
 • Automated BoM with cost authentication, part overrides, and dynamic inventory for hardware traceability and financial records"
 
-Resume Experiences,Ignite25,"Aggies Ignite Challenge","Lead Aircraft Sizing & Performance Engineer","• Designed lift+cruise mountain S&R eVTOL, delivering 5-lb payload (10K ft altitude, 40 kt winds, 50% visibility), placing 1st
+Resume Experiences,Ignite25,"Lead Aircraft Sizing & Performance Engineer","Aggies Ignite Challenge","11/2025","• Designed lift+cruise mountain S&R eVTOL, delivering 5-lb payload (10K ft altitude, 40 kt winds, 50% visibility), placing 1st
 • Programmed iterative conceptual aircraft sizing algorithm (Python) to evaluate 2M+ configurations against conflicting weight and aerodynamic constraints, optimizing planform area and rotor fractions to cut MTOW by 112 lbs, sustaining cruise at 42 mph
 • Validated with sourcing feasibility analysis, built subsystem CAD model (Fusion 360), and sliced for 3D printing (Bambu Studio)"
 
-Resume Experiences,DVR,"Dougherty Valley VEX Robotics","Co-Founder, Captain, Mechanical Engineer","• Oversaw CAD (Fusion 360), T&E, machining, mechanical assembly, strategy optimization, documentation, and systems integration for 12-member team, winning 8 awards, 2 world championship qualifiers, and ranking in top 2% of 20,000 teams
+Resume Experiences,DVR,"Co-Founder, Captain, Mechanical Engineer","Dougherty Valley VEX Robotics","03/2022","06/2024","• Oversaw CAD (Fusion 360), T&E, machining, mechanical assembly, strategy optimization, documentation, and systems integration for 12-member team, winning 8 awards, 2 world championship qualifiers, and ranking in top 2% of 20,000 teams
 • Established chain of command, project management workflow, underclassmen mentorship system, and $9,000 in funding from the ground up, outperforming 4 sister teams and setting a historical achievement of 100% world qualification rate
 • Authored 1 technical, 1 management, and 2 operational guides, creating documentation for programs with $30K+ annual revenue"
 
 
 Misc,Objective,"Aerospace Engineering Junior with hands-on experience in CAD, CFD, 6DoF flight dynamics, hardware testing, mechanical assembly, rapid prototyping, mission analysis, and systems integration in design team and competition settings, seeking a Summer 2027 internship in any location, specializing in structures, mechanical engineering, product design, or traditional aerospace roles."
-Misc,Bio,"I am a Junior Aerospace Engineering student at Texas A&M University, driven by a deep fascination for end-to-end systems integration.",,
-Misc,Boeing,"Toured Boeing's Renton Factory (home of the 737!) with the Texas A&M Vertical Flight Society and was driven to intern at Boeing this summer!",

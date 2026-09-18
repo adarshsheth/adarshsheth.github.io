@@ -24,3 +24,30 @@ content
 * factory tours takeaways
 * vfs officer
 * synch portfolio filters with resumes?
+
+
+
+
+
+
+
+#skills cats
+
+flight engineering/aero: https://jobs.boeing.com/flight-engineering-internships
+* aerodynamics
+* loads dynamics
+* GNC (guidance, navigation, and control)
+* configuration and integration
+* acoustics
+* weight and mass properties
+* propulsion
+
+mechanical & structural: https://jobs.boeing.com/mechanical-structural-internships
+* Mechanical/Structural Systems Design and Analysis
+* structural design
+* structural analysis
+* manufacturing
+* liason
+* tooling
+* payloads
+* product support

@@ -3762,9 +3762,10 @@ footer {
 
 .skill-cat {
 	/* 1. Base styles copied directly from .ec-card */
-	/* background: color-mix(in srgb, var(--bg) 1	0%, transparent) !important; */
+	/* background: color-mix(in srgb, var(--bg) 10%, transparent) !important; */
 	background: transparent !important;
-	border: 3px solid color-mix(in srgb, var(--border) 30%, transparent);
+	/* border: 3px solid color-mix(in srgb, var(--border) 30%, transparent); */
+	border: 2px solid color-mix(in srgb, var(--border) 25%, transparent) !important;
 	border-radius: 10px;
 	/* backdrop-filter: blur(10px) !important;
 	-webkit-backdrop-filter: blur(10px) !important; */
@@ -3779,7 +3780,8 @@ footer {
 	/* 1. Hover styles copied directly from .ec-card */
 	transform: translateY(-3px);
 	/* background: color-mix(in srgb, var(--g) 10%, transparent) !important; */
-	border-color: color-mix(in srgb, var(--g) 50%, transparent);
+	/* border-color: color-mix(in srgb, var(--g) 50%, transparent); */
+	border: 2px solid color-mix(in srgb, var(--border) 30%, transparent) !important;
 
 	/* 2. Customizations (e.g., adding a slight shadow) */
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -3795,11 +3797,14 @@ footer {
 	/* color: var(--tdim-fr); */
 	/* color: color-mix(in srgb, var(--dimtitle) 85%, transparent); */
 	color: color-mix(in srgb, var(--dimtitle) 100%, transparent);
+	/* color: color-mix(in srgb, var(--border) 75%, transparent); */
 	text-transform: uppercase;
 	margin-bottom: 18px !important;
-	border-bottom: 2px solid color-mix(in srgb, var(--border) 50%, transparent);
-	/* border-bottom: 2px solid color-mix(in srgb, var(--border) 100%, transparent); */
-	padding-bottom: 10px;
+	/* border-bottom: 2px solid color-mix(in srgb, var(--border) 50%, transparent); */
+	/* border-bottom: 2px solid color-mix(in srgb, var(--border) 75%, transparent); */
+	border-bottom: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
+	/* padding-bottom: 10px; */
+	padding-bottom: 2px;
 }
 
 .skill-badge-row {
@@ -3820,8 +3825,10 @@ footer {
 	background: color-mix(in srgb, var(--border) 0%, transparent);
 	/* background: color-mix(in srgb, var(--border) 100%, transparent); */
 	/* background: color-mix(in srgb, var(--bg) 100%, transparent); */
-	border: 1.5px solid var(--border);
-	color: var(--tdim-fr);
+	/* border: 1.5px solid color-mix(in srgb, var(--border) 100%, transparent); */
+	border: 1.5px solid color-mix(in srgb, var(--border) 75%, transparent);
+	/* color: var(--tdim-fr); */
+	color: color-mix(in srgb, var(--border) 75%, transparent);
 	/* color: var(--bg); */
 	/* background: color-mix(in srgb, var(--badge) 15%, transparent);
 	border: 1px solid var(--badge);
@@ -3846,12 +3853,44 @@ footer {
 	text-transform: uppercase;
 }
 
+:root{--variantSpecial: #415667;}
+.skill-badge:hover {
+	/* background: var(--variantSpecial);
+	border-color: var(--variantSpecial);
+	color: var(--bg); */
+	/* transform: translateY(-2px);
+	box-shadow: 0 6px 15px color-mix(in srgb, var(--badge) 35%, transparent); */
+	transform: translateY(-2px);
+}
+
 /* .skill-badge:hover {
 	background: var(--badge);
 	color: var(--bg);
 	transform: translateY(-2px);
 	box-shadow: 0 6px 15px color-mix(in srgb, var(--badge) 35%, transparent);
 } */
+
+/* .skill-badge {
+    transition: all 0.2s ease !important;
+}
+
+@media (hover: hover) {
+    .skill-badge:hover {
+        border-color: var(--g) !important;
+        background: var(--g) !important;
+        color: var(--bg) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.skill-badge:active {
+    transform: scale(0.95);
+    background: var(--border) !important;
+    border-color: var(--border) !important;
+    color: var(--bg) !important;
+} */
+
 
 /* ── UNIFIED BASE CARD ── */
 .uni-card {
