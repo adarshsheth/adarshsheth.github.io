@@ -1,0 +1,177 @@
+/* ══════════════════════════════════════════════════════════ */
+/* ══ Q&A DROPDOWN COMPONENTS                              ── */
+/* ══════════════════════════════════════════════════════════ */
+
+.qa-dropdown {
+	background: color-mix(in srgb, var(--surface) 50%, transparent);
+	border: 2.5px solid var(--border);
+	border-radius: var(--r);
+	margin: 24px 0;
+	overflow: hidden; /* Essential: keeps the expanding content inside the rounded corners */
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qa-dropdown:hover {
+	/* border-color: color-mix(in srgb, var(--accent2) 60%, transparent); */
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide the logic checkbox */
+.qa-toggle {
+	display: none;
+}
+
+/* The clickable header */
+.qa-summary {
+	padding: 16px 20px;
+	font-weight: 800;
+	font-size: clamp(15px, 1.2vw, 22px);
+	color: var(--dimtitle);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	transition: background 0.2s, color 0.2s;
+	user-select: none;
+	position: relative;
+}
+
+.qa-summary:hover {
+	color: var(--text);
+	background: color-mix(in srgb, var(--border) 5%, transparent);
+}
+
+/* Rotating chevron */
+.qa-icon {
+	color: var(--g);
+	font-size: 16px;
+	transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+	flex-shrink: 0;
+	margin-left: 15px;
+}
+
+/* ── THE ANIMATION ENGINE ── */
+/* Modern CSS Grid transition allows true 0-to-auto height expansion */
+.qa-content {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+	background: color-mix(in srgb, var(--bg) 50%, transparent);
+}
+
+/* Inner wrapper hides overflow during the squeeze to 0 */
+.qa-content-inner {
+	overflow: hidden;
+}
+
+/* Padding placed inside the overflow so it shrinks to true 0 when closed */
+.qa-pad {
+	padding: 0 20px 20px 20px;
+}
+
+/* Prevents awkward double-margins on paragraphs */
+.qa-pad > *:first-child {
+	margin-top: 15px !important;
+}
+.qa-pad > *:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* ── CHECKED/OPEN STATES ── */
+/* When the hidden checkbox is ticked, unroll the grid to full height */
+.qa-toggle:checked + .qa-summary {
+	/* Matched thickness to 2.5px to perfectly align with the outer border */
+	border-bottom: 2.5px solid var(--border);
+	color: var(--text);
+	/* Added border-color to the transition so it fades smoothly */
+	transition: background 0.2s, color 0.2s, border-color 0.3s ease;
+}
+
+/* Synchronizes the inner divider color with the outer border on hover */
+/* .qa-dropdown:hover .qa-toggle:checked + .qa-summary {
+	border-bottom-color: color-mix(in srgb, var(--accent2) 60%, transparent);
+    color: color-mix(in srgb, var(--accent2) 60%, transparent);
+} */
+
+.qa-toggle:checked + .qa-summary .qa-icon {
+	transform: rotate(-180deg);
+}
+
+.qa-toggle:checked + .qa-summary + .qa-content {
+	grid-template-rows: 1fr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ══════════════════════════════════════════════════════════ */
+/* ══ TABLE COMPONENTS                                     ── */
+/* ══════════════════════════════════════════════════════════ */
+
+.table-responsive {
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 24px 0;
+	border-radius: var(--r);
+	border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+	background: color-mix(in srgb, var(--surface) 20%, transparent);
+}
+#post-body table {
+    width: 100%;
+    border-collapse: separate; /* Allows border-radius to work */
+    border-spacing: 0;         /* Removes the default gaps between cells */
+    overflow: hidden;          /* Clips the child cells to the rounded corners */
+    margin: 0; 
+    font-size: clamp(13px, 0.85vw, 16px);
+    text-align: left;
+    
+    background: color-mix(in srgb, var(--bg) 20%, transparent);
+    border: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
+    border-radius: var(--r);
+}
+
+#post-body th,
+#post-body td {
+	padding: 14px 18px;
+	border-bottom: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
+	border-right: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
+	color: var(--text);
+	line-height: 1.5;
+	vertical-align: top;
+}
+
+#post-body th:last-child,
+#post-body td:last-child {
+	border-right: none;
+}
+
+#post-body tr:last-child td {
+	border-bottom: none;
+}
+
+#post-body th {
+	background: color-mix(in srgb, var(--border) 10%, transparent);
+	font-weight: 800;
+	color: var(--dimtitle);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	white-space: nowrap;
+}
+
+#post-body tbody tr {
+	transition: background 0.2s ease;
+}
+
+#post-body tbody tr:hover {
+	background: color-mix(in srgb, var(--border) 8%, transparent);
+}

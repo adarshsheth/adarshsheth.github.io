@@ -24,6 +24,17 @@ content
 * factory tours takeaways
 * vfs officer
 * synch portfolio filters with resumes?
+* keywords extracted from https://jobs.ashbyhq.com/haastautonomous/1e75b376-3278-4e23-a339-61b5be155763 and https://jobs.ashbyhq.com/haastautonomous/5e3667c4-3d04-40d9-87d1-6b7fe6539e2d
+
+
+
+
+
+
+
+
+
+
 
 
 

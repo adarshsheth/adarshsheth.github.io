@@ -222,10 +222,6 @@ async function run() {
 			// Parse the fully cleaned Markdown into standard HTML first
 			let htmlContent = marked.parse(rawMd, {breaks: true});
 
-
-
-
-
 			// // --- Foolproof Document Embedder ---
 			// // Catches standalone links (Google Docs or PDFs) that Notion downgraded to text,
 			// // and forces them to render as styled iframes.
@@ -251,11 +247,98 @@ async function run() {
 				new RegExp(`<p>\\s*<a href="[^"]*${targetDocId}[^"]*">.*?</a>\\s*</p>`, "gi"),
 				`<iframe src="https://docs.google.com/viewer?url=https://docs.google.com/document/d/${targetDocId}/export%3Fformat%3Dpdf&embedded=true" class="post-iframe" allowfullscreen></iframe>`,
 			);
-			
 
+			// // --- Q&A Dropdown Component ---
 
+			// // Pass 1: Catches Q&A blocks where marked.js merged the first line with a <br>
+			// htmlContent = htmlContent.replace(
+			// 	/<p>\s*\[QA-([A-Z]+):\s*(.*?)\]\s*<br>([\s\S]*?)<p>\s*\[\/QA\]\s*<\/p>/gi,
+			// 	(match, state, question, answerContent) => {
+			// 		const isOpen = state.toUpperCase() === "OPEN" ? "open" : "";
+			// 		return `
+			// 	<details class="qa-dropdown" ${isOpen}>
+			// 		<summary>
+			// 			<span class="qa-title">${question}</span>
+			// 			<span class="qa-icon"><i class="fas fa-chevron-down"></i></span>
+			// 		</summary>
+			// 		<div class="qa-content">
+			// 			<p>${answerContent}
+			// 		</div>
+			// 	</details>
+			// 	`;
+			// 	},
+			// );
 
+			// // Pass 2: Catches Q&A blocks separated into clean <p> tags
+			// htmlContent = htmlContent.replace(
+			// 	/<p>\s*\[QA-([A-Z]+):\s*(.*?)\]\s*<\/p>([\s\S]*?)<p>\s*\[\/QA\]\s*<\/p>/gi,
+			// 	(match, state, question, answerContent) => {
+			// 		const isOpen = state.toUpperCase() === "OPEN" ? "open" : "";
+			// 		return `
+			// 	<details class="qa-dropdown" ${isOpen}>
+			// 		<summary>
+			// 			<span class="qa-title">${question}</span>
+			// 			<span class="qa-icon"><i class="fas fa-chevron-down"></i></span>
+			// 		</summary>
+			// 		<div class="qa-content">
+			// 			${answerContent}
+			// 		</div>
+			// 	</details>
+			// 	`;
+			// 	},
+			// );
 
+			// --- Q&A Dropdown Component (Smooth Expanding Grid) ---
+
+			// Pass 1: Catches Q&A blocks where marked.js merged the first line with a <br>
+			htmlContent = htmlContent.replace(
+				/<p>\s*\[QA-([A-Z]+):\s*(.*?)\]\s*<br>([\s\S]*?)<p>\s*\[\/QA\]\s*<\/p>/gi,
+				(match, state, question, answerContent) => {
+					const isChecked = state.toUpperCase() === "OPEN" ? "checked" : "";
+					const uid = Math.random().toString(36).substr(2, 9); // Generates unique ID for toggle
+					return `
+			<div class="qa-dropdown">
+				<input type="checkbox" id="qa-${uid}" class="qa-toggle" ${isChecked}>
+				<label for="qa-${uid}" class="qa-summary">
+					<span class="qa-title">${question}</span>
+					<span class="qa-icon"><i class="fas fa-chevron-down"></i></span>
+				</label>
+				<div class="qa-content">
+					<div class="qa-content-inner">
+						<div class="qa-pad">
+							<p>${answerContent}
+						</div>
+					</div>
+				</div>
+			</div>
+			`;
+				},
+			);
+
+			// Pass 2: Catches Q&A blocks separated into clean <p> tags
+			htmlContent = htmlContent.replace(
+				/<p>\s*\[QA-([A-Z]+):\s*(.*?)\]\s*<\/p>([\s\S]*?)<p>\s*\[\/QA\]\s*<\/p>/gi,
+				(match, state, question, answerContent) => {
+					const isChecked = state.toUpperCase() === "OPEN" ? "checked" : "";
+					const uid = Math.random().toString(36).substr(2, 9);
+					return `
+			<div class="qa-dropdown">
+				<input type="checkbox" id="qa-${uid}" class="qa-toggle" ${isChecked}>
+				<label for="qa-${uid}" class="qa-summary">
+					<span class="qa-title">${question}</span>
+					<span class="qa-icon"><i class="fas fa-chevron-down"></i></span>
+				</label>
+				<div class="qa-content">
+					<div class="qa-content-inner">
+						<div class="qa-pad">
+							${answerContent}
+						</div>
+					</div>
+				</div>
+			</div>
+			`;
+				},
+			);
 
 			// --- Image Captions ---
 			// 1. Strip the <p> tags that 'marked' automatically puts around standalone images
@@ -274,6 +357,11 @@ async function run() {
 				// If no caption, just return the normal image
 				return match;
 			});
+
+			// --- Responsive Tables ---
+			// Wraps standard markdown tables in a scrolling container for mobile support
+			htmlContent = htmlContent.replace(/<table>/gi, '<div class="table-responsive"><table>');
+			htmlContent = htmlContent.replace(/<\/table>/gi, "</table></div>");
 
 			edges.push({
 				node: {
