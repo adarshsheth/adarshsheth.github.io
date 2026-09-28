@@ -5,14 +5,16 @@
 .qa-dropdown {
 	background: color-mix(in srgb, var(--surface) 50%, transparent);
 	border: 2.5px solid var(--border);
+	border: 2.5px solid color-mix(in srgb, var(--text) 70%, transparent);
 	border-radius: var(--r);
 	margin: 24px 0;
 	overflow: hidden; /* Essential: keeps the expanding content inside the rounded corners */
-	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease all 0.3s ease;
 }
 
 .qa-dropdown:hover {
 	/* border-color: color-mix(in srgb, var(--accent2) 60%, transparent); */
+	background: color-mix(in srgb, var(--surface) 75%, transparent);
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -23,8 +25,10 @@
 
 /* The clickable header */
 .qa-summary {
-	padding: 16px 20px;
-	font-weight: 800;
+	/* padding: 16px 20px; */
+	padding: 10px 20px;
+	/* font-weight: 800; */
+	font-weight: 700;
 	font-size: clamp(15px, 1.2vw, 22px);
 	color: var(--dimtitle);
 	cursor: pointer;
@@ -34,6 +38,12 @@
 	transition: background 0.2s, color 0.2s;
 	user-select: none;
 	position: relative;
+
+	/* font-weight: 900 !important;
+    font-size: clamp(17px, 1.5vw, 26px); */
+    color: var(--text);
+    opacity: 0.7;
+            
 }
 
 .qa-summary:hover {
@@ -56,7 +66,8 @@
 	display: grid;
 	grid-template-rows: 0fr;
 	transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-	background: color-mix(in srgb, var(--bg) 50%, transparent);
+	/* background: color-mix(in srgb, var(--bg) 50%, transparent); */
+	background: color-mix(in srgb, var(--surface) 50%, transparent);
 }
 
 /* Inner wrapper hides overflow during the squeeze to 0 */
@@ -123,8 +134,8 @@
 	-webkit-overflow-scrolling: touch;
 	margin: 24px 0;
 	border-radius: var(--r);
-	border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
-	background: color-mix(in srgb, var(--surface) 20%, transparent);
+	border: 2px solid color-mix(in srgb, var(--border) 40%, transparent);
+	background: color-mix(in srgb, var(--bg) 20%, transparent);
 }
 #post-body table {
     width: 100%;
@@ -135,9 +146,9 @@
     font-size: clamp(13px, 0.85vw, 16px);
     text-align: left;
     
-    background: color-mix(in srgb, var(--bg) 20%, transparent);
-    border: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
-    border-radius: var(--r);
+    /* background: color-mix(in srgb, var(--bg) 20%, transparent); */
+    /* border: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
+    border-radius: var(--r); */
 }
 
 #post-body th,
@@ -174,4 +185,103 @@
 
 #post-body tbody tr:hover {
 	background: color-mix(in srgb, var(--border) 8%, transparent);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+        #similar-articles-container h1,
+        #post-body h1 {
+           font-weight: 900 !important;
+            margin: 50px 0 25px;
+            color: var(--blogAlt) !important;
+			opacity: 0.7;
+            font-size: clamp(28px, 3vw, 50px);
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+        /* #similar-articles-container h1,
+        #post-body h1 {
+            font-weight: 900 !important;
+            margin: 50px 0 25px;
+            color: var(--blogAlt) !important;
+            font-size: clamp(28px, 3vw, 50px);
+            line-height: 1.1;
+            text-transform: uppercase;
+        } */
+
+        #post-body h2 {
+            font-weight: 900 !important;
+            font-size: clamp(22px, 2.5vw, 36px);
+            /* color: var(--text); */
+            color: var(--border);
+            margin: 40px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--border);
+            scroll-margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        #post-body h3 {
+            font-weight: 900 !important;
+            font-size: clamp(17px, 1.5vw, 26px);
+            color: var(--text);
+            opacity: 0.7;
+            /* text-transform: uppercase; */
+            text-transform: lowercase !important;
+            margin-top: 20px;
+            position: relative;
+            padding-bottom: 8px;
+            scroll-margin-top: 20px;
+            font-style: italic;
+        }
+
+        #post-body h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            /* width: calc(var(--article-width) / 15); */
+            width: calc(var(--article-width) / 10);
+            background: color-mix(in srgb, var(--border) 50%, transparent);
+        }
+
+
+	
+		 .article-tag-link {
+		color: inherit !important;
+		text-decoration: none;
+		transition: all 0.2s; /* Ensures smooth transition */
+		cursor: pointer;
+		}
+
+		.article-tag-link:hover {
+			color: var(--text) !important;
+			/* -webkit-text-stroke: 0.6px var(--text); */
+			-webkit-text-stroke: 0.8px var(--text);
+		}
+		.article-tag-link:hover::after {
+		-webkit-text-stroke: 0; 
+		}
+
+
+		/* 1. Unlocks the container width and forces long strings to wrap */
+#post-body {
+    max-width: 100% !important; 
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* 2. Allows images to shrink naturally on phones <400px wide */
+#post-body img {
+    max-width: min(100%, 700px) !important;
 }

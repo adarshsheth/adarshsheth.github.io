@@ -2,3 +2,4 @@
 node_modules/
 .tmp.driveupload
 .tmp.drivedownload
+blog-data.json

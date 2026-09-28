@@ -208,53 +208,6 @@
             font-weight: 700;
         }
 
-        #similar-articles-container h1,
-        #post-body h1 {
-            font-weight: 900 !important;
-            margin: 50px 0 25px;
-            color: var(--blogAlt) !important;
-            font-size: clamp(28px, 3vw, 50px);
-            line-height: 1.1;
-            text-transform: uppercase;
-        }
-
-        #post-body h2 {
-            font-weight: 900 !important;
-            font-size: clamp(22px, 2.5vw, 36px);
-            /* color: var(--text); */
-            color: var(--border);
-            margin: 40px 0 16px;
-            padding-bottom: 8px;
-            border-bottom: 3px solid var(--border);
-            scroll-margin-top: 30px;
-            text-transform: uppercase;
-        }
-
-        #post-body h3 {
-            font-weight: 900 !important;
-            /* font-size: clamp(18px, 2vw, 26px); */
-            font-size: clamp(17px, 1.5vw, 26px);
-            /* color: var(--dimtitle); */
-            color: var(--text);
-            opacity: 0.7;
-            text-transform: uppercase;
-            margin-top: 20px;
-            position: relative;
-            padding-bottom: 8px;
-            scroll-margin-top: 20px;
-            /* font-style: italic; */
-        }
-
-        #post-body h3::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 3px;
-            /* width: calc(var(--article-width) / 15); */
-            width: calc(var(--article-width) / 10);
-            background: color-mix(in srgb, var(--border) 50%, transparent);
-        }
 
         #post-body h1 strong,
         #post-body h1 b,
@@ -326,7 +279,9 @@
         #post-body code {
             font-family: monospace;
             color: var(--gl);
-            background: rgba(0, 0, 0, 0.25);
+            color: var(--accent);
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
             padding: 3px 6px;
             border-radius: 4px;
             font-size: 0.9em;
@@ -845,8 +800,8 @@
                         style="color: var(--blogAlt) !important; font-size: clamp(28px, 3vw, 50px); line-height: 1.1; text-transform: uppercase;">
                     </h2>
                     <div
-                        style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase;">
-                        Written by <span id="post-author" style="color: var(--blogAlt);"></span>
+                        style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; text-transform: uppercase;">
+                        Written by <span id="post-author" style="color: var(--blogAlt); font-weight: 800;"></span>
                     </div>
                     <!-- <div
                         style="color: var(--blogAlt2); font-weight: 700; margin-top: 14px; letter-spacing: 0.1em; text-transform: uppercase; 	font-size: clamp(13px, 0.7vw, 50px);">
