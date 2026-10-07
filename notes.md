@@ -27,18 +27,50 @@ content
 * keywords extracted from https://jobs.ashbyhq.com/haastautonomous/1e75b376-3278-4e23-a339-61b5be155763 and https://jobs.ashbyhq.com/haastautonomous/5e3667c4-3d04-40d9-87d1-6b7fe6539e2d
 
 
+inspiration:
+LIST: https://github.com/emmabostian/developer-portfolios
+* http://fraisasghar.vercel.app/
+* https://pranay-portfolio-4646.vercel.app/
+
+* https://s.pallamreddy.com/#projects
+* https://jramachandran46-maker.github.io/
+
+* https://andylafleur.com/
+* https://loganfriedman.netlify.app/
+* https://www.stiaan.dev/
+
+* https://mack.fisherr.workers.dev/
+
+* https://ryanwebster.net/
 
 
 
 
+resume/skills content:
+* to resume
+    * vfs vp / uplift program manager, SI for vfd
+* skills (+resume)
+    * AAA (321), freeflyer (423)
+* 321 lab
+* drone avionics
+* nsga/genetic algs, kanban filter, other buzzwords from yt channel
+* 3d print (gfile, bambu slicing)
 
 
 
-
-
-
-
-
+projects!!!
+1. lifeos - currently daily gemini learning but expands to task structuring
+    1a. podium - integrate as a skill (public speaking) into lifeos
+    - should have a desktop counterpart like notion calendar
+2. new pixel launcher
+3. minis
+    - auto lyrics for simpmusic
+    - portfolio website code simplification overhaul + card ui from sample sites   
+    - notion-discord bot for task notifs
+SET UP: 
+- hermes / spark / perplexity computer
+- autoapply (auto apply to internships)
+    - cover letter automation workflow (HAVE AI AUTOMATIONS PRESETUP PAGES IN LIFEOS)
 
 
 

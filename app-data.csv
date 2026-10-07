@@ -16,13 +16,14 @@ Personal,Grad,"05/15/2028","05/2028","May 2028"
 Personal,GPA,"U2FsdGVkX1/B7bQE46nTHuX0MS4v2qWfSoUZdAbcHlc="
 
 
-Common,Start,"05/15/2027"
+Common,Start,"05/17/2027"
 Common,Salary,"$30/hr"
 Common,Credits,"133"
 Common,N/A,"N/A"
 
 
 
+Resume Experiences,Coursework,"Structural Analysis II, Materials Science, Mechanics of Materials, Fluid Dynamics, Control Theory, Vehicle Dynamics, Orbital Mechanics, Thermodynamics, Numerical Simulation, Circuits, Program Design, High Speed Aerodynamics"
 Resume Experiences,LOCATION,"College Station, TX","San Ramon, CA"
 
 Resume Experiences,VERTICAL - VFD,"Aerodynamics Engineer","Texas A&M Vertical Flight Design Team","• Executed 100+ parametric CFD analyses (SimScale) for 25-lb hexacopter, feeding forces data into 6DoF dynamics model, ensuring 100% flight stability under 15-kt gusts and autonomous payload pick-up and delivery precision within 3-by-3 ft zone
@@ -45,5 +46,8 @@ Resume Experiences,ROBOTICS - DVR,"Co-Founder, Captain, Mechanical Engineer","Do
 • Established chain of command, project management workflow, underclassmen mentorship system, and $9,000 in funding from the ground up, outperforming 4 sister teams and setting a historical achievement of 100% world qualification rate
 • Authored 1 technical, 1 management, and 2 operational guides, creating documentation for programs with $30K+ annual revenue"
 
+Downloads,Resume PDF,media/resume/AdarshSheth_Resume.pdf
+Downloads,CL docx,media/resume/AdarshSheth_CL.docx
+Downloads,Resume docx,media/resume/AdarshSheth_Resume.docx
 
 Misc,Objective,"Aerospace Engineering Junior with hands-on experience in CAD, CFD, 6DoF flight dynamics, hardware testing, mechanical assembly, rapid prototyping, mission analysis, and systems integration in design team and competition settings, seeking a Summer 2027 internship in any location, specializing in structures, mechanical engineering, product design, or traditional aerospace roles."

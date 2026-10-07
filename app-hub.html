@@ -820,6 +820,9 @@
 
                     const row = document.createElement('div');
                     row.className = 'hub-row';
+                    if (entry.section.toLowerCase() === 'downloads') {
+                        row.dataset.download = 'true';
+                    }
 
                     let defaultCopyVal = '';
                     let firstUnlockedIdx = -1;
@@ -829,7 +832,11 @@
                         let copyVal = v;
                         let isLocked = false;
 
-                        if (isEncrypted(v)) {
+                        if (row.dataset.download === 'true' && currentVisibility === 'public') {
+                            displayVal = '••••••••';
+                            copyVal = '';
+                            isLocked = true;
+                        } else if (isEncrypted(v)) {
                             if (currentVisibility === 'public') {
                                 displayVal = '••••••••';
                                 copyVal = '';
@@ -847,6 +854,10 @@
                                     isLocked = true;
                                 }
                             }
+                        }
+
+                        if (row.dataset.download === 'true' && !isLocked) {
+                            displayVal = 'Download';
                         }
 
                         // Remove actual literal newlines from the visually displayed UI pill
@@ -873,8 +884,11 @@
 
                         // HTML-safe string for the title tooltip attribute
                         const safeTitle = data.displayVal.replace(/"/g, '&quot;');
+                        const downloadIcon = row.dataset.download === 'true' && !data.isLocked
+                            ? '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> '
+                            : '';
 
-                        return `<span class="hub-variant${activeClass}${lockedClass}" data-val="${encodeURIComponent(data.copyVal)}" title="${safeTitle}">${data.displayVal}</span>`;
+                        return `<span class="hub-variant${activeClass}${lockedClass}" data-val="${encodeURIComponent(data.copyVal)}" title="${safeTitle}">${downloadIcon}${data.displayVal}</span>`;
                     }).join('');
 
                     row.innerHTML = `
@@ -989,6 +1003,23 @@
 
             const triggerCopy = (textToCopy, rowElement) => {
                 if (!textToCopy) return;
+
+                if (rowElement && rowElement.dataset.download === 'true') {
+                    const link = document.createElement('a');
+                    link.href = textToCopy;
+                    link.download = textToCopy.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+
+                    toast.textContent = 'DOWNLOADING...';
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 2000);
+                    return;
+                }
 
                 hybridCopy(textToCopy).then(() => {
                     let toastMessage = "COPIED TO CLIPBOARD!";
