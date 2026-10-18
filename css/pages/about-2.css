@@ -1,0 +1,5 @@
+/* ── about.html <style> block 3 (extracted Oct 2026, position preserved) ── */
+/* Modern CSS scoping restricts these styles ONLY to this container */
+	                        @scope (#recent-card-container) {
+	                            ${portfolioCSS}
+	                        }
