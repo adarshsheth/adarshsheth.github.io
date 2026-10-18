@@ -1,0 +1,76 @@
+/* ─────────────────────────────────────────────
+   AUTH — Login button and dashboard styles
+   ───────────────────────────────────────────── */
+
+#login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 2px solid var(--title);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--title);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#login-btn:hover {
+  background: var(--title);
+  color: var(--bg);
+}
+
+/* Apps Hub link — hidden by default, shown when logged in */
+.apps-hub-link {
+  display: none;
+}
+
+body.logged-in .apps-hub-link {
+  display: inline-block !important;
+}
+
+/* Draft banner for unpublished blog posts */
+.draft-banner {
+  background: #ff9800;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* Resume toggle */
+.resume-toggle {
+  display: none;
+  text-align: center;
+  margin: 20px 0;
+  gap: 10px;
+  justify-content: center;
+}
+
+body.logged-in .resume-toggle {
+  display: flex;
+}
+
+.resume-toggle button {
+  padding: 8px 20px;
+  border: 2px solid var(--title);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--title);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.resume-toggle button.active {
+  background: var(--title);
+  color: var(--bg);
+}

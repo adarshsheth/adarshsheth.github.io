@@ -1,0 +1,1 @@
+{"dependencies":{"@notionhq/client":"^2.2.15","firebase-admin":"^12.0.0","firebase-functions":"^5.0.0"},"description":"Cloud Functions for portfolio dashboard","engines":{"node":"18"},"name":"portfolio-dashboard-functions"}
