@@ -32,6 +32,6 @@ jobs:
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add blog-data.json media/blog/ || true
+          git add data/blog-data.json media/blog/ || true
           git commit -m "Auto-sync Notion blog" || true
           git push

@@ -1,0 +1,86 @@
+/* ─────────────────────────────────────────────
+   BUTTONS — the universal button styles.
+   .uni-btn: the subtle glassy button (nav-adjacent).
+   .btn-primary / .btn-secondary: the main CTA pair.
+   .hero-btn: page-specific hero variants (scoped below).
+   Page-specific tweaks live in the sections at the bottom,
+   NOT scattered across page stylesheets.
+   ───────────────────────────────────────────── */
+
+/* ── uni-btn ── */
+.uni-btn {
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+
+.uni-btn:hover {
+	
+	
+	box-shadow: 0 0 10px 0px color-mix(in srgb, var(--text) 15%, transparent);
+}
+
+/* ══ Page-specific hero-btn variants (scoped; come before btn-* so btn-* borders win) ══ */
+
+/* ── Contact ── */
+/* NOTE: no border here — .btn-primary/.btn-secondary on the same element provide it */
+.contact-page .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-family: "Rubik", sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1;
+        }
+
+.contact-page .hero-btn i {
+    font-size: 12px;
+}
+
+/* ── About ── */
+.about-page .hero-btn {
+			
+			padding: 8px 22px;
+			border-radius: 10px;
+			font-family: "Rubik", sans-serif;
+			font-weight: 700;
+			
+			font-size: inherit;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			cursor: pointer;
+		}
+
+/* ── Primary / secondary CTA pair (unified from about + contact) ── */
+/* NOTE: these come after .hero-btn so their borders win on combined buttons, matching the original order */
+.btn-primary {
+    color: var(--bg);
+    background: var(--g);
+    border: 2px solid var(--g);
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: var(--g);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid var(--border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--g);
+    color: var(--g);
+    transform: translateY(-2px);
+}

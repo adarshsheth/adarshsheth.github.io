@@ -380,7 +380,7 @@ async function run() {
 		}
 	}
 
-	fs.writeFileSync("blog-data.json", JSON.stringify({data: {publication: {posts: {edges: edges}}}}, null, 2));
+	fs.writeFileSync("data/blog-data.json", JSON.stringify({data: {publication: {posts: {edges: edges}}}}, null, 2));
 	console.log("Sync completed successfully!");
 }
 

@@ -3,83 +3,12 @@
 
 <head>
     <title>Redirecting...</title>
-    <script>
-        // Define your URL mappings here
-        const redirectMap = {
-            "/engineering": "/portfolio",
-            "/eng": "/portfolio",
-            "/en": "/portfolio",
-            "/port": "/portfolio",
-            "/p": "/portfolio",
-            "/engineering-portfolio": "/portfolio",
-            "/projects": "/portfolio",
-            "/design-teams": "/portfolio",
-            "/experience": "/portfolio",
-            // "/portfolio": "/",
-
-            "/artwork": "/photography",
-            "/art": "/photography",
-            "/photos": "/photography",
-            "/photo": "/photography",
-            "/pic": "/photography",
-            "/pics": "/photography",
-            "/a": "/photography",
-            "/p": "/photography",
-            
-            "/résumé": "/resume",
-            "/resumes": "/resume",
-            "/r": "/resume",
-
-            "/apps": "/app-hub",
-            "/app": "/app-hub",
-            "/application": "/app-hub",
-            "/applications": "/app-hub",
-            "/a": "/app-hub",
-
-            "/presumes": "/presume",
-            "/pr": "/presume",
-            "/as": "/presume",
-            "/.": "/presume",
-
-            // "/about": "/",
-            "/contact": "/about",
-            "/about-me": "/about",
-            "/me": "/about",
-            "/as": "/about",
-            "/i": "/about",
-            "/home": "/about",
-            "/index": "/about",
-
-            "/recipe": "/blog?post=recipes",
-            "/recipes": "/blog?post=recipes",
-            "/food": "/blog?post=recipes",
-            "/meal": "/blog?post=recipes",
-            "/meals": "/blog?post=recipes",
-
-            "/resume-pdf": "/media/resume/AdarshSheth_Resume.pdf",
-            "/resumepdf": "/media/resume/AdarshSheth_Resume.pdf",
-            "/rpdf": "/media/resume/AdarshSheth_Resume.pdf",
-            "/pdf": "/media/resume/AdarshSheth_Resume.pdf"
-
-            // "/": "/portfolio",
-            // "/index": "/portfolio"
-        };
-
-        // Get the current path (e.g., "/foresite")
-        const path = window.location.pathname.replace(/\/$/, "");
-
-        if (redirectMap[path]) {
-            // If the typo exists in our list, go to the correct page
-            window.location.replace(redirectMap[path]);
-        } else {
-            // Optional: If no match is found, send them to the home page
-            window.location.replace("/portfolio");
-        }
-    </script>
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 
 <body>
     <p>Redirecting you to the right place...</p>
+    <script src="js/pages/404.js"></script>
 </body>
 
 </html>

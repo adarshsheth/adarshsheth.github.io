@@ -1,0 +1,133 @@
+/* ─────────────────────────────────────────────
+   THEME — the single source of truth for the whole site.
+   Change a value here and it updates everywhere.
+   Loaded first on every page, before all other stylesheets.
+   (Centralized Oct 2026: resolved duplicate :root definitions,
+    keeping the values that were actually rendering.)
+   ───────────────────────────────────────────── */
+:root {
+
+	/* —— Core palette —— */
+	--bg: rgb(231, 241, 248);
+	--title: hsl(206, 73%, 13%);
+	--text: var(--title);
+	--contrast-text: var(--title);
+	--dimtitle: var(--contrast-text);
+
+	/* —— Accent & brand —— */
+	--g: var(--border);
+	--accent: var(--g);
+	--accent2: var(--accent);
+	--light-blue: hsl(205, 45%, 75%);
+	--light-navy: hsl(205, 74%, 20%);
+	--port-header: var(--g);
+	--port-hover: var(--gl);
+	--blogAlt: var(--g);
+	--blogAlt2: color-mix(in srgb, var(--blogAlt) 70%, transparent);
+	--highlight: #615739;
+
+	/* —— Text tones —— */
+	--tdim: var(--cbul);
+	--tmut: var(--tdim);
+	--tdim-fr: var(--title);
+	--cbul: var(--title);
+	--miniheader: var(--cbul);
+	--light-grey: hsl(0, 0%, 42%);
+	--med-grey: hsl(0, 0%, 30%);
+	--not-white: #b3b3b3;
+	--not-black: #6b6b6b;
+	--dull: #4f5348;
+	--sec-title: #545556;
+	--dark: #313131;
+
+	/* —— Surfaces & borders —— */
+	--surface: #28292815;
+	--surface2: #111111;
+	--gd: #232922;
+	--gl: #8da084;
+	--gpale: rgba(100, 118, 97, 0.25);
+	--accentpale: #1d1c1c;
+	--grad: var(--bg);
+	--border: var(--title);
+	--nav-drop: #4c594acb;
+
+	/* —— Sidebar —— */
+	--sb: 20px;
+	--sb-active: var(--border);
+	--sb-hover: hsl(0, 0%, 40%);
+	--sb-active-hover: var(--sb-hover);
+	--sb-text: var(--tdim);
+	--sb-font-weight: 500;
+	--sb-font-weight-hover: 700;
+	--sb-font-weight-active: 900;
+
+	/* —— Badges & bullets —— */
+	--badge: var(--g);
+	--bullbold: hsl(39, 14%, 56%);
+
+	/* —— Layout & spacing —— */
+	--navh: 50px;
+	--sw: 0px;
+	--sw2: 250px;
+	--r: 10px;
+	--anchorh: 0px;
+	--h2padding: 50px;
+	--ec-card-lines: 2px;
+	--ec-card-lines-color: var(--border);
+	--img-gap: 8px;
+	--uni-gap: 10px;
+	--margin: 22px;
+	--pageMaxWidth: 1000px;
+	--article-width: 1300px;
+
+	/* —— Hardcoded color families (previously scattered) —— */
+	--font-main: "Rubik", sans-serif;
+	--white: #ffffff;
+	--ink: #1a1a1a;
+	--graphite: #444444;
+	--stone: #5a5a58;
+	--slate: #7a7e76;
+	--gold-deep: #857032;
+	--gold-ink: #615739;
+	/* sage (rgb 100,118,97) opacity scale */
+	--sage: rgb(100, 118, 97);
+	--sage-60: rgba(100, 118, 97, 0.6);
+	--sage-25: rgba(100, 118, 97, 0.25);
+	--sage-10: rgba(100, 118, 97, 0.1);
+	--sage-06: rgba(100, 118, 97, 0.06);
+	/* gold (rgb 200,168,75) opacity scale */
+	--gold: rgb(200, 168, 75);
+	--gold-32: rgba(200, 168, 75, 0.32);
+	--gold-25: rgba(200, 168, 75, 0.25);
+	--gold-20: rgba(200, 168, 75, 0.2);
+	--gold-08: rgba(200, 168, 75, 0.08);
+	--gold-07: rgba(200, 168, 75, 0.07);
+	/* black overlays */
+	--overlay-85: rgba(0, 0, 0, 0.85);
+	--overlay-80: rgba(0, 0, 0, 0.8);
+	--overlay-50: rgba(0, 0, 0, 0.5);
+	--overlay-40: rgba(0, 0, 0, 0.4);
+	--overlay-35: rgba(0, 0, 0, 0.35);
+	--overlay-30: rgba(0, 0, 0, 0.3);
+	--overlay-15: rgba(0, 0, 0, 0.15);
+	--overlay-05: rgba(0, 0, 0, 0.05);
+	/* white overlays */
+	--white-90: rgba(255, 255, 255, 0.9);
+	--white-60: rgba(255, 255, 255, 0.6);
+	--white-22: rgba(255, 255, 255, 0.22);
+	--white-20: rgba(255, 255, 255, 0.2);
+	--white-15: rgba(255, 255, 255, 0.15);
+	--white-12: rgba(255, 255, 255, 0.12);
+	--white-10: rgba(255, 255, 255, 0.1);
+	--white-05: rgba(255, 255, 255, 0.05);
+	--white-025: rgba(255, 255, 255, 0.025);
+}
+
+/* —— Responsive token overrides (were scattered :root blocks) —— */
+@media (max-width: 1050px) {
+	:root {
+		--navh: 25px;
+		--sb: 70px;
+		--h2padding: 10px;
+	}
+}

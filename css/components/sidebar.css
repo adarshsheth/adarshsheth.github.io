@@ -1,0 +1,336 @@
+/* ─────────────────────────────────────────────
+   SIDEBAR — single source of truth for the #sb sidebar.
+   Centralized Oct 2026 from style.css (+ blog page variant,
+   previously inline !important overrides in blog.html).
+   ───────────────────────────────────────────── */
+
+#sb {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: var(--sw2);
+	
+	
+	
+
+	
+
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	padding-top: calc(var(--sb) + 8px);
+	backface-visibility: hidden;
+	
+	box-shadow:
+		0 0 15px color-mix(in srgb, var(--border) 100%, transparent),
+		inset -5px 0 15px -5px color-mix(in srgb, var(--border) 50%, transparent);
+	transition: all 0.3s ease-out;
+	
+}
+
+#sb-hdr {
+	padding: 10px 14px 7px;
+	
+	font-size: clamp(13.5px, 0.8vw, 24px);
+	font-weight: 800;
+	letter-spacing: 0.1em;
+	
+	
+	
+	
+	color: var(--border);
+	
+	text-transform: uppercase;
+}
+
+#sb-prog {
+	height: 1px;
+	
+	position: relative;
+	flex-shrink: 0;
+	
+	box-shadow: 0 0 0px 1px color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+#sb-fill {
+	height: 3px;
+	
+	background: var(--sb-active);
+	width: 0%;
+	position: absolute;
+	left: 0;
+	top: -1px;
+	transition: width 0.18s linear;
+	box-shadow: 0 0 5px 3px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+#sb-nav {
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 10px 0;
+}
+
+.sbn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	
+	padding: 4px 14px;
+	/* Replaced background transition with transform for smooth sliding */
+	transition: transform 0.2s ease-out;
+	text-decoration: none;
+}
+
+.sbn:hover {
+	/* Slides the entire item slightly to the right, matching .sbn-sub */
+	transform: translateX(2px);
+}
+
+.sblbl {
+	
+	
+	
+	font-size: clamp(12px, 0.5vw, 14px);
+	font-weight: 500;
+	letter-spacing: 0.07em;
+	
+	color: var(--light-grey);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: color 0.2s;
+	text-transform: uppercase;
+	font-weight: var(--sb-font-weight);
+}
+
+.sbdot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	
+	border: 2px solid var(--light-grey);
+	background: transparent;
+	flex-shrink: 0;
+	transition: all 0.2s;
+}
+
+.sbn:hover .sblbl {
+	/* Shifts the text color to the sleek green */
+	
+	color: var(--sb-hover);
+	font-weight: var(--sb-font-weight-hover);
+}
+
+.sbn:hover .sbdot {
+	/* Optionally lights up the hollow dot to match the text */
+	
+	border-color: var(--sb-hover);
+	background: var(--sb-hover);
+}
+
+.sbn.active .sbdot {
+	
+	background: var(--sb-active);
+	
+	border-color: var(--sb-active);
+}
+
+.sbn.active .sblbl {
+	
+	color: var(--sb-active);
+	font-weight: var(--sb-font-weight-active);
+}
+
+.sb-group {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0px;
+}
+
+.sb-subnav {
+	display: flex;
+	flex-direction: column;
+	padding-left: 29px;
+	gap: 4px;
+	margin-top: 2px;
+	margin-bottom: 8px;
+}
+
+.sbn-sub {
+	
+	
+	
+	font-size: clamp(10px, 0.4vw, 12px);
+	font-weight: 500;
+	color: var(--sb-text);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+	transition:
+		color 0.2s,
+		transform 0.2s;
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	line-height: 1.25;
+	padding: 0;
+	width: calc(100% - 40px);
+	min-width: 0;
+	margin-left: 20px;
+	font-weight: var(--sb-font-weight);
+}
+
+.sbn-sub::before {
+	content: "";
+	position: absolute;
+	left: -11px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	border: 1.5px solid var(--sb-text);
+	background: transparent;
+	opacity: 0.8;
+	transition:
+		opacity 0.2s,
+		border-color 0.2s,
+		background 0.2s;
+}
+
+.sbn-sub:hover {
+	color: var(--sb-hover);
+	transform: translateX(2px) translateZ(0); /* GPU Accel */
+	font-weight: var(--sb-font-weight-hover);
+}
+
+.sbn-sub:hover::before {
+	border-color: var(--sb-active-hover);
+	background: var(--sb-active-hover);
+	opacity: 1;
+}
+
+.sbn-sub.active {
+	color: var(--sb-active);
+	font-weight: var(--sb-font-weight-active);
+}
+
+.sbn-sub.active::before {
+	border-color: var(--sb-active);
+	background: var(--sb-active);
+	opacity: 1;
+}
+
+#sb-overlay {
+	position: fixed;
+	inset: 0;
+	
+	background: color-mix(in srgb, var(--bg) 50%, transparent 0%) !important;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	z-index: 399;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+	will-change: opacity;
+}
+
+#sb-overlay.show {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.sb {
+	padding: 0 48px var(--h2padding);
+	
+}
+
+@media (min-width: 1051px) {
+#sb {
+		top: 100px;
+		left: 24px;
+		bottom: auto;
+		height: auto;
+		max-height: calc(100vh - 130px);
+		border-radius: 14px;
+		padding-top: 12px;
+		background: color-mix(in srgb, var(--bg) 20%, transparent);
+		
+		
+		border: 2.5px solid color-mix(in srgb, var(--border) 100%, transparent);
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+		box-shadow: none;
+		/* Keeps the scrollbar looking clean inside the rounded box */
+		overflow: hidden;
+
+		
+		backdrop-filter: blur(2px);
+		-webkit-backdrop-filter: blur(2px);
+		
+	}
+#sb-prog,
+	#sb-fill {
+		border-radius: 100px;
+	}
+}
+
+@media (max-width: 1050px) {
+#sb {
+		
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
+	}
+.sb {
+		
+		padding-left: var(--margin);
+		padding-right: var(--margin);
+	}
+}
+
+@media (min-width: 1800px) {
+#sb {
+		
+		
+		
+		left: 16px;
+	}
+}
+
+@media (max-width: 1800px) {
+#sb {
+		z-index: 999;
+		display: flex !important;
+		
+		transform: translateX(calc(-100% - 30px));
+		
+		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		
+	}
+#sb.sb-open {
+		transform: translateX(0);
+	}
+}
+
+/* —— blog page variant —— */
+/* NOTE: keeps !important — it must beat the off-canvas rule's own
+   `display: flex !important` in the max-width:1800px query.
+   Removing it would change the blog sidebar's rendered display. */
+.blog-page #sb {
+display: revert !important;
+}
+
+.blog-page #sb-nav {
+transition: opacity 0.18s ease;
+}
+
+.blog-page #sb-nav.loading {
+opacity: 0.55;
+}
+
+.blog-page #sb {
+left: clamp(14px, 18px, 24px);
+                width: clamp(220px, 12vw, 350px);
+}

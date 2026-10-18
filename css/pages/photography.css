@@ -1,0 +1,185 @@
+/* ─────────────────────────────────────────────
+   PHOTOGRAPHY — page-specific styles
+   Consolidated Oct 2026 from inline <style> blocks.
+   ───────────────────────────────────────────── */
+
+:root {
+    --bg: #0a0a0a;
+    --text: #d0d3cd;
+    --g: #647661;
+    --gd: #232922;
+    --tdim: #7a7e76;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--g);
+}
+
+.hero-desc {
+    padding: 14px 20%;
+    font-size: 13.5px;
+    font-style: italic;
+    color: var(--tdim);
+    line-height: 1.7;
+    text-align: center;
+}
+
+#mn {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.photo-sh {
+    padding-top: 10px;
+}
+
+.photo-sh h2 {
+    font-size: clamp(28px, 3vw, 50px) !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin: 0;
+    transition: color 0.2s ease-in-out;
+}
+
+.masonry {
+    columns: 5 155px;
+    column-gap: var(--img-gap);
+    margin-bottom: 50px;
+    margin-top: 10px;
+    opacity: 0;
+}
+
+.masonry.ready {
+    opacity: 1;
+}
+
+.photo-tile {
+    break-inside: avoid;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: var(--img-gap);
+    background: var(--surface);
+    border: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
+    box-shadow: 0 0 3px 1px color-mix(in srgb, var(--border) 60%, transparent);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+        transform 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.25s;
+}
+
+.photo-tile:hover {
+    border: 2px solid var(--title);
+}
+
+.photo-tile.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.photo-tile img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .4s ease-in-out;
+    cursor: pointer;
+}
+
+.photo-tile:hover img {
+    transform: scale(1.045);
+}
+
+.photo-tile::before {
+    content: attr(data-cap);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 44px 10px 10px;
+    color: var(--tdim);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s ease-in-out, transform .5s ease-in-out;
+    pointer-events: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    z-index: 1;
+}
+
+.photo-tile:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.photo-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+          var(--bg) 0%,
+          color-mix(in srgb, var(--bg) 0%, transparent) 50%);
+    opacity: 0;
+    transition: opacity .4s ease-in-out;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+}
+
+.photo-tile:hover::after {
+    opacity: 1;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.tile-icon {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    background: var(--tdim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--bg);
+    opacity: 0;
+    transform: scale(.75);
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.photo-tile:hover .tile-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ── Responsive ── */
+
+@media (min-width: 1051px) {
+      #sb {
+        display: none !important;
+      }
+    }

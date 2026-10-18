@@ -1,500 +1,11 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#647661">
-
-    <title>App Hub • Adarsh Sheth</title>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- AES Encryption Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
-    <link rel="stylesheet" href="style.css" />
-
-    <style>
-        :root {
-            /* Softer color for UI hierarchy */
-            --g-soft: color-mix(in srgb, var(--title) 50%, transparent);
-        }
-
-        /* ── PAGE LAYOUT FIX FOR SHORT PAGES ── */
-        html,
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #mn {
-            flex: 1;
-            margin-left: 0;
-            padding-top: calc(var(--navh) + 50px);
-        }
-
-        footer {
-            box-shadow: 0px -8px 25px color-mix(in srgb, var(--border) 60%, transparent),
-                0px 8px 25px color-mix(in srgb, var(--border) 60%, transparent) !important;
-            margin-top: auto;
-        }
-
-        #hero {
-            padding-bottom: 10px;
-        }
-
-        /* ── PUBLIC/PRIVATE TOGGLE ── */
-        .visibility-toggle-container {
-            display: flex;
-            justify-content: center;
-            margin: 10px 48px 40px;
-        }
-
-        .visibility-toggle {
-            display: inline-flex;
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 100px;
-            padding: 4px;
-            position: relative;
-        }
-
-        .toggle-option {
-            padding: 8px 24px;
-            font-size: 11.5px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--dimtitle);
-            cursor: pointer;
-            border-radius: 100px;
-            transition: all 0.3s ease;
-            z-index: 1;
-        }
-
-        .toggle-option.active {
-            color: var(--bg);
-            background: var(--title);
-        }
-
-        .visibility-toggle input[type="radio"] {
-            display: none;
-        }
-
-        /* ── LOCK SCREEN MODAL ── */
-        #login-wrapper {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background: color-mix(in srgb, var(--bg) 50%, transparent);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .lock-box {
-            position: relative;
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 40px;
-            text-align: center;
-            width: 100%;
-            max-width: 350px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .lock-box h2 {
-            font-weight: 900;
-            margin-top: 0;
-            letter-spacing: 0.05em;
-            color: var(--text);
-        }
-
-        .lock-box input {
-            padding: 12px;
-            border-radius: 6px;
-            border: 2px solid color-mix(in srgb, var(--border) 100%, transparent);
-            background: var(--bg);
-            color: var(--text);
-            outline: none;
-            margin-bottom: 20px;
-            width: calc(100% - 26px);
-            font-family: "Rubik", sans-serif;
-            transition: border-color 0.2s;
-        }
-
-        .lock-box input:focus {
-            border-color: var(--g-soft);
-        }
-
-        .lock-box button.unlock-btn {
-            background: var(--title);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 100px;
-            cursor: pointer;
-            font-weight: 700;
-            font-family: "Rubik", sans-serif;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            transition: all 0.2s;
-            width: 100%;
-        }
-
-        .lock-box button.unlock-btn:hover {
-            background: var(--g-soft);
-            transform: translateY(-2px);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: transparent;
-            border: none;
-            color: var(--dimtitle);
-            font-size: 24px;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-modal:hover {
-            color: #ff6b6b;
-        }
-
-        /* ── HUB CONTAINER & SECTIONS ── */
-        .hub-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 48px 50px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .hub-section-title {
-            font-size: 14px;
-            font-weight: 900;
-            letter-spacing: 0.12em;
-            color: var(--dimtitle);
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            border-bottom: 2px solid color-mix(in srgb, var(--border) 20%, transparent);
-            padding-bottom: 2px;
-        }
-
-        .hub-section-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* Strict 2-column layout to prevent random single/triple columns */
-        .hub-section-grid.is-short-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        /* ── HUB ROW LAYOUT ── */
-        .hub-row {
-            display: grid;
-            grid-template-columns: 30px 140px 1fr;
-            gap: 15px;
-            align-items: center;
-
-            background: color-mix(in srgb, var(--surface) 50%, transparent);
-            border: 2px solid color-mix(in srgb, var(--border) 10%, transparent);
-            border-radius: 12px;
-            padding: 6px 12px;
-
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .hub-row.is-two-line {
-            align-items: start;
-            padding: 10px 12px;
-        }
-
-        /* Desktop Hover State */
-        @media (hover: hover) {
-
-            body:not(.suppress-mouse-hover) .hub-row:hover,
-            .hub-row:focus-visible {
-                border-color: var(--g-soft);
-                transform: scale(0.98);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            }
-
-            body:not(.suppress-mouse-hover) .hub-row:hover .hub-num,
-            .hub-row:focus-visible .hub-num {
-                background: var(--g-soft);
-            }
-
-            body:not(.suppress-mouse-hover) .hub-variant:hover {
-                background: color-mix(in srgb, var(--border) 10%, transparent);
-                border-color: color-mix(in srgb, var(--border) 10%, transparent);
-            }
-
-            body:not(.suppress-mouse-hover) .hub-row:hover .hub-variant.is-active-variant,
-            .hub-row:focus-visible .hub-variant.is-active-variant {
-                background: var(--g-soft);
-                color: white;
-                border-color: var(--g-soft);
-            }
-        }
-
-        /* Mobile / Active Press State */
-        .hub-row:active {
-            border-color: var(--g-soft) !important;
-            transform: scale(0.96) !important;
-        }
-
-        .hub-row:active .hub-num {
-            background: var(--g-soft);
-        }
-
-        .hub-row:active .hub-variant.is-active-variant {
-            background: var(--g-soft);
-            color: white;
-            border-color: var(--g-soft);
-        }
-
-        /* Keyboard Shortcut Active State (Applied instantly on keydown) */
-        .hub-row.is-shortcut-active {
-            border-color: var(--g-soft) !important;
-            transform: scale(0.98);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .hub-row.is-shortcut-active .hub-num {
-            background: var(--g-soft);
-        }
-
-        .hub-row.is-shortcut-active .hub-variant.is-active-variant {
-            background: var(--g-soft);
-            color: white;
-            border-color: var(--g-soft);
-        }
-
-        /* Universal Copied Flash State */
-        .hub-row.copied-state {
-            background: color-mix(in srgb, var(--g-soft) 25%, transparent) !important;
-            border-color: var(--g-soft) !important;
-            transform: scale(0.98);
-            transition: background 0s, border-color 0s !important;
-        }
-
-        /* ── COLUMN 1: KEYBIND BADGE ── */
-        .hub-num {
-            background: var(--g-soft);
-            color: white;
-            font-weight: 800;
-            font-size: 11.5px;
-            width: 30px;
-            height: 24px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            text-transform: uppercase;
-        }
-
-        .hub-num.is-letter {
-            background: color-mix(in srgb, var(--g-soft) 60%, transparent);
-            font-size: 11px;
-        }
-
-        .hub-num.is-icon {
-            font-size: 10px;
-            background: color-mix(in srgb, var(--g-soft) 40%, transparent);
-        }
-
-        .hub-row.is-two-line .hub-num {
-            margin-top: 3px;
-        }
-
-        /* ── COLUMN 2: TITLE ── */
-        .hub-title-col {
-            font-weight: 800;
-            font-size: 12px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--g-soft);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            pointer-events: none;
-        }
-
-        .hub-row.is-two-line .hub-title-col {
-            margin-top: 4px;
-        }
-
-        /* ── COLUMN 3: VARIATIONS CONTAINER ── */
-        .hub-content-col {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .hub-variant {
-            background: color-mix(in srgb, var(--border) 0%, transparent);
-            border: 2px solid color-mix(in srgb, var(--g-soft) 50%, transparent);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 12.5px;
-            color: var(--text);
-            transition: all 0.15s ease;
-
-            white-space: nowrap !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
-
-            /* Forces variations to dynamically fill and cap at exactly 2 lines total */
-            /* flex: 1 1 40%;
-            min-width: 0;
-            max-width: 100%; */
-            /* flex: 0 1 auto; 
-            min-width: 0;
-            max-width: 100%; */
-            flex: 1 1 40%;
-            min-width: 0;
-            max-width: fit-content;
-
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        .copied-variant-state {
-            background: var(--g-soft) !important;
-            color: white !important;
-            border-color: var(--g-soft) !important;
-            transition: none !important;
-        }
-
-        .hub-row.is-two-line .hub-content-col {
-            margin-top: 2px;
-        }
-
-        /* Locked State Visuals & Hard Pointer Events Disable */
-        .hub-row.is-fully-locked {
-            opacity: 0.5;
-            pointer-events: none !important;
-        }
-
-        .hub-variant.is-locked-variant {
-            opacity: 0.4;
-            pointer-events: none !important;
-            background: transparent !important;
-            border-color: color-mix(in srgb, var(--border) 20%, transparent) !important;
-        }
-
-        @media (max-width: 900px) {
-            .hub-section-grid.is-short-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Maintains 1-row layout on mobile */
-        @media (max-width: 600px) {
-            .hub-wrapper {
-                padding: 0 16px 40px;
-            }
-
-            .hub-row {
-                grid-template-columns: 28px 100px 1fr;
-                gap: 10px;
-                padding: 8px 10px;
-            }
-
-            .hub-num {
-                width: 28px;
-                height: 24px;
-                font-size: 11px;
-            }
-
-            .hub-title-col {
-                font-size: 11px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="hero-full-bg"></div>
-    <div id="blur-page"></div>
-
-    <div id="nav-placeholder"></div>
-    <div id="sb-overlay"></div>
-
-    <div class="copy-toast" id="copy-toast">COPIED TO CLIPBOARD!</div>
-
-    <!-- LOCK SCREEN MODAL -->
-    <div id="login-wrapper" style="display: none;">
-        <div class="lock-box">
-            <button class="close-modal" onclick="cancelUnlock()">×</button>
-            <h2 style="margin-bottom: 10px;">SECURE ACCESS</h2>
-            <input type="password" id="pw" placeholder="Enter Password"
-                onkeypress="if(event.key === 'Enter') unlock()" />
-            <button id="unlock-btn" class="unlock-btn" onclick="unlock()">Unlock Items</button>
-            <div id="error" style="color: #ff6b6b; font-size: 12px; margin-top: 15px; display: none; font-weight: 500;">
-                Incorrect password or corrupt payload.
-            </div>
-        </div>
-    </div>
-
-    <div id="mn">
-        <section id="hero">
-            <h1 style="padding-bottom:20px;">APP HUB</h1>
-        </section>
-
-        <!-- PUBLIC / PRIVATE TOGGLE -->
-        <div class="visibility-toggle-container">
-            <div class="visibility-toggle">
-                <label class="toggle-option active" id="label-public">
-                    <input type="radio" name="visibility" value="public" checked
-                        onchange="handleVisibilityToggle(this)">
-                    PUBLIC
-                </label>
-                <label class="toggle-option" id="label-private">
-                    <input type="radio" name="visibility" value="private" onchange="handleVisibilityToggle(this)">
-                    PRIVATE
-                </label>
-            </div>
-        </div>
-
-        <div class="hub-wrapper" id="hub-container"></div>
-    </div>
-
-    <div id="footer-placeholder"></div>
-
-    <script src="script.js" defer></script>
-
-    <script>
-        // ── STATE VARIABLES ──
+/* ─────────────────────────────────────────────
+   APP-HUB — page-specific scripts
+   Consolidated Oct 2026 from inline <script> blocks.
+   (Blocks concatenated in original document order.)
+   ───────────────────────────────────────────── */
+
+/* ── Block 1 ── */
+// ── STATE VARIABLES ──
         let isUnlocked = false;
         let currentPassword = '';
         let currentVisibility = 'public';
@@ -619,7 +130,7 @@
             const container = document.getElementById('hub-container');
 
             try {
-                const response = await fetch('app-data.csv');
+                const response = await fetch('data/app-data.csv');
                 const csvText = await response.text();
 
                 const parseCSV = (text) => {
@@ -650,7 +161,7 @@
                                 const section = parts[0] || 'General';
                                 const title = parts[1] || '';
 
-                                const variations = parts.slice(2, 5).filter(v =>
+                                const variations = parts.slice(2, 7).filter(v =>
                                     v.length > 0 && v.toUpperCase() !== 'TRUE' && v.toUpperCase() !== 'FALSE'
                                 );
 
@@ -671,7 +182,7 @@
                         if (parts.length >= 2 && parts[0] !== 'Section' && parts[0] !== '') {
                             const section = parts[0] || 'General';
                             const title = parts[1] || '';
-                            const variations = parts.slice(2, 5).filter(v =>
+                            const variations = parts.slice(2, 7).filter(v =>
                                 v.length > 0 && v.toUpperCase() !== 'TRUE' && v.toUpperCase() !== 'FALSE'
                             );
                             if (title && variations.length > 0) {
@@ -742,6 +253,9 @@
 
                     const row = document.createElement('div');
                     row.className = 'hub-row';
+                    if (entry.section.toLowerCase() === 'downloads') {
+                        row.dataset.download = 'true';
+                    }
 
                     let defaultCopyVal = '';
                     let firstUnlockedIdx = -1;
@@ -751,7 +265,11 @@
                         let copyVal = v;
                         let isLocked = false;
 
-                        if (isEncrypted(v)) {
+                        if (row.dataset.download === 'true' && currentVisibility === 'public') {
+                            displayVal = '••••••••';
+                            copyVal = '';
+                            isLocked = true;
+                        } else if (isEncrypted(v)) {
                             if (currentVisibility === 'public') {
                                 displayVal = '••••••••';
                                 copyVal = '';
@@ -769,6 +287,10 @@
                                     isLocked = true;
                                 }
                             }
+                        }
+
+                        if (row.dataset.download === 'true' && !isLocked) {
+                            displayVal = 'Download';
                         }
 
                         // Remove actual literal newlines from the visually displayed UI pill
@@ -795,8 +317,11 @@
 
                         // HTML-safe string for the title tooltip attribute
                         const safeTitle = data.displayVal.replace(/"/g, '&quot;');
+                        const downloadIcon = row.dataset.download === 'true' && !data.isLocked
+                            ? '<i class="fas fa-file-arrow-down" aria-hidden="true"></i> '
+                            : '';
 
-                        return `<span class="hub-variant${activeClass}${lockedClass}" data-val="${encodeURIComponent(data.copyVal)}" title="${safeTitle}">${data.displayVal}</span>`;
+                        return `<span class="hub-variant${activeClass}${lockedClass}" data-val="${encodeURIComponent(data.copyVal)}" title="${safeTitle}">${downloadIcon}${data.displayVal}</span>`;
                     }).join('');
 
                     row.innerHTML = `
@@ -833,6 +358,7 @@
 
             let activeShortcutRow = null;
             let activeShortcutKey = null;
+            let activeShortcutNumberPressed = false; // <-- ADD THIS
 
             function resetActiveShortcut() {
                 if (activeShortcutRow) {
@@ -840,15 +366,18 @@
                 }
                 activeShortcutKey = null;
                 activeShortcutRow = null;
+                activeShortcutNumberPressed = false; // <-- ADD THIS
             }
 
             function handleGlobalKeydown(e) {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
                 const char = e.key.toLowerCase();
 
-                // 1) If user is already holding a letter and presses 1, 2, or 3
-                if (activeShortcutRow && ['1', '2', '3'].includes(char)) {
+                // 1) If user is already holding a letter and presses 1, 2, 3, 4, or 5
+                if (activeShortcutRow && ['1', '2', '3', '4', '5'].includes(char)) {
                     e.preventDefault();
+                    activeShortcutNumberPressed = true; // <-- ADD THIS FLAG
+
                     const variantIdx = parseInt(char) - 1;
                     const variants = Array.from(activeShortcutRow.querySelectorAll('.hub-variant'));
 
@@ -867,18 +396,17 @@
 
                     if (activeRows[rowIndex] && !activeRows[rowIndex].classList.contains('is-fully-locked')) {
                         e.preventDefault();
+
+                        // FIX: Remove DOM focus from any previously clicked row 
+                        // to prevent dual-highlighting when a keybind is used.
+                        if (document.activeElement) {
+                            document.activeElement.blur();
+                        }
+
                         activeShortcutKey = char;
                         activeShortcutRow = activeRows[rowIndex];
 
                         activeShortcutRow.classList.add('is-shortcut-active');
-
-                        const variants = Array.from(activeShortcutRow.querySelectorAll('.hub-variant'));
-                        const firstUnlocked = variants.find(v => !v.classList.contains('is-locked-variant'));
-                        if (firstUnlocked) {
-                            variants.forEach(v => v.classList.remove('is-active-variant'));
-                            firstUnlocked.classList.add('is-active-variant');
-                            activeShortcutRow.setAttribute('data-clipboard', decodeURIComponent(firstUnlocked.getAttribute('data-val')));
-                        }
                     }
                 }
             }
@@ -889,13 +417,42 @@
 
                 // 3) Trigger copy instantly upon releasing the held letter
                 if (char === activeShortcutKey && activeShortcutRow) {
-                    triggerCopy(activeShortcutRow.getAttribute('data-clipboard'), activeShortcutRow);
+                    let textToCopy = activeShortcutRow.getAttribute('data-clipboard');
+
+                    // If no number was pressed, strictly force the first unlocked variant 
+                    // bypassing any accidental mouse hover interference.
+                    if (!activeShortcutNumberPressed) {
+                        const variants = Array.from(activeShortcutRow.querySelectorAll('.hub-variant'));
+                        const firstUnlocked = variants.find(v => !v.classList.contains('is-locked-variant'));
+                        if (firstUnlocked) {
+                            textToCopy = decodeURIComponent(firstUnlocked.getAttribute('data-val'));
+                        }
+                    }
+
+                    triggerCopy(textToCopy, activeShortcutRow);
                     resetActiveShortcut();
                 }
             }
 
             const triggerCopy = (textToCopy, rowElement) => {
                 if (!textToCopy) return;
+
+                if (rowElement && rowElement.dataset.download === 'true') {
+                    const link = document.createElement('a');
+                    link.href = textToCopy;
+                    link.download = textToCopy.split('/').pop();
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+
+                    toast.textContent = 'DOWNLOADING...';
+                    toast.classList.add('show');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 2000);
+                    return;
+                }
 
                 hybridCopy(textToCopy).then(() => {
                     let toastMessage = "COPIED TO CLIPBOARD!";
@@ -1002,7 +559,143 @@
                 });
             });
         }
-    </script>
-</body>
 
-</html>
+
+
+
+
+
+
+
+        async function loadHubSkills() {
+            const catMap = {
+                tools: "Tools", des: "Design", sys: "Systems / Methodologies",
+                hw: "Hardware", swe: "Software Engineering", soft: "Soft Skills", gen: "General", misc: "Miscellaneous"
+            };
+
+            // 1. Fetch and Parse Portfolio HTML Skills
+            try {
+                const portRes = await fetch("portfolio.html");
+                const portHtml = await portRes.text();
+                const doc = new DOMParser().parseFromString(portHtml, "text/html");
+                const portSkills = {};
+
+                doc.querySelectorAll(".ec-summary .badge").forEach((badge) => {
+                    const cat = badge.dataset.cat || "misc";
+                    if (!portSkills[cat]) portSkills[cat] = new Set();
+                    portSkills[cat].add(badge.textContent.trim());
+                });
+
+                renderSkillBoxes(portSkills, "portfolio-skills-container", catMap);
+            } catch (e) { console.error("Portfolio skills fetch failed", e); }
+
+            // 2. Fetch and Parse CSV Skills
+            try {
+                const csvRes = await fetch("data/skills-data.csv");
+                const csvText = await csvRes.text();
+                const csvSkills = {};
+
+                csvText.split('\n').forEach(line => {
+                    const parts = line.split(',');
+                    if (parts.length >= 2) {
+                        const catName = parts[0].trim();
+                        // Join the rest back together in case a skill has a comma, and strip basic quotes
+                        const skill = parts.slice(1).join(',').trim().replace(/(^"|"$)/g, '');
+                        if (catName && skill && catName !== 'Category') {
+                            if (!csvSkills[catName]) csvSkills[catName] = new Set();
+                            csvSkills[catName].add(skill);
+                        }
+                    }
+                });
+
+                renderSkillBoxes(csvSkills, "csv-skills-container", null);
+            } catch (e) { console.error("CSV skills fetch failed", e); }
+
+            // 3a. Bind Click-to-Copy to individual skill variants
+            document.querySelectorAll('#csv-skills-container .hub-variant, #portfolio-skills-container .hub-variant').forEach(variant => {
+                variant.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevents the row click listener from firing
+                    const textToCopy = decodeURIComponent(variant.getAttribute('data-val'));
+
+                    hybridCopy(textToCopy).then(() => {
+                        const toast = document.getElementById('copy-toast');
+                        toast.textContent = `COPIED "${textToCopy.toUpperCase()}"!`;
+                        toast.classList.add('show');
+
+                        variant.classList.add('copied-variant-state');
+                        const row = variant.closest('.hub-row');
+                        if (row) row.classList.add('copied-state');
+
+                        setTimeout(() => {
+                            variant.classList.remove('copied-variant-state');
+                            if (row) row.classList.remove('copied-state');
+                        }, 150);
+
+                        setTimeout(() => toast.classList.remove('show'), 2000);
+                    });
+                });
+            });
+
+            // 3b. Bind Click-to-Copy to the entire category row
+            document.querySelectorAll('#csv-skills-container .hub-row.is-stacked, #portfolio-skills-container .hub-row.is-stacked').forEach(row => {
+                row.addEventListener('click', () => {
+                    const textToCopy = decodeURIComponent(row.getAttribute('data-clipboard'));
+                    const titleEl = row.querySelector('.hub-title-col');
+                    const categoryName = titleEl ? titleEl.textContent.trim().toUpperCase() : 'CATEGORY';
+
+                    hybridCopy(textToCopy).then(() => {
+                        const toast = document.getElementById('copy-toast');
+                        toast.textContent = `COPIED ALL ${categoryName} SKILLS!`;
+                        toast.classList.add('show');
+
+                        // Visual flash for the row and all variants inside it simultaneously
+                        row.classList.add('copied-state');
+                        row.querySelectorAll('.hub-variant').forEach(v => v.classList.add('copied-variant-state'));
+
+                        setTimeout(() => {
+                            row.classList.remove('copied-state');
+                            row.querySelectorAll('.hub-variant').forEach(v => v.classList.remove('copied-variant-state'));
+                        }, 150);
+
+                        setTimeout(() => toast.classList.remove('show'), 2000);
+                    });
+                });
+            });
+        }
+
+        function renderSkillBoxes(dataObj, containerId, categoryMap) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Uses the central app hub grid (2-columns on desktop, 1 on mobile)
+            let html = '<div class="hub-section-grid is-short-grid">';
+            for (const [catKey, skillSet] of Object.entries(dataObj)) {
+                const displayTitle = categoryMap && categoryMap[catKey] ? categoryMap[catKey] : catKey;
+                const sortedSkills = Array.from(skillSet).sort();
+                
+                // Create the comma-separated string for the row copy
+                const fullListStr = sortedSkills.join(', ');
+
+                const badgesHtml = sortedSkills
+                    .map(s => {
+                        const safeTitle = s.replace(/"/g, '&quot;');
+                        return `<span class="hub-variant" data-val="${encodeURIComponent(s)}" title="${safeTitle}">${s}</span>`;
+                    })
+                    .join('');
+
+                html += `
+                <div class="hub-row is-stacked" tabindex="0" data-clipboard="${encodeURIComponent(fullListStr)}">
+                    <div class="hub-title-wrap">
+                        <div class="hub-num is-icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="hub-title-col">${displayTitle}</div>
+                    </div>
+                    <div class="hub-content-col">${badgesHtml}</div>
+                </div>
+                `;
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Ensure this runs after the main DOM is ready
+        document.addEventListener("DOMContentLoaded", loadHubSkills);

@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-  <link rel="preload" href="../style.css" as="style">
+  <link rel="preload" href="css/style.css" as="style">
   <link rel="preload" href="../media/logo/AS_tr.png" as="image">
   <link rel="preload" href="../nav.html" as="fetch" crossorigin="anonymous">
   <link rel="preload"
@@ -49,12 +49,13 @@
   <meta property="og:url" content="https://adarshsheth.github.io/portfolio">
   <link rel="canonical" href="https://adarshsheth.github.io/portfolio">
 
-  <link
+  <link rel="stylesheet" href="css/theme.css">
+    <link
     href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <style>
+      <style>
     :root {
       --bg: #0a0a0a;
       --text: #d0d3cd;
@@ -196,8 +197,7 @@
       display: none !important;
     }
   </style>
-  <link rel="stylesheet" href="../style.css" />
-
+  <link rel="stylesheet" href="css/style.css" />
   <style>
     /* ══ OVERRIDE DEFAULT SECTION HEADERS TO MATCH BLOG STYLE ── */
     /* .sh {
@@ -1755,6 +1755,15 @@
       border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
     }
   </style>
+    <link rel="stylesheet" href="css/components/filters.css">
+    <link rel="stylesheet" href="css/components/sidebar.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/utilities.css">
+    
+    
+
+  
 </head>
 
 <body>
@@ -1933,7 +1942,7 @@
                     <img src="../media/logo/ray.png" alt="Raytheon RTX Logo" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="swe">MATLAB</span>
                   <span class="badge" data-cat="swe">Satellites</span>
                   <span class="badge" data-cat="swe">Git</span>
@@ -1971,9 +1980,9 @@
               <!-- <div class="cbody flex-img"> -->
               <!-- <div class="cbody full"> -->
               <div class="cbody">
-                <!-- <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;"> -->
+                <!-- <div class="grid-auto-fit-wide"> -->
                 <div style="display:grid; gap: 20px; align-items: start;">
-                  <!-- <p style="position: relative; z-index: 50;">Coming soon.</p> -->
+                  <!-- <p class="z-raise">Coming soon.</p> -->
                   <div>
 
                     <ul class="cbul">
@@ -1998,7 +2007,7 @@
 
                     <div>
                       <div class="cw">
-                        <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                        <div class="ratio-5-3 cw-inner">
                           <img class="cimg on"
                             src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/0_w8qp9p.jpg"
                             alt="Site Tour Group Photo" decoding="async" width="800" height="600" />
@@ -2065,7 +2074,7 @@
                     <!-- <img src="../media/logo/vfs.png" alt="VFS" decoding="async" /> -->
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <!-- <span class="badge" data-cat="hw">TRADE-OFF ANALYSIS</span> -->
                   <span class="badge" data-cat="des">CFD</span>
                   <span class="badge" data-cat="tools">SimScale</span>
@@ -2093,7 +2102,7 @@
                 <div>
                   <div class="hbox"><b>Competitions:</b><br>· Design-Build-Vertical Flight
                     (DBVF)<br>· Student Unmanned Aerial Systems Competition (SUAS)</div>
-                  <div class="cslbl" style="margin-top:10px">VTOL Design & Research</div>
+                  <div class="mt-10 cslbl">VTOL Design & Research</div>
                   <ul class="cbul">
                     <li>Analyzed multicopter and winged configurations for maximum <b>[1]
                         hover stability</b> (static; dynamic
@@ -2104,7 +2113,7 @@
                       rate</li>
                   </ul>
 
-                  <div class="cslbl" style="margin-top:10px">Simulation & Modeling</div>
+                  <div class="mt-10 cslbl">Simulation & Modeling</div>
                   <ul class="cbul">
                     <li>Programmed <b>Monte Carlo simulation</b> to generate 1,000 flight
                       mission path combinations, optimized for points and risk under
@@ -2132,10 +2141,10 @@
                   </ul>
                 </div>
                 <div
-                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                  class="grid-auto-fit-sm">
                   <div>
                     <div class="cw">
-                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                      <div class="ratio-5-3 cw-inner">
                         <img class="cimg on"
                           src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779252211/CFD1_zgkpwb.png"
                           alt="SimScale CFD Pressure Vector Field" decoding="async" width="800" height="600" />
@@ -2181,7 +2190,7 @@
 
                   <div>
                     <div class="cw">
-                      <div class="cw-inner" style="aspect-ratio: 5/3 !important;">
+                      <div class="ratio-5-3 cw-inner">
                         <video class="cimg on"
                           src="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.mp4"
                           poster="https://res.cloudinary.com/dvklf4dm6/video/upload/c_scale,w_800,q_auto,f_auto/v1777250786/timelapse_s0iivj.jpg"
@@ -2247,7 +2256,7 @@
                     <img src="../media/logo/red_name.jpg" alt="RED" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="des">P&ID</span>
                   <span class="badge" data-cat="sys">FMEA</span>
                   <span class="badge" data-cat="sys">Design Review</span>
@@ -2285,7 +2294,7 @@
                       interfaces (NPT, JIC, SL, CGA) and control elements (NCS, check
                       valve, PRV, PSV) for P&ID traceability</li>
                   </ul>
-                  <div class="cslbl" style="margin-top:12px">Engineering Work</div>
+                  <div class="mt-12 cslbl">Engineering Work</div>
                   <ul class="cbul">
                     <li>Researched <b>precision machining</b> approach to bore an 11"
                       thin-walled tube; opted for o-rings to absorb micro-irregularities
@@ -2297,7 +2306,7 @@
                       weighing items by risk priority number (RPN)</li>
                     <li>Line assembly; familiarization with sensors, general hardware, and fittings</li>
                   </ul>
-                  <div class="cslbl" style="margin-top:12px">Process Improvements</div>
+                  <div class="mt-12 cslbl">Process Improvements</div>
                   <ul class="cbul">
                     <li>Wrote a <b>machining reference guide</b> detailing techniques,
                       applications, and contacts</li>
@@ -2368,7 +2377,7 @@
                     <img src="../media/logo/seds.png" alt="SEDS" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="swe">Python</span>
                   <span class="badge" data-cat="swe">Simulation</span>
                   <span class="badge" data-cat="swe">GitHub</span>
@@ -2386,14 +2395,14 @@
             <div class="ec-details-inner">
               <div class="cbody full">
                 <div
-                  style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;">
+                  class="grid-auto-fit-wide">
                   <div>
                     <div class="cslbl">Challenge</div>
                     <p class="hbox">
                       12-member <b>team lead</b> for the Lunar Search and Rescue (LSAR)
                       Challenge at <i>TAMU SEDS</i>, hosted by Space Team University</p>
                     <ul class="cbul">
-                      <li style="line-height: 1.5 !important;">Designed and programmed a
+                      <li class="lh-15">Designed and programmed a
                         crash site <b>search algorithm</b> in
                         a high-fidelity lunar simulation <b>(SpaceTeamsPro)</b> under:
                         [1] limited
@@ -2404,19 +2413,19 @@
                   <div>
                     <div class="cslbl">Leadership Development</div>
                     <ul class="cbul">
-                      <li style="line-height: 1.5 !important;">Oversaw concurrent
+                      <li class="lh-15">Oversaw concurrent
                         algorithm approaches (square and hexagon
                         spiral), from concept to implementation, through <b>GitHub</b>
                         branching and task management</li>
                     </ul>
-                    <div class="hbox" style="margin-top:10px">Shifted from a <b>directive,
+                    <div class="mt-10 hbox">Shifted from a <b>directive,
                         pacesetter style</b> to a <b>peer-driven approach</b> —
                       leveraged members' individual strengths to sustain project
                       advancement without single-point bottlenecks</div>
                   </div>
                 </div>
                 <div
-                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                  class="grid-auto-fit">
                   <div>
                     <div class="cw">
                       <div class="cw-inner">
@@ -2465,7 +2474,7 @@
                     <img src="../media/logo/kiwi.png" alt="5776K" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="sys">Project Management</span>
                   <span class="badge" data-cat="des">CAD</span>
                   <span class="badge" data-cat="tools">Fusion 360</span>
@@ -2513,7 +2522,7 @@
                       <div class="ssub">of 20,000 teams</div>
                     </div>
                   </div>
-                  <div class="cslbl" style="margin-top: 12px">Team Captain</div>
+                  <div class="mt-12 cslbl">Team Captain</div>
                   <ul class="cbul">
                     <li>Led 10 members across <b>2 seasons</b> and <b>16 tournaments</b>
                     </li>
@@ -2522,7 +2531,7 @@
                     </li>
                   </ul>
 
-                  <div class="hbox" style="margin-top: 12px">
+                  <div class="mt-12 hbox">
                     <b>Recognized historic barriers:</b> [1] build-centered mindset, [2]
                     poor time management and overall chaos, [3] dismissed underclassmen
                   </div>
@@ -2559,7 +2568,7 @@
                   </ul>
 
                   <!-- <div class="csub"> -->
-                  <div class="cslbl" style="margin-top:10px">Technical Contributions</div>
+                  <div class="mt-10 cslbl">Technical Contributions</div>
                   <ul class="cbul">
                     <li>Designed, tested, and iterated individual subsystems and
                       full-robot designs in
@@ -2571,7 +2580,7 @@
                   <!-- </div> -->
 
 
-                  <div class="cslbl" style="margin-top:10px">Awards</div>
+                  <div class="mt-10 cslbl">Awards</div>
                   <div class="hbox">Spin Up (2022-2023) Awards</div>
                   &emsp;Design Award @ Battle of the Bay (states qualifying)<br>
                   &emsp;Innovate Award @ Tracy States (worlds qualifying)<br>
@@ -2706,7 +2715,7 @@
                     <img src="../media/logo/DVR.png" alt="DVR" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="soft">Logistics</span>
                   <span class="badge" data-cat="soft">Event Planning</span>
                   <span class="badge" data-cat="soft">Coordination</span>
@@ -2735,7 +2744,7 @@
                     <div class="hbox"><b>$75,000 combined fundraising</b> ($55,000 in
                       profits) across 2 summer camps and annual tournaments as Activities
                       Coordinator (2021–2023)</div>
-                    <div class="cslbl" style="margin-top:12px">Tournament Director</div>
+                    <div class="mt-12 cslbl">Tournament Director</div>
                     <ul class="cbul">
                       <li>Mapped venues for power sources, competition zones, team pits,
                         and wiring for displays and fields (hub → 3× match controllers →
@@ -2832,7 +2841,7 @@
                     <img src="../media/logo/vfs.png" alt="5776" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="soft">Outreach</span>
                   <span class="badge" data-cat="soft">Logistics</span>
                   <span class="badge" data-cat="soft">Event Planning</span>
@@ -2852,9 +2861,9 @@
           <div class="ec-details">
             <div class="ec-details-inner">
               <div class="cbody flex-img">
-                <!-- <p style="position: relative; z-index: 50;">Coming soon.</p> -->
+                <!-- <p class="z-raise">Coming soon.</p> -->
                 <div
-                  style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: start;">
+                  class="grid-auto-fit-wide">
                   <div>
                     <!-- <div class="hbox"><b>$75,000 combined fundraising</b> ($55,000 in
                       profits) across 2 summer camps and annual tournaments as Activities
@@ -2876,7 +2885,7 @@
                   </div>
                 </div>
                 <!-- <div
-                  style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 10px">
+                  class="grid-auto-fit-sm">
                   <div>
                     <div class="cw">
                       <div class="cw-inner">
@@ -2933,7 +2942,7 @@
                     <img src="../media/logo/sec.jpg" alt="SEC" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="gen">Aerodynamics</span>
                   <span class="badge" data-cat="gen">Python</span>
                   <span class="badge" data-cat="des">Sizing Iteration</span>
@@ -2967,14 +2976,14 @@
                     50%
                     visibility.</div>
 
-                  <div class="cslbl" style="margin-top:12px">Constraint Analysis + Iterative
+                  <div class="mt-12 cslbl">Constraint Analysis + Iterative
                     Sizing Method</div>
                   <p class="hbox" style="color:var(--tdim);margin-bottom:8px">
                     Iterated
-                    through <b>2,362,692</b> sizing configurations, varying:<br><b style="color: var(--tdim)">[1]
+                    through <b>2,362,692</b> sizing configurations, varying:<br><b class="text-dim">[1]
                       MTOW, [2] S</b> (wing planform area),
-                    <b style="color: var(--tdim)">[3] A</b> (total lift-propeller area), and
-                    <b style="color: var(--tdim)">[4] hover fraction</b>
+                    <b class="text-dim">[3] A</b> (total lift-propeller area), and
+                    <b class="text-dim">[4] hover fraction</b>
                   </p>
                   <ol class="nlist">
                     <li><span class="nn">STEP 1) </span><i>cruise airspeed &gt; (stall ×
@@ -3003,13 +3012,13 @@
                       and AR</li>
                     </li>
                   </ol>
-                  <div class="hbox" style="margin-top:10px">Applied Parameter Weights + Array
+                  <div class="mt-10 hbox">Applied Parameter Weights + Array
                     Sort → <b>MTOW: 224.81 lb</b> · <b>S: 2.7 m²</b> · <b>A: 40 m² </b>·
                     <b>Speed Fraction:
                       90%</b>
                   </div>
 
-                  <div class="cslbl" style="margin-top:12px">Additional Contributions</div>
+                  <div class="mt-12 cslbl">Additional Contributions</div>
                   <ul class="cbul">
                     <li>Aerodynamic calcs for transport cruise (18 m/s), search cruise (8
                       m/s), and hover - propeller radius, pitch, tip speed, motor torque,
@@ -3106,7 +3115,7 @@
                     <img src="../media/logo/invent.jpg" alt="Invent" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="hw">Prototyping</span>
                   <span class="badge" data-cat="sys">Need Statement</span>
                 </div>
@@ -3152,7 +3161,7 @@
                         <li>Straws glued to hexagon cut-out → control rods</li>
                         <li>Cardboard casing</li>
                       </ul>
-                      <!-- <div class="dbox" style="margin-top:10px">
+                      <!-- <div class="mt-10 dbox">
                         <b>Physical Prototype:</b><br />
                         
                       </div> -->
@@ -3161,7 +3170,7 @@
                 </div>
                 <div
                   style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 300px)); gap: 16px; margin-top: 10px">
-                  <div style="flex: 1;">
+                  <div class="flex-1">
                     <div class="cw">
                       <div class="cw-inner">
                         <img class="cimg on"
@@ -3183,7 +3192,7 @@
                     <div class="car-caption"></div>
                   </div>
 
-                  <div style="flex: 1;">
+                  <div class="flex-1">
                     <div class="cw">
                       <div class="cw-inner">
                         <video class="cimg on"
@@ -3223,7 +3232,7 @@
                     <img src="../media/logo/sec.jpg" alt="SEC" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="gen">Aerodynamics</span>
                   <span class="badge" data-cat="des">Trade Study</span>
                   <span class="badge" data-cat="soft">Research</span>
@@ -3262,7 +3271,7 @@
                   </div>
                   <div>
                     <div class="hbox"><b>Score: 284 / 300</b></div>
-                    <div class="cslbl" style="margin-top:12px">Deliverables</div>
+                    <div class="mt-12 cslbl">Deliverables</div>
                     <ul class="cbul">
                       <li>Full rocket CAD model and FEA structural analysis</li>
                       <li>Aerodynamic propulsion and drag calculations</li>
@@ -3304,7 +3313,7 @@
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
-              <img src="/media/vfs/semp.jpg" alt="SEMP" style="object-position: top;">
+              <img src="/media/vfs/semp.jpg" alt="SEMP" class="obj-top">
             </div>
             <div class="ec-info">
               <div>
@@ -3317,7 +3326,7 @@
                     <div class="ec-subtitle">Systems Eng. Management Plan | FALL 2026</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <!-- <span class="badge" data-cat="sys">Systems Engineering</span> -->
                   <span class="badge" data-cat="sys">Systems Eng.</span>
                   <span class="badge" data-cat="sys">Lifecycle</span>
@@ -3336,7 +3345,7 @@
           <div class="ec-details">
             <div class="ec-details-inner">
               <div class="cbody full">
-                <p style="position: relative; z-index: 50;">Coming soon.</p>
+                <p class="z-raise">Coming soon.</p>
               </div>
               <div class="clinks">
                 <a href="https://docs.google.com/document/d/1PnUmAQdm6rMN6UwWawj7As09miZqvMOYCkP0F6FzLrc/edit?usp=sharing"
@@ -3352,7 +3361,7 @@
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
-              <img src="/media/vfs/blown-wing.jpg" alt="blown-wing" style="object-position: top;">
+              <img src="/media/vfs/blown-wing.jpg" alt="blown-wing" class="obj-top">
             </div>
             <div class="ec-info">
               <div>
@@ -3362,7 +3371,7 @@
                     <div class="ec-subtitle">Followed Full Systems Engineering Process | FALL 2026</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="sys">Systems Engineering</span>
                   <span class="badge" data-cat="sys">Project Management</span>
                   <span class="badge" data-cat="sys">Technical Writing</span>
@@ -3392,7 +3401,7 @@
           <div class="ec-details">
             <div class="ec-details-inner">
               <div class="cbody full">
-                <p style="position: relative; z-index: 50;">Coming soon.</p>
+                <p class="z-raise">Coming soon.</p>
               </div>
               <div class="clinks">
                 <a href="https://docs.google.com/document/d/1PnUmAQdm6rMN6UwWawj7As09miZqvMOYCkP0F6FzLrc/edit?usp=sharing"
@@ -3409,7 +3418,7 @@
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
-              <img src="/media/infographic/launching.jpg" alt="Launch Factors" style="object-position: top;">
+              <img src="/media/infographic/launching.jpg" alt="Launch Factors" class="obj-top">
             </div>
             <div class="ec-info">
               <div>
@@ -3420,7 +3429,7 @@
                     <div class="ec-subtitle">@ DVHS Robotics 5776K | FALL & SPRING 2024</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <!-- <span class="badge" data-cat="gen">Mechanical Engineering</span> -->
                   <span class="badge" data-cat="gen">Mechanical Eng.</span>
                   <span class="badge" data-cat="hw">T&E</span>
@@ -3438,7 +3447,7 @@
             <div class="ec-details-inner">
               <div class="cbody full">
                 <div>
-                  <div class="cslbl" style="margin-bottom: 8px">TUNING LAUNCH MECHANISMS</div>
+                  <div class="mb-8 cslbl">TUNING LAUNCH MECHANISMS</div>
                   <ul class="cbul">
                     <li>Analyzed the tuning factors from the perspectives of: power, speed, arc characteristics,
                       loading, landing, and build quality</li>
@@ -3446,30 +3455,30 @@
                       ratio, slip gear, power/speed, ramp, mechanical
                       stop, limit switch, ratchet, backspin, and quality</li>
                   </ul>
-                  <div class="cslbl" style="margin-bottom: 8px">PNUEMATICS</div>
+                  <div class="mb-8 cslbl">PNUEMATICS</div>
                   <ul class="cbul">
                     <li>Overviews the 3 pneumatic systems used on the 5776K 'VEX Spin Up' NorCal States robot</li>
                     <li>Highlights function through CAD renders</li>
                   </ul>
                   <div
-                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                    class="grid-2col">
                     <div
-                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                      class="grid-auto-fit">
                       <div>
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/infographic/launching.jpg" alt="Shooting Mechanism Diagram"
                               data-cap="Shooting Mechanism Parts Diagram"
-                              style="border: none; pointer-events: none;"></img>
+                             ></img>
                             <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
-                              data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img>
+                              data-cap="Pneumatics Diagram"></img>
                           </div>
                         </div>
                         <div class="cdots">
                           <span class="cdot on"></span>
                           <span class="cdot"></span>
                         </div>
-                        <div class="car-caption" style="margin-top:10px;"></div>
+                        <div class="mt-10 car-caption"></div>
                       </div>
                     </div>
                   </div>
@@ -3497,7 +3506,7 @@
             <div class="ec-thumb">
               <img
                 src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269730/refrigerator_l4gkgt.png"
-                alt="Everyday Engineering Refrigerator" style="object-position: top;">
+                alt="Everyday Engineering Refrigerator" class="obj-top">
             </div>
             <div class="ec-info">
               <div>
@@ -3507,7 +3516,7 @@
                     <div class="ec-subtitle">Infographic Series | SUMMER & FALL 2025</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="gen">Thermodynamics</span>
                   <span class="badge" data-cat="soft">Research</span>
                   <span class="badge" data-cat="sys">Technical Writing</span>
@@ -3531,9 +3540,9 @@
                       functions and processes</li>
                   </ul>
                   <div
-                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                    class="grid-2col">
                     <div
-                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                      class="grid-auto-fit">
                       <div>
                         <div class="cw">
                           <div class="cw-inner port-h">
@@ -3541,10 +3550,10 @@
                               src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269730/refrigerator_l4gkgt.png"
                               alt="Refrigerator"
                               data-cap="RE·FRIG·ER·A·TOR — Engineering Breakdown · Common Item Series"
-                              style="border: none; pointer-events: none;"></img>
+                             ></img>
                           </div>
                         </div>
-                        <div class="car-caption" style="margin-top:10px;"></div>
+                        <div class="mt-10 car-caption"></div>
                       </div>
                     </div>
                   </div>
@@ -3567,7 +3576,7 @@
             <div class="ec-thumb">
               <img
                 src="https://res.cloudinary.com/dvklf4dm6/image/upload/c_scale,w_800,q_auto,f_auto/v1779269733/aero2_gtphbq.png"
-                alt="Aerodynamics Infographic" style="object-position: left;">
+                alt="Aerodynamics Infographic" class="obj-left">
             </div>
             <div class="ec-info">
               <div>
@@ -3577,7 +3586,7 @@
                     <div class="ec-subtitle">Educational Series | 03–04-2025 TO PRESENT</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="gen">Aerodynamics</span>
                   <span class="badge" data-cat="soft">Research</span>
                   <span class="badge" data-cat="sys">Technical Writing</span>
@@ -3655,7 +3664,7 @@
                     <img src="../media/logo/888.png" alt="888" decoding="async" />
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="soft">Leadership</span>
                   <span class="badge" data-cat="sys">Project Management</span>
                   <span class="badge" data-cat="des">CAD</span>
@@ -3690,7 +3699,7 @@
                       <div class="ssub">+ 7 Special Awards</div>
                     </div>
                   </div>
-                  <div class="hbox" style="margin-top:10px"><b>Eagle Project:</b> Greenhouse
+                  <div class="mt-10 hbox"><b>Eagle Project:</b> Greenhouse
                     Bench @ Fertile Groundworks — built and installed a 14'×4'×3' growing
                     bench with CAD drawings and full project documentation</div>
                   <ul class="cbul" style="margin-top: 8px">
@@ -3754,7 +3763,7 @@
                     <div class="ec-subtitle">Independent Project | Fusion 360</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="tools">Fusion 360</span>
                   <span class="badge" data-cat="des">CAD</span>
                   <!-- <span class="badge" data-cat="hw">SURFACE MODELING</span> -->
@@ -3826,7 +3835,7 @@
                     <div class="ec-subtitle">Design Concept | FALL 2025</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="hw">Stress Analysis</span>
                   <span class="badge" data-cat="des">CAD</span>
                   <span class="badge" data-cat="hw">Material Science</span>
@@ -3844,7 +3853,7 @@
             <div class="ec-details-inner">
               <div class="cbody full">
                 <div>
-                  <div class="cslbl" style="margin-bottom: 8px">Design Constraints</div>
+                  <div class="mb-8 cslbl">Design Constraints</div>
                   <ul class="cbul">
                     <li>Must withstand <b>2000 N</b> of driver input force without failure
                     </li>
@@ -3903,7 +3912,7 @@
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
-              <img src="/media/vfs/boeing.jpg" alt="Boeing" style="object-position: bottom;">
+              <img src="/media/vfs/boeing.jpg" alt="Boeing" class="obj-bottom">
             </div>
             <div class="ec-info">
               <div>
@@ -3913,7 +3922,7 @@
                     <div class="ec-subtitle">SUMMER 2026</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="gen">Professional Networking</span>
                   <span class="badge" data-cat="hw">Manufacturing</span>
                 </div>
@@ -3935,23 +3944,23 @@
                   </ul>
 
                   <div
-                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                    class="grid-2col">
                     <div
-                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                      class="grid-auto-fit">
                       <div>
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/vfs/boeing.jpg" alt="Boeing Factory"
-                              data-cap="Boeing Renton, WA Factory" style="border: none; pointer-events: none;"></img>
+                              data-cap="Boeing Renton, WA Factory"></img>
                             <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
-                              data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
+                              data-cap="Pneumatics Diagram"></img> -->
                           </div>
                         </div>
                         <!-- <div class="cdots">
                           <span class="cdot on"></span>
                           <span class="cdot"></span>
                         </div> -->
-                        <div class="car-caption" style="margin-top:10px;"></div>
+                        <div class="mt-10 car-caption"></div>
                       </div>
                     </div>
                   </div>
@@ -3972,7 +3981,7 @@
         <div class="uni-card ec-card">
           <div class="ec-summary" onclick="toggleCardDetails(this)">
             <div class="ec-thumb">
-              <img src="/media/vfs/blue.jpg" alt="Blue" style="object-position: center;">
+              <img src="/media/vfs/blue.jpg" alt="Blue" class="obj-center">
             </div>
             <div class="ec-info">
               <div>
@@ -3983,7 +3992,7 @@
                     <div class="ec-subtitle">SUMMER 2026</div>
                   </div>
                 </div>
-                <div class="brow" style="padding: 0; margin-bottom: 10px;">
+                <div class="brow p-0 mb-10">
                   <span class="badge" data-cat="gen">Professional Networking</span>
                   <span class="badge" data-cat="hw">Manufacturing</span>
                 </div>
@@ -4002,23 +4011,23 @@
                     <li>Saw development on the New Shepard vehicle and BE-4 engine.</li>
                   </ul>
                   <div
-                    style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start">
+                    class="grid-2col">
                     <div
-                      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); gap: 16px; margin-top: 0px">
+                      class="grid-auto-fit">
                       <div>
                         <div class="cw">
                           <div class="cw-inner port-h">
                             <img class="cimg on" src="/media/vfs/blue.jpg" alt="Blue Origin Factory"
-                              data-cap="Blue Origin Kent, WA Factory" style="border: none; pointer-events: none;"></img>
+                              data-cap="Blue Origin Kent, WA Factory"></img>
                             <!-- <img class="cimg" src="/media/infographic/pneumatics.jpg" alt="Pneumatics"
-                              data-cap="Pneumatics Diagram" style="border: none; pointer-events: none;"></img> -->
+                              data-cap="Pneumatics Diagram"></img> -->
                           </div>
                         </div>
                         <!-- <div class="cdots">
                           <span class="cdot on"></span>
                           <span class="cdot"></span>
                         </div> -->
-                        <div class="car-caption" style="margin-top:10px;"></div>
+                        <div class="mt-10 car-caption"></div>
                       </div>
                     </div>
                   </div>
@@ -4052,7 +4061,7 @@
       </div>
 
       <div class="card-stack tile-mode" id="stack-teams"></div>
-      <hr class="div" style="margin-top: 50px;" />
+      <hr class="mt-50 div" />
     </section>
 
     <section id="sec-leadership" class="sb portfolio-sec" data-k="leadership">
@@ -4068,7 +4077,7 @@
       </div>
 
       <div class="card-stack tile-mode" id="stack-leadership"></div>
-      <hr class="div" style="margin-top: 50px;" />
+      <hr class="mt-50 div" />
     </section>
 
     <section id="sec-projects" class="sb portfolio-sec" data-k="projects">
@@ -4104,727 +4113,15 @@
   </div>
   <div id="footer-placeholder"></div>
 
-  <script src="../script.js"></script>
+  <script src="js/core.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/effects.js"></script>
 
-  <script>
-    // --- VIDEO MANAGER ---
-    document.addEventListener("DOMContentLoaded", () => {
-      const videos = document.querySelectorAll("video.cimg");
 
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          const vid = e.target;
-          if (!e.isIntersecting) {
-            vid.pause();
-          } else if (vid.classList.contains("on") && getComputedStyle(vid).display !== "none") {
-            vid.play().catch(() => { });
-          }
-        });
-      }, { threshold: 0.1 });
 
-      videos.forEach(vid => io.observe(vid));
-    });
 
-    // // --- LONG PRESS STATE FOR MOBILE TILES ---
-    // let lbLongPressTimer = null;
-    // let lbIsLongPress = false;
-    // let lbTouchStartX = 0;
-    // let lbTouchStartY = 0;
 
-    // // 1. Listen for when the user touches a card
-    // document.addEventListener('touchstart', (e) => {
-    //   const summary = e.target.closest('.ec-summary');
-    //   if (!summary) return;
-
-    //   const stack = summary.closest('.card-stack');
-    //   // Only apply this logic to tiles
-    //   if (stack && stack.classList.contains('tile-mode')) {
-    //     lbIsLongPress = false;
-    //     lbTouchStartX = e.touches[0].clientX;
-    //     lbTouchStartY = e.touches[0].clientY;
-
-    //     // Start a 500ms timer. If it finishes before they let go, open the lightbox!
-    //     lbLongPressTimer = setTimeout(() => {
-    //       lbIsLongPress = true;
-    //       pfOpenLightbox(summary);
-    //     }, 500);
-    //   }
-    // }, { passive: true });
-
-    // // 2. Cancel the long-press if the user scrolls or jiggles their finger too much
-    // document.addEventListener('touchmove', (e) => {
-    //   if (!lbLongPressTimer) return;
-    //   const dx = Math.abs(e.touches[0].clientX - lbTouchStartX);
-    //   const dy = Math.abs(e.touches[0].clientY - lbTouchStartY);
-    //   if (dx > 10 || dy > 10) {
-    //     clearTimeout(lbLongPressTimer);
-    //     lbLongPressTimer = null;
-    //   }
-    // }, { passive: true });
-
-    // // 3. Cancel the timer if they let go early (it was just a quick tap)
-    // document.addEventListener('touchend', () => {
-    //   clearTimeout(lbLongPressTimer);
-    //   lbLongPressTimer = null;
-    // }, { passive: true });
-
-    // document.addEventListener('touchcancel', () => {
-    //   clearTimeout(lbLongPressTimer);
-    //   lbLongPressTimer = null;
-    // }, { passive: true });
-
-    // --- ACCORDION TOGGLE LOGIC --- 
-    function toggleCardDetails(element) {
-      const item = element.closest('.ec-item');
-      if (item && item.classList.contains('in-lightbox')) return; // stays open while inside the lightbox
-
-      const stack = element.closest('.card-stack');
-
-      // if (stack && stack.classList.contains('tile-mode')) {
-      //   // If it was a long-press on mobile, the lightbox already opened. Reset and do nothing here.
-      //   if (lbIsLongPress) {
-      //     setTimeout(() => { lbIsLongPress = false; }, 100);
-      //     return;
-      //   }
-
-      //   // For EVERYTHING else (Desktop clicks OR Mobile quick taps), open the lightbox!
-      //   pfOpenLightbox(element);
-      //   return;
-      // }
-      if (stack && stack.classList.contains('tile-mode')) {
-        pfOpenLightbox(element);
-        return;
-      }
-
-      // Standard accordion expansion logic (Now only applies to list-mode)
-      const card = element.closest('.ec-card');
-      card.classList.toggle('open');
-      const icon = element.querySelector('.expand-icon');
-
-      //   if (card.classList.contains('open')) {
-      //     // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-      //   } else {
-      //     // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-      //     const rect = card.getBoundingClientRect();
-      //     if (rect.top < 0) {
-      //       const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-      //       window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
-      //     }
-      //   }
-      // }
-
-
-      if (card.classList.contains('open')) {
-        // icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-      } else {
-        // icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        const rect = card.getBoundingClientRect();
-        if (rect.top < 0) {
-          const navOffset = document.getElementById('hdr') ? document.getElementById('hdr').offsetHeight : 50;
-          window.scrollBy({ top: rect.top - navOffset - 20, behavior: 'smooth' });
-        }
-      }
-    }
-
-    // --- CLICK ANYWHERE TO CLOSE EXPANDED CARD (LIST MODE) ---
-    document.addEventListener('click', (e) => {
-      // 1. Ensure the click happened inside the details section of an open card
-      const details = e.target.closest('.ec-details');
-      if (!details) return;
-
-      const card = details.closest('.ec-card');
-      if (!card || !card.classList.contains('open')) return;
-
-      // 2. Ignore if we are in tile mode (lightbox view)
-      const stack = card.closest('.card-stack');
-      if (stack && stack.classList.contains('tile-mode')) return;
-
-      // 3. Ignore clicks on interactive elements (links, buttons, carousels)
-      if (e.target.closest('a, button, .cw')) return;
-
-      // 4. Ignore if the user is currently selecting text
-      if (window.getSelection().toString().length > 0) return;
-
-      // 5. Safely close the card by triggering the toggle on the summary
-      const summary = card.querySelector('.ec-summary');
-      if (summary) toggleCardDetails(summary);
-    });
-
-
-
-
-
-
-
-
-
-
-    // --- CARD CONTENT LIGHTBOX (tile mode only) ---
-    let pfLbHome = null;
-    let pfLbClone = null;
-
-    function pfOpenLightbox(element) {
-      const item = element.closest('.ec-item');
-      if (!item) return;
-
-      pfLbClone = item.cloneNode(true);
-      item.parentNode.insertBefore(pfLbClone, item);
-
-      pfLbHome = { node: item, parent: item.parentNode };
-
-      const content = document.getElementById('card-lb-content');
-      content.innerHTML = '';
-      content.appendChild(item);
-      item.classList.add('in-lightbox');
-
-      const card = item.querySelector('.ec-card');
-      if (card) {
-        card.classList.add('open');
-        const icon = card.querySelector('.expand-icon');
-        // if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-      }
-
-      document.getElementById('card-lb').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden'; // Ensure iOS Safari respects the lock
-
-      // Push state WITH a hash so mobile browsers explicitly register a page change
-      // history.pushState({ lightboxOpen: true }, "", "#detail");
-      if (item.id) {
-        history.pushState({ lightboxOpen: true }, "", "#" + item.id);
-      }
-    }
-
-    // Intercept the browser/system back button
-    window.addEventListener('popstate', (e) => {
-      if (document.getElementById('card-lb').classList.contains('open')) {
-        pfCloseLightbox(true); // Pass flag to signify it was closed via back button
-      }
-    });
-
-    function pfCloseLightbox(fromPopState = false) {
-      const lb = document.getElementById('card-lb');
-      if (!lb.classList.contains('open')) return;
-
-      lb.classList.remove('open');
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = ''; // Release the lock
-
-      if (pfLbHome) {
-        const { node, parent } = pfLbHome;
-        setTimeout(() => {
-          const card = node.querySelector('.ec-card');
-          if (card) {
-            card.classList.remove('open');
-            const icon = card.querySelector('.expand-icon');
-            // if (icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-          }
-          node.classList.remove('in-lightbox');
-          if (pfLbClone && pfLbClone.parentNode) {
-            pfLbClone.parentNode.replaceChild(node, pfLbClone);
-          } else {
-            parent.appendChild(node);
-          }
-          pfLbClone = null;
-          pfLbHome = null;
-        }, 250);
-      }
-
-      // If closed manually via the X button or backdrop, reverse the dummy state
-      // if (fromPopState !== true && window.location.hash === '#detail') {
-      //   history.back();
-      // }
-
-      // // Fallback: forcefully strip the hash from the URL bar visually 
-      // // (Runs a split second later to ensure history.back() doesn't conflict)
-      // setTimeout(() => {
-      //   if (window.location.hash === '#detail') {
-      //     history.replaceState(null, "", window.location.pathname + window.location.search);
-      //   }
-      // }, 50);
-      // Check if the current hash matches the open card before going back
-      const currentCardId = pfLbHome && pfLbHome.node ? pfLbHome.node.id : '';
-      if (fromPopState !== true && window.location.hash === '#' + currentCardId) {
-        history.back();
-      }
-
-      // Fallback to strip ANY hash on close to prevent reload loops
-      setTimeout(() => {
-        if (window.location.hash) {
-          history.replaceState(null, "", window.location.pathname + window.location.search);
-        }
-      }, 50);
-    }
-
-    // function pfLbNav(dir) {
-    //   if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
-
-    //   const stack = pfLbHome.parent;
-    //   if (!stack) return;
-
-    //   // Get all visible items in the current stack
-    //   const items = Array.from(stack.querySelectorAll('.ec-item')).filter(item => item.style.display !== 'none');
-    //   if (items.length <= 1) return;
-
-    //   // FIX: Look for pfLbClone instead of the original node (which is currently inside the lightbox)
-    //   const currentIndex = items.indexOf(pfLbClone);
-    //   if (currentIndex === -1) return;
-
-    //   const nextIndex = (currentIndex + dir + items.length) % items.length;
-    //   const nextItem = items[nextIndex];
-
-    //   // Clean up current item cleanly
-    //   const currentItem = pfLbHome.node;
-    //   const currentCard = currentItem.querySelector('.ec-card');
-    //   if (currentCard) currentCard.classList.remove('open');
-    //   currentItem.classList.remove('in-lightbox');
-
-    //   // FIX: Replace the clone in the stack with the original item
-    //   stack.replaceChild(currentItem, pfLbClone);
-
-    //   // Setup the next item in the lightbox
-    //   pfLbClone = nextItem.cloneNode(true);
-    //   stack.insertBefore(pfLbClone, nextItem);
-
-    //   pfLbHome = { node: nextItem, parent: stack };
-
-    //   const content = document.getElementById('card-lb-content');
-    //   content.innerHTML = '';
-    //   content.appendChild(nextItem);
-    //   nextItem.classList.add('in-lightbox');
-
-    //   const nextCard = nextItem.querySelector('.ec-card');
-    //   if (nextCard) nextCard.classList.add('open');
-
-    //   // Reset scroll position
-    //   content.scrollTop = 0;
-    // }
-    function pfLbNav(dir) {
-      if (!pfLbHome || !pfLbHome.node || !pfLbClone) return;
-
-      // 1. Select ALL visible items across ALL sections. 
-      // Querying '.card-stack .ec-item' automatically skips the hidden master pool 
-      // and captures the exact top-to-bottom visual order of the page.
-      const visibleItems = Array.from(document.querySelectorAll('.card-stack .ec-item'))
-        .filter(item => item.style.display !== 'none');
-
-      if (visibleItems.length <= 1) return;
-
-      // 2. The clone acts as our placeholder in the grid. Find its index globally.
-      const currentIndex = visibleItems.indexOf(pfLbClone);
-      if (currentIndex === -1) return;
-
-      // 3. Calculate the next index, looping around if we hit the start or end.
-      const nextIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
-      const nextItem = visibleItems[nextIndex];
-
-      // 4. Clean up the currently open item and return it to its original grid spot.
-      const currentItem = pfLbHome.node;
-      const currentCard = currentItem.querySelector('.ec-card');
-      if (currentCard) currentCard.classList.remove('open');
-      currentItem.classList.remove('in-lightbox');
-
-      pfLbHome.parent.replaceChild(currentItem, pfLbClone);
-
-      // 5. Prepare the next item by cloning it and recording its new home stack.
-      const nextParent = nextItem.parentNode;
-      pfLbClone = nextItem.cloneNode(true);
-      nextParent.insertBefore(pfLbClone, nextItem);
-
-      pfLbHome = { node: nextItem, parent: nextParent };
-
-      // 6. Move the next item into the lightbox overlay.
-      const content = document.getElementById('card-lb-content');
-      content.innerHTML = '';
-      content.appendChild(nextItem);
-      nextItem.classList.add('in-lightbox');
-
-      const nextCard = nextItem.querySelector('.ec-card');
-      if (nextCard) nextCard.classList.add('open');
-
-      // 7. Reset the lightbox scroll position to the top.
-      content.scrollTop = 0;
-
-      // Replace current state so we don't clutter the back button history
-      if (nextItem.id) {
-        history.replaceState({ lightboxOpen: true }, "", "#" + nextItem.id);
-      }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // document.addEventListener('keydown', (e) => {
-    //   if (document.getElementById('card-lb').classList.contains('open')) {
-    //     if (e.key === 'Escape') pfCloseLightbox();
-    //     else if (e.key === 'ArrowRight') pfLbNav(1);
-    //     else if (e.key === 'ArrowLeft') pfLbNav(-1);
-    //   }
-    // });
-    // document.addEventListener('keydown', (e) => {
-    //     if (document.getElementById('card-lb').classList.contains('open')) {
-    //       // Stop execution if the inner image lightbox is currently open
-    //       const imgLightbox = document.getElementById('lb');
-    //       if (imgLightbox && imgLightbox.classList.contains('open')) return;
-
-    //       if (e.key === 'Escape') pfCloseLightbox();
-    //       else if (e.key === 'ArrowRight') pfLbNav(1);
-    //       else if (e.key === 'ArrowLeft') pfLbNav(-1);
-    //     }
-    //   });
-    document.addEventListener('keydown', (e) => {
-      const cardLb = document.getElementById('card-lb');
-      const imgLb = document.getElementById('lb');
-
-      if (cardLb && cardLb.classList.contains('open')) {
-        // Stop execution if the inner image lightbox is currently open
-        if (imgLb && imgLb.classList.contains('open')) {
-          return;
-        }
-
-        // If the image lightbox is closed, handle the EC card normally
-        if (e.key === 'Escape') pfCloseLightbox();
-        else if (e.key === 'ArrowRight') pfLbNav(1);
-        else if (e.key === 'ArrowLeft') pfLbNav(-1);
-      }
-    });
-
-    // --- FLOAT-UP REVEAL ON SCROLL ---
-    let pfRevealObserver = null;
-
-    function pfInitReveal() {
-      if (pfRevealObserver) pfRevealObserver.disconnect();
-
-      pfRevealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            pfRevealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px 50px 0px' });
-
-      document.querySelectorAll('.ec-item').forEach((item) => {
-        if (!item.classList.contains('visible') && item.style.display !== 'none') {
-          pfRevealObserver.observe(item);
-        }
-      });
-    }
-    // let pfRevealObserver = null;
-
-    //   function pfInitReveal() {
-    //     if (pfRevealObserver) pfRevealObserver.disconnect();
-
-    //     // Lowered threshold and added a positive rootMargin to trigger slightly before scrolling into view
-    //     pfRevealObserver = new IntersectionObserver((entries) => {
-    //       entries.forEach((entry) => {
-    //         if (entry.isIntersecting) {
-    //           entry.target.classList.add('visible');
-    //           pfRevealObserver.unobserve(entry.target);
-    //         }
-    //       });
-    //     }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
-
-    //     document.querySelectorAll('.ec-item').forEach((item) => {
-    //       if (!item.classList.contains('visible') && item.style.display !== 'none') {
-
-    //         // NEW: Immediately show items that are already in the viewport on page load
-    //         if (item.getBoundingClientRect().top < window.innerHeight) {
-    //           // Slight delay ensures the CSS has processed before adding the class
-    //           setTimeout(() => item.classList.add('visible'), 50);
-    //         } else {
-    //           pfRevealObserver.observe(item);
-    //         }
-
-    //       }
-    //     });
-    //   }
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   if (typeof filterPortfolio === 'function') {
-    //     const urlParams = new URLSearchParams(window.location.search);
-    //     const filterTag = urlParams.get('filter') || 'all';
-    //     filterPortfolio(filterTag);
-    //   }
-    // });
-
-    // --- FILTER & SIDEBAR SYNC LOGIC ---
-    function filterPortfolio(tag) {
-      const url = new URL(window.location);
-      if (tag === 'all') {
-        url.searchParams.delete('filter');
-      } else {
-        url.searchParams.set('filter', tag);
-      }
-      window.history.replaceState({}, '', url);
-
-      pfCloseLightbox();
-
-      // Prevent layout shift transitions from firing
-      document.body.classList.add('filtering-active');
-
-      // 👇 NEW LOGIC HERE 👇
-      document.querySelectorAll('.card-stack').forEach((stack) => {
-        const isMobile = window.innerWidth <= 800; // Match your mobile CSS breakpoint
-        stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
-      });
-      // 👆 END NEW LOGIC 👆
-
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.dataset.tag === tag) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-
-      // ... (rest of the function remains the same)
-
-      const pool = document.getElementById('master-card-pool');
-      const stacks = {
-        'teams': document.getElementById('stack-teams'),
-        'leadership': document.getElementById('stack-leadership'),
-        'projects': document.getElementById('stack-projects'),
-        'educational': document.getElementById('stack-educational')
-      };
-
-      // Safely move existing cards back to the pool to re-evaluate placement
-      Object.values(stacks).forEach(stack => {
-        while (stack.firstChild) {
-          pool.appendChild(stack.firstChild);
-        }
-      });
-
-      const allCards = Array.from(pool.children);
-
-      // Sort cards numerically by their data-order attribute (descending: highest first)
-      allCards.sort((a, b) => {
-        const orderA = a.dataset.order ? parseInt(a.dataset.order) : -1;
-        const orderB = b.dataset.order ? parseInt(b.dataset.order) : -1;
-        return orderB - orderA;
-      });
-
-      allCards.forEach(card => {
-        const tags = card.dataset.tags.split(' ');
-        const isVisible = (tag === 'all' || tags.includes(tag));
-
-        if (isVisible) {
-          const sections = card.dataset.sections.split(' ');
-          let targetSec = sections[0];
-
-          // LOGIC: If filter is applied ('all' is default), and card has multiple sections, assign to secondary section.
-          if (tag !== 'all' && sections.length > 1) {
-            targetSec = sections[1];
-          }
-
-          card.style.display = 'block';
-          card.classList.remove('visible');
-
-          if (stacks[targetSec]) {
-            stacks[targetSec].appendChild(card);
-          }
-        } else {
-          card.style.display = 'none';
-          card.classList.remove('visible');
-        }
-      });
-
-      const sections = document.querySelectorAll('.portfolio-sec');
-      sections.forEach(sec => {
-        const stack = sec.querySelector('.card-stack');
-        const hasVisibleCards = stack && stack.children.length > 0;
-
-        sec.style.display = hasVisibleCards ? 'block' : 'none';
-
-        const secId = sec.getAttribute('data-k');
-        const sidebarLink = document.querySelector(`.sbn[data-k="${secId}"]`);
-        if (sidebarLink) {
-          sidebarLink.style.display = hasVisibleCards ? 'flex' : 'none';
-        }
-      });
-
-      if (typeof runCoreScrollTasks === 'function') {
-        runCoreScrollTasks(window.scrollY);
-      }
-
-      // Force reflow and restore transitions
-      void document.body.offsetWidth;
-      document.body.classList.remove('filtering-active');
-
-      setTimeout(() => pfInitReveal(), 50);
-
-
-      // Force reflow and restore transitions
-      void document.body.offsetWidth;
-      document.body.classList.remove('filtering-active');
-
-      setTimeout(() => pfInitReveal(), 50);
-
-      // FIX: Close all expanded cards when switching filters
-      document.querySelectorAll('.ec-card.open').forEach(card => card.classList.remove('open'));
-
-      // FIX: Fade out, swap background, then fade in
-      // document.body.classList.add('bg-fade-out');
-
-      // Wait for the opacity to hit 0 (200ms) before swapping the image class
-      setTimeout(() => {
-        // Strip existing bg- classes
-        document.body.className = document.body.className.replace(/bg-\S+/g, '').trim();
-        // Apply new background class
-        document.body.classList.add('bg-' + tag);
-
-        // Wait a tiny bit for the browser to register the new image, then fade back in
-        // setTimeout(() => {
-        //   document.body.classList.remove('bg-fade-out');
-        // }, 50);
-      }, 200);
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const filterTag = params.get('filter') || 'all'; // Default to 'all' if no filter in URL
-
-      // Run the filter immediately
-      filterPortfolio(filterTag);
-
-      // Background class will be handled inside filterPortfolio()
-    });
-    // 👇 ADD THIS LISTENER 👇
-    window.addEventListener('resize', () => {
-      const params = new URLSearchParams(window.location.search);
-      const tag = params.get('filter') || 'all';
-      const isMobile = window.innerWidth <= 800;
-
-      document.querySelectorAll('.card-stack').forEach((stack) => {
-        stack.classList.toggle('tile-mode', tag === 'all' || isMobile);
-
-        // Safety cleanup: If switching to tile mode on resize, close any open list accordions
-        if ((tag === 'all' || isMobile) && stack.classList.contains('tile-mode')) {
-          stack.querySelectorAll('.ec-card.open').forEach(c => c.classList.remove('open'));
-        }
-      });
-    });
-
-
-
-
-
-
-
-
-  window.addEventListener('load', () => {
-    const hash = window.location.hash;
-    if (hash && hash.length > 1) {
-      // Find the element matching the hash (e.g., #ray)
-      const targetCard = document.querySelector(hash);
-
-      // Ensure it's a valid portfolio card before opening
-      if (targetCard && targetCard.classList.contains('ec-item')) {
-        const summary = targetCard.querySelector('.ec-summary');
-        if (summary) {
-          // Slight delay ensures CSS/filters have settled before animating
-          setTimeout(() => pfOpenLightbox(summary), 250);
-        }
-      }
-    }
-  });
-
-
-
-
-
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // Find all ec-subtitles and reformat them for the mobile dot/newline layout
-      document.querySelectorAll('.ec-subtitle').forEach(sub => {
-        const text = sub.innerText;
-
-        // Only process if it contains the pipe character
-        if (text.includes('|')) {
-          const parts = text.split('|');
-
-          if (parts.length === 2) {
-            const role = parts[0].trim();
-            const date = parts[1].trim();
-
-            // Rewrite the HTML structure
-            sub.innerHTML = `
-                    <span class="sub-role">${role}<span class="sub-mobile-dot"> •</span></span>
-                    <span class="sub-date">
-                        <span class="sub-desktop-pipe"> | </span>
-                        
-                        ${date}
-                    </span>
-                `;
-          }
-        }
-      });
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // Map the raw data-tags to your preferred display text
-      const tagMap = {
-        'aero': 'AERO',
-        'astro': 'ASTRO',
-        'robotics': 'ROBOTICS',
-        'general': 'GENERAL'
-      };
-
-      document.querySelectorAll('.ec-item').forEach(item => {
-        const tags = item.dataset.tags ? item.dataset.tags.split(' ') : [];
-        const brow = item.querySelector('.brow');
-
-        if (brow) {
-          // Create a clickable badge for each valid category tag
-          tags.forEach(tag => {
-            if (tagMap[tag]) {
-              const badge = document.createElement('span');
-              badge.className = 'badge cat-badge';
-              badge.textContent = tagMap[tag];
-
-              // Trigger the filter and prevent the lightbox from opening
-              badge.onclick = (e) => {
-                e.stopPropagation();
-                filterPortfolio(tag);
-
-                // Optional: smoothly scroll back to the top of the portfolio section
-                document.getElementById('mn').scrollIntoView({ behavior: 'smooth' });
-              };
-
-              // Insert at the beginning of the badge row
-              brow.prepend(badge);
-            }
-          });
-        }
-      });
-    });
-  </script>
-
-
-
-
+    <script src="js/pages/portfolio.js"></script>
 </body>
 
 </html>
