@@ -1,0 +1,79 @@
+/* ─────────────────────────────────────────────
+   CARDS — the universal card component (uni-card).
+   Used on: portfolio, blog (via JS), about, resume + app-hub skills.
+   Page-specific tweaks live in the sections at the bottom,
+   NOT scattered across page stylesheets.
+   ───────────────────────────────────────────── */
+
+/* ── Base uni-card ── */
+.uni-card {
+	
+	background: color-mix(in srgb, var(--bg) 10%, transparent);
+	
+	
+	
+	
+	
+	
+	
+	
+	border: 2.5px solid color-mix(in srgb, var(--dimtitle) 30%, transparent);
+	border: 2.5px solid color-mix(in srgb, var(--border) 50%, transparent);
+	
+	border-radius: 10px;
+	overflow: hidden;
+	transition: all 0.3s ease-in-out;
+	/* was 6px blur before */
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	
+	box-shadow: 0 0 20px 0px color-mix(in srgb, var(--bg) 50%, transparent);
+}
+
+.uni-card:hover {
+	transform: translateY(-3px);
+	border-color: var(--card-hover-border, color-mix(in srgb, var(--g) 50%, transparent));
+	
+	box-shadow:
+		0 0 15px 0px color-mix(in srgb, var(--g) 40%, transparent),
+		inset -50px -30px 100px -5px color-mix(in srgb, var(--g) 20%, transparent);
+	/* Stacks a corner-originating glow over your default hover background */
+	
+	
+		font-weight: 100 !important;
+}
+
+/* ── Expandable-card (ec-item) behavior ── */
+.ec-item .uni-card {
+	opacity: 0;
+	transform: translateY(50px); /* Increased from 10px for a more pronounced float */
+
+	/* Opacity finishes in 0.3s (less fade), Transform takes 0.8s (more float) */
+	
+	transition:
+		all 0.3s ease-in-out,
+		opacity 0.3s ease-out,
+		transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ec-item.visible .uni-card {
+	opacity: 1;
+	transform: translateY(0);
+	
+}
+
+/* Re-apply the hover lift so it doesn't get overridden */
+.ec-item.visible .uni-card:hover {
+	transform: translateY(-3px);
+}
+
+/* ══ Page-specific overrides (keep here, not in page CSS) ══ */
+
+/* ── Portfolio ── */
+/* (no portfolio-specific overrides) */
+
+/* ── Blog ── */
+/* Blog: cards span the centered container */
+.blog-page .uni-card {
+    max-width: 100% !important;
+}
