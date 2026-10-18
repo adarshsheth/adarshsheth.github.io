@@ -1,0 +1,203 @@
+/* ─────────────────────────────────────────────
+   GANTT — page-specific styles
+   Consolidated Oct 2026 from inline <style> blocks.
+   ───────────────────────────────────────────── */
+
+:root {
+    --org-shift: 90px;
+    --gantt-shift: 70px;
+    --container-shift: 0px;
+    --org-divider-height: 175px;
+    --g: #829c7e;
+    --accent: #c8a84b;
+    --accent2: #525e44;
+    --width-gap: 920px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+    font-family: Rubik, sans-serif;
+    width: calc(var(--width-gap) + var(--org-shift) + var(--gantt-shift) + var(--container-shift));
+}
+
+.gantt-container {
+    border-radius: 12.5px;
+    width: calc(var(--width-gap) + var(--org-shift) + var(--gantt-shift) + var(--container-shift));
+    height: 240px;
+    padding: 15px 0px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    transform-origin: top left;
+    transform: scale(0.8);
+    margin: 0;
+    overflow: hidden;
+}
+
+.org-column {
+    min-width: 140px;
+    width: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    margin-top: 45px;
+    background: transparent;
+    padding-right: 10px;
+    transform: translateX(calc(-1 * var(--org-shift)));
+    overflow: visible;
+    will-change: transform;
+}
+
+.org-label {
+    text-align: right;
+    margin-bottom: 11px;
+    color: var(--g);
+    font-weight: 600;
+}
+
+.main-gantt-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: var(--width-gap);
+    position: relative;
+    transform: translateX(calc(-1 * var(--gantt-shift)));
+}
+
+.years {
+    display: flex;
+    justify-content: space-between;
+    width: var(--width-gap);
+    margin: 0;
+    position: relative;
+}
+
+.year-label {
+    color: #829c7e;
+    font-weight: bold;
+    width: 160px;
+    text-align: center;
+}
+
+.years-divider {
+    width: 100%;
+    border-bottom: 2.5px solid #829c7e;
+    opacity: 0.75;
+    margin: 0;
+    padding-top: 3px;
+    position: relative;
+    left: 0;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+.timeline {
+    position: relative;
+    width: var(--width-gap);
+    height: 300px;
+    margin: 0;
+    overflow: visible;
+}
+
+.gantt-bar-label {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: var(--accent2);
+    white-space: nowrap;
+    margin-left: 8px;
+    z-index: 1;
+}
+
+.gantt-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.gantt-bar {
+    position: absolute;
+    border-radius: 12px;
+    color: white;
+    padding-left: 7px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(50, 50, 90, 0.08);
+    font-weight: bold;
+}
+
+.gantt-bar.black {
+    background: #829c7e;
+}
+
+.gantt-bar.blue {
+    background: #829c7e;
+}
+
+.gantt-bar.alt-color {
+    opacity: 0.5;
+}
+
+.timeline-marker {
+    position: absolute;
+    top: -10px;
+    margin-left: 8px;
+    width: 4px;
+    height: 180px !important;
+    background: white;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.timeline-marker-label {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: rotate(90deg) translateY(-40%) translateX(20px);
+    transform-origin: left center;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+    z-index: 11;
+}
+
+.year-vert {
+    position: absolute;
+    top: -10.5px;
+    bottom: 0;
+    width: 2.5px;
+    background: #647661;
+    z-index: 1;
+    opacity: 0.25;
+    border-radius: 5px;
+    height: 180px !important;
+}
+
+.org-years-divider {
+    position: absolute;
+    left: -10px;
+    top: 40px;
+    height: var(--org-divider-height);
+    width: 2.5px;
+    background: var(--g);
+    opacity: 0.75;
+    z-index: 8;
+    border-radius: 5px;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1050px) {
+      :root {--width-gap: 550px; }
+    }
