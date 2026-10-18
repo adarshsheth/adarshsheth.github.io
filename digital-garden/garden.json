@@ -1,0 +1,46 @@
+{
+  "title": "Digital Garden",
+  "description": "Explore ideas by following their relationships rather than a linear table of contents.",
+  "pages": [
+    {
+      "id": "garden",
+      "parentId": null,
+      "title": "Welcome to the garden",
+      "file": "pages/welcome.html",
+      "summary": "How this garden is structured and how to navigate it.",
+      "tags": ["meta", "start-here"]
+    },
+    {
+      "id": "systems",
+      "parentId": "garden",
+      "title": "Systems thinking",
+      "file": "pages/systems-thinking.html",
+      "summary": "A working map for understanding connected parts.",
+      "tags": ["frameworks", "thinking"]
+    },
+    {
+      "id": "aerospace",
+      "parentId": "systems",
+      "title": "Aerospace projects",
+      "file": "pages/aerospace-projects.html",
+      "summary": "Engineering notes, artifacts, and project references.",
+      "tags": ["engineering", "projects"]
+    },
+    {
+      "id": "knowledge",
+      "parentId": "garden",
+      "title": "Knowledge architecture",
+      "file": "pages/knowledge-architecture.html",
+      "summary": "Ideas for organizing notes so they can keep growing.",
+      "tags": ["writing", "tools"]
+    },
+    {
+      "id": "media-lab",
+      "parentId": "knowledge",
+      "title": "Media lab",
+      "file": "pages/media-lab.html",
+      "summary": "A demonstration page for rich media and embedded files.",
+      "tags": ["media", "experiments"]
+    }
+  ]
+}

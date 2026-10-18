@@ -59,11 +59,11 @@
             }
         } */
     </style>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="blog.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="/blog.css" />
 
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="media/logo/AS_tr.png" as="image">
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="preload" href="../media/logo/AS_tr.png" as="image">
 
     <style>
         /* :root {
@@ -824,7 +824,7 @@
     </div>
     <div id="footer-placeholder"></div>
 
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
     <script>
 
         // Add this helper function
@@ -1079,7 +1079,7 @@
             // 1. If we have a cache, return it instantly to load the page with zero delay
             if (cached) {
                 // Background revalidation: Check if a newer version exists on the server
-                fetch('./blog-data.json', { cache: 'no-cache' })
+                fetch('/blog-data.json', { cache: 'no-cache' })
                     .then(res => res.json())
                     .then(freshData => {
                         const freshString = JSON.stringify(freshData);
@@ -1104,7 +1104,7 @@
             }
 
             // 2. Fallback: If no cache exists at all, fetch normally
-            const response = await fetch('./blog-data.json', { cache: 'no-cache' });
+            const response = await fetch('/blog-data.json', { cache: 'no-cache' });
             if (!response.ok) throw new Error("Transmission ledger payload unreadable.");
             const data = await response.json();
 

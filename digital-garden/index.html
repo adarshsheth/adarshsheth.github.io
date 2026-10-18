@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interconnected digital garden of notes, projects, and ideas.">
+  <title>Digital Garden • Adarsh Sheth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="garden.css">
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="garden-shell">
+    <section class="garden-hero">
+      <div class="hero-copy">
+        <div class="garden-kicker"><span class="kicker-dot"></span> FIELD NOTES / LIVING INDEX</div>
+        <h1 id="garden-title">Digital Garden</h1>
+        <p id="garden-description">Explore ideas by following their relationships rather than a linear table of contents.</p>
+        <div class="hero-actions">
+          <button id="focus-graph" class="garden-button garden-button-primary" type="button"><i class="fa-solid fa-diagram-project"></i> Explore the map</button>
+          <a class="garden-button garden-button-quiet" href="#garden-content"><i class="fa-solid fa-arrow-down"></i> Read a note</a>
+        </div>
+      </div>
+      <div class="hero-orbit" aria-hidden="true">
+        <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="orbit orbit-three"></span>
+        <span class="orbit-core"><i class="fa-solid fa-seedling"></i></span>
+        <span class="orbit-node node-a"></span><span class="orbit-node node-b"></span><span class="orbit-node node-c"></span>
+      </div>
+    </section>
+
+    <section class="garden-layout" aria-label="Digital garden">
+      <aside class="garden-sidebar">
+        <div class="control-card">
+          <div class="card-heading">
+            <div><p class="eyebrow">NAVIGATE</p><h2>Find your way</h2></div>
+            <i class="fa-solid fa-compass card-icon"></i>
+          </div>
+          <label for="parent-select">Jump to a parent</label>
+          <select id="parent-select" class="garden-select-native">
+            <option value="">Choose a root or parent...</option>
+          </select>
+          <label for="child-select">Explore child pages</label>
+          <select id="child-select" class="garden-select-native" disabled>
+            <option value="">This page has no children</option>
+          </select>
+          <label for="page-select">Open any page</label>
+          <select id="page-select" class="garden-select-native">
+            <option value="">Choose a page...</option>
+          </select>
+        </div>
+        <div class="tree-card">
+          <div class="card-heading">
+            <div><p class="eyebrow">STRUCTURE</p><h2>Garden tree</h2></div>
+            <span id="page-count"></span>
+          </div>
+          <nav id="garden-tree" aria-label="Garden hierarchy"></nav>
+        </div>
+      </aside>
+
+      <section class="garden-main">
+        <div class="graph-card" id="graph-card">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">RELATIONSHIP MAP</p>
+              <h2>Follow the threads</h2>
+            </div>
+            <span class="graph-help"><i class="fa-solid fa-hand-pointer"></i> Click a node to open it</span>
+          </div>
+          <div class="graph-scroll">
+            <svg id="garden-graph" role="img" aria-label="Clickable map of digital garden pages"></svg>
+          </div>
+          <div class="graph-footer"><span><i class="fa-solid fa-circle-nodes"></i> <strong id="graph-page-count">5</strong> notes</span><span><i class="fa-solid fa-link"></i> Every line is a relationship</span></div>
+        </div>
+        <article id="garden-content" class="garden-content" aria-live="polite">
+          <p class="loading-state">Loading the garden...</p>
+        </article>
+      </section>
+    </section>
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="../script.js" defer></script>
+  <script src="garden.js" defer></script>
+</body>
+</html>

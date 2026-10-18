@@ -1,0 +1,16 @@
+<article data-garden-id="garden" data-parent-id="null" data-title="Welcome to the garden">
+  <p>This is a <strong>digital garden</strong>: a growing collection of notes that are connected by ideas, not just sorted by date.</p>
+  <p>Start with <a data-garden-link="systems" href="?page=systems">systems thinking</a> for a framework, or visit <a data-garden-link="knowledge" href="?page=knowledge">knowledge architecture</a> for the structure behind the garden.</p>
+  <figure>
+    <img src="/media/artwork/bio-img.png" alt="Abstract artwork from the site media library" loading="lazy">
+    <figcaption>Pages are deliberately allowed to contain normal HTML, not just plain text.</figcaption>
+  </figure>
+  <details>
+    <summary>How to add a page</summary>
+    <ol>
+      <li>Create an HTML fragment in <code>digital-garden/pages/</code>.</li>
+      <li>Add its <code>id</code>, <code>parentId</code>, title, and file path to <code>garden.json</code>.</li>
+      <li>Put matching <code>data-garden-id</code> and <code>data-parent-id</code> attributes on the fragment's <code>article</code>.</li>
+    </ol>
+  </details>
+</article>
